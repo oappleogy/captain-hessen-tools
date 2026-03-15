@@ -46,6 +46,18 @@ header h1{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing
 header .sub{font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:4px;letter-spacing:0.5px}
 header .author{font-family:var(--serif);font-size:10px;color:var(--tx4);margin-top:6px}
 .uncalibrated{display:inline-block;font-family:var(--mono);font-size:9px;color:var(--coral);border:1px solid var(--coral);border-radius:3px;padding:2px 6px;margin-top:6px;letter-spacing:0.5px;text-transform:uppercase}
+.live-bar{display:flex;align-items:center;justify-content:center;gap:8px;padding:6px 12px;margin-top:8px;font-size:10px;color:var(--tx2);background:var(--bg2);border-radius:var(--radius);flex-wrap:wrap}
+.live-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.live-dot.fresh{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,0.5)}
+.live-dot.stale{background:#f59e0b;box-shadow:0 0 6px rgba(245,158,11,0.4)}
+.live-dot.offline{background:#888}
+.live-label{font-family:var(--mono);font-size:9px;letter-spacing:0.3px}
+.live-reset{font-size:10px;padding:3px 10px;border:0.5px solid var(--bd2);border-radius:12px;cursor:pointer;color:var(--tx2);background:transparent;font-family:var(--sans);transition:all .2s}
+.live-reset:hover{background:var(--tx);color:var(--bg)}
+.sr-meta{font-family:var(--mono);font-size:8px;color:var(--tx3);margin-left:2px;white-space:nowrap}
+.sr-meta.fresh{color:#22c55e}
+.sr-meta.stale{color:#f59e0b}
+.sr-meta.delayed{color:#f59e0b}
 .disclaimer{text-align:center;font-size:10px;color:var(--tx3);line-height:1.6;padding:16px 12px;margin-top:20px;border-top:0.5px solid var(--bd)}
 
 .section{margin-top:16px}
@@ -160,6 +172,11 @@ header .author{font-family:var(--serif);font-size:10px;color:var(--tx4);margin-t
 <div class="sub">Macro-Industry-Micro Gear Transmission</div>
 <div class="author">黑森船长</div>
 <span class="uncalibrated">⚠ 未校准 · Uncalibrated</span>
+<div class="live-bar" id="live-bar">
+<span class="live-dot offline" id="live-dot"></span>
+<span class="live-label" id="live-label">数据未加载</span>
+<button class="live-reset" id="live-reset" onclick="resetToLive()" style="display:none">重置为实时数据</button>
+</div>
 </header>
 
 <div class="section">
@@ -309,6 +326,7 @@ var IN=['科技/AI','银行/金融','能源','地产/REITs','出口制造','消�
 
 // === STATE ===
 var curSC=0,activeChain=null,indVals=[];
+var liveData=null; // 实时数据缓存
 
 // === FUNCTIONS ===
 function tgMod(k){if(k==='us')return;M[k].on=!M[k].on;document.getElementById('mb-'+k).classList.toggle('on',M[k].on);renderMods();update()}
@@ -317,7 +335,16 @@ function renderMods(){
   var h='';
   Object.keys(M).forEach(function(k){var m=M[k];
     h+='<div class="mm'+(m.on?'':' off')+'" style="border-color:'+m.color+'"><div class="mm-t"><span class="mm-d" style="background:'+m.color+'"></span>'+m.name+'</div>';
-    m.vars.forEach(function(v){h+='<div class="sr"><span class="sr-l">'+v.name+'</span><input type="range" min="'+v.min+'" max="'+v.max+'" step="'+v.step+'" value="'+v.val+'" id="sl-'+v.id+'" oninput="onSl()" style="flex:1"><span class="sr-v" id="sv-'+v.id+'">'+v.val+v.unit+'</span></div>'});
+    m.vars.forEach(function(v){
+      var meta='';
+      if(liveData&&liveData.sliders&&liveData.sliders[v.id]){
+        var ld=liveData.sliders[v.id];
+        var d=ld.date||'';
+        var short=d.length>=10?d.slice(5).replace('-','/'):'';
+        var cls=ld.freshness||'';
+        meta='<span class="sr-meta '+cls+'">'+short+' '+cls+'</span>';
+      }
+      h+='<div class="sr"><span class="sr-l">'+v.name+'</span><input type="range" min="'+v.min+'" max="'+v.max+'" step="'+v.step+'" value="'+v.val+'" id="sl-'+v.id+'" oninput="onSl()" style="flex:1"><span class="sr-v" id="sv-'+v.id+'">'+v.val+v.unit+'</span>'+meta+'</div>'});
     h+='<div class="wr"><span class="wr-l">权重</span><input type="range" min="0" max="50" step="5" value="'+m.weight+'" id="wt-'+k+'" oninput="onWt(\''+k+'\')" style="flex:1"><span class="wr-v" id="wv-'+k+'">'+m.weight+'%</span></div></div>'});
   document.getElementById('modules').innerHTML=h}
 
@@ -487,8 +514,79 @@ function update(){
   renderItems('micro-items',calcMicro(indVals),false);
   if(activeChain)renderChain()}
 
+// === LIVE DATA ===
+function applyLiveData(data){
+  liveData=data;
+  var s=data.sliders||{};
+  var count=0,staleCount=0;
+  Object.keys(s).forEach(function(sid){
+    var sd=s[sid];
+    // 找到对应变量并更新值
+    Object.keys(M).forEach(function(k){
+      M[k].vars.forEach(function(v){
+        if(v.id===sid){
+          v.val=sd.value;
+          count++;
+          if(sd.freshness==='stale')staleCount++;
+        }
+      });
+    });
+  });
+  // 更新 live bar
+  var dot=document.getElementById('live-dot');
+  var label=document.getElementById('live-label');
+  var resetBtn=document.getElementById('live-reset');
+  var ts=data.fetched_at||'';
+  var timeStr='';
+  if(ts){
+    var d=new Date(ts);
+    var now=new Date();
+    var hrs=Math.round((now-d)/3600000);
+    timeStr=hrs<1?'刚刚更新':hrs+'小时前';
+  }
+  if(staleCount>0){
+    dot.className='live-dot stale';
+    label.textContent='实时数据 · '+count+'个变量 · '+staleCount+'个延迟 · '+timeStr;
+  }else{
+    dot.className='live-dot fresh';
+    label.textContent='实时数据 · '+count+'个变量 · '+timeStr;
+  }
+  // 开启所有有数据的模块
+  Object.keys(M).forEach(function(k){
+    var hasData=M[k].vars.some(function(v){return !!s[v.id]});
+    if(hasData){M[k].on=true;document.getElementById('mb-'+k).classList.add('on')}
+  });
+  renderMods();
+  curSC=-1;
+  document.querySelectorAll('.sc-btn').forEach(function(b){b.classList.remove('on')});
+  document.getElementById('sc-desc').innerHTML='<b>实时数据模式</b> · 滑块已填充最新市场数据，可手动调整推演';
+  resetBtn.style.display='inline-block';
+  update();
+}
+
+function resetToLive(){
+  if(liveData)applyLiveData(liveData);
+}
+
+function loadLiveData(){
+  fetch('data/latest.json').then(function(r){
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(data){
+    applyLiveData(data);
+  }).catch(function(e){
+    console.log('实时数据加载失败:',e.message);
+    var dot=document.getElementById('live-dot');
+    var label=document.getElementById('live-label');
+    dot.className='live-dot offline';
+    label.textContent='实时数据不可用 · 使用默认值';
+  });
+}
+
 // === INIT ===
 renderMods();renderSC();update();
+// 页面加载后尝试加载实时数据
+loadLiveData();
 </script>
 <div class="disclaimer">
 ⚠ 模型反映专家判断 / 未经历史数据校准 · 传导系数方向可靠但幅度误差 ±50% · 仅供分析参考，不构成投资建议<br>

@@ -421,10 +421,14 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
   ]);
 
   let weekly = null, s2 = null;
-  if (weeklyResp.status === 'fulfilled' && weeklyResp.value.ok)
-    weekly = await weeklyResp.value.json();
-  if (s2Resp.status === 'fulfilled' && s2Resp.value.ok)
-    s2 = await s2Resp.value.json();
+  try {
+    if (weeklyResp.status === 'fulfilled' && weeklyResp.value.ok)
+      weekly = await weeklyResp.value.json();
+  } catch(e) { console.error('weekly-latest.json parse error:', e); }
+  try {
+    if (s2Resp.status === 'fulfilled' && s2Resp.value.ok)
+      s2 = await s2Resp.value.json();
+  } catch(e) { console.error('s2-radar.json parse error:', e); }
 
   if (!weekly && !s2) {
     app.innerHTML = `<div class="loading" style="padding:60px 20px">
@@ -435,7 +439,16 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
     return;
   }
 
-  render(weekly, s2);
+  try {
+    render(weekly, s2);
+  } catch(e) {
+    console.error('Render error:', e);
+    app.innerHTML = `<div class="loading" style="padding:60px 20px">
+      <div style="font-size:40px;margin-bottom:16px">⚠️</div>
+      <div style="font-size:16px;color:var(--text);margin-bottom:8px">渲染出错</div>
+      <div style="font-size:13px;color:var(--text2)">` + e.message + `</div>
+    </div>`;
+  }
 
   function barColor(val) {
     if (val >= 60) return 'var(--green)';

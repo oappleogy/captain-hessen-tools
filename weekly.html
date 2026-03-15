@@ -83,12 +83,9 @@ body {
 
 /* Regime banner */
 .regime-banner {
-  margin: 32px 0 24px;
-  padding: 28px 24px;
-  border-radius: var(--radius);
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  margin: 32px 0 24px; padding: 28px 24px;
+  border-radius: var(--radius); background: var(--card-bg);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
   text-align: center;
 }
 .regime-emoji { font-size: 40px; margin-bottom: 8px; }
@@ -109,12 +106,9 @@ body {
 
 /* Section */
 .section {
-  margin: 24px 0;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
+  margin: 24px 0; background: var(--card-bg);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden;
 }
 .section-title {
   font-family: 'Noto Serif SC', serif;
@@ -127,26 +121,27 @@ body {
 .var-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .var-table th {
   text-align: left; padding: 10px 16px;
-  font-size: 11px; color: var(--text3); font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg2);
+  font-size: 12px; color: var(--text3); font-weight: 500;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border); background: var(--bg2);
 }
-.var-table td {
-  padding: 10px 16px; border-bottom: 1px solid var(--border);
-}
+.var-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
 .var-table tr:last-child td { border-bottom: none; }
 .var-table .val { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
 .var-table .delta-up { color: var(--green); font-size: 12px; }
 .var-table .delta-down { color: var(--red); font-size: 12px; }
 .var-table .delta-flat { color: var(--text3); font-size: 12px; }
-.fresh-dot {
-  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-  margin-right: 4px; vertical-align: middle;
+.fresh-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 11px; font-weight: 500;
 }
-.fresh-dot.fresh { background: var(--green); }
-.fresh-dot.stale { background: var(--yellow); }
-.fresh-dot.unknown { background: var(--gray); }
+.fresh-badge.fresh { background: rgba(34,197,94,0.1); color: #16a34a; }
+.fresh-badge.stale { background: rgba(245,158,11,0.1); color: #b45309; }
+.fresh-badge.unknown { background: rgba(107,114,128,0.1); color: var(--gray); }
+@media (prefers-color-scheme: dark) {
+  .fresh-badge.fresh { color: #4ade80; }
+  .fresh-badge.stale { color: #fbbf24; }
+}
 
 /* Macro bars */
 .macro-list { padding: 16px 20px; }
@@ -157,14 +152,12 @@ body {
   margin-bottom: 6px;
 }
 .macro-name { font-size: 14px; font-weight: 500; }
-.macro-val {
-  font-family: 'JetBrains Mono', monospace; font-size: 13px;
-}
+.macro-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
 .macro-delta { font-size: 11px; margin-left: 6px; }
-.macro-bar-bg {
+.bar-bg {
   height: 8px; border-radius: 4px; background: var(--bg2); overflow: hidden;
 }
-.macro-bar-fill {
+.bar-fill {
   height: 100%; border-radius: 4px;
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -182,12 +175,23 @@ body {
 }
 .ind-item:nth-child(2n) { border-right: none; }
 @media (max-width: 500px) { .ind-item { border-right: none; } }
-.ind-name { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
-.ind-val {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 22px; font-weight: 600;
+.ind-top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 6px;
 }
-.ind-label { font-size: 11px; margin-left: 6px; }
+.ind-name { font-size: 13px; color: var(--text2); }
+.ind-val-wrap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 600;
+}
+.ind-label { font-size: 11px; margin-left: 4px; font-weight: 400; }
+.ind-bar-bg {
+  height: 6px; border-radius: 3px; background: var(--bg2); overflow: hidden;
+}
+.ind-bar-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 /* Anomalies */
 .anomaly-list { padding: 16px 20px; }
@@ -206,8 +210,7 @@ body {
 /* Distance */
 .dist-list { padding: 16px 20px; }
 .dist-item {
-  padding: 10px 0; border-bottom: 1px solid var(--border);
-  font-size: 13px;
+  padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px;
 }
 .dist-item:last-child { border-bottom: none; }
 .dist-name { font-weight: 600; }
@@ -222,12 +225,10 @@ body {
 .loading-spinner {
   width: 32px; height: 32px; border: 3px solid var(--border);
   border-top-color: var(--accent); border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto 16px;
+  animation: spin 0.8s linear infinite; margin: 0 auto 16px;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Footer */
 .footer {
   text-align: center; padding: 32px 0; margin-top: 20px;
   border-top: 1px solid var(--border);
@@ -268,6 +269,8 @@ body {
 </div>
 
 <script>
+const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown: '未知' };
+
 (async function() {
   const app = document.getElementById('app');
 
@@ -282,6 +285,17 @@ body {
       <div style="font-size:16px;color:var(--text);margin-bottom:8px">暂无周报数据</div>
       <div style="font-size:13px">运行 <code>python3 run_update.py --weekly</code> 生成第一份周报</div>
     </div>`;
+  }
+
+  function barColor(val) {
+    if (val >= 60) return 'var(--green)';
+    if (val < 40) return 'var(--red)';
+    return 'var(--yellow)';
+  }
+  function labelCls(label) {
+    if (label === '景气') return 'label-good';
+    if (label === '承压') return 'label-bad';
+    return 'label-neutral';
   }
 
   function render(d) {
@@ -305,10 +319,13 @@ body {
       <thead><tr>
         <th>变量</th><th>当前值</th>`;
     if (d.has_comparison) html += `<th>上周</th><th>变动</th>`;
-    html += `<th>日期</th><th>新鲜度</th></tr></thead><tbody>`;
+    html += `<th>日期</th><th>状态</th></tr></thead><tbody>`;
 
     for (const v of d.variables) {
       const val = v.value != null ? v.value : '—';
+      const freshLabel = FRESH_MAP[v.freshness] || v.freshness;
+      const freshCls = v.freshness || 'unknown';
+
       html += `<tr>
         <td>${v.name}</td>
         <td class="val">${val}${v.unit}</td>`;
@@ -324,7 +341,7 @@ body {
         html += `<td class="val" style="color:var(--text3)">${prev}${v.unit}</td>${deltaHtml}`;
       }
       html += `<td style="font-size:12px;color:var(--text3)">${v.date}</td>
-        <td><span class="fresh-dot ${v.freshness}"></span>${v.freshness}</td>
+        <td><span class="fresh-badge ${freshCls}">${freshLabel}</span></td>
       </tr>`;
     }
     html += `</tbody></table></div>`;
@@ -335,8 +352,8 @@ body {
       <div class="macro-list">`;
 
     for (const m of d.macro) {
-      const labelCls = m.label === '景气' ? 'label-good' : m.label === '承压' ? 'label-bad' : 'label-neutral';
-      const barColor = m.value >= 60 ? 'var(--green)' : m.value < 40 ? 'var(--red)' : 'var(--yellow)';
+      const lc = labelCls(m.label);
+      const bc = barColor(m.value);
       let deltaHtml = '';
       if (m.delta != null && m.delta !== 0) {
         const sign = m.delta > 0 ? '+' : '';
@@ -346,23 +363,27 @@ body {
       html += `<div class="macro-item">
         <div class="macro-header">
           <span class="macro-name">${m.name}</span>
-          <span class="macro-val">${m.value} <span class="${labelCls}">${m.label}</span>${deltaHtml}</span>
+          <span class="macro-val">${m.value} <span class="${lc}">${m.label}</span>${deltaHtml}</span>
         </div>
-        <div class="macro-bar-bg"><div class="macro-bar-fill" style="width:${m.value}%;background:${barColor}"></div></div>
+        <div class="bar-bg"><div class="bar-fill" style="width:${m.value}%;background:${bc}"></div></div>
       </div>`;
     }
     html += `</div></div>`;
 
-    // Industries
+    // Industries — with progress bars and colors
     html += `<div class="section animate" style="animation-delay:0.2s">
       <div class="section-title">🏭 产业层景气度</div>
       <div class="ind-grid">`;
 
     for (const ind of d.industries) {
-      const labelCls = ind.label === '景气' ? 'label-good' : ind.label === '承压' ? 'label-bad' : 'label-neutral';
+      const lc = labelCls(ind.label);
+      const bc = barColor(ind.value);
       html += `<div class="ind-item">
-        <div class="ind-name">${ind.name}</div>
-        <span class="ind-val">${ind.value}</span><span class="ind-label ${labelCls}">${ind.label}</span>
+        <div class="ind-top">
+          <span class="ind-name">${ind.name}</span>
+          <span class="ind-val-wrap">${ind.value}<span class="ind-label ${lc}">${ind.label}</span></span>
+        </div>
+        <div class="ind-bar-bg"><div class="ind-bar-fill" style="width:${ind.value}%;background:${bc}"></div></div>
       </div>`;
     }
     html += `</div></div>`;

@@ -47,6 +47,16 @@ header .sub{font-family:var(--mono);font-size:13px;color:var(--tx3);margin-top:4
 header .author{font-family:var(--serif);font-size:13px;color:var(--tx4);margin-top:6px}
 .uncalibrated{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--coral);border:1px solid var(--coral);border-radius:3px;padding:3px 8px;margin-top:6px;letter-spacing:0.5px;text-transform:uppercase}
 .live-bar{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 14px;margin-top:8px;font-size:13px;color:var(--tx2);background:var(--bg2);border-radius:var(--radius);flex-wrap:wrap}
+.stress-panel{margin-top:8px;padding:10px 14px;border-radius:var(--radius);cursor:pointer;text-align:center;transition:all 0.3s}
+.stress-summary{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px}
+.stress-score{font-family:var(--mono);font-size:18px;font-weight:700}
+.stress-label-text{font-size:12px;color:var(--tx2)}
+.stress-detail{margin-top:10px;text-align:left;font-size:12px;color:var(--tx2)}
+.stress-comp{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--bd)}
+.stress-comp:last-child{border-bottom:none}
+.stress-panel.green{background:rgba(26,107,82,0.1);border:1px solid rgba(26,107,82,0.3)}
+.stress-panel.yellow{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3)}
+.stress-panel.red{background:rgba(163,45,45,0.1);border:1px solid rgba(163,45,45,0.3)}
 .live-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .live-dot.fresh{background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,0.5)}
 .live-dot.stale{background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,0.4)}
@@ -177,6 +187,10 @@ header .author{font-family:var(--serif);font-size:13px;color:var(--tx4);margin-t
 <div class="live-bar" id="live-bar">
 <span class="live-dot offline" id="live-dot"></span>
 <span class="live-label" id="live-label">数据未加载</span>
+</div>
+<div class="stress-panel" id="stress-panel" style="display:none" onclick="toggleStressDetail()">
+  <div class="stress-summary" id="stress-summary"></div>
+  <div class="stress-detail" id="stress-detail" style="display:none"></div>
 </div>
 </header>
 
@@ -587,10 +601,47 @@ function loadLiveData(){
   });
 }
 
+function toggleStressDetail(){
+  var d=document.getElementById('stress-detail');
+  d.style.display=d.style.display==='none'?'block':'none';
+}
+
+function loadStressIndex(){
+  fetch('data/stress-index.json').then(function(r){
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(s){
+    var panel=document.getElementById('stress-panel');
+    var summary=document.getElementById('stress-summary');
+    var detail=document.getElementById('stress-detail');
+    var colorCls=s.score>60?'red':s.score>30?'yellow':'green';
+    var colorVar=s.score>60?'var(--dn)':s.score>30?'var(--fl)':'var(--up)';
+    panel.className='stress-panel '+colorCls;
+    panel.style.display='block';
+    summary.innerHTML='<span>组合压力</span><span class="stress-score" style="color:'+colorVar+'">'+s.score+'</span><span class="stress-label-text">'+s.label+' · 点击展开</span>';
+    var h='<div style="margin-bottom:4px;font-weight:600">压力组成</div>';
+    for(var i=0;i<s.components.length;i++){
+      var c=s.components[i];
+      h+='<div class="stress-comp"><span>'+c.name+' (权重'+c.weight_pct+'%)</span><span>偏离'+c.deviation_pct+'%</span></div>';
+    }
+    if(s.significant_deviations&&s.significant_deviations.length>0){
+      h+='<div style="margin-top:8px;font-weight:600">显著偏离</div>';
+      for(var j=0;j<s.significant_deviations.length;j++){
+        var d2=s.significant_deviations[j];
+        h+='<div class="stress-comp"><span>'+d2.name+'</span><span>'+d2.current+' ('+d2.direction+Math.abs(d2.deviation_pct)+'%)</span></div>';
+      }
+    }
+    detail.innerHTML=h;
+  }).catch(function(e){
+    console.log('压力指数加载失败:',e.message);
+  });
+}
+
 // === INIT ===
 renderMods();renderSC();update();
 // 页面加载后尝试加载实时数据
 loadLiveData();
+loadStressIndex();
 </script>
 <div class="disclaimer">
 ⚠ 模型反映专家判断 / 未经历史数据校准 · 传导系数方向可靠但幅度误差 ±50% · 仅供分析参考，不构成投资建议<br>

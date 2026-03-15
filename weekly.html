@@ -163,7 +163,6 @@ body {
 .opp-card.active { border-color: var(--green); background: rgba(34,197,94,0.05); }
 .opp-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
 .opp-desc { font-size: 12px; color: var(--text2); margin-bottom: 6px; }
-.opp-tickers { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); }
 .opp-status { font-size: 11px; margin-top: 6px; }
 .opp-reason { font-size: 11px; color: var(--text2); margin-top: 2px; }
 
@@ -172,12 +171,37 @@ body {
   padding: 16px; border-radius: 10px;
   background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2);
 }
-.contra-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-.contra-thesis { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.contra-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.contra-thesis { font-size: 13px; color: var(--text2); line-height: 1.7; }
 .contra-metaphor {
-  font-size: 12px; color: var(--yellow); margin-top: 8px;
-  font-style: italic;
+  font-size: 13px; color: var(--yellow); margin-top: 10px;
+  font-weight: 600; padding: 8px 12px; border-radius: 6px;
+  background: rgba(245,158,11,0.08);
 }
+
+/* Allocation */
+.alloc-grid { display: grid; gap: 10px; }
+.alloc-item {
+  padding: 12px 14px; border-radius: 8px;
+  background: var(--bg2); border: 1px solid var(--border);
+}
+.alloc-label {
+  font-size: 11px; font-weight: 600; color: var(--accent);
+  text-transform: uppercase; margin-bottom: 4px;
+}
+.alloc-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* Key Metrics */
+.km-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 560px) { .km-grid { grid-template-columns: 1fr; } }
+.km-card {
+  padding: 12px; border-radius: 8px; text-align: center;
+  background: var(--bg2); border: 1px solid var(--border);
+}
+.km-value { font-size: 22px; font-weight: 700; font-family: var(--mono); }
+.km-pct { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.km-label { font-size: 11px; font-weight: 600; color: var(--text2); margin-top: 4px; }
+.km-desc { font-size: 11px; color: var(--text3); margin-top: 4px; line-height: 1.4; }
 
 /* Existing styles (variables, macro, industry, etc.) */
 .regime-banner {
@@ -237,6 +261,40 @@ body {
 .anomaly-danger { background: rgba(239,68,68,0.1); color: #dc2626; }
 .anomaly-ok { background: rgba(34,197,94,0.1); color: #16a34a; }
 @media (prefers-color-scheme: dark) { .anomaly-warn { color: #fbbf24; } .anomaly-danger { color: #f87171; } .anomaly-ok { color: #4ade80; } }
+
+/* Stress index */
+.stress-banner { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.stress-gauge {
+  width: 80px; height: 80px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  border: 4px solid; font-family: 'JetBrains Mono', monospace;
+}
+.stress-gauge .sg-num { font-size: 24px; font-weight: 700; line-height: 1; }
+.stress-gauge .sg-label { font-size: 9px; margin-top: 2px; }
+.stress-info { flex: 1; min-width: 200px; }
+.stress-info .si-label { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.stress-info .si-desc { font-size: 13px; color: var(--text2); }
+.stress-components { margin-top: 14px; }
+.stress-comp {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px;
+}
+.stress-comp:last-child { border-bottom: none; }
+.stress-comp .sc-name { width: 80px; flex-shrink: 0; color: var(--text2); }
+.stress-comp .sc-bar-bg { flex: 1; height: 6px; border-radius: 3px; background: var(--bg2); overflow: hidden; }
+.stress-comp .sc-bar-fill { height: 100%; border-radius: 3px; }
+.stress-comp .sc-val { width: 50px; text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.human-hint {
+  padding: 14px 16px; margin-top: 14px; border-radius: 10px; font-size: 13px; line-height: 1.6;
+  background: rgba(91,138,245,0.06); border: 1px solid rgba(91,138,245,0.15); color: var(--text2);
+}
+.human-hint strong { color: var(--accent); }
+.sig-dev {
+  padding: 6px 12px; margin-bottom: 4px; border-radius: 6px; font-size: 12px;
+  background: rgba(245,158,11,0.08); display: flex; justify-content: space-between; align-items: center;
+}
+.sig-dev .sd-name { font-weight: 500; }
+.sig-dev .sd-val { font-family: 'JetBrains Mono', monospace; color: var(--yellow); }
 
 .dist-list { padding: 16px 20px; }
 .dist-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
@@ -334,18 +392,81 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
         <div class="s2-meta">S₂ 宏观监控 · 数据 ${s2.timestamp}</div>
       </div>`;
 
-      // ── 核心矛盾 ──
+      // ── 核心矛盾（用人话说清楚） ──
       if (s2.contradiction) {
         html += `<div class="section animate" style="${ad()}">
-          <div class="section-title">💡 核心矛盾</div>
+          <div class="section-title">💡 当前市场的核心矛盾</div>
           <div class="section-body">
             <div class="contra-card">
               <div class="contra-title">${s2.contradiction.title}</div>
               <div class="contra-thesis">${s2.contradiction.thesis}</div>
-              <div class="contra-metaphor">"${s2.contradiction.metaphor}"</div>
+              <div class="contra-metaphor">一句话总结：${s2.contradiction.metaphor}</div>
             </div>
           </div>
         </div>`;
+      }
+
+      // ── 关键指标（直觉化） ──
+      if (s2.key_metrics) {
+        const km = s2.key_metrics;
+        const pctColor = (p) => p >= 80 ? 'var(--red)' : p >= 60 ? 'var(--yellow)' : 'var(--green)';
+        const pctColorLow = (p) => p <= 20 ? 'var(--red)' : p <= 40 ? 'var(--yellow)' : 'var(--green)';
+        html += `<div class="section animate" style="${ad()}">
+          <div class="section-title">📊 关键指标速览</div>
+          <div class="section-body"><div class="km-grid">`;
+
+        if (km.vix) {
+          html += `<div class="km-card">
+            <div class="km-label">恐惧指数 VIX</div>
+            <div class="km-value" style="color:${pctColor(km.vix.percentile)}">${km.vix.value}</div>
+            <div class="km-pct">三年分位 ${km.vix.percentile}%</div>
+            <div class="km-desc">${km.vix.desc}</div>
+          </div>`;
+        }
+        if (km.credit_spread) {
+          html += `<div class="km-card">
+            <div class="km-label">信用利差</div>
+            <div class="km-value" style="color:${pctColor(km.credit_spread.percentile)}">${km.credit_spread.value}%</div>
+            <div class="km-pct">三年分位 ${km.credit_spread.percentile}%</div>
+            <div class="km-desc">${km.credit_spread.desc}</div>
+          </div>`;
+        }
+        if (km.consumer) {
+          html += `<div class="km-card">
+            <div class="km-label">消费者信心</div>
+            <div class="km-value" style="color:${pctColorLow(km.consumer.percentile)}">${km.consumer.value}</div>
+            <div class="km-pct">三年分位 ${km.consumer.percentile}%</div>
+            <div class="km-desc">${km.consumer.desc}</div>
+          </div>`;
+        }
+        html += `</div></div></div>`;
+      }
+
+      // ── 配置建议 ──
+      if (s2.allocation) {
+        const al = s2.allocation;
+        html += `<div class="section animate" style="${ad()}">
+          <div class="section-title">🧭 态势研判</div>
+          <div class="section-body"><div class="alloc-grid">`;
+        if (al.short_term) {
+          html += `<div class="alloc-item">
+            <div class="alloc-label">短期视角</div>
+            <div class="alloc-text">${al.short_term}</div>
+          </div>`;
+        }
+        if (al.mid_term) {
+          html += `<div class="alloc-item">
+            <div class="alloc-label">中期视角</div>
+            <div class="alloc-text">${al.mid_term}</div>
+          </div>`;
+        }
+        if (al.china) {
+          html += `<div class="alloc-item">
+            <div class="alloc-label">中国市场</div>
+            <div class="alloc-text">${al.china}</div>
+          </div>`;
+        }
+        html += `</div></div></div>`;
       }
 
       // ── 六维评分 ──
@@ -436,7 +557,6 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
           html += `<div class="${cls}">
             <div class="opp-title">${opp.name}</div>
             <div class="opp-desc">${opp.desc}</div>
-            <div class="opp-tickers">${opp.tickers}</div>
             <div class="opp-status">${statusText} · 不对称性: ${opp.asymmetry}</div>
             ${opp.reason ? `<div class="opp-reason">${opp.reason}</div>` : ''}
           </div>`;
@@ -513,6 +633,52 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
         for (const a of d.anomalies) html += `<div class="anomaly-item ${a.startsWith('🔴')?'anomaly-danger':'anomaly-warn'}">${a}</div>`;
       }
       html += `</div></div>`;
+
+      // Stress Index + Human Hint
+      if (d.stress_index) {
+        const si = d.stress_index;
+        const gaugeColor = si.level === 'red' ? 'var(--red)' : si.level === 'yellow' ? 'var(--yellow)' : si.level === 'orange' ? '#f97316' : 'var(--green)';
+        html += `<div class="section animate" style="${ad()}">
+          <div class="section-title">🎯 组合压力指数</div>
+          <div class="section-body">
+            <div class="stress-banner">
+              <div class="stress-gauge" style="border-color:${gaugeColor};color:${gaugeColor}">
+                <div class="sg-num">${si.score}</div>
+                <div class="sg-label">${si.label}</div>
+              </div>
+              <div class="stress-info">
+                <div class="si-label" style="color:${gaugeColor}">${si.label}</div>
+                <div class="si-desc">${si.desc}</div>
+              </div>
+            </div>
+            <div class="stress-components">`;
+        const maxContr = Math.max(...si.components.map(c => c.contribution), 1);
+        for (const c of si.components) {
+          const pct = Math.min(c.contribution / maxContr * 100, 100);
+          const bc = c.deviation_pct > 40 ? 'var(--red)' : c.deviation_pct > 20 ? 'var(--yellow)' : 'var(--green)';
+          html += `<div class="stress-comp">
+            <span class="sc-name">${c.name}</span>
+            <div class="sc-bar-bg"><div class="sc-bar-fill" style="width:${pct}%;background:${bc}"></div></div>
+            <span class="sc-val">${c.deviation_pct}%</span>
+          </div>`;
+        }
+        html += `</div>`;
+
+        // Significant deviations
+        if (d.significant_deviations && d.significant_deviations.length > 0) {
+          html += `<div style="margin-top:12px;font-size:12px;color:var(--text3);margin-bottom:6px">⚠️ 以下信号未触发硬阈值但值得人工关注：</div>`;
+          for (const sd of d.significant_deviations) {
+            html += `<div class="sig-dev"><span class="sd-name">${sd.name}: ${sd.current} (基准${sd.base})</span><span class="sd-val">${sd.direction} ${Math.abs(sd.deviation_pct)}%</span></div>`;
+          }
+        }
+
+        html += `<div class="human-hint">
+          <strong>💡 人类确定性提示</strong><br>
+          以上信号基于规则引擎自动生成。你看到了什么系统没看到的？<br>
+          记录判断到 <code>vault/decisions/</code> —— 未来回头看，这是最有价值的训练数据。
+        </div>`;
+        html += `</div></div>`;
+      }
 
       // Distances
       html += `<div class="section animate" style="${ad()}"><div class="section-title">🔄 体制切换距离</div><div class="dist-list">`;

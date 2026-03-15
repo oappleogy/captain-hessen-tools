@@ -1,0 +1,2545 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>S₂ BATTLE — 美以伊战局实时博弈</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+SC:wght@400;700&family=Share+Tech+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #03050a;
+  --us: #3a8fff;
+  --il: #f0c830;
+  --ir: #ff3a2a;
+  --green: #00ff88;
+  --red: #ff3a2a;
+  --panel: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; overflow-x: hidden; }
+body {
+  background: var(--bg);
+  color: #e0e8f0;
+  font-family: 'Noto Sans SC', sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ── SCANLINES ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
+  pointer-events: none; z-index: 9999;
+}
+/* grid bg */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(58,143,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(58,143,255,0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none; z-index: 0;
+}
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 12px 80px; position: relative; z-index: 1; }
+.page-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+.main-col { min-width: 0; }
+.news-col {
+  position: sticky;
+  top: 12px;
+  height: calc(100vh - 24px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.news-col-header {
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  background: rgba(255,30,30,0.1);
+}
+.news-col-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--ir);
+  letter-spacing: .1em;
+  animation: blink-dot 1s step-end infinite;
+}
+.news-col-count {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  margin-left: auto;
+}
+.news-feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  scroll-behavior: smooth;
+}
+.news-feed::-webkit-scrollbar { width: 3px; }
+.news-feed::-webkit-scrollbar-track { background: transparent; }
+.news-feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+.nf-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: background .15s;
+}
+.nf-item:hover { background: rgba(255,255,255,0.04); }
+.nf-item.nf-new {
+  animation: nf-flash .8s ease;
+}
+@keyframes nf-flash {
+  0%  { background: rgba(255,200,48,0.12); }
+  100%{ background: transparent; }
+}
+.nf-top { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.nf-icon { font-size: 16px; flex-shrink: 0; }
+.nf-impact {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.nf-pos { background: rgba(0,255,136,0.15); color: var(--green); }
+.nf-neg { background: rgba(255,58,42,0.15); color: var(--ir); }
+.nf-zh {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.nf-en {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.5;
+  margin-bottom: 5px;
+  word-break: break-word;
+  white-space: normal;
+}
+.nf-meta {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.2);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nf-source { color: rgba(255,200,48,0.5); }
+@media(max-width:900px){
+  .page-layout { grid-template-columns: 1fr; }
+  .news-col {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 65vh;
+    border-radius: 16px 16px 0 0;
+    z-index: 800;
+    background: #0a0d1a !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.8);
+  }
+  .news-col.mobile-open { display: flex; }
+  .news-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 799;
+    backdrop-filter: blur(2px);
+  }
+  .news-backdrop.show { display: block; }
+  .news-toggle-btn {
+    display: flex;
+    position: fixed;
+    bottom: 16px; right: 16px;
+    background: rgba(255,30,30,0.85);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 900;
+    box-shadow: 0 4px 20px rgba(255,30,30,0.4);
+    align-items: center;
+    gap: 6px;
+  }
+}
+@media(min-width:901px){
+  .news-toggle-btn { display: none; }
+}
+
+/* ── HEADER ── */
+.hdr {
+  text-align: center;
+  padding: 18px 0 10px;
+}
+.hdr-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  color: var(--green);
+  text-shadow: 0 0 20px var(--green), 0 0 40px rgba(0,255,136,0.4);
+  letter-spacing: .15em;
+  margin-bottom: 6px;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+.hdr-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: .12em;
+}
+.live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 8px;
+  background: rgba(255,58,42,0.12);
+  border: 1px solid rgba(255,58,42,0.35);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--ir);
+  letter-spacing: .1em;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--ir);
+  box-shadow: 0 0 6px var(--ir);
+  animation: blink-dot 1s step-end infinite;
+}
+
+/* ── ARENA ── */
+.arena {
+  background: linear-gradient(180deg, rgba(10,15,30,0.9) 0%, rgba(5,8,18,0.95) 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 16px 14px;
+  margin: 14px 0 12px;
+  position: relative;
+  overflow: hidden;
+}
+/* arena floor glow */
+.arena::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(58,143,255,0.3), rgba(240,200,48,0.3), rgba(255,58,42,0.3), transparent);
+}
+
+/* HP bars row */
+.hp-row {
+  display: grid;
+  grid-template-columns: 1fr 54px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.hp-block { }
+.hp-block.right { }
+
+.hp-name-row {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 5px;
+}
+.hp-block.right .hp-name-row { flex-direction: row-reverse; }
+
+.hp-flag { font-size: 18px; }
+.hp-label-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #fff;
+  letter-spacing: .04em;
+}
+.hp-score {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  margin-left: auto;
+  transition: color .3s;
+}
+.hp-block.right .hp-score { margin-left: 0; margin-right: auto; }
+
+.hp-bar-bg {
+  height: 20px;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+.hp-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+}
+.hp-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 45%;
+  background: rgba(255,255,255,0.18);
+  border-radius: 2px 2px 0 0;
+}
+.hp-us .hp-fill { background: linear-gradient(90deg, #1a5ab0, #4a9fff); box-shadow: 0 0 12px rgba(74,159,255,0.5); }
+.hp-il .hp-fill { background: linear-gradient(90deg, #9a7010, #f5d040); box-shadow: 0 0 12px rgba(245,208,64,0.5); }
+.hp-ir .hp-fill {
+  background: linear-gradient(90deg, #8b0000, #ff3a2a);
+  box-shadow: 0 0 12px rgba(255,58,42,0.5);
+}
+/* IR bar is right-aligned */
+.hp-ir { direction: rtl; }
+.hp-ir .hp-bar-bg { direction: ltr; }
+
+/* VS CENTER */
+.vs-box { text-align: center; }
+.vs-txt {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  background: linear-gradient(180deg, #fff 0%, #666 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.vs-day {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--ir);
+  animation: blink-dot 1.2s step-end infinite;
+  margin-top: 2px;
+  letter-spacing: .1em;
+}
+
+/* ── CHARACTER STAGE ── */
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  align-items: flex-end;
+  min-height: 190px;
+  padding: 0 4px;
+}
+
+.fighter-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* CHARACTER BODY */
+.char {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  animation: idle-breathe 3s ease-in-out infinite;
+}
+.char.hit { animation: char-hit .4s ease; }
+.char.buff { animation: char-buff .6s ease; }
+.char.idle-us { animation: idle-breathe-us 3.2s ease-in-out infinite; }
+.char.idle-il { animation: idle-breathe-il 2.8s ease-in-out infinite; }
+.char.idle-ir { animation: idle-breathe-ir 3.5s ease-in-out infinite; }
+
+/* Head */
+.char-head {
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 2px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.8));
+  position: relative;
+  z-index: 2;
+}
+/* Helmet / crown effect */
+.char-crown {
+  position: absolute;
+  top: -8px;
+  font-size: 18px;
+  z-index: 3;
+}
+
+/* Body */
+.char-body {
+  width: 44px;
+  height: 54px;
+  border-radius: 8px 8px 4px 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 2;
+}
+.char-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  border-radius: inherit;
+}
+.body-us { background: linear-gradient(160deg, #1a3a7a, #2a5ab0); border: 1.5px solid rgba(58,143,255,0.5); box-shadow: 0 0 20px rgba(58,143,255,0.3), inset 0 1px 0 rgba(255,255,255,0.1); }
+.body-il { background: linear-gradient(160deg, #6a5010, #9a7820); border: 1.5px solid rgba(240,200,48,0.5); box-shadow: 0 0 20px rgba(240,200,48,0.3), inset 0 1px 0 rgba(255,255,255,0.1); }
+.body-ir { background: linear-gradient(160deg, #5a1010, #8b2020); border: 1.5px solid rgba(255,58,42,0.5); box-shadow: 0 0 20px rgba(255,58,42,0.3), inset 0 1px 0 rgba(255,255,255,0.1); }
+
+.char-badge {
+  font-size: 20px;
+  z-index: 1;
+}
+
+/* Arms */
+.char-arms {
+  display: flex;
+  gap: 42px;
+  position: absolute;
+  top: 54px;
+  z-index: 1;
+}
+.char-arm {
+  width: 10px;
+  height: 30px;
+  border-radius: 5px;
+  opacity: 0.85;
+}
+.arm-us { background: linear-gradient(180deg, #2a5ab0, #1a3a7a); }
+.arm-il { background: linear-gradient(180deg, #9a7820, #6a5010); }
+.arm-ir { background: linear-gradient(180deg, #8b2020, #5a1010); }
+
+/* Legs */
+.char-legs {
+  display: flex;
+  gap: 8px;
+  margin-top: -2px;
+  position: relative;
+  z-index: 2;
+}
+.char-leg {
+  width: 16px;
+  height: 28px;
+  border-radius: 4px 4px 6px 6px;
+  opacity: 0.85;
+}
+.leg-us { background: linear-gradient(180deg, #1a3a7a, #0d1f4a); }
+.leg-il { background: linear-gradient(180deg, #6a5010, #3a2c08); }
+.leg-ir { background: linear-gradient(180deg, #5a1010, #2a0808); }
+
+/* Name tag */
+.char-nametag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  letter-spacing: .06em;
+  margin-top: 6px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.tag-us { background: rgba(58,143,255,0.15); color: var(--us); border: 1px solid rgba(58,143,255,0.3); }
+.tag-il { background: rgba(240,200,48,0.15); color: var(--il); border: 1px solid rgba(240,200,48,0.3); }
+.tag-ir { background: rgba(255,58,42,0.15); color: var(--ir); border: 1px solid rgba(255,58,42,0.3); }
+
+/* attractor status below name */
+.char-status {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 3px;
+  letter-spacing: .05em;
+}
+
+/* HIT FLASH OVERLAY */
+.hit-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+.hit-overlay.flash-red { background: rgba(255,0,0,0.5); animation: flash-anim .3s ease; }
+.hit-overlay.flash-green { background: rgba(0,255,136,0.3); animation: flash-anim .4s ease; }
+
+/* DAMAGE NUMBERS */
+.dmg-number {
+  position: absolute;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 100;
+  animation: dmg-float 1.8s ease forwards;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+.dmg-neg { color: #ff4444; }
+.dmg-pos { color: #00ff88; }
+
+/* ── NEWS TICKER ── */
+.news-bar { display: none; }
+.news-label {
+  background: var(--ir);
+  padding: 0 12px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  letter-spacing: .05em;
+  flex-shrink: 0;
+}
+.news-scroll-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 36px;
+}
+.news-scroll {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  animation: scroll-left 40s linear infinite;
+  gap: 0;
+}
+.news-item {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  padding: 0 32px;
+  color: #ffffff;
+  letter-spacing: .04em;
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 8px;
+}
+.news-item .ni-flag { font-size: 14px; }
+.news-impact {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.ni-pos { background: rgba(0,255,136,0.15); color: var(--green); }
+.ni-neg { background: rgba(255,58,42,0.15); color: var(--ir); }
+.ni-sep { color: rgba(255,255,255,0.15); padding: 0 8px; font-size: 16px; }
+
+/* ── ACTIVE NEWS POPUP ── */
+.news-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(5, 8, 20, 0.97);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 16px 20px;
+  z-index: 500;
+  max-width: 340px;
+  width: 90%;
+  opacity: 0;
+  transition: opacity .25s, transform .25s;
+  pointer-events: none;
+  text-align: center;
+}
+.news-popup.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.np-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--ir);
+  letter-spacing: .1em;
+  margin-bottom: 8px;
+  animation: blink-dot 1s step-end infinite;
+}
+.np-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #fff;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.np-effects {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.np-eff {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+/* ── SIX DIM BARS ── */
+.dims-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.dims-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: .15em;
+  margin-bottom: 12px;
+}
+.dim-row {
+  display: grid;
+  grid-template-columns: 22px 1fr 46px 46px 46px;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.dim-lbl {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--il);
+}
+.dim-bars { position: relative; }
+.dim-bg {
+  height: 7px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+  overflow: visible;
+  position: relative;
+}
+.dim-mid {
+  position: absolute;
+  left: 50%; top: -2px;
+  width: 1px; height: 11px;
+  background: rgba(255,255,255,0.2);
+  z-index: 1;
+}
+.dim-pos {
+  position: absolute;
+  left: 50%; top: 0;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  transition: width 1s ease;
+}
+.dim-neg {
+  position: absolute;
+  right: 50%; top: 0;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+  transition: width 1s ease;
+}
+.dim-wt {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.18);
+  margin-top: 1px;
+}
+.dv {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  text-align: center;
+  transition: color .3s;
+  position: relative;
+  border-radius: 4px;
+  padding: 1px 2px;
+}
+.dv-us { color: var(--us); }
+.dv-il { color: var(--il); }
+.dv-ir { color: var(--ir); }
+
+/* dim flash states */
+.dv.flash-up {
+  animation: dim-flash-up .8s ease forwards;
+}
+.dv.flash-down {
+  animation: dim-flash-down .8s ease forwards;
+}
+.dim-row.row-flash-up {
+  animation: row-glow-up .9s ease forwards;
+}
+.dim-row.row-flash-down {
+  animation: row-glow-down .9s ease forwards;
+}
+
+@keyframes dim-flash-up {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.35); background: rgba(0,255,136,0.25); color: #fff; box-shadow: 0 0 12px rgba(0,255,136,0.6); }
+  50%  { transform: scale(1.15); background: rgba(0,255,136,0.12); }
+  100% { transform: scale(1); background: transparent; box-shadow: none; }
+}
+@keyframes dim-flash-down {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.3); background: rgba(255,58,42,0.3); color: #fff; box-shadow: 0 0 14px rgba(255,58,42,0.7); }
+  40%  { transform: scale(0.9) translateX(-3px); }
+  60%  { transform: scale(1.05) translateX(2px); }
+  100% { transform: scale(1); background: transparent; box-shadow: none; }
+}
+@keyframes row-glow-up {
+  0%   { background: transparent; }
+  20%  { background: rgba(0,255,136,0.07); border-radius: 6px; }
+  100% { background: transparent; }
+}
+@keyframes row-glow-down {
+  0%   { background: transparent; }
+  20%  { background: rgba(255,58,42,0.08); border-radius: 6px; }
+  100% { background: transparent; }
+}
+
+/* score badge flash */
+.hp-score.score-up {
+  animation: score-pop-up .6s ease forwards;
+}
+.hp-score.score-down {
+  animation: score-pop-down .6s ease forwards;
+}
+@keyframes score-pop-up {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.4); color: #00ff88 !important; filter: drop-shadow(0 0 8px rgba(0,255,136,0.8)); }
+  100% { transform: scale(1); }
+}
+@keyframes score-pop-down {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.3); color: #ff3a2a !important; filter: drop-shadow(0 0 8px rgba(255,58,42,0.8)); }
+  60%  { transform: translateX(-3px) scale(0.95); }
+  80%  { transform: translateX(2px); }
+  100% { transform: scale(1); }
+}
+
+/* path box flash */
+.path-box.path-changed {
+  animation: path-pulse .7s ease forwards;
+}
+@keyframes path-pulse {
+  0%   { transform: scale(1); }
+  25%  { transform: scale(1.06); border-color: rgba(255,255,255,0.35); box-shadow: 0 0 20px rgba(255,255,255,0.15); }
+  100% { transform: scale(1); border-color: var(--border); box-shadow: none; }
+}
+
+/* color fills */
+.fp-us { background: var(--us); box-shadow: 0 0 5px rgba(58,143,255,0.6); }
+.fn-us { background: rgba(58,143,255,0.35); }
+.fp-il { background: var(--il); box-shadow: 0 0 5px rgba(240,200,48,0.6); }
+.fn-il { background: rgba(240,200,48,0.35); }
+.fp-ir { background: var(--ir); box-shadow: 0 0 5px rgba(255,58,42,0.6); }
+.fn-ir { background: rgba(255,58,42,0.35); }
+
+/* ── PATH SUMMARY ── */
+.paths-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.path-box {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, transform .15s;
+  position: relative;
+  overflow: hidden;
+}
+.path-box:hover { transform: translateY(-2px); }
+.path-box.active { border-color: rgba(255,255,255,0.25); }
+.path-box::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  transition: height .2s;
+}
+.pb-a::before { background: var(--us); }
+.pb-b::before { background: var(--green); }
+.pb-c::before { background: #f0a030; }
+.pb-d::before { background: var(--ir); }
+.path-box:hover::before { height: 5px; }
+
+.pb-letter {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.pb-a .pb-letter { color: var(--us); text-shadow: 0 0 10px rgba(58,143,255,0.6); }
+.pb-b .pb-letter { color: var(--green); text-shadow: 0 0 10px rgba(0,255,136,0.6); }
+.pb-c .pb-letter { color: #f0a030; text-shadow: 0 0 10px rgba(240,160,48,0.6); }
+.pb-d .pb-letter { color: var(--ir); text-shadow: 0 0 10px rgba(255,58,42,0.6); }
+.pb-pct {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  color: #fff;
+  margin-bottom: 4px;
+  display: block;
+  transition: all .5s;
+}
+.pb-name {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.4;
+}
+.pb-bar-bg {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.pb-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1.5s ease;
+}
+
+/* ── WATCH LIST ── */
+.watch-intro {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 1.85;
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  background: rgba(255,200,48,0.06);
+  border-left: 3px solid rgba(255,200,48,0.6);
+  border-radius: 0 8px 8px 0;
+}
+.watch-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.watch-item {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: border-color .2s;
+}
+.watch-item:hover { border-color: rgba(255,255,255,0.15); }
+.watch-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.wdot {
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0;
+  animation: dot-pulse 1.5s ease-in-out infinite;
+}
+.wr { background: var(--ir); box-shadow: 0 0 8px var(--ir); }
+.wy { background: var(--il); box-shadow: 0 0 8px var(--il); animation-delay: .5s; }
+.wb { background: var(--us); box-shadow: 0 0 8px var(--us); animation-delay: 1s; }
+.wicon { font-size: 22px; line-height: 1; }
+.wbody { flex: 1; }
+.wtitle {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.wdesc {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.wconseq {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 6px;
+  border-left: 2px solid rgba(255,255,255,0.25);
+}
+.wconseq .arrow { font-weight: 700; }
+.wtext b { color: #fff; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: .08em;
+  line-height: 1.8;
+}
+
+/* ── KEYFRAMES ── */
+@keyframes glow-pulse {
+  0%,100% { text-shadow: 0 0 10px var(--green); }
+  50% { text-shadow: 0 0 30px var(--green), 0 0 60px rgba(0,255,136,0.3); }
+}
+@keyframes blink-dot { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes idle-breathe-us {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-5px) rotate(-0.5deg); }
+  70% { transform: translateY(-3px) rotate(0.3deg); }
+}
+@keyframes idle-breathe-il {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-6px) rotate(0.6deg); }
+  75% { transform: translateY(-2px) rotate(-0.3deg); }
+}
+@keyframes idle-breathe-ir {
+  0%,100% { transform: translateY(0) scaleX(1); }
+  35% { transform: translateY(-4px) scaleX(0.98); }
+  65% { transform: translateY(-7px) scaleX(1.01); }
+}
+@keyframes char-hit {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(-12px) rotate(-3deg); }
+  30% { transform: translateX(10px) rotate(2deg); }
+  50% { transform: translateX(-6px) rotate(-1deg); }
+  70% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+@keyframes char-buff {
+  0%,100% { transform: scale(1); filter: brightness(1); }
+  30% { transform: scale(1.08); filter: brightness(1.5) saturate(1.5); }
+  60% { transform: scale(0.97); }
+}
+@keyframes flash-anim {
+  0% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+@keyframes dmg-float {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  20% { transform: translateY(-10px) scale(1.2); }
+  80% { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+}
+@keyframes dot-pulse {
+  0%,100% { transform: scale(1); opacity:1; }
+  50% { transform: scale(1.5); opacity:.7; }
+}
+@keyframes shake-panel {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ── SECTION LABELS ── */
+.sl {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  letter-spacing: .18em;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sl::after { content:''; flex:1; height:1px; background: var(--border); }
+
+/* mobile */
+@media(max-width:500px){
+  .hdr-title{font-size:10px;}
+  .char-head{font-size:42px;}
+  .paths-row{grid-template-columns:repeat(2,1fr);}
+  .watch-grid{grid-template-columns:1fr;}
+  .dim-row{grid-template-columns:20px 1fr 40px 40px 40px; gap:4px;}
+  .stage{min-height:160px;}
+}
+
+/* ── SIGNAL DYNAMIC ANIMATIONS ── */
+@keyframes sig-update {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes sig-badge-pop {
+  0%   { transform: scale(0.7); opacity: 0; }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.wsig-badge {
+  display: none;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.15);
+  margin-bottom: 6px;
+  letter-spacing: .06em;
+}
+
+/* ── FORCE VISIBILITY OVERRIDE ── */
+.watch-intro,
+.watch-intro * {
+  color: #ffffff !important;
+}
+.watch-intro span {
+  color: rgba(255,220,100,0.9) !important;
+}
+.wtitle {
+  color: #ffffff !important;
+  font-size: 15px !important;
+}
+.wdesc {
+  color: rgba(255,255,255,0.80) !important;
+  font-size: 12px !important;
+}
+.wconseq {
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 12px !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+.wconseq span {
+  color: inherit !important;
+}
+.wicon {
+  font-size: 24px !important;
+  opacity: 1 !important;
+}
+.wbody {
+  color: #ffffff !important;
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-title">⚔ S₂ BATTLE</div>
+  <div class="hdr-sub">美以伊战局实时博弈分析 · 人类确定性理论</div>
+  <div class="live-badge"><div class="live-dot"></div>LIVE · OPERATION EPIC FURY · DAY <span id="day-count">14</span> · <span id="news-date">--</span></div>
+</div>
+
+<!-- NEWS TICKER (hidden) -->
+<div class="news-bar" style="display:none">
+  <div class="news-scroll" id="ticker"></div>
+</div>
+
+<div class="news-backdrop" id="news-backdrop" onclick="toggleNewsMobile()"></div>
+<button class="news-toggle-btn" onclick="toggleNewsMobile()" id="news-toggle-btn">📡 实时新闻</button>
+
+<div class="page-layout">
+<div class="main-col">
+
+<!-- ARENA -->
+<div class="arena" id="arena">
+
+  <!-- HP BARS -->
+  <div class="hp-row">
+    <!-- US + IL -->
+    <div>
+      <div class="hp-block">
+        <div class="hp-name-row">
+          <span class="hp-flag">🇺🇸</span>
+          <span class="hp-label-name">USA</span>
+          <span class="hp-score" id="score-us-disp" style="color:var(--us)">+0.228</span>
+        </div>
+        <div class="hp-bar-bg hp-us">
+          <div class="hp-fill" id="bar-us" style="width:71.4%"></div>
+        </div>
+      </div>
+      <div style="margin-top:6px;" class="hp-block">
+        <div class="hp-name-row">
+          <span class="hp-flag" style="font-size:14px;">🇮🇱</span>
+          <span class="hp-label-name" style="font-size:7px;">ISRAEL</span>
+          <span class="hp-score" id="score-il-disp" style="color:var(--il);font-size:10px;">+0.428</span>
+        </div>
+        <div class="hp-bar-bg hp-il" style="height:14px;">
+          <div class="hp-fill" id="bar-il" style="width:85.6%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS -->
+    <div class="vs-box">
+      <div class="vs-txt">VS</div>
+      <div class="vs-day">LIVE</div>
+    </div>
+
+    <!-- IR -->
+    <div class="hp-block" style="direction:rtl;">
+      <div class="hp-name-row">
+        <span class="hp-flag">🇮🇷</span>
+        <span class="hp-label-name">IRAN</span>
+        <span class="hp-score" id="score-ir-disp" style="color:var(--ir);margin-left:auto;">−0.586</span>
+      </div>
+      <div class="hp-bar-bg hp-ir" style="direction:ltr;">
+        <div class="hp-fill" id="bar-ir" style="width:20.7%; margin-left:auto;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARACTER STAGE -->
+  <div class="stage">
+
+    <!-- US CHARACTER -->
+    <div class="fighter-slot" id="slot-us">
+      <div class="char idle-us" id="char-us">
+        <div style="position:relative;">
+          
+          <div class="char-head">🇺🇸</div>
+        </div>
+        <div class="char-body body-us">
+          <div class="char-badge">★</div>
+        </div>
+        <div class="char-legs">
+          <div class="char-leg leg-us"></div>
+          <div class="char-leg leg-us"></div>
+        </div>
+        <div class="hit-overlay" id="overlay-us"></div>
+      </div>
+      <div class="char-nametag tag-us">UNCLE SAM</div>
+      <div class="char-status">TECH-DOM</div>
+    </div>
+
+    <!-- CENTER: news event display -->
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+      <div id="event-display" style="text-align:center;font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);line-height:1.6;max-width:140px;">
+        实时新闻将<br>影响各方得分
+      </div>
+      <div id="event-icon" style="font-size:28px;opacity:0.3;transition:all .4s;">⚡</div>
+    </div>
+
+    <!-- IR CHARACTER -->
+    <div class="fighter-slot" id="slot-ir">
+      <div class="char idle-ir" id="char-ir" style="transform-origin:center bottom;">
+        <div style="position:relative;">
+          
+          <div class="char-head">🇮🇷</div>
+        </div>
+        <div class="char-body body-ir">
+          <div class="char-badge" style="font-size:14px;color:rgba(255,100,80,0.6);">◈</div>
+        </div>
+        <div class="char-legs">
+          <div class="char-leg leg-ir"></div>
+          <div class="char-leg leg-ir"></div>
+        </div>
+        <div class="hit-overlay" id="overlay-ir"></div>
+      </div>
+      <div class="char-nametag tag-ir">IR.GOV</div>
+      <div class="char-status">R-DEFICIT</div>
+    </div>
+
+  </div><!-- end stage -->
+</div><!-- end arena -->
+
+<!-- SIX DIM -->
+<div class="sl">各方实力六维评分（新闻驱动实时变化）</div>
+<div class="dims-panel">
+  <div class="dim-row" style="margin-bottom:4px;">
+    <div></div><div style="font-family:'Share Tech Mono';font-size:9px;color:rgba(255,255,255,0.2);">权重</div>
+    <div style="font-family:'Share Tech Mono';font-size:10px;color:var(--us);text-align:center;">🇺🇸</div>
+    <div style="font-family:'Share Tech Mono';font-size:10px;color:var(--il);text-align:center;">🇮🇱</div>
+    <div style="font-family:'Share Tech Mono';font-size:10px;color:var(--ir);text-align:center;">🇮🇷</div>
+  </div>
+
+  <div class="dim-row" id="dim-T">
+    <div class="dim-lbl">T</div>
+    <div class="dim-bars">
+      <div class="dim-bg">
+        <div class="dim-mid"></div>
+        <div class="dim-pos fp-us" style="width:40%"></div>
+      </div>
+      <div class="dim-wt">25% 军事技术</div>
+    </div>
+    <div class="dv dv-us" id="v-us-T">+.8</div>
+    <div class="dv dv-il" id="v-il-T">+.7</div>
+    <div class="dv dv-ir" id="v-ir-T">−.4</div>
+  </div>
+
+  <div class="dim-row" id="dim-R">
+    <div class="dim-lbl">R</div>
+    <div class="dim-bars">
+      <div class="dim-bg">
+        <div class="dim-mid"></div>
+        <div class="dim-neg fn-ir" style="width:40%"></div>
+      </div>
+      <div class="dim-wt">25% 持续韧性</div>
+    </div>
+    <div class="dv dv-us" id="v-us-R">−.1</div>
+    <div class="dv dv-il" id="v-il-R">±.0</div>
+    <div class="dv dv-ir" id="v-ir-R">−.8</div>
+  </div>
+
+  <div class="dim-row" id="dim-C">
+    <div class="dim-lbl">C</div>
+    <div class="dim-bars">
+      <div class="dim-bg">
+        <div class="dim-mid"></div>
+        <div class="dim-pos fp-il" style="width:35%"></div>
+      </div>
+      <div class="dim-wt">18% 协调执行</div>
+    </div>
+    <div class="dv dv-us" id="v-us-C">+.4</div>
+    <div class="dv dv-il" id="v-il-C">+.7</div>
+    <div class="dv dv-ir" id="v-ir-C">−.3</div>
+  </div>
+
+  <div class="dim-row" id="dim-F">
+    <div class="dim-lbl">F</div>
+    <div class="dim-bars">
+      <div class="dim-bg">
+        <div class="dim-mid"></div>
+        <div class="dim-neg fn-ir" style="width:40%"></div>
+      </div>
+      <div class="dim-wt">15% 反馈轨迹</div>
+    </div>
+    <div class="dv dv-us" id="v-us-F">−.2</div>
+    <div class="dv dv-il" id="v-il-F">+.3</div>
+    <div class="dv dv-ir" id="v-ir-F">−.8</div>
+  </div>
+
+  <div class="dim-row" id="dim-I">
+    <div class="dim-lbl">I</div>
+    <div class="dim-bars">
+      <div class="dim-bg">
+        <div class="dim-mid"></div>
+        <div class="dim-pos fp-il" style="width:20%"></div>
+      </div>
+      <div class="dim-wt">10% 制度合法</div>
+    </div>
+    <div class="dv dv-us" id="v-us-I">−.1</div>
+    <div class="dv dv-il" id="v-il-I">+.4</div>
+    <div class="dv dv-ir" id="v-ir-I">−.7</div>
+  </div>
+
+  <div class="dim-row" id="dim-N">
+    <div class="dim-lbl">N</div>
+    <div class="dim-bars">
+      <div class="dim-bg">
+        <div class="dim-mid"></div>
+        <div class="dim-pos fp-il" style="width:30%"></div>
+      </div>
+      <div class="dim-wt">7% 叙事士气</div>
+    </div>
+    <div class="dv dv-us" id="v-us-N">+.3</div>
+    <div class="dv dv-il" id="v-il-N">+.6</div>
+    <div class="dv dv-ir" id="v-ir-N">−.6</div>
+  </div>
+</div>
+
+<!-- PATH PROBABILITIES -->
+<div class="sl">这场战争最可能怎么走？</div>
+<div class="paths-row">
+
+  <div class="path-box pb-a" id="pb-a">
+    <div class="pb-icon-wrap">
+      <div class="pb-emoji">🕊️</div>
+      <div class="pb-letter">路径A</div>
+    </div>
+    <div class="pb-body">
+      <div class="pb-name">谈判停火</div>
+      <div class="pb-desc">各方达成协议，战事结束</div>
+      <div class="pb-pct-row">
+        <span class="pb-pct" id="pct-a">13%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-a" style="width:26%;background:var(--us);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="path-box pb-b active" id="pb-b">
+    <div class="pb-icon-wrap">
+      <div class="pb-emoji">⚔️</div>
+      <div class="pb-letter">路径B</div>
+    </div>
+    <div class="pb-body">
+      <div class="pb-name">持续消耗战</div>
+      <div class="pb-desc">拉锯3–6个月，无人认输</div>
+      <div class="pb-pct-row">
+        <span class="pb-pct" id="pct-b">48%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-b" style="width:96%;background:var(--green);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="path-box pb-c" id="pb-c">
+    <div class="pb-icon-wrap">
+      <div class="pb-emoji">🔄</div>
+      <div class="pb-letter">路径C</div>
+    </div>
+    <div class="pb-body">
+      <div class="pb-name">伊朗政权崩溃</div>
+      <div class="pb-desc">内部瓦解或民众革命</div>
+      <div class="pb-pct-row">
+        <span class="pb-pct" id="pct-c">11%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-c" style="width:22%;background:#f0a030;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="path-box pb-d" id="pb-d">
+    <div class="pb-icon-wrap">
+      <div class="pb-emoji">☢️</div>
+      <div class="pb-letter">路径D</div>
+    </div>
+    <div class="pb-body">
+      <div class="pb-name">极端升级</div>
+      <div class="pb-desc">核威胁或全面区域战争</div>
+      <div class="pb-pct-row">
+        <span class="pb-pct" id="pct-d">27%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-d" style="width:54%;background:var(--ir);"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WATCH LIST -->
+<div style="font-family:'Noto Sans SC',sans-serif;font-size:16px;font-weight:700;color:#f0c830;margin-bottom:12px;letter-spacing:.05em;">⚠ 接下来重点盯这几个信号</div>
+
+<div style="
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:14px;
+  color:#e8eaf0;
+  line-height:1.9;
+  margin-bottom:14px;
+  padding:14px 18px;
+  background:#1a2035;
+  border-left:4px solid #f0c830;
+  border-radius:0 8px 8px 0;
+">
+  战局走向不是线性的——它会在某几个关键节点上突然跳变。<br>
+  下面这四件事，<strong style="color:#ffffff;">任何一件发生</strong>，都会让上方的概率数字大幅移动。<br>
+  <span style="color:#f0c830;font-size:12px;opacity:0.85;">↓ 这些卡片会随新闻事件实时更新状态</span>
+</div>
+
+<div class="watch-grid">
+
+  <div class="watch-item" id="signal-leadership" data-status="normal">
+    <div class="watch-left">
+      <div class="wicon">🎯</div>
+      <div class="wdot wr"></div>
+    </div>
+    <div class="wbody">
+      <div class="wsig-badge"></div>
+      <div class="wtitle">伊朗最高领导层是否还在掌控？</div>
+      <div class="wdesc">新领袖能否稳住军队、稳住政府、稳住民心——这是伊朗能打多久的核心变量</div>
+      <div class="wconseq">
+        <span style="color:var(--ir);font-weight:700;">→ 若出现内部分裂：</span> 路径C（政权崩溃）概率大涨，谈判可能性提升<br>
+        <span style="color:var(--green);font-weight:700;">→ 若领导层继续强硬：</span> 路径B消耗战延续，路径D升级风险上升
+      </div>
+    </div>
+  </div>
+
+  <div class="watch-item" id="signal-missiles" data-status="normal">
+    <div class="watch-left">
+      <div class="wicon">🚀</div>
+      <div class="wdot wr"></div>
+    </div>
+    <div class="wbody">
+      <div class="wsig-badge"></div>
+      <div class="wtitle">伊朗的导弹还能打多久？</div>
+      <div class="wdesc">14天内已发射500+枚弹道导弹，库存消耗超50%——弹药耗尽是最硬的物理约束</div>
+      <div class="wconseq">
+        <span style="color:var(--ir);font-weight:700;">→ 若导弹耗尽：</span> 伊朗唯一进攻手段消失，要么谈，要么孤注一掷走核路线<br>
+        <span style="color:var(--il);font-weight:700;">→ 若还能维持：</span> 消耗战继续，以色列和美军持续承压
+      </div>
+    </div>
+  </div>
+
+  <div class="watch-item" id="signal-mediation" data-status="normal">
+    <div class="watch-left">
+      <div class="wicon">🤝</div>
+      <div class="wdot wy"></div>
+    </div>
+    <div class="wbody">
+      <div class="wsig-badge"></div>
+      <div class="wtitle">有没有第三方出来调停？</div>
+      <div class="wdesc">阿曼、卡塔尔历史上都曾担任美伊秘密沟通渠道——战时斡旋窗口一旦打开，局势可能迅速降温</div>
+      <div class="wconseq">
+        <span style="color:var(--green);font-weight:700;">→ 若出现有效调停：</span> 路径A（停火）概率从13%快速上升<br>
+        <span style="color:rgba(255,255,255,0.5);font-weight:700;">→ 若调停失败：</span> 各方失去台阶，路径D风险升高
+      </div>
+    </div>
+  </div>
+
+  <div class="watch-item" id="signal-hormuz" data-status="normal">
+    <div class="watch-left">
+      <div class="wicon">🛢️</div>
+      <div class="wdot wb"></div>
+    </div>
+    <div class="wbody">
+      <div class="wsig-badge"></div>
+      <div class="wtitle">霍尔木兹海峡会不会彻底封死？</div>
+      <div class="wdesc">全球约20%的石油经过这里——伊朗现在是"软封锁"，完全封锁将重创全球经济</div>
+      <div class="wconseq">
+        <span style="color:var(--ir);font-weight:700;">→ 若完全封锁：</span> 油价暴涨，美国国内反战压力加剧，路径A谈判窗口被迫打开<br>
+        <span style="color:var(--us);font-weight:700;">→ 若美军强行疏通：</span> 直接冲突升级，路径D风险急剧上升
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  S₂ 人类确定性理论 · N·I·T·C·R·F · 战时情境权重<br>
+  T=25% · R=25% · C=18% · F=15% · I=10% · N=7%<br>
+  数据截至 <span id="footer-date">2026.03.13</span> · 仅供框架演示
+</div>
+
+</div><!-- main-col -->
+
+<!-- NEWS COLUMN -->
+<div class="news-col">
+  <div class="news-col-header">
+    <div class="news-col-label">📡 LIVE FEED</div>
+    <div class="news-col-count" id="nf-count">— 条新闻</div>
+  </div>
+  <div class="news-feed" id="news-feed">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+</div><!-- page-layout -->
+</div><!-- wrap -->
+
+<!-- NEWS POPUP -->
+<div class="news-popup" id="popup">
+  <div class="np-label">📡 BREAKING EVENT</div>
+  <div class="np-text" id="popup-text"></div>
+  <div class="np-effects" id="popup-effects"></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  S₂ BATTLE · SOUND ENGINE (Web Audio API)
+// ══════════════════════════════════════════
+const SFX = (() => {
+  let ctx = null;
+  let muted = false;
+  let ambientOscs = [];
+  let ambientGain = null;
+
+  function getCtx() {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+
+  function tone(freq, duration, type = 'sine', vol = 0.15, delay = 0) {
+    if (muted) return;
+    try {
+      const c = getCtx();
+      const osc = c.createOscillator();
+      const g = c.createGain();
+      osc.connect(g); g.connect(c.destination);
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, c.currentTime + delay);
+      g.gain.setValueAtTime(0, c.currentTime + delay);
+      g.gain.linearRampToValueAtTime(vol, c.currentTime + delay + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + delay + duration);
+      osc.start(c.currentTime + delay);
+      osc.stop(c.currentTime + delay + duration + 0.05);
+    } catch(e) {}
+  }
+
+  function noise(duration, vol = 0.12, lowpass = 400, delay = 0) {
+    if (muted) return;
+    try {
+      const c = getCtx();
+      const buf = c.createBuffer(1, c.sampleRate * duration, c.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      const src = c.createBufferSource(); src.buffer = buf;
+      const filt = c.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = lowpass;
+      const g = c.createGain();
+      src.connect(filt); filt.connect(g); g.connect(c.destination);
+      g.gain.setValueAtTime(vol, c.currentTime + delay);
+      g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + delay + duration);
+      src.start(c.currentTime + delay); src.stop(c.currentTime + delay + duration + 0.05);
+    } catch(e) {}
+  }
+
+  // 📡 新闻警报 — 双哔
+  function alert() {
+    tone(720, 0.07, 'square', 0.10);
+    tone(960, 0.10, 'square', 0.10, 0.12);
+  }
+
+  // 💥 打击音 — 爆炸冲击
+  function hit() {
+    noise(0.22, 0.25, 180);
+    tone(80, 0.28, 'sawtooth', 0.18);
+    try {
+      const c = getCtx();
+      const osc = c.createOscillator(); const g = c.createGain();
+      osc.connect(g); g.connect(c.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, c.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(30, c.currentTime + 0.3);
+      g.gain.setValueAtTime(0.22, c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.32);
+      osc.start(); osc.stop(c.currentTime + 0.35);
+    } catch(e) {}
+  }
+
+  // ✨ 增益音 — 上升和弦
+  function buff() {
+    tone(440, 0.12, 'sine', 0.09);
+    tone(554, 0.14, 'sine', 0.08, 0.06);
+    tone(659, 0.18, 'sine', 0.09, 0.12);
+    tone(880, 0.14, 'sine', 0.06, 0.20);
+  }
+
+  // 🚨 极端事件 — 危机警报
+  function critical() {
+    noise(0.08, 0.30, 300);
+    tone(110, 0.5, 'sawtooth', 0.16);
+    tone(220, 0.4, 'sawtooth', 0.10, 0.08);
+    tone(55,  0.6, 'sine',     0.14, 0.04);
+  }
+
+  // 📻 滚动新闻更新音 — 柔和点击
+  function ticker() {
+    tone(1400, 0.03, 'square', 0.04);
+    tone(1000, 0.03, 'square', 0.03, 0.05);
+  }
+
+  // 🌐 环境嗡嗡声 (常驻战场音效)
+  function startAmbient() {
+    if (muted) return;
+    try {
+      const c = getCtx();
+      ambientGain = c.createGain(); ambientGain.gain.value = 0.028;
+      const filt = c.createBiquadFilter(); filt.type = 'lowpass'; filt.frequency.value = 200;
+
+      [[55, 'sawtooth'], [58.5, 'sine'], [110, 'sine']].forEach(([freq, type]) => {
+        const osc = c.createOscillator();
+        osc.type = type; osc.frequency.value = freq;
+        osc.connect(filt); ambientOscs.push(osc); osc.start();
+      });
+      filt.connect(ambientGain); ambientGain.connect(c.destination);
+    } catch(e) {}
+  }
+
+  function setMuted(v) {
+    muted = v;
+    if (ambientGain) ambientGain.gain.value = v ? 0 : 0.028;
+    const btn = document.getElementById('mute-btn');
+    if (btn) btn.textContent = v ? '🔇' : '🔊';
+  }
+
+  return { alert, hit, buff, critical, ticker, startAmbient, setMuted, isMuted: () => muted };
+})();
+
+// ══════════════════════════════════════════
+//  S₂ BATTLE · NEWS API CLIENT
+// ══════════════════════════════════════════
+const NewsClient = (() => {
+  let serverUrl = localStorage.getItem('s2_server_url') || 'https://spectacular-bravery-production-89b9.up.railway.app';
+  let lastFetched = 0;
+  let livePool = [];
+  const CACHE_MIN = 10 * 60 * 1000;
+
+  let lastRawData = null;
+
+  async function fetch_raw() {
+    if (Date.now() - lastFetched < CACHE_MIN && livePool.length > 0) return lastRawData;
+    try {
+      const res = await fetch(serverUrl + '/news', { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (data.ok && data.events && data.events.length > 0) {
+        livePool = data.events;
+        lastRawData = data;
+        lastFetched = Date.now();
+        setStatus('live', `LIVE · ${data.count}条实时新闻`);
+        refreshTicker(livePool);
+        return data;
+      }
+    } catch(e) {
+      setStatus('offline', '离线模式 · 内置新闻');
+    }
+    return null;
+  }
+
+  async function fetch_news() {
+    const data = await fetch_raw();
+    return data && data.events ? data.events : [];
+  }
+
+  function setStatus(mode, text) {
+    const el = document.getElementById('api-status');
+    if (!el) return;
+    el.textContent = (mode === 'live' ? '📡 ' : '📴 ') + text;
+    el.style.color = mode === 'live' ? 'var(--green)' : 'rgba(255,255,255,0.35)';
+  }
+
+  function refreshTicker(events) {
+    const ticker = document.getElementById('ticker');
+    if (!ticker || events.length === 0) return;
+    ticker.innerHTML = '';
+    const items = [...events, ...events];
+    items.forEach(e => {
+      const d = document.createElement('div');
+      d.className = 'news-item';
+      const src = e.source ? ` <span style="color:rgba(255,255,255,0.3);font-size:9px;">[${e.source}]</span>` : '';
+      d.innerHTML = `<span class="ni-flag">${e.icon || '📰'}</span>${e.text}${src}<span class="ni-sep">◆</span>`;
+      ticker.appendChild(d);
+    });
+  }
+
+  function setServer(url) {
+    serverUrl = url.replace(/\/$/, '');
+    localStorage.setItem('s2_server_url', serverUrl);
+  }
+  function getServer() { return serverUrl; }
+
+  return { fetch_news, fetch_raw, setServer, getServer };
+})();
+
+// ══════════════════════════════════════════
+//  S₂ BATTLE · GAME STATE
+// ══════════════════════════════════════════
+const state = {
+  scores: { us: 0.228, il: 0.428, ir: -0.586 },
+  dims: {
+    us: { T: 0.8, R: -0.1, C: 0.4, F: -0.2, I: -0.1, N: 0.3 },
+    il: { T: 0.7, R: 0.0,  C: 0.7, F: 0.3,  I: 0.4,  N: 0.6 },
+    ir: { T: -0.4, R: -0.8, C: -0.3, F: -0.8, I: -0.7, N: -0.6 }
+  },
+  paths: { a: 13, b: 48, c: 11, d: 27 }
+};
+
+const W = { T:0.25, R:0.25, C:0.18, F:0.15, I:0.10, N:0.07 };
+
+function calcScore(country) {
+  return Object.keys(W).reduce((s,d) => s + W[d] * state.dims[country][d], 0);
+}
+
+// ── BUILT-IN FALLBACK NEWS ──
+const builtinEvents = [
+  {
+    text: "🇮🇷 伊朗再次向海湾地区发射弹道导弹，拦截率约70%",
+    icon: "🚀",
+    effects: { ir: { T: -0.03, R: -0.03 }, us: { R: -0.01 }, il: { R: -0.02 } },
+    labels: [["🇮🇷 T−", "neg"], ["🇮🇷 R−−", "neg"]]
+  },
+  {
+    text: "🇺🇸 美国国会两党议员要求白宫提交正式战争授权（AUMF）",
+    icon: "⚖️",
+    effects: { us: { I: -0.05, N: -0.02 } },
+    labels: [["🇺🇸 I−−", "neg"], ["🇺🇸 N−", "neg"]]
+  },
+  {
+    text: "🛢️ 油价突破102美元/桶，IEA追加释放战略储备",
+    icon: "💰",
+    effects: { us: { R: -0.02, F: -0.03 }, il: { R: -0.01 }, ir: { F: +0.04 } },
+    labels: [["🇺🇸 F−", "neg"], ["🇮🇷 F+", "pos"]]
+  },
+  {
+    text: "🌍 多国呼吁立即停火，安理会紧急会议陷入僵局",
+    icon: "🕊️",
+    effects: { us: { I: -0.02, N: -0.01 }, il: { I: -0.02 } },
+    labels: [["🇺🇸 I−", "neg"], ["🇮🇱 I−", "neg"]]
+  },
+  {
+    text: "🇮🇱 以色列空袭成功摧毁伊朗Fordow附近地下指挥设施",
+    icon: "💥",
+    effects: { ir: { I: -0.04, C: -0.03 }, il: { F: +0.03 }, us: { F: +0.02 } },
+    labels: [["🇮🇷 I−−", "neg"], ["🇮🇱 F+", "pos"]]
+  },
+  {
+    text: "🇮🇷 德黑兰数十万人集会支持新最高领袖，殉道叙事凝聚民心",
+    icon: "✊",
+    effects: { ir: { N: +0.05, C: +0.02 } },
+    labels: [["🇮🇷 N++", "pos"], ["🇮🇷 C+", "pos"]]
+  },
+  {
+    text: "🚢 伊朗IRGC海军在霍尔木兹海峡拦截第3艘外国油轮",
+    icon: "⚓",
+    effects: { ir: { F: +0.02, T: -0.01 }, us: { F: -0.02 }, il: { F: -0.01 } },
+    labels: [["🇮🇷 F+", "pos"], ["🇺🇸 F−", "neg"]]
+  },
+  {
+    text: "🇺🇸 美军F-35联队完成对伊朗第6轮战略轰炸，核设施受损",
+    icon: "✈️",
+    effects: { us: { T: +0.02, F: +0.03 }, ir: { T: -0.04, R: -0.02 } },
+    labels: [["🇺🇸 T+", "pos"], ["🇮🇷 T−−", "neg"]]
+  },
+  {
+    text: "🇮🇱 Hezbollah再次从黎巴嫩南部向以色列北部发射火箭弹",
+    icon: "🔥",
+    effects: { il: { R: -0.02, F: -0.02 }, ir: { C: +0.01 } },
+    labels: [["🇮🇱 R−", "neg"], ["🇮🇱 F−", "neg"]]
+  },
+  {
+    text: "🛡️ 伊朗宣布启动备用防空系统，部分区域防御能力恢复",
+    icon: "🛡️",
+    effects: { ir: { T: +0.02, C: +0.02 } },
+    labels: [["🇮🇷 T+", "pos"], ["🇮🇷 C+", "pos"]]
+  },
+  {
+    text: "📉 G7峰会联合声明要求停火但拒绝制裁以色列",
+    icon: "🌐",
+    effects: { us: { I: +0.02, N: -0.01 }, il: { I: -0.02 } },
+    labels: [["🇺🇸 I+", "pos"], ["🇮🇱 I−", "neg"]]
+  },
+  {
+    text: "🇮🇷 伊朗宣布弹道导弹库存消耗已超过50%",
+    icon: "⚠️",
+    effects: { ir: { T: -0.05, R: -0.03 } },
+    labels: [["🇮🇷 T−−", "neg"], ["🇮🇷 R−", "neg"]]
+  },
+  {
+    text: "🏥 国际红十字会报告伊朗平民伤亡超过2000人",
+    icon: "🆘",
+    effects: { us: { N: -0.03, I: -0.02 }, il: { N: -0.02 } },
+    labels: [["🇺🇸 N−−", "neg"], ["🇮🇱 N−", "neg"]]
+  },
+  {
+    text: "🇮🇷 伊朗外长：愿接受阿曼斡旋，前提是停止轰炸",
+    icon: "🕊️",
+    effects: { ir: { N: +0.02, F: +0.02 } },
+    labels: [["🇮🇷 F+", "pos"]]
+  },
+  {
+    text: "☢️ IAEA发现伊朗秘密设施浓缩铀存量，D路径风险上升",
+    icon: "☢️",
+    effects: { ir: { I: -0.03 }, us: { F: -0.02 } },
+    labels: [["☢️ D路径↑", "neg"]]
+  }
+];
+
+// ── TICKER SETUP ──
+function buildTicker() {
+  const ticker = document.getElementById('ticker');
+  const items = [...builtinEvents, ...builtinEvents];
+  items.forEach(e => {
+    const d = document.createElement('div');
+    d.className = 'news-item';
+    d.innerHTML = `<span class="ni-flag">${e.icon}</span>${e.text}<span class="ni-sep">◆</span>`;
+    ticker.appendChild(d);
+  });
+}
+
+// ── SCORE DISPLAY UPDATE ──
+function updateScoreDisplay(effects) {
+  const s = state.scores;
+  ['us','il','ir'].forEach(c => {
+    const el = document.getElementById(`score-${c}-disp`);
+    if (!el) return;
+    const oldTxt = el.textContent;
+    el.textContent = (s[c] >= 0 ? '+' : '') + s[c].toFixed(3);
+    if (effects && effects[c]) {
+      const delta = Object.values(effects[c]).reduce((a,b)=>a+b,0);
+      el.classList.remove('score-up','score-down');
+      void el.offsetWidth;
+      el.classList.add(delta >= 0 ? 'score-up' : 'score-down');
+      setTimeout(() => el.classList.remove('score-up','score-down'), 700);
+    }
+  });
+
+  const usW = ((s.us + 1) / 2 * 100).toFixed(1);
+  const ilW = ((s.il + 1) / 2 * 100).toFixed(1);
+  const irW = ((s.ir + 1) / 2 * 100).toFixed(1);
+
+  document.getElementById('bar-us').style.width = usW + '%';
+  document.getElementById('bar-il').style.width = ilW + '%';
+  const irEl = document.getElementById('bar-ir');
+  irEl.style.width = irW + '%';
+  irEl.style.marginLeft = (100 - parseFloat(irW)) + '%';
+}
+
+function updateDimDisplay(changedEffects) {
+  ['us','il','ir'].forEach(c => {
+    ['T','R','C','F','I','N'].forEach(d => {
+      const el = document.getElementById(`v-${c}-${d}`);
+      if (!el) return;
+      const v = state.dims[c][d];
+      const prev = el.textContent;
+      el.textContent = (v >= 0 ? '+' : '') + v.toFixed(1).replace('0.','.');
+
+      // flash if this dim was changed
+      if (changedEffects && changedEffects[c] && changedEffects[c][d] !== undefined) {
+        const delta = changedEffects[c][d];
+        el.classList.remove('flash-up', 'flash-down');
+        void el.offsetWidth; // reflow
+        el.classList.add(delta >= 0 ? 'flash-up' : 'flash-down');
+        setTimeout(() => el.classList.remove('flash-up','flash-down'), 1000);
+
+        // row glow
+        const row = document.getElementById(`dim-${d}`);
+        if (row) {
+          row.classList.remove('row-flash-up','row-flash-down');
+          void row.offsetWidth;
+          row.classList.add(delta >= 0 ? 'row-flash-up' : 'row-flash-down');
+          setTimeout(() => row.classList.remove('row-flash-up','row-flash-down'), 1000);
+        }
+      }
+    });
+  });
+}
+
+function updatePathDisplay(prevPaths) {
+  const p = state.paths;
+  const total = p.a + p.b + p.c + p.d;
+  ['a','b','c','d'].forEach(k => {
+    const pct = Math.round(p[k] / total * 100);
+    const el = document.getElementById(`pct-${k}`);
+    const bar = document.getElementById(`pbar-${k}`);
+    if (prevPaths) {
+      const prevPct = Math.round(prevPaths[k] / (prevPaths.a+prevPaths.b+prevPaths.c+prevPaths.d) * 100);
+      if (Math.abs(pct - prevPct) >= 1) {
+        const box = document.getElementById(`pb-${k}`);
+        box.classList.remove('path-changed');
+        void box.offsetWidth;
+        box.classList.add('path-changed');
+        setTimeout(() => box.classList.remove('path-changed'), 800);
+      }
+    }
+    el.textContent = pct + '%';
+    bar.style.width = (pct * 2) + '%';
+  });
+}
+
+// ── APPLY NEWS EVENT ──
+function applyEvent(ev) {
+  // snapshot before
+  const prevPaths = { ...state.paths };
+  const prevScores = { ...state.scores };
+
+  // determine if mostly negative
+  let totalDelta = 0;
+  Object.values(ev.effects || {}).forEach(dims => {
+    Object.values(dims).forEach(d => totalDelta += d);
+  });
+  const isCritical = Math.abs(totalDelta) > 0.12;
+  const isNegative = totalDelta < 0;
+
+  // SOUND
+  if (isCritical) {
+    SFX.critical();
+  } else if (isNegative) {
+    SFX.hit();
+  } else {
+    SFX.buff();
+  }
+  SFX.ticker();
+
+  // POPUP
+  const popup = document.getElementById('popup');
+  const popupTextEl = document.getElementById('popup-text');
+  if (ev.zhText) {
+    popupTextEl.innerHTML = `<span style="color:#fff;font-size:14px;font-family:'Noto Sans SC',sans-serif;">${ev.zhText}</span><br><span style="color:rgba(255,255,255,0.4);font-size:11px;font-family:'Share Tech Mono',monospace;margin-top:4px;display:block;">${ev.text}</span>`;
+  } else {
+    popupTextEl.textContent = ev.text;
+  }
+  if (ev.source) {
+    let srcEl = document.getElementById('popup-source');
+    if (!srcEl) {
+      srcEl = document.createElement('div');
+      srcEl.id = 'popup-source';
+      srcEl.style.cssText = 'font-family:Share Tech Mono,monospace;font-size:10px;color:rgba(255,255,255,0.3);margin-top:6px;';
+      document.getElementById('popup-effects').before(srcEl);
+    }
+    srcEl.textContent = `来源: ${ev.source}`;
+  }
+  const efxEl = document.getElementById('popup-effects');
+  efxEl.innerHTML = (ev.labels || []).map(([lbl, type]) =>
+    `<span class="np-eff" style="background:${type==='pos'?'rgba(0,255,136,0.15)':'rgba(255,58,42,0.15)'};color:${type==='pos'?'#00ff88':'#ff3a2a'};border:1px solid ${type==='pos'?'rgba(0,255,136,0.3)':'rgba(255,58,42,0.3)'};">${lbl}</span>`
+  ).join('');
+  popup.classList.add('show');
+  setTimeout(() => popup.classList.remove('show'), 3500);
+
+  // ARENA EVENT DISPLAY
+  const displayStr = ev.zhText || ev.text;
+  const txt = displayStr.length > 45 ? displayStr.substring(0, 45) + '…' : displayStr;
+  document.getElementById('event-display').textContent = txt;
+  const iconEl = document.getElementById('event-icon');
+  iconEl.style.opacity = '1';
+  iconEl.textContent = ev.icon || '⚡';
+  // screen shake on critical
+  if (isCritical) {
+    const arena = document.getElementById('arena');
+    arena.style.animation = 'none';
+    setTimeout(() => { arena.style.animation = 'shake-panel 0.3s ease'; }, 10);
+    setTimeout(() => { arena.style.animation = ''; }, 350);
+  }
+  setTimeout(() => {
+    iconEl.style.opacity = '0.3'; iconEl.textContent = '⚡';
+    document.getElementById('event-display').textContent = '实时新闻将\n影响各方得分';
+  }, 3200);
+
+  // APPLY EFFECTS + ANIMATIONS
+  Object.entries(ev.effects || {}).forEach(([country, changes]) => {
+    let hasNeg = false, hasPos = false;
+    Object.entries(changes).forEach(([dim, delta]) => {
+      state.dims[country][dim] = Math.max(-1, Math.min(1, state.dims[country][dim] + delta));
+      if (delta < 0) hasNeg = true;
+      if (delta > 0) hasPos = true;
+    });
+    state.scores[country] = calcScore(country);
+
+    const charEl = document.getElementById(`char-${country}`);
+    if (charEl) {
+      charEl.classList.remove('hit','buff','idle-us','idle-il','idle-ir');
+      charEl.classList.add(hasNeg && !hasPos ? 'hit' : 'buff');
+      setTimeout(() => {
+        charEl.classList.remove('hit','buff');
+        charEl.classList.add(`idle-${country}`);
+      }, 700);
+    }
+    const ov = document.getElementById(`overlay-${country}`);
+    if (ov) {
+      ov.className = `hit-overlay flash-${hasNeg && !hasPos ? 'red' : 'green'}`;
+      setTimeout(() => { ov.className = 'hit-overlay'; }, 400);
+    }
+    showDmgNumber(country, changes);
+  });
+
+  // 均值回归：每次事件后，维度分数向初始值靠拢5%，防止重复事件无限累积
+  const INIT_DIMS = {
+    us: { T: +0.8, R: -0.1, C: +0.4, F: -0.2, I: -0.1, N: +0.3 },
+    il: { T: +0.7, R: +0.0, C: +0.7, F: +0.3, I: +0.4, N: +0.6 },
+    ir: { T: -0.4, R: -0.8, C: -0.3, F: -0.8, I: -0.7, N: -0.6 }
+  };
+  const REVERSION = 0.08; // 每次回归8%
+  ['us','il','ir'].forEach(c => {
+    ['T','R','C','F','I','N'].forEach(d => {
+      const home = INIT_DIMS[c][d];
+      const cur  = state.dims[c][d];
+      state.dims[c][d] = cur + (home - cur) * REVERSION;
+    });
+  });
+
+  updatePathProbabilities();
+  updateScoreDisplay(ev.effects);
+  updateDimDisplay(ev.effects);
+  updatePathDisplay(prevPaths);
+  updateSignals();
+  addToNewsFeed(ev);
+}
+
+function showDmgNumber(country, changes) {
+  const slot = document.getElementById(`slot-${country}`);
+  if (!slot) return;
+  const total = Object.values(changes).reduce((a,b) => a+b, 0);
+  const isPos = total >= 0;
+
+  // floating damage number
+  const el = document.createElement('div');
+  el.className = `dmg-number ${isPos ? 'dmg-pos' : 'dmg-neg'}`;
+  el.textContent = (isPos ? '+' : '') + (total * 100).toFixed(0);
+  el.style.cssText = `top:10px;left:50%;transform:translateX(-50%);font-size:${Math.min(22, 11 + Math.abs(total)*90)}px;`;
+  slot.style.position = 'relative';
+  slot.appendChild(el);
+  setTimeout(() => el.remove(), 2000);
+
+  // CONFETTI / PARTICLES
+  spawnParticles(slot, isPos, Math.min(18, 6 + Math.round(Math.abs(total) * 80)));
+}
+
+function spawnParticles(anchor, isPositive, count) {
+  const rect = anchor.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 3;
+
+  const colors = isPositive
+    ? ['#00ff88','#4aff99','#aaffcc','#ffffff','#c0ffd8']
+    : ['#ff3a2a','#ff6644','#ffaa44','#ff2244','#ff8866'];
+
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    const size = 4 + Math.random() * 6;
+    const angle = (Math.random() * 360) * (Math.PI / 180);
+    const speed = 60 + Math.random() * 90;
+    const vx = Math.cos(angle) * speed;
+    const vy = Math.sin(angle) * speed - 40; // upward bias
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const isRect = Math.random() > 0.5;
+
+    p.style.cssText = `
+      position:fixed;
+      left:${cx}px;top:${cy}px;
+      width:${isRect ? size : size*0.6}px;
+      height:${isRect ? size*0.4 : size*0.6}px;
+      background:${color};
+      border-radius:${isRect ? '2px' : '50%'};
+      pointer-events:none;
+      z-index:9000;
+      box-shadow:0 0 ${isPositive?6:4}px ${color};
+      transform-origin:center;
+    `;
+    document.body.appendChild(p);
+
+    const startTime = performance.now();
+    const duration = 900 + Math.random() * 600;
+    const rotSpeed = (Math.random() - 0.5) * 720;
+
+    function animate(now) {
+      const t = (now - startTime) / duration;
+      if (t >= 1) { p.remove(); return; }
+      const ease = 1 - t * t;
+      const x = cx + vx * t;
+      const y = cy + vy * t + 160 * t * t; // gravity
+      p.style.left = x + 'px';
+      p.style.top  = y + 'px';
+      p.style.opacity = ease;
+      p.style.transform = `rotate(${rotSpeed * t}deg) scale(${0.4 + ease * 0.6})`;
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  }
+}
+
+function updatePathProbabilities() {
+  // 每次从初始先验出发，根据当前维度分数重新贝叶斯更新
+  // 初始先验（第14天基线）
+  const prior = { a: 13, b: 48, c: 11, d: 27 };
+
+  const irScore = state.scores.ir;   // 范围约 -1 ~ +1
+  const usScore = state.scores.us;
+  const ilScore = state.scores.il;
+  const irT = state.dims.ir.T;
+  const irR = state.dims.ir.R;
+  const irI = state.dims.ir.I;
+  const usF = state.dims.us.F;
+  const usI = state.dims.us.I;
+
+  let { a, b, c, d } = prior;
+
+  // ── 路径A（停火）──
+  // 美国国内压力越大、伊朗越弱 → 被迫谈判概率升
+  if (usI < -0.1) a *= 1 + Math.abs(usI) * 0.5;
+  if (usF < -0.2) a *= 1 + (Math.abs(usF) - 0.2) * 0.4;
+  if (irScore < -0.6) a *= 1 + (Math.abs(irScore) - 0.6) * 0.6;
+
+  // ── 路径B（消耗战）── 这是基准态，只要没有崩溃就维持
+  // 双方都在撑 → B稳
+  b *= 1.0; // 基准不变
+  // 伊朗战力尚存 → B维持
+  if (irT > -0.6) b *= 1.05;
+  // 伊朗弹药耗尽 → B下降（无法持续消耗）
+  if (irT < -0.7) b *= 0.85;
+  // 美国压力大 → B略降（美国不想继续耗）
+  if (usF < -0.25) b *= 1 - (Math.abs(usF) - 0.25) * 0.3;
+
+  // ── 路径C（政权崩溃）── 需要伊朗制度和协调双崩
+  if (irI < -0.75) c *= 1 + (Math.abs(irI) - 0.75) * 1.8;
+  if (irScore < -0.7) c *= 1 + (Math.abs(irScore) - 0.7) * 0.8;
+
+  // ── 路径D（极端升级）── 只在弹药耗尽+无路可走时才高
+  // 伊朗弹药告急且综合崩溃 → D升（孤注一掷）
+  if (irT < -0.65 && irR < -0.75) {
+    d *= 1 + (Math.abs(irT) - 0.65) * 1.2;
+  }
+  // 美国反馈极差 → D升（双方失控）
+  if (usF < -0.35) d *= 1 + (Math.abs(usF) - 0.35) * 0.6;
+  // A和D互斥：若A在升，D不应同步大涨
+  if (irScore < -0.6 && usI < -0.1) {
+    // 谈判压力和升级压力并存时，各自只得一半加成
+    a *= 0.85;
+    d *= 0.85;
+  }
+
+  // 归一化
+  const t = a + b + c + d;
+  // 硬性约束：任何路径偏离先验最多 ±8 个百分点
+  const maxDev = 8;
+  state.paths = {
+    a: Math.max(prior.a - maxDev, Math.min(prior.a + maxDev, (a/t)*100)),
+    b: Math.max(prior.b - maxDev, Math.min(prior.b + maxDev, (b/t)*100)),
+    c: Math.max(prior.c - maxDev, Math.min(prior.c + maxDev, (c/t)*100)),
+    d: Math.max(prior.d - maxDev, Math.min(prior.d + maxDev, (d/t)*100)),
+  };
+}
+
+// ── EVENT LOOP ──
+let eventQueue = [];
+let eventIndex = 0;
+let usingLive = false;
+let firstCycleDone = true; // 服务端已算好初始概率，直接锁定，只播动画
+
+async function prepareQueue() {
+  const data = await NewsClient.fetch_raw();
+  if (data && data.events && data.events.length > 0) {
+    usingLive = true;
+    eventQueue = [...data.events].sort(() => Math.random() - 0.5);
+
+    // 用服务端计算好的概率初始化，所有用户打开就看到同一个状态
+    if (data.currentPaths) {
+      const cp = data.currentPaths;
+      state.paths = { a: cp.a, b: cp.b, c: cp.c, d: cp.d };
+      // 同步维度分数
+      if (cp.dims) {
+        ['us','il','ir'].forEach(c => {
+          ['T','R','C','F','I','N'].forEach(d => {
+            if (cp.dims[c] && cp.dims[c][d] !== undefined) {
+              state.dims[c][d] = cp.dims[c][d];
+            }
+          });
+        });
+      }
+      if (cp.scores) {
+        ['us','il','ir'].forEach(c => {
+          if (cp.scores[c] !== undefined) state.scores[c] = cp.scores[c];
+        });
+      }
+      console.log('[S2] 服务端初始概率:', state.paths);
+    }
+  } else {
+    usingLive = false;
+    eventQueue = [...builtinEvents].sort(() => Math.random() - 0.5);
+  }
+  eventIndex = 0;
+}
+
+function triggerNextEvent() {
+  if (eventIndex >= eventQueue.length) {
+    firstCycleDone = true; // 第一轮结束，之后不再累积维度分数
+    eventQueue = [...eventQueue].sort(() => Math.random() - 0.5);
+    eventIndex = 0;
+    // try refresh live every full cycle
+    if (usingLive) NewsClient.fetch_raw().then(data => {
+      if (data && data.events && data.events.length > 0) { eventQueue = [...data.events].sort(() => Math.random() - 0.5); firstCycleDone = false; }
+    });
+  }
+  applyEvent(eventQueue[eventIndex++]);
+  const delay = 20000 + Math.random() * 15000;
+  setTimeout(triggerNextEvent, delay);
+}
+
+// ── SETTINGS PANEL ──
+function buildSettingsPanel() {
+  const panel = document.createElement('div');
+  panel.id = 'settings-panel';
+  panel.style.cssText = `
+    position:fixed;bottom:0;left:0;right:0;
+    background:rgba(3,5,10,0.97);
+    border-top:1px solid rgba(255,255,255,0.1);
+    padding:14px 20px;
+    z-index:800;
+    display:none;
+    font-family:'Share Tech Mono',monospace;
+    font-size:12px;
+  `;
+  panel.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <span style="color:rgba(255,255,255,0.4);letter-spacing:.1em;font-size:10px;">📡 API服务器地址</span>
+      <input id="srv-input" value="${NewsClient.getServer()}"
+        style="flex:1;min-width:200px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);
+        border-radius:4px;padding:6px 10px;color:#fff;font-family:Share Tech Mono,monospace;font-size:12px;outline:none;"
+        placeholder="http://localhost:3001">
+      <button onclick="saveServer()" style="background:var(--green);color:#000;border:none;border-radius:4px;
+        padding:6px 14px;font-family:Press Start 2P,monospace;font-size:8px;cursor:pointer;letter-spacing:.05em;">保存</button>
+      <button onclick="toggleSettings()" style="background:rgba(255,255,255,0.08);color:#aaa;border:1px solid rgba(255,255,255,0.1);
+        border-radius:4px;padding:6px 12px;font-family:Share Tech Mono,monospace;font-size:11px;cursor:pointer;">关闭</button>
+    </div>
+    <div style="margin-top:8px;color:rgba(255,255,255,0.25);font-size:10px;line-height:1.7;">
+      本地运行: <span style="color:var(--green);">node s2_server.js</span>　·　
+      NewsAPI密钥: <span style="color:var(--green);">NEWS_API_KEY=xxx node s2_server.js</span>　·　
+      免费注册: <span style="color:var(--us);">newsapi.org</span>
+    </div>
+  `;
+  document.body.appendChild(panel);
+}
+
+function toggleSettings() {
+  const p = document.getElementById('settings-panel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+}
+
+function saveServer() {
+  const val = document.getElementById('srv-input').value.trim();
+  if (val) {
+    NewsClient.setServer(val);
+    toggleSettings();
+    prepareQueue();
+  }
+}
+
+// ── CONTROL BAR ──
+function buildControlBar() {
+  const bar = document.createElement('div');
+  bar.style.cssText = `
+    display:flex;align-items:center;gap:10px;justify-content:flex-end;
+    padding:6px 0 10px;
+  `;
+  bar.innerHTML = `
+    <span id="api-status" style="font-family:Share Tech Mono,monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:.08em;flex:1;">
+      📴 离线模式 · 内置新闻
+    </span>
+    <button id="mute-btn" onclick="toggleMute()"
+      style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+      border-radius:6px;padding:5px 10px;font-size:14px;cursor:pointer;line-height:1;">🔊</button>
+
+  `;
+  document.querySelector('.wrap').prepend(bar);
+}
+
+function toggleMute() {
+  SFX.setMuted(!SFX.isMuted());
+}
+
+
+// ══════════════════════════════════════════
+//  S₂ BATTLE · DYNAMIC SIGNAL SYSTEM
+// ══════════════════════════════════════════
+
+const SIGNAL_DEFS = [
+  {
+    id: 'signal-leadership',
+    check: () => {
+      const irI = state.dims.ir.I;
+      const irC = state.dims.ir.C;
+      const total = state.paths.a + state.paths.b + state.paths.c + state.paths.d;
+      const pathD = state.paths.d / total * 100;
+      if (irI < -0.85 || irC < -0.6) return 'crisis';
+      if (irI < -0.75) return 'warning';
+      if (pathD > 35) return 'elevated';
+      return 'normal';
+    },
+    states: {
+      normal: {
+        dot: 'wr', badge: null,
+        title: '伊朗最高领导层是否还在掌控？',
+        desc: '新领袖能否稳住军队、稳住政府、稳住民心——这是伊朗能打多久的核心变量',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 若出现内部分裂：</span> 路径C（政权崩溃）概率大涨，谈判可能性提升<br><span style="color:var(--green);font-weight:700;">→ 若领导层继续强硬：</span> 路径B消耗战延续，路径D升级风险上升'
+      },
+      elevated: {
+        dot: 'wr', badge: { text: '⚡ 风险上升', color: '#f0a030' },
+        title: '伊朗最高领导层是否还在掌控？',
+        desc: '极端升级路径（D）已超过35%——领导层压力显著上升，政策连贯性存疑',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 当前状态：</span> 领导层面临巨大决策压力，下一步动作高度不确定<br><span style="color:var(--green);font-weight:700;">→ 观察重点：</span> 是否有异见声音浮出，IRGC与政府是否立场一致'
+      },
+      warning: {
+        dot: 'wr', badge: { text: '⚠ 稳定性下降', color: '#ff8844' },
+        title: '领导层稳定性出现裂痕',
+        desc: '制度维度（I）持续下滑，协调能力（C）同步恶化——内部凝聚力正在被消耗',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 路径C概率上升：</span> 政权内部压力已超出正常战时水平<br><span style="color:var(--green);font-weight:700;">→ 路径A窗口微开：</span> 内部分歧可能催生谈判派声音'
+      },
+      crisis: {
+        dot: 'wr', badge: { text: '🚨 稳定性危机', color: 'var(--ir)', pulse: true },
+        title: '🚨 领导层稳定性危机',
+        desc: '制度崩溃信号已触发——指挥链完整性存疑，政权控制力跌至临界点',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 路径C（崩溃）概率大幅上升</span><br><span style="color:var(--ir);font-weight:700;">→ 同时路径D风险也在升高：</span> 失控的领导层更可能孤注一掷'
+      }
+    }
+  },
+  {
+    id: 'signal-missiles',
+    check: () => {
+      const irT = state.dims.ir.T;
+      const irR = state.dims.ir.R;
+      if (irT < -0.75 && irR < -0.85) return 'depleted';
+      if (irT < -0.6 || irR < -0.75) return 'critical';
+      if (irT < -0.5) return 'warning';
+      return 'normal';
+    },
+    states: {
+      normal: {
+        dot: 'wr', badge: null,
+        title: '伊朗的导弹还能打多久？',
+        desc: '14天内已发射500+枚弹道导弹，库存消耗超50%——弹药耗尽是最硬的物理约束',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 若导弹耗尽：</span> 伊朗唯一进攻手段消失，要么谈，要么孤注一掷走核路线<br><span style="color:var(--il);font-weight:700;">→ 若还能维持：</span> 消耗战继续，以色列和美军持续承压'
+      },
+      warning: {
+        dot: 'wr', badge: { text: '📉 消耗加速', color: '#f0a030' },
+        title: '伊朗导弹库存消耗加速',
+        desc: '打击力（T）持续下滑，按当前速度，有效打击能力窗口正在快速收窄',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 路径跳变窗口临近：</span> 若消耗继续，将在短期内触发B→D跳变<br><span style="color:var(--green);font-weight:700;">→ 谈判信号：</span> 弹药压力可能倒逼伊朗出现谈判派声音'
+      },
+      critical: {
+        dot: 'wr', badge: { text: '⚠ 库存告急', color: '#ff6633' },
+        title: '⚡ 伊朗弹道导弹库存告急',
+        desc: '打击力与持续力双重跌入危险区——伊朗正在失去对等反击能力',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 路径D风险急升：</span> 常规手段失效，极端选项变为现实考量<br><span style="color:var(--us);font-weight:700;">→ 美以窗口期：</span> 这是军事压制效果最大的阶段'
+      },
+      depleted: {
+        dot: 'wr', badge: { text: '🚨 弹药耗尽', color: 'var(--ir)', pulse: true },
+        title: '🚨 伊朗弹道导弹实际耗尽',
+        desc: '常规打击能力已跌至极限——伊朗进入"无牌可打"状态，局势进入最危险阶段',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 路径跳变已触发：</span> B（消耗战）概率暴跌，C/D概率急升<br><span style="color:var(--green);font-weight:700;">→ 或谈判或核威胁：</span> 这是最危险也最可能出现转折的节点'
+      }
+    }
+  },
+  {
+    id: 'signal-mediation',
+    check: () => {
+      const total = state.paths.a + state.paths.b + state.paths.c + state.paths.d;
+      const pathA = state.paths.a / total * 100;
+      const usI = state.dims.us.I;
+      if (pathA > 22) return 'open';
+      if (pathA > 17 || usI > 0.0) return 'possible';
+      if (usI < -0.15) return 'blocked';
+      return 'normal';
+    },
+    states: {
+      normal: {
+        dot: 'wy', badge: null,
+        title: '有没有第三方出来调停？',
+        desc: '阿曼、卡塔尔历史上都曾担任美伊秘密沟通渠道——战时斡旋窗口一旦打开，局势可能迅速降温',
+        conseq: '<span style="color:var(--green);font-weight:700;">→ 若出现有效调停：</span> 路径A（停火）概率从13%快速上升<br><span style="color:rgba(255,255,255,0.5);font-weight:700;">→ 若调停失败：</span> 各方失去台阶，路径D风险升高'
+      },
+      blocked: {
+        dot: 'wy', badge: { text: '🚫 渠道受阻', color: '#888' },
+        title: '调停渠道目前受阻',
+        desc: '美国制度合法性压力上升，谈判意愿偏低——斡旋空间受到挤压',
+        conseq: '<span style="color:rgba(255,255,255,0.5);font-weight:700;">→ 路径A概率低迷：</span> 外交窗口暂时关闭<br><span style="color:var(--il);font-weight:700;">→ 关注：</span> 国际社会压力是否能打开新渠道'
+      },
+      possible: {
+        dot: 'wy', badge: { text: '🌡 信号微弱', color: '#f0c830' },
+        title: '调停窗口出现微弱信号',
+        desc: '路径A概率开始上升——有迹象显示各方在试探谈判可能性',
+        conseq: '<span style="color:var(--green);font-weight:700;">→ 关键观察：</span> 是否有中立国外长级接触出现<br><span style="color:var(--il);font-weight:700;">→ 窗口脆弱：</span> 任何新的军事行动都可能将其关闭'
+      },
+      open: {
+        dot: 'wy', badge: { text: '✅ 窗口打开', color: 'var(--green)' },
+        title: '✅ 调停窗口已经打开',
+        desc: '路径A（停火）概率已突破20%——停火谈判出现实质性可能性',
+        conseq: '<span style="color:var(--green);font-weight:700;">→ 路径A概率持续上升中</span><br><span style="color:var(--il);font-weight:700;">→ 关键时间窗：</span> 接下来48–72小时是谈判能否成形的决定性窗口'
+      }
+    }
+  },
+  {
+    id: 'signal-hormuz',
+    check: () => {
+      const usF = state.dims.us.F;
+      const total = state.paths.a + state.paths.b + state.paths.c + state.paths.d;
+      const pathD = state.paths.d / total * 100;
+      if (usF < -0.35 && pathD > 30) return 'critical';
+      if (usF < -0.25) return 'escalating';
+      if (usF < -0.15) return 'warning';
+      return 'normal';
+    },
+    states: {
+      normal: {
+        dot: 'wb', badge: null,
+        title: '霍尔木兹海峡会不会彻底封死？',
+        desc: '全球约20%的石油经过这里——伊朗现在是"软封锁"，完全封锁将重创全球经济',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 若完全封锁：</span> 油价暴涨，美国国内反战压力加剧，路径A谈判窗口被迫打开<br><span style="color:var(--us);font-weight:700;">→ 若美军强行疏通：</span> 直接冲突升级，路径D风险急剧上升'
+      },
+      warning: {
+        dot: 'wb', badge: { text: '📈 压力上升', color: '#f0a030' },
+        title: '霍尔木兹经济压力持续累积',
+        desc: '美国反馈维度（F）持续恶化——经济和国际压力正在侵蚀美国的战争持续意愿',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 软封锁效果显现：</span> 伊朗的Hormuz杠杆正在发挥作用<br><span style="color:var(--us);font-weight:700;">→ 美国压力上升：</span> 国内政治成本增加，战争授权争议加剧'
+      },
+      escalating: {
+        dot: 'wb', badge: { text: '⚡ 封锁升级', color: '#ff8833' },
+        title: '⚡ 霍尔木兹封锁正在升级',
+        desc: '封锁超出"软"范围——全球航运受实质影响，国际压力骤增',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 伊朗获得更多筹码：</span> 全球经济压力倒逼美国寻求出口<br><span style="color:var(--us);font-weight:700;">→ 美国两难：</span> 军事疏通=直接冲突，不疏通=经济持续失血'
+      },
+      critical: {
+        dot: 'wb', badge: { text: '🚨 完全封锁', color: 'var(--ir)', pulse: true },
+        title: '🚨 霍尔木兹进入完全封锁',
+        desc: '反馈维度已进入不可逆区间——全球经济冲击开始主导战局走向，超出纯军事逻辑',
+        conseq: '<span style="color:var(--ir);font-weight:700;">→ 路径D风险急剧上升：</span> 美军若强行突破，直接冲突无可避免<br><span style="color:var(--green);font-weight:700;">→ 矛盾出口：</span> 国际压力可能倒逼美国接受谈判，路径A出现异常上升'
+      }
+    }
+  }
+];
+
+function updateSignals() {
+  SIGNAL_DEFS.forEach(sig => {
+    const status = sig.check();
+    const def = sig.states[status];
+    if (!def) return;
+    const card = document.getElementById(sig.id);
+    if (!card) return;
+    const prevStatus = card.dataset.status || 'normal';
+    if (prevStatus === status) return;
+    card.dataset.status = status;
+
+    // update dot
+    const dotEl = card.querySelector('.wdot');
+    if (dotEl) dotEl.className = 'wdot ' + def.dot;
+
+    // update texts with flash
+    const titleEl = card.querySelector('.wtitle');
+    const descEl  = card.querySelector('.wdesc');
+    const conseqEl = card.querySelector('.wconseq');
+    [titleEl, descEl, conseqEl].forEach((el, i) => {
+      if (!el) return;
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = 'sig-update ' + (0.5 + i * 0.1) + 's ease ' + (i * 0.08) + 's both';
+    });
+    if (titleEl) titleEl.textContent = def.title;
+    if (descEl)  descEl.textContent  = def.desc;
+    if (conseqEl) conseqEl.innerHTML  = def.conseq;
+
+    // badge
+    const badgeEl = card.querySelector('.wsig-badge');
+    if (badgeEl) {
+      if (def.badge) {
+        badgeEl.textContent = def.badge.text;
+        badgeEl.style.color = def.badge.color;
+        badgeEl.style.borderColor = 'rgba(255,255,255,0.15)';
+        badgeEl.style.display = 'inline-block';
+        badgeEl.style.animation = def.badge.pulse ? 'blink-dot 1s step-end infinite' : 'sig-badge-pop .4s ease';
+      } else {
+        badgeEl.style.display = 'none';
+        badgeEl.style.animation = 'none';
+      }
+    }
+
+    // card border
+    const borders = {
+      normal:'var(--border)', warning:'rgba(240,160,48,0.4)', elevated:'rgba(240,160,48,0.3)',
+      crisis:'rgba(255,58,42,0.6)', depleted:'rgba(255,58,42,0.7)',
+      escalating:'rgba(255,136,51,0.5)', critical:'rgba(255,58,42,0.6)',
+      open:'rgba(0,255,136,0.4)', possible:'rgba(240,200,48,0.3)', blocked:'rgba(128,128,128,0.3)'
+    };
+    card.style.borderColor = borders[status] || 'var(--border)';
+
+    // sound
+    if (status === 'crisis' || status === 'depleted' || status === 'critical') {
+      SFX.critical();
+    } else if (prevStatus !== status) {
+      SFX.alert();
+    }
+    if (status === 'open') spawnParticles(card, true, 14);
+  });
+}
+
+
+// ── SIDE NEWS FEED ──
+function addToNewsFeed(ev) {
+  const feed = document.getElementById('news-feed');
+  if (!feed) return;
+  if (ev.publishedAt) updateNewsDate(ev.publishedAt);
+
+  const totalDelta = ev.effects ? Object.values(ev.effects).flatMap(d => Object.values(d)).reduce((a,b) => a+b, 0) : 0;
+  const isPos = totalDelta > 0.01;
+  const isNeg = totalDelta < -0.01;
+
+  const timeStr = ev.publishedAt
+    ? new Date(ev.publishedAt).toLocaleString('zh-CN', {month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit'})
+    : new Date().toLocaleString('zh-CN', {month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit'});
+
+  const item = document.createElement('div');
+  item.className = 'nf-item nf-new';
+
+  const impactBadge = isNeg ? `<span class="nf-impact nf-neg">▼ 负面</span>`
+                    : isPos ? `<span class="nf-impact nf-pos">▲ 正面</span>` : '';
+
+  item.innerHTML = `
+    <div class="nf-top">
+      <span class="nf-icon">${ev.icon || '⚡'}</span>
+      ${impactBadge}
+    </div>
+    <div class="nf-zh">${ev.zhText || ev.text}</div>
+    ${ev.zhText ? `<div class="nf-en">${ev.text}</div>` : ''}
+    <div class="nf-meta">
+      ${ev.source ? `<span class="nf-source">📰 ${ev.source}</span>` : ''}
+      <span>🕐 ${timeStr}</span>
+    </div>`;
+
+  // insert at top
+  feed.insertBefore(item, feed.firstChild);
+  setTimeout(() => item.classList.remove('nf-new'), 900);
+
+  // update count
+  const countEl = document.getElementById('nf-count');
+  if (countEl) countEl.textContent = feed.children.length + ' 条新闻';
+
+  // keep max 50 items
+  while (feed.children.length > 50) feed.removeChild(feed.lastChild);
+}
+
+// Pre-populate feed with queued events on load
+function populateInitialFeed() {
+  const feed = document.getElementById('news-feed');
+  if (!feed || !eventQueue || eventQueue.length === 0) return;
+  const items = [...eventQueue].reverse().slice(0, 15);
+  items.forEach(ev => addToNewsFeed(ev));
+}
+
+
+function toggleNewsMobile() {
+  const col = document.querySelector('.news-col');
+  const btn = document.getElementById('news-toggle-btn');
+  const backdrop = document.getElementById('news-backdrop');
+  if (!col) return;
+  const isOpen = col.classList.toggle('mobile-open');
+  if (backdrop) backdrop.classList.toggle('show', isOpen);
+  btn.textContent = isOpen ? '✕ 关闭' : '📡 实时新闻';
+}
+
+
+// ── DAY COUNTER & DATE ──
+(function() {
+  const warStart = new Date('2026-02-28T00:00:00Z');
+  const today = new Date();
+  const days = Math.floor((today - warStart) / (1000 * 60 * 60 * 24)) + 1;
+  const el = document.getElementById('day-count');
+  if (el) el.textContent = days;
+
+  const dateStr = today.toLocaleDateString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit' }).replace(/\//g, '.');
+  const footerDate = document.getElementById('footer-date');
+  if (footerDate) footerDate.textContent = dateStr;
+})();
+
+// Update news-date when live news loads
+function updateNewsDate(publishedAt) {
+  const el = document.getElementById('news-date');
+  if (!el || !publishedAt) return;
+  const d = new Date(publishedAt);
+  el.textContent = '新闻更新至 ' + d.toLocaleDateString('zh-CN', {month:'2-digit', day:'2-digit'}) + ' ' + d.toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'});
+}
+
+// ── INIT ──
+buildTicker();
+buildControlBar();
+// buildSettingsPanel(); // hidden - URL hardcoded
+updateScoreDisplay();
+updateDimDisplay();
+updatePathDisplay();
+  updateSignals();
+
+// First interaction unlocks audio
+// ambient sound disabled
+
+// Start event loop after initial fetch attempt
+setTimeout(async () => {
+  await prepareQueue();
+  populateInitialFeed();
+  setTimeout(triggerNextEvent, 3000);
+}, 1000);
+
+// Character click
+['us','il','ir'].forEach(c => {
+  const ch = document.getElementById(`char-${c}`);
+  if (ch) ch.addEventListener('click', () => {
+    ch.classList.add('buff');
+    SFX.buff();
+    setTimeout(() => ch.classList.remove('buff'), 600);
+  });
+});
+</script>
+</body>
+</html>

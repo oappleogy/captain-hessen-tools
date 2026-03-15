@@ -148,6 +148,7 @@ body {
 .card:nth-child(2)::before { background: var(--gradient-2); }
 .card:nth-child(3)::before { background: var(--gradient-3); }
 .card:nth-child(4)::before { background: var(--gradient-4); }
+.card:nth-child(5)::before { background: linear-gradient(135deg, #ef4444 0%, #7f1d1d 100%); }
 
 .card:hover {
   transform: translateY(-6px); box-shadow: var(--shadow-lg);
@@ -163,6 +164,7 @@ body {
 .card:nth-child(2) .card-icon-wrap { background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12)); }
 .card:nth-child(3) .card-icon-wrap { background: linear-gradient(135deg, rgba(240,147,251,0.12), rgba(245,87,108,0.12)); }
 .card:nth-child(4) .card-icon-wrap { background: linear-gradient(135deg, rgba(79,172,254,0.12), rgba(0,242,254,0.12)); }
+.card:nth-child(5) .card-icon-wrap { background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(127,29,29,0.12)); }
 
 .card-title {
   font-family: 'Noto Serif SC', serif;
@@ -222,7 +224,8 @@ footer {
 .card:nth-child(2) { animation: fadeUp 0.6s ease-out 0.2s both; }
 .card:nth-child(3) { animation: fadeUp 0.6s ease-out 0.3s both; }
 .card:nth-child(4) { animation: fadeUp 0.6s ease-out 0.4s both; }
-footer { animation: fadeUp 0.6s ease-out 0.5s both; }
+.card:nth-child(5) { animation: fadeUp 0.6s ease-out 0.5s both; }
+footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 </style>
 </head>
 <body>
@@ -302,6 +305,21 @@ footer { animation: fadeUp 0.6s ease-out 0.5s both; }
       <span class="tag">蒙特卡洛</span>
       <span class="tag">50K 模拟</span>
       <span class="tag">概率分布</span>
+    </div>
+    <div class="card-footer">
+      <span class="card-status"><span class="status-dot beta"></span>实验性</span>
+      <span class="card-arrow">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="s2-battle.html" class="card">
+    <div class="card-icon-wrap">&#9876;&#65039;</div>
+    <div class="card-title">美以伊战局博弈推演</div>
+    <div class="card-desc">基于S₂框架的中东局势实时博弈分析。三方力量对比、升级/降温概率、关键节点推演与市场冲击路径。</div>
+    <div class="card-tags">
+      <span class="tag">博弈推演</span>
+      <span class="tag">三方对比</span>
+      <span class="tag">概率评估</span>
     </div>
     <div class="card-footer">
       <span class="card-status"><span class="status-dot beta"></span>实验性</span>

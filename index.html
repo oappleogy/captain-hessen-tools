@@ -144,12 +144,11 @@ body {
   border-radius: var(--radius) var(--radius) 0 0;
   opacity: 0; transition: opacity 0.35s;
 }
-.card:nth-child(1)::before { background: linear-gradient(135deg, #0ea5e9 0%, #2d5af0 100%); }
-.card:nth-child(2)::before { background: var(--gradient-1); }
-.card:nth-child(3)::before { background: var(--gradient-2); }
-.card:nth-child(4)::before { background: var(--gradient-3); }
-.card:nth-child(5)::before { background: var(--gradient-4); }
-.card:nth-child(6)::before { background: linear-gradient(135deg, #ef4444 0%, #7f1d1d 100%); }
+.card:nth-child(1)::before { background: var(--gradient-1); }
+.card:nth-child(2)::before { background: var(--gradient-2); }
+.card:nth-child(3)::before { background: var(--gradient-3); }
+.card:nth-child(4)::before { background: var(--gradient-4); }
+.card:nth-child(5)::before { background: linear-gradient(135deg, #ef4444 0%, #7f1d1d 100%); }
 
 .card:hover {
   transform: translateY(-6px); box-shadow: var(--shadow-lg);
@@ -161,12 +160,11 @@ body {
   width: 48px; height: 48px; border-radius: 14px;
   display: flex; align-items: center; justify-content: center; font-size: 24px;
 }
-.card:nth-child(1) .card-icon-wrap { background: linear-gradient(135deg, rgba(14,165,233,0.12), rgba(45,90,240,0.12)); }
-.card:nth-child(2) .card-icon-wrap { background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(239,68,68,0.12)); }
-.card:nth-child(3) .card-icon-wrap { background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12)); }
-.card:nth-child(4) .card-icon-wrap { background: linear-gradient(135deg, rgba(240,147,251,0.12), rgba(245,87,108,0.12)); }
-.card:nth-child(5) .card-icon-wrap { background: linear-gradient(135deg, rgba(79,172,254,0.12), rgba(0,242,254,0.12)); }
-.card:nth-child(6) .card-icon-wrap { background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(127,29,29,0.12)); }
+.card:nth-child(1) .card-icon-wrap { background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(239,68,68,0.12)); }
+.card:nth-child(2) .card-icon-wrap { background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12)); }
+.card:nth-child(3) .card-icon-wrap { background: linear-gradient(135deg, rgba(240,147,251,0.12), rgba(245,87,108,0.12)); }
+.card:nth-child(4) .card-icon-wrap { background: linear-gradient(135deg, rgba(79,172,254,0.12), rgba(0,242,254,0.12)); }
+.card:nth-child(5) .card-icon-wrap { background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(127,29,29,0.12)); }
 
 .card-title {
   font-family: 'Noto Serif SC', serif;
@@ -227,8 +225,7 @@ footer {
 .card:nth-child(3) { animation: fadeUp 0.6s ease-out 0.3s both; }
 .card:nth-child(4) { animation: fadeUp 0.6s ease-out 0.4s both; }
 .card:nth-child(5) { animation: fadeUp 0.6s ease-out 0.5s both; }
-.card:nth-child(6) { animation: fadeUp 0.6s ease-out 0.6s both; }
-footer { animation: fadeUp 0.6s ease-out 0.7s both; }
+footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 </style>
 </head>
 <body>
@@ -252,24 +249,6 @@ footer { animation: fadeUp 0.6s ease-out 0.7s both; }
 </div>
 
 <div class="cards">
-  <a href="dashboard.html" class="card">
-    <div class="card-icon-wrap">&#128200;</div>
-    <div class="card-title">一屏仪表盘</div>
-    <div class="card-desc">每天30秒扫一眼。体制状态、压力指数、五维景气度、八大产业、异常预警——一屏看完，不用滚动。</div>
-    <div class="card-tags">
-      <span class="tag">一屏总览</span>
-      <span class="tag">日更</span>
-      <span class="tag">30秒</span>
-    </div>
-    <div class="card-footer">
-      <div>
-        <span class="card-status"><span class="status-dot"></span>可用</span>
-        <div class="card-update" id="dash-update"></div>
-      </div>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-
   <a href="weekly.html" class="card">
     <div class="card-icon-wrap">&#128202;</div>
     <div class="card-title">宏观雷达总览</div>
@@ -370,8 +349,6 @@ footer { animation: fadeUp 0.6s ease-out 0.7s both; }
     const d = await resp.json();
     const el = document.getElementById('weekly-update');
     if (el && d.generated_at) el.textContent = '更新于 ' + d.generated_at;
-    const el2 = document.getElementById('dash-update');
-    if (el2 && d.generated_at) el2.textContent = '更新于 ' + d.generated_at;
   } catch(e) {}
 })();
 </script>

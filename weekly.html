@@ -301,6 +301,91 @@ body {
 .animate { animation: fadeUp 0.5s ease-out both; }
 
 .divider { margin: 8px 0; padding: 12px 20px; text-align: center; font-size: 11px; color: var(--text3); letter-spacing: 2px; font-family: 'JetBrains Mono', monospace; }
+
+/* ── 速览区（仪表盘） ── */
+.glance { margin-bottom: 8px; }
+.glance-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-radius: var(--radius);
+  background: var(--card-bg); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  flex-wrap: wrap; gap: 8px; margin-bottom: 10px;
+}
+.glance-regime { display: flex; align-items: center; gap: 10px; }
+.glance-regime-name { font-size: 20px; font-weight: 700; font-family: 'Noto Serif SC', serif; }
+.glance-right { display: flex; align-items: center; gap: 14px; }
+.glance-stress {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px; font-family: 'JetBrains Mono', monospace;
+}
+.glance-stress.g-green { background: rgba(34,197,94,0.1); color: var(--green); }
+.glance-stress.g-yellow { background: rgba(245,158,11,0.1); color: var(--yellow); }
+.glance-stress.g-red { background: rgba(239,68,68,0.1); color: var(--red); }
+.glance-stress-num { font-size: 18px; font-weight: 600; }
+.glance-stress-lbl { font-size: 11px; }
+.glance-time { font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+
+.glance-macro {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 10px;
+}
+.gm-card {
+  background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 8px; text-align: center; box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.gm-name { font-size: 11px; color: var(--text2); font-weight: 500; }
+.gm-ring { width: 52px; height: 52px; border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; }
+.gm-ring svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); }
+.gm-val { font-size: 17px; font-weight: 700; font-family: 'JetBrains Mono', monospace; position: relative; z-index: 1; }
+.gm-delta { font-size: 11px; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.gm-delta.up { color: var(--green); } .gm-delta.down { color: var(--red); } .gm-delta.flat { color: var(--text3); }
+
+.glance-ind {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px;
+}
+.gi-bar {
+  background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+  padding: 8px 10px; box-shadow: var(--shadow-sm);
+}
+.gi-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.gi-name { font-size: 11px; color: var(--text2); }
+.gi-val { font-size: 13px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.gi-track { height: 4px; border-radius: 2px; background: var(--bg2); overflow: hidden; }
+.gi-fill { height: 100%; border-radius: 2px; }
+
+.glance-alerts {
+  background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 10px 14px; box-shadow: var(--shadow-sm); margin-bottom: 10px;
+}
+.ga-ok { color: var(--text3); font-size: 13px; text-align: center; padding: 4px; }
+.ga-item {
+  padding: 6px 10px; border-radius: 8px; font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;
+}
+.ga-item:last-child { margin-bottom: 0; }
+.ga-item.warn { background: rgba(245,158,11,0.08); color: #b45309; }
+.ga-item.danger { background: rgba(239,68,68,0.08); color: #dc2626; }
+@media (prefers-color-scheme:dark) { .ga-item.warn { color: #fbbf24; } .ga-item.danger { color: #f87171; } }
+
+.glance-more {
+  text-align: center; padding: 8px; font-size: 12px; color: var(--text3);
+  cursor: default;
+}
+
+/* watermark */
+body::after {
+  content: '黑森船长'; position: fixed;
+  bottom: 50%; left: 50%; transform: translate(-50%, 50%) rotate(-30deg);
+  font-size: 80px; font-weight: 700; color: var(--text);
+  opacity: 0.02; pointer-events: none; z-index: 0; white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .glance-macro { grid-template-columns: repeat(3, 1fr); }
+  .glance-ind { grid-template-columns: repeat(2, 1fr); }
+  .glance-regime-name { font-size: 16px; }
+  .gm-ring { width: 44px; height: 44px; }
+  .gm-val { font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -365,6 +450,92 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
     let html = '';
     let delay = 0;
     const ad = () => { delay += 0.05; return `animation-delay:${delay.toFixed(2)}s`; };
+
+    // ═══════ 速览区（仪表盘） ═══════
+    if (d) {
+      const reg = d.regime;
+      const stScore = d.stress_index ? d.stress_index.score : 0;
+      const stLabel = d.stress_index ? d.stress_index.label : '';
+      const stCls = stScore > 60 ? 'g-red' : stScore > 30 ? 'g-yellow' : 'g-green';
+      const ringColor = v => v >= 60 ? 'var(--green)' : v >= 40 ? 'var(--yellow)' : 'var(--red)';
+      const gbColor = v => v >= 60 ? 'var(--green)' : v >= 40 ? 'var(--yellow)' : 'var(--red)';
+
+      html += `<div class="glance">`;
+      // top bar
+      html += `<div class="glance-bar">
+        <div class="glance-regime">
+          <span class="glance-regime-name" style="color:${reg.color}">${reg.emoji} ${reg.name}</span>
+        </div>
+        <div class="glance-right">
+          <div class="glance-stress ${stCls}">
+            <span class="glance-stress-lbl">压力</span>
+            <span class="glance-stress-num">${stScore}</span>
+          </div>
+          <span class="glance-time">${d.generated_at || ''}</span>
+        </div>
+      </div>`;
+
+      // 5 macro rings
+      html += `<div class="glance-macro">`;
+      for (const m of d.macro) {
+        const v = m.value, c = ringColor(v);
+        const r = 22, cx = 26, cy = 26, circ = 2 * Math.PI * r;
+        const offset = circ * (1 - v / 100);
+        let dH = '<span class="gm-delta flat">→</span>';
+        if (m.delta != null && m.delta !== 0) {
+          dH = m.delta > 0
+            ? `<span class="gm-delta up">↑+${m.delta}</span>`
+            : `<span class="gm-delta down">↓${m.delta}</span>`;
+        }
+        html += `<div class="gm-card">
+          <div class="gm-name">${m.name}</div>
+          <div class="gm-ring">
+            <svg width="52" height="52" viewBox="0 0 52 52">
+              <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--bg2)" stroke-width="3"/>
+              <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c}" stroke-width="3"
+                stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${offset.toFixed(1)}" stroke-linecap="round"/>
+            </svg>
+            <span class="gm-val" style="color:${c}">${v}</span>
+          </div>
+          ${dH}
+        </div>`;
+      }
+      html += `</div>`;
+
+      // 8 industry bars
+      html += `<div class="glance-ind">`;
+      for (const ind of (d.industries || [])) {
+        const c = gbColor(ind.value);
+        html += `<div class="gi-bar">
+          <div class="gi-top"><span class="gi-name">${ind.name}</span><span class="gi-val" style="color:${c}">${ind.value}</span></div>
+          <div class="gi-track"><div class="gi-fill" style="width:${ind.value}%;background:${c}"></div></div>
+        </div>`;
+      }
+      html += `</div>`;
+
+      // alerts
+      const hasSig = d.significant_deviations && d.significant_deviations.length > 0;
+      if (hasSig || stScore > 30) {
+        html += `<div class="glance-alerts">`;
+        if (hasSig) {
+          for (const sd of d.significant_deviations) {
+            const cls = sd.level === '极端偏离' ? 'danger' : 'warn';
+            html += `<div class="ga-item ${cls}">
+              <span>${sd.name} ${sd.direction}</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px">${sd.current} (基准${sd.base}) ${Math.abs(sd.deviation_pct)}%</span>
+            </div>`;
+          }
+        } else {
+          html += `<div class="ga-ok">⚠️ 压力指数 ${stScore} — ${stLabel}</div>`;
+        }
+        html += `</div>`;
+      } else {
+        html += `<div class="glance-alerts"><div class="ga-ok">✅ 一切正常 · 各指标在安全范围</div></div>`;
+      }
+
+      html += `<div class="glance-more">↓ 下滑查看完整分析</div>`;
+      html += `</div>`;
+    }
 
     // ═══════ S₂ 系统状态 ═══════
     if (s2) {

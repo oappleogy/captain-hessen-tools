@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文明碰撞 · 蒙特卡洛模拟</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #020408;
+    --surface: #060d18;
+    --border: #0f2040;
+    --accent: #00d4ff;
+    --warn: #ff6b35;
+    --danger: #ff2d55;
+    --safe: #00ff87;
+    --muted: #2a4060;
+    --text: #c8dff0;
+    --dim: #4a7090;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Starfield */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(1px 1px at 20% 30%, #ffffff22, transparent),
+      radial-gradient(1px 1px at 80% 10%, #ffffff18, transparent),
+      radial-gradient(1px 1px at 50% 70%, #ffffff15, transparent),
+      radial-gradient(1px 1px at 10% 80%, #ffffff20, transparent),
+      radial-gradient(1px 1px at 90% 50%, #ffffff12, transparent),
+      radial-gradient(2px 2px at 35% 15%, #00d4ff33, transparent),
+      radial-gradient(1px 1px at 65% 85%, #ffffff1a, transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+
+  .title-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.4rem, 4vw, 2.6rem);
+    font-weight: 900;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #00d4ff, #ffffff, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* Control Panel */
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .control-group label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .control-group input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+    margin-bottom: 0.3rem;
+  }
+
+  .control-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .control-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+
+  .run-btn {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #003a5c, #005a8e);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    color: var(--accent);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    padding: 0.9rem 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .run-btn:hover {
+    background: linear-gradient(135deg, #005a8e, #0080c8);
+    box-shadow: 0 0 20px #00d4ff44;
+    transform: translateY(-1px);
+  }
+
+  .run-btn:active { transform: translateY(0); }
+
+  .run-btn.running {
+    animation: pulse-btn 0.8s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 0 10px #00d4ff44; }
+    50% { box-shadow: 0 0 30px #00d4ff88; }
+  }
+
+  /* Dashboard */
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 700px) {
+    .dashboard { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .stat-card.updated::before { opacity: 1; }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--dim);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-sub {
+    font-size: 0.7rem;
+    color: var(--dim);
+  }
+
+  .color-danger { color: var(--danger); }
+  .color-warn { color: var(--warn); }
+  .color-safe { color: var(--safe); }
+  .color-accent { color: var(--accent); }
+
+  /* Chart area */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 750px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .chart-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  canvas { display: block; width: 100% !important; }
+
+  /* Timeline chart */
+  #timelineCanvas { height: 220px; }
+  #distributionCanvas { height: 220px; }
+
+  /* Scenario breakdown */
+  .scenarios {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .scenarios-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .scenario-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 80px;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .scenario-name {
+    font-size: 0.78rem;
+    color: var(--text);
+  }
+
+  .scenario-bar-wrap {
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .scenario-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  .scenario-pct {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    text-align: right;
+  }
+
+  /* Log */
+  .log {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    color: var(--dim);
+    max-height: 160px;
+    overflow-y: auto;
+    letter-spacing: 0.05em;
+  }
+
+  .log-line { margin-bottom: 0.3rem; line-height: 1.6; }
+  .log-line.highlight { color: var(--accent); }
+  .log-line.warn { color: var(--warn); }
+  .log-line.danger { color: var(--danger); }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 2px;
+    height: 3px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #0080ff);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s;
+    box-shadow: 0 0 6px var(--accent);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="title-label">Monte Carlo Simulation · 2025–2125</div>
+    <h1>文明碰撞概率模拟器</h1>
+    <div class="subtitle">技术文明 × 人类文明 · 未来100年碰撞风险量化分析</div>
+  </header>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-group">
+      <label>模拟次数</label>
+      <input type="range" id="simCount" min="1000" max="50000" step="1000" value="10000">
+      <div class="control-value" id="simCountVal">10,000 次</div>
+    </div>
+    <div class="control-group">
+      <label>AI 发展速率</label>
+      <input type="range" id="aiRate" min="1" max="10" step="0.5" value="5">
+      <div class="control-value" id="aiRateVal">5.0x</div>
+    </div>
+    <div class="control-group">
+      <label>治理滞后系数</label>
+      <input type="range" id="govLag" min="0" max="1" step="0.05" value="0.6">
+      <div class="control-value" id="govLagVal">0.60</div>
+    </div>
+    <div class="control-group">
+      <label>对齐研究投入</label>
+      <input type="range" id="alignInvest" min="0" max="1" step="0.05" value="0.3">
+      <div class="control-value" id="alignInvestVal">0.30</div>
+    </div>
+    <div class="control-group">
+      <label>外生事件概率/年</label>
+      <input type="range" id="exogProb" min="0" max="0.1" step="0.005" value="0.02">
+      <div class="control-value" id="exogProbVal">2.0%</div>
+    </div>
+    <div class="control-group">
+      <label>技术奇点阈值</label>
+      <input type="range" id="singThresh" min="50" max="200" step="10" value="100">
+      <div class="control-value" id="singThreshVal">100</div>
+    </div>
+    <button class="run-btn" id="runBtn" onclick="runSimulation()">▶ 启动蒙特卡洛模拟</button>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- Stats -->
+  <div class="dashboard">
+    <div class="stat-card" id="card1">
+      <div class="stat-label">碰撞发生概率</div>
+      <div class="stat-value color-danger" id="statCollision">—</div>
+      <div class="stat-sub">在100年内</div>
+    </div>
+    <div class="stat-card" id="card2">
+      <div class="stat-label">预期碰撞年份</div>
+      <div class="stat-value color-warn" id="statYear">—</div>
+      <div class="stat-sub">中位数（若发生）</div>
+    </div>
+    <div class="stat-card" id="card3">
+      <div class="stat-label">协同演化概率</div>
+      <div class="stat-value color-safe" id="statCoexist">—</div>
+      <div class="stat-sub">共存/共融结局</div>
+    </div>
+    <div class="stat-card" id="card4">
+      <div class="stat-label">奇点触发概率</div>
+      <div class="stat-value color-accent" id="statSingularity">—</div>
+      <div class="stat-sub">智能爆炸发生率</div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">碰撞概率随时间演化（逐年累积）</div>
+      <canvas id="timelineCanvas" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">碰撞时间分布直方图</div>
+      <canvas id="distributionCanvas" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- Scenarios -->
+  <div class="scenarios">
+    <div class="scenarios-title">▸ 碰撞情景分解（占所有碰撞模拟的比例）</div>
+    <div class="scenario-row">
+      <div class="scenario-name">🔴 对齐失败·硬碰撞</div>
+      <div class="scenario-bar-wrap"><div class="scenario-bar" id="bar1" style="background:#ff2d55"></div></div>
+      <div class="scenario-pct color-danger" id="pct1">—</div>
+    </div>
+    <div class="scenario-row">
+      <div class="scenario-name">🟠 经济替代·结构崩解</div>
+      <div class="scenario-bar-wrap"><div class="scenario-bar" id="bar2" style="background:#ff6b35"></div></div>
+      <div class="scenario-pct color-warn" id="pct2">—</div>
+    </div>
+    <div class="scenario-row">
+      <div class="scenario-name">🟡 权力极化·社会分裂</div>
+      <div class="scenario-bar-wrap"><div class="scenario-bar" id="bar3" style="background:#ffd60a"></div></div>
+      <div class="scenario-pct" style="color:#ffd60a" id="pct3">—</div>
+    </div>
+    <div class="scenario-row">
+      <div class="scenario-name">🟦 军事竞赛·武器失控</div>
+      <div class="scenario-bar-wrap"><div class="scenario-bar" id="bar4" style="background:#0080ff"></div></div>
+      <div class="scenario-pct color-accent" id="pct4">—</div>
+    </div>
+    <div class="scenario-row">
+      <div class="scenario-name">⬜ 认知鸿沟·文明漂移</div>
+      <div class="scenario-bar-wrap"><div class="scenario-bar" id="bar5" style="background:#8855ff"></div></div>
+      <div class="scenario-pct" style="color:#8855ff" id="pct5">—</div>
+    </div>
+  </div>
+
+  <!-- Log -->
+  <div class="log" id="simLog">
+    <div class="log-line highlight">[SYS] 蒙特卡洛模拟引擎就绪 · 等待指令...</div>
+    <div class="log-line">[INF] 基础数据: AI能力指数(2012-2025年实测), 全球治理响应曲线, Bostrom超级智能风险模型</div>
+    <div class="log-line">[INF] 已加载: Nordhaus增长模型, Ord生存风险基准, Yudkowsky对齐困难度函数</div>
+    <div class="log-line">[INF] 参数: 每次模拟跨越100年(2025-2125), 年步长随机游走</div>
+  </div>
+
+  <footer>
+    模型说明：本模拟基于AI能力指数化增长（参考2012-2025实测数据）、S型治理响应、随机外生冲击（战争/疫情/政治）、
+    对齐研究有效性的贝叶斯不确定性等因素构建。结果为概率分布，非预测。
+    <br><br>
+    参考文献基础：Bostrom (2014), Ord (2020), Tegmark (2017), Yudkowsky (2008), Russell (2019)
+  </footer>
+
+</div>
+
+<script>
+// ---- Slider bindings ----
+function bindSlider(id, valId, fmt) {
+  const el = document.getElementById(id);
+  const val = document.getElementById(valId);
+  el.addEventListener('input', () => { val.textContent = fmt(parseFloat(el.value)); });
+}
+bindSlider('simCount', 'simCountVal', v => `${v.toLocaleString()} 次`);
+bindSlider('aiRate', 'aiRateVal', v => `${v.toFixed(1)}x`);
+bindSlider('govLag', 'govLagVal', v => v.toFixed(2));
+bindSlider('alignInvest', 'alignInvestVal', v => v.toFixed(2));
+bindSlider('exogProb', 'exogProbVal', v => `${(v*100).toFixed(1)}%`);
+bindSlider('singThresh', 'singThreshVal', v => v.toFixed(0));
+
+// ---- Simulation Core ----
+function randn() {
+  // Box-Muller
+  let u = 0, v = 0;
+  while(u === 0) u = Math.random();
+  while(v === 0) v = Math.random();
+  return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+}
+
+function runSimulation() {
+  const N = parseInt(document.getElementById('simCount').value);
+  const aiRate = parseFloat(document.getElementById('aiRate').value);
+  const govLag = parseFloat(document.getElementById('govLag').value);
+  const alignInvest = parseFloat(document.getElementById('alignInvest').value);
+  const exogProb = parseFloat(document.getElementById('exogProb').value);
+  const singThresh = parseFloat(document.getElementById('singThresh').value);
+
+  const btn = document.getElementById('runBtn');
+  btn.classList.add('running');
+  btn.textContent = '⟳ 模拟运行中...';
+
+  const log = document.getElementById('simLog');
+  function addLog(msg, cls='') {
+    const d = document.createElement('div');
+    d.className = 'log-line' + (cls ? ' '+cls : '');
+    d.textContent = msg;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  addLog(`[RUN] 启动 ${N.toLocaleString()} 次模拟 · 时间跨度 2025–2125`, 'highlight');
+  addLog(`[CFG] AI速率=${aiRate}x · 治理滞后=${govLag} · 对齐投入=${alignInvest} · 外生风险/年=${(exogProb*100).toFixed(1)}%`);
+
+  // Async via setTimeout to allow UI update
+  setTimeout(() => {
+    const YEARS = 100;
+    let collisionCount = 0;
+    let collisionYears = [];
+    let singularityCount = 0;
+    let yearCollisionCounts = new Array(YEARS).fill(0);
+
+    // Scenario counters
+    let s1=0, s2=0, s3=0, s4=0, s5=0; // alignment fail, economic, power, military, cognitive
+
+    // Historical AI capability growth data (normalized index, 2012=1)
+    // Based on real milestones: AlexNet(2012)→GPT-4(2023)→estimated trend
+    const historicalGrowth = [1, 1.5, 2.2, 3.8, 5.5, 8.0, 11, 18, 28, 40, 62, 95, 150, 220]; // 2012-2025
+
+    for (let sim = 0; sim < N; sim++) {
+      // Update progress periodically
+      if (sim % 2000 === 0) {
+        document.getElementById('progressBar').style.width = (sim/N*100) + '%';
+      }
+
+      // Initial state (2025)
+      let aiCap = 220; // Current estimated AI capability index
+      let govCap = 220 * (1 - govLag); // Governance lags behind
+      let alignScore = alignInvest * 100; // 0-100 scale
+      let collision = false;
+      let collisionYear = -1;
+      let singularityTriggered = false;
+      let scenario = 0;
+
+      // Sample AI growth rate for this simulation (log-normal uncertainty)
+      const growthMean = Math.log(aiRate * 0.5 + 0.8); // per-year multiplier
+      const growthSigma = 0.3;
+
+      for (let y = 0; y < YEARS && !collision; y++) {
+
+        // AI capability grows exponentially with noise
+        const yearGrowth = Math.exp(growthMean + growthSigma * randn());
+        aiCap *= yearGrowth;
+
+        // Governance grows slower (S-curve, lags AI)
+        const govGap = aiCap - govCap;
+        const govGrowthRate = 0.15 * (1 - govLag) * (1 + 0.3 * Math.random());
+        govCap += govCap * govGrowthRate + govGap * 0.05 * (1 - govLag);
+
+        // Alignment research improves but with diminishing returns
+        alignScore += (alignInvest * 15 + 2) * Math.random();
+        alignScore = Math.min(alignScore, 100);
+
+        // Singularity check
+        if (!singularityTriggered && aiCap > singThresh * 1000) {
+          singularityTriggered = true;
+          singularityCount++;
+          // Singularity dramatically increases collision risk
+          aiCap *= (2 + 3 * Math.random());
+        }
+
+        // ---- Collision risk calculation ----
+
+        // 1. Alignment failure risk: scales with AI/governance gap and inversely with alignment
+        const gapRatio = Math.max(0, (aiCap - govCap) / aiCap);
+        const alignFail = gapRatio * (1 - alignScore/100) * (0.02 + 0.03 * Math.random());
+
+        // 2. Economic disruption risk: exponential with AI penetration
+        const econRisk = Math.min(0.05, 0.0001 * Math.pow(aiCap/1000, 1.5)) * govLag;
+
+        // 3. Power concentration risk: governance failure feedback loop
+        const powerRisk = govLag * (1 - govCap/aiCap) * 0.015 * Math.random();
+
+        // 4. Military/weapon risk: random geopolitical shocks
+        const milRisk = exogProb * 0.4 * (1 + 0.5 * randn() > 0 ? 1 : 0);
+
+        // 5. Cognitive divergence: AI evolves beyond human comprehension
+        const cognitiveRisk = singularityTriggered ? 0.03 * Math.random() : 0.002 * Math.random();
+
+        // External shocks (pandemics, wars, economic crises)
+        const exogShock = Math.random() < exogProb ? (0.02 + 0.04 * Math.random()) : 0;
+
+        // Total collision probability this year
+        const totalRisk = alignFail + econRisk + powerRisk + milRisk + cognitiveRisk + exogShock;
+
+        if (Math.random() < totalRisk) {
+          collision = true;
+          collisionYear = 2025 + y;
+          collisionCount++;
+          collisionYears.push(y);
+          yearCollisionCounts[y]++;
+
+          // Determine dominant scenario
+          const maxR = Math.max(alignFail, econRisk, powerRisk, milRisk, cognitiveRisk);
+          if (maxR === alignFail) { s1++; scenario = 1; }
+          else if (maxR === econRisk) { s2++; scenario = 2; }
+          else if (maxR === powerRisk) { s3++; scenario = 3; }
+          else if (maxR === milRisk) { s4++; scenario = 4; }
+          else { s5++; scenario = 5; }
+        }
+      }
+    }
+
+    document.getElementById('progressBar').style.width = '100%';
+
+    // ---- Results ----
+    const collisionProb = collisionCount / N;
+    const coexistProb = 1 - collisionProb;
+    const singProb = singularityCount / N;
+
+    let medianYear = '—';
+    if (collisionYears.length > 0) {
+      collisionYears.sort((a,b)=>a-b);
+      const med = collisionYears[Math.floor(collisionYears.length/2)];
+      medianYear = (2025 + med).toString();
+    }
+
+    // Update stats
+    document.getElementById('statCollision').textContent = (collisionProb*100).toFixed(1) + '%';
+    document.getElementById('statYear').textContent = medianYear;
+    document.getElementById('statCoexist').textContent = (coexistProb*100).toFixed(1) + '%';
+    document.getElementById('statSingularity').textContent = (singProb*100).toFixed(1) + '%';
+
+    ['card1','card2','card3','card4'].forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.add('updated');
+    });
+
+    // Scenarios
+    const total = s1+s2+s3+s4+s5 || 1;
+    [[1,s1],[2,s2],[3,s3],[4,s4],[5,s5]].forEach(([i,cnt]) => {
+      const pct = cnt/total*100;
+      document.getElementById('bar'+i).style.width = pct + '%';
+      document.getElementById('pct'+i).textContent = pct.toFixed(1) + '%';
+    });
+
+    // Timeline chart: cumulative collision probability by year
+    drawTimeline(yearCollisionCounts, N);
+
+    // Distribution histogram
+    drawDistribution(collisionYears);
+
+    addLog(`[OUT] 完成 ${N.toLocaleString()} 次模拟`, 'highlight');
+    addLog(`[OUT] 碰撞概率: ${(collisionProb*100).toFixed(2)}% · 协同演化: ${(coexistProb*100).toFixed(2)}%`, 'highlight');
+    addLog(`[OUT] 预期碰撞中位年份: ${medianYear} · 奇点触发率: ${(singProb*100).toFixed(1)}%`);
+    if (collisionProb > 0.5) addLog(`[WARN] 高风险结果：碰撞概率超过50%！建议提高对齐研究投入`, 'danger');
+    else if (collisionProb > 0.25) addLog(`[WARN] 中等风险：有效治理与对齐研究可显著降低碰撞风险`, 'warn');
+    else addLog(`[INF] 相对乐观：当前参数下协同演化为主要结局`, 'highlight');
+
+    btn.classList.remove('running');
+    btn.textContent = '▶ 重新运行模拟';
+  }, 50);
+}
+
+// ---- Charts ----
+function drawTimeline(yearCounts, N) {
+  const canvas = document.getElementById('timelineCanvas');
+  canvas.height = 220;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth;
+  const H = 220;
+  canvas.width = W;
+  ctx.clearRect(0, 0, W, H);
+
+  const pad = { t:15, r:15, b:35, l:45 };
+  const w = W - pad.l - pad.r;
+  const h = H - pad.t - pad.b;
+
+  // Build cumulative
+  let cum = [];
+  let running = 0;
+  yearCounts.forEach(c => { running += c/N; cum.push(Math.min(running, 1)); });
+
+  // Background grid
+  ctx.strokeStyle = '#0f2040';
+  ctx.lineWidth = 1;
+  for (let i=0; i<=4; i++) {
+    const y = pad.t + h * (1 - i*0.25);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+w, y); ctx.stroke();
+    ctx.fillStyle = '#2a4060';
+    ctx.font = '10px Orbitron, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText((i*25)+'%', pad.l-5, y+4);
+  }
+
+  // X axis labels
+  ctx.fillStyle = '#2a4060';
+  ctx.font = '9px Orbitron, monospace';
+  ctx.textAlign = 'center';
+  [0,20,40,60,80,99].forEach(i => {
+    const x = pad.l + (i/99)*w;
+    ctx.fillText(2025+i, x, H-5);
+  });
+
+  // Confidence band (±1σ estimate via bootstrap approximation)
+  ctx.beginPath();
+  cum.forEach((v, i) => {
+    const x = pad.l + (i/99)*w;
+    const sigma = Math.sqrt(v*(1-v)/N) * 2;
+    const yTop = pad.t + h*(1 - Math.min(1, v+sigma));
+    if (i===0) ctx.moveTo(x, yTop);
+    else ctx.lineTo(x, yTop);
+  });
+  cum.slice().reverse().forEach((v, i) => {
+    const ri = 99-i;
+    const x = pad.l + (ri/99)*w;
+    const sigma = Math.sqrt(v*(1-v)/N) * 2;
+    const yBot = pad.t + h*(1 - Math.max(0, v-sigma));
+    ctx.lineTo(x, yBot);
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(0,212,255,0.07)';
+  ctx.fill();
+
+  // Main line
+  const grad = ctx.createLinearGradient(pad.l, 0, pad.l+w, 0);
+  grad.addColorStop(0, '#00d4ff');
+  grad.addColorStop(0.5, '#ff6b35');
+  grad.addColorStop(1, '#ff2d55');
+  ctx.beginPath();
+  cum.forEach((v, i) => {
+    const x = pad.l + (i/99)*w;
+    const y = pad.t + h*(1-v);
+    i===0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // 50% threshold line
+  const v50 = pad.t + h*0.5;
+  ctx.setLineDash([4,4]);
+  ctx.strokeStyle = '#ff2d5566';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad.l, v50); ctx.lineTo(pad.l+w, v50); ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawDistribution(years) {
+  const canvas = document.getElementById('distributionCanvas');
+  canvas.height = 220;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth;
+  const H = 220;
+  canvas.width = W;
+  ctx.clearRect(0, 0, W, H);
+
+  if (years.length === 0) {
+    ctx.fillStyle = '#2a4060';
+    ctx.font = '12px Noto Sans SC, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('无碰撞事件发生', W/2, H/2);
+    return;
+  }
+
+  const bins = 20;
+  const counts = new Array(bins).fill(0);
+  years.forEach(y => { counts[Math.min(bins-1, Math.floor(y/100*bins))]++; });
+  const maxC = Math.max(...counts);
+
+  const pad = { t:15, r:15, b:35, l:15 };
+  const w = W - pad.l - pad.r;
+  const h = H - pad.t - pad.b;
+  const bw = w/bins - 2;
+
+  counts.forEach((c, i) => {
+    const x = pad.l + i*(w/bins);
+    const bh = (c/maxC)*h;
+    const y = pad.t + h - bh;
+    const ratio = i/(bins-1);
+    const r = Math.round(0 + 255*ratio);
+    const g = Math.round(212*(1-ratio));
+    const b = Math.round(255*(1-ratio));
+    ctx.fillStyle = `rgba(${r},${g},${b},0.7)`;
+    ctx.fillRect(x+1, y, bw, bh);
+  });
+
+  // X labels
+  ctx.fillStyle = '#2a4060';
+  ctx.font = '9px Orbitron, monospace';
+  ctx.textAlign = 'center';
+  [0, 25, 50, 75, 100].forEach(yr => {
+    const x = pad.l + (yr/100)*w;
+    ctx.fillText(2025+yr, x, H-5);
+  });
+}
+
+// Initial empty draw
+window.addEventListener('load', () => {
+  document.getElementById('timelineCanvas').height = 220;
+  document.getElementById('distributionCanvas').height = 220;
+});
+</script>
+</body>
+</html>

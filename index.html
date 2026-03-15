@@ -3,170 +3,428 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>黑森船长 · 投资分析工具</title>
+<meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme:light)">
+<title>BaseAlpha · 投资分析工具</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  --bg: #f8f7f4;
+  --bg2: #f0efe9;
+  --card-bg: #ffffff;
+  --card-hover: #fafaf8;
+  --text: #1a1a1f;
+  --text2: #6b6b76;
+  --text3: #9b9ba5;
+  --accent: #2d5af0;
+  --accent2: #7c5cfc;
+  --accent-glow: rgba(45,90,240,0.12);
+  --border: rgba(0,0,0,0.06);
+  --border2: rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow: 0 4px 24px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.1);
+  --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --tag-bg: rgba(45,90,240,0.08);
+  --tag-text: #2d5af0;
+  --radius: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --bg: #f5f5f7;
-    --card-bg: #ffffff;
-    --text: #1d1d1f;
-    --text-secondary: #86868b;
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
-    --border: #e5e5e5;
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --bg: #0a0e17;
+    --bg2: #111827;
+    --card-bg: #151c2c;
+    --card-hover: #1a2238;
+    --text: #e8e8ed;
+    --text2: #8b8b9a;
+    --text3: #55556a;
+    --accent: #5b8af5;
+    --accent2: #9b7ffc;
+    --accent-glow: rgba(91,138,245,0.15);
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.1);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+    --shadow: 0 4px 24px rgba(0,0,0,0.2);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.3);
+    --tag-bg: rgba(91,138,245,0.12);
+    --tag-text: #7da4f8;
   }
+}
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #111113;
-      --card-bg: #1c1c1e;
-      --text: #f5f5f7;
-      --text-secondary: #86868b;
-      --accent: #5b9cf6;
-      --accent-hover: #7db4fc;
-      --border: #2c2c2e;
-      --shadow: 0 2px 12px rgba(0,0,0,0.3);
-    }
-  }
+html { font-size: 16px; scroll-behavior: smooth; }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-  }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-  header {
-    text-align: center;
-    margin-bottom: 48px;
-  }
+/* Background effect */
+.bg-glow {
+  position: fixed;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
 
-  header h1 {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 8px;
-  }
+/* Layout */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 
-  header p {
-    font-size: 15px;
-    color: var(--text-secondary);
-    max-width: 420px;
-  }
+/* Header */
+.hero {
+  text-align: center;
+  padding: 80px 0 60px;
+}
 
-  .cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    max-width: 640px;
-    width: 100%;
-  }
+@media (max-width: 600px) {
+  .hero { padding: 48px 0 40px; }
+}
 
-  @media (max-width: 520px) {
-    .cards { grid-template-columns: 1fr; }
-  }
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
 
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 24px;
-    text-decoration: none;
-    color: var(--text);
-    box-shadow: var(--shadow);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 4px 12px rgba(45,90,240,0.3);
+}
 
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
-  }
+.logo-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text2);
+}
 
-  @media (prefers-color-scheme: dark) {
-    .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
-  }
+.hero h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
 
-  .card-icon {
-    font-size: 36px;
-    line-height: 1;
-  }
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  .card-title {
-    font-size: 18px;
-    font-weight: 600;
-  }
+.hero .tagline {
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
+}
 
-  .card-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
+.hero .pipeline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 8px 20px;
+  background: var(--tag-bg);
+  border-radius: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--tag-text);
+  letter-spacing: 0.5px;
+}
 
-  .card-link {
-    font-size: 13px;
-    color: var(--accent);
-    font-weight: 500;
-    margin-top: auto;
-  }
+.pipeline .arrow { opacity: 0.4; }
 
-  .card:hover .card-link { color: var(--accent-hover); }
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 60px;
+}
 
-  footer {
-    margin-top: 48px;
-    text-align: center;
-    max-width: 480px;
-  }
+@media (max-width: 760px) {
+  .cards { grid-template-columns: 1fr; gap: 16px; }
+}
 
-  footer p {
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 24px 24px;
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
 
-  footer .brand {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.card:nth-child(1)::before { background: var(--gradient-1); }
+.card:nth-child(2)::before { background: var(--gradient-2); }
+.card:nth-child(3)::before { background: var(--gradient-3); }
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border2);
+  background: var(--card-hover);
+}
+
+.card:hover::before { opacity: 1; }
+
+.card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.card:nth-child(1) .card-icon-wrap { background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12)); }
+.card:nth-child(2) .card-icon-wrap { background: linear-gradient(135deg, rgba(240,147,251,0.12), rgba(245,87,108,0.12)); }
+.card:nth-child(3) .card-icon-wrap { background: linear-gradient(135deg, rgba(79,172,254,0.12), rgba(0,242,254,0.12)); }
+
+.card-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  letter-spacing: 0.3px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.card-status {
+  font-size: 11px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34,197,94,0.4);
+}
+
+.status-dot.beta {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245,158,11,0.4);
+}
+
+.card-arrow {
+  font-size: 18px;
+  color: var(--text3);
+  transition: all 0.3s;
+}
+
+.card:hover .card-arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.footer-disclaimer {
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Subtle entrance animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero { animation: fadeUp 0.6s ease-out; }
+.card:nth-child(1) { animation: fadeUp 0.6s ease-out 0.1s both; }
+.card:nth-child(2) { animation: fadeUp 0.6s ease-out 0.2s both; }
+.card:nth-child(3) { animation: fadeUp 0.6s ease-out 0.3s both; }
+footer { animation: fadeUp 0.6s ease-out 0.4s both; }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>黑森船长 · 投资分析工具</h1>
-  <p>Data → Ontology → Action · 辅助驾驶而非自动驾驶</p>
-</header>
+<div class="bg-glow"></div>
+
+<div class="container">
+
+<div class="hero">
+  <div class="logo">
+    <div class="logo-icon">B</div>
+    <span class="logo-text">BaseAlpha</span>
+  </div>
+  <h1>宏观分析<span class="highlight">可视化</span>工具箱</h1>
+  <p class="tagline">将复杂的宏观经济传导关系转化为直观的交互式分析工具</p>
+  <div class="pipeline">
+    <span>Data</span><span class="arrow">→</span>
+    <span>Ontology</span><span class="arrow">→</span>
+    <span>Action</span>
+  </div>
+</div>
 
 <div class="cards">
   <a href="gear.html" class="card">
-    <div class="card-icon">&#9881;</div>
+    <div class="card-icon-wrap">&#9881;&#65039;</div>
     <div class="card-title">多极齿轮传导系统</div>
-    <div class="card-desc">宏观变量（多国）→ 产业景气度 → 个股弹性的三级传导模型。含12场景预设、8条产业链钻取、蒙特卡洛模拟。</div>
-    <div class="card-link">打开工具 &rarr;</div>
+    <div class="card-desc">宏观变量（多国）→ 产业景气度 → 个股弹性的三级传导模型。支持多国联动、反向咬合剪切力分析。</div>
+    <div class="card-tags">
+      <span class="tag">12 场景预设</span>
+      <span class="tag">8 产业链</span>
+      <span class="tag">上下游钻取</span>
+    </div>
+    <div class="card-footer">
+      <span class="card-status"><span class="status-dot"></span>可用</span>
+      <span class="card-arrow">&rarr;</span>
+    </div>
   </a>
 
   <a href="america.html" class="card">
-    <div class="card-icon">&#127963;</div>
-    <div class="card-title">美国建筑隐喻分析</div>
-    <div class="card-desc">如果美国经济是一栋建筑——双体剖面结构、6条管道系统、承重墙与裂缝的可视化分析。</div>
-    <div class="card-link">打开工具 &rarr;</div>
+    <div class="card-icon-wrap">&#127963;&#65039;</div>
+    <div class="card-title">美国经济建筑隐喻</div>
+    <div class="card-desc">如果美国经济是一栋建筑——双体剖面结构、6条管道系统、承重墙与裂缝的结构化分析。</div>
+    <div class="card-tags">
+      <span class="tag">双体剖面</span>
+      <span class="tag">6 管道系统</span>
+      <span class="tag">深色/浅色</span>
+    </div>
+    <div class="card-footer">
+      <span class="card-status"><span class="status-dot"></span>可用</span>
+      <span class="card-arrow">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="monte-carlo.html" class="card">
+    <div class="card-icon-wrap">&#127922;</div>
+    <div class="card-title">文明碰撞概率模拟</div>
+    <div class="card-desc">蒙特卡洛方法模拟技术文明与人类文明的百年碰撞概率。可调AI发展速率、治理滞后等参数。</div>
+    <div class="card-tags">
+      <span class="tag">蒙特卡洛</span>
+      <span class="tag">50K 模拟</span>
+      <span class="tag">概率分布</span>
+    </div>
+    <div class="card-footer">
+      <span class="card-status"><span class="status-dot beta"></span>实验性</span>
+      <span class="card-arrow">&rarr;</span>
+    </div>
   </a>
 </div>
 
+</div>
+
 <footer>
-  <p class="brand">黑森船长</p>
-  <p>模型为专家判断/未校准，仅供分析参考。<br>传导系数方向可信、幅度误差±50%，不构成投资建议。</p>
+  <div class="container">
+    <div class="footer-brand">BASEALPHA · 黑森船长</div>
+    <p class="footer-disclaimer">
+      模型反映专家判断 / 未经历史数据校准 · 传导系数方向可靠但幅度误差 ±50%<br>
+      仅供分析参考，不构成投资建议 · Not investment advice
+    </p>
+  </div>
 </footer>
 
 </body>

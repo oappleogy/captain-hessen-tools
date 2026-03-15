@@ -254,13 +254,6 @@ body {
 .ind-bar-bg { height: 6px; border-radius: 3px; background: var(--bg2); overflow: hidden; }
 .ind-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 
-.anomaly-list { padding: 16px 20px; }
-.anomaly-item { padding: 10px 14px; margin-bottom: 8px; border-radius: 8px; font-size: 13px; line-height: 1.5; }
-.anomaly-item:last-child { margin-bottom: 0; }
-.anomaly-warn { background: rgba(245,158,11,0.1); color: #b45309; }
-.anomaly-danger { background: rgba(239,68,68,0.1); color: #dc2626; }
-.anomaly-ok { background: rgba(34,197,94,0.1); color: #16a34a; }
-@media (prefers-color-scheme: dark) { .anomaly-warn { color: #fbbf24; } .anomaly-danger { color: #f87171; } .anomaly-ok { color: #4ade80; } }
 
 /* Stress index */
 .stress-banner { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
@@ -284,11 +277,6 @@ body {
 .stress-comp .sc-bar-bg { flex: 1; height: 6px; border-radius: 3px; background: var(--bg2); overflow: hidden; }
 .stress-comp .sc-bar-fill { height: 100%; border-radius: 3px; }
 .stress-comp .sc-val { width: 50px; text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-.human-hint {
-  padding: 14px 16px; margin-top: 14px; border-radius: 10px; font-size: 13px; line-height: 1.6;
-  background: rgba(91,138,245,0.06); border: 1px solid rgba(91,138,245,0.15); color: var(--text2);
-}
-.human-hint strong { color: var(--accent); }
 .sig-dev {
   padding: 6px 12px; margin-bottom: 4px; border-radius: 6px; font-size: 12px;
   background: rgba(245,158,11,0.08); display: flex; justify-content: space-between; align-items: center;
@@ -625,16 +613,7 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
       }
       html += `</div></div>`;
 
-      // Anomalies
-      html += `<div class="section animate" style="${ad()}"><div class="section-title">⚡ 异常信号</div><div class="anomaly-list">`;
-      if (d.anomalies.length === 0) {
-        html += `<div class="anomaly-item anomaly-ok">✅ 所有指标在安全范围内，无异常触发</div>`;
-      } else {
-        for (const a of d.anomalies) html += `<div class="anomaly-item ${a.startsWith('🔴')?'anomaly-danger':'anomaly-warn'}">${a}</div>`;
-      }
-      html += `</div></div>`;
-
-      // Stress Index + Human Hint
+      // Stress Index
       if (d.stress_index) {
         const si = d.stress_index;
         const gaugeColor = si.level === 'red' ? 'var(--red)' : si.level === 'yellow' ? 'var(--yellow)' : si.level === 'orange' ? '#f97316' : 'var(--green)';
@@ -657,9 +636,9 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
           const pct = Math.min(c.contribution / maxContr * 100, 100);
           const bc = c.deviation_pct > 40 ? 'var(--red)' : c.deviation_pct > 20 ? 'var(--yellow)' : 'var(--green)';
           html += `<div class="stress-comp">
-            <span class="sc-name">${c.name}</span>
+            <span class="sc-name">${c.name} <span style="font-size:11px;color:var(--text3)">${c.current}(基准${c.base})</span></span>
             <div class="sc-bar-bg"><div class="sc-bar-fill" style="width:${pct}%;background:${bc}"></div></div>
-            <span class="sc-val">${c.deviation_pct}%</span>
+            <span class="sc-val">偏离${c.deviation_pct}%</span>
           </div>`;
         }
         html += `</div>`;
@@ -672,11 +651,6 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
           }
         }
 
-        html += `<div class="human-hint">
-          <strong>💡 人类确定性提示</strong><br>
-          以上信号基于规则引擎自动生成。你看到了什么系统没看到的？<br>
-          记录判断到 <code>vault/decisions/</code> —— 未来回头看，这是最有价值的训练数据。
-        </div>`;
         html += `</div></div>`;
       }
 

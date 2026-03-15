@@ -56,7 +56,7 @@ header .author{font-family:var(--serif);font-size:13px;color:var(--tx4);margin-t
 .live-reset{font-size:14px;padding:10px 28px;border:1.5px solid var(--blue);border-radius:var(--radius);cursor:pointer;color:var(--blue);background:transparent;font-family:var(--sans);font-weight:500;transition:all .25s;letter-spacing:0.5px}
 .live-reset:hover{background:var(--blue);color:#fff;box-shadow:0 4px 16px rgba(24,95,165,0.25)}
 .live-reset:active{transform:scale(0.97)}
-.sr-meta{font-family:var(--mono);font-size:10px;color:var(--tx3);margin-left:3px;white-space:nowrap}
+.sr-meta{font-family:var(--mono);font-size:10px;color:var(--tx3);width:100%;padding-left:64px;margin-top:-2px;margin-bottom:2px}
 .sr-meta.fresh{color:#22c55e}
 .sr-meta.stale{color:#f59e0b}
 .sr-meta.delayed{color:#f59e0b}
@@ -84,7 +84,7 @@ header .author{font-family:var(--serif);font-size:13px;color:var(--tx4);margin-t
 .mm.off{opacity:0.25;pointer-events:none}
 .mm-t{font-size:15px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .mm-d{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.sr{display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.sr{display:flex;align-items:center;gap:4px;margin-bottom:4px;flex-wrap:wrap}
 .sr-l{font-size:13px;color:var(--tx2);width:60px;flex-shrink:0}
 .sr-v{font-family:var(--mono);font-size:13px;font-weight:500;min-width:42px;text-align:right;color:var(--tx)}
 .sr input{flex:1;min-width:0}
@@ -340,15 +340,15 @@ function renderMods(){
   Object.keys(M).forEach(function(k){var m=M[k];
     h+='<div class="mm'+(m.on?'':' off')+'" style="border-color:'+m.color+'"><div class="mm-t"><span class="mm-d" style="background:'+m.color+'"></span>'+m.name+'</div>';
     m.vars.forEach(function(v){
-      var meta='';
+      h+='<div class="sr"><span class="sr-l">'+v.name+'</span><input type="range" min="'+v.min+'" max="'+v.max+'" step="'+v.step+'" value="'+v.val+'" id="sl-'+v.id+'" oninput="onSl()" style="flex:1"><span class="sr-v" id="sv-'+v.id+'">'+v.val+v.unit+'</span>';
       if(liveData&&liveData.sliders&&liveData.sliders[v.id]){
         var ld=liveData.sliders[v.id];
         var d=ld.date||'';
         var short=d.length>=10?d.slice(5).replace('-','/'):'';
         var cls=ld.freshness||'';
-        meta='<span class="sr-meta '+cls+'">'+short+' '+cls+'</span>';
+        h+='<span class="sr-meta '+cls+'">'+ld.name+' '+short+' · '+cls+'</span>';
       }
-      h+='<div class="sr"><span class="sr-l">'+v.name+'</span><input type="range" min="'+v.min+'" max="'+v.max+'" step="'+v.step+'" value="'+v.val+'" id="sl-'+v.id+'" oninput="onSl()" style="flex:1"><span class="sr-v" id="sv-'+v.id+'">'+v.val+v.unit+'</span>'+meta+'</div>'});
+      h+='</div>'});
     h+='<div class="wr"><span class="wr-l">权重</span><input type="range" min="0" max="50" step="5" value="'+m.weight+'" id="wt-'+k+'" oninput="onWt(\''+k+'\')" style="flex:1"><span class="wr-v" id="wv-'+k+'">'+m.weight+'%</span></div></div>'});
   document.getElementById('modules').innerHTML=h}
 

@@ -12,25 +12,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f8f7f4;
-  --bg2: #f0efe9;
-  --card-bg: #ffffff;
-  --text: #1a1a1f;
-  --text2: #6b6b76;
-  --text3: #9b9ba5;
-  --accent: #2d5af0;
-  --accent2: #7c5cfc;
+  --bg: #f8f7f4; --bg2: #f0efe9; --card-bg: #ffffff;
+  --text: #1a1a1f; --text2: #6b6b76; --text3: #9b9ba5;
+  --accent: #2d5af0; --accent2: #7c5cfc;
   --accent-glow: rgba(45,90,240,0.12);
-  --border: rgba(0,0,0,0.06);
-  --border2: rgba(0,0,0,0.1);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-  --shadow: 0 4px 24px rgba(0,0,0,0.06);
-  --tag-bg: rgba(45,90,240,0.08);
-  --tag-text: #2d5af0;
+  --border: rgba(0,0,0,0.06); --border2: rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04); --shadow: 0 4px 24px rgba(0,0,0,0.06);
+  --tag-bg: rgba(45,90,240,0.08); --tag-text: #2d5af0;
   --green: #22c55e; --yellow: #f59e0b; --red: #ef4444; --gray: #6b7280;
   --radius: 16px;
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #0a0e17; --bg2: #111827; --card-bg: #151c2c;
@@ -44,69 +35,36 @@
 }
 
 html { font-size: 16px; scroll-behavior: smooth; }
-
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg); color: var(--text);
   min-height: 100vh; -webkit-font-smoothing: antialiased;
 }
-
 .bg-glow {
   position: fixed; top: -30%; left: 50%; transform: translateX(-50%);
   width: 800px; height: 600px;
   background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
   pointer-events: none; z-index: 0; opacity: 0.6;
 }
+.container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 0 20px; }
 
-.container {
-  position: relative; z-index: 1;
-  max-width: 800px; margin: 0 auto; padding: 0 20px;
-}
-
-/* Header */
 .header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 24px 0; border-bottom: 1px solid var(--border);
 }
-.header-left { display: flex; align-items: center; gap: 12px; }
 .back-link {
   color: var(--accent); text-decoration: none; font-size: 14px;
   font-family: 'JetBrains Mono', monospace;
-  display: flex; align-items: center; gap: 4px;
 }
 .back-link:hover { text-decoration: underline; }
 .logo-sm {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; font-weight: 500; color: var(--text2);
-  letter-spacing: 1px;
+  font-size: 13px; font-weight: 500; color: var(--text2); letter-spacing: 1px;
 }
 
-/* Regime banner */
-.regime-banner {
-  margin: 32px 0 24px; padding: 28px 24px;
-  border-radius: var(--radius); background: var(--card-bg);
-  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
-  text-align: center;
-}
-.regime-emoji { font-size: 40px; margin-bottom: 8px; }
-.regime-name {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 28px; font-weight: 700; margin-bottom: 6px;
-}
-.regime-desc { font-size: 14px; color: var(--text2); }
-.regime-switch {
-  margin-top: 14px; padding: 8px 16px;
-  background: rgba(245,158,11,0.1); border-radius: 8px;
-  font-size: 13px; color: #f59e0b; display: inline-block;
-}
-.week-meta {
-  margin-top: 12px; font-size: 12px; color: var(--text3);
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* Section */
+/* Section shared */
 .section {
-  margin: 24px 0; background: var(--card-bg);
+  margin: 20px 0; background: var(--card-bg);
   border: 1px solid var(--border); border-radius: var(--radius);
   box-shadow: var(--shadow-sm); overflow: hidden;
 }
@@ -116,149 +74,200 @@ body {
   padding: 16px 20px; border-bottom: 1px solid var(--border);
   display: flex; align-items: center; gap: 8px;
 }
+.section-body { padding: 16px 20px; }
 
-/* Variables table */
-.var-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-.var-table th {
-  text-align: left; padding: 10px 16px;
-  font-size: 12px; color: var(--text3); font-weight: 500;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--border); background: var(--bg2);
+/* S₂ System State Banner */
+.s2-banner {
+  margin: 28px 0 20px; padding: 24px;
+  border-radius: var(--radius); background: var(--card-bg);
+  border: 2px solid var(--border); box-shadow: var(--shadow-sm);
 }
+.s2-banner-top {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
+}
+.s2-state-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 18px;
+  font-family: 'Noto Serif SC', serif;
+}
+.s2-score {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text3);
+}
+.s2-action {
+  font-size: 13px; color: var(--text2); line-height: 1.6;
+  padding: 10px 14px; background: var(--bg2); border-radius: 8px;
+}
+.s2-meta {
+  margin-top: 10px; font-size: 11px; color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 6D Bars */
+.dim-list { display: flex; flex-direction: column; gap: 12px; }
+.dim-item {}
+.dim-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.dim-name { font-size: 13px; font-weight: 500; }
+.dim-score { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; }
+.dim-note { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.dim-bar-bg {
+  height: 10px; border-radius: 5px; background: var(--bg2); overflow: hidden;
+  position: relative;
+}
+.dim-bar-bg::after {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 1px; background: var(--border2); z-index: 1;
+}
+.dim-bar-fill {
+  position: absolute; top: 0; height: 100%; border-radius: 5px;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Attractor probability */
+.attr-grid { display: flex; flex-direction: column; gap: 10px; }
+.attr-row { display: flex; align-items: center; gap: 10px; }
+.attr-emoji { font-size: 18px; width: 28px; text-align: center; }
+.attr-name { font-size: 13px; width: 100px; flex-shrink: 0; }
+.attr-bar-bg { flex: 1; height: 24px; border-radius: 6px; background: var(--bg2); overflow: hidden; position: relative; }
+.attr-bar-fill { height: 100%; border-radius: 6px; transition: width 0.8s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; }
+.attr-pct {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.attr-pct-outside {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  color: var(--text3); margin-left: 8px;
+}
+.attr-captured { font-weight: 600; }
+.attr-heading {
+  font-size: 13px; color: var(--text2); padding: 10px 14px;
+  background: var(--bg2); border-radius: 8px; margin-top: 12px;
+}
+
+/* Extreme indicators */
+.extreme-item {
+  padding: 8px 14px; margin-bottom: 6px;
+  border-radius: 8px; font-size: 13px;
+  background: rgba(239,68,68,0.08); color: #dc2626;
+  border-left: 3px solid var(--red);
+}
+@media (prefers-color-scheme: dark) { .extreme-item { color: #f87171; } }
+
+/* Opportunities */
+.opp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 560px) { .opp-grid { grid-template-columns: 1fr; } }
+.opp-card {
+  padding: 14px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--bg2);
+}
+.opp-card.active { border-color: var(--green); background: rgba(34,197,94,0.05); }
+.opp-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.opp-desc { font-size: 12px; color: var(--text2); margin-bottom: 6px; }
+.opp-tickers { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); }
+.opp-status { font-size: 11px; margin-top: 6px; }
+.opp-reason { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+/* Contradiction */
+.contra-card {
+  padding: 16px; border-radius: 10px;
+  background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2);
+}
+.contra-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.contra-thesis { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.contra-metaphor {
+  font-size: 12px; color: var(--yellow); margin-top: 8px;
+  font-style: italic;
+}
+
+/* Existing styles (variables, macro, industry, etc.) */
+.regime-banner {
+  margin: 24px 0 20px; padding: 24px;
+  border-radius: var(--radius); background: var(--card-bg);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center;
+}
+.regime-emoji { font-size: 36px; margin-bottom: 6px; }
+.regime-name { font-family: 'Noto Serif SC', serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+.regime-desc { font-size: 13px; color: var(--text2); }
+.regime-switch { margin-top: 12px; padding: 6px 14px; background: rgba(245,158,11,0.1); border-radius: 8px; font-size: 12px; color: #f59e0b; display: inline-block; }
+.week-meta { margin-top: 10px; font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace; }
+
+.var-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.var-table th { text-align: left; padding: 10px 16px; font-size: 12px; color: var(--text3); font-weight: 500; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); background: var(--bg2); }
 .var-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
 .var-table tr:last-child td { border-bottom: none; }
 .var-table .val { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
 .var-table .delta-up { color: var(--green); font-size: 12px; }
 .var-table .delta-down { color: var(--red); font-size: 12px; }
 .var-table .delta-flat { color: var(--text3); font-size: 12px; }
-.fresh-badge {
-  display: inline-block; padding: 2px 8px; border-radius: 10px;
-  font-size: 11px; font-weight: 500;
-}
+.fresh-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; }
 .fresh-badge.fresh { background: rgba(34,197,94,0.1); color: #16a34a; }
 .fresh-badge.stale { background: rgba(245,158,11,0.1); color: #b45309; }
 .fresh-badge.unknown { background: rgba(107,114,128,0.1); color: var(--gray); }
-@media (prefers-color-scheme: dark) {
-  .fresh-badge.fresh { color: #4ade80; }
-  .fresh-badge.stale { color: #fbbf24; }
-}
+@media (prefers-color-scheme: dark) { .fresh-badge.fresh { color: #4ade80; } .fresh-badge.stale { color: #fbbf24; } }
 
-/* Macro bars */
 .macro-list { padding: 16px 20px; }
 .macro-item { margin-bottom: 14px; }
 .macro-item:last-child { margin-bottom: 0; }
-.macro-header {
-  display: flex; justify-content: space-between; align-items: baseline;
-  margin-bottom: 6px;
-}
+.macro-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
 .macro-name { font-size: 14px; font-weight: 500; }
 .macro-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
 .macro-delta { font-size: 11px; margin-left: 6px; }
-.bar-bg {
-  height: 8px; border-radius: 4px; background: var(--bg2); overflow: hidden;
-}
-.bar-fill {
-  height: 100%; border-radius: 4px;
-  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.bar-bg { height: 8px; border-radius: 4px; background: var(--bg2); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 .label-good { color: var(--green); }
 .label-neutral { color: var(--yellow); }
 .label-bad { color: var(--red); }
 
-/* Industry grid */
 .ind-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 500px) { .ind-grid { grid-template-columns: 1fr; } }
-.ind-item {
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-}
+.ind-item { padding: 14px 20px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
 .ind-item:nth-child(2n) { border-right: none; }
 @media (max-width: 500px) { .ind-item { border-right: none; } }
-.ind-top {
-  display: flex; justify-content: space-between; align-items: baseline;
-  margin-bottom: 6px;
-}
+.ind-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
 .ind-name { font-size: 13px; color: var(--text2); }
-.ind-val-wrap {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px; font-weight: 600;
-}
+.ind-val-wrap { font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600; }
 .ind-label { font-size: 11px; margin-left: 4px; font-weight: 400; }
-.ind-bar-bg {
-  height: 6px; border-radius: 3px; background: var(--bg2); overflow: hidden;
-}
-.ind-bar-fill {
-  height: 100%; border-radius: 3px;
-  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.ind-bar-bg { height: 6px; border-radius: 3px; background: var(--bg2); overflow: hidden; }
+.ind-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 
-/* Anomalies */
 .anomaly-list { padding: 16px 20px; }
-.anomaly-item {
-  padding: 10px 14px; margin-bottom: 8px;
-  border-radius: 8px; font-size: 13px; line-height: 1.5;
-}
+.anomaly-item { padding: 10px 14px; margin-bottom: 8px; border-radius: 8px; font-size: 13px; line-height: 1.5; }
 .anomaly-item:last-child { margin-bottom: 0; }
 .anomaly-warn { background: rgba(245,158,11,0.1); color: #b45309; }
 .anomaly-danger { background: rgba(239,68,68,0.1); color: #dc2626; }
 .anomaly-ok { background: rgba(34,197,94,0.1); color: #16a34a; }
-@media (prefers-color-scheme: dark) {
-  .anomaly-warn { color: #fbbf24; } .anomaly-danger { color: #f87171; } .anomaly-ok { color: #4ade80; }
-}
+@media (prefers-color-scheme: dark) { .anomaly-warn { color: #fbbf24; } .anomaly-danger { color: #f87171; } .anomaly-ok { color: #4ade80; } }
 
-/* Distance */
 .dist-list { padding: 16px 20px; }
-.dist-item {
-  padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px;
-}
+.dist-item { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
 .dist-item:last-child { border-bottom: none; }
 .dist-name { font-weight: 600; }
 .dist-status { margin-left: 6px; }
 .dist-detail { color: var(--text2); margin-top: 4px; font-size: 12px; }
 
-/* Loading */
-.loading {
-  text-align: center; padding: 80px 20px;
-  color: var(--text3); font-size: 14px;
-}
-.loading-spinner {
-  width: 32px; height: 32px; border: 3px solid var(--border);
-  border-top-color: var(--accent); border-radius: 50%;
-  animation: spin 0.8s linear infinite; margin: 0 auto 16px;
-}
+.loading { text-align: center; padding: 80px 20px; color: var(--text3); font-size: 14px; }
+.loading-spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.footer {
-  text-align: center; padding: 32px 0; margin-top: 20px;
-  border-top: 1px solid var(--border);
-  font-size: 11px; color: var(--text3); line-height: 1.7;
-}
+.footer { text-align: center; padding: 32px 0; margin-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text3); line-height: 1.7; }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .animate { animation: fadeUp 0.5s ease-out both; }
+
+.divider { margin: 8px 0; padding: 12px 20px; text-align: center; font-size: 11px; color: var(--text3); letter-spacing: 2px; font-family: 'JetBrains Mono', monospace; }
 </style>
 </head>
 <body>
-
 <div class="bg-glow"></div>
 <div class="container">
 
 <div class="header">
-  <div class="header-left">
-    <a href="index.html" class="back-link">← 返回</a>
-  </div>
+  <a href="index.html" class="back-link">← 返回</a>
   <span class="logo-sm">BASEALPHA</span>
 </div>
 
 <div id="app">
-  <div class="loading">
-    <div class="loading-spinner"></div>
-    加载周报数据...
-  </div>
+  <div class="loading"><div class="loading-spinner"></div>加载数据...</div>
 </div>
 
 <div class="footer">
@@ -274,18 +283,28 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
 (async function() {
   const app = document.getElementById('app');
 
-  try {
-    const resp = await fetch('data/weekly-latest.json?t=' + Date.now());
-    if (!resp.ok) throw new Error('无周报数据');
-    const d = await resp.json();
-    render(d);
-  } catch (e) {
+  // 并行加载两个数据源
+  const [weeklyResp, s2Resp] = await Promise.allSettled([
+    fetch('data/weekly-latest.json?t=' + Date.now()),
+    fetch('data/s2-radar.json?t=' + Date.now()),
+  ]);
+
+  let weekly = null, s2 = null;
+  if (weeklyResp.status === 'fulfilled' && weeklyResp.value.ok)
+    weekly = await weeklyResp.value.json();
+  if (s2Resp.status === 'fulfilled' && s2Resp.value.ok)
+    s2 = await s2Resp.value.json();
+
+  if (!weekly && !s2) {
     app.innerHTML = `<div class="loading" style="padding:60px 20px">
-      <div style="font-size:40px;margin-bottom:16px">📊</div>
-      <div style="font-size:16px;color:var(--text);margin-bottom:8px">暂无周报数据</div>
-      <div style="font-size:13px">运行 <code>python3 run_update.py --weekly</code> 生成第一份周报</div>
+      <div style="font-size:40px;margin-bottom:16px">📡</div>
+      <div style="font-size:16px;color:var(--text);margin-bottom:8px">暂无数据</div>
+      <div style="font-size:13px">运行 <code>python3 run_update.py --weekly</code> 生成数据</div>
     </div>`;
+    return;
   }
+
+  render(weekly, s2);
 
   function barColor(val) {
     if (val >= 60) return 'var(--green)';
@@ -293,144 +312,220 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
     return 'var(--yellow)';
   }
   function labelCls(label) {
-    if (label === '景气') return 'label-good';
-    if (label === '承压') return 'label-bad';
-    return 'label-neutral';
+    return label === '景气' ? 'label-good' : label === '承压' ? 'label-bad' : 'label-neutral';
   }
 
-  function render(d) {
+  function render(d, s2) {
     let html = '';
+    let delay = 0;
+    const ad = () => { delay += 0.05; return `animation-delay:${delay.toFixed(2)}s`; };
 
-    // Regime banner
-    html += `<div class="regime-banner animate">
-      <div class="regime-emoji">${d.regime.emoji}</div>
-      <div class="regime-name" style="color:${d.regime.color}">${d.regime.name}</div>
-      <div class="regime-desc">${d.regime.desc}</div>`;
-    if (d.prev_regime) {
-      html += `<div class="regime-switch">⚡ 体制切换：${d.prev_regime.emoji} ${d.prev_regime.name} → ${d.regime.emoji} ${d.regime.name}</div>`;
-    }
-    html += `<div class="week-meta">${d.week_label} · 生成于 ${d.generated_at} · 数据 ${d.data_time || ''}</div>
-    </div>`;
+    // ═══════ S₂ 系统状态 ═══════
+    if (s2) {
+      const st = s2.system_state;
+      html += `<div class="s2-banner animate" style="border-color:${st.color}40;${ad()}">
+        <div class="s2-banner-top">
+          <div class="s2-state-badge" style="background:${st.color}18;color:${st.color}">
+            ⚠ S₂ ${st.label}
+          </div>
+          <div class="s2-score">综合得分 ${st.score > 0 ? '+' : ''}${st.score} · 安全边际 ${s2.attractor.safety_margin}</div>
+        </div>
+        <div class="s2-action">${st.action}</div>
+        <div class="s2-meta">S₂ 宏观监控 · 数据 ${s2.timestamp}</div>
+      </div>`;
 
-    // Variables table
-    html += `<div class="section animate" style="animation-delay:0.1s">
-      <div class="section-title">📋 核心变量</div>
-      <table class="var-table">
-      <thead><tr>
-        <th>变量</th><th>当前值</th>`;
-    if (d.has_comparison) html += `<th>上周</th><th>变动</th>`;
-    html += `<th>日期</th><th>状态</th></tr></thead><tbody>`;
+      // ── 核心矛盾 ──
+      if (s2.contradiction) {
+        html += `<div class="section animate" style="${ad()}">
+          <div class="section-title">💡 核心矛盾</div>
+          <div class="section-body">
+            <div class="contra-card">
+              <div class="contra-title">${s2.contradiction.title}</div>
+              <div class="contra-thesis">${s2.contradiction.thesis}</div>
+              <div class="contra-metaphor">"${s2.contradiction.metaphor}"</div>
+            </div>
+          </div>
+        </div>`;
+      }
 
-    for (const v of d.variables) {
-      const val = v.value != null ? v.value : '—';
-      const freshLabel = FRESH_MAP[v.freshness] || v.freshness;
-      const freshCls = v.freshness || 'unknown';
+      // ── 六维评分 ──
+      html += `<div class="section animate" style="${ad()}">
+        <div class="section-title">📡 S₂ 六维评分</div>
+        <div class="section-body"><div class="dim-list">`;
 
-      html += `<tr>
-        <td>${v.name}</td>
-        <td class="val">${val}${v.unit}</td>`;
-      if (d.has_comparison) {
-        const prev = v.prev_value != null ? v.prev_value.toFixed(2) : '—';
-        let deltaHtml = '<td class="delta-flat">—</td>';
-        if (v.delta != null && Math.abs(v.delta) > 0.001) {
-          const sign = v.delta > 0 ? '+' : '';
-          const cls = v.delta > 0 ? 'delta-up' : 'delta-down';
-          const arrow = v.delta > 0 ? '↑' : '↓';
-          deltaHtml = `<td class="${cls}">${arrow} ${sign}${v.delta.toFixed(2)}</td>`;
+      for (const [key, dim] of Object.entries(s2.dimensions)) {
+        const score = dim.score;
+        const pct = ((score + 1) / 2 * 100);  // -1~+1 → 0~100%
+        const color = score > 0.2 ? 'var(--green)' : score < -0.2 ? 'var(--red)' : 'var(--yellow)';
+        const statusIcon = dim.status === 'healthy' ? '🟢' : dim.status === 'stressed' ? '🔴' : '🟡';
+        const label = dim.name_cn || dim.name;
+        const arrow = dim.state;
+
+        // Bar: center-aligned (50% = zero)
+        const barLeft = score >= 0 ? '50%' : (50 + score * 50) + '%';
+        const barWidth = Math.abs(score) * 50 + '%';
+
+        html += `<div class="dim-item">
+          <div class="dim-header">
+            <span class="dim-name">${statusIcon} ${label} <span style="color:var(--text3)">${arrow}</span></span>
+            <span class="dim-score" style="color:${color}">${score > 0 ? '+' : ''}${score.toFixed(2)} ${dim.confidence}</span>
+          </div>
+          <div class="dim-bar-bg">
+            <div class="dim-bar-fill" style="left:${barLeft};width:${barWidth};background:${color}"></div>
+          </div>
+          <div class="dim-note">${dim.note}</div>
+        </div>`;
+      }
+      html += `</div></div></div>`;
+
+      // ── 吸引子概率分布 ──
+      html += `<div class="section animate" style="${ad()}">
+        <div class="section-title">🌀 吸引子概率分布</div>
+        <div class="section-body">
+        <div class="attr-grid">`;
+
+      for (const a of s2.attractor.basin_pct) {
+        const isCaptured = a.key === s2.attractor.captured;
+        const nameClass = isCaptured ? 'attr-captured' : '';
+        const barW = Math.max(a.pct, 1);
+        html += `<div class="attr-row">
+          <span class="attr-emoji">${a.emoji}</span>
+          <span class="attr-name ${nameClass}">${a.name}</span>
+          <div class="attr-bar-bg">
+            <div class="attr-bar-fill" style="width:${barW}%;background:${a.color}">
+              ${a.pct >= 8 ? `<span class="attr-pct">${a.pct}%</span>` : ''}
+            </div>
+          </div>
+          ${a.pct < 8 ? `<span class="attr-pct-outside">${a.pct}%</span>` : ''}
+        </div>`;
+      }
+
+      html += `</div>`;
+      const moveEmoji = {'停滞':'🟡','崩塌':'🔴','稳态':'🔵','黄金':'🟢','技术主导':'🟣'}[s2.attractor.moving_toward] || '➡️';
+      html += `<div class="attr-heading">
+        当前位于 <strong>${s2.attractor.captured_emoji} ${s2.attractor.captured_name}</strong>
+        ，运动方向：${moveEmoji} <strong>${s2.attractor.moving_toward}</strong>
+        · 早期预警：${s2.attractor.early_warning}
+      </div>`;
+      html += `</div></div>`;
+
+      // ── 极端指标 ──
+      if (s2.extremes && s2.extremes.length > 0) {
+        html += `<div class="section animate" style="${ad()}">
+          <div class="section-title">🚨 极端指标 (${s2.extremes.length}项)</div>
+          <div class="section-body">`;
+        for (const e of s2.extremes) {
+          html += `<div class="extreme-item">${e}</div>`;
         }
-        html += `<td class="val" style="color:var(--text3)">${prev}${v.unit}</td>${deltaHtml}`;
+        html += `</div></div>`;
       }
-      html += `<td style="font-size:12px;color:var(--text3)">${v.date}</td>
-        <td><span class="fresh-badge ${freshCls}">${freshLabel}</span></td>
-      </tr>`;
-    }
-    html += `</tbody></table></div>`;
 
-    // Macro sentiment
-    html += `<div class="section animate" style="animation-delay:0.15s">
-      <div class="section-title">📊 宏观景气度</div>
-      <div class="macro-list">`;
+      // ── 结构性机会 ──
+      const activeOpps = s2.opportunities.filter(o => o.active);
+      if (s2.opportunities.length > 0) {
+        html += `<div class="section animate" style="${ad()}">
+          <div class="section-title">💎 结构性机会 (${activeOpps.length}/${s2.opportunities.length}激活)</div>
+          <div class="section-body"><div class="opp-grid">`;
 
-    for (const m of d.macro) {
-      const lc = labelCls(m.label);
-      const bc = barColor(m.value);
-      let deltaHtml = '';
-      if (m.delta != null && m.delta !== 0) {
-        const sign = m.delta > 0 ? '+' : '';
-        const cls = m.delta > 0 ? 'label-good' : 'label-bad';
-        deltaHtml = `<span class="macro-delta ${cls}">(${sign}${m.delta})</span>`;
+        for (const opp of s2.opportunities) {
+          const cls = opp.active ? 'opp-card active' : 'opp-card';
+          const statusText = opp.active
+            ? `<span style="color:var(--green)">✅ 激活</span>`
+            : `<span style="color:var(--text3)">⚪ 未触发</span>`;
+
+          html += `<div class="${cls}">
+            <div class="opp-title">${opp.name}</div>
+            <div class="opp-desc">${opp.desc}</div>
+            <div class="opp-tickers">${opp.tickers}</div>
+            <div class="opp-status">${statusText} · 不对称性: ${opp.asymmetry}</div>
+            ${opp.reason ? `<div class="opp-reason">${opp.reason}</div>` : ''}
+          </div>`;
+        }
+        html += `</div></div></div>`;
       }
-      html += `<div class="macro-item">
-        <div class="macro-header">
-          <span class="macro-name">${m.name}</span>
-          <span class="macro-val">${m.value} <span class="${lc}">${m.label}</span>${deltaHtml}</span>
-        </div>
-        <div class="bar-bg"><div class="bar-fill" style="width:${m.value}%;background:${bc}"></div></div>
-      </div>`;
+
+      html += `<div class="divider">── 以下为规则引擎数据 ──</div>`;
     }
-    html += `</div></div>`;
 
-    // Industries — with progress bars and colors
-    html += `<div class="section animate" style="animation-delay:0.2s">
-      <div class="section-title">🏭 产业层景气度</div>
-      <div class="ind-grid">`;
-
-    for (const ind of d.industries) {
-      const lc = labelCls(ind.label);
-      const bc = barColor(ind.value);
-      html += `<div class="ind-item">
-        <div class="ind-top">
-          <span class="ind-name">${ind.name}</span>
-          <span class="ind-val-wrap">${ind.value}<span class="ind-label ${lc}">${ind.label}</span></span>
-        </div>
-        <div class="ind-bar-bg"><div class="ind-bar-fill" style="width:${ind.value}%;background:${bc}"></div></div>
-      </div>`;
-    }
-    html += `</div></div>`;
-
-    // Anomalies
-    html += `<div class="section animate" style="animation-delay:0.25s">
-      <div class="section-title">⚡ 异常信号</div>
-      <div class="anomaly-list">`;
-
-    if (d.anomalies.length === 0) {
-      html += `<div class="anomaly-item anomaly-ok">✅ 所有指标在安全范围内，无异常触发</div>`;
-    } else {
-      for (const a of d.anomalies) {
-        const cls = a.startsWith('🔴') ? 'anomaly-danger' : 'anomaly-warn';
-        html += `<div class="anomaly-item ${cls}">${a}</div>`;
+    // ═══════ 规则引擎部分（原有） ═══════
+    if (d) {
+      // Regime banner
+      html += `<div class="regime-banner animate" style="${ad()}">
+        <div class="regime-emoji">${d.regime.emoji}</div>
+        <div class="regime-name" style="color:${d.regime.color}">${d.regime.name}</div>
+        <div class="regime-desc">${d.regime.desc}</div>`;
+      if (d.prev_regime) {
+        html += `<div class="regime-switch">⚡ 体制切换：${d.prev_regime.emoji} ${d.prev_regime.name} → ${d.regime.emoji} ${d.regime.name}</div>`;
       }
-    }
-    html += `</div></div>`;
+      html += `<div class="week-meta">${d.week_label} · 数据 ${d.data_time || ''}</div></div>`;
 
-    // Distances
-    html += `<div class="section animate" style="animation-delay:0.3s">
-      <div class="section-title">🔄 体制切换距离</div>
-      <div class="dist-list">`;
+      // Variables table
+      html += `<div class="section animate" style="${ad()}">
+        <div class="section-title">📋 核心变量</div>
+        <table class="var-table"><thead><tr><th>变量</th><th>当前值</th>`;
+      if (d.has_comparison) html += `<th>上周</th><th>变动</th>`;
+      html += `<th>日期</th><th>状态</th></tr></thead><tbody>`;
 
-    for (const dist of d.distances) {
-      let status, statusStyle;
-      if (dist.met) {
-        status = '✅ 已触发'; statusStyle = 'color:var(--green);font-weight:600';
-      } else if (dist.total_gap < 5) {
-        status = '⚠️ 接近'; statusStyle = 'color:var(--yellow)';
+      for (const v of d.variables) {
+        const val = v.value != null ? v.value : '—';
+        const freshLabel = FRESH_MAP[v.freshness] || v.freshness;
+        html += `<tr><td>${v.name}</td><td class="val">${val}${v.unit}</td>`;
+        if (d.has_comparison) {
+          const prev = v.prev_value != null ? v.prev_value.toFixed(2) : '—';
+          let dH = '<td class="delta-flat">—</td>';
+          if (v.delta != null && Math.abs(v.delta) > 0.001) {
+            const s = v.delta > 0 ? '+' : '', c = v.delta > 0 ? 'delta-up' : 'delta-down', a = v.delta > 0 ? '↑' : '↓';
+            dH = `<td class="${c}">${a} ${s}${v.delta.toFixed(2)}</td>`;
+          }
+          html += `<td class="val" style="color:var(--text3)">${prev}${v.unit}</td>${dH}`;
+        }
+        html += `<td style="font-size:12px;color:var(--text3)">${v.date}</td>
+          <td><span class="fresh-badge ${v.freshness||'unknown'}">${freshLabel}</span></td></tr>`;
+      }
+      html += `</tbody></table></div>`;
+
+      // Macro
+      html += `<div class="section animate" style="${ad()}"><div class="section-title">📊 宏观景气度</div><div class="macro-list">`;
+      for (const m of d.macro) {
+        const lc = labelCls(m.label), bc = barColor(m.value);
+        let dH = '';
+        if (m.delta != null && m.delta !== 0) {
+          const s = m.delta > 0 ? '+' : '', c = m.delta > 0 ? 'label-good' : 'label-bad';
+          dH = `<span class="macro-delta ${c}">(${s}${m.delta})</span>`;
+        }
+        html += `<div class="macro-item"><div class="macro-header"><span class="macro-name">${m.name}</span><span class="macro-val">${m.value} <span class="${lc}">${m.label}</span>${dH}</span></div><div class="bar-bg"><div class="bar-fill" style="width:${m.value}%;background:${bc}"></div></div></div>`;
+      }
+      html += `</div></div>`;
+
+      // Industries
+      html += `<div class="section animate" style="${ad()}"><div class="section-title">🏭 产业层景气度</div><div class="ind-grid">`;
+      for (const ind of d.industries) {
+        const lc = labelCls(ind.label), bc = barColor(ind.value);
+        html += `<div class="ind-item"><div class="ind-top"><span class="ind-name">${ind.name}</span><span class="ind-val-wrap">${ind.value}<span class="ind-label ${lc}">${ind.label}</span></span></div><div class="ind-bar-bg"><div class="ind-bar-fill" style="width:${ind.value}%;background:${bc}"></div></div></div>`;
+      }
+      html += `</div></div>`;
+
+      // Anomalies
+      html += `<div class="section animate" style="${ad()}"><div class="section-title">⚡ 异常信号</div><div class="anomaly-list">`;
+      if (d.anomalies.length === 0) {
+        html += `<div class="anomaly-item anomaly-ok">✅ 所有指标在安全范围内，无异常触发</div>`;
       } else {
-        status = '→ 远'; statusStyle = 'color:var(--text3)';
+        for (const a of d.anomalies) html += `<div class="anomaly-item ${a.startsWith('🔴')?'anomaly-danger':'anomaly-warn'}">${a}</div>`;
       }
+      html += `</div></div>`;
 
-      const gaps = dist.triggers
-        .filter(t => t.gap > 0)
-        .map(t => `${t.name}需${t.need}${t.threshold}(当前${t.current}, 差${t.gap})`)
-        .join('，');
-      const detail = gaps || '所有条件已满足';
-
-      html += `<div class="dist-item">
-        <span class="dist-name">${dist.regime}</span>
-        <span class="dist-status" style="${statusStyle}">${status}</span>
-        <div class="dist-detail">${detail}</div>
-      </div>`;
+      // Distances
+      html += `<div class="section animate" style="${ad()}"><div class="section-title">🔄 体制切换距离</div><div class="dist-list">`;
+      for (const dist of d.distances) {
+        let status, sty;
+        if (dist.met) { status='✅ 已触发'; sty='color:var(--green);font-weight:600'; }
+        else if (dist.total_gap<5) { status='⚠️ 接近'; sty='color:var(--yellow)'; }
+        else { status='→ 远'; sty='color:var(--text3)'; }
+        const gaps = dist.triggers.filter(t=>t.gap>0).map(t=>`${t.name}需${t.need}${t.threshold}(当前${t.current}, 差${t.gap})`).join('，');
+        html += `<div class="dist-item"><span class="dist-name">${dist.regime}</span><span class="dist-status" style="${sty}">${status}</span><div class="dist-detail">${gaps||'所有条件已满足'}</div></div>`;
+      }
+      html += `</div></div>`;
     }
-    html += `</div></div>`;
 
     app.innerHTML = html;
   }

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme:light)">
+<title>周度态势简报 · BaseAlpha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f8f7f4;
+  --bg2: #f0efe9;
+  --card-bg: #ffffff;
+  --text: #1a1a1f;
+  --text2: #6b6b76;
+  --text3: #9b9ba5;
+  --accent: #2d5af0;
+  --accent2: #7c5cfc;
+  --accent-glow: rgba(45,90,240,0.12);
+  --border: rgba(0,0,0,0.06);
+  --border2: rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow: 0 4px 24px rgba(0,0,0,0.06);
+  --tag-bg: rgba(45,90,240,0.08);
+  --tag-text: #2d5af0;
+  --green: #22c55e; --yellow: #f59e0b; --red: #ef4444; --gray: #6b7280;
+  --radius: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0e17; --bg2: #111827; --card-bg: #151c2c;
+    --text: #e8e8ed; --text2: #8b8b9a; --text3: #55556a;
+    --accent: #5b8af5; --accent2: #9b7ffc;
+    --accent-glow: rgba(91,138,245,0.15);
+    --border: rgba(255,255,255,0.06); --border2: rgba(255,255,255,0.1);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.2); --shadow: 0 4px 24px rgba(0,0,0,0.2);
+    --tag-bg: rgba(91,138,245,0.12); --tag-text: #7da4f8;
+  }
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; -webkit-font-smoothing: antialiased;
+}
+
+.bg-glow {
+  position: fixed; top: -30%; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none; z-index: 0; opacity: 0.6;
+}
+
+.container {
+  position: relative; z-index: 1;
+  max-width: 800px; margin: 0 auto; padding: 0 20px;
+}
+
+/* Header */
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 0; border-bottom: 1px solid var(--border);
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.back-link {
+  color: var(--accent); text-decoration: none; font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  display: flex; align-items: center; gap: 4px;
+}
+.back-link:hover { text-decoration: underline; }
+.logo-sm {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 500; color: var(--text2);
+  letter-spacing: 1px;
+}
+
+/* Regime banner */
+.regime-banner {
+  margin: 32px 0 24px;
+  padding: 28px 24px;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+.regime-emoji { font-size: 40px; margin-bottom: 8px; }
+.regime-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 28px; font-weight: 700; margin-bottom: 6px;
+}
+.regime-desc { font-size: 14px; color: var(--text2); }
+.regime-switch {
+  margin-top: 14px; padding: 8px 16px;
+  background: rgba(245,158,11,0.1); border-radius: 8px;
+  font-size: 13px; color: #f59e0b; display: inline-block;
+}
+.week-meta {
+  margin-top: 12px; font-size: 12px; color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Section */
+.section {
+  margin: 24px 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px; font-weight: 600;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Variables table */
+.var-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.var-table th {
+  text-align: left; padding: 10px 16px;
+  font-size: 11px; color: var(--text3); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.var-table td {
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+}
+.var-table tr:last-child td { border-bottom: none; }
+.var-table .val { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.var-table .delta-up { color: var(--green); font-size: 12px; }
+.var-table .delta-down { color: var(--red); font-size: 12px; }
+.var-table .delta-flat { color: var(--text3); font-size: 12px; }
+.fresh-dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  margin-right: 4px; vertical-align: middle;
+}
+.fresh-dot.fresh { background: var(--green); }
+.fresh-dot.stale { background: var(--yellow); }
+.fresh-dot.unknown { background: var(--gray); }
+
+/* Macro bars */
+.macro-list { padding: 16px 20px; }
+.macro-item { margin-bottom: 14px; }
+.macro-item:last-child { margin-bottom: 0; }
+.macro-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 6px;
+}
+.macro-name { font-size: 14px; font-weight: 500; }
+.macro-val {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+}
+.macro-delta { font-size: 11px; margin-left: 6px; }
+.macro-bar-bg {
+  height: 8px; border-radius: 4px; background: var(--bg2); overflow: hidden;
+}
+.macro-bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.label-good { color: var(--green); }
+.label-neutral { color: var(--yellow); }
+.label-bad { color: var(--red); }
+
+/* Industry grid */
+.ind-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 500px) { .ind-grid { grid-template-columns: 1fr; } }
+.ind-item {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+.ind-item:nth-child(2n) { border-right: none; }
+@media (max-width: 500px) { .ind-item { border-right: none; } }
+.ind-name { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+.ind-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; font-weight: 600;
+}
+.ind-label { font-size: 11px; margin-left: 6px; }
+
+/* Anomalies */
+.anomaly-list { padding: 16px 20px; }
+.anomaly-item {
+  padding: 10px 14px; margin-bottom: 8px;
+  border-radius: 8px; font-size: 13px; line-height: 1.5;
+}
+.anomaly-item:last-child { margin-bottom: 0; }
+.anomaly-warn { background: rgba(245,158,11,0.1); color: #b45309; }
+.anomaly-danger { background: rgba(239,68,68,0.1); color: #dc2626; }
+.anomaly-ok { background: rgba(34,197,94,0.1); color: #16a34a; }
+@media (prefers-color-scheme: dark) {
+  .anomaly-warn { color: #fbbf24; } .anomaly-danger { color: #f87171; } .anomaly-ok { color: #4ade80; }
+}
+
+/* Distance */
+.dist-list { padding: 16px 20px; }
+.dist-item {
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.dist-item:last-child { border-bottom: none; }
+.dist-name { font-weight: 600; }
+.dist-status { margin-left: 6px; }
+.dist-detail { color: var(--text2); margin-top: 4px; font-size: 12px; }
+
+/* Loading */
+.loading {
+  text-align: center; padding: 80px 20px;
+  color: var(--text3); font-size: 14px;
+}
+.loading-spinner {
+  width: 32px; height: 32px; border: 3px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 32px 0; margin-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text3); line-height: 1.7;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { animation: fadeUp 0.5s ease-out both; }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="container">
+
+<div class="header">
+  <div class="header-left">
+    <a href="index.html" class="back-link">← 返回</a>
+  </div>
+  <span class="logo-sm">BASEALPHA</span>
+</div>
+
+<div id="app">
+  <div class="loading">
+    <div class="loading-spinner"></div>
+    加载周报数据...
+  </div>
+</div>
+
+<div class="footer">
+  BaseAlpha · 黑森船长<br>
+  模型为专家判断 / 未校准 · 仅供分析参考，不构成投资建议
+</div>
+
+</div>
+
+<script>
+(async function() {
+  const app = document.getElementById('app');
+
+  try {
+    const resp = await fetch('data/weekly-latest.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('无周报数据');
+    const d = await resp.json();
+    render(d);
+  } catch (e) {
+    app.innerHTML = `<div class="loading" style="padding:60px 20px">
+      <div style="font-size:40px;margin-bottom:16px">📊</div>
+      <div style="font-size:16px;color:var(--text);margin-bottom:8px">暂无周报数据</div>
+      <div style="font-size:13px">运行 <code>python3 run_update.py --weekly</code> 生成第一份周报</div>
+    </div>`;
+  }
+
+  function render(d) {
+    let html = '';
+
+    // Regime banner
+    html += `<div class="regime-banner animate">
+      <div class="regime-emoji">${d.regime.emoji}</div>
+      <div class="regime-name" style="color:${d.regime.color}">${d.regime.name}</div>
+      <div class="regime-desc">${d.regime.desc}</div>`;
+    if (d.prev_regime) {
+      html += `<div class="regime-switch">⚡ 体制切换：${d.prev_regime.emoji} ${d.prev_regime.name} → ${d.regime.emoji} ${d.regime.name}</div>`;
+    }
+    html += `<div class="week-meta">${d.week_label} · 生成于 ${d.generated_at} · 数据 ${d.data_time || ''}</div>
+    </div>`;
+
+    // Variables table
+    html += `<div class="section animate" style="animation-delay:0.1s">
+      <div class="section-title">📋 核心变量</div>
+      <table class="var-table">
+      <thead><tr>
+        <th>变量</th><th>当前值</th>`;
+    if (d.has_comparison) html += `<th>上周</th><th>变动</th>`;
+    html += `<th>日期</th><th>新鲜度</th></tr></thead><tbody>`;
+
+    for (const v of d.variables) {
+      const val = v.value != null ? v.value : '—';
+      html += `<tr>
+        <td>${v.name}</td>
+        <td class="val">${val}${v.unit}</td>`;
+      if (d.has_comparison) {
+        const prev = v.prev_value != null ? v.prev_value.toFixed(2) : '—';
+        let deltaHtml = '<td class="delta-flat">—</td>';
+        if (v.delta != null && Math.abs(v.delta) > 0.001) {
+          const sign = v.delta > 0 ? '+' : '';
+          const cls = v.delta > 0 ? 'delta-up' : 'delta-down';
+          const arrow = v.delta > 0 ? '↑' : '↓';
+          deltaHtml = `<td class="${cls}">${arrow} ${sign}${v.delta.toFixed(2)}</td>`;
+        }
+        html += `<td class="val" style="color:var(--text3)">${prev}${v.unit}</td>${deltaHtml}`;
+      }
+      html += `<td style="font-size:12px;color:var(--text3)">${v.date}</td>
+        <td><span class="fresh-dot ${v.freshness}"></span>${v.freshness}</td>
+      </tr>`;
+    }
+    html += `</tbody></table></div>`;
+
+    // Macro sentiment
+    html += `<div class="section animate" style="animation-delay:0.15s">
+      <div class="section-title">📊 宏观景气度</div>
+      <div class="macro-list">`;
+
+    for (const m of d.macro) {
+      const labelCls = m.label === '景气' ? 'label-good' : m.label === '承压' ? 'label-bad' : 'label-neutral';
+      const barColor = m.value >= 60 ? 'var(--green)' : m.value < 40 ? 'var(--red)' : 'var(--yellow)';
+      let deltaHtml = '';
+      if (m.delta != null && m.delta !== 0) {
+        const sign = m.delta > 0 ? '+' : '';
+        const cls = m.delta > 0 ? 'label-good' : 'label-bad';
+        deltaHtml = `<span class="macro-delta ${cls}">(${sign}${m.delta})</span>`;
+      }
+      html += `<div class="macro-item">
+        <div class="macro-header">
+          <span class="macro-name">${m.name}</span>
+          <span class="macro-val">${m.value} <span class="${labelCls}">${m.label}</span>${deltaHtml}</span>
+        </div>
+        <div class="macro-bar-bg"><div class="macro-bar-fill" style="width:${m.value}%;background:${barColor}"></div></div>
+      </div>`;
+    }
+    html += `</div></div>`;
+
+    // Industries
+    html += `<div class="section animate" style="animation-delay:0.2s">
+      <div class="section-title">🏭 产业层景气度</div>
+      <div class="ind-grid">`;
+
+    for (const ind of d.industries) {
+      const labelCls = ind.label === '景气' ? 'label-good' : ind.label === '承压' ? 'label-bad' : 'label-neutral';
+      html += `<div class="ind-item">
+        <div class="ind-name">${ind.name}</div>
+        <span class="ind-val">${ind.value}</span><span class="ind-label ${labelCls}">${ind.label}</span>
+      </div>`;
+    }
+    html += `</div></div>`;
+
+    // Anomalies
+    html += `<div class="section animate" style="animation-delay:0.25s">
+      <div class="section-title">⚡ 异常信号</div>
+      <div class="anomaly-list">`;
+
+    if (d.anomalies.length === 0) {
+      html += `<div class="anomaly-item anomaly-ok">✅ 所有指标在安全范围内，无异常触发</div>`;
+    } else {
+      for (const a of d.anomalies) {
+        const cls = a.startsWith('🔴') ? 'anomaly-danger' : 'anomaly-warn';
+        html += `<div class="anomaly-item ${cls}">${a}</div>`;
+      }
+    }
+    html += `</div></div>`;
+
+    // Distances
+    html += `<div class="section animate" style="animation-delay:0.3s">
+      <div class="section-title">🔄 体制切换距离</div>
+      <div class="dist-list">`;
+
+    for (const dist of d.distances) {
+      let status, statusStyle;
+      if (dist.met) {
+        status = '✅ 已触发'; statusStyle = 'color:var(--green);font-weight:600';
+      } else if (dist.total_gap < 5) {
+        status = '⚠️ 接近'; statusStyle = 'color:var(--yellow)';
+      } else {
+        status = '→ 远'; statusStyle = 'color:var(--text3)';
+      }
+
+      const gaps = dist.triggers
+        .filter(t => t.gap > 0)
+        .map(t => `${t.name}需${t.need}${t.threshold}(当前${t.current}, 差${t.gap})`)
+        .join('，');
+      const detail = gaps || '所有条件已满足';
+
+      html += `<div class="dist-item">
+        <span class="dist-name">${dist.regime}</span>
+        <span class="dist-status" style="${statusStyle}">${status}</span>
+        <div class="dist-detail">${detail}</div>
+      </div>`;
+    }
+    html += `</div></div>`;
+
+    app.innerHTML = html;
+  }
+})();
+</script>
+</body>
+</html>

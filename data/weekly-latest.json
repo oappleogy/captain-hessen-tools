@@ -1,12 +1,22 @@
 {
   "week_label": "2026-W11",
-  "generated_at": "2026-03-16 01:35",
-  "data_time": "2026-03-15T17:35:48Z",
+  "generated_at": "2026-03-16 01:56",
+  "data_time": "2026-03-15T17:56:36Z",
   "regime": {
-    "name": "金发女孩",
-    "emoji": "🟢",
-    "desc": "完美环境，风险偏好上升",
-    "color": "#22c55e"
+    "name": "宽松放水",
+    "emoji": "🔵",
+    "desc": "流动性宽松，资产普涨",
+    "color": "#3b82f6",
+    "hmm_state": "S2",
+    "hmm_probabilities": {
+      "S0": 0.0,
+      "S1": 0.0,
+      "S2": 1.0,
+      "S3": 0.0,
+      "S4": 0.0
+    },
+    "confidence": 0.8,
+    "reasoning": "HMM=easing，利率下行+正回报"
   },
   "variables": [
     {

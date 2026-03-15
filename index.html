@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑森船长 · 投资分析工具</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f5f7;
+    --card-bg: #ffffff;
+    --text: #1d1d1f;
+    --text-secondary: #86868b;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --border: #e5e5e5;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111113;
+      --card-bg: #1c1c1e;
+      --text: #f5f5f7;
+      --text-secondary: #86868b;
+      --accent: #5b9cf6;
+      --accent-hover: #7db4fc;
+      --border: #2c2c2e;
+      --shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  header p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 420px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 640px;
+    width: 100%;
+  }
+
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+  }
+
+  .card-icon {
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .card-link {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: auto;
+  }
+
+  .card:hover .card-link { color: var(--accent-hover); }
+
+  footer {
+    margin-top: 48px;
+    text-align: center;
+    max-width: 480px;
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  footer .brand {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>黑森船长 · 投资分析工具</h1>
+  <p>Data → Ontology → Action · 辅助驾驶而非自动驾驶</p>
+</header>
+
+<div class="cards">
+  <a href="gear.html" class="card">
+    <div class="card-icon">&#9881;</div>
+    <div class="card-title">多极齿轮传导系统</div>
+    <div class="card-desc">宏观变量（多国）→ 产业景气度 → 个股弹性的三级传导模型。含12场景预设、8条产业链钻取、蒙特卡洛模拟。</div>
+    <div class="card-link">打开工具 &rarr;</div>
+  </a>
+
+  <a href="america.html" class="card">
+    <div class="card-icon">&#127963;</div>
+    <div class="card-title">美国建筑隐喻分析</div>
+    <div class="card-desc">如果美国经济是一栋建筑——双体剖面结构、6条管道系统、承重墙与裂缝的可视化分析。</div>
+    <div class="card-link">打开工具 &rarr;</div>
+  </a>
+</div>
+
+<footer>
+  <p class="brand">黑森船长</p>
+  <p>模型为专家判断/未校准，仅供分析参考。<br>传导系数方向可信、幅度误差±50%，不构成投资建议。</p>
+</footer>
+
+</body>
+</html>

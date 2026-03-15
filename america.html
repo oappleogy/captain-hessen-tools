@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0f1a">
+<title>America as Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#f6f4ef;--bg2:#edeae3;--bg3:#e4e0d7;
+--tx:#1a1a18;--tx2:#5c5a54;--tx3:#8a877f;
+--bd:#d4d1c8;--bd2:#b8b5ac;
+--geo:#1a6b52;--geo-light:#e1f5ee;--geo-mid:#9fe1cb;
+--cap:#4a3db0;--cap-light:#eeedfe;--cap-mid:#cecbf6;
+--warn:#b44a1d;--warn-light:#faece7;
+--risk:#a32d2d;--risk-light:#fce8e8;
+--amber:#8a6914;--amber-light:#faeeda;
+--pipe-bg:rgba(0,0,0,.03);
+--serif:'Noto Serif SC',serif;
+--sans:'Noto Sans SC',sans-serif;
+--mono:'DM Mono',monospace;
+}
+@media(prefers-color-scheme:dark){:root{
+--bg:#0a0f1a;--bg2:#131927;--bg3:#1c2333;
+--tx:#d4d2c8;--tx2:#9a9890;--tx3:#6b6962;
+--bd:#2a3040;--bd2:#3a4155;
+--geo-light:#0a3d2d;--geo-mid:#1a6b52;
+--cap-light:#2a2460;--cap-mid:#534ab7;
+--warn-light:#3a1a0a;--risk-light:#3a1010;--amber-light:#2a1e05;
+--pipe-bg:rgba(255,255,255,.02);
+}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);min-height:100vh;min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+.header{padding:20px 16px 12px;text-align:center;border-bottom:0.5px solid var(--bd)}
+.header h1{font-family:var(--serif);font-size:18px;font-weight:700;letter-spacing:1px;line-height:1.5;color:var(--tx)}
+.header .sub{font-size:11px;color:var(--tx3);margin-top:4px;font-family:var(--mono);letter-spacing:.5px}
+
+.mode-bar{display:flex;gap:6px;justify-content:center;padding:12px 16px 8px;position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:0.5px solid var(--bd)}
+.mode-btn{font-family:var(--sans);font-size:11px;padding:5px 14px;border:0.5px solid var(--bd2);border-radius:20px;cursor:pointer;color:var(--tx2);background:transparent;transition:all .25s;-webkit-tap-highlight-color:transparent}
+.mode-btn.active{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+
+.scene{padding:8px 10px 0;position:relative}
+
+.bldg-row{display:flex;gap:0;min-height:0}
+.bldg{flex:1;min-width:0}
+.pipe-col{width:52px;flex-shrink:0;position:relative;display:flex;flex-direction:column;align-items:center}
+.pipe-col::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:0.5px;border-left:0.5px dashed var(--bd);transform:translateX(-50%)}
+
+.bldg-title{font-family:var(--serif);font-size:11px;font-weight:600;text-align:center;padding:8px 4px 6px;letter-spacing:.5px}
+.geo .bldg-title{color:var(--geo)}
+.cap .bldg-title{color:var(--cap)}
+
+.sep{text-align:center;font-size:8px;letter-spacing:1.5px;color:var(--tx3);padding:3px 0;background:var(--bg2);font-family:var(--mono);text-transform:uppercase}
+
+.layer{border:0.5px solid var(--bd);padding:7px 8px;cursor:pointer;transition:all .3s;position:relative;background:var(--bg)}
+.layer:active{background:var(--bg2)}
+.layer.highlighted{border-color:var(--bd2);background:var(--bg2)}
+.layer.open{border-color:var(--tx3)}
+.layer-tag{font-family:var(--mono);font-size:8px;letter-spacing:.8px;text-transform:uppercase;opacity:.65;margin-bottom:1px}
+.geo .layer-tag{color:var(--geo)}
+.cap .layer-tag{color:var(--cap)}
+.layer-name{font-size:11px;font-weight:500;line-height:1.4;color:var(--tx)}
+.layer-sub{font-size:10px;color:var(--tx2);line-height:1.35;margin-top:1px}
+.layer-detail{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.layer.open .layer-detail{max-height:400px}
+.layer-detail-inner{padding-top:6px;margin-top:6px;border-top:0.5px solid var(--bd);font-size:10.5px;color:var(--tx2);line-height:1.65}
+
+.ground{height:6px;border-left:0.5px solid var(--bd);border-right:0.5px solid var(--bd);border-bottom:2px solid var(--bd2);background:repeating-linear-gradient(90deg,var(--bg3),var(--bg3) 3px,var(--bg2) 3px,var(--bg2) 6px)}
+
+.pipe{flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:42px}
+.pipe::before,.pipe::after{content:'';position:absolute;top:50%;height:0.5px;background:var(--bd);transition:all .3s}
+.pipe::before{right:50%;left:0;transform:translateY(-2px)}
+.pipe::after{left:50%;right:0;transform:translateY(2px)}
+.pipe.active::before,.pipe.active::after{height:1.5px;background:var(--tx3)}
+.pipe-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:500;border:0.5px solid var(--bd2);background:var(--bg);transition:all .3s;position:relative;z-index:3}
+.pipe.active .pipe-dot{background:var(--tx);color:var(--bg);border-color:var(--tx);transform:scale(1.1)}
+
+.detail-panel{max-height:0;overflow:hidden;transition:max-height .5s ease;margin:0 10px}
+.detail-panel.open{max-height:1200px}
+.detail-card{background:var(--bg2);border:0.5px solid var(--bd);padding:14px;margin-top:8px}
+.detail-title{font-family:var(--serif);font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px;padding-bottom:8px;border-bottom:0.5px solid var(--bd)}
+.detail-section{margin-bottom:10px}
+.detail-label{font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.detail-label-geo{color:var(--geo)}
+.detail-label-cap{color:var(--cap)}
+.detail-text{font-size:11px;color:var(--tx2);line-height:1.7}
+.detail-link{font-family:var(--serif);font-size:11px;color:var(--tx);font-style:italic;margin-top:10px;padding-top:8px;border-top:0.5px solid var(--bd);line-height:1.7}
+
+.tag{display:inline-block;font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:3px;margin:2px 3px 2px 0;letter-spacing:.3px}
+.tg{background:var(--geo-light);color:var(--geo)}
+.tc{background:var(--cap-light);color:var(--cap)}
+.tr{background:var(--risk-light);color:var(--risk)}
+.to{background:var(--amber-light);color:var(--amber)}
+
+.loop-section{margin:14px 10px 0;padding:14px;border:0.5px solid var(--bd);background:var(--bg2)}
+.loop-title{font-family:var(--serif);font-size:12px;font-weight:600;text-align:center;margin-bottom:10px;color:var(--tx)}
+.loop-flow{display:flex;align-items:stretch;gap:0}
+.loop-node{flex:1;padding:6px 4px;text-align:center;font-size:9.5px;color:var(--tx);line-height:1.45;border:0.5px solid var(--bd);background:var(--bg)}
+.loop-node:first-child{border-radius:4px 0 0 4px}
+.loop-node:last-child{border-radius:0 4px 4px 0}
+.loop-node b{display:block;font-size:10px;margin-bottom:2px}
+.loop-arr{width:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--tx3)}
+.loop-note{font-family:var(--serif);font-size:10px;color:var(--tx2);text-align:center;margin-top:10px;font-style:italic;line-height:1.7;padding-top:8px;border-top:0.5px solid var(--bd)}
+
+.footer{padding:16px;text-align:center;font-size:9px;color:var(--tx3);font-family:var(--mono);border-top:0.5px solid var(--bd);margin-top:14px;letter-spacing:.5px;line-height:1.6}
+
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>如果美国是一栋建筑</h1>
+<div class="sub">America as Architecture &mdash; 地理 &times; 资本 双体剖面</div>
+</div>
+
+<div class="mode-bar">
+<button class="mode-btn active" onclick="setView('all',this)">全景</button>
+<button class="mode-btn" onclick="setView('geo',this)">地理</button>
+<button class="mode-btn" onclick="setView('cap',this)">资本</button>
+<button class="mode-btn" onclick="setView('pipe',this)">通道</button>
+</div>
+
+<div class="scene">
+<div class="bldg-row">
+
+<!-- LEFT: Physical America -->
+<div class="bldg geo" id="bldg-geo">
+<div class="bldg-title">地理美国</div>
+
+<div class="layer" data-geo="roof" onclick="toggleLayer(this)">
+<div class="layer-tag">roof &middot; 全球投射</div>
+<div class="layer-name">800+海外基地 &middot; 11航母</div>
+<div class="layer-sub">五眼联盟 &middot; GPS &middot; NASA</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+全球军力部署的物理前提是本土不可入侵+后勤无忧。投射力=地理安全&times;工业产能。<span class="tag tr">风险</span>帝国过度延伸，维护成本与收益剪刀差扩大。
+</div></div></div>
+
+<div class="sep">&triangledown; 上层建筑</div>
+
+<div class="layer" data-geo="f3" onclick="toggleLayer(this)">
+<div class="layer-tag">floor 3 &middot; 创新生态</div>
+<div class="layer-name">硅谷+波士顿 创新走廊</div>
+<div class="layer-sub">人才虹吸 &middot; 大学-军工-VC三角</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+创新生态的地理基础：大学密度+移民开放度+风投聚集+军工需求。不是"文化"，是地理&times;制度的产物。<span class="tag tg">知识生产</span><span class="tag tg">人才磁铁</span>
+</div></div></div>
+
+<div class="layer" data-geo="f2" onclick="toggleLayer(this)">
+<div class="layer-tag">floor 2 &middot; 能源独立</div>
+<div class="layer-name">页岩革命 &middot; 最大油气生产国</div>
+<div class="layer-sub">LNG出口终端 &middot; SPR战略储备</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+页岩革命使美国从能源进口&rarr;出口国。能源独立=可以"选择性介入"，从防御型转向进攻型。<span class="tag tg">能源安全</span><span class="tag to">页岩衰减率</span>
+</div></div></div>
+
+<div class="layer" data-geo="f1" onclick="toggleLayer(this)">
+<div class="layer-tag">floor 1 &middot; 农业粮仓</div>
+<div class="layer-name">中西部大平原 &middot; 密西西比河水系</div>
+<div class="layer-sub">全球最大粮食出口 &middot; 内河运输网</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+世界最大连片可耕地+最高效内河运输。粮食是地缘武器(PL480粮食援助法案)。密西西比河="上帝给美国的高速公路"。<span class="tag tg">粮食安全</span><span class="tag tg">战略纵深</span>
+</div></div></div>
+
+<div class="sep">&triangledown; 承重框架</div>
+
+<div class="layer" data-geo="frame" onclick="toggleLayer(this)">
+<div class="layer-tag">frame &middot; 宪政联邦</div>
+<div class="layer-name">三权分立 &middot; 50州联邦制</div>
+<div class="layer-sub">宪法="元协议" &middot; 240+年运行</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+联邦制=制度上的"分布式架构"，单点故障不导致系统崩溃。宪法可修正但极难推翻。<span class="tag tg">制度韧性</span><span class="tag tr">极化压测中</span>
+</div></div></div>
+
+<div class="sep">&triangledown; 地基</div>
+
+<div class="layer" data-geo="found" onclick="toggleLayer(this)" style="border-bottom:2px solid var(--bd2)">
+<div class="layer-tag">foundation &middot; 地理禀赋</div>
+<div class="layer-name">两洋隔绝 &middot; 温带大陆 &middot; 无强邻</div>
+<div class="layer-sub">不可替代 &middot; 不可复制 &middot; 永久优势</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+唯一真正"不可替代"的层级。两洋隔绝=从未被入侵。对比：中国14个陆地邻国，俄罗斯漫长边境，欧洲无天然屏障。地理决定美国可以"选择何时参与世界"。<span class="tag tg">永久优势</span>
+</div></div></div>
+
+<div class="ground"></div>
+</div>
+
+<!-- PIPES -->
+<div class="pipe-col" id="pipe-col">
+<div class="pipe" data-pipe="5" onclick="togglePipe(5)">
+<div class="pipe-dot">P6</div>
+</div>
+<div class="pipe" data-pipe="4" onclick="togglePipe(4)">
+<div class="pipe-dot">P5</div>
+</div>
+<div class="pipe" data-pipe="3" onclick="togglePipe(3)">
+<div class="pipe-dot">P4</div>
+</div>
+<div class="pipe" data-pipe="2" onclick="togglePipe(2)">
+<div class="pipe-dot">P3</div>
+</div>
+<div class="pipe" data-pipe="1" onclick="togglePipe(1)">
+<div class="pipe-dot">P2</div>
+</div>
+<div class="pipe" data-pipe="0" onclick="togglePipe(0)">
+<div class="pipe-dot">P1</div>
+</div>
+</div>
+
+<!-- RIGHT: Capital America -->
+<div class="bldg cap" id="bldg-cap">
+<div class="bldg-title">资本美国</div>
+
+<div class="layer" data-cap="roof" onclick="toggleLayer(this)">
+<div class="layer-tag">roof &middot; 金融武器化</div>
+<div class="layer-name">SWIFT制裁 &middot; 冻结资产</div>
+<div class="layer-sub">长臂管辖 &middot; 二级制裁</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+2022冻结俄央行3000亿="核按钮"时刻。短期极强，但全球央行加速去美元化对冲。武器化频率&uarr;=威慑效力&darr;。<span class="tag tc">金融霸权</span><span class="tag tr">反噬加速</span>
+</div></div></div>
+
+<div class="sep">&triangledown; 上层建筑</div>
+
+<div class="layer" data-cap="f3" onclick="toggleLayer(this)">
+<div class="layer-tag">floor 3 &middot; 叙事定价权</div>
+<div class="layer-name">华尔街+评级机构+财经媒体</div>
+<div class="layer-sub">穆迪/标普定义"风险" &middot; 叙事=定价</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+不仅控制资金流向，还控制"什么值得投资"的叙事。2023-24 Magnificent 7叙事&rarr;全球资金涌入美国科技股。评级机构一纸降级可摧毁一国(希腊2010)。<span class="tag tc">话语权</span><span class="tag tc">定价权</span>
+</div></div></div>
+
+<div class="layer" data-cap="f2" onclick="toggleLayer(this)">
+<div class="layer-tag">floor 2 &middot; 市场深度</div>
+<div class="layer-name">NYSE+NASDAQ &middot; 全球60%+市值</div>
+<div class="layer-sub">最深流动性 &middot; 网络效应自我强化</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+深度=安全感。全球最大机构都需要"能容纳万亿进出"的市场&rarr;只有美国。流动性自我强化：越深&rarr;越多人来&rarr;越深。替代者差一个数量级。<span class="tag tc">流动性护城河</span>
+</div></div></div>
+
+<div class="layer" data-cap="f1" onclick="toggleLayer(this)">
+<div class="layer-tag">floor 1 &middot; 美联储体系</div>
+<div class="layer-name">全球最后贷款人 &middot; 互换线</div>
+<div class="layer-sub">利率&rarr;全球定价 &middot; QE/QT=流动性潮汐</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+美联储实质上是"全球央行"。2008/2020通过互换线向全球注入美元&rarr;各国央行变成美联储"分行"。加息=全球紧缩。这种权力无制度约束。<span class="tag tc">流动性阀门</span><span class="tag tr">信用透支</span>
+</div></div></div>
+
+<div class="sep">&triangledown; 承重框架</div>
+
+<div class="layer" data-cap="frame" onclick="toggleLayer(this)">
+<div class="layer-tag">frame &middot; 美债市场</div>
+<div class="layer-name">全球无风险利率锚 &middot; $34万亿</div>
+<div class="layer-sub">抵押品之王 &middot; 回购基石 &middot; 外储载体</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+美债是资本美国的"承重墙"。全球金融体系一切定价以美债收益率为基准。但：债务/GDP>120%、利息超国防预算、外国持有比例下降。框架在承重，裂缝在扩大。<span class="tag tc">全球锚定</span><span class="tag tr">债务螺旋</span>
+</div></div></div>
+
+<div class="sep">&triangledown; 地基</div>
+
+<div class="layer" data-cap="found" onclick="toggleLayer(this)" style="border-bottom:2px solid var(--bd2)">
+<div class="layer-tag">foundation &middot; 美元储备货币</div>
+<div class="layer-name">全球贸易/储备/定价默认货币</div>
+<div class="layer-sub">过度特权 &middot; 58%外储 &middot; 缓慢侵蚀中</div>
+<div class="layer-detail"><div class="layer-detail-inner">
+"过度特权"：美国可以"印钱买东西"&rarr;他国必须"做东西换美元"。份额从70%(2000)&rarr;58%(2024)缓慢下降。不是崩塌，是侵蚀——看不见，直到突然坍塌。<span class="tag tc">终极特权</span><span class="tag tr">边际侵蚀</span>
+</div></div></div>
+
+<div class="ground"></div>
+</div>
+
+</div><!-- bldg-row -->
+</div><!-- scene -->
+
+<!-- PIPE DETAIL -->
+<div class="detail-panel" id="detailPanel">
+<div class="detail-card" id="detailCard"></div>
+</div>
+
+<!-- FEEDBACK LOOP -->
+<div class="loop-section">
+<div class="loop-title">通道的本质：物理 &harr; 信用 双向翻译协议</div>
+<div class="loop-flow">
+<div class="loop-node"><b>地理控制</b>海权&middot;能源<br>人才&middot;基地</div>
+<div class="loop-arr">&rarr;</div>
+<div class="loop-node"><b>翻译为</b>美元需求<br>"要安全=用美元"</div>
+<div class="loop-arr">&rarr;</div>
+<div class="loop-node"><b>资本回流</b>低成本融资<br>军费+科技</div>
+<div class="loop-arr">&rarr;</div>
+<div class="loop-node"><b>巩固地理</b>新基地<br>新技术 &#x21bb;</div>
+</div>
+<div class="loop-note">
+正循环运转=飞轮加速 &middot; 翻转=死亡螺旋<br>
+监控指标：管道维护成本增速 vs 资本回流收益增速<br>
+剪刀差 = 帝国拐点信号
+</div>
+</div>
+
+<div class="footer">
+AMERICA AS ARCHITECTURE &mdash; 双体剖面分析<br>
+地理美国的地基不可剥夺 &middot; 资本美国的地基基于信念<br>
+上层管道断裂是新闻 &middot; 底层管道侵蚀是历史
+</div>
+
+<script>
+var pipeData=[
+{title:'P1 地基管道：地理安全 &#8644; 美元信仰',
+gH:['found'],cH:['found'],
+geo:'<b>两洋隔绝 &rarr; 本土不可入侵</b><br>最底层管道：美国从未被入侵 &rarr; "美国不会消失"的信念 &rarr; "美元是安全的"。<br><span class="tag tg">永久开启</span><span class="tag tg">无需维护</span><br>只要北美大陆还在两洋之间，这条管道就不会断。',
+cap:'<b>美元储备地位 &rarr; 过度特权</b><br>全球央行持有美元储备=相信美国不会消失。不是金融分析的结论，是地理现实的金融映射。<br><span class="tag tc">58%全球外储</span><span class="tag tr">缓慢下降</span>',
+link:'最底层翻译：不可入侵的物理事实 &rarr; 不可替代的信用锚。这条管道是所有管道的前提。几乎不可能断——这就是美元韧性远超想象的原因。'},
+{title:'P2 框架管道：制度韧性 &#8644; 美债可信度',
+gH:['frame'],cH:['frame'],
+geo:'<b>宪政联邦制 &rarr; 制度可预测性</b><br>三权分立+独立司法+产权保护=外国投资者信任美国制度。240年宪政延续性=全球最长"track record"。<br><span class="tag tg">分布式韧性</span><span class="tag tr">极化压测中</span>',
+cap:'<b>美债=全球无风险锚</b><br>$34万亿美债"无风险"不只因美联储可印钱，更因宪法保障的制度稳定 &rarr; 债务偿付的政治承诺可信。<br><span class="tag tc">全球抵押品</span><span class="tag tr">上限政治化</span>',
+link:'2023惠誉降级AAA=裂缝第一信号。框架管道不突然断裂，而是慢慢渗漏——左边制度韧性因极化受损 &rarr; 右边美债信用出现微裂缝。'},
+{title:'P3 能源管道：LNG/页岩 &#8644; 石油美元循环',
+gH:['f2'],cH:['f1'],
+geo:'<b>能源物理流：进口&rarr;出口</b><br>页岩革命后成为最大油气生产国+最大LNG出口国。2022俄乌后欧洲从俄气转向美国LNG=能源通道武器化。<br><span class="tag tg">墨西哥湾终端</span><span class="tag tg">双向武器</span>',
+cap:'<b>大宗商品美元定价</b><br>石油/天然气/铜/粮食 &rarr; 全在美国交易所(COMEX/CME/CBOT)以美元定价。物理能源从任何地方流出，定价权只在一处。<br><span class="tag tc">1974石油美元</span><span class="tag tr">沙特多元化</span>',
+link:'&#9733; 剪刀差最尖锐处：物理能源流已开始去美国化（中沙直接交易），但定价通道的网络效应仍在。物理流分叉速度 > 定价权转移速度 = 不对称机会窗口。'},
+{title:'P4 人才管道：移民通道 &#8644; VC/IPO管道',
+gH:['f3'],cH:['f2'],
+geo:'<b>全球人才物理流入</b><br>留学&rarr;OPT&rarr;H1B&rarr;绿卡&rarr;创业。全球Top10大学7所在美。这不是吸引力，是精心设计的管道工程。<br><span class="tag tg">硅谷密度</span><span class="tag tg">大学-产业耦合</span>',
+cap:'<b>创新&rarr;美元资产转化器</b><br>全球创新的变现终点=美国资本市场。以色列/印度/中国企业家在美创业&rarr;美元VC&rarr;NASDAQ上市&rarr;回报以美元分配。<br><span class="tag tc">VC 50%+</span><span class="tag tc">NASDAQ</span>',
+link:'复合管道=最强管道。物理人才流+资本流双向流动，自我强化飞轮。风险：反移民政策+远程工作+中国回流=管道流量下降。'},
+{title:'P5 军事管道：基地网络 &#8644; 安全&rarr;美债购买',
+gH:['roof'],cH:['frame','f1'],
+geo:'<b>800+海外基地=安全保障网</b><br>驻日/韩/德/中东=安全承诺的物理凭证。没有基地的安全承诺=空头支票。<br><span class="tag tg">力量投射</span><span class="tag tg">安全公共品</span>',
+cap:'<b>安全承诺&rarr;金融忠诚</b><br>日/韩/德/沙特接受军事保护 &rarr; 央行大量持有美债+外储以美元为主。非市场选择，是安全-金融捆绑交易。<br><span class="tag tc">盟友央行持债</span>',
+link:'帝国过度延伸悖论：基地越多&rarr;盟友越依赖&rarr;买更多美债&rarr;融资成本越低&rarr;维持更多基地。但维护成本线性增长，忠诚溢价边际递减。2022冻结俄资产后，"盟友"开始对冲。'},
+{title:'P6 信息管道：光缆+卫星 &#8644; SWIFT+平台',
+gH:['roof','f3'],cH:['roof','f3'],
+geo:'<b>物理层：海底光缆+GPS+Starlink</b><br>95%数据经海底光缆&rarr;美国公司拥有主要光缆。GPS=全球导航默认协议。Starlink=互联网最后一公里。<br><span class="tag tg">数据物理层</span><span class="tag tg">太空基础设施</span>',
+cap:'<b>应用层：SWIFT+FAANG+云+AI</b><br>物理管道上跑美国平台。三层嵌套：光缆(物理)&rarr;TCP/IP(协议,美国设计)&rarr;FAANG/SWIFT(应用)。控制任一层=控制数据流。<br><span class="tag tc">三层嵌套</span>',
+link:'美国同时控制物理-协议-应用三层=信息霸权。中国北斗+CIPS+数字丝路=尝试在每一层建替代管道，但三层同时替代的难度是指数级的。'}
+];
+
+function toggleLayer(el){
+  var wasOpen=el.classList.contains('open');
+  document.querySelectorAll('.layer.open').forEach(function(l){l.classList.remove('open')});
+  if(!wasOpen)el.classList.add('open');
+}
+
+var activePipe=-1;
+function togglePipe(idx){
+  document.querySelectorAll('.layer.highlighted').forEach(function(l){l.classList.remove('highlighted')});
+  document.querySelectorAll('.pipe.active').forEach(function(p){p.classList.remove('active')});
+  var panel=document.getElementById('detailPanel');
+  if(activePipe===idx){activePipe=-1;panel.classList.remove('open');return;}
+  activePipe=idx;
+  var p=pipeData[idx];
+  var pipeEl=document.querySelector('.pipe[data-pipe="'+idx+'"]');
+  pipeEl.classList.add('active');
+  p.gH.forEach(function(k){var el=document.querySelector('[data-geo="'+k+'"]');if(el)el.classList.add('highlighted');});
+  p.cH.forEach(function(k){var el=document.querySelector('[data-cap="'+k+'"]');if(el)el.classList.add('highlighted');});
+  var html='<div class="detail-title">'+p.title+'</div>';
+  html+='<div class="detail-section"><div class="detail-label detail-label-geo">&#9671; 地理端 Physical</div><div class="detail-text">'+p.geo+'</div></div>';
+  html+='<div class="detail-section"><div class="detail-label detail-label-cap">&#9671; 资本端 Capital</div><div class="detail-text">'+p.cap+'</div></div>';
+  html+='<div class="detail-link">&#9758; '+p.link+'</div>';
+  document.getElementById('detailCard').innerHTML=html;
+  panel.classList.add('open');
+  setTimeout(function(){panel.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
+}
+
+function setView(mode,btn){
+  document.querySelectorAll('.mode-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  var geo=document.getElementById('bldg-geo');
+  var cap=document.getElementById('bldg-cap');
+  var pipes=document.getElementById('pipe-col');
+  geo.classList.remove('hidden');cap.classList.remove('hidden');pipes.classList.remove('hidden');
+  document.querySelectorAll('.layer.highlighted,.layer.open').forEach(function(l){l.classList.remove('highlighted','open')});
+  document.querySelectorAll('.pipe.active').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('detailPanel').classList.remove('open');
+  activePipe=-1;
+  if(mode==='geo'){cap.classList.add('hidden');pipes.classList.add('hidden');}
+  else if(mode==='cap'){geo.classList.add('hidden');pipes.classList.add('hidden');}
+  else if(mode==='pipe'){/* show all, emphasis on pipes */}
+}
+</script>
+</body>
+</html>

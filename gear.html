@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0c1017" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#f5f3ed" media="(prefers-color-scheme:light)">
+<title>多极齿轮传动系统 | 黑森船长</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#f5f3ed;--bg2:#ebe8e0;--bg3:#e2dfd6;--card:#ffffff;
+--tx:#1a1a18;--tx2:#5c5a54;--tx3:#8a877f;--tx4:#b0ada5;
+--bd:#d4d1c8;--bd2:#b8b5ac;
+--up:#1a6b52;--up-l:#dff3eb;--dn:#a32d2d;--dn-l:#fce6e6;--fl:#8a6914;--fl-l:#f9edda;
+--blue:#185fa5;--blue-l:#e6f1fb;--teal:#0f6e56;--teal-l:#e1f5ee;
+--coral:#993c1d;--coral-l:#faece7;--purple:#534ab7;--purple-l:#eeedfe;
+--sans:'Noto Sans SC',system-ui,sans-serif;
+--serif:'Noto Serif SC',serif;
+--mono:'JetBrains Mono',monospace;
+--radius:8px;--radius-lg:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+--bg:#0c1017;--bg2:#151b25;--bg3:#1e2633;--card:#1a2030;
+--tx:#d4d2c8;--tx2:#9a9890;--tx3:#6b6962;--tx4:#4a4842;
+--bd:#2a3040;--bd2:#3a4155;
+--up-l:#0a3d2d;--dn-l:#3a1010;--fl-l:#2a1e05;
+--blue-l:#0a2540;--teal-l:#082e22;--coral-l:#2a1008;--purple-l:#1a1545;
+}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+input[type=range]{-webkit-appearance:none;appearance:none;height:4px;background:var(--bd);border-radius:2px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--tx);border-radius:50%;cursor:pointer}
+
+.page{max-width:1100px;margin:0 auto;padding:12px 16px 24px}
+.watermark{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;overflow:hidden;opacity:0.03}
+.watermark span{position:absolute;font-family:var(--serif);font-size:24px;color:var(--tx);transform:rotate(25deg);white-space:nowrap}
+.content{position:relative;z-index:1}
+
+header{text-align:center;padding:16px 0 12px;border-bottom:0.5px solid var(--bd)}
+header h1{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:2px;line-height:1.4}
+header .sub{font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:4px;letter-spacing:0.5px}
+header .author{font-family:var(--serif);font-size:10px;color:var(--tx4);margin-top:6px}
+
+.section{margin-top:16px}
+.section-title{font-family:var(--serif);font-size:15px;font-weight:600;margin-bottom:4px}
+.section-sub{font-size:11px;color:var(--tx2);margin-bottom:10px;line-height:1.5}
+
+.mod-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.mod-label{font-family:var(--mono);font-size:9px;color:var(--tx4);letter-spacing:1px;text-transform:uppercase}
+.mod-btn{font-size:11px;padding:5px 12px;border:0.5px solid var(--bd2);border-radius:20px;cursor:pointer;color:var(--tx2);background:transparent;font-family:var(--sans);transition:all .2s;display:flex;align-items:center;gap:4px;-webkit-tap-highlight-color:transparent}
+.mod-btn .mdot{width:8px;height:8px;border-radius:50%}
+.mod-btn.on{border-color:var(--tx);color:var(--tx);font-weight:500}
+
+.sc-bar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.sc-btn{font-family:var(--sans);font-size:10px;padding:4px 10px;border:0.5px solid var(--bd);border-radius:14px;cursor:pointer;color:var(--tx3);background:transparent;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.sc-btn.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+
+.sc-desc{font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px;padding:8px 12px;background:var(--bg2);border-radius:var(--radius);min-height:30px}
+.sc-desc b{font-weight:600;color:var(--tx)}
+
+.mods-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.mm{flex:1;min-width:140px;border:0.5px solid var(--bd);border-radius:var(--radius);padding:8px 10px;background:var(--card);transition:all .2s}
+.mm.off{opacity:0.25;pointer-events:none}
+.mm-t{font-size:12px;font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.mm-d{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sr{display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.sr-l{font-size:10px;color:var(--tx2);width:50px;flex-shrink:0}
+.sr-v{font-family:var(--mono);font-size:10px;font-weight:500;min-width:36px;text-align:right;color:var(--tx)}
+.sr input{flex:1;min-width:0}
+.wr{display:flex;align-items:center;gap:4px;margin-top:5px;padding-top:5px;border-top:0.5px solid var(--bd)}
+.wr-l{font-size:9px;color:var(--tx3)}
+.wr-v{font-family:var(--mono);font-size:10px;font-weight:500;min-width:28px;text-align:right}
+
+.legend{display:flex;gap:12px;align-items:center;padding:8px 12px;border:0.5px solid var(--bd);border-radius:var(--radius);margin-bottom:12px;flex-wrap:wrap;background:var(--card)}
+.legend-t{font-size:11px;font-weight:500;color:var(--tx)}
+.legend-i{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--tx2)}
+.legend-d{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+.cascade{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr) 22px minmax(0,1fr);gap:0;align-items:start;margin-bottom:12px}
+.gc{border:0.5px solid var(--bd);border-radius:var(--radius-lg);padding:10px 12px;background:var(--card)}
+.gc-h{display:flex;align-items:center;gap:5px;margin-bottom:8px}
+.gc-hd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.gc-ht{font-size:13px;font-weight:500}
+.gc-hr{font-size:10px;color:var(--tx3)}
+.gc-items{display:flex;flex-direction:column;gap:5px}
+.gc-item{display:flex;align-items:center;gap:4px;padding:2px 0}
+.gc-item.clickable{cursor:pointer;border-radius:4px;padding:3px 4px;margin:-1px -4px;transition:all .15s;border-left:2px solid transparent}
+.gc-item.clickable:hover{background:var(--bg2);border-left-color:var(--teal)}
+.gc-item.active{background:var(--bg2);border-left-color:var(--tx)}
+.gc-il{width:66px;flex-shrink:0;font-size:11px;color:var(--tx2)}
+.gc-bw{flex:1;height:7px;background:var(--bg2);border-radius:4px;position:relative;min-width:24px}
+.gc-bm{position:absolute;left:50%;top:0;bottom:0;width:0.5px;background:var(--bd2)}
+.gc-b{height:100%;border-radius:4px;transition:width .35s,background .3s}
+.gc-iv{font-family:var(--mono);min-width:26px;text-align:right;font-size:10px;font-weight:500}
+.gc-hint{font-size:10px;color:var(--tx4);text-align:center;margin-top:6px;font-style:italic}
+.garr{display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--tx4);padding-top:24px}
+
+.chain-panel{max-height:0;overflow:hidden;transition:max-height .45s ease;margin-bottom:12px}
+.chain-panel.open{max-height:2000px}
+.chain-card{border:1px solid var(--bd2);border-radius:var(--radius-lg);padding:16px;background:var(--card)}
+.chain-title{font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chain-score{font-family:var(--mono);font-size:13px;font-weight:500}
+.chain-close{font-size:12px;color:var(--tx3);cursor:pointer;margin-left:auto;padding:4px 8px;border:0.5px solid var(--bd);border-radius:12px;transition:background .15s}
+.chain-close:hover{background:var(--bg2)}
+.chain-desc{font-size:12px;color:var(--tx2);margin-bottom:14px;line-height:1.6}
+.chain-flow{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr);gap:0;align-items:start;margin-bottom:14px}
+.chain-col{border:0.5px solid var(--bd);border-radius:var(--radius);padding:10px 12px}
+.chain-col-t{font-size:12px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.chain-col-t .ccd{width:7px;height:7px;border-radius:50%}
+.chain-arr{display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--tx4);padding-top:20px}
+.chain-node{padding:6px 8px;border:0.5px solid var(--bd);border-radius:6px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);transition:border-color .2s}
+.chain-node-name{font-size:11px;font-weight:500;color:var(--tx)}
+.chain-node-val{font-family:var(--mono);font-size:11px;font-weight:500}
+.chain-node-note{font-size:9px;color:var(--tx3);margin:-3px 0 6px 9px;line-height:1.4}
+.chain-macro{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--bd)}
+.chain-macro-t{font-size:13px;font-weight:500;margin-bottom:8px}
+.chain-factor{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.chain-factor-name{font-size:11px;color:var(--tx2);width:88px;flex-shrink:0}
+.chain-factor-bar{flex:1;height:6px;background:var(--bg2);border-radius:3px}
+.chain-factor-fill{height:100%;border-radius:3px;transition:width .3s,background .3s}
+.chain-factor-val{font-family:var(--mono);min-width:36px;text-align:right;font-weight:500;font-size:10px}
+.chain-factor-note{font-size:9px;color:var(--tx3);margin:-2px 0 4px 96px}
+.chain-insight{font-size:12px;color:var(--tx2);line-height:1.7;padding:10px 12px;background:var(--bg2);border-radius:var(--radius);margin-top:12px}
+.chain-insight b{font-weight:600;color:var(--tx)}
+
+.chain-elasticity{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--bd)}
+.chain-el-row{display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:0.5px solid var(--bd);font-size:11px}
+.chain-el-from{width:82px;flex-shrink:0;color:var(--tx2);font-family:var(--mono);font-size:10px}
+.chain-el-arrow{color:var(--tx4);font-size:13px;flex-shrink:0}
+.chain-el-to{width:66px;flex-shrink:0;color:var(--tx);font-weight:500}
+.chain-el-ratio{width:58px;flex-shrink:0;font-family:var(--mono);font-weight:600;font-size:11px;text-align:center}
+.chain-el-meaning{flex:1;color:var(--tx2);font-size:10px;line-height:1.4}
+
+.footer-note{font-family:var(--serif);font-size:11px;color:var(--tx3);text-align:center;line-height:1.7;padding:12px 0;border-top:0.5px solid var(--bd);margin-top:8px;font-style:italic}
+
+@media(max-width:700px){
+  .cascade{grid-template-columns:1fr;gap:6px}
+  .garr{padding:0;transform:rotate(90deg)}
+  .chain-flow{grid-template-columns:1fr;gap:6px}
+  .chain-arr{padding:0;transform:rotate(90deg)}
+  .mods-wrap{flex-direction:column}
+  .mm{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="watermark" id="wm"></div>
+
+<div class="page content">
+<header>
+<h1>多极宏观齿轮传动系统</h1>
+<div class="sub">Macro-Industry-Micro Gear Transmission</div>
+<div class="author">黑森船长</div>
+</header>
+
+<div class="section">
+<div class="section-title">宏观齿轮模块</div>
+<div class="section-sub">开关不同国家/因素模块，调整参数和权重，观察多极传导</div>
+
+<div class="mod-bar">
+<span class="mod-label">modules</span>
+<button class="mod-btn on" onclick="tgMod('us')" id="mb-us"><span class="mdot" style="background:var(--blue)"></span>美国</button>
+<button class="mod-btn" onclick="tgMod('cn')" id="mb-cn"><span class="mdot" style="background:#E24B4A"></span>中国</button>
+<button class="mod-btn" onclick="tgMod('eu')" id="mb-eu"><span class="mdot" style="background:var(--teal)"></span>欧洲</button>
+<button class="mod-btn" onclick="tgMod('jp')" id="mb-jp"><span class="mdot" style="background:var(--purple)"></span>日本</button>
+<button class="mod-btn" onclick="tgMod('geo')" id="mb-geo"><span class="mdot" style="background:var(--coral)"></span>地缘风险</button>
+</div>
+
+<div class="sc-bar" id="scenarios"></div>
+<div class="sc-desc" id="sc-desc"><b>点击场景</b>或手动调整参数</div>
+<div class="mods-wrap" id="modules"></div>
+</div>
+
+<div class="legend">
+<span class="legend-t">景气度指标</span>
+<span class="legend-i"><span class="legend-d" style="background:var(--up)"></span>60-100 景气</span>
+<span class="legend-i"><span class="legend-d" style="background:var(--fl)"></span>40-59 中性</span>
+<span class="legend-i"><span class="legend-d" style="background:var(--dn)"></span>0-39 承压</span>
+<span style="font-family:var(--mono);font-size:9px;color:var(--tx4)">50 = 基准线</span>
+<span style="font-size:10px;color:var(--tx3)">点击产业层行业 = 钻取上下游</span>
+</div>
+
+<div class="cascade">
+<div class="gc"><div class="gc-h"><div class="gc-hd" style="background:var(--blue)"></div><div class="gc-ht">宏观层</div><div class="gc-hr">多极合力</div></div><div class="gc-items" id="macro-items"></div></div>
+<div class="garr">&rarr;</div>
+<div class="gc"><div class="gc-h"><div class="gc-hd" style="background:var(--teal)"></div><div class="gc-ht">产业层</div><div class="gc-hr">点击钻取</div></div><div class="gc-items" id="ind-items"></div><div class="gc-hint" id="click-hint">&uarr; 点击行业查看上下游产业链</div></div>
+<div class="garr">&rarr;</div>
+<div class="gc"><div class="gc-h"><div class="gc-hd" style="background:var(--coral)"></div><div class="gc-ht">微观层</div><div class="gc-hr">波动最大</div></div><div class="gc-items" id="micro-items"></div></div>
+</div>
+
+<div class="chain-panel" id="chain-panel">
+<div class="chain-card" id="chain-card"></div>
+</div>
+
+<div class="footer-note">
+齿轮系统不是"自上而下"也不是"自下而上"——是同时在转。<br>
+单极世界 = 一个大齿轮带所有小齿轮。多极世界 = 多个大齿轮同时转，方向可能相反。<br>
+Alpha 来自判断"哪个齿轮的转速正在变化"以及"传动比是否正在非线性跳变"。
+</div>
+</div>
+
+<script>
+// === WATERMARK ===
+(function(){
+var wm=document.getElementById('wm'),h='';
+for(var y=-50;y<1200;y+=100)for(var x=-100;x<1400;x+=200)
+h+='<span style="left:'+x+'px;top:'+y+'px">黑森船长</span>';
+wm.innerHTML=h})();
+
+// === DATA ===
+var M={
+us:{on:true,color:'var(--blue)',name:'美国',weight:40,
+  vars:[{id:'us_rate',name:'Fed利率',min:0,max:6,step:0.25,val:5.25,unit:'%'},
+        {id:'us_dxy',name:'美元指数',min:85,max:120,step:1,val:104,unit:''},
+        {id:'us_vix',name:'VIX',min:8,max:80,step:1,val:14,unit:''}]},
+cn:{on:false,color:'#E24B4A',name:'中国',weight:25,
+  vars:[{id:'cn_rate',name:'LPR',min:2.5,max:4.5,step:0.1,val:3.45,unit:'%'},
+        {id:'cn_pmi',name:'PMI',min:44,max:56,step:0.5,val:49.5,unit:''},
+        {id:'cn_yuan',name:'USD/CNY',min:6.5,max:7.8,step:0.1,val:7.25,unit:''}]},
+eu:{on:false,color:'var(--teal)',name:'欧洲',weight:15,
+  vars:[{id:'eu_rate',name:'ECB利率',min:0,max:5,step:0.25,val:4.0,unit:'%'},
+        {id:'eu_gas',name:'天然气',min:15,max:120,step:5,val:35,unit:'E/MWh'},
+        {id:'eu_pmi',name:'PMI',min:42,max:56,step:0.5,val:47,unit:''}]},
+jp:{on:false,color:'var(--purple)',name:'日本',weight:10,
+  vars:[{id:'jp_rate',name:'BoJ利率',min:-0.1,max:1,step:0.1,val:0.25,unit:'%'},
+        {id:'jp_yen',name:'USD/JPY',min:110,max:165,step:1,val:150,unit:''},
+        {id:'jp_carry',name:'套息空间',min:0,max:5,step:0.25,val:4.0,unit:'%'}]},
+geo:{on:false,color:'var(--coral)',name:'地缘风险',weight:10,
+  vars:[{id:'geo_risk',name:'冲突烈度',min:0,max:10,step:1,val:3,unit:'/10'},
+        {id:'geo_oil',name:'油价',min:30,max:140,step:5,val:75,unit:'$/b'},
+        {id:'geo_supply',name:'供应链压力',min:0,max:10,step:1,val:2,unit:'/10'}]}
+};
+
+var SC=[
+{name:'当前基准 2024',mods:['us'],vals:{us_rate:5.25,us_dxy:104,us_vix:14},desc:'<b>当前基准：</b>高利率平台+低VIX+AI叙事驱动。金发女孩/泡沫混合态。'},
+{name:'中美利差倒挂',mods:['us','cn'],vals:{us_rate:5.25,us_dxy:104,us_vix:14,cn_rate:3.1,cn_pmi:48.5,cn_yuan:7.35},desc:'<b>中美利差倒挂：</b>两个齿轮反向转→资本流美国、人民币承压、中概双杀。'},
+{name:'2020新冠冲击',mods:['us','cn','eu','geo'],vals:{us_rate:0.25,us_dxy:102,us_vix:75,cn_rate:3.85,cn_pmi:35,cn_yuan:7.1,eu_rate:0,eu_gas:8,eu_pmi:33,geo_risk:7,geo_oil:25,geo_supply:8},desc:'<b>2020.3新冠：</b>全球齿轮停转。VIX 75+、PMI暴跌、供应链断裂。唯一方向=避险。'},
+{name:'俄乌+能源危机',mods:['us','eu','geo'],vals:{us_rate:4.0,us_dxy:112,us_vix:30,eu_rate:2.5,eu_gas:110,eu_pmi:44,geo_risk:8,geo_oil:110,geo_supply:6},desc:'<b>俄乌(2022)：</b>美元暴涨+天然气飙升+欧洲工业外迁。能源/军工受益。'},
+{name:'石油危机滞胀',mods:['us','geo'],vals:{us_rate:5.5,us_dxy:92,us_vix:32,geo_risk:9,geo_oil:130,geo_supply:7},desc:'<b>石油危机：</b>油价飙升→通胀失控→滞胀。能源/黄金唯一赢家。'},
+{name:'全球同步宽松',mods:['us','cn','eu','jp'],vals:{us_rate:1.0,us_dxy:90,us_vix:18,cn_rate:3.0,cn_pmi:52,cn_yuan:6.8,eu_rate:1.0,eu_gas:25,eu_pmi:53,jp_rate:0,jp_yen:125,jp_carry:1.0},desc:'<b>全球宽松：</b>所有齿轮同向→流动性泛滥→一切都涨→美元跌。'},
+{name:'日元套息崩盘',mods:['us','jp'],vals:{us_rate:5.25,us_dxy:104,us_vix:38,jp_rate:0.5,jp_yen:142,jp_carry:1.5},desc:'<b>套息崩盘(2024.8型)：</b>BoJ加息→日元暴涨→全球套息平仓→VIX飙升。'},
+{name:'中美脱钩',mods:['us','cn','geo'],vals:{us_rate:4.5,us_dxy:108,us_vix:32,cn_rate:3.0,cn_pmi:47,cn_yuan:7.6,geo_risk:8,geo_oil:95,geo_supply:9},desc:'<b>中美脱钩：</b>供应链断裂+关税→通胀+科技受限+军工受益。'},
+{name:'沃尔克时刻',mods:['us','geo'],vals:{us_rate:6.0,us_dxy:118,us_vix:28,geo_risk:4,geo_oil:100,geo_supply:3},desc:'<b>沃尔克加息：</b>利率拉满+美元暴涨→全球美元荒→新兴市场崩盘。'},
+{name:'AI+中国复苏',mods:['us','cn'],vals:{us_rate:4.0,us_dxy:98,us_vix:13,cn_rate:3.2,cn_pmi:53,cn_yuan:6.9},desc:'<b>最乐观情景：</b>美国科技强+中国制造复苏=两个齿轮同向→全球贸易扩张。'}
+];
+
+// === SUPPLY CHAINS (abbreviated keys, full content) ===
+var chains={
+tech:{name:'科技/AI 产业链',desc:'从上游芯片材料到下游消费者应用，AI是当前最强的纵向传导链。',
+  up:[{n:'稀土/稀有气体',d:'中国控制60%+稀土加工'},{n:'半导体设备',d:'ASML/应用材料垄断'},{n:'晶圆代工',d:'台积电/三星双寡头'},{n:'HBM/存储',d:'SK海力士/三星/美光'},{n:'电力/算力基建',d:'数据中心能耗暴涨'}],
+  mid:[{n:'GPU/AI芯片',d:'NVIDIA占AI训练90%+'},{n:'云计算平台',d:'AWS/Azure/GCP三巨头'},{n:'AI模型层',d:'OpenAI/Anthropic/Google'}],
+  down:[{n:'SaaS/企业应用',d:'Salesforce/ServiceNow'},{n:'消费电子',d:'AAPL/Samsung终端'},{n:'广告/推荐',d:'Meta/Google变现层'},{n:'自动驾驶',d:'Tesla/Waymo应用层'}],
+  factors:[{n:'利率敏感度',v:'高',d:'高利率→压缩久期长的科技估值'},{n:'美元影响',v:'中',d:'海外收入占40%+受汇率影响'},{n:'地缘暴露',v:'极高',d:'芯片禁令可切断上游→全链停摆'},{n:'中国依赖',v:'高',d:'稀土+市场需求双重依赖'}],
+  insight:'<b>关键瓶颈：</b>ASML光刻机→台积电先进制程→NVIDIA GPU。三个瓶颈点任一被"卡齿"，整条链停转。最大风险：台海地缘→台积电停产=全球科技心脏骤停。<br><b>传动特性：</b>上游利润弹性小但战略价值极高；下游利润弹性大但可替代性高。'},
+bank:{name:'银行/金融 产业链',desc:'利率是核心传动轴：从央行到银行间市场到实体信贷，层层传导。',
+  up:[{n:'央行政策利率',d:'Fed/ECB/BoJ源头'},{n:'银行间市场',d:'SOFR/回购市场流动性'},{n:'批发融资',d:'商业票据/CD/债券'}],
+  mid:[{n:'大型银行',d:'摩根/高盛/花旗'},{n:'区域银行',d:'弹性更高、风险更集中'},{n:'投行/资管',d:'IPO/并购/交易收入'}],
+  down:[{n:'企业信贷',d:'贷款→企业投资→就业'},{n:'消费信贷',d:'信用卡/车贷/学贷'},{n:'房贷市场',d:'30年固定→地产'},{n:'保险/养老金',d:'资产端受利率影响'}],
+  factors:[{n:'利率敏感度',v:'极高',d:'NIM直接受利率决定'},{n:'信用利差',v:'核心',d:'利差扩大=坏账↑=盈利↓'},{n:'VIX/波动率',v:'高',d:'波动↑→交易收入可能↑但风险↑'},{n:'监管环境',v:'高',d:'资本要求→杠杆→ROE'}],
+  insight:'<b>关键瓶颈：</b>银行间流动性。2008和2023 SVB证明：信任断裂→信用冻结→实体失血。<br><b>反噬路径：</b>区域银行暴雷(小齿轮)→存款搬家→信用收缩→Fed被迫BTFP救市(大齿轮转向)。"微观反噬宏观"的教科书。'},
+energy:{name:'能源 产业链',desc:'从地下到终端用户，油价是全球经济的"血压计"。',
+  up:[{n:'勘探/开采',d:'页岩/深海/中东常规'},{n:'油田服务',d:'哈里伯顿/斯伦贝谢'},{n:'OPEC+产量政策',d:'供给侧的"大齿轮"'}],
+  mid:[{n:'炼化/加工',d:'原油→汽油/柴油/化工品'},{n:'天然气/LNG',d:'管道+液化+船运'},{n:'石油贸易',d:'嘉能可/维多/托克'}],
+  down:[{n:'电力/公用事业',d:'天然气发电→电价'},{n:'化工/塑料',d:'乙烯→万物原料'},{n:'航空/运输',d:'燃油占成本25-35%'},{n:'农业/化肥',d:'天然气→氨→化肥→粮价'}],
+  factors:[{n:'地缘敏感度',v:'极高',d:'中东/俄罗斯=全球供给核心'},{n:'美元影响',v:'高',d:'美元计价→美元强=油价承压'},{n:'中国需求',v:'高',d:'全球增量需求第一来源'},{n:'ESG/转型',v:'长期',d:'新能源替代vs传统投资不足'}],
+  insight:'<b>"剪刀差"在这里：</b>物理供给(OPEC+)控制权在去美国化，但定价权(COMEX/Brent)仍在美元体系。上游已用人民币结算，中下游仍锚定美元——这个时间差=不对称机会。'},
+realestate:{name:'地产/REITs 产业链',desc:'利率最敏感的链——每个环节都被利率穿透。',
+  up:[{n:'建材/钢铁/水泥',d:'量价跟随开工率'},{n:'土地/拍卖',d:'地价=利率的滞后指标'},{n:'开发融资',d:'贷款/债券/信托'}],
+  mid:[{n:'住宅开发商',d:'高杠杆→利率极敏感'},{n:'商业地产',d:'办公楼/零售/物流'},{n:'REITs',d:'估值=现金流/折现率'}],
+  down:[{n:'房屋销售/按揭',d:'30年利率→购买力'},{n:'租赁市场',d:'买不起→租→租金↑'},{n:'物业管理',d:'存量市场现金流'},{n:'家装/家电',d:'新房→装修需求链'}],
+  factors:[{n:'利率敏感度',v:'最高',d:'利率+100bp→房价-10%+'},{n:'信用环境',v:'核心',d:'开发商融资依赖信用市场'},{n:'人口/城镇化',v:'长期',d:'中国vs美国分化'},{n:'政策调控',v:'高',d:'限购/限贷/利率补贴'}],
+  insight:'<b>传导时滞最长：</b>Fed加息→按揭利率↑(1-2月)→销售↓(3-6月)→开工↓(6-12月)→建材需求↓(12-18月)→上游裁员(18-24月)。整条链传导2年。2022加息的冲击波仍在向上游传导中。'},
+export:{name:'出口制造 产业链',desc:'汇率是核心变量——美元强弱直接决定全球制造业竞争力分布。',
+  up:[{n:'原材料/金属',d:'铜铝钢→美元定价'},{n:'零部件/模组',d:'跨国分工→汇率敏感'},{n:'设备/机床',d:'德日美三强'}],
+  mid:[{n:'电子制造EMS',d:'富士康/和硕/伟创力'},{n:'汽车产业链',d:'BOM数千零件跨国'},{n:'工业设备',d:'资本品→周期性强'}],
+  down:[{n:'消费品出口',d:'最终需求=欧美消费者'},{n:'跨境电商',d:'SHEIN/Temu/Amazon'},{n:'物流/航运',d:'集装箱/空运/仓储'}],
+  factors:[{n:'美元敏感度',v:'极高',d:'美元强10%→出口竞争力-10%+'},{n:'关税/壁垒',v:'高',d:'脱钩→供应链重构'},{n:'中国PMI',v:'核心',d:'全球制造的枢纽'},{n:'供应链稳定性',v:'高',d:'地缘→海运→交期'}],
+  insight:'<b>多极冲突最明显的链：</b>美国加息→美元强→中国出口承压→但中国降息→人民币弱→出口反而有竞争力。两个齿轮反向→出口商承受"剪切力"。赢家=能在齿轮间灵活切换的企业(东南亚转移)。'},
+consumer:{name:'消费/零售 产业链',desc:'宏观传导链最终端——所有上游冲击在这里变成消费者感受到的"物价"和"就业"。',
+  up:[{n:'农业/食品加工',d:'粮价→食品CPI'},{n:'品牌/营销',d:'广告支出=经济前瞻指标'},{n:'供应链/物流',d:'运费→终端售价'}],
+  mid:[{n:'大型零售',d:'沃尔玛/Costco/Target'},{n:'电商平台',d:'Amazon/拼多多'},{n:'餐饮/服务',d:'最贴近消费者感知'}],
+  down:[{n:'消费信贷',d:'信用卡余额→消费能力'},{n:'就业市场',d:'工资增长vs通胀'},{n:'消费者信心',d:'密歇根指数/预期'}],
+  factors:[{n:'利率敏感度',v:'中',d:'通过信贷和就业间接传导'},{n:'油价/通胀',v:'高',d:'油价→运费→物价→实际收入'},{n:'就业市场',v:'核心',d:'就业=消费=GDP 70%'},{n:'财政刺激',v:'高',d:'发钱→消费暴涨(2020-21)'}],
+  insight:'<b>终端指示器：</b>消费链收缩(信用卡拖欠率↑、零售裁员、消费降级)=所有上游冲击传导到底了——通常是衰退确认信号，但也是反转领先信号(此时央行通常已在降息)。'},
+defense:{name:'军工/防务 产业链',desc:'唯一"反周期+正地缘"的链条——越乱越受益。',
+  up:[{n:'特种材料',d:'钛合金/碳纤维/稀土'},{n:'电子/传感器',d:'雷达/红外/通信芯片'},{n:'发动机/推进',d:'航空发动机/火箭'}],
+  mid:[{n:'主战平台',d:'洛马/雷神/诺格'},{n:'导弹/弹药',d:'消耗品→持续需求'},{n:'网络/太空',d:'Palantir/SpaceX'}],
+  down:[{n:'国防预算',d:'各国军费增长'},{n:'出口/FMS',d:'对外军售→地缘绑定'},{n:'维护/升级',d:'装备服役后长期收入'}],
+  factors:[{n:'地缘敏感度',v:'正相关',d:'冲突↑=军工↑(唯一正相关)'},{n:'VIX关联',v:'正相关',d:'恐慌↑→防务支出预期↑'},{n:'利率敏感度',v:'低',d:'政府采购不受信贷周期影响'},{n:'周期性',v:'极低',d:'5-10年合同穿越周期'}],
+  insight:'<b>齿轮系统中的"逆转齿轮"：</b>当所有行业被宏观碾压时(VIX+地缘)，军工是唯一正转的齿轮=天然对冲。但天花板由预算决定——安全需求无限但预算有限="帝国过度延伸"的产业链表达。'},
+gold:{name:'黄金/大宗商品 产业链',desc:'美元的"镜像"——当美元体系出问题时，黄金是避风港。',
+  up:[{n:'金矿/银矿',d:'Barrick/Newmont'},{n:'铜矿/锂矿',d:'工业金属=经济晴雨表'},{n:'农业/粮食',d:'粮价→CPI→利率'}],
+  mid:[{n:'大宗商品交易',d:'COMEX/LME/CME'},{n:'黄金ETF/央行',d:'GLD/央行储备增持'},{n:'期货/衍生品',d:'杠杆+投机+套保'}],
+  down:[{n:'珠宝/工业',d:'实物需求→印度/中国'},{n:'储备/避险',d:'央行+个人避险配置'},{n:'通胀对冲',d:'实际利率为负=黄金涨'}],
+  factors:[{n:'实际利率',v:'核心',d:'实际利率↓=黄金↑(反向)'},{n:'美元',v:'强反向',d:'美元↓=黄金↑'},{n:'地缘/避险',v:'正相关',d:'央行去美元化→增持黄金'},{n:'中印需求',v:'高',d:'实物需求的60%+'}],
+  insight:'<b>"剪刀差"的对冲工具：</b>美元"交易需求"下降时黄金填补空间。2022-24全球央行创纪录增持=用黄金替代部分美债储备。上游(矿企)利润弹性最大、中游(交易所)赚手续费、下游(央行储备)=结构性不可逆需求。'}
+};
+var IK=['tech','bank','energy','realestate','export','consumer','defense','gold'];
+var IN=['科技/AI','银行/金融','能源','地产/REITs','出口制造','消费/零售','军工/防务','黄金/大宗'];
+
+// === STATE ===
+var curSC=0,activeChain=null,indVals=[];
+
+// === FUNCTIONS ===
+function tgMod(k){if(k==='us')return;M[k].on=!M[k].on;document.getElementById('mb-'+k).classList.toggle('on',M[k].on);renderMods();update()}
+
+function renderMods(){
+  var h='';
+  Object.keys(M).forEach(function(k){var m=M[k];
+    h+='<div class="mm'+(m.on?'':' off')+'" style="border-color:'+m.color+'"><div class="mm-t"><span class="mm-d" style="background:'+m.color+'"></span>'+m.name+'</div>';
+    m.vars.forEach(function(v){h+='<div class="sr"><span class="sr-l">'+v.name+'</span><input type="range" min="'+v.min+'" max="'+v.max+'" step="'+v.step+'" value="'+v.val+'" id="sl-'+v.id+'" oninput="onSl()" style="flex:1"><span class="sr-v" id="sv-'+v.id+'">'+v.val+v.unit+'</span></div>'});
+    h+='<div class="wr"><span class="wr-l">权重</span><input type="range" min="0" max="50" step="5" value="'+m.weight+'" id="wt-'+k+'" oninput="onWt(\''+k+'\')" style="flex:1"><span class="wr-v" id="wv-'+k+'">'+m.weight+'%</span></div></div>'});
+  document.getElementById('modules').innerHTML=h}
+
+function renderSC(){
+  var h='';SC.forEach(function(s,i){h+='<button class="sc-btn'+(i===curSC?' on':'')+'" onclick="setSC('+i+')">'+s.name+'</button>'});
+  document.getElementById('scenarios').innerHTML=h}
+
+function setSC(i){
+  curSC=i;var s=SC[i];
+  Object.keys(M).forEach(function(k){M[k].on=s.mods.indexOf(k)>=0;document.getElementById('mb-'+k).classList.toggle('on',M[k].on)});
+  Object.keys(s.vals).forEach(function(vid){Object.keys(M).forEach(function(k){M[k].vars.forEach(function(v){if(v.id===vid)v.val=s.vals[vid]})})});
+  renderMods();renderSC();document.getElementById('sc-desc').innerHTML=s.desc;update()}
+
+function onSl(){
+  curSC=-1;Object.keys(M).forEach(function(k){M[k].vars.forEach(function(v){var e=document.getElementById('sl-'+v.id);if(e)v.val=parseFloat(e.value)})});
+  document.querySelectorAll('.sc-btn').forEach(function(b){b.classList.remove('on')});
+  document.getElementById('sc-desc').innerHTML='<b>自定义模式</b>';update()}
+
+function onWt(k){var e=document.getElementById('wt-'+k);M[k].weight=parseInt(e.value);document.getElementById('wv-'+k).textContent=M[k].weight+'%';update()}
+
+function gv(id){var r=0;Object.keys(M).forEach(function(k){M[k].vars.forEach(function(v){if(v.id===id)r=v.val})});return r}
+function cl(v){return Math.min(95,Math.max(5,Math.round(v)))}
+function bc(v){return v>=60?'var(--up)':v>=40?'var(--fl)':'var(--dn)'}
+function bch(v){return v>=60?'#1D9E75':v>=40?'#BA7517':'#E24B4A'}
+function bl(v){return v>=60?'景气':v>=40?'中性':'承压'}
+
+function getMacro(){
+  var tw=0;Object.keys(M).forEach(function(k){if(M[k].on)tw+=M[k].weight});if(!tw)tw=1;
+  var uw=M.us.on?M.us.weight/tw:0,cw=M.cn.on?M.cn.weight/tw:0,ew=M.eu.on?M.eu.weight/tw:0,jw=M.jp.on?M.jp.weight/tw:0,gw=M.geo.on?M.geo.weight/tw:0;
+  return{
+    rate:cl(uw*(50-(gv('us_rate')-3)/3*30)+cw*(50-(gv('cn_rate')-3.5)*15+(gv('cn_pmi')-50)*3)+ew*(50-(gv('eu_rate')-2)/2*20)+jw*(50+gv('jp_carry')*5)+gw*(50-gv('geo_risk')*3)),
+    dollar:cl(uw*(50-(gv('us_dxy')-100)/15*25)+cw*(50-(gv('cn_yuan')-7)*20)+ew*(50-(gv('eu_gas')-40)/40*15)+jw*(50-(gv('jp_yen')-140)/15*15)+gw*(50-gv('geo_risk')*2)),
+    risk:cl(uw*(50-(gv('us_vix')-20)/25*30)+cw*((gv('cn_pmi')-50)*4+50)+ew*((gv('eu_pmi')-50)*3.5+50)+jw*(50-Math.abs(gv('jp_yen')-140)/10*10)+gw*(50-gv('geo_risk')*4)),
+    energy:cl(50+cw*((gv('cn_pmi')-50)*2)+ew*(-(gv('eu_gas')-40)/40*15)+gw*((gv('geo_oil')-75)/40*25)),
+    supply:cl(50+cw*(-(gv('cn_yuan')-7)*8)+ew*(-(gv('eu_gas')-40)/40*8)+gw*(-gv('geo_supply')*4))
+  }}
+
+function calcInd(m){
+  var rN=(m.rate-50)/30,dN=(m.dollar-50)/25,eN=(m.energy-50)/25,vN=(m.risk-50)/30,sN=(m.supply-50)/25;
+  return[cl(50+rN*15+vN*15-sN*5),cl(50-rN*8+vN*15),cl(50+eN*30),cl(50+rN*30+vN*5),
+    cl(50+dN*20+sN*15),cl(50+rN*10+vN*8-eN*8),cl(50-vN*12+5),cl(50+eN*12-rN*10-vN*10)]}
+
+function calcMicro(iv){
+  return[{name:'NVDA',val:cl(iv[0]*1.5-20)},{name:'AAPL',val:cl(iv[0]*0.8+iv[5]*0.2)},
+    {name:'摩根大通',val:cl(iv[1]*1.1)},{name:'区域银行',val:cl(iv[1]*1.7-25)},
+    {name:'埃克森',val:cl(iv[2]*1.1)},{name:'波音',val:cl(iv[6]*0.5+iv[0]*0.3+25)},
+    {name:'小盘成长',val:cl((iv[0]+iv[1])/2*1.5-15)},{name:'金矿企',val:cl(iv[7]*1.3-8)}]}
+
+function renderItems(cid,items,clickable){
+  var h='';items.forEach(function(it){
+    var p=it.val,c=bch(p);
+    h+='<div class="gc-item'+(clickable?' clickable':'')+(activeChain===it.key?' active':'')+'"'+(clickable?' onclick="openChain(\''+it.key+'\')"':'')+'>'+
+    '<span class="gc-il">'+it.name+'</span><div class="gc-bw"><div class="gc-bm"></div><div class="gc-b" style="width:'+p+'%;background:'+c+'"></div></div><span class="gc-iv" style="color:'+c+'">'+p+'</span></div>'});
+  document.getElementById(cid).innerHTML=h}
+
+function renderChain(){
+  var panel=document.getElementById('chain-panel');
+  if(!activeChain){panel.classList.remove('open');return}
+  var ch=chains[activeChain];if(!ch){panel.classList.remove('open');return}
+  var idx=IK.indexOf(activeChain),score=indVals[idx]||50;
+  function nv(base){return cl(base+((score-50)/50)*20)}
+  function nc(v){return bch(v)}
+
+  var h='<div class="chain-title">'+ch.name+' <span class="chain-score" style="color:'+nc(score)+'">景气度 '+score+'</span><span class="chain-close" onclick="closeChain()">&#10005; 关闭</span></div>';
+  h+='<div class="chain-desc">'+ch.desc+'</div>';
+
+  h+='<div class="chain-flow">';
+  var sections=[
+    {title:'上游 Upstream',data:ch.up,baseUp:-8,baseDown:5,col:'var(--tx3)'},
+    {title:'中游 Core',data:ch.mid,baseUp:0,baseDown:0,col:nc(score)},
+    {title:'下游 Downstream',data:ch.down,baseUp:5,baseDown:-5,col:'var(--tx3)'}
+  ];
+  sections.forEach(function(sec,si){
+    if(si>0)h+='<div class="chain-arr">&rarr;</div>';
+    var isMid=si===1;
+    h+='<div class="chain-col"'+(isMid?' style="border-color:'+nc(score)+'"':'')+'>';
+    h+='<div class="chain-col-t"><span class="ccd" style="background:'+sec.col+'"></span>'+sec.title+'</div>';
+    sec.data.forEach(function(node,ni){
+      var spread=(ni-Math.floor(sec.data.length/2))*3;
+      var v=nv(50+sec.baseUp+spread);
+      h+='<div class="chain-node" style="border-left:3px solid '+nc(v)+'">';
+      h+='<span class="chain-node-name">'+node.n+'</span>';
+      h+='<span class="chain-node-val" style="color:'+nc(v)+'">'+v+' '+bl(v)+'</span>';
+      h+='</div><div class="chain-node-note">'+node.d+'</div>';
+    });
+    h+='</div>';
+  });
+  h+='</div>';
+
+  h+='<div class="chain-macro"><div class="chain-macro-t">宏观因子敏感度（红色=高敏感/高风险，绿色=低敏感/低风险）</div>';
+  ch.factors.forEach(function(f){
+    var w={'极高':90,'高':70,'核心':85,'正相关':75,'强反向':80,'中':50,'低':25,'极低':15,'长期':40,'最高':95}[f.v]||60;
+    var c=w>=70?'#E24B4A':w>=45?'#BA7517':'#1D9E75';
+    h+='<div class="chain-factor"><span class="chain-factor-name">'+f.n+'</span><div class="chain-factor-bar"><div class="chain-factor-fill" style="width:'+w+'%;background:'+c+'"></div></div><span class="chain-factor-val" style="color:'+c+'">'+f.v+'</span></div>';
+    h+='<div class="chain-factor-note">'+f.d+'</div>';
+  });
+  h+='</div>';
+
+  h+='<div class="chain-elasticity"><div class="chain-macro-t">传动弹性分析</div>';
+  var eData=getElasticity(activeChain,score);
+  eData.forEach(function(e){
+    h+='<div class="chain-el-row">';
+    h+='<span class="chain-el-from">'+e.from+'</span>';
+    h+='<span class="chain-el-arrow">&rarr;</span>';
+    h+='<span class="chain-el-to">'+e.to+'</span>';
+    h+='<span class="chain-el-ratio" style="color:'+e.color+'">'+e.ratio+'</span>';
+    h+='<span class="chain-el-meaning">'+e.meaning+'</span>';
+    h+='</div>';
+  });
+  h+='</div>';
+
+  h+='<div class="chain-insight">'+ch.insight+'</div>';
+
+  document.getElementById('chain-card').innerHTML=h;
+  panel.classList.add('open');
+}
+
+function getElasticity(key,score){
+  var m=getMacro();
+  var highRate=m.rate<40,highVix=m.risk<35,highOil=m.energy>65;
+  var base=[
+    {from:'利率+100bp',to:'行业景气度',ratio:'',meaning:'',color:''},
+    {from:'美元+5%',to:'行业收入',ratio:'',meaning:'',color:''},
+    {from:'VIX+10pt',to:'行业波动',ratio:'',meaning:'',color:''},
+    {from:'行业景气→',to:'龙头股',ratio:'1:1.2x',meaning:'龙头缓冲强',color:'#1D9E75'},
+    {from:'行业景气→',to:'小盘股',ratio:'1:2.5x',meaning:'小盘弹性大',color:'#E24B4A'}
+  ];
+  var configs={
+    tech: [{r:'-12pt',m:'估值压缩',c:'#E24B4A'},{r:'-6pt',m:'海外收入受损',c:'#BA7517'},{r:'-15pt',m:'risk-off杀成长',c:'#E24B4A'}],
+    bank: [{r:'+8pt',m:'NIM扩大受益',c:'#1D9E75'},{r:'-3pt',m:'影响小',c:'#1D9E75'},{r:'-18pt',m:'信用恐慌',c:'#E24B4A'}],
+    energy:[{r:'-3pt',m:'影响小',c:'#1D9E75'},{r:'-8pt',m:'美元计价反向',c:'#BA7517'},{r:'+5pt',m:'避险推高油价',c:'#1D9E75'}],
+    realestate:[{r:'-25pt',m:'最敏感行业',c:'#E24B4A'},{r:'-4pt',m:'间接影响',c:'#BA7517'},{r:'-10pt',m:'信用收缩',c:'#E24B4A'}],
+    export:[{r:'-5pt',m:'间接传导',c:'#BA7517'},{r:'-15pt',m:'竞争力直接受损',c:'#E24B4A'},{r:'-8pt',m:'需求收缩',c:'#BA7517'}],
+    consumer:[{r:'-8pt',m:'信贷→消费',c:'#BA7517'},{r:'-5pt',m:'进口成本',c:'#BA7517'},{r:'-10pt',m:'信心崩塌',c:'#E24B4A'}],
+    defense:[{r:'-2pt',m:'政府采购免疫',c:'#1D9E75'},{r:'-1pt',m:'几乎不影响',c:'#1D9E75'},{r:'+8pt',m:'恐慌=军费↑',c:'#1D9E75'}],
+    gold:[{r:'+15pt',m:'实际利率↓=金价↑',c:'#1D9E75'},{r:'+12pt',m:'美元↓=黄金↑',c:'#1D9E75'},{r:'+10pt',m:'避险买入',c:'#1D9E75'}]
+  };
+  var cfg=configs[key]||configs.tech;
+  base[0].ratio=cfg[0].r;base[0].meaning=cfg[0].m;base[0].color=cfg[0].c;
+  base[1].ratio=cfg[1].r;base[1].meaning=cfg[1].m;base[1].color=cfg[1].c;
+  base[2].ratio=cfg[2].r;base[2].meaning=cfg[2].m;base[2].color=cfg[2].c;
+  if(highRate){base[0].meaning+=' [当前高利率放大此效应]';base[0].ratio+=' !!'}
+  if(highVix){base[2].meaning+=' [当前VIX高企放大此效应]';base[2].ratio+=' !!'}
+  return base;
+}
+
+function openChain(key){
+  if(activeChain===key){closeChain();return}
+  activeChain=key;
+  update();
+  renderChain();
+  setTimeout(function(){document.getElementById('chain-panel').scrollIntoView({behavior:'smooth',block:'nearest'})},120);
+}
+
+function closeChain(){
+  activeChain=null;
+  document.getElementById('chain-panel').classList.remove('open');
+  update();
+}
+
+function update(){
+  Object.keys(M).forEach(function(k){M[k].vars.forEach(function(v){var e=document.getElementById('sv-'+v.id);if(e)e.textContent=v.val+v.unit})});
+  var m=getMacro();
+  renderItems('macro-items',[{name:'利率环境',val:m.rate},{name:'美元/汇率',val:m.dollar},{name:'风险偏好',val:m.risk},{name:'能源价格',val:m.energy},{name:'供应链',val:m.supply}],false);
+  indVals=calcInd(m);
+  renderItems('ind-items',IK.map(function(k,i){return{name:IN[i],val:indVals[i],key:k}}),true);
+  renderItems('micro-items',calcMicro(indVals),false);
+  if(activeChain)renderChain()}
+
+// === INIT ===
+renderMods();renderSC();update();
+</script>
+</body>
+</html>

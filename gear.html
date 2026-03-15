@@ -45,6 +45,8 @@ header{text-align:center;padding:16px 0 12px;border-bottom:0.5px solid var(--bd)
 header h1{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:2px;line-height:1.4}
 header .sub{font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:4px;letter-spacing:0.5px}
 header .author{font-family:var(--serif);font-size:10px;color:var(--tx4);margin-top:6px}
+.uncalibrated{display:inline-block;font-family:var(--mono);font-size:9px;color:var(--coral);border:1px solid var(--coral);border-radius:3px;padding:2px 6px;margin-top:6px;letter-spacing:0.5px;text-transform:uppercase}
+.disclaimer{text-align:center;font-size:10px;color:var(--tx3);line-height:1.6;padding:16px 12px;margin-top:20px;border-top:0.5px solid var(--bd)}
 
 .section{margin-top:16px}
 .section-title{font-family:var(--serif);font-size:15px;font-weight:600;margin-bottom:4px}
@@ -157,6 +159,7 @@ header .author{font-family:var(--serif);font-size:10px;color:var(--tx4);margin-t
 <h1>多极宏观齿轮传动系统</h1>
 <div class="sub">Macro-Industry-Micro Gear Transmission</div>
 <div class="author">黑森船长</div>
+<span class="uncalibrated">⚠ 未校准 · Uncalibrated</span>
 </header>
 
 <div class="section">
@@ -487,5 +490,9 @@ function update(){
 // === INIT ===
 renderMods();renderSC();update();
 </script>
+<div class="disclaimer">
+⚠ 模型反映专家判断 / 未经历史数据校准 · 传导系数方向可靠但幅度误差 ±50% · 仅供分析参考，不构成投资建议<br>
+Model reflects expert judgment / uncalibrated · Directionally reliable, ±50% magnitude variance · Not investment advice
+</div>
 </body>
 </html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme:light)">
+<title>仪表盘 | 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f7f4; --bg2: #f0efe9; --card: #ffffff;
+  --tx: #1a1a1f; --tx2: #6b6b76; --tx3: #9b9ba5;
+  --bd: rgba(0,0,0,0.06); --bd2: rgba(0,0,0,0.1);
+  --green: #16a34a; --green-bg: rgba(22,163,74,0.08);
+  --yellow: #d97706; --yellow-bg: rgba(217,119,6,0.08);
+  --red: #dc2626; --red-bg: rgba(220,38,38,0.08);
+  --accent: #2d5af0;
+  --sans: 'Noto Sans SC', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --r: 10px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+@media (prefers-color-scheme:dark) { :root {
+  --bg: #0a0e17; --bg2: #111827; --card: #151c2c;
+  --tx: #e0e0e8; --tx2: #8b8b9a; --tx3: #55556a;
+  --bd: rgba(255,255,255,0.06); --bd2: rgba(255,255,255,0.1);
+  --green-bg: rgba(22,163,74,0.12); --yellow-bg: rgba(217,119,6,0.12); --red-bg: rgba(220,38,38,0.12);
+  --shadow: 0 1px 4px rgba(0,0,0,0.2);
+}}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: var(--sans); background: var(--bg); color: var(--tx);
+  display: flex; flex-direction: column; padding: 12px 16px;
+  position: relative;
+}
+
+/* watermark */
+body::after {
+  content: '黑森船长'; position: fixed;
+  bottom: 50%; left: 50%; transform: translate(-50%, 50%) rotate(-30deg);
+  font-size: 80px; font-weight: 700; color: var(--tx);
+  opacity: 0.02; pointer-events: none; z-index: 0;
+  white-space: nowrap;
+}
+
+.dash { flex: 1; display: flex; flex-direction: column; gap: 10px; max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+
+/* ── 顶栏 ── */
+.top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; border-radius: var(--r);
+  background: var(--card); border: 1px solid var(--bd); box-shadow: var(--shadow);
+  flex-wrap: wrap; gap: 8px;
+}
+.regime-block { display: flex; align-items: center; gap: 10px; }
+.regime-name { font-size: 20px; font-weight: 700; }
+.regime-days { font-size: 12px; color: var(--tx3); font-family: var(--mono); }
+.top-right { display: flex; align-items: center; gap: 16px; }
+.stress-block {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px; font-family: var(--mono);
+}
+.stress-block.green { background: var(--green-bg); color: var(--green); }
+.stress-block.yellow { background: var(--yellow-bg); color: var(--yellow); }
+.stress-block.red { background: var(--red-bg); color: var(--red); }
+.stress-num { font-size: 18px; font-weight: 600; }
+.stress-lbl { font-size: 11px; }
+.update-time { font-size: 11px; color: var(--tx3); font-family: var(--mono); white-space: nowrap; }
+
+/* ── 景气度卡片 ── */
+.macro-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.macro-card {
+  background: var(--card); border: 1px solid var(--bd); border-radius: var(--r);
+  padding: 12px; text-align: center; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.mc-name { font-size: 11px; color: var(--tx2); font-weight: 500; }
+.mc-ring {
+  width: 56px; height: 56px; border-radius: 50%; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.mc-ring svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); }
+.mc-val { font-size: 18px; font-weight: 700; font-family: var(--mono); position: relative; z-index: 1; }
+.mc-delta { font-size: 11px; font-family: var(--mono); font-weight: 500; }
+.mc-delta.up { color: var(--green); }
+.mc-delta.down { color: var(--red); }
+.mc-delta.flat { color: var(--tx3); }
+
+/* ── 产业条 ── */
+.ind-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.ind-bar {
+  background: var(--card); border: 1px solid var(--bd); border-radius: var(--r);
+  padding: 8px 10px; box-shadow: var(--shadow); cursor: pointer;
+  transition: transform 0.2s;
+}
+.ind-bar:hover { transform: translateY(-2px); }
+.ind-bar.highlight { border-color: var(--accent); }
+.ind-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.ind-name { font-size: 11px; color: var(--tx2); }
+.ind-val { font-size: 13px; font-weight: 600; font-family: var(--mono); }
+.ind-track { height: 4px; border-radius: 2px; background: var(--bg2); overflow: hidden; }
+.ind-fill { height: 100%; border-radius: 2px; transition: width 0.6s; }
+
+/* ── 预警区 ── */
+.alert-zone {
+  background: var(--card); border: 1px solid var(--bd); border-radius: var(--r);
+  padding: 10px 14px; box-shadow: var(--shadow); flex: 1;
+  display: flex; flex-direction: column; gap: 6px; overflow-y: auto;
+}
+.alert-ok { color: var(--tx3); font-size: 13px; text-align: center; padding: 8px; }
+.alert-item {
+  padding: 8px 12px; border-radius: 8px; font-size: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.alert-item.warn { background: var(--yellow-bg); color: var(--yellow); }
+.alert-item.danger { background: var(--red-bg); color: var(--red); }
+.alert-item.ok { background: var(--green-bg); color: var(--green); }
+.alert-name { font-weight: 500; }
+.alert-val { font-family: var(--mono); font-size: 11px; }
+.stress-detail-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4px 12px; font-size: 11px; color: var(--tx2);
+  border-bottom: 1px solid var(--bd);
+}
+.stress-detail-row:last-child { border-bottom: none; }
+.stress-section-title { font-size: 11px; font-weight: 600; color: var(--tx3); padding: 4px 12px 2px; }
+
+/* ── 底栏 ── */
+.bottom-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 0; flex-wrap: wrap; gap: 4px;
+}
+.nav-links { display: flex; gap: 16px; }
+.nav-links a {
+  font-size: 12px; color: var(--accent); text-decoration: none;
+  font-weight: 500;
+}
+.nav-links a:hover { text-decoration: underline; }
+.disclaimer { font-size: 10px; color: var(--tx3); }
+
+/* ── 移动端 ── */
+@media (max-width: 768px) {
+  body { padding: 8px 10px; }
+  .dash { gap: 8px; }
+  .top-bar { padding: 8px 12px; }
+  .regime-name { font-size: 16px; }
+  .macro-row { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .macro-card { padding: 8px 4px; }
+  .mc-ring { width: 44px; height: 44px; }
+  .mc-val { font-size: 14px; }
+  .mc-name { font-size: 10px; }
+  .mc-delta { font-size: 10px; }
+  .ind-row { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .ind-bar { padding: 6px 8px; }
+  .ind-name { font-size: 10px; }
+  .ind-val { font-size: 11px; }
+}
+@media (max-width: 480px) {
+  .macro-row { grid-template-columns: repeat(3, 1fr); }
+  .ind-row { grid-template-columns: repeat(2, 1fr); }
+  html, body { overflow-y: auto; }
+}
+
+/* loading */
+.loading { text-align: center; padding: 40px; color: var(--tx3); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="dash" id="dash">
+  <div class="loading">加载中...</div>
+</div>
+
+<script>
+(async function() {
+  const $ = id => document.getElementById(id);
+  const dash = $('dash');
+
+  // 加载数据
+  let wk, stress;
+  try {
+    const t = Date.now();
+    const [r1, r2] = await Promise.all([
+      fetch('data/weekly-latest.json?t=' + t),
+      fetch('data/stress-index.json?t=' + t),
+    ]);
+    wk = await r1.json();
+    stress = await r2.json();
+  } catch(e) {
+    dash.innerHTML = '<div class="loading">数据加载失败</div>';
+    return;
+  }
+
+  // 颜色工具
+  const barColor = v => v >= 60 ? 'var(--green)' : v >= 40 ? 'var(--yellow)' : 'var(--red)';
+  const ringColor = v => v >= 60 ? 'var(--green)' : v >= 40 ? 'var(--yellow)' : 'var(--red)';
+  const stressCls = s => s > 60 ? 'red' : s > 30 ? 'yellow' : 'green';
+
+  // 构建 HTML
+  let html = '';
+
+  // ═══ 1. 顶栏 ═══
+  const reg = wk.regime;
+  const stScore = wk.stress_index ? wk.stress_index.score : (stress ? stress.score : 0);
+  const stLabel = wk.stress_index ? wk.stress_index.label : (stress ? stress.label : '');
+  html += `<div class="top-bar">
+    <div class="regime-block">
+      <span class="regime-name" style="color:${reg.color}">${reg.emoji} ${reg.name}</span>
+    </div>
+    <div class="top-right">
+      <div class="stress-block ${stressCls(stScore)}">
+        <span class="stress-lbl">压力</span>
+        <span class="stress-num">${stScore}</span>
+      </div>
+      <span class="update-time">${wk.generated_at || ''}</span>
+    </div>
+  </div>`;
+
+  // ═══ 2. 五个宏观景气度卡片 ═══
+  html += `<div class="macro-row">`;
+  for (const m of wk.macro) {
+    const v = m.value;
+    const c = ringColor(v);
+    const pct = v / 100;
+    const r = 24, cx = 28, cy = 28;
+    const circ = 2 * Math.PI * r;
+    const offset = circ * (1 - pct);
+    // 周变动
+    let deltaHtml = '<span class="mc-delta flat">→</span>';
+    if (m.delta != null && m.delta !== 0) {
+      if (m.delta > 0) deltaHtml = `<span class="mc-delta up">↑+${m.delta}</span>`;
+      else deltaHtml = `<span class="mc-delta down">↓${m.delta}</span>`;
+    }
+    html += `<div class="macro-card">
+      <div class="mc-name">${m.name}</div>
+      <div class="mc-ring">
+        <svg width="56" height="56" viewBox="0 0 56 56">
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--bg2)" stroke-width="3.5"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c}" stroke-width="3.5"
+            stroke-dasharray="${circ}" stroke-dashoffset="${offset}" stroke-linecap="round"/>
+        </svg>
+        <span class="mc-val" style="color:${c}">${v}</span>
+      </div>
+      ${deltaHtml}
+    </div>`;
+  }
+  html += `</div>`;
+
+  // ═══ 3. 产业层 ═══
+  // 找出周变动最大的3个
+  const inds = wk.industries || [];
+  const sorted = [...inds].sort((a, b) => Math.abs(b.delta || 0) - Math.abs(a.delta || 0));
+  const top3 = new Set(sorted.slice(0, 3).filter(x => x.delta && x.delta !== 0).map(x => x.name));
+
+  html += `<div class="ind-row">`;
+  for (const ind of inds) {
+    const c = barColor(ind.value);
+    const hl = top3.has(ind.name) ? ' highlight' : '';
+    html += `<a href="gear.html" class="ind-bar${hl}" style="text-decoration:none;color:inherit">
+      <div class="ind-top">
+        <span class="ind-name">${ind.name}</span>
+        <span class="ind-val" style="color:${c}">${ind.value}</span>
+      </div>
+      <div class="ind-track"><div class="ind-fill" style="width:${ind.value}%;background:${c}"></div></div>
+    </a>`;
+  }
+  html += `</div>`;
+
+  // ═══ 4. 预警区 ═══
+  html += `<div class="alert-zone">`;
+
+  const hasHard = stress && stress.hard_alerts_count > 0;
+  const hasSig = wk.significant_deviations && wk.significant_deviations.length > 0;
+  const hasAlert = hasHard || hasSig || stScore > 30;
+
+  if (!hasAlert) {
+    html += `<div class="alert-ok">✅ 一切正常 · 各指标在安全范围</div>`;
+  } else {
+    // 显著偏离
+    if (hasSig) {
+      for (const d of wk.significant_deviations) {
+        const cls = d.level === '极端偏离' ? 'danger' : 'warn';
+        html += `<div class="alert-item ${cls}">
+          <span class="alert-name">${d.name} ${d.direction}</span>
+          <span class="alert-val">${d.current} (基准${d.base}) ${Math.abs(d.deviation_pct)}%</span>
+        </div>`;
+      }
+    }
+
+    // 压力指数分项
+    if (wk.stress_index && wk.stress_index.components) {
+      html += `<div class="stress-section-title">压力指数分项</div>`;
+      for (const c of wk.stress_index.components) {
+        html += `<div class="stress-detail-row">
+          <span>${c.name} (权重${c.weight_pct}%)</span>
+          <span style="font-family:var(--mono)">${c.current} → 偏离${c.deviation_pct}%</span>
+        </div>`;
+      }
+    }
+  }
+  html += `</div>`;
+
+  // ═══ 5. 底栏 ═══
+  html += `<div class="bottom-bar">
+    <div class="nav-links">
+      <a href="weekly.html">宏观雷达</a>
+      <a href="gear.html">齿轮系统</a>
+      <a href="america.html">经济结构</a>
+      <a href="s2-battle.html">战局推演</a>
+    </div>
+    <span class="disclaimer">模型为专家判断/未校准 · 不构成投资建议</span>
+  </div>`;
+
+  dash.innerHTML = html;
+})();
+</script>
+</body>
+</html>

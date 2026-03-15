@@ -184,15 +184,18 @@ body::after {
   let wk, stress;
   try {
     const t = Date.now();
-    const [r1, r2] = await Promise.all([
-      fetch('data/weekly-latest.json?t=' + t),
-      fetch('data/stress-index.json?t=' + t),
-    ]);
+    const r1 = await fetch('data/weekly-latest.json?t=' + t);
+    if (!r1.ok) throw new Error('weekly-latest: HTTP ' + r1.status);
     wk = await r1.json();
-    stress = await r2.json();
   } catch(e) {
-    dash.innerHTML = '<div class="loading">数据加载失败</div>';
+    dash.innerHTML = '<div class="loading">数据加载失败: ' + e.message + '</div>';
     return;
+  }
+  try {
+    const r2 = await fetch('data/stress-index.json?t=' + Date.now());
+    if (r2.ok) stress = await r2.json();
+  } catch(e) {
+    stress = null;
   }
 
   // 颜色工具

@@ -1,12 +1,12 @@
 {
-  "week_label": "2026-W11",
-  "generated_at": "2026-03-16 02:40",
-  "data_time": "2026-03-15T18:40:47Z",
+  "week_label": "2026-W12",
+  "generated_at": "2026-03-16 13:30",
+  "data_time": "2026-03-16T05:30:12Z",
   "regime": {
-    "name": "宽松放水",
-    "emoji": "🔵",
-    "desc": "流动性宽松，资产普涨",
-    "color": "#3b82f6",
+    "name": "体制转换",
+    "emoji": "🟠",
+    "desc": "体制转换中，方向未明",
+    "color": "#f97316",
     "hmm_state": "S2",
     "hmm_probabilities": {
       "S0": 0.0,
@@ -15,8 +15,8 @@
       "S3": 0.0,
       "S4": 0.0
     },
-    "confidence": 0.8,
-    "reasoning": "HMM=easing，利率下行+正回报"
+    "confidence": 0.65,
+    "reasoning": "HMM=easing但VIX=27>25+油价$99>$85→降级transition"
   },
   "variables": [
     {
@@ -55,24 +55,24 @@
       "key": "oil",
       "name": "WTI油价",
       "unit": "$/b",
-      "value": 98.71,
-      "date": "2026-03-13",
+      "value": 99.46,
+      "date": "2026-03-16",
       "freshness": "fresh"
     },
     {
       "key": "usd_cny",
       "name": "USD/CNY",
       "unit": "",
-      "value": 6.8956,
-      "date": "2026-03-15",
+      "value": 6.8998,
+      "date": "2026-03-16",
       "freshness": "fresh"
     },
     {
       "key": "usd_jpy",
       "name": "USD/JPY",
       "unit": "",
-      "value": 159.536,
-      "date": "2026-03-15",
+      "value": 159.39,
+      "date": "2026-03-16",
       "freshness": "fresh"
     },
     {
@@ -394,14 +394,14 @@
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 7.51,
+      "total_gap": 6.76,
       "triggers": [
         {
           "name": "油价",
           "need": ">",
           "threshold": 100,
-          "current": 98.71,
-          "gap": 1.29
+          "current": 99.46,
+          "gap": 0.54
         },
         {
           "name": "Fed利率",

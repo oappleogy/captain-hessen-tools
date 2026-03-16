@@ -422,17 +422,19 @@ function renderDecisions(data) {
 
   if (sorted.length > 0) {
     let html = `<table><thead><tr>
-      <th>日期</th><th>标的</th><th>方向</th><th>象限</th><th>仓位</th><th>状态</th><th>结果</th>
+      <th>日期</th><th>市场</th><th>标的</th><th>方向</th><th>象限</th><th>仓位</th><th>状态</th><th>结果</th>
     </tr></thead><tbody>`;
     for (const r of sorted) {
       const quad = r['象限'] || '-';
       const result = r['结果'] || '-';
+      const market = r['市场'] || '美股';
       const qClass = `badge-${quad.toLowerCase()}`;
       const statusClass = (r['状态']||'') === '持仓中' ? 'status-active' : 'status-closed';
       let pnlClass = '';
       if (result !== '-') pnlClass = result.includes('-') ? 'pnl-neg' : (result.includes('+') ? 'pnl-pos' : '');
       html += `<tr>
         <td>${r['日期']||'-'}</td>
+        <td>${market}</td>
         <td><strong>${r['标的']||'-'}</strong></td>
         <td>${r['方向']||'-'}</td>
         <td><span class="badge ${qClass}">${quad}</span></td>
@@ -450,7 +452,9 @@ function renderDecisions(data) {
   if (active.length > 0) {
     let html = '';
     for (const r of active) {
+      const mkt = r['市场'] || '美股';
       html += `<div class="comp-item">
+        <span style="font-size:11px;color:var(--text2);">${mkt}</span>
         <strong>${r['标的']||'-'}</strong>${r['行业'] ? ` (${r['行业']})` : ''}
         · ${r['方向']||'-'} · 象限${r['象限']||'-'} · ${r['实际仓位']||'-'}
         ${r['你说'] ? `<br><span style="color:var(--text2);font-size:11px;">${r['你说']}</span>` : ''}
@@ -470,9 +474,13 @@ function renderScanAndSizing(scan, sizing) {
     return;
   }
 
+  const market = scan.market_label || '美股';
   let html = `<div style="font-size:13px;color:var(--text2);margin-bottom:12px;">
-    体制: ${cap.sub_classification||'?'} | 仓位上限: ${cap.max_total_position||'?'} | ${cap.reasoning||''}
+    市场: <strong>${market}</strong> | 体制: ${cap.sub_classification||'?'} | 仓位上限: ${cap.max_total_position||'?'} | ${cap.reasoning||''}
   </div>`;
+  if (scan.market_note) {
+    html += `<div style="font-size:11px;color:var(--text3);margin-bottom:12px;">${scan.market_note}</div>`;
+  }
 
   const typeNames = {
     regime_mismatch: '体制错配', supply_chain_scissors: '产业链剪刀差',

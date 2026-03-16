@@ -1,5 +1,8 @@
 {
   "scan_date": "2026-03-16",
+  "market": "US",
+  "market_label": "美股",
+  "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
   "regime": {
     "name": "transition",
     "hmm_state": "S2",
@@ -10,7 +13,7 @@
       "type": "regime_mismatch",
       "sector": "地产/REITs",
       "signal": "体制=transition + 地产/REITs景气=67 + 预期区间=[25, 50] + 偏离=17点 + 宏观: 利率景气(61)/风险承压(34)/能源中性(56)",
-      "direction": "看空地产/REITs（景气67高于体制'transition'预期上界50）",
+      "direction": "看空美股地产/REITs（景气67高于体制'transition'预期上界50）",
       "confidence": {
         "gear_model": 0.56,
         "regime_hmm": 0.65,
@@ -26,8 +29,8 @@
     {
       "type": "supply_chain_scissors",
       "sector": "银行/金融↔地产/REITs",
-      "signal": "地产/REITs景气=67 vs 银行/金融景气=17（差=50） — 信贷供给→地产需求",
-      "direction": "看多银行/金融（地产/REITs需求尚未传导）",
+      "signal": "美股地产/REITs景气=67 vs 银行/金融景气=17（差=50） — 信贷供给→地产需求",
+      "direction": "看多美股银行/金融（地产/REITs需求尚未传导）",
       "confidence": {
         "gear_model": 1.0,
         "consensus": "1/3模型（仅齿轮）"
@@ -44,7 +47,7 @@
       "type": "cross_model_consensus",
       "sector": "黄金/大宗",
       "signal": "齿轮景气=63 + 体制=transition(conf=0.65)",
-      "direction": "看多黄金/大宗",
+      "direction": "看多美股黄金/大宗",
       "confidence": {
         "gear_model": 0.26,
         "regime_hmm": 0.65,

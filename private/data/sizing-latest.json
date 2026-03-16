@@ -1,5 +1,7 @@
 {
   "date": "2026-03-16",
+  "market": "US",
+  "market_label": "美股",
   "regime_position_cap": {
     "hmm_state": "S2",
     "sub_classification": "transition",
@@ -11,7 +13,7 @@
   },
   "opportunity_sizing": [
     {
-      "opportunity": "看空地产/REITs（景气67高于体制'transition'预期上界50）",
+      "opportunity": "看空美股地产/REITs（景气67高于体制'transition'预期上界50）",
       "sector": "地产/REITs",
       "type": "regime_mismatch",
       "win_rate": 0.6,
@@ -26,7 +28,7 @@
       "viable": true
     },
     {
-      "opportunity": "看多银行/金融（地产/REITs需求尚未传导）",
+      "opportunity": "看多美股银行/金融（地产/REITs需求尚未传导）",
       "sector": "银行/金融↔地产/REITs",
       "type": "supply_chain_scissors",
       "win_rate": 0.55,
@@ -41,7 +43,7 @@
       "viable": true
     },
     {
-      "opportunity": "看多黄金/大宗",
+      "opportunity": "看多美股黄金/大宗",
       "sector": "黄金/大宗",
       "type": "cross_model_consensus",
       "win_rate": 0.65,
@@ -129,5 +131,5 @@
       "黄金/大宗"
     ]
   },
-  "disclaimer": "仅为参考建议，最终决策由你做出"
+  "disclaimer": "仅为参考建议，最终决策由你做出。当前模型仅覆盖美国市场。"
 }

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BaseAlpha · Private</title>
+<style>
+:root {
+  --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
+  --text: #e6edf3; --text2: #8b949e; --text3: #484f58;
+  --border: #30363d; --blue: #58a6ff; --red: #f85149;
+  --green: #3fb950; --yellow: #d29922;
+  --qa: #3fb950; --qb: #58a6ff; --qc: #d29922; --qd: #8b949e;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #ffffff; --bg2: #f6f8fa; --bg3: #eaeef2;
+    --text: #1f2328; --text2: #656d76; --text3: #afb8c1;
+    --border: #d0d7de; --blue: #0969da; --red: #cf222e;
+    --green: #1a7f37; --yellow: #9a6700;
+    --qa: #1a7f37; --qb: #0969da; --qc: #9a6700; --qd: #656d76;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+}
+
+/* ─── 登录界面 ─── */
+#login-screen {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; min-height: 100vh; padding: 20px;
+}
+.login-box {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+  padding: 40px; max-width: 380px; width: 100%; text-align: center;
+}
+.login-box h1 { font-size: 20px; margin-bottom: 6px; }
+.login-box .sub { font-size: 13px; color: var(--text2); margin-bottom: 28px; }
+.login-box input[type="password"] {
+  width: 100%; padding: 12px 16px; font-size: 15px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); outline: none; margin-bottom: 16px;
+}
+.login-box input[type="password"]:focus { border-color: var(--blue); }
+.login-box button {
+  width: 100%; padding: 12px; font-size: 14px; font-weight: 600;
+  background: var(--blue); color: #fff; border: none; border-radius: 8px;
+  cursor: pointer;
+}
+.login-box button:hover { opacity: 0.9; }
+.login-error {
+  color: var(--red); font-size: 13px; margin-top: 12px; min-height: 18px;
+}
+.login-footer { margin-top: 20px; font-size: 11px; color: var(--text3); }
+
+/* ─── 仪表盘主体 ─── */
+#dashboard { display: none; max-width: 960px; margin: 0 auto; padding: 20px; }
+#dashboard.visible { display: block; }
+
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.dash-header h1 { font-size: 20px; }
+.logout-btn {
+  font-size: 12px; color: var(--text2); background: none; border: 1px solid var(--border);
+  border-radius: 6px; padding: 4px 12px; cursor: pointer;
+}
+.logout-btn:hover { color: var(--text); border-color: var(--text2); }
+.subtitle { color: var(--text2); font-size: 13px; margin-bottom: 24px; }
+
+.watermark {
+  position: fixed; bottom: 12px; right: 16px;
+  color: var(--text3); font-size: 11px; opacity: 0.5;
+}
+
+/* 四象限格子 */
+.quadrant-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 24px;
+}
+.q-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+  border-left: 4px solid var(--border);
+}
+.q-card.qa { border-left-color: var(--qa); }
+.q-card.qb { border-left-color: var(--qb); }
+.q-card.qc { border-left-color: var(--qc); }
+.q-card.qd { border-left-color: var(--qd); }
+.q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.q-label { font-size: 14px; font-weight: 600; }
+.q-count { font-size: 24px; font-weight: 700; }
+.q-meta { font-size: 12px; color: var(--text2); }
+.q-winrate { font-size: 13px; font-weight: 500; margin-top: 4px; }
+.q-desc {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  margin-bottom: 24px; font-size: 12px; color: var(--text2);
+}
+.q-desc div { padding: 4px 8px; }
+
+/* 扫描 + 仓位建议 */
+.scan-section { margin-bottom: 24px; }
+.scan-section h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.opp-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 10px;
+}
+.opp-type { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+.opp-direction { font-size: 14px; font-weight: 600; margin: 4px 0; }
+.opp-signal { font-size: 12px; color: var(--text2); }
+.opp-sizing { font-size: 13px; margin-top: 6px; }
+.opp-sizing strong { color: var(--blue); }
+
+/* 时间线 */
+.timeline { margin-bottom: 24px; }
+.timeline h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.timeline-empty { color: var(--text2); font-size: 13px; padding: 20px; text-align: center; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: var(--bg2); }
+th { text-align: left; padding: 8px 10px; color: var(--text2); font-weight: 500;
+     border-bottom: 1px solid var(--border); }
+td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+tr:hover { background: var(--bg2); }
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 11px; font-weight: 600;
+}
+.badge-a { background: color-mix(in srgb, var(--qa) 20%, transparent); color: var(--qa); }
+.badge-b { background: color-mix(in srgb, var(--qb) 20%, transparent); color: var(--qb); }
+.badge-c { background: color-mix(in srgb, var(--qc) 20%, transparent); color: var(--qc); }
+.badge-d { background: color-mix(in srgb, var(--qd) 20%, transparent); color: var(--qd); }
+.pnl-pos { color: var(--green); font-weight: 500; }
+.pnl-neg { color: var(--red); font-weight: 500; }
+.status-active { color: var(--blue); }
+.status-closed { color: var(--text2); }
+
+/* 对比区 */
+.comparison { margin-bottom: 24px; }
+.comparison h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.comp-col { background: var(--bg2); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
+.comp-col h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text2); }
+.comp-item { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.comp-item:last-child { border-bottom: none; }
+.comp-empty { color: var(--text3); font-size: 12px; }
+
+/* 上传区 */
+.upload-section {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px 16px; margin-bottom: 16px; font-size: 13px; color: var(--text2);
+}
+.upload-section input[type="file"] { font-size: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 登录界面 ═══════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>BaseAlpha Private</h1>
+    <p class="sub">四象限决策系统 · 仅限授权访问</p>
+    <form id="login-form">
+      <input type="password" id="pwd-input" placeholder="输入密码" autocomplete="off" autofocus />
+      <button type="submit">进入</button>
+    </form>
+    <div class="login-error" id="login-error"></div>
+    <div class="login-footer">黑森船长 · Private Tools</div>
+  </div>
+</div>
+
+<!-- ═══════════ 仪表盘主体（登录后显示）═══════════ -->
+<div id="dashboard">
+  <div class="dash-header">
+    <h1>四象限决策仪表盘</h1>
+    <button class="logout-btn" onclick="logout()">退出登录</button>
+  </div>
+  <p class="subtitle" id="subtitle">加载数据中...</p>
+
+  <!-- 四象限格子 -->
+  <div class="quadrant-grid">
+    <div class="q-card qa">
+      <div class="q-header">
+        <span class="q-label">A 系统+你都看到</span>
+        <span class="q-count" id="qa-count">-</span>
+      </div>
+      <div class="q-meta">确定性最高</div>
+      <div class="q-winrate" id="qa-winrate"></div>
+    </div>
+    <div class="q-card qc">
+      <div class="q-header">
+        <span class="q-label">C 你的独特alpha</span>
+        <span class="q-count" id="qc-count">-</span>
+      </div>
+      <div class="q-meta">直觉/经验，系统无信号</div>
+      <div class="q-winrate" id="qc-winrate"></div>
+    </div>
+    <div class="q-card qb">
+      <div class="q-header">
+        <span class="q-label">B 系统扩展视野</span>
+        <span class="q-count" id="qb-count">-</span>
+      </div>
+      <div class="q-meta">系统提醒你才注意到</div>
+      <div class="q-winrate" id="qb-winrate"></div>
+    </div>
+    <div class="q-card qd">
+      <div class="q-header">
+        <span class="q-label">D 黑天鹅防御</span>
+        <span class="q-count" id="qd-count">-</span>
+      </div>
+      <div class="q-meta">对冲未知风险</div>
+      <div class="q-winrate" id="qd-winrate"></div>
+    </div>
+  </div>
+  <div class="q-desc">
+    <div>你知道 + 系统知道 → 高置信执行</div>
+    <div>你知道 + 系统不知道 → 手动覆盖+记录</div>
+    <div>你不知道 + 系统知道 → 系统提醒→你决定</div>
+    <div>你不知道 + 系统不知道 → 仓位管理+尾部对冲</div>
+  </div>
+
+  <!-- 扫描建议 + 仓位建议 -->
+  <div class="scan-section">
+    <h2>当前系统建议</h2>
+    <div id="scan-content"><p class="comp-empty">加载中...</p></div>
+  </div>
+
+  <!-- 最近决策时间线 -->
+  <div class="timeline">
+    <h2>最近决策</h2>
+    <div id="timeline-content">
+      <p class="timeline-empty">暂无决策记录</p>
+    </div>
+  </div>
+
+  <!-- 系统建议 vs 活跃持仓 -->
+  <div class="comparison">
+    <h2>活跃持仓</h2>
+    <div id="active-positions"><p class="comp-empty">暂无活跃持仓</p></div>
+  </div>
+
+  <!-- 手动上传 -->
+  <div class="upload-section">
+    手动加载数据:
+    <input type="file" id="fileInput" accept=".json" />
+    <span style="color:var(--text3);margin-left:4px;font-size:11px;">summary.json</span>
+  </div>
+</div>
+
+<div class="watermark">黑森船长 · PRIVATE</div>
+
+<script>
+/* ═══════════ 密码验证 ═══════════
+ *
+ * 工作原理：
+ *   1. 用户输入密码 → SHA-256 哈希
+ *   2. 哈希值与预存哈希比对
+ *   3. 匹配则显示仪表盘，不匹配则拒绝
+ *   4. sessionStorage 保持登录状态（关闭标签页后失效）
+ *
+ * 修改密码：
+ *   运行 python3 tools/update_private_password.py 新密码
+ *   或手动替换下方 PASSWORD_HASH 值
+ */
+
+// SHA-256('basealpha2026') — 修改密码时替换此值
+const PASSWORD_HASH = '75699a05ffca4307af9fa533bd5b754bb30488fb11a45248d498c05a47dd5a2e';
+
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256',
+    new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf))
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function verifyPassword(pwd) {
+  const hash = await sha256(pwd);
+  return hash === PASSWORD_HASH;
+}
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const pwd = document.getElementById('pwd-input').value;
+  if (!pwd) return;
+
+  const ok = await verifyPassword(pwd);
+  if (ok) {
+    sessionStorage.setItem('ba_auth', '1');
+    showDashboard();
+  } else {
+    document.getElementById('login-error').textContent = '密码错误';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
+});
+
+function logout() {
+  sessionStorage.removeItem('ba_auth');
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pwd-input').value = '';
+  document.getElementById('login-error').textContent = '';
+}
+
+function showDashboard() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').classList.add('visible');
+  loadData();
+}
+
+// 页面加载时检查 session
+if (sessionStorage.getItem('ba_auth') === '1') {
+  showDashboard();
+}
+
+/* ═══════════ 仪表盘逻辑 ═══════════ */
+
+const $ = id => document.getElementById(id);
+
+async function loadData() {
+  // 加载决策数据
+  try {
+    const resp = await fetch('data/decisions.json');
+    if (resp.ok) {
+      const data = await resp.json();
+      renderDecisions(data);
+    }
+  } catch(e) {}
+
+  // 加载扫描数据
+  try {
+    const resp = await fetch('../data/weekly-latest.json');
+    if (resp.ok) {
+      const weekly = await resp.json();
+      renderScanFromWeekly(weekly);
+    }
+  } catch(e) {}
+
+  // 加载扫描+仓位建议
+  try {
+    const scanResp = await fetch('data/scan-latest.json');
+    const sizingResp = await fetch('data/sizing-latest.json');
+    if (scanResp.ok && sizingResp.ok) {
+      const scan = await scanResp.json();
+      const sizing = await sizingResp.json();
+      renderScanAndSizing(scan, sizing);
+    }
+  } catch(e) {}
+
+  $('subtitle').textContent = $('subtitle').textContent === '加载数据中...'
+    ? '请上传 summary.json 或通过管线推送数据' : $('subtitle').textContent;
+}
+
+function renderDecisions(data) {
+  if (!data || !data.records) return;
+
+  const records = data.records || [];
+  const stats = data.quadrant_stats || {};
+
+  $('subtitle').textContent =
+    `共 ${data.total_records||0} 条决策 · ${data.active||0} 个活跃持仓 · ${data.closed||0} 个已平仓`;
+
+  // 四象限卡片
+  for (const q of ['A', 'B', 'C', 'D']) {
+    const s = stats[q] || {};
+    const ql = q.toLowerCase();
+    $(`q${ql}-count`).textContent = s.total || 0;
+    let winInfo = '';
+    if (s.closed > 0 && s.win_rate != null) {
+      winInfo = `胜率 ${(s.win_rate * 100).toFixed(0)}% (${s.wins}胜/${s.closed}平仓)`;
+    } else if (s.active > 0) {
+      winInfo = `${s.active} 笔持仓中`;
+    }
+    $(`q${ql}-winrate`).textContent = winInfo;
+  }
+
+  // 时间线
+  const sorted = [...records].sort((a, b) =>
+    (b['日期']||'').localeCompare(a['日期']||'')
+  ).slice(0, 10);
+
+  if (sorted.length > 0) {
+    let html = `<table><thead><tr>
+      <th>日期</th><th>标的</th><th>方向</th><th>象限</th><th>仓位</th><th>状态</th><th>结果</th>
+    </tr></thead><tbody>`;
+    for (const r of sorted) {
+      const quad = r['象限'] || '-';
+      const result = r['结果'] || '-';
+      const qClass = `badge-${quad.toLowerCase()}`;
+      const statusClass = (r['状态']||'') === '持仓中' ? 'status-active' : 'status-closed';
+      let pnlClass = '';
+      if (result !== '-') pnlClass = result.includes('-') ? 'pnl-neg' : (result.includes('+') ? 'pnl-pos' : '');
+      html += `<tr>
+        <td>${r['日期']||'-'}</td>
+        <td><strong>${r['标的']||'-'}</strong></td>
+        <td>${r['方向']||'-'}</td>
+        <td><span class="badge ${qClass}">${quad}</span></td>
+        <td>${r['实际仓位']||'-'}</td>
+        <td><span class="${statusClass}">${r['状态']||'-'}</span></td>
+        <td><span class="${pnlClass}">${result}</span></td>
+      </tr>`;
+    }
+    html += '</tbody></table>';
+    $('timeline-content').innerHTML = html;
+  }
+
+  // 活跃持仓
+  const active = records.filter(r => r['状态'] === '持仓中');
+  if (active.length > 0) {
+    let html = '';
+    for (const r of active) {
+      html += `<div class="comp-item">
+        <strong>${r['标的']||'-'}</strong>${r['行业'] ? ` (${r['行业']})` : ''}
+        · ${r['方向']||'-'} · 象限${r['象限']||'-'} · ${r['实际仓位']||'-'}
+        ${r['你说'] ? `<br><span style="color:var(--text2);font-size:11px;">${r['你说']}</span>` : ''}
+      </div>`;
+    }
+    $('active-positions').innerHTML = html;
+  }
+}
+
+function renderScanAndSizing(scan, sizing) {
+  const opps = scan.opportunities || [];
+  const sizingList = sizing.opportunity_sizing || [];
+  const cap = sizing.regime_position_cap || {};
+
+  if (opps.length === 0) {
+    $('scan-content').innerHTML = '<p class="comp-empty">无结构性错配信号</p>';
+    return;
+  }
+
+  let html = `<div style="font-size:13px;color:var(--text2);margin-bottom:12px;">
+    体制: ${cap.sub_classification||'?'} | 仓位上限: ${cap.max_total_position||'?'} | ${cap.reasoning||''}
+  </div>`;
+
+  const typeNames = {
+    regime_mismatch: '体制错配', supply_chain_scissors: '产业链剪刀差',
+    cross_model_consensus: '多模型共识'
+  };
+
+  for (let i = 0; i < opps.length; i++) {
+    const o = opps[i];
+    const s = sizingList[i] || {};
+    html += `<div class="opp-card">
+      <div class="opp-type">${typeNames[o.type] || o.type}</div>
+      <div class="opp-direction">${o.direction || o.sector}</div>
+      <div class="opp-signal">${o.signal || ''}</div>
+      ${s.suggested_size ? `<div class="opp-sizing">建议仓位: <strong>${s.suggested_size}</strong> (胜率${(s.win_rate*100).toFixed(0)}% × 赔率${s.payoff_ratio} → 凯利${(s.kelly_safe*100).toFixed(1)}%)</div>` : ''}
+    </div>`;
+  }
+
+  $('scan-content').innerHTML = html;
+}
+
+function renderScanFromWeekly(weekly) {
+  // 如果没有独立scan数据，从weekly中提取基本信息
+  if ($('scan-content').querySelector('.opp-card')) return; // 已有scan数据
+  const regime = weekly.regime || {};
+  $('scan-content').innerHTML = `<div style="font-size:13px;color:var(--text2);">
+    体制: ${regime.name||'?'} (${regime.hmm_state||'?'}) | 置信度: ${((regime.confidence||0)*100).toFixed(0)}%
+    <br>运行 <code style="background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:11px;">python3 src/action/decision_logger.py --export</code> 推送完整数据
+  </div>`;
+}
+
+// 手动上传
+$('fileInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const data = JSON.parse(ev.target.result);
+      renderDecisions(data);
+    } catch(err) {
+      $('subtitle').textContent = '解析JSON失败: ' + err.message;
+    }
+  };
+  reader.readAsText(file);
+});
+</script>
+</body>
+</html>

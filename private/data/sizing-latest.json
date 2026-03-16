@@ -1,0 +1,133 @@
+{
+  "date": "2026-03-16",
+  "regime_position_cap": {
+    "hmm_state": "S2",
+    "sub_classification": "transition",
+    "confidence": 0.65,
+    "cap_range": "40%-60%",
+    "max_total_position": "48%",
+    "max_total_position_pct": 47.5,
+    "reasoning": "压力上升，降杠杆"
+  },
+  "opportunity_sizing": [
+    {
+      "opportunity": "看空地产/REITs（景气67高于体制'transition'预期上界50）",
+      "sector": "地产/REITs",
+      "type": "regime_mismatch",
+      "win_rate": 0.6,
+      "win_rate_source": "保守默认值（待vault/decisions积累后替换）",
+      "payoff_ratio": 1.5,
+      "payoff_source": "默认1.5",
+      "kelly_raw": 0.3333,
+      "kelly_safe": 0.1667,
+      "suggested_size": "11.9%",
+      "suggested_size_pct": 11.9,
+      "cap_binding": "25%单笔上限触发（凯利建议16.7%）",
+      "viable": true
+    },
+    {
+      "opportunity": "看多银行/金融（地产/REITs需求尚未传导）",
+      "sector": "银行/金融↔地产/REITs",
+      "type": "supply_chain_scissors",
+      "win_rate": 0.55,
+      "win_rate_source": "保守默认值（传导时滞不确定）",
+      "payoff_ratio": 1.5,
+      "payoff_source": "默认1.5",
+      "kelly_raw": 0.25,
+      "kelly_safe": 0.125,
+      "suggested_size": "11.9%",
+      "suggested_size_pct": 11.9,
+      "cap_binding": "25%单笔上限触发（凯利建议12.5%）",
+      "viable": true
+    },
+    {
+      "opportunity": "看多黄金/大宗",
+      "sector": "黄金/大宗",
+      "type": "cross_model_consensus",
+      "win_rate": 0.65,
+      "win_rate_source": "保守默认值（多模型共识历史准确率较高）",
+      "payoff_ratio": 1.5,
+      "payoff_source": "默认1.5",
+      "kelly_raw": 0.4167,
+      "kelly_safe": 0.2083,
+      "suggested_size": "11.9%",
+      "suggested_size_pct": 11.9,
+      "cap_binding": "25%单笔上限触发（凯利建议20.8%）",
+      "viable": true
+    }
+  ],
+  "portfolio_risk": {
+    "factor_concentration": {
+      "利率": {
+        "level": "高",
+        "count": 2,
+        "sectors": [
+          "地产/REITs",
+          "地产/REITs"
+        ],
+        "details": [
+          "地产/REITs(极高(r=+30))",
+          "地产/REITs(极高(r=+30))"
+        ]
+      },
+      "美元": {
+        "level": "极高",
+        "count": 3,
+        "sectors": [
+          "地产/REITs",
+          "地产/REITs",
+          "黄金/大宗"
+        ],
+        "details": [
+          "地产/REITs(中(d=-10))",
+          "地产/REITs(中(d=-10))",
+          "黄金/大宗(高(d=-15))"
+        ]
+      },
+      "风险(VIX)": {
+        "level": "高",
+        "count": 2,
+        "sectors": [
+          "银行/金融",
+          "黄金/大宗"
+        ],
+        "details": [
+          "银行/金融(高(v=+15))",
+          "黄金/大宗(高(v=-12))"
+        ]
+      },
+      "能源(油价)": {
+        "level": "低",
+        "count": 1,
+        "sectors": [
+          "黄金/大宗"
+        ],
+        "details": [
+          "黄金/大宗(高(e=+12))"
+        ]
+      },
+      "供应链": {
+        "level": "低",
+        "count": 1,
+        "sectors": [
+          "黄金/大宗"
+        ],
+        "details": [
+          "黄金/大宗(中(s=+10))"
+        ]
+      }
+    },
+    "warnings": [
+      "利率因子集中度偏高（2个持仓: 地产/REITs, 地产/REITs），考虑对冲或减仓",
+      "美元因子集中度极高（3个持仓: 地产/REITs, 地产/REITs, 黄金/大宗），该因子变动将同时影响多个头寸",
+      "风险(VIX)因子集中度偏高（2个持仓: 银行/金融, 黄金/大宗），考虑对冲或减仓",
+      "注意: 利率, 美元因子上有方向对冲——可能降低净暴露但增加交易成本"
+    ],
+    "involved_sectors": [
+      "地产/REITs",
+      "银行/金融",
+      "黄金/大宗"
+    ]
+  },
+  "disclaimer": "仅为参考建议，最终决策由你做出"
+}

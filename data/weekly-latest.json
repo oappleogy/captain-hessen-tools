@@ -1,7 +1,7 @@
 {
   "week_label": "2026-W12",
-  "generated_at": "2026-03-17 22:31",
-  "data_time": "2026-03-17T14:31:25Z",
+  "generated_at": "2026-03-18 08:45",
+  "data_time": "2026-03-18T00:45:12Z",
   "regime": {
     "name": "金发女孩",
     "emoji": "🟢",
@@ -14,8 +14,8 @@
       "name": "Fed利率",
       "unit": "%",
       "value": 3.64,
-      "date": "2026-03-13",
-      "freshness": "stale"
+      "date": "2026-03-16",
+      "freshness": "fresh"
     },
     {
       "key": "credit_spread",
@@ -29,7 +29,7 @@
       "key": "vix",
       "name": "VIX",
       "unit": "",
-      "value": 22.58,
+      "value": 22.37,
       "date": "2026-03-17",
       "freshness": "fresh"
     },
@@ -37,7 +37,7 @@
       "key": "oil",
       "name": "WTI油价",
       "unit": "$/b",
-      "value": 94.49,
+      "value": 94.99,
       "date": "2026-03-17",
       "freshness": "fresh"
     },
@@ -45,7 +45,7 @@
       "key": "usd_cny",
       "name": "USD/CNY",
       "unit": "",
-      "value": 6.8858,
+      "value": 6.9555,
       "date": "2026-03-17",
       "freshness": "fresh"
     },
@@ -53,133 +53,133 @@
       "key": "usd_jpy",
       "name": "USD/JPY",
       "unit": "",
-      "value": 158.998,
-      "date": "2026-03-17",
+      "value": 159.023,
+      "date": "2026-03-18",
       "freshness": "fresh"
     },
     {
       "key": "t10y2y",
       "name": "10Y-2Y利差",
       "unit": "%",
-      "value": 0.55,
-      "date": "2026-03-16",
+      "value": 0.52,
+      "date": "2026-03-17",
       "freshness": "fresh"
     }
   ],
   "sectors": [
     {
-      "name": "地产/REITs",
-      "prosperity": 65.1,
+      "name": "能源",
+      "prosperity": 64.2,
       "signal": "看好"
     },
     {
-      "name": "能源",
-      "prosperity": 58.2,
-      "signal": "中性"
+      "name": "银行/金融",
+      "prosperity": 63.0,
+      "signal": "看好"
     },
     {
       "name": "黄金/大宗",
-      "prosperity": 58.0,
-      "signal": "中性"
-    },
-    {
-      "name": "军工/防务",
-      "prosperity": 52.9,
-      "signal": "中性"
-    },
-    {
-      "name": "科技/AI",
-      "prosperity": 52.1,
-      "signal": "中性"
-    },
-    {
-      "name": "消费/零售",
-      "prosperity": 50.0,
+      "prosperity": 54.6,
       "signal": "中性"
     },
     {
       "name": "出口制造",
-      "prosperity": 49.3,
+      "prosperity": 50.0,
       "signal": "中性"
     },
     {
-      "name": "银行/金融",
-      "prosperity": 34.8,
-      "signal": "看淡"
+      "name": "科技/AI",
+      "prosperity": 48.3,
+      "signal": "中性"
+    },
+    {
+      "name": "军工/防务",
+      "prosperity": 46.9,
+      "signal": "中性"
+    },
+    {
+      "name": "消费/零售",
+      "prosperity": 46.4,
+      "signal": "中性"
+    },
+    {
+      "name": "地产/REITs",
+      "prosperity": 41.7,
+      "signal": "中性"
     }
   ],
   "macro": [
     {
       "name": "利率",
-      "value": 62.4,
-      "label": "景气",
+      "value": 40.4,
+      "label": "中性",
       "delta": null
     },
     {
       "name": "美元",
-      "value": 42.6,
+      "value": 50,
       "label": "中性",
       "delta": null
     },
     {
       "name": "风险",
-      "value": 42.8,
+      "value": 57.8,
       "label": "中性",
       "delta": null
     },
     {
       "name": "能源",
-      "value": 56.6,
-      "label": "中性",
+      "value": 61.4,
+      "label": "景气",
       "delta": null
     },
     {
       "name": "供应链",
-      "value": 58.7,
+      "value": 50,
       "label": "中性",
       "delta": null
     }
   ],
   "industries": [
     {
-      "name": "地产/REITs",
-      "value": 65.1,
+      "name": "能源",
+      "value": 64.2,
       "label": "景气"
     },
     {
-      "name": "能源",
-      "value": 58.2,
-      "label": "中性"
+      "name": "银行/金融",
+      "value": 63.0,
+      "label": "景气"
     },
     {
       "name": "黄金/大宗",
-      "value": 58.0,
-      "label": "中性"
-    },
-    {
-      "name": "军工/防务",
-      "value": 52.9,
-      "label": "中性"
-    },
-    {
-      "name": "科技/AI",
-      "value": 52.1,
-      "label": "中性"
-    },
-    {
-      "name": "消费/零售",
-      "value": 50.0,
+      "value": 54.6,
       "label": "中性"
     },
     {
       "name": "出口制造",
-      "value": 49.3,
+      "value": 50.0,
       "label": "中性"
     },
     {
-      "name": "银行/金融",
-      "value": 34.8,
-      "label": "承压"
+      "name": "科技/AI",
+      "value": 48.3,
+      "label": "中性"
+    },
+    {
+      "name": "军工/防务",
+      "value": 46.9,
+      "label": "中性"
+    },
+    {
+      "name": "消费/零售",
+      "value": 46.4,
+      "label": "中性"
+    },
+    {
+      "name": "地产/REITs",
+      "value": 41.7,
+      "label": "中性"
     }
   ],
   "stress_index": {
@@ -298,14 +298,14 @@
     {
       "regime": "避险冲击",
       "met": false,
-      "total_gap": 106.42,
+      "total_gap": 106.63,
       "triggers": [
         {
           "name": "VIX",
           "need": ">",
           "threshold": 30,
-          "current": 22.58,
-          "gap": 7.42
+          "current": 22.37,
+          "gap": 7.63
         },
         {
           "name": "DXY",
@@ -339,7 +339,7 @@
           "name": "VIX",
           "need": "<",
           "threshold": 30,
-          "current": 22.58,
+          "current": 22.37,
           "gap": 0
         }
       ]
@@ -368,14 +368,14 @@
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 105.37,
+      "total_gap": 104.87,
       "triggers": [
         {
           "name": "油价",
           "need": ">",
           "threshold": 100,
-          "current": 94.49,
-          "gap": 5.51
+          "current": 94.99,
+          "gap": 5.01
         },
         {
           "name": "Fed利率",
@@ -395,14 +395,14 @@
     }
   ],
   "has_comparison": false,
-  "s2_state": "STRESSED_MILD",
-  "s2_score": 0.1272255974158308,
+  "s2_state": "STABLE",
+  "s2_score": null,
   "macro_prosperity": {
-    "rate_n": 62.4,
-    "usd_n": 42.6,
-    "risk_n": 42.8,
-    "energy_n": 56.6,
-    "supply_n": 58.7
+    "rate_n": 40.4,
+    "usd_n": 50,
+    "risk_n": 57.8,
+    "energy_n": 61.4,
+    "supply_n": 50
   },
   "watermark": "黑森船长"
 }

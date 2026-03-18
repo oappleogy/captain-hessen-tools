@@ -1,7 +1,7 @@
 {
   "week_label": "2026-W12",
-  "generated_at": "2026-03-18 12:04",
-  "data_time": "2026-03-18T04:04:45Z",
+  "generated_at": "2026-03-18 12:17",
+  "data_time": "2026-03-18T04:17:24Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -16,7 +16,7 @@
       "S4": 0.0
     },
     "confidence": 0.6,
-    "reasoning": "HMM=easing，但油价$96>$85需关注"
+    "reasoning": "HMM=easing，但油价$92>$85需关注"
   },
   "variables": [
     {
@@ -36,14 +36,6 @@
       "freshness": "fresh"
     },
     {
-      "key": "dxy",
-      "name": "DXY",
-      "unit": "",
-      "value": 99.58,
-      "date": "2026-03-17",
-      "freshness": "fresh"
-    },
-    {
       "key": "vix",
       "name": "VIX",
       "unit": "",
@@ -55,15 +47,15 @@
       "key": "oil",
       "name": "WTI油价",
       "unit": "$/b",
-      "value": 96.21,
-      "date": "2026-03-17",
+      "value": 92.4,
+      "date": "2026-03-18",
       "freshness": "fresh"
     },
     {
       "key": "usd_cny",
       "name": "USD/CNY",
       "unit": "",
-      "value": 6.8798,
+      "value": 6.8796,
       "date": "2026-03-18",
       "freshness": "fresh"
     },
@@ -71,7 +63,7 @@
       "key": "usd_jpy",
       "name": "USD/JPY",
       "unit": "",
-      "value": 158.905,
+      "value": 158.873,
       "date": "2026-03-18",
       "freshness": "fresh"
     },
@@ -324,7 +316,7 @@
     {
       "regime": "避险冲击",
       "met": false,
-      "total_gap": 16.05,
+      "total_gap": 106.63,
       "triggers": [
         {
           "name": "VIX",
@@ -337,15 +329,15 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 99.58,
-          "gap": 8.42
+          "current": "—",
+          "gap": 99
         }
       ]
     },
     {
       "regime": "加息紧缩",
       "met": false,
-      "total_gap": 9.28,
+      "total_gap": 99.86,
       "triggers": [
         {
           "name": "Fed利率",
@@ -358,8 +350,8 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 99.58,
-          "gap": 8.42
+          "current": "—",
+          "gap": 99
         },
         {
           "name": "VIX",
@@ -373,7 +365,7 @@
     {
       "regime": "宽松放水",
       "met": false,
-      "total_gap": 6.22,
+      "total_gap": 100.64,
       "triggers": [
         {
           "name": "Fed利率",
@@ -386,22 +378,22 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 99.58,
-          "gap": 4.58
+          "current": "—",
+          "gap": 99
         }
       ]
     },
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 9.23,
+      "total_gap": 107.46,
       "triggers": [
         {
           "name": "油价",
           "need": ">",
           "threshold": 100,
-          "current": 96.21,
-          "gap": 3.79
+          "current": 92.4,
+          "gap": 7.6
         },
         {
           "name": "Fed利率",
@@ -414,8 +406,8 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 99.58,
-          "gap": 4.58
+          "current": "—",
+          "gap": 99
         }
       ]
     }

@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-14T17:10:29",
+  "timestamp": "2026-03-18T12:01:12",
   "system_state": {
-    "state": "CRITICAL",
-    "label": "系统临界",
-    "color": "#ef4444",
-    "level": 4,
-    "score": 0.005,
-    "action": "系统临界。仓位上限20%，以保护资本为主，等待结构改善。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.136,
+    "action": "系统轻度承压。仓位上限50%，增加对冲，缩短持仓周期。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.39,
+      "score": 0.44,
       "state": "▲",
       "note": "信用市场平稳，系统有足够缓冲",
       "confidence": "★★",
@@ -29,27 +29,27 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.61,
-      "state": "▼",
-      "note": "负反馈信号，情绪极端或波动剧烈",
+      "score": -0.27,
+      "state": "►",
+      "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
       "status": "stressed"
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.34,
-      "state": "▼",
-      "note": "跨市场严重背离，系统内部矛盾激化",
+      "score": -0.12,
+      "state": "►",
+      "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "stressed"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.41,
-      "state": "▼",
-      "note": "叙事剧变或严重分裂，市场预期混乱",
+      "score": -0.23,
+      "state": "►",
+      "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
       "status": "stressed"
@@ -75,21 +75,21 @@
         "name": "黄金吸引子",
         "emoji": "🟢",
         "color": "#22c55e",
-        "pct": 2.5
+        "pct": 2.4
       },
       {
         "key": "STABLE",
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 3.8
+        "pct": 3.7
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 93.8
+        "pct": 93.9
       },
       {
         "key": "TECH_DOM",
@@ -106,71 +106,36 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "停滞",
-    "safety_margin": 0.105,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.236,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=119.0（100%分位）",
-    "VIX恐慌指数=27.2（97%分位）",
-    "世界不确定性(WUI)=2.028（92%分位）",
-    "Nasdaq波动率(VXN)=29.9（97%分位）"
+    "OVX原油波动率=95.9 (历史99%分位)",
+    "地缘交叉验证(OVX)=95.9 (历史99%分位) [仅验证，不计分]",
+    "VIX恐慌指数=22.4 (历史92%分位)",
+    "世界不确定性(WUI)=2.028 (历史92%分位)"
   ],
-  "opportunities": [
-    {
-      "name": "能源安全基础设施",
-      "desc": "能源作为安全资产，10年基础设施投资周期",
-      "asymmetry": "高",
-      "active": true,
-      "reason": "OVX极端 + R维健康(+0.39)"
-    },
-    {
-      "name": "电力与AI基础设施",
-      "desc": "电力成为AI瓶颈，电网扩建5-10年",
-      "asymmetry": "高",
-      "active": true,
-      "reason": "技术失配显著(T=+0.57) + R维健康"
-    },
-    {
-      "name": "实物资产重定价",
-      "desc": "财政赤字+供应链重构=结构性通胀",
-      "asymmetry": "高",
-      "active": true,
-      "reason": "叙事恶化(N=-0.41) + 情绪/制度承压"
-    },
-    {
-      "name": "去美元化受益资产",
-      "desc": "央行购金、BRICS体系、人民币结算",
-      "asymmetry": "中",
-      "active": false,
-      "reason": ""
-    },
-    {
-      "name": "国防科技与网络安全",
-      "desc": "大国竞争→结构性国防预算上升",
-      "asymmetry": "中",
-      "active": true,
-      "reason": "跨市场严重背离(C=-0.34)"
-    }
-  ],
+  "opportunities": [],
   "contradiction": {
-    "title": "恐慌指标在高位，但信用市场完全平静",
-    "thesis": "当前的恐慌来自政策不确定性（外部风），不是金融体系内部的结构性问题（地基裂缝）。",
-    "metaphor": "风很大但房子没裂"
+    "title": "",
+    "thesis": "",
+    "metaphor": ""
   },
   "allocation": {
     "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",
-    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2018年Q4），从最恐慌的点算起三个月内完全收复，但中间又多跌了8%才见底。耐心比行动更重要。",
+    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
+    "extreme_count": 4,
     "vix": {
-      "value": 27.2,
-      "percentile": 97,
+      "value": 22.4,
+      "percentile": 92,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {
-      "value": 3.17,
+      "value": 3.27,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
@@ -178,7 +143,6 @@
       "value": 56.4,
       "percentile": 20,
       "desc": "普通人的消费信心接近三年最低，非常悲观"
-    },
-    "extreme_count": 4
+    }
   }
 }

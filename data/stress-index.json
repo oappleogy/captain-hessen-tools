@@ -1,5 +1,5 @@
 {
-  "score": 47.1,
+  "score": 47.0,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 92.31,
+      "current": 92.27,
       "base": 75,
-      "deviation_pct": 23.1,
+      "deviation_pct": 23.0,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 106.7
+      "contribution": 105.8
     },
     {
       "variable": "credit_spread",
@@ -43,16 +43,6 @@
       "weight": 0.1,
       "weight_pct": 10,
       "contribution": 9.0
-    },
-    {
-      "variable": "dxy",
-      "name": "DXY",
-      "current": 100.36,
-      "base": 100,
-      "deviation_pct": 0.4,
-      "weight": 0.15,
-      "weight_pct": 15,
-      "contribution": 0.0
     }
   ],
   "hard_alerts_count": 1,
@@ -83,9 +73,9 @@
     },
     {
       "name": "WTI油价",
-      "current": 92.31,
+      "current": 92.27,
       "base": 75,
-      "deviation_pct": 23.1,
+      "deviation_pct": 23.0,
       "direction": "偏高",
       "level": "显著偏离"
     }

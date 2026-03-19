@@ -565,7 +565,7 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
       </div>`;
 
       // ── 核心矛盾（用人话说清楚） ──
-      if (s2.contradiction) {
+      if (s2.contradiction && s2.contradiction.thesis) {
         html += `<div class="section animate" style="${ad()}">
           <div class="section-title">💡 当前市场的核心矛盾</div>
           <div class="section-body">

@@ -171,7 +171,7 @@ footer a { color:var(--text-2); }
 <div class="stats">
   <div class="stat"><div class="stat-label">全球股票市场</div><div class="stat-val">$126T</div><div class="stat-note">代币化目标总量</div></div>
   <div class="stat"><div class="stat-label">DTCC 年处理</div><div class="stat-val">$3Q</div><div class="stat-note">3万亿美元 / 年</div></div>
-  <div class="stat"><div class="stat-label">USDC 流通量</div><div class="stat-val">$60B+</div><div class="stat-note">ICE首选稳定币</div></div>
+  <div class="stat"><div class="stat-label">USDC 流通量</div><div class="stat-val">$75B+</div><div class="stat-note">ICE首选稳定币</div></div>
   <div class="stat"><div class="stat-label">代币化股票市值</div><div class="stat-val">~$2B</div><div class="stat-note">2025年中→快速增长</div></div>
 </div>
 
@@ -213,7 +213,7 @@ const LAYERS = [
   ]},
   {id:'fund',title:'资金层',sub:'稳定币 + 代币化存款',color:'#f59e0b',
    players:[
-    {n:'USDC (Circle)',b:'core',d:'ICE首选稳定币。2025年3月ICE与Circle签署MoU，探索USDC整合到清算所、衍生品交易所和数据服务。流通量600亿+，市场份额25.4%。完全由美国国债和现金等价物支撑，可1:1兑换美元。已获欧盟MiCA合规批准（首家）。Circle已提交IPO申请。USDC在Solana上占稳定币80%份额。'},
+    {n:'USDC (Circle)',b:'core',d:'ICE首选稳定币。2025年3月ICE与Circle签署MoU，探索USDC整合到清算所、衍生品交易所和数据服务。Circle于2025年6月5日在NYSE上市（ticker: CRCL），IPO定价$31，首日飙升至$250+后回落。截至2025年末USDC流通量达753亿美元。完全由美国国债和现金等价物支撑，可1:1兑换美元。已获欧盟MiCA合规批准（首家）。2025年全年营收17亿美元，净利润1.56亿美元。'},
     {n:'USYC (Circle/Hashnote)',b:'new',d:'Circle收购Hashnote后获得的代币化货币市场基金产品。SEC 2a-7注册。MoU覆盖范围内，可用于清算所抵押品和衍生品保证金——闲置资金可产生收益，这是传统现金做不到的。'},
     {n:'BNY 代币化存款',b:'new',d:'与ICE合作开发（2026.01宣布），专为清算所设计。支持非银行营业时间的资金转移、保证金履约和跨时区调度。解决7×24交易的"最后一公里"资金问题。'},
     {n:'Citi 代币化存款',b:'new',d:'同BNY，为ICE清算所提供跨时区、跨管辖区的24小时资金调度能力。与BNY形成双银行支撑体系。'},
@@ -240,7 +240,7 @@ const LAYERS = [
   {id:'benefit',title:'受益标的层',sub:'直接受益 + 间接受益投资标的',color:'#8b5cf6',
    players:[
     {n:'ICE (NYSE:ICE)',b:'core',d:'最核心的受益者。布局涵盖交易所、清算所、数据服务全链条。战略投资：OKX（250亿估值）、Polymarket（20亿投资/80-90亿估值）、MoonPay（~50亿估值）。市值700-800亿美元。'},
-    {n:'Circle (IPO中)',b:'hot',d:'USDC作为NYSE代币化平台的首选稳定币，流通量和用例场景将显著扩大。已提交IPO申请，上市后将成为"代币化金融基础设施"的纯正标的。'},
+    {n:'Circle (NYSE:CRCL)',b:'hot',d:'USDC作为NYSE代币化平台的首选稳定币，流通量和用例场景将显著扩大。2025年6月在NYSE上市（IPO价$31，首日收$82.84，曾冲高至$250+后回落约70%）。2025年全年营收17亿美元。还推出了Circle Payment Network拓展支付基础设施。'},
     {n:'OKB',b:'hot',d:'OKX原生代币。ICE投资消息公布后曾短暂飙涨50%（$78→$120，后回落至$92）。受益于OKX成为NYSE代币化股票的全球分发入口。'},
     {n:'AVAX',b:'new',d:'Avalanche原生代币。受益于日本Progmat迁移至Avalanche L1、Dinari基于Avalanche建链、以及复星FUSD等亚洲机构采用趋势。'},
     {n:'Digital Asset Holdings (非上市)',b:'core',d:'Canton Network技术提供方，DTCC代币化服务的核心技术合作伙伴。获BlackRock、Goldman Sachs、Citadel Securities、Nasdaq等华尔街巨头投资。'},
@@ -271,7 +271,7 @@ const WATCHLIST = [
     {tk:'SOL',nm:'Solana',nt:'USDC占80%份额，Dinari即将支持',b:'wait'},
   ]},
   {cat:'稳定币',items:[
-    {tk:'USDC',nm:'Circle（IPO中）',nt:'ICE MoU首选，600亿+流通，MiCA合规',b:'core'},
+    {tk:'CRCL',nm:'Circle (NYSE:CRCL)',nt:'ICE MoU首选，USDC流通753亿，已上市',b:'core'},
     {tk:'USYC',nm:'Circle / Hashnote',nt:'代币化货币基金，可作清算所抵押品',b:'new'},
     {tk:'USDT',nm:'Tether',nt:'市值最大但MiCA不合规，被采用概率低',b:'wait'},
   ]},
@@ -298,6 +298,7 @@ const WATCHLIST = [
 
 const TIMELINE = [
   {d:'2025.03',t:'ICE与Circle签署MoU，探索USDC/USYC整合到清算所',m:0},
+  {d:'2025.06',t:'<strong>Circle在NYSE上市</strong>（CRCL），IPO价$31，首日收$82.84',m:1},
   {d:'2025.06',t:'Robinhood在欧洲推出200+代币化股票（Arbitrum）',m:0},
   {d:'2025.07',t:'Canton Network上首次完成24/7链上回购交易',m:0},
   {d:'2025.08',t:'Dinari获FINRA批准，宣布基于Avalanche建链',m:0},
@@ -422,6 +423,13 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 
 /* ═══════ INIT ═══════ */
+/*
+ * CHANGELOG
+ * ---------
+ * 2026.03.20 — 初版发布
+ * 维护协议见 MAINTENANCE_PROTOCOL.md
+ */
+
 renderLayers();
 renderWL();
 renderTL();

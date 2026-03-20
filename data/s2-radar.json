@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-19T09:37:15",
+  "timestamp": "2026-03-20T09:43:12",
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
-    "score": -0.001,
-    "action": "系统临界。仓位上限20%，以保护资本为主，等待结构改善。"
+    "score": 0.075,
+    "action": "系统临界。建议仓位≤35%（趋势→），加大对冲比例，仅保留高确信度仓位。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.39,
+      "score": 0.37,
       "state": "▲",
       "note": "信用市场平稳，系统有足够缓冲",
       "confidence": "★★",
@@ -20,16 +20,16 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.29,
-      "state": "►",
-      "note": "政策不确定性上升，规则可预测性下降",
+      "score": 0.46,
+      "state": "▲",
+      "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.53,
+      "score": -0.43,
       "state": "▼",
       "note": "负反馈信号，情绪极端或波动剧烈",
       "confidence": "★★★",
@@ -47,16 +47,16 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.28,
+      "score": -0.08,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "stressed"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.32,
+      "score": 0.36,
       "state": "▲",
       "note": "技术进步与制度消化能力匹配",
       "confidence": "★★",
@@ -106,23 +106,23 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
-    "safety_margin": 0.099,
+    "moving_toward": "停滞",
+    "safety_margin": 0.175,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=97.3 (历史99%分位)",
-    "地缘交叉验证(OVX)=97.3 (历史99%分位) [仅验证，不计分]",
-    "VIX恐慌指数=25.1 (历史96%分位)",
+    "OVX原油波动率=92.7 (历史99%分位)",
+    "地缘交叉验证(OVX)=92.7 (历史99%分位) [仅验证，不计分]",
+    "VIX恐慌指数=24.1 (历史95%分位)",
     "世界不确定性(WUI)=2.028 (历史92%分位)",
-    "Nasdaq波动率(VXN)=27.7 (历史96%分位)"
+    "Nasdaq波动率(VXN)=26.9 (历史94%分位)"
   ],
   "opportunities": [],
   "contradiction": {
-    "type": "state_change",
-    "title": "系统状态恶化：从轻度承压进入临界",
-    "thesis": "系统从轻度承压变为临界。主要拖累来自情绪反馈（-0.53），支撑来自信用韧性（+0.39）。",
-    "metaphor": "天气突变"
+    "type": "dimension_shift",
+    "title": "「叙事共识」本周剧烈改善",
+    "thesis": "叙事共识维度从-0.28变为-0.08，单周变化0.20，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "共识在修复"
   },
   "allocation": {
     "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",
@@ -132,12 +132,12 @@
   "key_metrics": {
     "extreme_count": 5,
     "vix": {
-      "value": 25.1,
-      "percentile": 96,
+      "value": 24.1,
+      "percentile": 95,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {
-      "value": 3.22,
+      "value": 3.2,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

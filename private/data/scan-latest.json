@@ -1,5 +1,5 @@
 {
-  "scan_date": "2026-03-16",
+  "scan_date": "2026-03-23",
   "market": "US",
   "market_label": "美股",
   "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
@@ -10,64 +10,32 @@
   },
   "opportunities": [
     {
-      "type": "regime_mismatch",
-      "sector": "地产/REITs",
-      "signal": "体制=transition + 地产/REITs景气=67 + 预期区间=[25, 50] + 偏离=17点 + 宏观: 利率景气(61)/风险承压(34)/能源中性(56)",
-      "direction": "看空美股地产/REITs（景气67高于体制'transition'预期上界50）",
-      "confidence": {
-        "gear_model": 0.56,
-        "regime_hmm": 0.65,
-        "consensus": "1/3模型支撑"
-      },
-      "deviation_points": 16.8,
-      "caveats": [
-        "体制'transition'方向不确定性高，可能快速恶化或改善",
-        "体制预期区间基于历史经验设定，非统计拟合"
-      ],
-      "model_limitations": "传导系数v2.0，部分行业验证集R²<0.15"
-    },
-    {
       "type": "supply_chain_scissors",
-      "sector": "银行/金融↔地产/REITs",
-      "signal": "美股地产/REITs景气=67 vs 银行/金融景气=17（差=50） — 信贷供给→地产需求",
-      "direction": "看多美股银行/金融（地产/REITs需求尚未传导）",
+      "sector": "能源↔消费/零售",
+      "signal": "美股能源景气=66 vs 消费/零售景气=40（差=26） — 油价→消费者支出",
+      "direction": "看空美股消费/零售（能源成本传导），或看多美股能源持续性",
       "confidence": {
-        "gear_model": 1.0,
+        "gear_model": 0.65,
         "consensus": "1/3模型（仅齿轮）"
       },
-      "gap_points": 50.1,
+      "gap_points": 26.0,
       "caveats": [
         "剪刀差需持续≥2周才有意义（当前为单次快照）",
-        "传导逻辑'信贷供给→地产需求'为经验假设",
+        "传导逻辑'油价→消费者支出'为经验假设",
         "产业链关系简化，实际传导路径更复杂"
       ],
       "model_limitations": "产业链映射为专家判断，未经统计验证"
-    },
-    {
-      "type": "cross_model_consensus",
-      "sector": "黄金/大宗",
-      "signal": "齿轮景气=63 + 体制=transition(conf=0.65)",
-      "direction": "看多美股黄金/大宗",
-      "confidence": {
-        "gear_model": 0.26,
-        "regime_hmm": 0.65,
-        "consensus": "2/3模型一致"
-      },
-      "models_agreeing": 2,
-      "caveats": [
-        "仅2/3模型一致，置信度中等",
-        "蒙特卡洛未参与（无MC数据），实际为2模型交叉"
-      ],
-      "model_limitations": "传导系数v2.0(部分校准) + HMM混合体制（MC未参与）"
     }
   ],
   "no_signal_sectors": [
     "军工/防务",
     "出口制造",
+    "地产/REITs",
     "消费/零售",
     "科技/AI",
     "能源",
-    "银行/金融"
+    "银行/金融",
+    "黄金/大宗"
   ],
-  "scan_summary": "发现1个体制错配, 1个产业链剪刀差, 1个多模型共识，6个行业无信号"
+  "scan_summary": "发现1个产业链剪刀差，8个行业无信号"
 }

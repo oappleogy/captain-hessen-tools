@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-20T09:43:12",
+  "timestamp": "2026-03-23T10:53:47",
   "system_state": {
-    "state": "CRITICAL",
-    "label": "系统临界",
-    "color": "#ef4444",
-    "level": 4,
-    "score": 0.075,
-    "action": "系统临界。建议仓位≤35%（趋势→），加大对冲比例，仅保留高确信度仓位。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.132,
+    "action": "系统轻度承压。建议仓位≤40%（趋势↑），增加对冲，缩短持仓周期。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.37,
+      "score": 0.38,
       "state": "▲",
       "note": "信用市场平稳，系统有足够缓冲",
       "confidence": "★★",
@@ -20,7 +20,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.46,
+      "score": 0.33,
       "state": "▲",
       "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
@@ -29,7 +29,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.43,
+      "score": -0.37,
       "state": "▼",
       "note": "负反馈信号，情绪极端或波动剧烈",
       "confidence": "★★★",
@@ -38,16 +38,16 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.34,
-      "state": "▼",
-      "note": "跨市场严重背离，系统内部矛盾激化",
+      "score": -0.05,
+      "state": "►",
+      "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "stressed"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.08,
+      "score": -0.02,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
@@ -56,7 +56,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.36,
+      "score": 0.48,
       "state": "▲",
       "note": "技术进步与制度消化能力匹配",
       "confidence": "★★",
@@ -82,14 +82,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 3.6
+        "pct": 3.5
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 94.0
+        "pct": 94.1
       },
       {
         "key": "TECH_DOM",
@@ -106,23 +106,23 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "停滞",
-    "safety_margin": 0.175,
+    "moving_toward": "TECH_DOM",
+    "safety_margin": 0.232,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=92.7 (历史99%分位)",
-    "地缘交叉验证(OVX)=92.7 (历史99%分位) [仅验证，不计分]",
-    "VIX恐慌指数=24.1 (历史95%分位)",
+    "OVX原油波动率=91.8 (历史99%分位)",
+    "地缘交叉验证(OVX)=91.8 (历史99%分位) [仅验证，不计分]",
+    "VIX恐慌指数=26.8 (历史97%分位)",
     "世界不确定性(WUI)=2.028 (历史92%分位)",
-    "Nasdaq波动率(VXN)=26.9 (历史94%分位)"
+    "Nasdaq波动率(VXN)=29.2 (历史97%分位)"
   ],
   "opportunities": [],
   "contradiction": {
-    "type": "dimension_shift",
-    "title": "「叙事共识」本周剧烈改善",
-    "thesis": "叙事共识维度从-0.28变为-0.08，单周变化0.20，超过异动阈值。需要判断这是噪音还是趋势的开始。",
-    "metaphor": "共识在修复"
+    "type": "state_change",
+    "title": "系统状态改善：从临界进入轻度承压",
+    "thesis": "系统从临界变为轻度承压。主要拖累来自情绪反馈（-0.37），支撑来自技术动能（+0.48）。",
+    "metaphor": "雨过天晴"
   },
   "allocation": {
     "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",
@@ -132,12 +132,12 @@
   "key_metrics": {
     "extreme_count": 5,
     "vix": {
-      "value": 24.1,
-      "percentile": 95,
+      "value": 26.8,
+      "percentile": 97,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {
-      "value": 3.2,
+      "value": 3.27,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

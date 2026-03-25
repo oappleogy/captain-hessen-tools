@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-03-24T10:03:40",
+  "timestamp": "2026-03-24T17:45:18",
   "system_state": {
-    "state": "STRESSED_SEVERE",
-    "label": "严重承压",
-    "color": "#f97316",
-    "level": 3,
-    "score": 0.106,
-    "action": "系统显著承压。建议仓位≤40%（趋势→），增加对冲，缩短持仓周期。"
+    "state": "CRITICAL",
+    "label": "系统临界",
+    "color": "#ef4444",
+    "level": 4,
+    "score": 0.067,
+    "action": "系统临界。建议仓位≤40%（趋势→），增加对冲，缩短持仓周期。"
   },
   "dimensions": {
     "R": {
@@ -20,7 +20,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.34,
+      "score": 0.33,
       "state": "▲",
       "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
@@ -38,16 +38,16 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.21,
+      "score": -0.2,
       "state": "►",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "stressed"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.24,
+      "score": -0.28,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
@@ -56,7 +56,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.57,
+      "score": 0.36,
       "state": "▲",
       "note": "技术进步与制度消化能力匹配",
       "confidence": "★★",
@@ -82,14 +82,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 3.5
+        "pct": 81.6
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 94.2
+        "pct": 16.1
       },
       {
         "key": "TECH_DOM",
@@ -106,15 +106,15 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "稳态",
-    "safety_margin": 0.206,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.167,
     "early_warning": "无"
   },
   "extremes": [
     "OVX原油波动率=89.8 (历史99%分位)",
     "政策不确定性(EPU)=734 (历史99%分位)",
     "地缘交叉验证(OVX)=89.8 (历史99%分位) [仅验证，不计分]",
-    "VIX恐慌指数=26.1 (历史97%分位)",
+    "VIX恐慌指数=26.8 (历史97%分位)",
     "世界不确定性(WUI)=2.028 (历史92%分位)",
     "Nasdaq波动率(VXN)=28.0 (历史96%分位)"
   ],
@@ -133,7 +133,7 @@
   "key_metrics": {
     "extreme_count": 6,
     "vix": {
-      "value": 26.1,
+      "value": 26.8,
       "percentile": 97,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },

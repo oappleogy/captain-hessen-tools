@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>确定性存量的实时坍缩 · S₂六维分析 | BaseAlpha</title>
+<meta name="description" content="基于人类确定性理论（S₂框架）的六维量化分析：叙事、制度、技术、协调、资源、反馈。2026年3月伊朗冲突下的资产定价诊断。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1e293b;
+  --gold: #d4a853;
+  --gold-dim: #b8942e;
+  --red: #ef4444;
+  --green: #22c55e;
+  --blue: #3b82f6;
+  --amber: #f59e0b;
+  --purple: #a855f7;
+  --text: #e2e8f0;
+  --dim: #94a3b8;
+  --muted: #64748b;
+  --sans: 'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  --serif: 'Noto Serif SC', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html, body { width: 100%; overflow-x: hidden; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Back nav */
+.back-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,14,23,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--dim); font-size: 12px; font-family: var(--sans);
+  text-decoration: none; padding: 4px 12px;
+  border: 1px solid var(--border); border-radius: 6px;
+  transition: all 0.2s;
+}
+.back-btn:hover { color: var(--gold); border-color: var(--gold); }
+.back-brand {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); letter-spacing: 1px; margin-left: auto;
+}
+
+/* Header */
+.header { padding: 60px 20px 16px; max-width: 860px; margin: 0 auto; }
+.header-top { display: flex; align-items: center; justify-content: space-between; }
+.author-badge { display: flex; align-items: center; gap: 10px; }
+.author-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg,#d4a853,#8b6914);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: #fff;
+}
+.author-name { font-family: var(--sans); font-size: 12px; color: var(--gold); letter-spacing: 2px; }
+.header-date { font-family: var(--sans); font-size: 11px; color: var(--muted); }
+.header h1 { font-size: 26px; font-weight: 900; line-height: 1.5; margin-top: 20px; }
+.header h1 .hl { color: var(--gold); }
+.header .subtitle { font-size: 14px; color: var(--dim); margin-top: 6px; line-height: 1.6; font-family: var(--sans); font-weight: 300; }
+.tags { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.htag {
+  font-size: 10px; color: var(--gold-dim);
+  border: 1px solid rgba(212,168,83,0.2);
+  padding: 2px 8px; border-radius: 16px; font-family: var(--sans);
+}
+.gold-line {
+  height: 1px; margin: 28px 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Tabs */
+.tab-bar {
+  max-width: 860px; margin: 0 auto; padding: 0 20px 16px;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 6px 16px; border: 1px solid var(--border);
+  background: transparent; color: var(--dim); cursor: pointer;
+  font-size: 12px; font-family: var(--sans); border-radius: 6px;
+  transition: all 0.2s;
+}
+.tab-btn:hover { border-color: rgba(212,168,83,0.4); color: var(--text); }
+.tab-btn.active {
+  border-color: var(--gold);
+  background: rgba(212,168,83,0.12);
+  color: var(--gold);
+}
+
+/* Content */
+.content { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Card */
+.cd {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px; margin-bottom: 16px;
+}
+.cd-accent { border-left: 3px solid var(--gold); }
+.cd-accent-amber { border-left: 3px solid var(--amber); }
+.cd-accent-red { border-left: 3px solid var(--red); }
+
+/* Typography */
+.sec-title { font-size: 15px; color: var(--gold); margin-bottom: 6px; font-family: var(--sans); font-weight: 600; }
+.sec-sub { font-size: 11px; color: var(--muted); margin-bottom: 20px; font-family: var(--sans); }
+.sec-title-sm { font-size: 13px; color: var(--gold); margin-bottom: 14px; font-family: var(--sans); font-weight: 600; }
+.body-text { font-size: 13px; line-height: 2; color: var(--dim); font-family: var(--sans); font-weight: 300; }
+.body-lead { font-size: 15px; line-height: 2; font-family: var(--sans); font-weight: 300; }
+
+/* Metrics grid */
+.metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+@media (max-width: 600px) { .metrics { grid-template-columns: repeat(2,1fr); } }
+.metric { text-align: center; }
+.metric-label { font-size: 10px; color: var(--muted); font-family: var(--sans); margin-bottom: 4px; }
+.metric-value { font-size: 22px; font-weight: 700; font-family: var(--sans); }
+.metric-note { font-size: 9px; color: var(--muted); margin-top: 3px; font-family: var(--sans); }
+
+/* Building layers */
+.layer {
+  display: flex; align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
+.layer:last-child { border-bottom: none; }
+.layer-icon {
+  width: 50px; display: flex; align-items: center; justify-content: center;
+  font-size: 24px; border-right: 1px solid var(--border); padding: 16px 0;
+}
+.layer-icon.sev4 { background: rgba(239,68,68,0.08); }
+.layer-icon.sev3 { background: rgba(245,158,11,0.06); }
+.layer-icon.sev2 { background: rgba(255,255,255,0.02); }
+.layer-body { flex: 1; padding: 14px 16px; }
+.layer-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.layer-name { font-size: 13px; font-weight: 600; font-family: var(--sans); }
+.sev-bars { display: flex; gap: 3px; }
+.sev-bar { width: 16px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.08); }
+.sev-bar.on-red { background: var(--red); }
+.sev-bar.on-amber { background: var(--amber); }
+.sev-bar.on-yellow { background: #eab308; }
+.layer-status { font-size: 11px; font-family: var(--sans); font-weight: 500; margin-bottom: 3px; }
+.layer-detail { font-size: 10px; color: var(--muted); font-family: var(--sans); }
+
+/* Chain */
+.chain-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+.chain-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: var(--gold); }
+.chain-dot.loop { background: var(--red); box-shadow: 0 0 6px var(--red); }
+.chain-text { font-size: 12px; font-family: var(--sans); font-weight: 300; }
+.chain-text.loop { font-weight: 600; color: var(--red); }
+.chain-arrow { color: var(--muted); font-size: 10px; margin-left: auto; }
+
+/* Radar dims grid */
+.dims-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 500px) { .dims-grid { grid-template-columns: 1fr; } }
+.dim-card { padding: 14px; }
+.dim-name { font-size: 14px; font-weight: 600; font-family: var(--sans); margin-bottom: 6px; }
+.dim-vals { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+.dim-now { font-size: 20px; font-weight: 700; color: var(--red); font-family: var(--sans); }
+.dim-pre { font-size: 11px; color: var(--muted); font-family: var(--sans); }
+.dim-bar-bg { height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.dim-bar-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--amber)); border-radius: 3px; }
+.dim-loss { font-size: 10px; color: var(--red); margin-top: 5px; font-family: var(--sans); }
+
+/* Legend */
+.legend { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
+.legend span { font-family: var(--sans); font-size: 11px; }
+
+/* Tables */
+.tbl { width: 100%; border-collapse: collapse; font-size: 11px; font-family: var(--sans); }
+.tbl th {
+  padding: 8px 6px; text-align: left;
+  border-bottom: 2px solid var(--gold);
+  color: var(--gold); font-weight: 600; font-size: 10px; white-space: nowrap;
+}
+.tbl td { padding: 10px 6px; border-bottom: 1px solid var(--border); }
+
+/* Evidence list */
+.ev-item {
+  display: flex; justify-content: space-between; padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  flex-wrap: wrap; gap: 4px;
+}
+.ev-item:last-child { border-bottom: none; }
+.ev-text { font-size: 11px; color: var(--dim); font-family: var(--sans); }
+.ev-impact { font-size: 10px; font-weight: 500; font-family: var(--sans); }
+
+/* Institutions grid */
+.inst-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 500px) { .inst-grid { grid-template-columns: 1fr; } }
+.inst-name { font-size: 11px; color: var(--gold); font-family: var(--sans); font-weight: 600; margin-bottom: 4px; }
+
+/* Hormuz stats */
+.hz-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; text-align: center; }
+@media (max-width: 500px) { .hz-grid { grid-template-columns: 1fr; } }
+.hz-label { font-size: 9px; color: var(--muted); font-family: var(--sans); margin-bottom: 3px; }
+.hz-value { font-size: 17px; font-weight: 700; color: var(--red); font-family: var(--sans); }
+.hz-note { font-size: 9px; color: var(--muted); font-family: var(--sans); margin-top: 2px; }
+
+/* Canvas */
+canvas { display: block; width: 100%; }
+
+/* Footer */
+.page-footer { text-align: center; padding-bottom: 20px; }
+.page-footer .warn { font-size: 10px; color: var(--muted); font-family: var(--sans); line-height: 1.8; }
+.page-footer .brand { font-size: 11px; color: var(--gold); font-family: var(--sans); margin-top: 6px; letter-spacing: 2px; }
+.page-footer .copy { font-size: 9px; color: var(--muted); font-family: var(--sans); margin-top: 3px; }
+
+/* Animations */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 0.4s ease-out both; }
+</style>
+</head>
+<body>
+
+<!-- Back Navigation -->
+<nav class="back-nav">
+  <a href="index.html" class="back-btn">← 返回工具箱</a>
+  <span class="back-brand">BASEALPHA</span>
+</nav>
+
+<!-- Header -->
+<div class="header fade-up">
+  <div class="header-top">
+    <div class="author-badge">
+      <div class="author-icon">★</div>
+      <span class="author-name">黑森船长 · CAPTAIN HESSEN</span>
+    </div>
+    <span class="header-date">2026.03.28</span>
+  </div>
+  <h1><span class="hl">确定性存量</span>的实时坍缩</h1>
+  <p class="subtitle">当美国经济大厦的供水管爆裂——用人类确定性理论解构伊朗冲突下的资产定价</p>
+  <div class="tags">
+    <span class="htag">#人类确定性理论</span>
+    <span class="htag">#贝叶斯路径</span>
+    <span class="htag">#地缘风险定价</span>
+    <span class="htag">#Vega低估</span>
+  </div>
+  <div class="gold-line"></div>
+</div>
+
+<!-- Tabs -->
+<div class="tab-bar fade-up">
+  <button class="tab-btn active" data-tab="ov">全景总览</button>
+  <button class="tab-btn" data-tab="bd">大厦结构</button>
+  <button class="tab-btn" data-tab="rd">确定性雷达</button>
+  <button class="tab-btn" data-tab="pt">路径推演</button>
+  <button class="tab-btn" data-tab="dt">数据总表</button>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- Tab: 全景总览 -->
+  <div id="tab-ov" class="tab-panel active fade-up">
+    <div class="cd">
+      <p class="body-lead">一栋建筑的倒塌，从来不是因为某一面墙出了问题。</p>
+      <p class="body-text" style="margin-top:10px">2月28日美以对伊朗发动军事行动以来，美国经济这栋"大厦"正在经历一场系统性压力测试。不是地震——是供水供电管道（石油）爆裂引发的连锁反应。水漫进了承重墙（美债），裂缝蔓延到上层建筑（美股），而地基（美元）看起来还稳——但那只是因为废墟里的人暂时没地方跑。</p>
+      <p class="body-text" style="margin-top:10px">本文用<span style="color:var(--gold)">"人类确定性理论"</span>（Human Certainty Theory）的六维框架，结合贝叶斯概率更新，对当前美国资产定价的确定性存量进行一次实时诊断。</p>
+    </div>
+    <div class="metrics">
+      <div class="cd metric"><div class="metric-label">DXY</div><div class="metric-value" style="color:var(--amber)">≈100</div><div class="metric-note">避险暂撑</div></div>
+      <div class="cd metric"><div class="metric-label">Brent</div><div class="metric-value" style="color:var(--red)">$108+</div><div class="metric-note">海峡关闭26天</div></div>
+      <div class="cd metric"><div class="metric-label">10Y收益率</div><div class="metric-value" style="color:var(--red)">4.41%</div><div class="metric-note">8个月新高</div></div>
+      <div class="cd metric"><div class="metric-label">S&P 500</div><div class="metric-value" style="color:var(--red)">6,480</div><div class="metric-note">YTD -8%</div></div>
+      <div class="cd metric"><div class="metric-label">Fed利率</div><div class="metric-value" style="color:var(--amber)">3.75%</div><div class="metric-note">三难困境</div></div>
+      <div class="cd metric"><div class="metric-label">衰退概率</div><div class="metric-value" style="color:var(--red)">49%</div><div class="metric-note">Moody's</div></div>
+    </div>
+    <div class="cd" style="margin-top:4px">
+      <h3 class="sec-title-sm">⬥ 油价与美元指数走势（2026年）</h3>
+      <canvas id="chart-oil"></canvas>
+      <p style="font-size:10px;color:var(--muted);margin-top:6px;font-family:var(--sans);text-align:center">数据来源：TradingEconomics, EIA | 制图：黑森船长</p>
+    </div>
+    <div class="cd cd-accent">
+      <h3 class="sec-title-sm" style="color:var(--gold)">核心判断</h3>
+      <p class="body-text">市场不是在交易"方向"，而是在交易"不确定性本身"。当六维确定性中有三个维度（叙事、协调、资源）同时失锚，恢复所需能量远大于单维度修复——这不是线性冲击，是<span style="color:var(--gold);font-weight:600">系统确定性的相变</span>。</p>
+      <p class="body-text" style="margin-top:8px">最不对称的定价错误：市场仍在用delta（方向）定价一个本质上是vega（波动率）的事件。从"预期两次降息"到"50%概率加息"的翻转，正是波动率维度被冻结后突然释放的典型表现。</p>
+    </div>
+  </div>
+
+  <!-- Tab: 大厦结构 -->
+  <div id="tab-bd" class="tab-panel">
+    <div class="cd">
+      <h3 class="sec-title">美国经济大厦：结构诊断图</h3>
+      <p class="sec-sub">损伤从底部（供水系统）向上传导</p>
+      <div id="building-layers"></div>
+    </div>
+    <div class="cd">
+      <h3 class="sec-title-sm">⬥ 负反馈传导链</h3>
+      <div id="chain-list"></div>
+      <p class="body-text" style="margin-top:14px;border-top:1px solid var(--border);padding-top:10px;font-size:11px">正反馈放大的负向螺旋——油价→通胀→利率→股市→经济形成闭环，供给侧中断使"价格信号调节需求"的正常机制失效。</p>
+    </div>
+  </div>
+
+  <!-- Tab: 确定性雷达 -->
+  <div id="tab-rd" class="tab-panel">
+    <div class="cd">
+      <h3 class="sec-title">人类确定性理论 · S₂六维雷达</h3>
+      <p class="sec-sub">冲突前（2月底）vs 当前（3月28日）| 基于S₂框架量化评分</p>
+      <canvas id="chart-radar"></canvas>
+      <div class="legend">
+        <span style="color:var(--blue)">● 冲突前</span>
+        <span style="color:var(--red)">● 当前</span>
+      </div>
+    </div>
+    <div class="dims-grid" id="dims-grid"></div>
+    <div class="cd cd-accent" style="margin-top:4px">
+      <p class="body-text"><span style="color:var(--gold);font-weight:600">关键发现：</span>反馈维度（55→25，-55%）和协调维度（55→28，-49%）经历了最剧烈的确定性坍缩，资源维度（68→38，-44%）紧随其后。系统均值从61.3降至35.5，整体确定性存量小于冲突前的六成。</p>
+    </div>
+  </div>
+
+  <!-- Tab: 路径推演 -->
+  <div id="tab-pt" class="tab-panel">
+    <div class="cd">
+      <h3 class="sec-title">贝叶斯路径概率更新</h3>
+      <p class="sec-sub">先验 → 后验（纳入3月28日最新证据）</p>
+      <canvas id="chart-bayes"></canvas>
+      <div class="legend">
+        <span style="color:var(--muted)">■ 先验</span>
+        <span style="color:var(--dim)">■ 后验</span>
+      </div>
+    </div>
+    <div class="cd" style="overflow-x:auto">
+      <h3 class="sec-title-sm">⬥ 四路径情景推演表</h3>
+      <table class="tbl">
+        <thead><tr><th>路径</th><th>概率</th><th>油价</th><th>10Y</th><th>S&P</th><th>DXY</th><th>触发条件</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;color:var(--green)">A · 快速停火</td><td style="font-weight:700">18%</td><td style="color:var(--dim)">$80-85</td><td style="color:var(--dim)">&lt;4.0%</td><td style="color:var(--dim)">7200+</td><td style="color:var(--dim)">96-97</td><td style="color:var(--muted);font-size:10px">4月6日前达成协议</td></tr>
+          <tr><td style="font-weight:600;color:var(--amber)">B · 拉锯僵持</td><td style="font-weight:700">45%</td><td style="color:var(--dim)">$95-115</td><td style="color:var(--dim)">4.3-4.6%</td><td style="color:var(--dim)">6000-6600</td><td style="color:var(--dim)">98-102</td><td style="color:var(--muted);font-size:10px">冲突持续至Q2末</td></tr>
+          <tr><td style="font-weight:600;color:var(--red)">C · 冲突升级</td><td style="font-weight:700">30%</td><td style="color:var(--dim)">$130+</td><td style="color:var(--dim)">先冲5%+再回落</td><td style="color:var(--dim)">&lt;6000</td><td style="color:var(--dim)">103→崩塌</td><td style="color:var(--muted);font-size:10px">地面战/海峡长期关闭</td></tr>
+          <tr><td style="font-weight:600;color:var(--purple)">D · 制度裂变</td><td style="font-weight:700">7%</td><td style="color:var(--dim)">失锚</td><td style="color:var(--dim)">异常波动</td><td style="color:var(--dim)">&lt;5400</td><td style="color:var(--dim)">失去定价锚</td><td style="color:var(--muted);font-size:10px">美债拍卖失败/人民币结算扩大</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cd cd-accent-amber">
+      <h3 style="font-size:13px;color:var(--amber);margin-bottom:10px;font-family:var(--sans);font-weight:600">贝叶斯更新 · 关键证据</h3>
+      <div class="ev-item"><span class="ev-text">📌 伊朗外长："从未与敌人谈判"</span><span class="ev-impact" style="color:var(--red)">路径A↓ B/C↑</span></div>
+      <div class="ev-item"><span class="ev-text">📌 Pentagon准备10,000地面部队</span><span class="ev-impact" style="color:var(--red)">路径C↑</span></div>
+      <div class="ev-item"><span class="ev-text">📌 Trump延长deadline至4月6日</span><span class="ev-impact" style="color:var(--green)">路径A微↑</span></div>
+      <div class="ev-item"><span class="ev-text">📌 伊朗以人民币在海峡收费</span><span class="ev-impact" style="color:var(--purple)">路径D↑（结构信号）</span></div>
+      <div class="ev-item"><span class="ev-text">📌 2Y收益率单日飙升60bp</span><span class="ev-impact" style="color:var(--red)">路径B/C↑</span></div>
+    </div>
+  </div>
+
+  <!-- Tab: 数据总表 -->
+  <div id="tab-dt" class="tab-panel">
+    <div class="cd" style="overflow-x:auto">
+      <h3 class="sec-title-sm">⬥ 关键指标变动总表</h3>
+      <table class="tbl" id="tbl-indicators"></table>
+    </div>
+    <div class="cd">
+      <h3 class="sec-title-sm">⬥ 主要机构 S&P 500 展望</h3>
+      <div class="inst-grid" id="inst-grid"></div>
+    </div>
+    <div class="cd cd-accent-red">
+      <h3 style="font-size:13px;color:var(--red);margin-bottom:12px;font-family:var(--sans);font-weight:600">霍尔木兹海峡供给冲击</h3>
+      <div class="hz-grid">
+        <div><div class="hz-label">日均影响流量</div><div class="hz-value">17.8M桶/天</div><div class="hz-note">全球消费18%</div></div>
+        <div><div class="hz-label">关闭天数</div><div class="hz-value">26天</div><div class="hz-note">自3月2日起</div></div>
+        <div><div class="hz-label">风险溢价</div><div class="hz-value">$14-18/桶</div><div class="hz-note">Goldman估算</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="gold-line"></div>
+  <div class="page-footer">
+    <p class="warn">⚠ 本文为框架性分析，不构成投资建议。数据截至2026年3月28日。</p>
+    <p class="brand">★ 黑森船长 · 锚定确定性 ★</p>
+    <p class="copy">Human Certainty Theory™ | captain-hessen.com</p>
+  </div>
+
+</div>
+
+<script>
+/* ── DATA ── */
+const radarData = [
+  { dim: "叙事", pre: 62, now: 35 }, { dim: "制度", pre: 70, now: 42 },
+  { dim: "技术", pre: 58, now: 45 }, { dim: "协调", pre: 55, now: 28 },
+  { dim: "资源", pre: 68, now: 38 }, { dim: "反馈", pre: 55, now: 25 },
+];
+const pathsData = [
+  { path: "A·快速停火", prior: 25, posterior: 18, color: "#22c55e" },
+  { path: "B·拉锯僵持", prior: 40, posterior: 45, color: "#f59e0b" },
+  { path: "C·冲突升级", prior: 25, posterior: 30, color: "#ef4444" },
+  { path: "D·制度裂变", prior: 10, posterior: 7, color: "#a855f7" },
+];
+const oilData = [
+  { d: "1月", brent: 83, dxy: 97 }, { d: "2月初", brent: 67, dxy: 96 },
+  { d: "2月底", brent: 85, dxy: 98 }, { d: "3/1", brent: 88, dxy: 99 },
+  { d: "3/7", brent: 94, dxy: 100 }, { d: "3/14", brent: 101, dxy: 101 },
+  { d: "3/21", brent: 112, dxy: 100 }, { d: "3/28", brent: 108, dxy: 100 },
+];
+
+const sans = "'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif";
+
+/* ── TABS ── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    panel.classList.add('active');
+    panel.classList.add('fade-up');
+    // Redraw canvases if visible
+    initCanvases();
+  });
+});
+
+/* ── CANVAS HELPERS ── */
+function setupCanvas(id, height) {
+  const c = document.getElementById(id);
+  if (!c || !c.parentElement) return null;
+  const dpr = window.devicePixelRatio || 1;
+  const w = c.parentElement.offsetWidth || 700;
+  c.width = w * dpr;
+  c.height = height * dpr;
+  c.style.width = w + 'px';
+  c.style.height = height + 'px';
+  const ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { ctx, w, h: height };
+}
+
+/* ── DRAW: OIL + DXY ── */
+function drawOil() {
+  const r = setupCanvas('chart-oil', 260);
+  if (!r) return;
+  const { ctx, w: W, h: H } = r;
+  const p = { t: 20, r: 55, b: 40, l: 50 };
+  const cw = W - p.l - p.r, ch = H - p.t - p.b;
+  const bMin = 60, bMax = 120, dMin = 94, dMax = 103;
+  const yB = v => p.t + ch - (v - bMin) / (bMax - bMin) * ch;
+  const yD = v => p.t + ch - (v - dMin) / (dMax - dMin) * ch;
+  const xP = i => p.l + i / (oilData.length - 1) * cw;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.font = '10px ' + sans;
+
+  // Grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
+  for (let g = bMin; g <= bMax; g += 20) {
+    ctx.beginPath(); ctx.moveTo(p.l, yB(g)); ctx.lineTo(p.l + cw, yB(g)); ctx.stroke();
+  }
+
+  // Pre-conflict line
+  ctx.strokeStyle = '#64748b'; ctx.setLineDash([5, 5]);
+  ctx.beginPath(); ctx.moveTo(p.l, yB(88)); ctx.lineTo(p.l + cw, yB(88)); ctx.stroke();
+  ctx.setLineDash([]); ctx.fillStyle = '#64748b'; ctx.fillText('冲突前', p.l + 4, yB(88) - 4);
+
+  // Brent line + area
+  ctx.beginPath(); ctx.moveTo(xP(0), yB(oilData[0].brent));
+  for (let i = 1; i < oilData.length; i++) ctx.lineTo(xP(i), yB(oilData[i].brent));
+  ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 2.5; ctx.stroke();
+  ctx.lineTo(xP(oilData.length - 1), p.t + ch); ctx.lineTo(xP(0), p.t + ch); ctx.closePath();
+  const grad = ctx.createLinearGradient(0, p.t, 0, p.t + ch);
+  grad.addColorStop(0, 'rgba(239,68,68,0.25)'); grad.addColorStop(1, 'rgba(239,68,68,0)');
+  ctx.fillStyle = grad; ctx.fill();
+
+  // DXY line
+  ctx.beginPath(); ctx.moveTo(xP(0), yD(oilData[0].dxy));
+  for (let i = 1; i < oilData.length; i++) ctx.lineTo(xP(i), yD(oilData[i].dxy));
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2; ctx.stroke();
+  oilData.forEach((d, i) => {
+    ctx.beginPath(); ctx.arc(xP(i), yD(d.dxy), 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#f59e0b'; ctx.fill();
+  });
+
+  // Labels
+  ctx.fillStyle = '#64748b'; ctx.textAlign = 'center';
+  oilData.forEach((d, i) => ctx.fillText(d.d, xP(i), p.t + ch + 16));
+  ctx.fillStyle = '#ef4444'; ctx.textAlign = 'right';
+  for (let g = bMin; g <= bMax; g += 20) ctx.fillText('$' + g, p.l - 6, yB(g) + 3);
+  ctx.fillStyle = '#f59e0b'; ctx.textAlign = 'left';
+  for (let v = dMin; v <= dMax; v += 3) ctx.fillText(String(v), p.l + cw + 8, yD(v) + 3);
+
+  // Legend
+  ctx.textAlign = 'center'; ctx.font = '10px ' + sans;
+  ctx.fillStyle = '#ef4444'; ctx.fillRect(W / 2 - 75, H - 14, 12, 3); ctx.fillText('Brent ($)', W / 2 - 40, H - 8);
+  ctx.fillStyle = '#f59e0b'; ctx.fillRect(W / 2 + 15, H - 14, 12, 3); ctx.fillText('DXY', W / 2 + 42, H - 8);
+}
+
+/* ── DRAW: RADAR ── */
+function drawRadar() {
+  const r = setupCanvas('chart-radar', 320);
+  if (!r) return;
+  const { ctx, w: W, h: H } = r;
+  const cx = W / 2, cy = H / 2, R = Math.min(W, H) / 2 - 45, n = radarData.length;
+  const ang = i => -Math.PI / 2 + i * 2 * Math.PI / n;
+  const pt = (i, v) => ({ x: cx + Math.cos(ang(i)) * R * (v / 100), y: cy + Math.sin(ang(i)) * R * (v / 100) });
+
+  ctx.clearRect(0, 0, W, H); ctx.font = '12px ' + sans;
+
+  // Grid rings
+  for (let rv = 20; rv <= 100; rv += 20) {
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) { const q = pt(i % n, rv); i === 0 ? ctx.moveTo(q.x, q.y) : ctx.lineTo(q.x, q.y); }
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 1; ctx.stroke();
+  }
+  // Spokes
+  for (let i = 0; i < n; i++) {
+    const q = pt(i, 100);
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(q.x, q.y);
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.stroke();
+  }
+
+  // Pre area
+  ctx.beginPath();
+  for (let i = 0; i <= n; i++) { const q = pt(i % n, radarData[i % n].pre); i === 0 ? ctx.moveTo(q.x, q.y) : ctx.lineTo(q.x, q.y); }
+  ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = 'rgba(59,130,246,0.12)'; ctx.fill();
+
+  // Now area
+  ctx.beginPath();
+  for (let i = 0; i <= n; i++) { const q = pt(i % n, radarData[i % n].now); i === 0 ? ctx.moveTo(q.x, q.y) : ctx.lineTo(q.x, q.y); }
+  ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.fillStyle = 'rgba(239,68,68,0.15)'; ctx.fill();
+
+  // Dots + labels
+  radarData.forEach((d, i) => {
+    [{ v: d.pre, c: '#3b82f6' }, { v: d.now, c: '#ef4444' }].forEach(({ v, c }) => {
+      const q = pt(i, v); ctx.beginPath(); ctx.arc(q.x, q.y, 3.5, 0, Math.PI * 2); ctx.fillStyle = c; ctx.fill();
+    });
+    const lp = pt(i, 118);
+    ctx.fillStyle = '#94a3b8'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(d.dim, lp.x, lp.y);
+  });
+
+  // Scale labels
+  ctx.fillStyle = '#64748b'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
+  for (let rv = 20; rv <= 80; rv += 20) ctx.fillText(String(rv), cx + 2, cy - R * (rv / 100) - 2);
+}
+
+/* ── DRAW: BAYES ── */
+function drawBayes() {
+  const r = setupCanvas('chart-bayes', 220);
+  if (!r) return;
+  const { ctx, w: W, h: H } = r;
+  const p = { t: 10, r: 40, b: 10, l: 110 };
+  const cw = W - p.l - p.r, n = pathsData.length, barH = 14;
+  const gap = (H - p.t - p.b - n * barH * 2) / (n + 1);
+
+  ctx.clearRect(0, 0, W, H); ctx.font = '11px ' + sans;
+
+  pathsData.forEach((d, i) => {
+    const yc = p.t + gap * (i + 1) + i * barH * 2 + barH;
+    ctx.fillStyle = '#e2e8f0'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(d.path, p.l - 10, yc);
+    const pw = (d.prior / 50) * cw;
+    ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fillRect(p.l, yc - barH - 1, pw, barH);
+    ctx.fillStyle = '#64748b'; ctx.textAlign = 'left'; ctx.fillText(d.prior + '%', p.l + pw + 5, yc - barH / 2 - 1);
+    const posw = (d.posterior / 50) * cw;
+    ctx.globalAlpha = 0.75; ctx.fillStyle = d.color; ctx.fillRect(p.l, yc + 1, posw, barH); ctx.globalAlpha = 1;
+    ctx.fillStyle = '#e2e8f0'; ctx.fillText(d.posterior + '%', p.l + posw + 5, yc + barH / 2 + 1);
+  });
+}
+
+/* ── DYNAMIC HTML ── */
+function buildBuildingLayers() {
+  const el = document.getElementById('building-layers');
+  if (!el) return;
+  const layers = [
+    ["美股 · 上层建筑", "震动", 2, "S&P 500 YTD -8%, 纳指修正 -12.5%", "🏢"],
+    ["美债 · 承重墙", "裂缝", 3, "10Y: 3.96%→4.41%, 30Y触及5%", "🧱"],
+    ["美元 · 地基", "表面稳定/底层沉降", 1, "DXY≈100, 年内-3.68%", "⬛"],
+    ["石油 · 供水供电", "管道爆裂", 4, "Brent $108+, 霍尔木兹关闭26天", "🛢️"],
+  ];
+  el.innerHTML = layers.map((l, i) => {
+    const sevClass = l[2] >= 4 ? 'sev4' : l[2] >= 3 ? 'sev3' : 'sev2';
+    const barClass = l[2] >= 4 ? 'on-red' : l[2] >= 3 ? 'on-amber' : 'on-yellow';
+    const statusColor = l[2] >= 3 ? 'var(--amber)' : 'var(--dim)';
+    const bars = [1,2,3,4].map(s => `<div class="sev-bar ${s <= l[2] ? barClass : ''}"></div>`).join('');
+    return `<div class="layer">
+      <div class="layer-icon ${sevClass}">${l[4]}</div>
+      <div class="layer-body">
+        <div class="layer-head"><span class="layer-name">${l[0]}</span><div class="sev-bars">${bars}</div></div>
+        <div class="layer-status" style="color:${statusColor}">${l[1]}</div>
+        <div class="layer-detail">${l[3]}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildChain() {
+  const el = document.getElementById('chain-list');
+  if (!el) return;
+  const steps = [
+    "霍尔木兹海峡关闭", "油价暴涨 61%（$67→$108）",
+    "通胀预期飙升（OECD上调至4.2%）", "Fed降息预期彻底翻转",
+    "美债收益率冲高（10Y +45bp）", "美股承压（S&P -8%, 纳指修正）",
+    "消费者信心下降→经济放缓", "但油价因供给中断持续高位 ⟲",
+  ];
+  el.innerHTML = steps.map((s, i) => {
+    const isLoop = i === 7;
+    return `<div class="chain-item">
+      <div class="chain-dot ${isLoop ? 'loop' : ''}"></div>
+      <span class="chain-text ${isLoop ? 'loop' : ''}">${s}</span>
+      ${i < 7 ? '<span class="chain-arrow">↓</span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function buildDimsGrid() {
+  const el = document.getElementById('dims-grid');
+  if (!el) return;
+  el.innerHTML = radarData.map(d => {
+    const pct = Math.round(((d.pre - d.now) / d.pre) * 100);
+    return `<div class="cd dim-card">
+      <div class="dim-name">${d.dim}</div>
+      <div class="dim-vals"><span class="dim-now">${d.now}</span><span class="dim-pre">← ${d.pre}</span></div>
+      <div class="dim-bar-bg"><div class="dim-bar-fill" style="width:${d.now}%"></div></div>
+      <div class="dim-loss">↓ ${pct}% 确定性流失</div>
+    </div>`;
+  }).join('');
+}
+
+function buildIndicatorsTable() {
+  const el = document.getElementById('tbl-indicators');
+  if (!el) return;
+  const rows = [
+    ["DXY美元指数", "96(2月低)", "≈100", "+4.2%", "up"],
+    ["Brent原油", "$67(2月)", "$108+", "+61%", "up"],
+    ["10Y收益率", "3.96%", "4.41%", "+45bp", "up"],
+    ["30Y收益率", "4.50%", "4.97%", "+47bp", "up"],
+    ["S&P 500", "7,050", "6,480", "-8.1%", "down"],
+    ["Fed利率", "3.75%", "3.75%", "不变", "flat"],
+    ["降息预期", "2次降息", "50%概率加息", "翻转", "down"],
+    ["衰退概率", "~20%", "~49%", "+29pp", "up"],
+  ];
+  el.innerHTML = `<thead><tr><th>指标</th><th>冲突前</th><th>当前</th><th>变动</th></tr></thead><tbody>` +
+    rows.map(r => {
+      const color = r[4] === 'up' ? 'var(--red)' : r[4] === 'down' ? 'var(--green)' : 'var(--dim)';
+      const arrow = r[4] === 'up' ? '▲' : r[4] === 'down' ? '▼' : '●';
+      return `<tr><td style="font-weight:500">${r[0]}</td><td style="color:var(--dim)">${r[1]}</td><td style="font-weight:600">${r[2]}</td><td style="font-weight:600;color:${color}">${arrow} ${r[3]}</td></tr>`;
+    }).join('') + '</tbody>';
+}
+
+function buildInstGrid() {
+  const el = document.getElementById('inst-grid');
+  if (!el) return;
+  const banks = [
+    ["JPMorgan", "7,200", "6,000", "下调500点"],
+    ["Goldman Sachs", "EPS $309", "5,400", "极端油价冲击"],
+    ["BofA Hartnett", null, "<6,600", "等待洗盘信号"],
+    ["Morgan Stanley", null, "6,400-6,500", "技术面支撑"],
+  ];
+  el.innerHTML = banks.map(b => `<div class="cd" style="padding:12px">
+    <div class="inst-name">${b[0]}</div>
+    ${b[1] ? `<div style="font-size:10px;color:var(--dim);font-family:var(--sans)">目标：${b[1]}</div>` : ''}
+    <div style="font-size:10px;color:var(--red);font-family:var(--sans)">下行：${b[2]}</div>
+    <div style="font-size:9px;color:var(--muted);font-family:var(--sans);margin-top:3px">${b[3]}</div>
+  </div>`).join('');
+}
+
+/* ── INIT ── */
+function initCanvases() {
+  // Only draw if parent panel is visible
+  if (document.getElementById('tab-ov').classList.contains('active')) drawOil();
+  if (document.getElementById('tab-rd').classList.contains('active')) drawRadar();
+  if (document.getElementById('tab-pt').classList.contains('active')) drawBayes();
+}
+
+function init() {
+  buildBuildingLayers();
+  buildChain();
+  buildDimsGrid();
+  buildIndicatorsTable();
+  buildInstGrid();
+  initCanvases();
+}
+
+// Run on load + handle resize
+window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('resize', initCanvases);
+</script>
+
+</body>
+</html>

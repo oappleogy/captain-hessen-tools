@@ -1,19 +1,9 @@
 {
-  "score": 56.8,
-  "level": "yellow",
-  "label": "组合风险",
-  "desc": "多变量同时偏离基准，注意组合风险敞口",
+  "score": 28.5,
+  "level": "green",
+  "label": "正常",
+  "desc": "各变量在基准附近，系统压力可控",
   "components": [
-    {
-      "variable": "vix",
-      "name": "VIX",
-      "current": 31.05,
-      "base": 16,
-      "deviation_pct": 94.1,
-      "weight": 0.3,
-      "weight_pct": 30,
-      "contribution": 2656.4
-    },
     {
       "variable": "credit_spread",
       "name": "信用利差",
@@ -27,7 +17,7 @@
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 100.15,
+      "current": 100.17,
       "base": 100,
       "deviation_pct": 0.2,
       "weight": 0.15,
@@ -35,7 +25,7 @@
       "contribution": 0.0
     }
   ],
-  "hard_alerts_count": 2,
+  "hard_alerts_count": 1,
   "significant_deviations": [
     {
       "name": "信用利差",
@@ -44,15 +34,7 @@
       "deviation_pct": 114.0,
       "direction": "偏高",
       "level": "极端偏离"
-    },
-    {
-      "name": "VIX",
-      "current": 31.05,
-      "base": 16,
-      "deviation_pct": 94.1,
-      "direction": "偏高",
-      "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-03-29 08:46"
+  "timestamp": "2026-03-30 08:40"
 }

@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-27T12:09:09",
+  "timestamp": "2026-03-30T08:44:36",
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
-    "score": 0.067,
+    "score": 0.079,
     "action": "系统临界。建议仓位≤40%（趋势→），增加对冲，缩短持仓周期。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.25,
+      "score": 0.26,
       "state": "►",
       "note": "利差温和扩张，韧性开始消耗",
       "confidence": "★★",
@@ -20,7 +20,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.43,
+      "score": 0.4,
       "state": "▲",
       "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
@@ -29,7 +29,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.34,
+      "score": -0.3,
       "state": "▼",
       "note": "负反馈信号，情绪极端或波动剧烈",
       "confidence": "★★★",
@@ -38,16 +38,16 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.01,
+      "score": -0.27,
       "state": "►",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "stressed"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.05,
+      "score": -0.04,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
@@ -56,12 +56,12 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.04,
-      "state": "►",
-      "note": "技术-制度出现摩擦，部分行业承压",
+      "score": 0.35,
+      "state": "▲",
+      "note": "技术进步与制度消化能力匹配",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "neutral"
+      "status": "healthy"
     }
   },
   "attractor": {
@@ -82,14 +82,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 80.0
+        "pct": 80.2
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 17.8
+        "pct": 17.6
       },
       {
         "key": "TECH_DOM",
@@ -106,23 +106,24 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
-    "safety_margin": 0.167,
+    "moving_toward": "TECH_DOM",
+    "safety_margin": 0.179,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=92.4 (历史99%分位)",
-    "地缘交叉验证(OVX)=92.4 (历史99%分位) [仅验证，不计分]",
+    "OVX原油波动率=96.6 (历史99%分位)",
+    "政策不确定性(EPU)=654 (历史98%分位)",
+    "地缘交叉验证(OVX)=96.6 (历史99%分位) [仅验证，不计分]",
     "VIX恐慌指数=27.4 (历史97%分位)",
     "世界不确定性(WUI)=2.028 (历史92%分位)",
-    "Nasdaq波动率(VXN)=29.9 (历史97%分位)"
+    "Nasdaq波动率(VXN)=33.5 (历史99%分位)"
   ],
   "opportunities": [],
   "contradiction": {
-    "type": "state_change",
-    "title": "系统状态恶化：从轻度承压进入临界",
-    "thesis": "系统从轻度承压变为临界。主要拖累来自情绪反馈（-0.34），支撑来自制度稳定（+0.43）。",
-    "metaphor": "天气突变"
+    "type": "dimension_shift",
+    "title": "「技术动能」本周剧烈改善",
+    "thesis": "技术动能维度从-0.04变为+0.35，单周变化0.39，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "引擎在修复"
   },
   "allocation": {
     "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",
@@ -130,21 +131,21 @@
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 5,
+    "extreme_count": 6,
     "vix": {
       "value": 27.4,
       "percentile": 97,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {
-      "value": 3.17,
+      "value": 3.21,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
-      "value": 56.4,
-      "percentile": 20,
-      "desc": "普通人的消费信心接近三年最低，非常悲观"
+      "value": 56.6,
+      "percentile": 22,
+      "desc": "消费信心偏低"
     }
   }
 }

@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-03-30T08:44:36",
+  "timestamp": "2026-03-31T08:52:28",
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
-    "score": 0.079,
-    "action": "系统临界。建议仓位≤40%（趋势→），增加对冲，缩短持仓周期。"
+    "score": 0.02,
+    "action": "系统临界。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.26,
+      "score": 0.29,
       "state": "►",
       "note": "利差温和扩张，韧性开始消耗",
       "confidence": "★★",
@@ -20,7 +20,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.4,
+      "score": 0.39,
       "state": "▲",
       "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
@@ -29,7 +29,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.3,
+      "score": -0.54,
       "state": "▼",
       "note": "负反馈信号，情绪极端或波动剧烈",
       "confidence": "★★★",
@@ -38,25 +38,25 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.27,
-      "state": "►",
-      "note": "部分信号出现分化，协调性下降",
+      "score": -0.34,
+      "state": "▼",
+      "note": "跨市场严重背离，系统内部矛盾激化",
       "confidence": "★★★",
       "name_cn": "市场协调",
       "status": "stressed"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.04,
+      "score": -0.3,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "stressed"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.35,
+      "score": 0.48,
       "state": "▲",
       "note": "技术进步与制度消化能力匹配",
       "confidence": "★★",
@@ -106,17 +106,17 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "TECH_DOM",
-    "safety_margin": 0.179,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.12,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=96.6 (历史99%分位)",
-    "政策不确定性(EPU)=654 (历史98%分位)",
-    "地缘交叉验证(OVX)=96.6 (历史99%分位) [仅验证，不计分]",
-    "VIX恐慌指数=27.4 (历史97%分位)",
-    "世界不确定性(WUI)=2.028 (历史92%分位)",
-    "Nasdaq波动率(VXN)=33.5 (历史99%分位)"
+    "OVX原油波动率=95.8 (历史99%分位)",
+    "政策不确定性(EPU)=673 (历史98%分位)",
+    "地缘交叉验证(OVX)=95.8 (历史99%分位) [仅验证，不计分]",
+    "VIX恐慌指数=30.6 (历史99%分位)",
+    "世界不确定性(WUI)=2.028 (历史91%分位)",
+    "Nasdaq波动率(VXN)=33.3 (历史98%分位)"
   ],
   "opportunities": [],
   "contradiction": {
@@ -133,18 +133,18 @@
   "key_metrics": {
     "extreme_count": 6,
     "vix": {
-      "value": 27.4,
-      "percentile": 97,
+      "value": 30.6,
+      "percentile": 99,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {
-      "value": 3.21,
+      "value": 3.42,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 56.6,
-      "percentile": 22,
+      "percentile": 23,
       "desc": "消费信心偏低"
     }
   }

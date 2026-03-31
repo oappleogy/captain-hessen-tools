@@ -1,7 +1,7 @@
 {
   "week_label": "2026-W14",
-  "generated_at": "2026-03-30 08:40",
-  "data_time": "2026-03-30T00:40:05Z",
+  "generated_at": "2026-03-31 09:19",
+  "data_time": "2026-03-31T01:19:55Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -24,166 +24,164 @@
       "name": "Fed利率",
       "unit": "%",
       "value": 3.64,
-      "date": "2026-03-26",
+      "date": "2026-03-27",
       "freshness": "stale"
     },
     {
       "key": "credit_spread",
       "name": "信用利差",
       "unit": "%",
-      "value": 3.21,
-      "date": "2026-03-26",
+      "value": 3.42,
+      "date": "2026-03-27",
       "freshness": "stale"
     },
     {
-      "key": "dxy",
-      "name": "DXY",
+      "key": "usd_jpy",
+      "name": "USD/JPY",
       "unit": "",
-      "value": 100.17,
-      "date": "2026-03-29",
+      "value": 159.889,
+      "date": "2026-03-31",
+      "freshness": "fresh"
+    },
+    {
+      "key": "spx",
+      "name": "S&P500",
+      "unit": "",
+      "value": 6343.7202,
+      "date": "2026-03-30",
       "freshness": "fresh"
     },
     {
       "key": "t10y2y",
       "name": "10Y-2Y利差",
       "unit": "%",
-      "value": 0.56,
-      "date": "2026-03-27",
+      "value": 0.53,
+      "date": "2026-03-30",
       "freshness": "fresh"
     }
   ],
   "sectors": [
     {
-      "name": "银行/金融",
-      "prosperity": 55.2,
-      "signal": "中性"
-    },
-    {
-      "name": "出口制造",
-      "prosperity": 53.7,
-      "signal": "中性"
+      "name": "地产/REITs",
+      "prosperity": 68.9,
+      "signal": "看好"
     },
     {
       "name": "黄金/大宗",
-      "prosperity": 50.4,
+      "prosperity": 58.4,
       "signal": "中性"
     },
     {
       "name": "能源",
-      "prosperity": 50.0,
+      "prosperity": 53.2,
       "signal": "中性"
     },
     {
       "name": "军工/防务",
-      "prosperity": 50.0,
-      "signal": "中性"
-    },
-    {
-      "name": "消费/零售",
-      "prosperity": 46.8,
+      "prosperity": 52.7,
       "signal": "中性"
     },
     {
       "name": "科技/AI",
-      "prosperity": 45.2,
+      "prosperity": 52.2,
       "signal": "中性"
     },
     {
-      "name": "地产/REITs",
-      "prosperity": 38.5,
+      "name": "消费/零售",
+      "prosperity": 51.2,
+      "signal": "中性"
+    },
+    {
+      "name": "出口制造",
+      "prosperity": 49.1,
+      "signal": "中性"
+    },
+    {
+      "name": "银行/金融",
+      "prosperity": 33.7,
       "signal": "看淡"
     }
   ],
   "macro": [
     {
       "name": "利率",
-      "value": 40.4,
-      "label": "中性",
+      "value": 60.3,
+      "label": "景气",
       "delta": null
     },
     {
       "name": "美元",
-      "value": 55.6,
+      "value": 41.9,
       "label": "中性",
       "delta": null
     },
     {
       "name": "风险",
-      "value": 50,
+      "value": 43.3,
       "label": "中性",
       "delta": null
     },
     {
       "name": "能源",
-      "value": 50,
+      "value": 53.9,
       "label": "中性",
       "delta": null
     },
     {
       "name": "供应链",
-      "value": 50,
+      "value": 59.5,
       "label": "中性",
       "delta": null
     }
   ],
   "industries": [
     {
-      "name": "银行/金融",
-      "value": 55.2,
-      "label": "中性"
-    },
-    {
-      "name": "出口制造",
-      "value": 53.7,
-      "label": "中性"
+      "name": "地产/REITs",
+      "value": 68.9,
+      "label": "景气"
     },
     {
       "name": "黄金/大宗",
-      "value": 50.4,
+      "value": 58.4,
       "label": "中性"
     },
     {
       "name": "能源",
-      "value": 50.0,
+      "value": 53.2,
       "label": "中性"
     },
     {
       "name": "军工/防务",
-      "value": 50.0,
-      "label": "中性"
-    },
-    {
-      "name": "消费/零售",
-      "value": 46.8,
+      "value": 52.7,
       "label": "中性"
     },
     {
       "name": "科技/AI",
-      "value": 45.2,
+      "value": 52.2,
       "label": "中性"
     },
     {
-      "name": "地产/REITs",
-      "value": 38.5,
+      "name": "消费/零售",
+      "value": 51.2,
+      "label": "中性"
+    },
+    {
+      "name": "出口制造",
+      "value": 49.1,
+      "label": "中性"
+    },
+    {
+      "name": "银行/金融",
+      "value": 33.7,
       "label": "承压"
     }
   ],
   "stress_index": {
-    "score": 56.8,
-    "level": "yellow",
-    "label": "组合风险",
-    "desc": "多变量同时偏离基准，注意组合风险敞口",
+    "score": 28.5,
+    "level": "green",
+    "label": "正常",
+    "desc": "各变量在基准附近，系统压力可控",
     "components": [
-      {
-        "variable": "vix",
-        "name": "VIX",
-        "current": 31.05,
-        "base": 16,
-        "deviation_pct": 94.1,
-        "weight": 0.3,
-        "weight_pct": 30,
-        "contribution": 2656.4
-      },
       {
         "variable": "credit_spread",
         "name": "信用利差",
@@ -197,7 +195,7 @@
       {
         "variable": "dxy",
         "name": "DXY",
-        "current": 100.15,
+        "current": 100.17,
         "base": 100,
         "deviation_pct": 0.2,
         "weight": 0.15,
@@ -205,7 +203,7 @@
         "contribution": 0.0
       }
     ],
-    "hard_alerts_count": 2,
+    "hard_alerts_count": 1,
     "significant_deviations": [
       {
         "name": "信用利差",
@@ -214,17 +212,9 @@
         "deviation_pct": 114.0,
         "direction": "偏高",
         "level": "极端偏离"
-      },
-      {
-        "name": "VIX",
-        "current": 31.05,
-        "base": 16,
-        "deviation_pct": 94.1,
-        "direction": "偏高",
-        "level": "极端偏离"
       }
     ],
-    "timestamp": "2026-03-29 08:46"
+    "timestamp": "2026-03-30 08:40"
   },
   "significant_deviations": [
     {
@@ -234,21 +224,13 @@
       "deviation_pct": 114.0,
       "direction": "偏高",
       "level": "极端偏离"
-    },
-    {
-      "name": "VIX",
-      "current": 31.05,
-      "base": 16,
-      "deviation_pct": 94.1,
-      "direction": "偏高",
-      "level": "极端偏离"
     }
   ],
   "distances": [
     {
       "regime": "避险冲击",
       "met": false,
-      "total_gap": 106.83,
+      "total_gap": 198,
       "triggers": [
         {
           "name": "VIX",
@@ -261,15 +243,15 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 100.17,
-          "gap": 7.83
+          "current": "—",
+          "gap": 99
         }
       ]
     },
     {
       "regime": "加息紧缩",
       "met": false,
-      "total_gap": 107.69,
+      "total_gap": 198.86,
       "triggers": [
         {
           "name": "Fed利率",
@@ -282,8 +264,8 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 100.17,
-          "gap": 7.83
+          "current": "—",
+          "gap": 99
         },
         {
           "name": "VIX",
@@ -297,7 +279,7 @@
     {
       "regime": "宽松放水",
       "met": false,
-      "total_gap": 6.81,
+      "total_gap": 100.64,
       "triggers": [
         {
           "name": "Fed利率",
@@ -310,15 +292,15 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 100.17,
-          "gap": 5.17
+          "current": "—",
+          "gap": 99
         }
       ]
     },
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 105.03,
+      "total_gap": 198.86,
       "triggers": [
         {
           "name": "油价",
@@ -338,61 +320,45 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 100.17,
-          "gap": 5.17
+          "current": "—",
+          "gap": 99
         }
       ]
     }
   ],
   "has_comparison": false,
-  "s2_state": "STABLE",
-  "s2_score": null,
+  "s2_state": "CRITICAL",
+  "s2_score": 0.07879791479858705,
   "macro_prosperity": {
-    "rate_n": 40.4,
-    "usd_n": 55.6,
-    "risk_n": 50,
-    "energy_n": 50,
-    "supply_n": 50
+    "rate_n": 60.3,
+    "usd_n": 41.9,
+    "risk_n": 43.3,
+    "energy_n": 53.9,
+    "supply_n": 59.5
   },
   "forward_rates": {
     "futures": {
       "curve": {
-        "2026-03": 3.64,
-        "2026-04": 3.6425,
-        "2026-05": 3.65,
-        "2026-06": 3.65,
-        "2026-07": 3.65,
-        "2026-08": 3.64,
-        "2026-09": 3.65,
-        "2026-10": 3.665,
-        "2026-11": 3.67,
-        "2026-12": 3.655,
-        "2027-01": 3.65,
-        "2027-02": 3.645,
-        "2027-03": 3.68,
-        "2027-04": 3.635,
-        "2027-05": 3.64,
-        "2027-06": 3.655,
-        "2027-07": 3.635,
+        "2026-07": 3.635,
+        "2026-08": 3.62,
+        "2026-09": 3.625,
+        "2026-10": 3.625,
+        "2026-11": 3.62,
+        "2026-12": 3.6,
+        "2027-01": 3.595,
+        "2027-02": 3.585,
+        "2027-03": 3.575,
+        "2027-04": 3.57,
+        "2027-05": 3.585,
+        "2027-06": 3.555,
+        "2027-07": 3.545,
         "2027-08": 3.605
       },
-      "current_rate": 3.64,
-      "terminal_rate_12m": 3.68,
-      "rate_gap": -0.04,
-      "cuts_priced_12m": -0.16,
-      "date": "2026-03-30"
-    },
-    "polymarket": {
-      "event_title": "Fed decision in March?",
-      "outcomes": {
-        "cut_50bp": 0.0,
-        "cut_25bp": 0.0,
-        "hold": 100.0,
-        "hike": 0.0
-      },
-      "cut_probability": 0.0,
-      "hold_probability": 100.0,
-      "date": "2026-03-30"
+      "current_rate": 3.635,
+      "terminal_rate_12m": 3.575,
+      "rate_gap": 0.06,
+      "cuts_priced_12m": 0.24,
+      "date": "2026-03-31"
     }
   },
   "watermark": "黑森船长"

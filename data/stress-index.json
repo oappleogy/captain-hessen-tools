@@ -1,40 +1,40 @@
 {
-  "score": 28.5,
-  "level": "green",
-  "label": "正常",
-  "desc": "各变量在基准附近，系统压力可控",
+  "score": 33.0,
+  "level": "yellow",
+  "label": "组合风险",
+  "desc": "多变量同时偏离基准，注意组合风险敞口",
   "components": [
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 3.21,
+      "current": 3.42,
       "base": 1.5,
-      "deviation_pct": 114.0,
+      "deviation_pct": 128.0,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 3249.0
+      "contribution": 4096.0
     },
     {
-      "variable": "dxy",
-      "name": "DXY",
-      "current": 100.17,
-      "base": 100,
-      "deviation_pct": 0.2,
-      "weight": 0.15,
-      "weight_pct": 15,
-      "contribution": 0.0
+      "variable": "usdjpy",
+      "name": "USD/JPY",
+      "current": 159.89,
+      "base": 145,
+      "deviation_pct": 10.3,
+      "weight": 0.1,
+      "weight_pct": 10,
+      "contribution": 10.6
     }
   ],
   "hard_alerts_count": 1,
   "significant_deviations": [
     {
       "name": "信用利差",
-      "current": 3.21,
+      "current": 3.42,
       "base": 1.5,
-      "deviation_pct": 114.0,
+      "deviation_pct": 128.0,
       "direction": "偏高",
       "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-03-30 08:40"
+  "timestamp": "2026-03-31 09:19"
 }

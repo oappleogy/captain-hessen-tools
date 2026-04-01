@@ -1,6 +1,6 @@
 {
-  "fetched_at": "2026-04-01T00:17:11Z",
-  "cleaned_at": "2026-04-01T00:17:11Z",
+  "fetched_at": "2026-04-01T01:07:42Z",
+  "cleaned_at": "2026-04-01T01:07:42Z",
   "sliders": {
     "us_rate": {
       "value": 3.64,
@@ -17,10 +17,10 @@
       "source": "Yahoo/DX-Y.NYB"
     },
     "us_vix": {
-      "value": 25.25,
+      "value": 0,
       "name": "VIX恐慌指数",
-      "date": "2026-03-31",
-      "freshness": "fresh",
+      "date": "",
+      "freshness": "stale",
       "source": "Yahoo/^VIX"
     },
     "cn_yuan": {
@@ -38,14 +38,14 @@
       "source": "Yahoo/TTF=F"
     },
     "jp_yen": {
-      "value": 0,
+      "value": 158.559,
       "name": "USD/JPY汇率",
-      "date": "",
-      "freshness": "stale",
+      "date": "2026-04-01",
+      "freshness": "fresh",
       "source": "Yahoo/JPY=X"
     },
     "geo_oil": {
-      "value": 102.0,
+      "value": 102.11,
       "name": "WTI油价",
       "date": "2026-03-31",
       "freshness": "fresh",

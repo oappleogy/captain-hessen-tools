@@ -1,5 +1,5 @@
 {
-  "score": 55.0,
+  "score": 55.6,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -7,22 +7,22 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 24.3,
+      "current": 24.38,
       "base": 16,
-      "deviation_pct": 51.9,
+      "deviation_pct": 52.4,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 808.1
+      "contribution": 823.7
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 96.66,
+      "current": 98.1,
       "base": 75,
-      "deviation_pct": 28.9,
+      "deviation_pct": 30.8,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 167.0
+      "contribution": 189.7
     },
     {
       "variable": "credit_spread",
@@ -37,12 +37,22 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 158.66,
+      "current": 158.7,
       "base": 145,
-      "deviation_pct": 9.4,
+      "deviation_pct": 9.5,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 8.8
+      "contribution": 9.0
+    },
+    {
+      "variable": "dxy",
+      "name": "DXY",
+      "current": 99.64,
+      "base": 100,
+      "deviation_pct": 0.4,
+      "weight": 0.15,
+      "weight_pct": 15,
+      "contribution": 0.0
     }
   ],
   "hard_alerts_count": 2,
@@ -57,9 +67,9 @@
     },
     {
       "name": "VIX",
-      "current": 24.3,
+      "current": 24.38,
       "base": 16,
-      "deviation_pct": 51.9,
+      "deviation_pct": 52.4,
       "direction": "偏高",
       "level": "极端偏离"
     },
@@ -73,12 +83,12 @@
     },
     {
       "name": "WTI油价",
-      "current": 96.66,
+      "current": 98.1,
       "base": 75,
-      "deviation_pct": 28.9,
+      "deviation_pct": 30.8,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-04-01 15:57"
+  "timestamp": "2026-04-01 16:07"
 }

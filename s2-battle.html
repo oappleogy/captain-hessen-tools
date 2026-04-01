@@ -1262,8 +1262,8 @@ body::after {
       <div class="pb-name">谈判停火</div>
       <div class="pb-desc">各方达成协议，战事结束</div>
       <div class="pb-pct-row">
-        <span class="pb-pct" id="pct-a">13%</span>
-        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-a" style="width:26%;background:var(--us);"></div></div>
+        <span class="pb-pct" id="pct-a">28%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-a" style="width:56%;background:var(--us);"></div></div>
       </div>
     </div>
   </div>
@@ -1277,8 +1277,8 @@ body::after {
       <div class="pb-name">持续消耗战</div>
       <div class="pb-desc">拉锯3–6个月，无人认输</div>
       <div class="pb-pct-row">
-        <span class="pb-pct" id="pct-b">48%</span>
-        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-b" style="width:96%;background:var(--green);"></div></div>
+        <span class="pb-pct" id="pct-b">38%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-b" style="width:76%;background:var(--green);"></div></div>
       </div>
     </div>
   </div>
@@ -1292,8 +1292,8 @@ body::after {
       <div class="pb-name">伊朗政权崩溃</div>
       <div class="pb-desc">内部瓦解或民众革命</div>
       <div class="pb-pct-row">
-        <span class="pb-pct" id="pct-c">11%</span>
-        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-c" style="width:22%;background:#f0a030;"></div></div>
+        <span class="pb-pct" id="pct-c">12%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-c" style="width:24%;background:#f0a030;"></div></div>
       </div>
     </div>
   </div>
@@ -1307,8 +1307,8 @@ body::after {
       <div class="pb-name">极端升级</div>
       <div class="pb-desc">核威胁或全面区域战争</div>
       <div class="pb-pct-row">
-        <span class="pb-pct" id="pct-d">27%</span>
-        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-d" style="width:54%;background:var(--ir);"></div></div>
+        <span class="pb-pct" id="pct-d">22%</span>
+        <div class="pb-bar-bg"><div class="pb-bar" id="pbar-d" style="width:44%;background:var(--ir);"></div></div>
       </div>
     </div>
   </div>
@@ -1378,7 +1378,7 @@ body::after {
       <div class="wtitle">有没有第三方出来调停？</div>
       <div class="wdesc">阿曼、卡塔尔历史上都曾担任美伊秘密沟通渠道——战时斡旋窗口一旦打开，局势可能迅速降温</div>
       <div class="wconseq">
-        <span style="color:var(--green);font-weight:700;">→ 若出现有效调停：</span> 路径A（停火）概率从13%快速上升<br>
+        <span style="color:var(--green);font-weight:700;">→ 若出现有效调停：</span> 路径A（停火）概率进一步上升<br>
         <span style="color:rgba(255,255,255,0.5);font-weight:700;">→ 若调停失败：</span> 各方失去台阶，路径D风险升高
       </div>
     </div>
@@ -1629,7 +1629,7 @@ const state = {
     il: { T: 0.7, R: 0.0,  C: 0.7, F: 0.3,  I: 0.4,  N: 0.6 },
     ir: { T: -0.4, R: -0.8, C: -0.3, F: -0.8, I: -0.7, N: -0.6 }
   },
-  paths: { a: 13, b: 48, c: 11, d: 27 }
+  paths: { a: 28, b: 38, c: 12, d: 22 }
 };
 
 const W = { T:0.25, R:0.25, C:0.18, F:0.15, I:0.10, N:0.07 };
@@ -2017,7 +2017,8 @@ function spawnParticles(anchor, isPositive, count) {
 function updatePathProbabilities() {
   // 每次从初始先验出发，根据当前维度分数重新贝叶斯更新
   // 初始先验（第14天基线）
-  const prior = { a: 13, b: 48, c: 11, d: 27 };
+  // 2026-04-01 更新：美国释放停战信号，调整先验
+  const prior = { a: 28, b: 38, c: 12, d: 22 };
 
   const irScore = state.scores.ir;   // 范围约 -1 ~ +1
   const usScore = state.scores.us;
@@ -2066,8 +2067,8 @@ function updatePathProbabilities() {
 
   // 归一化
   const t = a + b + c + d;
-  // 硬性约束：任何路径偏离先验最多 ±8 个百分点
-  const maxDev = 8;
+  // 硬性约束：任何路径偏离先验最多 ±15 个百分点
+  const maxDev = 15;
   state.paths = {
     a: Math.max(prior.a - maxDev, Math.min(prior.a + maxDev, (a/t)*100)),
     b: Math.max(prior.b - maxDev, Math.min(prior.b + maxDev, (b/t)*100)),
@@ -2301,7 +2302,7 @@ const SIGNAL_DEFS = [
         dot: 'wy', badge: null,
         title: '有没有第三方出来调停？',
         desc: '阿曼、卡塔尔历史上都曾担任美伊秘密沟通渠道——战时斡旋窗口一旦打开，局势可能迅速降温',
-        conseq: '<span style="color:var(--green);font-weight:700;">→ 若出现有效调停：</span> 路径A（停火）概率从13%快速上升<br><span style="color:rgba(255,255,255,0.5);font-weight:700;">→ 若调停失败：</span> 各方失去台阶，路径D风险升高'
+        conseq: '<span style="color:var(--green);font-weight:700;">→ 若出现有效调停：</span> 路径A（停火）概率进一步上升<br><span style="color:rgba(255,255,255,0.5);font-weight:700;">→ 若调停失败：</span> 各方失去台阶，路径D风险升高'
       },
       blocked: {
         dot: 'wy', badge: { text: '🚫 渠道受阻', color: '#888' },

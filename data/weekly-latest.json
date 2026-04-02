@@ -1,7 +1,7 @@
 {
   "week_label": "2026-W14",
-  "generated_at": "2026-04-01 16:07",
-  "data_time": "2026-04-01T08:07:01Z",
+  "generated_at": "2026-04-02 09:56",
+  "data_time": "2026-04-02T01:56:45Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -16,7 +16,7 @@
       "S4": 0.0
     },
     "confidence": 0.6,
-    "reasoning": "HMM=easing，但油价$98>$85需关注"
+    "reasoning": "HMM=easing，但油价$99>$85需关注"
   },
   "variables": [
     {
@@ -24,22 +24,22 @@
       "name": "Fed利率",
       "unit": "%",
       "value": 3.64,
-      "date": "2026-03-30",
+      "date": "2026-03-31",
       "freshness": "fresh"
     },
     {
       "key": "credit_spread",
       "name": "信用利差",
       "unit": "%",
-      "value": 3.46,
-      "date": "2026-03-30",
+      "value": 3.28,
+      "date": "2026-03-31",
       "freshness": "fresh"
     },
     {
       "key": "dxy",
       "name": "DXY",
       "unit": "",
-      "value": 99.645,
+      "value": 27.73,
       "date": "2026-04-01",
       "freshness": "fresh"
     },
@@ -47,7 +47,7 @@
       "key": "vix",
       "name": "VIX",
       "unit": "",
-      "value": 24.38,
+      "value": 24.54,
       "date": "2026-04-01",
       "freshness": "fresh"
     },
@@ -55,7 +55,7 @@
       "key": "oil",
       "name": "WTI油价",
       "unit": "$/b",
-      "value": 98.1,
+      "value": 98.56,
       "date": "2026-04-01",
       "freshness": "fresh"
     },
@@ -63,7 +63,7 @@
       "key": "usd_cny",
       "name": "USD/CNY",
       "unit": "",
-      "value": 6.8757,
+      "value": 6.8942,
       "date": "2026-04-01",
       "freshness": "fresh"
     },
@@ -71,7 +71,15 @@
       "key": "usd_jpy",
       "name": "USD/JPY",
       "unit": "",
-      "value": 158.704,
+      "value": 158.734,
+      "date": "2026-04-02",
+      "freshness": "fresh"
+    },
+    {
+      "key": "spx",
+      "name": "S&P500",
+      "unit": "",
+      "value": 6575.3198,
       "date": "2026-04-01",
       "freshness": "fresh"
     },
@@ -79,15 +87,15 @@
       "key": "t10y2y",
       "name": "10Y-2Y利差",
       "unit": "%",
-      "value": 0.51,
-      "date": "2026-03-31",
+      "value": 0.52,
+      "date": "2026-04-01",
       "freshness": "fresh"
     }
   ],
   "sectors": [
     {
       "name": "地产/REITs",
-      "prosperity": 72.9,
+      "prosperity": 70.2,
       "signal": "看好"
     },
     {
@@ -107,12 +115,12 @@
     },
     {
       "name": "科技/AI",
-      "prosperity": 50.9,
+      "prosperity": 49.2,
       "signal": "中性"
     },
     {
       "name": "消费/零售",
-      "prosperity": 49.6,
+      "prosperity": 48.2,
       "signal": "中性"
     },
     {
@@ -122,14 +130,14 @@
     },
     {
       "name": "银行/金融",
-      "prosperity": 24.1,
+      "prosperity": 23.0,
       "signal": "看淡"
     }
   ],
   "macro": [
     {
       "name": "利率",
-      "value": 62.5,
+      "value": 61.4,
       "label": "景气",
       "delta": null
     },
@@ -161,7 +169,7 @@
   "industries": [
     {
       "name": "地产/REITs",
-      "value": 72.9,
+      "value": 70.2,
       "label": "景气"
     },
     {
@@ -181,12 +189,12 @@
     },
     {
       "name": "科技/AI",
-      "value": 50.9,
+      "value": 49.2,
       "label": "中性"
     },
     {
       "name": "消费/零售",
-      "value": 49.6,
+      "value": 48.2,
       "label": "中性"
     },
     {
@@ -196,12 +204,12 @@
     },
     {
       "name": "银行/金融",
-      "value": 24.1,
+      "value": 23.0,
       "label": "承压"
     }
   ],
   "stress_index": {
-    "score": 55.0,
+    "score": 55.6,
     "level": "yellow",
     "label": "组合风险",
     "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -209,22 +217,22 @@
       {
         "variable": "vix",
         "name": "VIX",
-        "current": 24.3,
+        "current": 24.38,
         "base": 16,
-        "deviation_pct": 51.9,
+        "deviation_pct": 52.4,
         "weight": 0.3,
         "weight_pct": 30,
-        "contribution": 808.1
+        "contribution": 823.7
       },
       {
         "variable": "oil",
         "name": "WTI油价",
-        "current": 96.66,
+        "current": 98.1,
         "base": 75,
-        "deviation_pct": 28.9,
+        "deviation_pct": 30.8,
         "weight": 0.2,
         "weight_pct": 20,
-        "contribution": 167.0
+        "contribution": 189.7
       },
       {
         "variable": "credit_spread",
@@ -239,12 +247,22 @@
       {
         "variable": "usdjpy",
         "name": "USD/JPY",
-        "current": 158.66,
+        "current": 158.7,
         "base": 145,
-        "deviation_pct": 9.4,
+        "deviation_pct": 9.5,
         "weight": 0.1,
         "weight_pct": 10,
-        "contribution": 8.8
+        "contribution": 9.0
+      },
+      {
+        "variable": "dxy",
+        "name": "DXY",
+        "current": 99.64,
+        "base": 100,
+        "deviation_pct": 0.4,
+        "weight": 0.15,
+        "weight_pct": 15,
+        "contribution": 0.0
       }
     ],
     "hard_alerts_count": 2,
@@ -259,9 +277,9 @@
       },
       {
         "name": "VIX",
-        "current": 24.3,
+        "current": 24.38,
         "base": 16,
-        "deviation_pct": 51.9,
+        "deviation_pct": 52.4,
         "direction": "偏高",
         "level": "极端偏离"
       },
@@ -275,14 +293,14 @@
       },
       {
         "name": "WTI油价",
-        "current": 96.66,
+        "current": 98.1,
         "base": 75,
-        "deviation_pct": 28.9,
+        "deviation_pct": 30.8,
         "direction": "偏高",
         "level": "显著偏离"
       }
     ],
-    "timestamp": "2026-04-01 15:57"
+    "timestamp": "2026-04-01 16:07"
   },
   "significant_deviations": [
     {
@@ -295,9 +313,9 @@
     },
     {
       "name": "VIX",
-      "current": 24.3,
+      "current": 24.38,
       "base": 16,
-      "deviation_pct": 51.9,
+      "deviation_pct": 52.4,
       "direction": "偏高",
       "level": "极端偏离"
     },
@@ -311,9 +329,9 @@
     },
     {
       "name": "WTI油价",
-      "current": 96.66,
+      "current": 98.1,
       "base": 75,
-      "deviation_pct": 28.9,
+      "deviation_pct": 30.8,
       "direction": "偏高",
       "level": "显著偏离"
     }
@@ -322,28 +340,28 @@
     {
       "regime": "避险冲击",
       "met": false,
-      "total_gap": 13.98,
+      "total_gap": 85.73,
       "triggers": [
         {
           "name": "VIX",
           "need": ">",
           "threshold": 30,
-          "current": 24.38,
-          "gap": 5.62
+          "current": 24.54,
+          "gap": 5.46
         },
         {
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 99.64,
-          "gap": 8.36
+          "current": 27.73,
+          "gap": 80.27
         }
       ]
     },
     {
       "regime": "加息紧缩",
       "met": false,
-      "total_gap": 9.22,
+      "total_gap": 81.13,
       "triggers": [
         {
           "name": "Fed利率",
@@ -356,14 +374,14 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 99.64,
-          "gap": 8.36
+          "current": 27.73,
+          "gap": 80.27
         },
         {
           "name": "VIX",
           "need": "<",
           "threshold": 30,
-          "current": 24.38,
+          "current": 24.54,
           "gap": 0
         }
       ]
@@ -371,7 +389,7 @@
     {
       "regime": "宽松放水",
       "met": false,
-      "total_gap": 6.28,
+      "total_gap": 1.64,
       "triggers": [
         {
           "name": "Fed利率",
@@ -384,22 +402,22 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 99.64,
-          "gap": 4.64
+          "current": 27.73,
+          "gap": 0
         }
       ]
     },
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 7.4,
+      "total_gap": 2.3,
       "triggers": [
         {
           "name": "油价",
           "need": ">",
           "threshold": 100,
-          "current": 98.1,
-          "gap": 1.9
+          "current": 98.56,
+          "gap": 1.44
         },
         {
           "name": "Fed利率",
@@ -412,8 +430,8 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 99.64,
-          "gap": 4.64
+          "current": 27.73,
+          "gap": 0
         }
       ]
     }
@@ -422,7 +440,7 @@
   "s2_state": "CRITICAL",
   "s2_score": 0.019773508053919336,
   "macro_prosperity": {
-    "rate_n": 62.5,
+    "rate_n": 61.4,
     "usd_n": 39.8,
     "risk_n": 36.1,
     "energy_n": 54.3,
@@ -431,29 +449,27 @@
   "forward_rates": {
     "futures": {
       "curve": {
-        "2026-04": 3.64,
+        "2026-04": 3.6425,
         "2026-05": 3.645,
-        "2026-06": 3.635,
-        "2026-07": 3.62,
-        "2026-08": 3.595,
-        "2026-09": 3.59,
-        "2026-10": 3.58,
-        "2026-11": 3.565,
-        "2026-12": 3.535,
-        "2027-01": 3.52,
-        "2027-02": 3.51,
-        "2027-03": 3.495,
-        "2027-04": 3.495,
-        "2027-05": 3.48,
-        "2027-06": 3.53,
-        "2027-07": 3.45,
-        "2027-08": 3.485
+        "2026-06": 3.645,
+        "2026-07": 3.635,
+        "2026-08": 3.625,
+        "2026-09": 3.625,
+        "2026-10": 3.625,
+        "2026-11": 3.615,
+        "2026-12": 3.59,
+        "2027-01": 3.575,
+        "2027-02": 3.56,
+        "2027-03": 3.56,
+        "2027-04": 3.555,
+        "2027-07": 3.515,
+        "2027-08": 3.5
       },
-      "current_rate": 3.64,
-      "terminal_rate_12m": 3.495,
-      "rate_gap": 0.145,
-      "cuts_priced_12m": 0.58,
-      "date": "2026-04-01"
+      "current_rate": 3.6425,
+      "terminal_rate_12m": 3.555,
+      "rate_gap": 0.0875,
+      "cuts_priced_12m": 0.35,
+      "date": "2026-04-02"
     }
   },
   "watermark": "黑森船长"

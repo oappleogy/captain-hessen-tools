@@ -1,35 +1,35 @@
 {
-  "timestamp": "2026-04-07T20:27:42",
+  "timestamp": "2026-04-08T10:03:04",
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
-    "score": -0.125,
-    "action": "系统临界。建议仓位≤30%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "score": -0.361,
+    "action": "系统临界。建议仓位≤20%（趋势↓），以保护资本为主，等待结构改善。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.24,
+      "score": 0.0,
       "state": "►",
       "note": "利差温和扩张，韧性开始消耗",
-      "confidence": "★★",
+      "confidence": "⚠",
       "name_cn": "信用韧性",
-      "status": "healthy"
+      "status": "neutral"
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.21,
+      "score": 0.0,
       "state": "►",
       "note": "政策不确定性上升，规则可预测性下降",
-      "confidence": "★★",
+      "confidence": "⚠",
       "name_cn": "制度稳定",
-      "status": "healthy"
+      "status": "neutral"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.43,
+      "score": -0.58,
       "state": "▼",
       "note": "负反馈信号，情绪极端或波动剧烈",
       "confidence": "★★★",
@@ -38,7 +38,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.12,
+      "score": 0.01,
       "state": "►",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
@@ -47,16 +47,16 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.18,
-      "state": "►",
-      "note": "叙事出现分化或转向迹象",
+      "score": -0.42,
+      "state": "▼",
+      "note": "叙事剧变或严重分裂，市场预期混乱",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "stressed"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.42,
+      "score": -0.43,
       "state": "▼",
       "note": "技术加速度超过制度消化，结构性失配严重",
       "confidence": "★★",
@@ -107,40 +107,30 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": -0.025,
+    "safety_margin": -0.261,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=96.1 (历史99%分位)",
-    "政策不确定性(EPU)=791 (历史99%分位)",
-    "地缘政治风险(GPR)=297 (历史100%分位)",
-    "地缘交叉验证(OVX)=96.1 (历史99%分位) [仅验证，不计分]",
-    "VIX恐慌指数=25.8 (历史96%分位)",
-    "Nasdaq波动率(VXN)=27.4 (历史93%分位)"
+    "Nasdaq波动率(VXN)=28.4 (历史95%分位)"
   ],
   "opportunities": [],
   "contradiction": {
-    "type": "state_change",
-    "title": "系统状态恶化：从轻度承压进入临界",
-    "thesis": "系统从轻度承压变为临界。主要拖累来自情绪反馈（-0.43），支撑来自信用韧性（+0.24）。",
-    "metaphor": "天气突变"
+    "type": "dimension_shift",
+    "title": "「叙事共识」本周剧烈恶化",
+    "thesis": "叙事共识维度从-0.18变为-0.42，单周变化0.24，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "共识出现裂缝"
   },
   "allocation": {
     "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",
-    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2018年Q4），从最恐慌的点算起三个月内完全收复，但中间又多跌了8%才见底。耐心比行动更重要。",
+    "mid_term": "中性偏谨慎。信号不够明确，保持均衡配置，等待更清晰的方向。",
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 6,
+    "extreme_count": 1,
     "vix": {
-      "value": 25.8,
-      "percentile": 96,
-      "desc": "市场恐惧情绪极端，过去三年罕见"
-    },
-    "credit_spread": {
-      "value": 3.13,
+      "value": 3.83,
       "percentile": 50,
-      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
+      "desc": "市场情绪正常"
     },
     "consumer": {
       "value": 56.6,

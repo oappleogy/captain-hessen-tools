@@ -9,144 +9,147 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  min-height: 100vh; background: #0B0B0B; color: #E8E6E3;
+  min-height: 100vh; background: #EDF3FA; color: #2C3E50;
   font-family: 'Newsreader', 'Noto Serif SC', Georgia, serif;
   -webkit-font-smoothing: antialiased;
 }
 .grid-bg {
-  position: fixed; inset: 0; opacity: 0.025; pointer-events: none;
-  background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+  position: fixed; inset: 0; opacity: 0.035; pointer-events: none;
+  background-image: linear-gradient(rgba(0,40,100,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,40,100,0.15) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 .container { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; position: relative; }
 @media (max-width: 600px) { .container { padding: 32px 16px 48px; } }
 
 /* Header */
-.brand { font-size: 11px; letter-spacing: 0.3em; color: #444; font-family: 'JetBrains Mono', monospace; margin-bottom: 14px; }
+.brand { font-size: 11px; letter-spacing: 0.3em; color: #8899AA; font-family: 'JetBrains Mono', monospace; margin-bottom: 14px; }
 h1 {
   font-size: clamp(24px, 4vw, 38px); font-weight: 400; line-height: 1.25; margin: 0 0 10px;
-  background: linear-gradient(135deg, #E8E6E3, #777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #1A2332, #4A6A8A); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-.subtitle { font-size: 15px; color: #888; max-width: 680px; line-height: 1.8; margin: 0 0 6px; font-style: italic; }
-.source { font-size: 13px; color: #555; max-width: 680px; line-height: 1.7; margin: 0 0 28px; }
+.subtitle { font-size: 15px; color: #5A7A8A; max-width: 680px; line-height: 1.8; margin: 0 0 6px; font-style: italic; }
+.source { font-size: 13px; color: #7A8EA0; max-width: 680px; line-height: 1.7; margin: 0 0 28px; }
 
 /* Chain toggle */
 .chain-btn {
-  background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;
-  color: #999; font-size: 13px; padding: 8px 18px; cursor: pointer;
+  background: transparent; border: 1px solid rgba(0,40,100,0.12); border-radius: 8px;
+  color: #5A7A8A; font-size: 13px; padding: 8px 18px; cursor: pointer;
   font-family: inherit; transition: all 0.3s; margin-bottom: 20px;
 }
-.chain-btn:hover { filter: brightness(1.08); }
-.chain-btn.active { background: rgba(255,255,255,0.06); }
+.chain-btn:hover { background: rgba(0,40,100,0.04); }
+.chain-btn.active { background: rgba(0,40,100,0.06); }
 .chain-box {
-  margin: 0 0 28px; padding: 20px 22px; background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; display: none;
+  margin: 0 0 28px; padding: 20px 22px; background: #FFFFFF;
+  border: 1px solid rgba(0,40,100,0.08); border-radius: 14px; display: none;
 }
 .chain-box.show { display: block; animation: fadeIn 0.4s ease; }
 .chain-step { display: flex; align-items: flex-start; gap: 14px; padding: 8px 0; }
 .chain-icon { display: flex; flex-direction: column; align-items: center; min-width: 28px; }
 .chain-icon span { font-size: 18px; }
-.chain-line { width: 1px; height: 24px; background: rgba(255,255,255,0.08); margin-top: 4px; }
-.chain-text { font-size: 14px; color: #CCC; }
-.chain-text.last { font-weight: 700; color: #E8B931; }
-.chain-detail { font-size: 12px; color: #777; margin-top: 3px; line-height: 1.5; }
+.chain-line { width: 1px; height: 24px; background: rgba(0,40,100,0.12); margin-top: 4px; }
+.chain-text { font-size: 14px; color: #2C3E50; }
+.chain-text.last { font-weight: 700; color: #B8860B; }
+.chain-detail { font-size: 12px; color: #7A8EA0; margin-top: 3px; line-height: 1.5; }
 
 /* Layer tabs */
 .tabs { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
 .tab {
   flex: 1 1 180px; padding: 18px; border-radius: 14px; cursor: pointer;
-  background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05);
+  background: #FFFFFF; border: 1px solid rgba(0,40,100,0.08);
   text-align: left; transition: all 0.3s; font-family: inherit; color: inherit;
+  box-shadow: 0 1px 3px rgba(0,40,100,0.04);
 }
-.tab:hover { filter: brightness(1.08); }
+.tab:hover { box-shadow: 0 2px 8px rgba(0,40,100,0.08); }
 .tab-icon { font-size: 22px; margin-bottom: 4px; }
-.tab-label { font-size: 17px; font-weight: 700; color: #666; transition: color 0.3s; }
-.tab-en { font-size: 11px; color: #555; font-family: 'JetBrains Mono', monospace; }
-.tab-cert-label { font-size: 10px; color: #444; margin-top: 2px; }
+.tab-label { font-size: 17px; font-weight: 700; color: #7A8EA0; transition: color 0.3s; }
+.tab-en { font-size: 11px; color: #8899AA; font-family: 'JetBrains Mono', monospace; }
+.tab-cert-label { font-size: 10px; color: #8899AA; margin-top: 2px; }
 
 /* Certainty bar */
 .cert-bar-wrap { margin-top: 8px; display: flex; align-items: center; gap: 8px; }
-.cert-track { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+.cert-track { flex: 1; height: 8px; background: rgba(0,40,100,0.06); border-radius: 4px; overflow: hidden; }
 .cert-fill { height: 100%; border-radius: 4px; transition: width 1.2s cubic-bezier(0.22,1,0.36,1); }
 .cert-pct { font-size: 14px; font-weight: 700; font-family: 'JetBrains Mono', monospace; min-width: 40px; }
 .cert-help {
-  background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%;
-  width: 20px; height: 20px; color: #888; font-size: 12px; cursor: pointer;
+  background: none; border: 1px solid rgba(0,40,100,0.15); border-radius: 50%;
+  width: 20px; height: 20px; color: #7A8EA0; font-size: 12px; cursor: pointer;
   display: flex; align-items: center; justify-content: center; font-family: inherit; padding: 0;
 }
 .cert-tip {
-  font-size: 12px; color: #999; margin-top: 6px; padding: 8px 12px;
-  background: rgba(0,0,0,0.4); border-radius: 6px; line-height: 1.6; display: none;
+  font-size: 12px; color: #5A6A7A; margin-top: 6px; padding: 8px 12px;
+  background: rgba(255,255,255,0.9); border: 1px solid rgba(0,40,100,0.1); border-radius: 6px; line-height: 1.6; display: none;
 }
 .cert-tip.show { display: block; }
 
 /* Layer panel */
 .layer-panel { border-radius: 18px; padding: 28px 24px 32px; margin-bottom: 28px; animation: fadeIn 0.5s ease; }
 .layer-title { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
-.layer-headline { font-size: 15px; color: #CCC; margin: 0 0 16px; font-weight: 600; font-style: italic; }
-.layer-desc { font-size: 14px; color: #B0ADA8; line-height: 1.85; margin-bottom: 20px; white-space: pre-line; }
+.layer-headline { font-size: 15px; color: #4A6A8A; margin: 0 0 16px; font-weight: 600; font-style: italic; }
+.layer-desc { font-size: 14px; color: #4A5A6A; line-height: 1.85; margin-bottom: 20px; white-space: pre-line; }
 .citrini-box {
-  padding: 14px 18px; background: rgba(0,0,0,0.3); border-radius: 10px; margin-bottom: 24px;
+  padding: 14px 18px; background: rgba(255,255,255,0.7); border-radius: 10px; margin-bottom: 24px;
 }
 .citrini-label {
   font-size: 11px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 6px;
   font-family: 'JetBrains Mono', monospace;
 }
-.citrini-text { font-size: 13px; color: #A8A5A0; line-height: 1.75; }
-.section-label { font-size: 11px; color: #555; letter-spacing: 0.15em; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
+.citrini-text { font-size: 13px; color: #4A5A6A; line-height: 1.75; }
+.section-label { font-size: 11px; color: #7A8EA0; letter-spacing: 0.15em; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
 
 /* Protocols */
 .proto-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
-.proto-item { display: flex; gap: 12px; padding: 8px 12px; background: rgba(0,0,0,0.2); border-radius: 8px; align-items: flex-start; }
+.proto-item { display: flex; gap: 12px; padding: 8px 12px; background: rgba(255,255,255,0.5); border-radius: 8px; align-items: flex-start; }
 .proto-name { font-size: 12px; font-weight: 700; min-width: 50px; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; padding-top: 1px; }
-.proto-by { font-size: 11px; color: #666; margin-bottom: 2px; }
-.proto-desc { font-size: 12px; color: #999; line-height: 1.5; }
+.proto-by { font-size: 11px; color: #7A8EA0; margin-bottom: 2px; }
+.proto-desc { font-size: 12px; color: #5A6A7A; line-height: 1.5; }
 
 /* Player cards */
 .player-list { display: flex; flex-direction: column; gap: 8px; }
 .player-card {
-  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  background: #FFFFFF; border: 1px solid rgba(0,40,100,0.08);
   border-radius: 12px; padding: 16px 18px; transition: all 0.3s; cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,40,100,0.04);
 }
-.player-card.expanded { background: rgba(255,255,255,0.05); }
+.player-card.expanded { background: #F8FAFD; }
 .player-header { display: flex; justify-content: space-between; align-items: center; }
-.player-name { font-size: 16px; font-weight: 700; color: #E8E6E3; }
-.player-ticker { font-size: 11px; color: #666; font-family: 'JetBrains Mono', monospace; margin-left: 10px; }
+.player-name { font-size: 16px; font-weight: 700; color: #1A2332; }
+.player-ticker { font-size: 11px; color: #7A8EA0; font-family: 'JetBrains Mono', monospace; margin-left: 10px; }
 .player-pos {
   font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.05em;
 }
-.player-arrow { font-size: 14px; color: #555; transition: transform 0.3s; margin-left: 8px; display: inline-block; }
+.player-arrow { font-size: 14px; color: #8899AA; transition: transform 0.3s; margin-left: 8px; display: inline-block; }
 .player-arrow.open { transform: rotate(180deg); }
 .player-body { display: none; margin-top: 12px; animation: fadeIn 0.4s ease; }
 .player-body.show { display: block; }
 .player-what {
-  font-size: 14px; color: #C8C5BF; line-height: 1.85; margin-bottom: 14px;
-  padding: 14px 16px; background: rgba(0,0,0,0.25); border-radius: 8px; white-space: pre-line;
+  font-size: 14px; color: #3A4A5A; line-height: 1.85; margin-bottom: 14px;
+  padding: 14px 16px; background: rgba(0,40,100,0.03); border-radius: 8px; white-space: pre-line;
 }
 .player-meta { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
 .player-meta-row { display: flex; gap: 10px; }
 .meta-label { font-weight: 600; min-width: 56px; flex-shrink: 0; }
-.meta-label.moat { color: #4ECDC4; }
-.meta-label.risk { color: #EF5350; }
-.meta-value { color: #A8A5A0; line-height: 1.6; }
+.meta-label.moat { color: #0D9488; }
+.meta-label.risk { color: #DC2626; }
+.meta-value { color: #4A5A6A; line-height: 1.6; }
 
 /* Cross-layer */
 .cross-section {
-  background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05);
+  background: #FFFFFF; border: 1px solid rgba(0,40,100,0.08);
   border-radius: 16px; padding: 24px; margin-bottom: 28px;
+  box-shadow: 0 1px 3px rgba(0,40,100,0.04);
 }
-.cross-title { font-size: 16px; font-weight: 700; color: #E8E6E3; margin: 0 0 4px; }
-.cross-desc { font-size: 13px; color: #666; margin: 0 0 16px; line-height: 1.6; }
+.cross-title { font-size: 16px; font-weight: 700; color: #1A2332; margin: 0 0 4px; }
+.cross-desc { font-size: 13px; color: #7A8EA0; margin: 0 0 16px; line-height: 1.6; }
 .cross-item {
   display: flex; align-items: center; gap: 14px; padding: 12px 16px;
-  background: rgba(255,255,255,0.02); border-radius: 10px; margin-bottom: 8px; flex-wrap: wrap;
+  background: rgba(0,40,100,0.02); border-radius: 10px; margin-bottom: 8px; flex-wrap: wrap;
 }
-.cross-item.highlight { border: 1px solid rgba(232,185,49,0.2); }
+.cross-item.highlight { border: 1px solid rgba(184,134,11,0.25); }
 .cross-item-name { min-width: 130px; }
 .cross-item-name span.name { font-size: 15px; font-weight: 700; }
-.cross-item-name span.name.gold { color: #E8B931; }
-.cross-item-name span.ticker { font-size: 11px; color: #555; margin-left: 8px; font-family: 'JetBrains Mono', monospace; }
+.cross-item-name span.name.gold { color: #B8860B; }
+.cross-item-name span.ticker { font-size: 11px; color: #7A8EA0; margin-left: 8px; font-family: 'JetBrains Mono', monospace; }
 .cross-tags { flex: 1; display: flex; gap: 6px; flex-wrap: wrap; }
 .cross-tag {
   font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 5px;
@@ -156,35 +159,35 @@ h1 {
 
 /* Investment thesis */
 .thesis-section {
-  background: linear-gradient(160deg, rgba(232,185,49,0.05), rgba(255,107,107,0.05));
-  border: 1px solid rgba(232,185,49,0.12); border-radius: 16px; padding: 26px; margin-bottom: 28px;
+  background: linear-gradient(160deg, rgba(184,134,11,0.06), rgba(220,38,38,0.04));
+  border: 1px solid rgba(184,134,11,0.15); border-radius: 16px; padding: 26px; margin-bottom: 28px;
 }
-.thesis-title { font-size: 16px; font-weight: 700; color: #E8B931; margin: 0 0 16px; }
+.thesis-title { font-size: 16px; font-weight: 700; color: #B8860B; margin: 0 0 16px; }
 .thesis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-.thesis-card { padding: 16px 18px; background: rgba(0,0,0,0.3); border-radius: 12px; }
-.thesis-card-title { font-size: 13px; font-weight: 700; color: #E8B931; margin-bottom: 2px; }
-.thesis-card-sub { font-size: 11px; color: #666; margin-bottom: 8px; }
-.thesis-card-name { font-size: 15px; font-weight: 700; color: #E8E6E3; margin-bottom: 4px; }
-.thesis-card-citrini { font-size: 11px; color: #4ECDC4; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
-.thesis-card-desc { font-size: 13px; color: #A8A5A0; line-height: 1.7; }
+.thesis-card { padding: 16px 18px; background: #FFFFFF; border: 1px solid rgba(0,40,100,0.06); border-radius: 12px; }
+.thesis-card-title { font-size: 13px; font-weight: 700; color: #B8860B; margin-bottom: 2px; }
+.thesis-card-sub { font-size: 11px; color: #7A8EA0; margin-bottom: 8px; }
+.thesis-card-name { font-size: 15px; font-weight: 700; color: #1A2332; margin-bottom: 4px; }
+.thesis-card-citrini { font-size: 11px; color: #0D9488; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+.thesis-card-desc { font-size: 13px; color: #4A5A6A; line-height: 1.7; }
 .thesis-footer {
-  margin-top: 18px; padding: 14px 18px; background: rgba(0,0,0,0.25); border-radius: 8px;
-  border-left: 3px solid rgba(232,185,49,0.33); font-size: 13px; color: #888; line-height: 1.75;
+  margin-top: 18px; padding: 14px 18px; background: rgba(255,255,255,0.7); border-radius: 8px;
+  border-left: 3px solid rgba(184,134,11,0.4); font-size: 13px; color: #5A6A7A; line-height: 1.75;
 }
-.thesis-footer .gold { color: #E8B931; font-weight: 700; }
+.thesis-footer .gold { color: #B8860B; font-weight: 700; }
 
 .watermark {
-  text-align: center; margin-top: 48px; font-size: 10px; color: #2A2A2A;
+  text-align: center; margin-top: 48px; font-size: 10px; color: rgba(0,40,100,0.12);
   letter-spacing: 0.12em; font-family: 'JetBrains Mono', monospace;
 }
 
 /* Back link */
 .back-link {
   display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px;
-  font-size: 13px; color: #555; text-decoration: none; font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: #7A8EA0; text-decoration: none; font-family: 'JetBrains Mono', monospace;
   transition: color 0.2s;
 }
-.back-link:hover { color: #999; }
+.back-link:hover { color: #2563EB; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 </style>
@@ -216,7 +219,7 @@ h1 {
 const LAYERS = [
   {
     id: "identity", label: "身份层", labelEn: "Identity Layer", icon: "🔐",
-    color: "#E8B931", colorLight: "rgba(232,185,49,0.10)", certainty: 95,
+    color: "#B8860B", colorLight: "rgba(184,134,11,0.08)", certainty: 95,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：即使整个AI行业洗牌，这一层被淘汰的概率有多低。95%意味着——无论未来谁赢谁输，身份验证这件事本身不会消失。",
     headline: "没有身份，就没有信任；没有信任，Agent就是流氓程序。",
@@ -248,7 +251,7 @@ const LAYERS = [
   },
   {
     id: "orchestration", label: "编排层", labelEn: "Orchestration Layer", icon: "⚡",
-    color: "#4ECDC4", colorLight: "rgba(78,205,196,0.10)", certainty: 85,
+    color: "#0D9488", colorLight: "rgba(13,148,136,0.08)", certainty: 85,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：编排层的需求确定存在（Agent必须有地方运行和协调），但'谁来做编排'还在激烈竞争——大厂自建、模型厂商自建、CDN厂商边缘化。85%意味着这一层一定会有赢家，但赢家是谁尚未定局。",
     headline: "Agent不是孤岛。有协作就需要调度，有调度就需要管道。",
@@ -289,7 +292,7 @@ const LAYERS = [
   },
   {
     id: "settlement", label: "结算层", labelEn: "Settlement Layer", icon: "💎",
-    color: "#FF6B6B", colorLight: "rgba(255,107,107,0.10)", certainty: 75,
+    color: "#DC2626", colorLight: "rgba(220,38,38,0.06)", certainty: 75,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：'有分工就有结算'的逻辑不可逆转，但具体用什么方式支付（crypto vs 传统银行）、谁来运营支付管道、哪个标准会赢，都还在从0到1的阶段。75%意味着赛道方向确定，但赛道里的格局远未清晰。",
     headline: "Agent替你干活，总得有人付钱。支付管道就是Agent经济的血管。",
@@ -340,7 +343,7 @@ const THESIS = [
   { title: "💎 结算层期权", sub: "从0到1的赛道", name: "Circle (CRCL)", citrini: "Citrindex持仓", desc: "USDC正在成为Agent默认结算货币。Nanopayments + GENIUS Act = 结算层的结构性垄断位。但crypto周期波动是系统性风险，需要用仓位管理来对冲。" }
 ];
 
-const POS_COLORS = { "先发": "#E8B931", "捆绑": "#4ECDC4", "跨层": "#BB86FC", "主导": "#FF6B6B", "新进": "#78909C", "夹缝（高凸性）": "#FF9800", "遗产重估": "#8D6E63", "追赶": "#FFB74D", "防守": "#90A4AE" };
+const POS_COLORS = { "先发": "#B8860B", "捆绑": "#0D9488", "跨层": "#7C3AED", "主导": "#DC2626", "新进": "#78909C", "夹缝（高凸性）": "#FF9800", "遗产重估": "#8D6E63", "追赶": "#FFB74D", "防守": "#90A4AE" };
 
 let activeLayer = "identity";
 
@@ -477,7 +480,7 @@ function renderCrossLayer() {
               return `<span class="cross-tag" style="background:${layer.color}15;color:${layer.color}">${layer.icon} ${layer.label}</span>`;
             }).join("")}
           </div>
-          <div class="cross-count" style="color:${isGold ? '#E8B931' : '#4ECDC4'}">${p.layers.length}层</div>
+          <div class="cross-count" style="color:${isGold ? '#B8860B' : '#0D9488'}">${p.layers.length}层</div>
         </div>`;
       }).join("")}
     </div>`;

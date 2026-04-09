@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent基础设施：三层确定性拆解 · 黑森船长</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  min-height: 100vh; background: #0B0B0B; color: #E8E6E3;
+  font-family: 'Newsreader', 'Noto Serif SC', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+.grid-bg {
+  position: fixed; inset: 0; opacity: 0.025; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 48px 24px 60px; position: relative; }
+@media (max-width: 600px) { .container { padding: 32px 16px 48px; } }
+
+/* Header */
+.brand { font-size: 11px; letter-spacing: 0.3em; color: #444; font-family: 'JetBrains Mono', monospace; margin-bottom: 14px; }
+h1 {
+  font-size: clamp(24px, 4vw, 38px); font-weight: 400; line-height: 1.25; margin: 0 0 10px;
+  background: linear-gradient(135deg, #E8E6E3, #777); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle { font-size: 15px; color: #888; max-width: 680px; line-height: 1.8; margin: 0 0 6px; font-style: italic; }
+.source { font-size: 13px; color: #555; max-width: 680px; line-height: 1.7; margin: 0 0 28px; }
+
+/* Chain toggle */
+.chain-btn {
+  background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;
+  color: #999; font-size: 13px; padding: 8px 18px; cursor: pointer;
+  font-family: inherit; transition: all 0.3s; margin-bottom: 20px;
+}
+.chain-btn:hover { filter: brightness(1.08); }
+.chain-btn.active { background: rgba(255,255,255,0.06); }
+.chain-box {
+  margin: 0 0 28px; padding: 20px 22px; background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; display: none;
+}
+.chain-box.show { display: block; animation: fadeIn 0.4s ease; }
+.chain-step { display: flex; align-items: flex-start; gap: 14px; padding: 8px 0; }
+.chain-icon { display: flex; flex-direction: column; align-items: center; min-width: 28px; }
+.chain-icon span { font-size: 18px; }
+.chain-line { width: 1px; height: 24px; background: rgba(255,255,255,0.08); margin-top: 4px; }
+.chain-text { font-size: 14px; color: #CCC; }
+.chain-text.last { font-weight: 700; color: #E8B931; }
+.chain-detail { font-size: 12px; color: #777; margin-top: 3px; line-height: 1.5; }
+
+/* Layer tabs */
+.tabs { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+.tab {
+  flex: 1 1 180px; padding: 18px; border-radius: 14px; cursor: pointer;
+  background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05);
+  text-align: left; transition: all 0.3s; font-family: inherit; color: inherit;
+}
+.tab:hover { filter: brightness(1.08); }
+.tab-icon { font-size: 22px; margin-bottom: 4px; }
+.tab-label { font-size: 17px; font-weight: 700; color: #666; transition: color 0.3s; }
+.tab-en { font-size: 11px; color: #555; font-family: 'JetBrains Mono', monospace; }
+.tab-cert-label { font-size: 10px; color: #444; margin-top: 2px; }
+
+/* Certainty bar */
+.cert-bar-wrap { margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+.cert-track { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+.cert-fill { height: 100%; border-radius: 4px; transition: width 1.2s cubic-bezier(0.22,1,0.36,1); }
+.cert-pct { font-size: 14px; font-weight: 700; font-family: 'JetBrains Mono', monospace; min-width: 40px; }
+.cert-help {
+  background: none; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%;
+  width: 20px; height: 20px; color: #888; font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-family: inherit; padding: 0;
+}
+.cert-tip {
+  font-size: 12px; color: #999; margin-top: 6px; padding: 8px 12px;
+  background: rgba(0,0,0,0.4); border-radius: 6px; line-height: 1.6; display: none;
+}
+.cert-tip.show { display: block; }
+
+/* Layer panel */
+.layer-panel { border-radius: 18px; padding: 28px 24px 32px; margin-bottom: 28px; animation: fadeIn 0.5s ease; }
+.layer-title { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
+.layer-headline { font-size: 15px; color: #CCC; margin: 0 0 16px; font-weight: 600; font-style: italic; }
+.layer-desc { font-size: 14px; color: #B0ADA8; line-height: 1.85; margin-bottom: 20px; white-space: pre-line; }
+.citrini-box {
+  padding: 14px 18px; background: rgba(0,0,0,0.3); border-radius: 10px; margin-bottom: 24px;
+}
+.citrini-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.citrini-text { font-size: 13px; color: #A8A5A0; line-height: 1.75; }
+.section-label { font-size: 11px; color: #555; letter-spacing: 0.15em; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
+
+/* Protocols */
+.proto-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+.proto-item { display: flex; gap: 12px; padding: 8px 12px; background: rgba(0,0,0,0.2); border-radius: 8px; align-items: flex-start; }
+.proto-name { font-size: 12px; font-weight: 700; min-width: 50px; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; padding-top: 1px; }
+.proto-by { font-size: 11px; color: #666; margin-bottom: 2px; }
+.proto-desc { font-size: 12px; color: #999; line-height: 1.5; }
+
+/* Player cards */
+.player-list { display: flex; flex-direction: column; gap: 8px; }
+.player-card {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px; padding: 16px 18px; transition: all 0.3s; cursor: pointer;
+}
+.player-card.expanded { background: rgba(255,255,255,0.05); }
+.player-header { display: flex; justify-content: space-between; align-items: center; }
+.player-name { font-size: 16px; font-weight: 700; color: #E8E6E3; }
+.player-ticker { font-size: 11px; color: #666; font-family: 'JetBrains Mono', monospace; margin-left: 10px; }
+.player-pos {
+  font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.05em;
+}
+.player-arrow { font-size: 14px; color: #555; transition: transform 0.3s; margin-left: 8px; display: inline-block; }
+.player-arrow.open { transform: rotate(180deg); }
+.player-body { display: none; margin-top: 12px; animation: fadeIn 0.4s ease; }
+.player-body.show { display: block; }
+.player-what {
+  font-size: 14px; color: #C8C5BF; line-height: 1.85; margin-bottom: 14px;
+  padding: 14px 16px; background: rgba(0,0,0,0.25); border-radius: 8px; white-space: pre-line;
+}
+.player-meta { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.player-meta-row { display: flex; gap: 10px; }
+.meta-label { font-weight: 600; min-width: 56px; flex-shrink: 0; }
+.meta-label.moat { color: #4ECDC4; }
+.meta-label.risk { color: #EF5350; }
+.meta-value { color: #A8A5A0; line-height: 1.6; }
+
+/* Cross-layer */
+.cross-section {
+  background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px; padding: 24px; margin-bottom: 28px;
+}
+.cross-title { font-size: 16px; font-weight: 700; color: #E8E6E3; margin: 0 0 4px; }
+.cross-desc { font-size: 13px; color: #666; margin: 0 0 16px; line-height: 1.6; }
+.cross-item {
+  display: flex; align-items: center; gap: 14px; padding: 12px 16px;
+  background: rgba(255,255,255,0.02); border-radius: 10px; margin-bottom: 8px; flex-wrap: wrap;
+}
+.cross-item.highlight { border: 1px solid rgba(232,185,49,0.2); }
+.cross-item-name { min-width: 130px; }
+.cross-item-name span.name { font-size: 15px; font-weight: 700; }
+.cross-item-name span.name.gold { color: #E8B931; }
+.cross-item-name span.ticker { font-size: 11px; color: #555; margin-left: 8px; font-family: 'JetBrains Mono', monospace; }
+.cross-tags { flex: 1; display: flex; gap: 6px; flex-wrap: wrap; }
+.cross-tag {
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.cross-count { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+/* Investment thesis */
+.thesis-section {
+  background: linear-gradient(160deg, rgba(232,185,49,0.05), rgba(255,107,107,0.05));
+  border: 1px solid rgba(232,185,49,0.12); border-radius: 16px; padding: 26px; margin-bottom: 28px;
+}
+.thesis-title { font-size: 16px; font-weight: 700; color: #E8B931; margin: 0 0 16px; }
+.thesis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.thesis-card { padding: 16px 18px; background: rgba(0,0,0,0.3); border-radius: 12px; }
+.thesis-card-title { font-size: 13px; font-weight: 700; color: #E8B931; margin-bottom: 2px; }
+.thesis-card-sub { font-size: 11px; color: #666; margin-bottom: 8px; }
+.thesis-card-name { font-size: 15px; font-weight: 700; color: #E8E6E3; margin-bottom: 4px; }
+.thesis-card-citrini { font-size: 11px; color: #4ECDC4; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+.thesis-card-desc { font-size: 13px; color: #A8A5A0; line-height: 1.7; }
+.thesis-footer {
+  margin-top: 18px; padding: 14px 18px; background: rgba(0,0,0,0.25); border-radius: 8px;
+  border-left: 3px solid rgba(232,185,49,0.33); font-size: 13px; color: #888; line-height: 1.75;
+}
+.thesis-footer .gold { color: #E8B931; font-weight: 700; }
+
+.watermark {
+  text-align: center; margin-top: 48px; font-size: 10px; color: #2A2A2A;
+  letter-spacing: 0.12em; font-family: 'JetBrains Mono', monospace;
+}
+
+/* Back link */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px;
+  font-size: 13px; color: #555; text-decoration: none; font-family: 'JetBrains Mono', monospace;
+  transition: color 0.2s;
+}
+.back-link:hover { color: #999; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="container">
+
+<a href="index.html" class="back-link">&larr; BaseAlpha</a>
+
+<div class="brand">黑森船长 · STRUCTURAL CERTAINTY MAP</div>
+<h1>Agent基础设施：三层确定性拆解</h1>
+<p class="subtitle">先胜后战 — 只打确定性高的仗，只等对手露出破绽的时机</p>
+<p class="source">基于Citrini Research "Agentic Utilities" 报告（2026.3.25）框架 × 黑森船长因果推导链 × 结构确定性分析</p>
+
+<button class="chain-btn" onclick="toggleChain()">展开 因果推导链 →</button>
+<div class="chain-box" id="chainBox"></div>
+
+<div class="tabs" id="tabs"></div>
+<div id="layerPanel"></div>
+<div id="crossSection"></div>
+<div id="thesisSection"></div>
+
+<div class="watermark" id="watermark"></div>
+</div>
+
+<script>
+// ── Data ──
+const LAYERS = [
+  {
+    id: "identity", label: "身份层", labelEn: "Identity Layer", icon: "\u{1F510}",
+    color: "#E8B931", colorLight: "rgba(232,185,49,0.10)", certainty: 95,
+    certaintyLabel: "结构确定性",
+    certaintyExplain: "评分含义：即使整个AI行业洗牌，这一层被淘汰的概率有多低。95%意味着——无论未来谁赢谁输，身份验证这件事本身不会消失。",
+    headline: "没有身份，就没有信任；没有信任，Agent就是流氓程序。",
+    description: "当一个Agent要访问你的企业数据库、调用你的API、代替你发邮件时，第一个问题永远是："你是谁？你有权限吗？"\n\n这不是技术选择，而是物理定律——就像进入任何国家都需要护照一样。Agent越自主、越强大，身份验证和权限控制就越关键。一个没有身份约束的Agent，等于一把没有保险的枪。\n\nCitrini在报告中将这一层归入"Governance（治理）"类别，认为"每一家公司都在问：Agent的安全边界在哪里？"当前的AI能力已经能让一个流氓Agent攻破Meta的内部系统——而这还是Agent最弱的时候。",
+    citriniView: "Citrini认为治理层是Agentic Utilities的三大支柱之一。他们持有NET作为治理层核心持仓，因为Cloudflare的Firewall for AI和AI Audit提供了统一的安全层，管理Agent如何与企业数据和外部API交互。报告原文：'every single company is asking where the safety boundary for agents is.'",
+    protocols: [
+      { name: "MCP", by: "Anthropic → Linux Foundation AAIF", desc: "Agent连接外部工具的标准接口，9700万月下载量，所有大厂已支持" },
+      { name: "A2A Agent Cards", by: "Google → AAIF", desc: "Agent间互相发现对方能力的'名片系统'，50+企业合作伙伴" },
+      { name: "OAuth 2.0 / OIDC", by: "行业标准", desc: "传统身份验证协议，正在被扩展到Non-Human Identity（非人类身份）场景" }
+    ],
+    players: [
+      { name: "Okta / Auth0", ticker: "OKTA", position: "先发",
+        what: "全球最大的身份验证平台，正在把'非人类身份（NHI）'作为新增长线。每个Agent都需要一个独立于人类用户的数字身份——有自己的凭证、权限范围、审计记录。Okta要做这个身份的签发方和管理者。它已经在讲'AI agent orchestration'的故事，用动态短期凭证替代传统的长期服务账户。",
+        moat: "已经渗透进大量企业的身份基础设施，Agent身份可以复用现有管道，迁移成本极高",
+        risk: "AWS/Azure自建了Identity模块（AgentCore Identity、Entra ID），大客户可能直接用云厂商的方案，不需要第三方" },
+      { name: "AWS AgentCore Identity", ticker: "AMZN", position: "捆绑",
+        what: "AWS为Agent提供的完整身份方案。核心是一个Token保险箱（vault）：当用户首次授权Agent代替自己操作时，AgentCore会安全存储用户的OAuth token。之后Agent每次调用Slack、GitHub、Salesforce等外部工具，都通过这个vault获取凭证——不需要用户反复授权。支持Cognito、Okta、Microsoft Entra ID等多个身份提供商。",
+        moat: "200万+ SDK下载量，与AWS整个生态深度绑定。企业一旦把Agent的身份管理建在AWS上，迁移成本极高",
+        risk: "只覆盖在AWS生态内运行的Agent。多云环境下的Agent（比如同时用AWS和GCP的企业），身份管理仍是空白" },
+      { name: "Microsoft Entra ID", ticker: "MSFT", position: "捆绑",
+        what: "微软把Active Directory（全球企业用了20年的身份系统）扩展到Agent场景。Copilot系列产品的Agent都通过Entra做身份管理。微软的优势是：大多数企业员工已经在用AD/Entra登录邮箱和办公系统，Agent复用这套身份体系最自然。",
+        moat: "全球企业AD渗透率极高，微软办公生态（M365、Teams、GitHub）是Agent最天然的工作场景",
+        risk: "封闭于Azure + Microsoft 365生态。如果Agent需要跨平台操作（比如同时用Google Workspace和M365），Entra就不够用了" },
+      { name: "Cloudflare", ticker: "NET", position: "跨层",
+        what: "Cloudflare不做'签发身份'（那是Okta/AWS的事），而是做'检查身份'——Firewall for AI在网络边缘拦截Agent请求，判断这个Agent是否有权访问目标资源。AI Audit则追踪Agent的所有行为，生成审计日志。相当于：Okta发护照，Cloudflare管海关。",
+        moat: "物理路径优势（全球CDN网络，Agent请求天然经过它）+ 同时横跨身份/编排/结算三层的唯一玩家",
+        risk: "估值已经充分反映了Agentic叙事。Citrini承认：'bear case是NET的强势定位已被市场认知并baked in估值，不像之前提到的那些turnaround故事'" }
+    ]
+  },
+  {
+    id: "orchestration", label: "编排层", labelEn: "Orchestration Layer", icon: "\u26A1",
+    color: "#4ECDC4", colorLight: "rgba(78,205,196,0.10)", certainty: 85,
+    certaintyLabel: "结构确定性",
+    certaintyExplain: "评分含义：编排层的需求确定存在（Agent必须有地方运行和协调），但'谁来做编排'还在激烈竞争——大厂自建、模型厂商自建、CDN厂商边缘化。85%意味着这一层一定会有赢家，但赢家是谁尚未定局。",
+    headline: "Agent不是孤岛。有协作就需要调度，有调度就需要管道。",
+    description: "当一个Agent接到任务后，它需要一整套支持系统：找到合适的工具（通过MCP协议）、找到能帮忙的其他Agent（通过A2A协议）、在安全隔离的环境里执行代码、处理出错时的自动恢复。这套\"调度+执行+容错\"的基础设施就是编排层。\n\nCitrini用了一个精彩的类比来解释为什么边缘基础设施很重要：奥斯汀的交通系统。奥斯汀只有两条南北主干道（Mopac和I-35），没有东西向贯通道路，导致全城拥堵。同样的瓶颈会出现在数字世界——如果所有Agent流量都集中在云端（南北向），而没有边缘节点做分流（东西向），系统就会堵死。\n\nCisco估计Agent流量是人类流量的25倍。现有的数字'道路系统'必须扩建。\n\n这一层的竞争格局最混乱：大厂在做中心化全栈（AWS AgentCore、Google Vertex），模型厂商在做原生执行环境（Anthropic Managed Agents），CDN厂商在做边缘分流（Fastly、Cloudflare），API网关厂商在做入口管理（F5/NGINX）。",
+    citriniView: "Citrini将这一层归入'Infrastructure（基础设施）'，核心判断是：CDN正在从'Content Delivery Network（内容分发网络）'变成'Compute Delivery Network（计算分发网络）'。他们持有AKAM+FSLY+NET，认为'拥有区位优势基础设施的幸存者正在成为低延迟AI计算的重要提供者'。对Fastly的定位是'CDN标的中凸性最高的'——因为它从2021年暴跌后被市场判了死刑，现在正在被重新发现。",
+    protocols: [
+      { name: "A2A", by: "Google → Linux Foundation AAIF", desc: "Agent间互相发现能力、委托任务、协调工作的标准。用Agent Cards描述自己'能做什么'，类似LinkedIn个人资料" },
+      { name: "MCP", by: "Anthropic → AAIF", desc: "Agent连接工具和数据源的标准接口。可以理解为Agent的'USB-C'——一个接口连接所有工具" },
+      { name: "Cedar", by: "AWS开源", desc: "用自然语言或结构化语言定义Agent权限边界的策略引擎。比如：'这个Agent可以读取数据库，但不能删除记录'" },
+      { name: "RSL", by: "行业联盟（Fastly是首批实施者）", desc: "Really Simple Licensing——在网络边缘执行内容版权协议。Agent访问媒体内容时，RSL决定'能不能用'" }
+    ],
+    players: [
+      { name: "AWS Bedrock AgentCore", ticker: "AMZN", position: "主导",
+        what: "目前最完整的Agent基础设施全栈。包含五大模块：Runtime（安全隔离的执行环境，支持最长8小时的任务）、Memory（会话记忆+长期记忆）、Gateway（安全连接外部工具和API）、Policy（基于Cedar语言的权限控制）、Observability（监控每一次工具调用和决策）。5个月内SDK下载超200万次。PGA TOUR已经用它来自动生成赛事文章，写作速度提升1000%，成本降低95%。",
+        moat: "AWS的经典策略——Werner Vogels说的'把无差异化重活变成标准化服务'。Agent基础设施正在被AWS商品化",
+        risk: "封闭性强。而且AWS做的是'中心化编排'——Agent的请求一旦离开AWS要访问外部网站，仍然需要经过CDN边缘层" },
+      { name: "Google Vertex Agent Engine", ticker: "GOOGL", position: "主导",
+        what: "Google的Agent全生命周期托管平台。强调开放标准——MCP和A2A都是Google深度参与的协议，所有Google Cloud服务正在逐步支持MCP。Google的独特优势是私有光纤网络（Google Cloud WAN），延迟比竞品低40%。",
+        moat: "AI-native能力最强（Gemini模型 + 自研TPU芯片 + 私有网络），在AI workload上有结构性技术优势",
+        risk: "企业销售历史上弱于AWS和Azure。虽然在快速追赶——backlog同比增长82%，但渗透率仍有差距" },
+      { name: "Anthropic Managed Agents", ticker: "私有", position: "新进",
+        what: "2026年4月8日刚发布公测。用户用自然语言或YAML文件定义Agent的任务、工具和guardrails，Anthropic处理全部基础设施——沙箱执行、状态管理、工具编排、错误恢复。定价：标准token费 + $0.08/session-hour（空闲时间不计费）。早期客户包括Notion、Rakuten、Asana、Sentry。",
+        moat: "Claude模型在复杂推理任务上表现最好，'harness tuned for performance'有调优优势",
+        risk: "没有自己的边缘网络。Agent要browse web、fetch data、调外部API时，请求必须经过公网——也就是经过Fastly/Cloudflare的管道" },
+      { name: "Fastly", ticker: "FSLY", position: "夹缝（高凸性）",
+        what: "不争Agent的'大脑'（那是模型厂商的事），争的是Agent的'海关检查站'。在网络边缘做三件事：\u2460AI Bot管理——区分有益Agent和恶意Agent，允许好的、阻断坏的；\u2461RSL协议执行——与大型媒体客户合作，在边缘实施内容版权控制；\u2462AI Accelerator——语义缓存，存储AI查询的语义意图，减少对中心化GPU集群的重复请求，降低延迟和成本。Q4 2025营收$172.6M（+23% YoY），首次实现全年盈利。",
+        moat: "物理路径不可绕过（Agent访问被CDN保护的网站，请求天然经过Fastly）+ Wasm运行时性能领先（35.4微秒冷启动）+ 首批RSL实施者",
+        risk: "不在MCP/A2A/x402核心标准制定桌上。Compute@Edge业务只占营收4%（$6.4M），被云替代风险存在但损失有限。管理层自己的2026增长故事也不靠Compute，靠Security-led sales" },
+      { name: "Cloudflare", ticker: "NET", position: "跨层",
+        what: "Citrini称之为'Agentic Conglomerate（代理综合体）'。Workers（2017年推出的serverless平台）+ Durable Objects（有状态计算，2022年）= Agent到来之前脚手架就已经搭好了。当agentic需求爆发时，Cloudflare不需要重建任何东西——直接用。同时还在做Agent安全（Firewall for AI）、Agent支付（NET Dollar + x402）、Agent电商（pay-per-crawl）。",
+        moat: "全栈能力最完整，开发者生态最大。Citrini原文：'it's clear that NET is positioning itself across agentic infrastructure to be a clear cut winner'",
+        risk: "bear case也很清楚：这些定位已经被市场充分认知。NET的估值远高于FSLY/AKAM，alpha来自'确定性溢价'而非'认知差'" },
+      { name: "F5 / NGINX", ticker: "FFIV", position: "遗产重估",
+        what: "NGINX是全球部署量最大的反向代理——互联网上几乎每个网站背后都有它。F5把NGINX One统一为单一控制平面，明确重新定位为'Agent流量的API编排层'。关键数据点：一个人类交互产生1次API调用，一个Agent工作流可能产生几百次。更多Agent = 更多API调用 = 更多需要F5做速率限制、会话管理、安全执行。",
+        moat: "NGINX的存量部署是巨大的护城河——它已经嵌入了几乎所有网站的架构中，换掉它的成本和风险极高",
+        risk: "传统硬件负载均衡业务被虚拟化和云原生方案长期侵蚀的趋势仍在" }
+    ]
+  },
+  {
+    id: "settlement", label: "结算层", labelEn: "Settlement Layer", icon: "\u{1F48E}",
+    color: "#FF6B6B", colorLight: "rgba(255,107,107,0.10)", certainty: 75,
+    certaintyLabel: "结构确定性",
+    certaintyExplain: "评分含义：'有分工就有结算'的逻辑不可逆转，但具体用什么方式支付（crypto vs 传统银行）、谁来运营支付管道、哪个标准会赢，都还在从0到1的阶段。75%意味着赛道方向确定，但赛道里的格局远未清晰。",
+    headline: "Agent替你干活，总得有人付钱。支付管道就是Agent经济的血管。",
+    description: "这是整条链里最早期、最有想象力、也最不确定的一层。\n\n核心逻辑很简单：Agent要访问付费API、购买云服务、代替用户采购商品——这些都需要支付。但给Agent一张信用卡显然不现实。Citrini引用了一个真实案例：OpenAI的购物Agent认为花$31买一打鸡蛋是完全合理的支出。\n\n早期采用者发现了一个关键事实：给Agent配一个crypto钱包比配一张信用卡容易得多。这催生了x402协议——基于HTTP 402状态码的Agent原生支付标准。402这个状态码在HTTP规范中被保留了几十年，标注为\"Payment Required, reserved for future use\"。那个future use，就是现在。\n\nx402的工作流程很优雅：Agent发HTTP请求 → 服务端返回402状态码（附带价格信息）→ Agent自动用USDC完成微支付 → 服务端返回200（内容/数据）。整个过程无需人类介入，毫秒级完成。\n\nCircle CEO在2025 Q4财报电话会上说：\"Agent之间的交易需要可靠、低成本、受信任的交换媒介。几乎所有AI支付基础设施——Agent之间的活动——都在区块链上发生，都在使用USDC。\"\n\nCitrini特别强调了一个重要洞察：价值不会积累在协议层（x402本身是开源标准，不赚钱），而是积累在'有需求的API、agentic harnesses和agents本身'。协议是管道，管道上跑的水才值钱。",
+    citriniView: "Citrini将支付放在'Ecosystem（生态系统）'层，持有CRCL（Circle）作为结算层核心持仓。他们认为Cloudflare在这一层的布局最有前瞻性——NET Dollar稳定币 + pay-per-crawl内容付费模式 = 同时控制'管道'和'收费站'。PayPal（PYPL）被视为'赔率较低但估值便宜的稳定币标的'，因为只有个位数市盈率。",
+    protocols: [
+      { name: "x402", by: "Coinbase + Cloudflare（x402 Foundation）", desc: "HTTP原生的Agent支付协议。利用保留了几十年的HTTP 402状态码，Agent发请求\u2192收到402\u2192自动用USDC付费\u2192获得访问权。毫秒级、无需人类介入" },
+      { name: "UCP", by: "Google", desc: "Universal Commerce Protocol——Agent与商家、支付处理商之间的通用商业语言" },
+      { name: "AP2", by: "Google", desc: "Agent Payments Protocol——在A2A和MCP协议之上实现Agent支付，带预设guardrails防止Agent乱花钱" },
+      { name: "RSL", by: "行业联盟（Fastly参与）", desc: "内容版权许可协议——定义Agent'能不能用内容'。与x402（'怎么付钱'）是互补关系：RSL管授权，x402管付款" }
+    ],
+    players: [
+      { name: "Coinbase", ticker: "COIN", position: "先发",
+        what: "x402协议的联合开发者和推动者。Coinbase提供Agent钱包基础设施，Base L2（Coinbase的以太坊二层网络）是x402交易的主要执行层——gas费极低，适合Agent的高频微支付场景。Citrini在报告中用了大量篇幅讲解x402，认为它是Agent支付的最重要基础标准之一。",
+        moat: "美国合规优势最强的crypto平台（已上市、受SEC监管）+ Base L2生态快速增长 + x402先发定义者的地位",
+        risk: "crypto市场整体的周期波动。熊市时Agent支付叙事会被crypto寒冬压制，与基本面无关的系统性风险" },
+      { name: "Circle (USDC)", ticker: "CRCL", position: "先发",
+        what: "USDC正在成为Agent的默认结算货币——几乎所有Agent支付基础设施都在用它。Circle推出Nanopayments，支持低至$0.000001的免gas转账。这解决了Agent支付的核心问题：一次API调用可能只值0.001美分，传统支付系统无法处理这种粒度。2025年7月GENIUS Act通过后，稳定币的合规框架正式确立，机构资金开始大规模进入。",
+        moat: "USDC流通量 + 监管清晰度（GENIUS Act）+ 所有Agent支付场景都在用USDC结算",
+        risk: "Tether（USDT）在总流通量上仍远超USDC。PayPal的PYUSD也在追赶。如果出现新的合规风险或竞争对手，USDC的地位可能被挑战" },
+      { name: "Cloudflare", ticker: "NET", position: "跨层",
+        what: "2025年7月推出pay-per-crawl——内容方（比如新闻网站）可以向AI收取访问费用。几个月后发行NET Dollar稳定币，加入x402 Foundation。这意味着Cloudflare同时控制了'管道'（全球CDN网络）和'收费站'（支付结算）——Agent经过Cloudflare的网络时，可以用NET Dollar直接结算内容访问费。这个商业模式是所有CDN厂商中最有创造力的。",
+        moat: "唯一同时卡住基础设施（CDN/Workers）+ 支付（NET Dollar/x402）+ 治理（Firewall for AI）三层的玩家",
+        risk: "稳定币发行需要严格的监管许可，NET Dollar的合规路径和银行合作关系尚不清晰" },
+      { name: "PayPal", ticker: "PYPL", position: "追赶",
+        what: "发行了PYUSD稳定币，2025下半年流通量超$40亿，增长显著但仍远低于USDC和USDT。Citrini将PayPal视为'长期赔率较低但估值便宜的稳定币标的'——如果Agent支付最终走传统支付通道（而非crypto），PayPal就是最大受益者。但目前趋势指向crypto。",
+        moat: "全球最大的传统数字支付网络。如果监管严厉限制crypto支付，传统通道反而受益",
+        risk: "Agent原生偏好crypto（配钱包比配信用卡容易得多）。PYUSD在Agent支付生态中几乎没有存在感" },
+      { name: "Visa / Mastercard", ticker: "V / MA", position: "防守",
+        what: "传统卡网络正在观望和尝试适配。Visa已经在做链上分析仪表板追踪USDC交易量。但Agent支付的本质是Machine-to-Machine（机器对机器）——它们需要程序化的、微额的（$0.000001级别）、即时的、无需人类审批的支付。传统信用卡架构（为人类消费设计、需要授权、有最低金额限制）与这些需求根本性不匹配。",
+        moat: "全球支付网络效应是终极护城河。如果监管最终限制crypto支付，传统卡网络是唯一的替代方案",
+        risk: "架构错配是结构性的，不是通过'适配'能解决的。Agent需要的支付方式和人类需要的支付方式是两种不同的东西" }
+    ]
+  }
+];
+
+const CHAIN = [
+  { step: "OpenClaw 开源框架起火", icon: "\u{1F525}", detail: "Agent从'聊天工具'进入'生产力体系'——不再等人类提示，而是自动执行任务" },
+  { step: "单Agent不够，多Agent协作成为刚需", icon: "\u{1F91D}", detail: "复杂任务需要分工：一个Agent做研究，一个写代码，一个做测试" },
+  { step: "协作必然需要身份与信誉约束", icon: "\u{1F510}", detail: "谁能做什么？谁信任谁？没有身份系统，Agent之间无法安全协作" },
+  { step: "有分工就有收益，就需要结算", icon: "\u{1F4B0}", detail: "Agent调用API要付费、访问内容要付费、完成任务要收费——没有支付管道，经济循环转不起来" },
+  { step: "三层长期基础设施浮现", icon: "\u{1F3D7}\uFE0F", detail: "身份层 \u00D7 编排层 \u00D7 结算层 = AI时代最稳固、最具'结构确定性'的位置" }
+];
+
+const THESIS = [
+  { title: "\u{1F3C6} 最高确定性", sub: "已被市场认知", name: "Cloudflare (NET)", citrini: "Citrindex持仓", desc: "唯一三层全卡位的玩家。但Citrini自己承认bear case：定位已被市场充分认知，估值已baked in。适合做篮子底仓，提供确定性；不适合做高赔率押注。" },
+  { title: "\u{1F3AF} 最高凸性", sub: "Citrini原话", name: "Fastly (FSLY)", citrini: "Citrindex持仓", desc: "CDN标的中凸性最高。从$4.86'被判死刑'到$31.5被重新发现，叙事重估刚开始。只卡编排层子集（边缘准入），不在支付和身份标准桌上——所以是'夹缝中的高赔率赌注'。" },
+  { title: "\u{1F48E} 结算层期权", sub: "从0到1的赛道", name: "Circle (CRCL)", citrini: "Citrindex持仓", desc: "USDC正在成为Agent默认结算货币。Nanopayments + GENIUS Act = 结算层的结构性垄断位。但crypto周期波动是系统性风险，需要用仓位管理来对冲。" }
+];
+
+const POS_COLORS = { "\u5148\u53D1": "#E8B931", "\u6346\u7ED1": "#4ECDC4", "\u8DE8\u5C42": "#BB86FC", "\u4E3B\u5BFC": "#FF6B6B", "\u65B0\u8FDB": "#78909C", "\u5939\u7F1D\uFF08\u9AD8\u51F8\u6027\uFF09": "#FF9800", "\u9057\u4EA7\u91CD\u4F30": "#8D6E63", "\u8FFD\u8D76": "#FFB74D", "\u9632\u5B88": "#90A4AE" };
+
+let activeLayer = "identity";
+
+// ── Render functions ──
+function toggleChain() {
+  const box = document.getElementById("chainBox");
+  const btn = document.querySelector(".chain-btn");
+  const show = !box.classList.contains("show");
+  box.classList.toggle("show", show);
+  btn.classList.toggle("active", show);
+  btn.textContent = show ? "收起 因果推导链 \u2192" : "展开 因果推导链 \u2192";
+}
+
+function renderChain() {
+  const box = document.getElementById("chainBox");
+  box.innerHTML = CHAIN.map((c, i) => `
+    <div class="chain-step">
+      <div class="chain-icon"><span>${c.icon}</span>${i < CHAIN.length - 1 ? '<div class="chain-line"></div>' : ''}</div>
+      <div>
+        <div class="chain-text${i === CHAIN.length - 1 ? ' last' : ''}">${c.step}</div>
+        <div class="chain-detail">${c.detail}</div>
+      </div>
+    </div>`).join("");
+}
+
+function renderTabs() {
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = LAYERS.map(l => `
+    <button class="tab" data-id="${l.id}" onclick="setLayer('${l.id}')"
+      style="${activeLayer === l.id ? `background:${l.colorLight};border-color:${l.color}33` : ''}">
+      <div class="tab-icon">${l.icon}</div>
+      <div class="tab-label" style="color:${activeLayer === l.id ? l.color : '#666'}">${l.label}</div>
+      <div class="tab-en">${l.labelEn}</div>
+      <div class="cert-bar-wrap">
+        <div class="cert-track"><div class="cert-fill" style="width:${l.certainty}%;background:linear-gradient(90deg,${l.color}cc,${l.color}55)"></div></div>
+        <span class="cert-pct" style="color:${l.color}">${l.certainty}%</span>
+        <button class="cert-help" onclick="event.stopPropagation();toggleTip('tip-${l.id}')">?</button>
+      </div>
+      <div class="cert-tip" id="tip-${l.id}">${l.certaintyExplain}</div>
+      <div class="tab-cert-label">${l.certaintyLabel}</div>
+    </button>`).join("");
+}
+
+function toggleTip(id) {
+  document.getElementById(id).classList.toggle("show");
+}
+
+function renderLayerPanel() {
+  const l = LAYERS.find(x => x.id === activeLayer);
+  if (!l) return;
+  const panel = document.getElementById("layerPanel");
+  panel.innerHTML = `
+    <div class="layer-panel" style="background:${l.colorLight};border:1px solid ${l.color}1a">
+      <div class="layer-title" style="color:${l.color}">${l.icon} ${l.label} \u00B7 ${l.labelEn}</div>
+      <p class="layer-headline">${l.headline}</p>
+      <div class="layer-desc">${l.description}</div>
+      <div class="citrini-box" style="border-left:3px solid ${l.color}55">
+        <div class="citrini-label" style="color:${l.color}">CITRINI RESEARCH \u89C2\u70B9</div>
+        <div class="citrini-text">${l.citriniView}</div>
+      </div>
+      <div class="section-label">\u6838\u5FC3\u534F\u8BAE\u4E0E\u6807\u51C6</div>
+      <div class="proto-list">
+        ${l.protocols.map(p => `
+          <div class="proto-item">
+            <span class="proto-name" style="color:${l.color}">${p.name}</span>
+            <div><div class="proto-by">${p.by}</div><div class="proto-desc">${p.desc}</div></div>
+          </div>`).join("")}
+      </div>
+      <div class="section-label">\u5173\u952E\u73A9\u5BB6 \u00B7 \u70B9\u51FB\u5C55\u5F00\u8BE6\u60C5</div>
+      <div class="player-list">
+        ${l.players.map((p, i) => {
+          const pc = POS_COLORS[p.position] || l.color;
+          return `
+          <div class="player-card" id="player-${l.id}-${i}" onclick="togglePlayer('${l.id}',${i})">
+            <div class="player-header">
+              <div>
+                <span class="player-name">${p.name}</span>
+                <span class="player-ticker">${p.ticker}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="player-pos" style="background:${pc}18;color:${pc}">${p.position}</span>
+                <span class="player-arrow" id="arrow-${l.id}-${i}">\u25BE</span>
+              </div>
+            </div>
+            <div class="player-body" id="body-${l.id}-${i}">
+              <div class="player-what">${p.what}</div>
+              <div class="player-meta">
+                <div class="player-meta-row"><span class="meta-label moat">\u62A4\u57CE\u6CB3</span><span class="meta-value">${p.moat}</span></div>
+                <div class="player-meta-row"><span class="meta-label risk">\u6838\u5FC3\u98CE\u9669</span><span class="meta-value">${p.risk}</span></div>
+              </div>
+            </div>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>`;
+}
+
+function togglePlayer(layerId, idx) {
+  const body = document.getElementById(`body-${layerId}-${idx}`);
+  const arrow = document.getElementById(`arrow-${layerId}-${idx}`);
+  const card = document.getElementById(`player-${layerId}-${idx}`);
+  const show = !body.classList.contains("show");
+  body.classList.toggle("show", show);
+  arrow.classList.toggle("open", show);
+  card.classList.toggle("expanded", show);
+  card.style.borderColor = show ? LAYERS.find(l => l.id === layerId).color + "33" : "";
+}
+
+function renderCrossLayer() {
+  const map = {};
+  LAYERS.forEach(layer => {
+    layer.players.forEach(p => {
+      if (!map[p.name]) map[p.name] = { name: p.name, layers: [], ticker: p.ticker };
+      if (!map[p.name].layers.includes(layer.id)) map[p.name].layers.push(layer.id);
+    });
+  });
+  const cross = Object.values(map).filter(p => p.layers.length >= 2).sort((a, b) => b.layers.length - a.layers.length);
+
+  document.getElementById("crossSection").innerHTML = `
+    <div class="cross-section">
+      <div class="cross-title">\u8DE8\u5C42\u5361\u4F4D\u5206\u6790 \u00B7 \u8C01\u540C\u65F6\u63A7\u5236\u591A\u6761\u7BA1\u9053\uFF1F</div>
+      <p class="cross-desc">\u8DE8\u8D8A\u7684\u5C42\u6570\u8D8A\u591A\uFF0C\u7ED3\u6784\u6027\u4F4D\u7F6E\u8D8A\u7A33\u56FA\u2014\u2014\u4F46\u4E5F\u8981\u8B66\u60D5\u201C\u4EC0\u4E48\u90FD\u505A=\u4EC0\u4E48\u90FD\u4E0D\u7CBE\u201D\u7684\u98CE\u9669</p>
+      ${cross.map(p => {
+        const isGold = p.layers.length >= 3;
+        return `
+        <div class="cross-item${isGold ? ' highlight' : ''}">
+          <div class="cross-item-name">
+            <span class="name${isGold ? ' gold' : ''}">${p.name}</span>
+            <span class="ticker">${p.ticker}</span>
+          </div>
+          <div class="cross-tags">
+            ${p.layers.map(lid => {
+              const layer = LAYERS.find(l => l.id === lid);
+              return `<span class="cross-tag" style="background:${layer.color}15;color:${layer.color}">${layer.icon} ${layer.label}</span>`;
+            }).join("")}
+          </div>
+          <div class="cross-count" style="color:${isGold ? '#E8B931' : '#4ECDC4'}">${p.layers.length}\u5C42</div>
+        </div>`;
+      }).join("")}
+    </div>`;
+}
+
+function renderThesis() {
+  document.getElementById("thesisSection").innerHTML = `
+    <div class="thesis-section">
+      <div class="thesis-title">\u2694\uFE0F \u5148\u80DC\u540E\u6218 \u00B7 Citrini\u6301\u4ED3 \u00D7 \u7ED3\u6784\u786E\u5B9A\u6027\u6392\u5E8F</div>
+      <div class="thesis-grid">
+        ${THESIS.map(t => `
+          <div class="thesis-card">
+            <div class="thesis-card-title">${t.title}</div>
+            <div class="thesis-card-sub">${t.sub}</div>
+            <div class="thesis-card-name">${t.name}</div>
+            <div class="thesis-card-citrini">${t.citrini}</div>
+            <div class="thesis-card-desc">${t.desc}</div>
+          </div>`).join("")}
+      </div>
+      <div class="thesis-footer">
+        <span class="gold">\u7BEE\u5B50 > \u5355\u70B9</span> \u2014 Citrini\u6301\u6709 AKAM + FSLY + NET + CRCL\uFF0C\u8986\u76D6\u7BA1\u9053/\u5B89\u5168/\u652F\u4ED8\u4E09\u5C42\u3002\u8D5A\u7684\u662F\u6574\u4E2AB2A\u57FA\u7840\u8BBE\u65BD\u5C42\u7684gamma\uFF0C\u800C\u975E\u5355\u4E00\u516C\u53F8\u7684vega\u3002\u8FD9\u4E0E\u9ED1\u68EE\u8239\u957F\u201C\u4E0D\u8D5Avega\uFF0C\u8D5Agamma\u201D\u7684\u6295\u8D44\u54F2\u5B66\u9AD8\u5EA6\u4E00\u81F4\u3002
+      </div>
+    </div>`;
+}
+
+function setLayer(id) {
+  activeLayer = id;
+  renderTabs();
+  renderLayerPanel();
+}
+
+function render() {
+  renderChain();
+  renderTabs();
+  renderLayerPanel();
+  renderCrossLayer();
+  renderThesis();
+  document.getElementById("watermark").textContent =
+    "\u9ED1\u68EE\u8239\u957F \u00B7 CAPTAIN HESSEN \u00B7 STRUCTURAL CERTAINTY MAP \u00B7 " + new Date().toISOString().slice(0, 10);
+}
+
+render();
+</script>
+</body>
+</html>

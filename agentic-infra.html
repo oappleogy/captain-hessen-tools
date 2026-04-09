@@ -215,7 +215,7 @@ h1 {
 // ── Data ──
 const LAYERS = [
   {
-    id: "identity", label: "身份层", labelEn: "Identity Layer", icon: "\u{1F510}",
+    id: "identity", label: "身份层", labelEn: "Identity Layer", icon: "🔐",
     color: "#E8B931", colorLight: "rgba(232,185,49,0.10)", certainty: 95,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：即使整个AI行业洗牌，这一层被淘汰的概率有多低。95%意味着——无论未来谁赢谁输，身份验证这件事本身不会消失。",
@@ -247,7 +247,7 @@ const LAYERS = [
     ]
   },
   {
-    id: "orchestration", label: "编排层", labelEn: "Orchestration Layer", icon: "\u26A1",
+    id: "orchestration", label: "编排层", labelEn: "Orchestration Layer", icon: "⚡",
     color: "#4ECDC4", colorLight: "rgba(78,205,196,0.10)", certainty: 85,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：编排层的需求确定存在（Agent必须有地方运行和协调），但'谁来做编排'还在激烈竞争——大厂自建、模型厂商自建、CDN厂商边缘化。85%意味着这一层一定会有赢家，但赢家是谁尚未定局。",
@@ -288,7 +288,7 @@ const LAYERS = [
     ]
   },
   {
-    id: "settlement", label: "结算层", labelEn: "Settlement Layer", icon: "\u{1F48E}",
+    id: "settlement", label: "结算层", labelEn: "Settlement Layer", icon: "💎",
     color: "#FF6B6B", colorLight: "rgba(255,107,107,0.10)", certainty: 75,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：'有分工就有结算'的逻辑不可逆转，但具体用什么方式支付（crypto vs 传统银行）、谁来运营支付管道、哪个标准会赢，都还在从0到1的阶段。75%意味着赛道方向确定，但赛道里的格局远未清晰。",
@@ -296,7 +296,7 @@ const LAYERS = [
     description: "这是整条链里最早期、最有想象力、也最不确定的一层。\n\n核心逻辑很简单：Agent要访问付费API、购买云服务、代替用户采购商品——这些都需要支付。但给Agent一张信用卡显然不现实。Citrini引用了一个真实案例：OpenAI的购物Agent认为花$31买一打鸡蛋是完全合理的支出。\n\n早期采用者发现了一个关键事实：给Agent配一个crypto钱包比配一张信用卡容易得多。这催生了x402协议——基于HTTP 402状态码的Agent原生支付标准。402这个状态码在HTTP规范中被保留了几十年，标注为\"Payment Required, reserved for future use\"。那个future use，就是现在。\n\nx402的工作流程很优雅：Agent发HTTP请求 → 服务端返回402状态码（附带价格信息）→ Agent自动用USDC完成微支付 → 服务端返回200（内容/数据）。整个过程无需人类介入，毫秒级完成。\n\nCircle CEO在2025 Q4财报电话会上说：\"Agent之间的交易需要可靠、低成本、受信任的交换媒介。几乎所有AI支付基础设施——Agent之间的活动——都在区块链上发生，都在使用USDC。\"\n\nCitrini特别强调了一个重要洞察：价值不会积累在协议层（x402本身是开源标准，不赚钱），而是积累在'有需求的API、agentic harnesses和agents本身'。协议是管道，管道上跑的水才值钱。",
     citriniView: "Citrini将支付放在'Ecosystem（生态系统）'层，持有CRCL（Circle）作为结算层核心持仓。他们认为Cloudflare在这一层的布局最有前瞻性——NET Dollar稳定币 + pay-per-crawl内容付费模式 = 同时控制'管道'和'收费站'。PayPal（PYPL）被视为'赔率较低但估值便宜的稳定币标的'，因为只有个位数市盈率。",
     protocols: [
-      { name: "x402", by: "Coinbase + Cloudflare（x402 Foundation）", desc: "HTTP原生的Agent支付协议。利用保留了几十年的HTTP 402状态码，Agent发请求\u2192收到402\u2192自动用USDC付费\u2192获得访问权。毫秒级、无需人类介入" },
+      { name: "x402", by: "Coinbase + Cloudflare（x402 Foundation）", desc: "HTTP原生的Agent支付协议。利用保留了几十年的HTTP 402状态码，Agent发请求→收到402→自动用USDC付费→获得访问权。毫秒级、无需人类介入" },
       { name: "UCP", by: "Google", desc: "Universal Commerce Protocol——Agent与商家、支付处理商之间的通用商业语言" },
       { name: "AP2", by: "Google", desc: "Agent Payments Protocol——在A2A和MCP协议之上实现Agent支付，带预设guardrails防止Agent乱花钱" },
       { name: "RSL", by: "行业联盟（Fastly参与）", desc: "内容版权许可协议——定义Agent'能不能用内容'。与x402（'怎么付钱'）是互补关系：RSL管授权，x402管付款" }
@@ -327,20 +327,20 @@ const LAYERS = [
 ];
 
 const CHAIN = [
-  { step: "OpenClaw 开源框架起火", icon: "\u{1F525}", detail: "Agent从'聊天工具'进入'生产力体系'——不再等人类提示，而是自动执行任务" },
-  { step: "单Agent不够，多Agent协作成为刚需", icon: "\u{1F91D}", detail: "复杂任务需要分工：一个Agent做研究，一个写代码，一个做测试" },
-  { step: "协作必然需要身份与信誉约束", icon: "\u{1F510}", detail: "谁能做什么？谁信任谁？没有身份系统，Agent之间无法安全协作" },
-  { step: "有分工就有收益，就需要结算", icon: "\u{1F4B0}", detail: "Agent调用API要付费、访问内容要付费、完成任务要收费——没有支付管道，经济循环转不起来" },
-  { step: "三层长期基础设施浮现", icon: "\u{1F3D7}\uFE0F", detail: "身份层 \u00D7 编排层 \u00D7 结算层 = AI时代最稳固、最具'结构确定性'的位置" }
+  { step: "OpenClaw 开源框架起火", icon: "🔥", detail: "Agent从'聊天工具'进入'生产力体系'——不再等人类提示，而是自动执行任务" },
+  { step: "单Agent不够，多Agent协作成为刚需", icon: "🤝", detail: "复杂任务需要分工：一个Agent做研究，一个写代码，一个做测试" },
+  { step: "协作必然需要身份与信誉约束", icon: "🔐", detail: "谁能做什么？谁信任谁？没有身份系统，Agent之间无法安全协作" },
+  { step: "有分工就有收益，就需要结算", icon: "💰", detail: "Agent调用API要付费、访问内容要付费、完成任务要收费——没有支付管道，经济循环转不起来" },
+  { step: "三层长期基础设施浮现", icon: "🏗️", detail: "身份层 × 编排层 × 结算层 = AI时代最稳固、最具'结构确定性'的位置" }
 ];
 
 const THESIS = [
-  { title: "\u{1F3C6} 最高确定性", sub: "已被市场认知", name: "Cloudflare (NET)", citrini: "Citrindex持仓", desc: "唯一三层全卡位的玩家。但Citrini自己承认bear case：定位已被市场充分认知，估值已baked in。适合做篮子底仓，提供确定性；不适合做高赔率押注。" },
-  { title: "\u{1F3AF} 最高凸性", sub: "Citrini原话", name: "Fastly (FSLY)", citrini: "Citrindex持仓", desc: "CDN标的中凸性最高。从$4.86'被判死刑'到$31.5被重新发现，叙事重估刚开始。只卡编排层子集（边缘准入），不在支付和身份标准桌上——所以是'夹缝中的高赔率赌注'。" },
-  { title: "\u{1F48E} 结算层期权", sub: "从0到1的赛道", name: "Circle (CRCL)", citrini: "Citrindex持仓", desc: "USDC正在成为Agent默认结算货币。Nanopayments + GENIUS Act = 结算层的结构性垄断位。但crypto周期波动是系统性风险，需要用仓位管理来对冲。" }
+  { title: "🏆 最高确定性", sub: "已被市场认知", name: "Cloudflare (NET)", citrini: "Citrindex持仓", desc: "唯一三层全卡位的玩家。但Citrini自己承认bear case：定位已被市场充分认知，估值已baked in。适合做篮子底仓，提供确定性；不适合做高赔率押注。" },
+  { title: "🎯 最高凸性", sub: "Citrini原话", name: "Fastly (FSLY)", citrini: "Citrindex持仓", desc: "CDN标的中凸性最高。从$4.86'被判死刑'到$31.5被重新发现，叙事重估刚开始。只卡编排层子集（边缘准入），不在支付和身份标准桌上——所以是'夹缝中的高赔率赌注'。" },
+  { title: "💎 结算层期权", sub: "从0到1的赛道", name: "Circle (CRCL)", citrini: "Citrindex持仓", desc: "USDC正在成为Agent默认结算货币。Nanopayments + GENIUS Act = 结算层的结构性垄断位。但crypto周期波动是系统性风险，需要用仓位管理来对冲。" }
 ];
 
-const POS_COLORS = { "\u5148\u53D1": "#E8B931", "\u6346\u7ED1": "#4ECDC4", "\u8DE8\u5C42": "#BB86FC", "\u4E3B\u5BFC": "#FF6B6B", "\u65B0\u8FDB": "#78909C", "\u5939\u7F1D\uFF08\u9AD8\u51F8\u6027\uFF09": "#FF9800", "\u9057\u4EA7\u91CD\u4F30": "#8D6E63", "\u8FFD\u8D76": "#FFB74D", "\u9632\u5B88": "#90A4AE" };
+const POS_COLORS = { "先发": "#E8B931", "捆绑": "#4ECDC4", "跨层": "#BB86FC", "主导": "#FF6B6B", "新进": "#78909C", "夹缝（高凸性）": "#FF9800", "遗产重估": "#8D6E63", "追赶": "#FFB74D", "防守": "#90A4AE" };
 
 let activeLayer = "identity";
 
@@ -351,7 +351,7 @@ function toggleChain() {
   const show = !box.classList.contains("show");
   box.classList.toggle("show", show);
   btn.classList.toggle("active", show);
-  btn.textContent = show ? "收起 因果推导链 \u2192" : "展开 因果推导链 \u2192";
+  btn.textContent = show ? "收起 因果推导链 →" : "展开 因果推导链 →";
 }
 
 function renderChain() {
@@ -394,14 +394,14 @@ function renderLayerPanel() {
   const panel = document.getElementById("layerPanel");
   panel.innerHTML = `
     <div class="layer-panel" style="background:${l.colorLight};border:1px solid ${l.color}1a">
-      <div class="layer-title" style="color:${l.color}">${l.icon} ${l.label} \u00B7 ${l.labelEn}</div>
+      <div class="layer-title" style="color:${l.color}">${l.icon} ${l.label} · ${l.labelEn}</div>
       <p class="layer-headline">${l.headline}</p>
       <div class="layer-desc">${l.description}</div>
       <div class="citrini-box" style="border-left:3px solid ${l.color}55">
-        <div class="citrini-label" style="color:${l.color}">CITRINI RESEARCH \u89C2\u70B9</div>
+        <div class="citrini-label" style="color:${l.color}">CITRINI RESEARCH 观点</div>
         <div class="citrini-text">${l.citriniView}</div>
       </div>
-      <div class="section-label">\u6838\u5FC3\u534F\u8BAE\u4E0E\u6807\u51C6</div>
+      <div class="section-label">核心协议与标准</div>
       <div class="proto-list">
         ${l.protocols.map(p => `
           <div class="proto-item">
@@ -409,7 +409,7 @@ function renderLayerPanel() {
             <div><div class="proto-by">${p.by}</div><div class="proto-desc">${p.desc}</div></div>
           </div>`).join("")}
       </div>
-      <div class="section-label">\u5173\u952E\u73A9\u5BB6 \u00B7 \u70B9\u51FB\u5C55\u5F00\u8BE6\u60C5</div>
+      <div class="section-label">关键玩家 · 点击展开详情</div>
       <div class="player-list">
         ${l.players.map((p, i) => {
           const pc = POS_COLORS[p.position] || l.color;
@@ -422,14 +422,14 @@ function renderLayerPanel() {
               </div>
               <div style="display:flex;align-items:center;gap:8px">
                 <span class="player-pos" style="background:${pc}18;color:${pc}">${p.position}</span>
-                <span class="player-arrow" id="arrow-${l.id}-${i}">\u25BE</span>
+                <span class="player-arrow" id="arrow-${l.id}-${i}">▾</span>
               </div>
             </div>
             <div class="player-body" id="body-${l.id}-${i}">
               <div class="player-what">${p.what}</div>
               <div class="player-meta">
-                <div class="player-meta-row"><span class="meta-label moat">\u62A4\u57CE\u6CB3</span><span class="meta-value">${p.moat}</span></div>
-                <div class="player-meta-row"><span class="meta-label risk">\u6838\u5FC3\u98CE\u9669</span><span class="meta-value">${p.risk}</span></div>
+                <div class="player-meta-row"><span class="meta-label moat">护城河</span><span class="meta-value">${p.moat}</span></div>
+                <div class="player-meta-row"><span class="meta-label risk">核心风险</span><span class="meta-value">${p.risk}</span></div>
               </div>
             </div>
           </div>`;
@@ -461,8 +461,8 @@ function renderCrossLayer() {
 
   document.getElementById("crossSection").innerHTML = `
     <div class="cross-section">
-      <div class="cross-title">\u8DE8\u5C42\u5361\u4F4D\u5206\u6790 \u00B7 \u8C01\u540C\u65F6\u63A7\u5236\u591A\u6761\u7BA1\u9053\uFF1F</div>
-      <p class="cross-desc">\u8DE8\u8D8A\u7684\u5C42\u6570\u8D8A\u591A\uFF0C\u7ED3\u6784\u6027\u4F4D\u7F6E\u8D8A\u7A33\u56FA\u2014\u2014\u4F46\u4E5F\u8981\u8B66\u60D5\u201C\u4EC0\u4E48\u90FD\u505A=\u4EC0\u4E48\u90FD\u4E0D\u7CBE\u201D\u7684\u98CE\u9669</p>
+      <div class="cross-title">跨层卡位分析 · 谁同时控制多条管道？</div>
+      <p class="cross-desc">跨越的层数越多，结构性位置越稳固——但也要警惕"什么都做=什么都不精"的风险</p>
       ${cross.map(p => {
         const isGold = p.layers.length >= 3;
         return `
@@ -477,7 +477,7 @@ function renderCrossLayer() {
               return `<span class="cross-tag" style="background:${layer.color}15;color:${layer.color}">${layer.icon} ${layer.label}</span>`;
             }).join("")}
           </div>
-          <div class="cross-count" style="color:${isGold ? '#E8B931' : '#4ECDC4'}">${p.layers.length}\u5C42</div>
+          <div class="cross-count" style="color:${isGold ? '#E8B931' : '#4ECDC4'}">${p.layers.length}层</div>
         </div>`;
       }).join("")}
     </div>`;
@@ -486,7 +486,7 @@ function renderCrossLayer() {
 function renderThesis() {
   document.getElementById("thesisSection").innerHTML = `
     <div class="thesis-section">
-      <div class="thesis-title">\u2694\uFE0F \u5148\u80DC\u540E\u6218 \u00B7 Citrini\u6301\u4ED3 \u00D7 \u7ED3\u6784\u786E\u5B9A\u6027\u6392\u5E8F</div>
+      <div class="thesis-title">⚔️ 先胜后战 · Citrini持仓 × 结构确定性排序</div>
       <div class="thesis-grid">
         ${THESIS.map(t => `
           <div class="thesis-card">
@@ -498,7 +498,7 @@ function renderThesis() {
           </div>`).join("")}
       </div>
       <div class="thesis-footer">
-        <span class="gold">\u7BEE\u5B50 > \u5355\u70B9</span> \u2014 Citrini\u6301\u6709 AKAM + FSLY + NET + CRCL\uFF0C\u8986\u76D6\u7BA1\u9053/\u5B89\u5168/\u652F\u4ED8\u4E09\u5C42\u3002\u8D5A\u7684\u662F\u6574\u4E2AB2A\u57FA\u7840\u8BBE\u65BD\u5C42\u7684gamma\uFF0C\u800C\u975E\u5355\u4E00\u516C\u53F8\u7684vega\u3002\u8FD9\u4E0E\u9ED1\u68EE\u8239\u957F\u201C\u4E0D\u8D5Avega\uFF0C\u8D5Agamma\u201D\u7684\u6295\u8D44\u54F2\u5B66\u9AD8\u5EA6\u4E00\u81F4\u3002
+        <span class="gold">篮子 > 单点</span> — Citrini持有 AKAM + FSLY + NET + CRCL，覆盖管道/安全/支付三层。赚的是整个B2A基础设施层的gamma，而非单一公司的vega。这与黑森船长"不赚vega，赚gamma"的投资哲学高度一致。
       </div>
     </div>`;
 }
@@ -516,7 +516,7 @@ function render() {
   renderCrossLayer();
   renderThesis();
   document.getElementById("watermark").textContent =
-    "\u9ED1\u68EE\u8239\u957F \u00B7 CAPTAIN HESSEN \u00B7 STRUCTURAL CERTAINTY MAP \u00B7 " + new Date().toISOString().slice(0, 10);
+    "黑森船长 · CAPTAIN HESSEN · STRUCTURAL CERTAINTY MAP · " + new Date().toISOString().slice(0, 10);
 }
 
 render();

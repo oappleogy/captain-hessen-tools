@@ -153,6 +153,8 @@ body {
 .card:nth-child(6) .card-icon-wrap { background: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(139,105,20,0.12)); }
 .card:nth-child(7)::before { background: linear-gradient(135deg, #4ECDC4 0%, #E8B931 100%); }
 .card:nth-child(7) .card-icon-wrap { background: linear-gradient(135deg, rgba(78,205,196,0.12), rgba(232,185,49,0.12)); }
+.card:nth-child(8)::before { background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%); }
+.card:nth-child(8) .card-icon-wrap { background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(220,38,38,0.12)); }
 
 .card:hover {
   transform: translateY(-6px); box-shadow: var(--shadow-lg);
@@ -231,7 +233,8 @@ footer {
 .card:nth-child(5) { animation: fadeUp 0.6s ease-out 0.5s both; }
 .card:nth-child(6) { animation: fadeUp 0.6s ease-out 0.6s both; }
 .card:nth-child(7) { animation: fadeUp 0.6s ease-out 0.7s both; }
-footer { animation: fadeUp 0.6s ease-out 0.8s both; }
+.card:nth-child(8) { animation: fadeUp 0.6s ease-out 0.8s both; }
+footer { animation: fadeUp 0.6s ease-out 0.9s both; }
 </style>
 </head>
 <body>
@@ -341,6 +344,21 @@ footer { animation: fadeUp 0.6s ease-out 0.8s both; }
       <span class="tag">3 层拆解</span>
       <span class="tag">14 玩家</span>
       <span class="tag">确定性评分</span>
+    </div>
+    <div class="card-footer">
+      <span class="card-status"><span class="status-dot"></span>可用</span>
+      <span class="card-arrow">&rarr;</span>
+    </div>
+  </a>
+
+  <a href="ai-capex.html" class="card">
+    <div class="card-icon-wrap">&#128176;</div>
+    <div class="card-title">AI Capex vs Revenue</div>
+    <div class="card-desc">$7000亿数据中心投入 vs 大模型公司收入现实。五大云厂商资本支出、GPU折旧争议、Anthropic/OpenAI收入交叉、FCF断崖与发债融资。</div>
+    <div class="card-tags">
+      <span class="tag">$650B Capex</span>
+      <span class="tag">折旧争议</span>
+      <span class="tag">收入对比</span>
     </div>
     <div class="card-footer">
       <span class="card-status"><span class="status-dot"></span>可用</span>

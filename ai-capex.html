@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Capex vs Revenue | 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#edf3fa;--sf:#ffffff;--bd:rgba(0,40,100,0.08);--tx:#2c3e50;--mt:#7a8ea0;
+  --bl:#2563eb;--gn:#059669;--pr:#7c3aed;--rd:#dc2626;--am:#d97706;--gd:#92700c;
+  --pk:#db2777;--tl:#0d9488;--or:#ea580c;
+}
+body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding:24px 14px 50px}
+.wrap{max-width:640px;margin:0 auto}
+.mono{font-family:'JetBrains Mono',monospace}
+.watermark{position:fixed;bottom:8px;right:12px;font-size:9px;color:rgba(0,40,100,0.08);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:999}
+.back-link{display:inline-block;margin-bottom:16px;font-size:12px;color:var(--mt);text-decoration:none;transition:color .2s}
+.back-link:hover{color:var(--bl)}
+
+/* Header */
+.header{text-align:center;margin-bottom:24px}
+.header .sub{font-size:9px;letter-spacing:3px;color:var(--mt);margin-bottom:8px}
+.header h1{font-size:19px;font-weight:900;color:#1a2332;line-height:1.3;margin:0 0 6px}
+.header p{font-size:11px;color:var(--mt);margin:0}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
+.tab-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--bd);background:transparent;color:var(--mt);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Noto Sans SC',sans-serif;transition:all .2s}
+.tab-btn.active{border-color:rgba(37,99,235,0.33);background:rgba(37,99,235,0.07);color:var(--bl)}
+
+/* Section */
+.sh{margin-bottom:18px}
+.sh-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.sh-bar{width:3px;height:16px;background:linear-gradient(180deg,var(--bl),var(--pr));border-radius:2px}
+.sh h2{font-size:14px;font-weight:700;color:#1a2332;margin:0}
+.sh .sh-sub{font-size:11px;color:var(--mt);padding-left:13px}
+
+/* Card */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:12px}
+.card-accent{border-color:rgba(0,0,0,0.06)}
+
+/* Source */
+.src{font-size:9px;color:var(--mt);line-height:1.6;padding:6px 10px;margin-bottom:12px;border-left:2px solid var(--bd);margin-left:4px;font-style:italic}
+
+/* Tab panels */
+.panel{display:none}
+.panel.active{display:block}
+
+/* Footer */
+.footer{text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid var(--bd);font-size:10px;color:var(--mt);line-height:1.8}
+.footer strong{color:#1a2332}
+
+/* Utility */
+.flex-between{display:flex;justify-content:space-between}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:400px){.grid-2{grid-template-columns:1fr}}
+.stat-row{margin-bottom:10px}
+.stat-row .bar-bg{height:8px;background:rgba(0,40,100,0.06);border-radius:4px;overflow:hidden}
+.stat-row .bar-fg{height:100%;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="watermark">黑森船长</div>
+<a href="index.html" class="back-link">&larr; 返回工具箱</a>
+
+<!-- Header -->
+<div class="header">
+  <div class="sub">AI CAPEX vs REVENUE REALITY CHECK</div>
+  <h1>$7000亿建的数据中心<br>钱赚回来了吗？</h1>
+  <p>超级云厂商资本支出 × GPU折旧 × 大模型公司收入</p>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab(0)">资本支出</button>
+  <button class="tab-btn" onclick="switchTab(1)">折旧争议</button>
+  <button class="tab-btn" onclick="switchTab(2)">AI收入</button>
+  <button class="tab-btn" onclick="switchTab(3)">关键比率</button>
+</div>
+
+<!-- Panel 0: Capex -->
+<div class="panel active" id="panel-0">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>五大云厂商年度资本支出 (2022-2026E)</h2></div><div class="sh-sub">单位：$Billion | 2026E为公司指引/分析师预测</div></div>
+  <div class="card"><div id="capex-chart"></div></div>
+  <div class="src">2022-2024实际值: SEC 10-K年报 (各公司purchases of PP&E, 含finance lease principal)。2025实际: Amazon $131.8B (SEC 10-K); Alphabet $91.4B (FinBox/SEC); Microsoft $80B (FY2025 guidance, 财年截至2025.6); Meta $72.2B (SEC 10-K); Oracle $20B (公司指引)。2026E: Amazon $200B / Alphabet $175-185B / Meta $115-135B (各公司Q4'25 earnings guidance); Microsoft $145B (FY2026 "faster pace", S&P Global); Oracle $50B (公司指引)。注: Microsoft为财年数据(截至6月)，日历年映射为近似值。</div>
+
+  <div class="card" style="background:rgba(220,38,38,0.04);border-color:rgba(220,38,38,0.1)">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center" id="capex-stats"></div>
+  </div>
+
+  <div class="sh" style="margin-top:16px"><div class="sh-row"><div class="sh-bar"></div><h2>FCF断崖 + 发债融资</h2></div><div class="sh-sub">2025 vs 2026E自由现金流 + 新增发债（全部为固定利率无担保信用债）</div></div>
+  <div class="card"><div class="grid-2" id="fcf-grid"></div></div>
+  <div class="src">Amazon 2026E FCF: -$17B (Morgan Stanley) / -$28B (BofA)。Alphabet 2026E FCF: $8.2B (Pivotal Research, 从2025 $73.3B骤降)。Meta 2025 FCF: $43.6B (SEC 10-K实际值); 2026E ~$20B (基于$125B capex guidance推算)。Microsoft 2026E FCF: ~$66B (基于FY2026 guidance)。Oracle 2026E FCF: ~-$12B (基于$50B capex vs ~$38B OCF)。新增发债: Amazon $37-42B (Bloomberg 2026.3); Alphabet $20B+ (Reuters 2026.2); Meta $30B (SEC FWP 2025.10，为2025年发行); Oracle $25B (SEC 2026.2)。五大2025合计发债$121B: Fortune 2026.3。全部为fixed-rate senior unsecured notes: SEC 424B5确认。</div>
+
+  <div class="card" style="background:rgba(217,119,6,0.04);border-color:rgba(217,119,6,0.1)">
+    <div style="font-size:11px;line-height:1.7">
+      <span style="color:var(--am);font-weight:700">关键发现：</span>除Microsoft外，四家FCF全部预计在2026年大幅下降或转负。Amazon从正值跌到-$170亿（摩根士丹利预估）。缺口靠发债填——五大2025年合计发债$1210亿，全部为<span style="color:#1a2332;font-weight:700">固定利率</span>高级无担保信用债，股价下跌不影响存量债务成本。FCF数据为分析师预估，实际值可能有偏差。
+    </div>
+  </div>
+</div>
+
+<!-- Panel 1: Depreciation -->
+<div class="panel" id="panel-1">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>服务器/GPU使用年限变更史</h2></div><div class="sh-sub">SEC文件审计数据 | 越往右=越激进</div></div>
+  <div class="card"><div id="dep-timeline"></div></div>
+  <div class="src">全部变更时间线来自各公司SEC 10-K/10-Q文件。综合分析: Deep Quarry (Olga Usvyatsky) "Depreciation of GPUs: between useful lives and useful myths" (2025.12.7); Stanley Laman "Why GPU Useful Life Is the Most Misunderstood Variable in AI Economics" (2025.11.21); CNBC "The question everyone in AI is asking: How long before a GPU depreciates?" (2025.11.14)。Amazon反向缩短: Q4'24 earnings call (2025.2.7), SEC 10-K确认$7亿operating income影响 + $9.2亿加速折旧。Meta连续延长: SEC 10-K各年度, 2025年延至5.5年减少折旧$29亿 (Deep Quarry)。</div>
+
+  <div class="card" style="background:rgba(220,38,38,0.04);border-color:rgba(220,38,38,0.1)">
+    <div style="font-size:11px;color:var(--rd);font-weight:700;margin-bottom:6px">Michael Burry 做空警告 (2025.11)</div>
+    <div style="font-size:11px;line-height:1.7">
+      Burry: 实际有用寿命2-3年，企业通过延长折旧年限虚增利润。2026-2028年间可能虚增利润$1760亿。
+      <br><br>
+      <span style="color:var(--am);font-weight:700">核心争议：</span>GPU训练寿命约3-4年，但通过"价值瀑布"（训练→推理→边缘部署）可延长经济寿命到5-6年。真正的风险不是"折旧年限对不对"，而是<span style="color:#1a2332;font-weight:700">在GPU占比快速上升的同时，没有重新评估混合寿命</span>。
+    </div>
+  </div>
+
+  <div class="sh" style="margin-top:16px"><div class="sh-row"><div class="sh-bar"></div><h2>折旧延长的利润影响</h2></div></div>
+  <div class="card"><div id="dep-impact"></div></div>
+  <div class="src">Amazon +$32亿: SEC 10-K (2024), theCUBE Research (2025.12.3)。Alphabet +$37亿: SEC 10-K (2024), MBI Deep Dives (2025.1.26)。Meta +$29亿: Deep Quarry (2025.12.7), SEC 10-Q。Oracle虚增>20%: Level Headed Investing (2025.12.4)引用Barclays分析。Burry做空: CNBC (2025.11.14), Twitter/X (2025.11.11), 持有NVDA和PLTR put options。$1760亿虚增: Level Headed Investing (2025.12.4)。反论(价值瀑布): theCUBE Research #298 (2025.12.3), SiliconANGLE (2025.11.22)。</div>
+
+  <div class="card" style="background:rgba(124,60,237,0.04);border-color:rgba(124,60,237,0.1)">
+    <div style="font-size:11px;line-height:1.7">
+      <span style="color:var(--pr);font-weight:700">反论（来自theCUBE Research）：</span>
+      GPU存在"价值瀑布"——先做训练（1-2年），再做推理（2-3年），最后做边缘部署（1-2年）。6年的经济寿命在workload混合场景下是合理的。CoreWeave、Nebius等纯GPU云也采用6年折旧。<br>
+      <span style="color:var(--am)">关键分歧：</span>训练GPU和推理GPU应该分开折旧（组件折旧法），但目前没有一家公司这么做。
+    </div>
+  </div>
+</div>
+
+<!-- Panel 2: AI Revenue -->
+<div class="panel" id="panel-2">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>OpenAI vs Anthropic 收入增速对比</h2></div><div class="sh-sub">ARR = 年化经常性收入 | 数据来源: 公司披露 + The Information + Epoch AI</div></div>
+  <div class="card"><div id="ai-rev-chart"></div></div>
+  <div class="src">Anthropic ARR轨迹: $87M (2024.1, 公司披露 Series G公告); $1B (2024.12, SaaStr/The Information); $4B (2025中, The Information 2025.7.1); $9B (2025底, SaaStr 2026.2.19); $14B (2026.2, Anthropic Series G公告); $19B (2026.3, Sacra估算); $30B (2026.4, SaaStr/The AI Corner/OfficeChai多源确认)。OpenAI ARR轨迹: $2B (2023, CFO Sarah Friar 2026.1 blog); $6B (2024, 同源); $21B (2025底, The Information 2026.3.6); $25B (2026.2, The Information); $24B (2026.4, $2B月收入x12, 随$122B融资同时披露)。增速: Epoch AI "Anthropic could surpass OpenAI" (2026.2.19), 10x/yr vs 3.4x/yr。交叉时间: Epoch预测2026.8, 实际~2026.4。</div>
+
+  <div class="card" style="background:rgba(124,60,237,0.04);border-color:rgba(124,60,237,0.1)">
+    <div style="font-size:11px;line-height:1.7">
+      <span style="color:var(--pr);font-weight:700">2026年4月：Anthropic $30B ARR 超过 OpenAI $24B</span><br>
+      Anthropic年增速10x（从$1B到$30B只用15个月），OpenAI年增速3.4x。Epoch AI此前预测交叉点在2026年8月，实际提前了4个月。
+    </div>
+  </div>
+
+  <div class="sh" style="margin-top:16px"><div class="sh-row"><div class="sh-bar"></div><h2>收入质量拆解</h2></div></div>
+  <div class="card">
+    <div class="grid-2">
+      <div style="padding:10px;border-radius:8px;background:rgba(124,60,237,0.03);border:1px solid rgba(124,60,237,0.1)">
+        <div style="font-size:12px;font-weight:700;color:var(--pr);margin-bottom:8px">Anthropic</div>
+        <div id="anthropic-stats"></div>
+      </div>
+      <div style="padding:10px;border-radius:8px;background:rgba(5,150,105,0.03);border:1px solid rgba(5,150,105,0.1)">
+        <div style="font-size:12px;font-weight:700;color:var(--gn);margin-bottom:8px">OpenAI</div>
+        <div id="openai-stats"></div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Anthropic数据: 企业80%收入/Fortune 10覆盖8家/1000+$1M客户/Claude Code $2.5B ARR (Anthropic Series G公告 2026.2 + SaaStr 2026.2.19 + Sacra)。API市占率32%: TradingKey/Sacra (2026.4)。毛利率~40%: TradingKey (2026.4)。OpenAI数据: $24B ARR/$2B月收入 (公司披露 alongside $122B raise, SaaStr 2026.4); 800M+月活 (公司披露); API市占率25% (TradingKey); 2026E亏损$14B (PitchBook/WSJ leak); 盈利目标2030 (PitchBook)。ARR会计口径差异(gross vs net): OfficeChai "Has Anthropic's $30 Billion Run-Rate Passed OpenAI's? It Depends" (2026.4)。</div>
+
+  <div class="card" style="background:rgba(217,119,6,0.04);border-color:rgba(217,119,6,0.1)">
+    <div style="font-size:11px;color:var(--am);font-weight:700;margin-bottom:4px">ARR =/= 实际年收入</div>
+    <div style="font-size:11px;line-height:1.7">
+      ARR = 最近一个月收入 x 12。不含季节性、churn、折扣。Anthropic的$30B ARR中有相当比例通过AWS/GCP marketplace分发，按gross basis确认收入（含云平台抽成）。如果按net basis算（像OpenAI那样），实际数字会更低。两家公司的会计口径不同，直接比较有误差。
+    </div>
+  </div>
+
+  <div class="sh" style="margin-top:16px"><div class="sh-row"><div class="sh-bar"></div><h2>其他AI公司</h2></div></div>
+  <div class="card"><div id="other-ai"></div></div>
+  <div class="src">Mistral $0.4B ARR: FT (2026.2.11), CEO Arthur Mensch披露。Cursor $1B ARR: SaaStr (2026), "24个月达到$1B ARR"。Databricks $3.3B ARR: Bloomberg/公司披露 (2025)。</div>
+</div>
+
+<!-- Panel 3: Key Ratios -->
+<div class="panel" id="panel-3">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>Capex vs AI收入对比</h2></div><div class="sh-sub">核心问题：$700B capex到底赚不赚回来？</div></div>
+  <div class="card"><div id="ratio-bars"></div></div>
+  <div class="src">四大云厂商2025 capex $373B: 各公司SEC 10-K/8-K + earnings guidance (CNBC 2025.10.31)。定义: purchases of PP&E, 不含finance leases。四大云厂商2026E capex $650B: 各公司2026 guidance汇总。AI公司合计ARR ~$60B: Anthropic $30B + OpenAI $24B + 其他(Databricks/Cursor/Mistral等) ~$5-6B = ~$60B (各公司披露加总)。循环水/信用额度问题: CITP Princeton Blog (2025.10.15); Where's Your Ed At (2025.10.17)。份额迁移数据: TradingKey (2026.4), Anthropic API 12%->32%, OpenAI 50%->25%。</div>
+
+  <div class="card" style="background:rgba(5,150,105,0.04);border-color:rgba(5,150,105,0.1)">
+    <div style="font-size:11px;color:var(--gn);font-weight:700;margin-bottom:6px">预期差论点（看多方）</div>
+    <div style="font-size:11px;line-height:1.7">
+      Anthropic单家$30B ARR + OpenAI $24B + 企业直接AI云支出 &rarr; AI生态总营收已达$80-100B级别，且以3-10x/年的速度膨胀。按这个增速，2-3年后总营收可达$500B-1T，$700B capex的投入产出比就说得通了。<br><br>
+      <span style="color:#1a2332;font-weight:700">核心赌注：增速的持续性。</span>
+    </div>
+  </div>
+
+  <div class="card" style="background:rgba(220,38,38,0.04);border-color:rgba(220,38,38,0.1)">
+    <div style="font-size:11px;color:var(--rd);font-weight:700;margin-bottom:6px">需要压测的地方（看空方）</div>
+    <div style="font-size:11px;line-height:1.7">
+      <span style="font-weight:700">1. 循环水：</span>Amazon投Anthropic &rarr; 给AWS信用额度 &rarr; Anthropic确认为收入 &rarr; 回流给AWS。真实增量需求要扣除这层循环。<br>
+      <span style="font-weight:700">2. 份额迁移 vs 增量：</span>Anthropic API市占率从12%涨到32%，OpenAI从50%降到25%。多少是抢来的，多少是新增的？<br>
+      <span style="font-weight:700">3. 收入 =/= 利润：</span>$30B ARR但还在亏钱。40%毛利意味着每$1收入只剩$0.40覆盖运营，远不够填capex缺口。<br>
+      <span style="font-weight:700">4. 当前比率：</span>AI总营收$80-100B / 云厂商年capex $650B = <span style="color:var(--rd);font-family:'JetBrains Mono',monospace;font-weight:800">12-15%</span>。缺口巨大，赌的是增速。
+    </div>
+  </div>
+
+  <div class="sh" style="margin-top:16px"><div class="sh-row"><div class="sh-bar"></div><h2>历史对标</h2></div></div>
+  <div class="card">
+    <div style="font-size:11px;line-height:1.8">
+      <span style="color:var(--am);font-weight:700">1996-2000 电信基础设施：</span>$750B capex投入光纤网络。泡沫破裂后，这些基础设施被以1-5%的价格收购，但最终成为今天互联网的底层。投入是对的，时机和定价是错的。<br><br>
+      <span style="color:var(--bl);font-weight:700">2010-2015 云计算早期：</span>Amazon AWS连续7年亏损。2015年首次单独披露利润时市场震惊。AWS从"烧钱部门"变成Amazon最赚钱的业务，用了10年。<br><br>
+      <span style="color:var(--pr);font-weight:700">当前AI：</span>和电信类似的是规模（$700B vs $750B），和AWS类似的是商业验证节奏（已有营收但尚未盈利）。不同的是：增速快了10倍。
+    </div>
+  </div>
+  <div class="src">电信$750B capex: Bain "AI firms face $800B annual revenue hole" (2025.9)。AWS亏损7年+2015首次披露: Amazon SEC filings, 公开记录。Anthropic 2027E正FCF / OpenAI 2030E盈利: SaaStr (2026.4) / PitchBook。</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <strong>黑森船长 | Captain Hessen</strong><br>
+  数据来源: SEC文件 / Bloomberg / CNBC / The Information / Epoch AI / 公司披露<br>
+  数据截至 2026.04 | 不构成投资建议
+</div>
+</div>
+
+<script>
+// ====== DATA ======
+var capexData = [
+  {name:"Amazon",color:"#d97706",y:[63.6,52.7,83,132,200],fcf25:52,fcf26:-17,debt26:42},
+  {name:"Alphabet",color:"#2563eb",y:[31.5,32.3,52.5,91,180],fcf25:73,fcf26:8,debt26:30},
+  {name:"Microsoft",color:"#0d9488",y:[24,32,56,80,145],fcf25:70,fcf26:66,debt26:10},
+  {name:"Meta",color:"#7c3aed",y:[31.4,28.1,39.2,72.2,125],fcf25:43.6,fcf26:20,debt26:30},
+  {name:"Oracle",color:"#dc2626",y:[7,9,12,20,50],fcf25:11,fcf26:-12,debt26:45}
+];
+var capexYears = ["2022","2023","2024","2025","2026E"];
+
+var depData = [
+  {name:"Amazon",color:"#d97706",timeline:[{y:"2020",from:3,to:4},{y:"2022",from:4,to:5},{y:"2024",from:5,to:6},{y:"2025",from:6,to:5,note:"反向缩短，citing AI pace"}]},
+  {name:"Alphabet",color:"#2563eb",timeline:[{y:"2023",from:4,to:6}]},
+  {name:"Microsoft",color:"#0d9488",timeline:[{y:"2023",from:4,to:6}]},
+  {name:"Meta",color:"#7c3aed",timeline:[{y:"2022",from:3,to:4.5},{y:"2024",from:4.5,to:5},{y:"2025",from:5,to:5.5,note:"连续3次延长"}]},
+  {name:"Oracle",color:"#dc2626",timeline:[{y:"2023",from:4,to:5},{y:"2024",from:5,to:6}]}
+];
+
+var aiRevData = {
+  labels:["2023","2024 H1","2024 H2","2025 H1","2025 H2","2026.02","2026.04"],
+  openai:[2,3.4,6,12,21,25,24],
+  anthropic:[0.1,0.3,1,4,9,14,30]
+};
+
+// ====== TAB SWITCH ======
+function switchTab(idx) {
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.panel');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('active', i === idx);
+    panels[i].classList.toggle('active', i === idx);
+  }
+}
+
+// ====== RENDER CAPEX CHART (SVG) ======
+function renderCapexChart() {
+  var maxVal = 210, barW = 10, groupGap = 38;
+  var svg = '<svg viewBox="0 0 580 220" style="width:100%;min-width:460;display:block">';
+  // Y axis
+  [0,50,100,150,200].forEach(function(v) {
+    var yy = 180 - v/maxVal*150;
+    svg += '<line x1="45" y1="'+yy+'" x2="570" y2="'+yy+'" stroke="rgba(0,40,100,0.06)" stroke-width="0.5"/>';
+    svg += '<text x="40" y="'+(yy+4)+'" text-anchor="end" fill="#7a8ea0" font-size="8" font-family="JetBrains Mono,monospace">$'+v+'B</text>';
+  });
+  // Bars
+  capexYears.forEach(function(yr, yi) {
+    var gx = 70 + yi * (groupGap + capexData.length * (barW+3));
+    svg += '<text x="'+(gx + capexData.length*(barW+3)/2)+'" y="196" text-anchor="middle" fill="#7a8ea0" font-size="9">'+yr+'</text>';
+    capexData.forEach(function(co, ci) {
+      var v = co.y[yi];
+      var h = v/maxVal*150;
+      var x = gx + ci*(barW+3);
+      var op = yi===4 ? 0.6 : 0.85;
+      svg += '<rect x="'+x+'" y="'+(180-h)+'" width="'+barW+'" height="'+h+'" rx="2" fill="'+co.color+'" opacity="'+op+'"/>';
+      if (yi===4) svg += '<rect x="'+x+'" y="'+(180-h)+'" width="'+barW+'" height="'+h+'" rx="2" fill="none" stroke="'+co.color+'" stroke-width="0.8" stroke-dasharray="2,2"/>';
+      if (v>=30) svg += '<text x="'+(x+barW/2)+'" y="'+(176-h)+'" text-anchor="middle" fill="'+co.color+'" font-size="6.5" font-family="JetBrains Mono,monospace">'+v+'</text>';
+    });
+  });
+  // Legend
+  capexData.forEach(function(co, i) {
+    svg += '<rect x="'+(70+i*95)+'" y="208" width="8" height="8" rx="2" fill="'+co.color+'"/>';
+    svg += '<text x="'+(82+i*95)+'" y="215" fill="#2c3e50" font-size="8">'+co.name+'</text>';
+  });
+  svg += '</svg>';
+  document.getElementById('capex-chart').innerHTML = svg;
+}
+
+// ====== CAPEX STATS ======
+function renderCapexStats() {
+  var stats = [
+    {l:"2022 四大合计",v:"$150B",c:"#7a8ea0"},
+    {l:"2025 四大合计",v:"$373B",c:"#d97706"},
+    {l:"2026E 四大合计",v:"$650B",c:"#dc2626"},
+    {l:"增幅",v:"+333%",c:"#dc2626"}
+  ];
+  var html = '';
+  stats.forEach(function(m) {
+    html += '<div style="text-align:center"><div style="font-size:9px;color:#7a8ea0">'+m.l+'</div><div style="font-size:16px;font-family:JetBrains Mono,monospace;font-weight:800;color:'+m.c+'">'+m.v+'</div></div>';
+  });
+  document.getElementById('capex-stats').innerHTML = html;
+}
+
+// ====== FCF GRID ======
+function renderFCFGrid() {
+  var html = '';
+  capexData.forEach(function(co) {
+    var isBad = co.fcf26 < 0;
+    var fcf26Str = isBad ? '-$'+Math.abs(co.fcf26)+'B' : '$'+co.fcf26+'B';
+    html += '<div style="padding:10px 12px;border-radius:8px;background:'+co.color+'08;border:1px solid '+co.color+'18">';
+    html += '<div style="font-size:11px;font-weight:700;color:'+co.color+';margin-bottom:6px">'+co.name+'</div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><span style="color:#7a8ea0">2025 FCF</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:#059669">$'+co.fcf25+'B</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><span style="color:#7a8ea0">2026E FCF</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:'+(isBad?'#dc2626':'#059669')+'">'+fcf26Str+'</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:#7a8ea0">新发债</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:#d97706">$'+co.debt26+'B</span></div>';
+    html += '</div>';
+  });
+  document.getElementById('fcf-grid').innerHTML = html;
+}
+
+// ====== DEPRECIATION TIMELINE ======
+function renderDepTimeline() {
+  var html = '';
+  depData.forEach(function(co) {
+    html += '<div style="display:flex;gap:10px;margin-bottom:10px;align-items:flex-start">';
+    html += '<div style="width:70px;flex-shrink:0;font-size:11px;font-weight:700;color:'+co.color+';padding-top:2px">'+co.name+'</div>';
+    html += '<div style="display:flex;gap:6px;flex-wrap:wrap;flex:1">';
+    co.timeline.forEach(function(t) {
+      var isDown = t.to < t.from;
+      html += '<div style="padding:4px 8px;border-radius:6px;font-size:10px;line-height:1.4;background:'+co.color+'10;border:1px solid '+co.color+'25">';
+      html += '<span style="color:#7a8ea0">'+t.y+'</span> ';
+      html += '<span style="font-family:JetBrains Mono,monospace;font-weight:700;color:'+(isDown?'#dc2626':'#2c3e50')+'">'+t.from+'&rarr;'+t.to+'yr</span>';
+      if (t.note) html += '<div style="font-size:9px;color:'+(isDown?'#dc2626':'#7a8ea0')+';margin-top:2px">'+t.note+'</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  document.getElementById('dep-timeline').innerHTML = html;
+}
+
+// ====== DEPRECIATION IMPACT ======
+function renderDepImpact() {
+  var items = [
+    {name:"Amazon",change:"5&rarr;6yr (2024)",impact:"+$32亿/yr 营业利润",color:"#d97706",then:"2025反向缩回5yr，-$7亿"},
+    {name:"Alphabet",change:"4&rarr;6yr (2023)",impact:"+$37亿/yr 营业利润",color:"#2563eb",then:""},
+    {name:"Meta",change:"3&rarr;5.5yr (连续3次)",impact:"+$29亿/yr 营业利润",color:"#7c3aed",then:"FCF同期从$521亿(2024)降至$436亿(2025)"},
+    {name:"Oracle",change:"4&rarr;6yr",impact:"营业利润虚增>20%",color:"#dc2626",then:"Burry重点做空标的"}
+  ];
+  var html = '';
+  items.forEach(function(d) {
+    html += '<div style="margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(0,40,100,0.08)">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:'+d.color+'">'+d.name+'</span><span style="font-size:10px;font-family:JetBrains Mono,monospace;color:#2c3e50">'+d.change+'</span></div>';
+    html += '<div style="font-size:11px;color:#059669;margin-bottom:2px">'+d.impact+'</div>';
+    if (d.then) html += '<div style="font-size:10px;color:#7a8ea0">'+d.then+'</div>';
+    html += '</div>';
+  });
+  document.getElementById('dep-impact').innerHTML = html;
+}
+
+// ====== AI REVENUE CHART (SVG) ======
+function renderAIRevChart() {
+  var d = aiRevData;
+  var maxV = 32, w = 520, h = 180, px = 50, py = 20;
+  var pw = w - px - 20, ph = h - py - 25;
+  var pts = d.labels.length;
+  function xOf(i) { return px + (i/(pts-1))*pw; }
+  function yOf(v) { return py + ph - (v/maxV)*ph; }
+  function mkPath(arr) {
+    return arr.map(function(v, i) { return (i===0?'M':'L') + xOf(i).toFixed(1) + ',' + yOf(v).toFixed(1); }).join(' ');
+  }
+
+  var svg = '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;display:block">';
+  [0,10,20,30].forEach(function(v) {
+    svg += '<line x1="'+px+'" y1="'+yOf(v)+'" x2="'+(w-20)+'" y2="'+yOf(v)+'" stroke="rgba(0,40,100,0.06)" stroke-width="0.5"/>';
+    svg += '<text x="'+(px-5)+'" y="'+(yOf(v)+3)+'" text-anchor="end" fill="#7a8ea0" font-size="8" font-family="JetBrains Mono,monospace">$'+v+'B</text>';
+  });
+  d.labels.forEach(function(l, i) {
+    svg += '<text x="'+xOf(i)+'" y="'+(h-4)+'" text-anchor="middle" fill="#7a8ea0" font-size="7.5">'+l+'</text>';
+  });
+  // OpenAI line
+  svg += '<path d="'+mkPath(d.openai)+'" fill="none" stroke="#059669" stroke-width="2" opacity="0.8"/>';
+  d.openai.forEach(function(v, i) { svg += '<circle cx="'+xOf(i)+'" cy="'+yOf(v)+'" r="3" fill="#059669"/>'; });
+  svg += '<text x="'+(xOf(6)+8)+'" y="'+(yOf(d.openai[6])+4)+'" fill="#059669" font-size="9" font-weight="700" font-family="JetBrains Mono,monospace">$24B</text>';
+  // Anthropic line
+  svg += '<path d="'+mkPath(d.anthropic)+'" fill="none" stroke="#7c3aed" stroke-width="2.5"/>';
+  d.anthropic.forEach(function(v, i) { svg += '<circle cx="'+xOf(i)+'" cy="'+yOf(v)+'" r="3" fill="#7c3aed"/>'; });
+  svg += '<text x="'+(xOf(6)+8)+'" y="'+(yOf(d.anthropic[6])+4)+'" fill="#7c3aed" font-size="9" font-weight="700" font-family="JetBrains Mono,monospace">$30B</text>';
+  // Crossover
+  svg += '<line x1="'+xOf(5.8)+'" y1="'+py+'" x2="'+xOf(5.8)+'" y2="'+(py+ph)+'" stroke="#dc2626" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.5"/>';
+  svg += '<text x="'+xOf(5.8)+'" y="'+(py-4)+'" text-anchor="middle" fill="#dc2626" font-size="7.5">交叉点</text>';
+  // Legend
+  svg += '<circle cx="'+(px+10)+'" cy="12" r="4" fill="#059669"/><text x="'+(px+18)+'" y="15" fill="#059669" font-size="9">OpenAI</text>';
+  svg += '<circle cx="'+(px+80)+'" cy="12" r="4" fill="#7c3aed"/><text x="'+(px+88)+'" y="15" fill="#7c3aed" font-size="9">Anthropic</text>';
+  svg += '</svg>';
+  document.getElementById('ai-rev-chart').innerHTML = svg;
+}
+
+// ====== COMPANY STATS ======
+function renderCompanyStats() {
+  var anthropic = [
+    {l:"ARR",v:"$30B"},{l:"企业客户占比",v:"80%"},{l:"$1M+客户数",v:"1,000+"},
+    {l:"Fortune 10覆盖",v:"8/10"},{l:"Claude Code ARR",v:"$2.5B"},
+    {l:"API市占率",v:"32%"},{l:"毛利率",v:"~40%"},{l:"年增速",v:"10x"}
+  ];
+  var openai = [
+    {l:"ARR",v:"$24B"},{l:"月活用户",v:"800M+"},{l:"付费订阅占比",v:"~45%"},
+    {l:"API市占率",v:"25%"},{l:"2026E亏损",v:"-$14B"},
+    {l:"盈利目标",v:"2030"},{l:"毛利率",v:"~40%"},{l:"年增速",v:"3.4x"}
+  ];
+  function renderList(arr) {
+    return arr.map(function(d) {
+      return '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px"><span style="color:#7a8ea0">'+d.l+'</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:#2c3e50">'+d.v+'</span></div>';
+    }).join('');
+  }
+  document.getElementById('anthropic-stats').innerHTML = renderList(anthropic);
+  document.getElementById('openai-stats').innerHTML = renderList(openai);
+}
+
+// ====== OTHER AI COMPANIES ======
+function renderOtherAI() {
+  var items = [
+    {name:"Mistral AI",arr:"$0.4B",note:"欧洲最大开源模型公司，同比20x",color:"#0d9488"},
+    {name:"Cursor",arr:"$1B",note:"AI代码编辑器，24个月达到$1B ARR（SaaS史上最快）",color:"#db2777"},
+    {name:"Databricks",arr:"$3.3B",note:"企业数据+AI平台，IPO候选",color:"#ea580c"}
+  ];
+  var html = '';
+  items.forEach(function(d) {
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,40,100,0.08)">';
+    html += '<div><div style="font-size:12px;font-weight:700;color:'+d.color+'">'+d.name+'</div><div style="font-size:10px;color:#7a8ea0">'+d.note+'</div></div>';
+    html += '<div style="font-size:14px;font-family:JetBrains Mono,monospace;font-weight:800;color:'+d.color+'">'+d.arr+'</div>';
+    html += '</div>';
+  });
+  document.getElementById('other-ai').innerHTML = html;
+}
+
+// ====== RATIO BARS ======
+function renderRatioBars() {
+  var items = [
+    {label:"四大云厂商2025 capex",val:373,color:"#d97706",w:100},
+    {label:"四大云厂商2026E capex",val:650,color:"#dc2626",w:100},
+    {label:"AI公司合计ARR (Apr 2026)",val:60,color:"#059669",w:Math.round(60/650*100)},
+    {label:"Anthropic单家ARR",val:30,color:"#7c3aed",w:Math.round(30/650*100)}
+  ];
+  var html = '';
+  items.forEach(function(it) {
+    html += '<div class="stat-row">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:11px;color:#2c3e50">'+it.label+'</span><span style="font-size:12px;font-family:JetBrains Mono,monospace;font-weight:700;color:'+it.color+'">$'+it.val+'B</span></div>';
+    html += '<div class="bar-bg"><div class="bar-fg" style="width:'+it.w+'%;background:linear-gradient(90deg,'+it.color+'55,'+it.color+')"></div></div>';
+    html += '</div>';
+  });
+  document.getElementById('ratio-bars').innerHTML = html;
+}
+
+// ====== INIT ======
+renderCapexChart();
+renderCapexStats();
+renderFCFGrid();
+renderDepTimeline();
+renderDepImpact();
+renderAIRevChart();
+renderCompanyStats();
+renderOtherAI();
+renderRatioBars();
+</script>
+</body>
+</html>

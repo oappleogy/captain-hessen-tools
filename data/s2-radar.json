@@ -1,67 +1,67 @@
 {
-  "timestamp": "2026-04-08T10:03:04",
+  "timestamp": "2026-04-09T10:56:06",
   "system_state": {
-    "state": "CRITICAL",
-    "label": "系统临界",
-    "color": "#ef4444",
-    "level": 4,
-    "score": -0.361,
-    "action": "系统临界。建议仓位≤20%（趋势↓），以保护资本为主，等待结构改善。"
+    "state": "STRESSED_SEVERE",
+    "label": "严重承压",
+    "color": "#f97316",
+    "level": 3,
+    "score": 0.094,
+    "action": "系统显著承压。建议仓位≤25%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.0,
-      "state": "►",
-      "note": "利差温和扩张，韧性开始消耗",
-      "confidence": "⚠",
+      "score": 0.38,
+      "state": "▲",
+      "note": "信用市场平稳，系统有足够缓冲",
+      "confidence": "★★",
       "name_cn": "信用韧性",
-      "status": "neutral"
+      "status": "healthy"
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.0,
+      "score": 0.26,
       "state": "►",
       "note": "政策不确定性上升，规则可预测性下降",
-      "confidence": "⚠",
+      "confidence": "★★",
       "name_cn": "制度稳定",
-      "status": "neutral"
+      "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.58,
-      "state": "▼",
-      "note": "负反馈信号，情绪极端或波动剧烈",
+      "score": -0.23,
+      "state": "►",
+      "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
       "status": "stressed"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.01,
+      "score": 0.14,
       "state": "►",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.42,
-      "state": "▼",
-      "note": "叙事剧变或严重分裂，市场预期混乱",
+      "score": 0.02,
+      "state": "►",
+      "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "stressed"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.43,
-      "state": "▼",
-      "note": "技术加速度超过制度消化，结构性失配严重",
+      "score": -0.08,
+      "state": "►",
+      "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "stressed"
+      "status": "neutral"
     }
   },
   "attractor": {
@@ -82,14 +82,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 82.4
+        "pct": 83.5
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 17.6
+        "pct": 16.5
       },
       {
         "key": "TECH_DOM",
@@ -106,31 +106,38 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
-    "safety_margin": -0.261,
+    "moving_toward": "稳态",
+    "safety_margin": 0.194,
     "early_warning": "无"
   },
   "extremes": [
-    "Nasdaq波动率(VXN)=28.4 (历史95%分位)"
+    "OVX原油波动率=83.9 (历史97%分位)",
+    "地缘政治风险(GPR)=297 (历史100%分位)",
+    "地缘交叉验证(OVX)=83.9 (历史97%分位) [仅验证，不计分]"
   ],
   "opportunities": [],
   "contradiction": {
-    "type": "dimension_shift",
-    "title": "「叙事共识」本周剧烈恶化",
-    "thesis": "叙事共识维度从-0.18变为-0.42，单周变化0.24，超过异动阈值。需要判断这是噪音还是趋势的开始。",
-    "metaphor": "共识出现裂缝"
+    "type": "state_change",
+    "title": "系统状态改善：从临界进入STRESSED_SEVERE",
+    "thesis": "系统从临界变为STRESSED_SEVERE。主要拖累来自情绪反馈（-0.23），支撑来自信用韧性（+0.38）。",
+    "metaphor": "雨过天晴"
   },
   "allocation": {
-    "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",
-    "mid_term": "中性偏谨慎。信号不够明确，保持均衡配置，等待更清晰的方向。",
+    "short_term": "可以小幅试探性加仓，但不要一次性打满。情绪还在波动，留足应对空间。",
+    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 1,
+    "extreme_count": 3,
     "vix": {
-      "value": 3.83,
+      "value": 21.0,
+      "percentile": 87,
+      "desc": "市场恐惧情绪偏高"
+    },
+    "credit_spread": {
+      "value": 3.12,
       "percentile": 50,
-      "desc": "市场情绪正常"
+      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 56.6,

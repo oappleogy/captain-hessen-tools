@@ -215,12 +215,12 @@ h1 {
 // ── Data ──
 const LAYERS = [
   {
-    id: "identity", label: "身份层", labelEn: "Identity Layer", icon: "🔐",
+    id: "identity“, label: ”身份层“, labelEn: ”Identity Layer“, icon: ”🔐",
     color: "#E8B931", colorLight: "rgba(232,185,49,0.10)", certainty: 95,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：即使整个AI行业洗牌，这一层被淘汰的概率有多低。95%意味着——无论未来谁赢谁输，身份验证这件事本身不会消失。",
     headline: "没有身份，就没有信任；没有信任，Agent就是流氓程序。",
-    description: "当一个Agent要访问你的企业数据库、调用你的API、代替你发邮件时，第一个问题永远是："你是谁？你有权限吗？"\n\n这不是技术选择，而是物理定律——就像进入任何国家都需要护照一样。Agent越自主、越强大，身份验证和权限控制就越关键。一个没有身份约束的Agent，等于一把没有保险的枪。\n\nCitrini在报告中将这一层归入"Governance（治理）"类别，认为"每一家公司都在问：Agent的安全边界在哪里？"当前的AI能力已经能让一个流氓Agent攻破Meta的内部系统——而这还是Agent最弱的时候。",
+    description: "当一个Agent要访问你的企业数据库、调用你的API、代替你发邮件时，第一个问题永远是：“你是谁？你有权限吗？”\n\n这不是技术选择，而是物理定律——就像进入任何国家都需要护照一样。Agent越自主、越强大，身份验证和权限控制就越关键。一个没有身份约束的Agent，等于一把没有保险的枪。\n\nCitrini在报告中将这一层归入“Governance（治理）”类别，认为“每一家公司都在问：Agent的安全边界在哪里？”当前的AI能力已经能让一个流氓Agent攻破Meta的内部系统——而这还是Agent最弱的时候。",
     citriniView: "Citrini认为治理层是Agentic Utilities的三大支柱之一。他们持有NET作为治理层核心持仓，因为Cloudflare的Firewall for AI和AI Audit提供了统一的安全层，管理Agent如何与企业数据和外部API交互。报告原文：'every single company is asking where the safety boundary for agents is.'",
     protocols: [
       { name: "MCP", by: "Anthropic → Linux Foundation AAIF", desc: "Agent连接外部工具的标准接口，9700万月下载量，所有大厂已支持" },
@@ -247,12 +247,12 @@ const LAYERS = [
     ]
   },
   {
-    id: "orchestration", label: "编排层", labelEn: "Orchestration Layer", icon: "⚡",
+    id: "orchestration“, label: ”编排层“, labelEn: ”Orchestration Layer“, icon: ”⚡",
     color: "#4ECDC4", colorLight: "rgba(78,205,196,0.10)", certainty: 85,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：编排层的需求确定存在（Agent必须有地方运行和协调），但'谁来做编排'还在激烈竞争——大厂自建、模型厂商自建、CDN厂商边缘化。85%意味着这一层一定会有赢家，但赢家是谁尚未定局。",
     headline: "Agent不是孤岛。有协作就需要调度，有调度就需要管道。",
-    description: "当一个Agent接到任务后，它需要一整套支持系统：找到合适的工具（通过MCP协议）、找到能帮忙的其他Agent（通过A2A协议）、在安全隔离的环境里执行代码、处理出错时的自动恢复。这套\"调度+执行+容错\"的基础设施就是编排层。\n\nCitrini用了一个精彩的类比来解释为什么边缘基础设施很重要：奥斯汀的交通系统。奥斯汀只有两条南北主干道（Mopac和I-35），没有东西向贯通道路，导致全城拥堵。同样的瓶颈会出现在数字世界——如果所有Agent流量都集中在云端（南北向），而没有边缘节点做分流（东西向），系统就会堵死。\n\nCisco估计Agent流量是人类流量的25倍。现有的数字'道路系统'必须扩建。\n\n这一层的竞争格局最混乱：大厂在做中心化全栈（AWS AgentCore、Google Vertex），模型厂商在做原生执行环境（Anthropic Managed Agents），CDN厂商在做边缘分流（Fastly、Cloudflare），API网关厂商在做入口管理（F5/NGINX）。",
+    description: "当一个Agent接到任务后，它需要一整套支持系统：找到合适的工具（通过MCP协议）、找到能帮忙的其他Agent（通过A2A协议）、在安全隔离的环境里执行代码、处理出错时的自动恢复。这套\“调度+执行+容错\”的基础设施就是编排层。\n\nCitrini用了一个精彩的类比来解释为什么边缘基础设施很重要：奥斯汀的交通系统。奥斯汀只有两条南北主干道（Mopac和I-35），没有东西向贯通道路，导致全城拥堵。同样的瓶颈会出现在数字世界——如果所有Agent流量都集中在云端（南北向），而没有边缘节点做分流（东西向），系统就会堵死。\n\nCisco估计Agent流量是人类流量的25倍。现有的数字'道路系统'必须扩建。\n\n这一层的竞争格局最混乱：大厂在做中心化全栈（AWS AgentCore、Google Vertex），模型厂商在做原生执行环境（Anthropic Managed Agents），CDN厂商在做边缘分流（Fastly、Cloudflare），API网关厂商在做入口管理（F5/NGINX）。",
     citriniView: "Citrini将这一层归入'Infrastructure（基础设施）'，核心判断是：CDN正在从'Content Delivery Network（内容分发网络）'变成'Compute Delivery Network（计算分发网络）'。他们持有AKAM+FSLY+NET，认为'拥有区位优势基础设施的幸存者正在成为低延迟AI计算的重要提供者'。对Fastly的定位是'CDN标的中凸性最高的'——因为它从2021年暴跌后被市场判了死刑，现在正在被重新发现。",
     protocols: [
       { name: "A2A", by: "Google → Linux Foundation AAIF", desc: "Agent间互相发现能力、委托任务、协调工作的标准。用Agent Cards描述自己'能做什么'，类似LinkedIn个人资料" },
@@ -288,12 +288,12 @@ const LAYERS = [
     ]
   },
   {
-    id: "settlement", label: "结算层", labelEn: "Settlement Layer", icon: "💎",
+    id: "settlement“, label: ”结算层“, labelEn: ”Settlement Layer“, icon: ”💎",
     color: "#FF6B6B", colorLight: "rgba(255,107,107,0.10)", certainty: 75,
     certaintyLabel: "结构确定性",
     certaintyExplain: "评分含义：'有分工就有结算'的逻辑不可逆转，但具体用什么方式支付（crypto vs 传统银行）、谁来运营支付管道、哪个标准会赢，都还在从0到1的阶段。75%意味着赛道方向确定，但赛道里的格局远未清晰。",
     headline: "Agent替你干活，总得有人付钱。支付管道就是Agent经济的血管。",
-    description: "这是整条链里最早期、最有想象力、也最不确定的一层。\n\n核心逻辑很简单：Agent要访问付费API、购买云服务、代替用户采购商品——这些都需要支付。但给Agent一张信用卡显然不现实。Citrini引用了一个真实案例：OpenAI的购物Agent认为花$31买一打鸡蛋是完全合理的支出。\n\n早期采用者发现了一个关键事实：给Agent配一个crypto钱包比配一张信用卡容易得多。这催生了x402协议——基于HTTP 402状态码的Agent原生支付标准。402这个状态码在HTTP规范中被保留了几十年，标注为\"Payment Required, reserved for future use\"。那个future use，就是现在。\n\nx402的工作流程很优雅：Agent发HTTP请求 → 服务端返回402状态码（附带价格信息）→ Agent自动用USDC完成微支付 → 服务端返回200（内容/数据）。整个过程无需人类介入，毫秒级完成。\n\nCircle CEO在2025 Q4财报电话会上说：\"Agent之间的交易需要可靠、低成本、受信任的交换媒介。几乎所有AI支付基础设施——Agent之间的活动——都在区块链上发生，都在使用USDC。\"\n\nCitrini特别强调了一个重要洞察：价值不会积累在协议层（x402本身是开源标准，不赚钱），而是积累在'有需求的API、agentic harnesses和agents本身'。协议是管道，管道上跑的水才值钱。",
+    description: "这是整条链里最早期、最有想象力、也最不确定的一层。\n\n核心逻辑很简单：Agent要访问付费API、购买云服务、代替用户采购商品——这些都需要支付。但给Agent一张信用卡显然不现实。Citrini引用了一个真实案例：OpenAI的购物Agent认为花$31买一打鸡蛋是完全合理的支出。\n\n早期采用者发现了一个关键事实：给Agent配一个crypto钱包比配一张信用卡容易得多。这催生了x402协议——基于HTTP 402状态码的Agent原生支付标准。402这个状态码在HTTP规范中被保留了几十年，标注为\“Payment Required, reserved for future use\”。那个future use，就是现在。\n\nx402的工作流程很优雅：Agent发HTTP请求 → 服务端返回402状态码（附带价格信息）→ Agent自动用USDC完成微支付 → 服务端返回200（内容/数据）。整个过程无需人类介入，毫秒级完成。\n\nCircle CEO在2025 Q4财报电话会上说：\“Agent之间的交易需要可靠、低成本、受信任的交换媒介。几乎所有AI支付基础设施——Agent之间的活动——都在区块链上发生，都在使用USDC。\”\n\nCitrini特别强调了一个重要洞察：价值不会积累在协议层（x402本身是开源标准，不赚钱），而是积累在'有需求的API、agentic harnesses和agents本身'。协议是管道，管道上跑的水才值钱。",
     citriniView: "Citrini将支付放在'Ecosystem（生态系统）'层，持有CRCL（Circle）作为结算层核心持仓。他们认为Cloudflare在这一层的布局最有前瞻性——NET Dollar稳定币 + pay-per-crawl内容付费模式 = 同时控制'管道'和'收费站'。PayPal（PYPL）被视为'赔率较低但估值便宜的稳定币标的'，因为只有个位数市盈率。",
     protocols: [
       { name: "x402", by: "Coinbase + Cloudflare（x402 Foundation）", desc: "HTTP原生的Agent支付协议。利用保留了几十年的HTTP 402状态码，Agent发请求→收到402→自动用USDC付费→获得访问权。毫秒级、无需人类介入" },

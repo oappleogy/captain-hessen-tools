@@ -199,7 +199,7 @@ const LAYERS = [
   {id:'trade',title:'交易层',sub:'撮合引擎 + 交易场馆',color:'#3b82f6',
    players:[
     {n:'NYSE Pillar',b:'core',d:'NYSE自2016年运行的撮合引擎。代币化平台中继续负责订单撮合，交易执行层不上链，由成熟中心化系统处理，保证纳秒级延迟和监管合规。'},
-    {n:'NYSE 代币化场馆',b:'new',d:'独立于传统NYSE的新交易场馆，支持代币化股份与原生数字证券交易。支持7×24运营、即时结算、美元币额订单、碎股交易。需SEC单独审批，预计2026H2上线。'},
+    {n:'NYSE 代币化场馆 (ATS)',b:'hot',d:'独立于传统NYSE的替代交易系统（ATS），支持代币化股份与原生数字证券交易。支持7×24运营、即时结算、美元币额订单、碎股交易。采用RFQ+订单簿混合模式（初期流动性有限时RFQ为主）。Pillar撮合引擎 + 多链结算。与Securitize合作铸造链上证券（2026.03.24 MoU）。需SEC/FINRA审批，目标2026H2上线。'},
     {n:'Nasdaq',b:'hot',d:'2026年3月18日获SEC批准代币化交易。采用"同一订单簿"模式——代币化股份与传统股份在同一系统交易，同一ticker、同一价格、同等权利。与Kraken合作全球分发，2027H1可能上线。还在开发允许上市公司直接发行链上股票的框架。'},
     {n:'Coinbase',b:'new',d:'2025年底为美国用户推出传统股票交易（零佣金+Yahoo Finance合作）。代币化股票即将跟进，刻意排除其经纪商子公司，可能通过Base链+Aerodrome DEX实现，绕开NMS法规。'},
     {n:'Robinhood',b:'hot',d:'已在欧洲推出200+代币化股票（基于Arbitrum），采用equity swap结构。还推出OpenAI、SpaceX等私募公司的代币化股权。Robinhood Chain测试网已上线（2026.02），首周处理400万笔交易。主网预计2026H2启动。CEO Vlad Tenev称代币化是"无法阻挡的货运火车"。'},
@@ -214,7 +214,7 @@ const LAYERS = [
   ]},
   {id:'fund',title:'资金层',sub:'稳定币 + 代币化存款',color:'#f59e0b',
    players:[
-    {n:'USDC (Circle)',b:'core',d:'ICE首选稳定币。2025年3月ICE与Circle签署MoU，探索USDC整合到清算所、衍生品交易所和数据服务。Circle于2025年6月5日在NYSE上市（ticker: CRCL），IPO定价$31，首日飙升至$250+后回落。截至2025年末USDC流通量达753亿美元。完全由美国国债和现金等价物支撑，可1:1兑换美元。已获欧盟MiCA合规批准（首家）。2025年全年营收17亿美元，净利润1.56亿美元。'},
+    {n:'USDC (Circle)',b:'core',d:'ICE首选稳定币。2025年3月ICE与Circle签署MoU，探索USDC整合到清算所、衍生品交易所和数据服务。Circle于2025年6月5日在NYSE上市（ticker: CRCL），IPO定价$31，ATH $299，当前约$94。截至2025年末USDC流通量达753亿美元。已获欧盟MiCA合规批准（首家）。2025年全年营收17亿美元。⚠️ 2026.04.01 Drift Protocol（Solana DeFi）被黑客盗取$285M，攻击者通过Circle跨链协议将$232M USDC从Solana转至Ethereum，Circle因未及时冻结资金遭到批评——暴露了稳定币发行方在安全响应速度上的治理风险。'},
     {n:'USYC (Circle/Hashnote)',b:'new',d:'Circle收购Hashnote后获得的代币化货币市场基金产品。SEC 2a-7注册。MoU覆盖范围内，可用于清算所抵押品和衍生品保证金——闲置资金可产生收益，这是传统现金做不到的。'},
     {n:'BNY 代币化存款',b:'new',d:'与ICE合作开发（2026.01宣布），专为清算所设计。支持非银行营业时间的资金转移、保证金履约和跨时区调度。解决7×24交易的"最后一公里"资金问题。'},
     {n:'Citi 代币化存款',b:'new',d:'同BNY，为ICE清算所提供跨时区、跨管辖区的24小时资金调度能力。与BNY形成双银行支撑体系。'},
@@ -314,6 +314,7 @@ const TIMELINE = [
   {d:'2026.03',t:'<strong>ICE战略投资OKX</strong>（250亿估值），获董事会席位',m:1},
   {d:'2026.03',t:'<strong>Nasdaq获SEC批准</strong>代币化证券交易',m:1},
   {d:'2026.03.24',t:'<strong>NYSE与Securitize签署MoU</strong>，Securitize成为首个数字转让代理，负责铸造链上证券',m:1},
+  {d:'2026.04.01',t:'Drift Protocol被黑$285M，攻击者经Circle跨链转移$232M USDC，Circle因冻结延迟遭批评',m:0},
   {d:'2026 Q3',t:'NYSE-Securitize机构试点启动（预期）',m:0},
   {d:'2026 H1',t:'DTCC Canton MVP上线（美国国债先行）',m:1},
   {d:'2026 H2',t:'Robinhood Chain主网上线（预期）',m:0},
@@ -432,7 +433,7 @@ document.querySelectorAll('.tab').forEach(t=>{
 /*
  * CHANGELOG
  * ---------
- * 2026.04.09 — 新增 Securitize MoU、CRCL最新股价、Robinhood Chain测试网数据、RWA市场规模更新
+ * 2026.04.09 — 新增 Securitize MoU、NYSE ATS详情、Drift $285M黑客事件、CRCL股价、Robinhood测试网数据、RWA市场规模
  * 2026.03.20 — 初版发布
  * 维护协议见 MAINTENANCE_PROTOCOL.md
  */

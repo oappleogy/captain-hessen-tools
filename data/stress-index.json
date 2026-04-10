@@ -1,5 +1,5 @@
 {
-  "score": 43.4,
+  "score": 38.0,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -7,88 +7,88 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 21.04,
+      "current": 19.49,
       "base": 16,
-      "deviation_pct": 31.5,
+      "deviation_pct": 21.8,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 297.7
+      "contribution": 142.6
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 97.1,
+      "current": 98.55,
       "base": 75,
-      "deviation_pct": 29.5,
+      "deviation_pct": 31.4,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 174.1
+      "contribution": 197.2
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 3.12,
+      "current": 2.94,
       "base": 1.5,
-      "deviation_pct": 108.0,
+      "deviation_pct": 96.0,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 2916.0
+      "contribution": 2304.0
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 158.68,
+      "current": 159.23,
       "base": 145,
-      "deviation_pct": 9.4,
+      "deviation_pct": 9.8,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 8.8
+      "contribution": 9.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.1,
+      "current": 98.92,
       "base": 100,
-      "deviation_pct": 0.9,
+      "deviation_pct": 1.1,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": 0.1
+      "contribution": 0.2
     }
   ],
-  "hard_alerts_count": 2,
+  "hard_alerts_count": 1,
   "significant_deviations": [
     {
       "name": "信用利差",
-      "current": 3.12,
+      "current": 2.94,
       "base": 1.5,
-      "deviation_pct": 108.0,
+      "deviation_pct": 96.0,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
-      "name": "天然气TTF",
-      "current": 53.25,
-      "base": 35,
-      "deviation_pct": 52.1,
-      "direction": "偏高",
-      "level": "极端偏离"
-    },
-    {
-      "name": "VIX",
-      "current": 21.04,
-      "base": 16,
-      "deviation_pct": 31.5,
+      "name": "WTI油价",
+      "current": 98.55,
+      "base": 75,
+      "deviation_pct": 31.4,
       "direction": "偏高",
       "level": "显著偏离"
     },
     {
-      "name": "WTI油价",
-      "current": 97.1,
-      "base": 75,
-      "deviation_pct": 29.5,
+      "name": "天然气TTF",
+      "current": 45.3,
+      "base": 35,
+      "deviation_pct": 29.4,
+      "direction": "偏高",
+      "level": "显著偏离"
+    },
+    {
+      "name": "VIX",
+      "current": 19.49,
+      "base": 16,
+      "deviation_pct": 21.8,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-04-09 09:08"
+  "timestamp": "2026-04-10 08:55"
 }

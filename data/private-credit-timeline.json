@@ -1,12 +1,44 @@
 {
   "last_updated": "2026-04-11",
   "metrics": [
-    { "label": "私募信贷市场", "value": "$3.5T", "sub": "总规模" },
-    { "label": "SaaS 贷款敞口", "value": "$500B+", "sub": "BIS 2025年底" },
-    { "label": "困境贷款", "value": "$46.9B", "sub": "WSJ 2026初" },
-    { "label": "BDC 到期墙", "value": "$12.7B", "sub": "2026年到期，YoY +73%" },
-    { "label": "MS 违约率预测", "value": "8%", "sub": "UBS 激进 13%" },
-    { "label": "Blue Owl 跌幅", "value": "-68%", "sub": "从2025.1高点" }
+    {
+      "label": "私募信贷市场", "value": "$3.5T", "sub": "总规模",
+      "lineage": [
+        { "source": "Preqin", "note": "全球私募信贷 AUM 2025 Q4 数据", "quote": "Global private debt AUM reached $3.5 trillion by end of 2025, up from $2.5T in 2023.", "url": null }
+      ]
+    },
+    {
+      "label": "SaaS 贷款敞口", "value": "$500B+", "sub": "BIS 2025年底",
+      "lineage": [
+        { "source": "BIS", "note": "2025 年底国际清算银行数据", "quote": "Software-as-a-Service borrowers grew from $8B in 2015 to over $500B by end of 2025, concentrated in private credit vehicles.", "url": null },
+        { "source": "Morgan Stanley", "note": "估算私募信贷 SaaS 敞口约 26%", "quote": "We estimate private credit's effective SaaS exposure at ~26%, though classification issues obscure the true number.", "url": null }
+      ]
+    },
+    {
+      "label": "困境贷款", "value": "$46.9B", "sub": "WSJ 2026初",
+      "lineage": [
+        { "source": "Wall Street Journal", "note": "2026 年初报道", "quote": "Distressed private credit loans totaled $46.9 billion at the start of 2026, up sharply from prior quarters.", "url": null }
+      ]
+    },
+    {
+      "label": "BDC 到期墙", "value": "$12.7B", "sub": "2026年到期，YoY +73%",
+      "lineage": [
+        { "source": "Bloomberg / BDC 季报", "note": "2026 年到期规模同比 +73%", "quote": "$12.7B of BDC debt matures in 2026, a 73% year-over-year increase. Refinancing pressure is building.", "url": null }
+      ]
+    },
+    {
+      "label": "MS 违约率预测", "value": "8%", "sub": "UBS 激进 13%",
+      "lineage": [
+        { "source": "Morgan Stanley", "note": "2026-03-16 研报", "quote": "We forecast private credit default rates reaching 8% by year-end, approaching pandemic-era peaks.", "url": null },
+        { "source": "UBS", "note": "更激进的情景预测", "quote": "Our bear scenario sees defaults reaching 13%, driven by AI-induced SaaS disruption and the maturity wall.", "url": null }
+      ]
+    },
+    {
+      "label": "Blue Owl 跌幅", "value": "-68%", "sub": "从2025.1高点",
+      "lineage": [
+        { "source": "Bloomberg 市场数据", "note": "OWL 股价从 2025 年 1 月高点累计跌幅", "quote": "Blue Owl Capital (OWL) shares have declined 68% from their January 2025 peak amid escalating redemption concerns.", "url": null }
+      ]
+    }
   ],
   "chain": [
     { "step": "① AI Agent 崛起", "desc": "Claude Code / Mythos / GPT-5.4 等 coding+reasoning 能力跨越阈值", "color": "#3b82f6" },

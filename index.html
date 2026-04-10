@@ -321,6 +321,138 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 .hot-keywords-legend i {
   width: 6px; height: 6px; border-radius: 50%; display: inline-block;
 }
+
+/* Lineage 抽屉 — 点击气泡查看数据溯源 */
+.lineage-overlay {
+  position: fixed; inset: 0; background: rgba(5,10,20,0.68);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 90;
+}
+.lineage-overlay.open { opacity: 1; pointer-events: auto; }
+.lineage-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(480px, 92vw);
+  background: var(--card-bg);
+  border-left: 1px solid var(--border);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.4);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  z-index: 100;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.lineage-drawer.open { transform: translateX(0); }
+.lineage-header {
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.lineage-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--text2); cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.lineage-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.lineage-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 999px;
+  margin-bottom: 12px;
+  border: 1px solid;
+}
+.lineage-badge i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor; box-shadow: 0 0 6px currentColor;
+}
+.lineage-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 22px; font-weight: 700; color: var(--text);
+  line-height: 1.35; margin-bottom: 8px;
+  padding-right: 40px;
+}
+.lineage-summary {
+  font-size: 13px; color: var(--text2); line-height: 1.65;
+}
+.lineage-body {
+  flex: 1; overflow-y: auto;
+  padding: 20px 24px 24px;
+}
+.lineage-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 1.2px; color: var(--text3);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.lineage-section-label::before,
+.lineage-section-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+.lineage-evidence {
+  list-style: none; padding: 0; margin: 0 0 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.lineage-evidence li {
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--bubble-color, var(--accent));
+  border-radius: 8px;
+  font-size: 12.5px; line-height: 1.65;
+  color: var(--text);
+}
+.lineage-evidence .ev-source {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.6px;
+  padding: 2px 7px; border-radius: 3px;
+  background: var(--bubble-bg, rgba(45,90,240,0.1));
+  color: var(--bubble-color, var(--accent));
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.lineage-empty {
+  font-size: 12px; color: var(--text3);
+  padding: 20px; text-align: center;
+  border: 1px dashed var(--border); border-radius: 8px;
+}
+.lineage-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  background: rgba(255,255,255,0.015);
+}
+.lineage-cta {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%;
+  padding: 12px 16px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; font-weight: 600; font-size: 13px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none; cursor: pointer;
+}
+.lineage-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(45,90,240,0.35);
+}
+.lineage-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px; letter-spacing: 0.6px;
+  color: var(--text3);
+  display: flex; justify-content: space-between;
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) {
+  .lineage-drawer { width: 100vw; }
+  .lineage-title { font-size: 19px; }
+}
 </style>
 </head>
 <body>
@@ -342,6 +474,31 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     <span>Action</span>
   </div>
 </div>
+
+<!-- Lineage 抽屉 — 点击气泡弹出数据溯源 -->
+<div class="lineage-overlay" id="lineage-overlay"></div>
+<aside class="lineage-drawer" id="lineage-drawer" role="dialog" aria-hidden="true">
+  <div class="lineage-header">
+    <button class="lineage-close" id="lineage-close" aria-label="关闭">×</button>
+    <div class="lineage-badge" id="lineage-badge"><i></i><span id="lineage-cat"></span></div>
+    <div class="lineage-title" id="lineage-title"></div>
+    <div class="lineage-summary" id="lineage-summary"></div>
+  </div>
+  <div class="lineage-body">
+    <div class="lineage-meta">
+      <span id="lineage-heat">HEAT —</span>
+      <span id="lineage-count">0 条溯源</span>
+    </div>
+    <div class="lineage-section-label">原始证据 · Evidence</div>
+    <ul class="lineage-evidence" id="lineage-evidence"></ul>
+  </div>
+  <div class="lineage-footer" id="lineage-footer" style="display:none">
+    <a class="lineage-cta" id="lineage-cta" href="#">
+      <span id="lineage-cta-label">打开相关工具</span>
+      <span>→</span>
+    </a>
+  </div>
+</aside>
 
 <!-- 热点关键词气泡图 -->
 <div class="hot-keywords" id="hot-keywords">
@@ -586,19 +743,80 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
   } catch(e) {}
 })();
 
-// 热点关键词气泡图
+// 热点关键词气泡图 + Lineage 抽屉
 (async function() {
   const canvas = document.getElementById('bubble-canvas');
   const sub = document.getElementById('hot-keywords-sub');
   if (!canvas) return;
 
   const CATEGORY_STYLE = {
-    'geo':      { color: '#ef4444', bg: 'rgba(239,68,68,0.08)',  glow: 'rgba(239,68,68,0.25)' },
-    'finance':  { color: '#2d5af0', bg: 'rgba(45,90,240,0.08)',  glow: 'rgba(45,90,240,0.25)' },
-    'ai-tech':  { color: '#7c3aed', bg: 'rgba(124,58,237,0.08)', glow: 'rgba(124,58,237,0.25)' },
-    'industry': { color: '#10b981', bg: 'rgba(16,185,129,0.08)', glow: 'rgba(16,185,129,0.25)' },
-    'macro':    { color: '#f59e0b', bg: 'rgba(245,158,11,0.08)', glow: 'rgba(245,158,11,0.25)' },
+    'geo':      { color: '#ef4444', bg: 'rgba(239,68,68,0.08)',  glow: 'rgba(239,68,68,0.25)', label: '地缘' },
+    'finance':  { color: '#2d5af0', bg: 'rgba(45,90,240,0.08)',  glow: 'rgba(45,90,240,0.25)', label: '金融' },
+    'ai-tech':  { color: '#7c3aed', bg: 'rgba(124,58,237,0.08)', glow: 'rgba(124,58,237,0.25)', label: 'AI/科技' },
+    'industry': { color: '#10b981', bg: 'rgba(16,185,129,0.08)', glow: 'rgba(16,185,129,0.25)', label: '产业' },
+    'macro':    { color: '#f59e0b', bg: 'rgba(245,158,11,0.08)', glow: 'rgba(245,158,11,0.25)', label: '宏观' },
   };
+
+  // ── Lineage 抽屉控制 ──
+  const overlay = document.getElementById('lineage-overlay');
+  const drawer = document.getElementById('lineage-drawer');
+  const closeBtn = document.getElementById('lineage-close');
+
+  function openLineage(k) {
+    const style = CATEGORY_STYLE[k.category] || CATEGORY_STYLE['finance'];
+    const badge = document.getElementById('lineage-badge');
+    badge.style.color = style.color;
+    badge.style.borderColor = style.color;
+    badge.style.background = style.bg;
+    document.getElementById('lineage-cat').textContent = style.label.toUpperCase();
+
+    document.getElementById('lineage-title').textContent = k.keyword || '';
+    document.getElementById('lineage-summary').textContent = k.summary || '';
+    document.getElementById('lineage-heat').textContent = 'HEAT ' + (k.heat || '—');
+
+    const evList = document.getElementById('lineage-evidence');
+    const evidence = Array.isArray(k.evidence) ? k.evidence : [];
+    document.getElementById('lineage-count').textContent = evidence.length + ' 条溯源';
+
+    if (evidence.length) {
+      evList.innerHTML = evidence.map(ev => {
+        const src = (ev.source || '').replace(/</g, '&lt;');
+        const txt = (ev.text || '').replace(/</g, '&lt;');
+        return '<li style="--bubble-color:' + style.color + ';--bubble-bg:' + style.bg + '">'
+             + '<span class="ev-source">' + src + '</span><br>' + txt + '</li>';
+      }).join('');
+    } else {
+      evList.innerHTML = '<div class="lineage-empty">暂无原始溯源数据</div>';
+    }
+
+    const footer = document.getElementById('lineage-footer');
+    const cta = document.getElementById('lineage-cta');
+    if (k.tool && k.tool.href) {
+      footer.style.display = 'block';
+      cta.href = k.tool.href;
+      document.getElementById('lineage-cta-label').textContent = '→ ' + (k.tool.label || '打开相关工具');
+    } else {
+      footer.style.display = 'none';
+    }
+
+    overlay.classList.add('open');
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLineage() {
+    overlay.classList.remove('open');
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  overlay.addEventListener('click', closeLineage);
+  closeBtn.addEventListener('click', closeLineage);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLineage();
+  });
 
   try {
     const resp = await fetch('data/hot-keywords.json?t=' + Date.now());
@@ -610,9 +828,8 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
       return;
     }
 
-    if (sub) sub.textContent = '更新于 ' + (data.last_updated || data.date || '—') + ' · 来源: 华尔街见闻/财联社/Google News';
+    if (sub) sub.textContent = '更新于 ' + (data.last_updated || data.date || '—') + ' · 来源: 华尔街见闻/财联社/Google News · 点击气泡查看溯源';
 
-    // 热度 → 字号 (12px ~ 22px)
     const maxHeat = Math.max(...kws.map(k => k.heat || 0), 1);
     const minHeat = Math.min(...kws.map(k => k.heat || 0), maxHeat);
     const span = Math.max(1, maxHeat - minHeat);
@@ -625,14 +842,11 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
       const padY = (6 + ratio * 4).toFixed(0);
       const padX = (12 + ratio * 6).toFixed(0);
 
-      const el = document.createElement(k.tool ? 'a' : 'span');
+      // 所有气泡统一为 button — 点击弹出 lineage 抽屉
+      const el = document.createElement('button');
+      el.type = 'button';
       el.className = 'bubble';
-      if (k.tool) {
-        el.href = k.tool.href;
-        el.title = (k.summary || '') + ' → ' + k.tool.label;
-      } else {
-        el.title = k.summary || '';
-      }
+      el.title = k.summary || '';
       el.style.setProperty('--bubble-color', style.color);
       el.style.setProperty('--bubble-bg', style.bg);
       el.style.setProperty('--bubble-glow', style.glow);
@@ -640,7 +854,10 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
       el.style.color = style.color;
       el.style.fontSize = fontSize + 'px';
       el.style.padding = padY + 'px ' + padX + 'px';
+      el.style.border = '1px solid transparent';
+      el.style.fontFamily = 'inherit';
       el.innerHTML = '<span class="heat-dot"></span>' + k.keyword;
+      el.addEventListener('click', () => openLineage(k));
       canvas.appendChild(el);
     });
   } catch(e) {

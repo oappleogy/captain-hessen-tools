@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-11 02:25",
+  "last_updated": "2026-04-11 02:30",
   "date": "2026-04-11",
   "source_counts": {
     "wallstreetcn": 25,
@@ -12,7 +12,7 @@
       "keyword": "霍尔木兹海峡关闭",
       "heat": 95,
       "category": "geo",
-      "summary": "伊朗因以色列袭击黎巴嫩关闭霍尔木兹海峡，航运受阻。",
+      "summary": "伊朗因以色列袭击黎巴嫩关闭霍尔木兹海峡，影响全球石油供应。",
       "sources": [
         "华尔街见闻",
         "财联社"
@@ -22,134 +22,117 @@
       "keyword": "美伊谈判",
       "heat": 90,
       "category": "geo",
-      "summary": "美国与伊朗将在巴基斯坦举行谈判，寻求解决中东危机。",
+      "summary": "美国与伊朗将在巴基斯坦举行谈判，寻求解决中东危机的方案。",
       "sources": [
         "华尔街见闻",
         "财联社"
+      ]
+    },
+    {
+      "keyword": "黎巴嫩局势升级",
+      "heat": 85,
+      "category": "geo",
+      "summary": "以色列空袭黎巴嫩南部城市，造成安全人员伤亡，地区紧张局势加剧。",
+      "sources": [
+        "华尔街见闻",
+        "财联社"
+      ]
+    },
+    {
+      "keyword": "原油价格波动",
+      "heat": 80,
+      "category": "finance",
+      "summary": "WTI原油期货跌至97美元以下，市场对中东局势和供应担忧加剧。",
+      "sources": [
+        "华尔街见闻",
+        "财联社"
+      ]
+    },
+    {
+      "keyword": "AI芯片出口限制",
+      "heat": 75,
+      "category": "ai-tech",
+      "summary": "特朗普政府AI芯片出口面临审批瓶颈和政策指导不足的风险。",
+      "sources": [
+        "华尔街见闻"
       ],
       "tool": {
-        "href": "america-dashboard.html",
+        "href": "america.html",
         "label": "美国仪表盘"
       }
     },
     {
       "keyword": "软件股持续下跌",
-      "heat": 85,
-      "category": "ai-tech",
-      "summary": "AI模型颠覆性影响引发担忧，软件股连续下跌。",
+      "heat": 70,
+      "category": "finance",
+      "summary": "AI模型带来的颠覆性影响引发投资者担忧，软件股连续下跌。",
       "sources": [
         "华尔街见闻"
-      ]
-    },
-    {
-      "keyword": "中东局势升级",
-      "heat": 80,
-      "category": "geo",
-      "summary": "黎巴嫩遭以色列空袭，伊朗警告将强力回应，局势紧张。",
-      "sources": [
-        "华尔街见闻",
-        "财联社"
-      ]
-    },
-    {
-      "keyword": "特朗普对伊朗强硬表态",
-      "heat": 75,
-      "category": "geo",
-      "summary": "特朗普称若谈判失败，美国将恢复对伊朗的军事行动。",
-      "sources": [
-        "华尔街见闻",
-        "财联社"
       ],
       "tool": {
-        "href": "america-dashboard.html",
-        "label": "美国仪表盘"
+        "href": "agentic-infra.html",
+        "label": "Agentic Infra"
       }
     },
     {
       "keyword": "全球能源互联网倡议",
-      "heat": 70,
-      "category": "industry",
-      "summary": "合作组织发起全球能源互联网倡议，推动能源转型应对气候变化。",
-      "sources": [
-        "华尔街见闻"
-      ]
-    },
-    {
-      "keyword": "美国预算赤字扩大",
       "heat": 65,
-      "category": "macro",
-      "summary": "美国3月预算赤字超预期，达到1641亿美元。",
-      "sources": [
-        "华尔街见闻",
-        "财联社"
-      ],
-      "tool": {
-        "href": "america-dashboard.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "国际铜价上涨",
-      "heat": 60,
       "category": "industry",
-      "summary": "国际铜价上涨1.20%，受中东局势和需求预期影响。",
-      "sources": [
-        "华尔街见闻",
-        "财联社"
-      ]
-    },
-    {
-      "keyword": "Suzano警告纸制品涨价",
-      "heat": 55,
-      "category": "industry",
-      "summary": "Suzano称美伊战争将推高纸制品价格，影响全球供应链。",
+      "summary": "合作组织与联合国等机构共同发起全球能源互联网倡议，推动能源转型。",
       "sources": [
         "华尔街见闻"
       ]
     },
     {
-      "keyword": "西班牙呼吁暂停与以色列协定",
-      "heat": 50,
-      "category": "geo",
-      "summary": "西班牙敦促欧盟成员国暂停与以色列的联系国协定，回应中东局势。",
+      "keyword": "美国政府预算赤字",
+      "heat": 60,
+      "category": "macro",
+      "summary": "美国3月预算赤字超预期，达到1641亿美元，财政压力增大。",
       "sources": [
+        "华尔街见闻",
+        "财联社"
+      ]
+    },
+    {
+      "keyword": "京东阿里巴巴获投资",
+      "heat": 55,
+      "category": "finance",
+      "summary": "知名投资人Michael Burry买入京东和阿里巴巴股票，市场关注中概股。",
+      "sources": [
+        "华尔街见闻"
+      ]
+    },
+    {
+      "keyword": "铜价上涨",
+      "heat": 50,
+      "category": "industry",
+      "summary": "国际铜价和沪铜价格均上涨，反映市场对工业金属需求预期。",
+      "sources": [
+        "华尔街见闻",
+        "财联社"
+      ]
+    },
+    {
+      "keyword": "黎巴嫩人道主义援助",
+      "heat": 45,
+      "category": "geo",
+      "summary": "约旦与美国讨论向黎巴嫩提供人道主义援助，帮助应对流离失所人员需求。",
+      "sources": [
+        "华尔街见闻",
         "财联社"
       ]
     },
     {
       "keyword": "美联储逆回购规模",
-      "heat": 45,
-      "category": "finance",
-      "summary": "美联储逆回购规模小幅上升至5.07亿美元。",
-      "sources": [
-        "华尔街见闻",
-        "财联社"
-      ],
-      "tool": {
-        "href": "america-dashboard.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "京东获Burry增持",
       "heat": 40,
-      "category": "finance",
-      "summary": "知名投资人Burry增持京东和阿里巴巴股票，称其估值吸引。",
-      "sources": [
-        "华尔街见闻"
-      ]
-    },
-    {
-      "keyword": "黎巴嫩人道主义危机",
-      "heat": 35,
-      "category": "geo",
-      "summary": "约旦与美国讨论黎巴嫩停火及人道主义援助问题。",
+      "category": "macro",
+      "summary": "美联储隔夜逆回购协议使用规模小幅上升至5.07亿美元。",
       "sources": [
         "华尔街见闻",
         "财联社"
       ],
       "tool": {
-        "href": "america-dashboard.html",
+        "href": "america.html",
         "label": "美国仪表盘"
       }
     }

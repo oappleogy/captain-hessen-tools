@@ -63,6 +63,30 @@
       "sources": [
         "新浪财经"
       ]
+    },
+    {
+      "date": "2026-04-06",
+      "tag": "发布",
+      "title": "Anthropic与Google和Broadcom达成新合作",
+      "detail": "Anthropic与Google和Broadcom签署协议，将于2027年上线数千兆瓦下一代TPU容量，用于支持Claude模型。",
+      "impact": "重大",
+      "sources": [
+        "Anthropic Official"
+      ],
+      "new_members": []
+    },
+    {
+      "date": "2026-03-31",
+      "tag": "成员",
+      "title": "澳大利亚政府加入Project Glasswing",
+      "detail": "澳大利亚政府与Anthropic签署谅解备忘录，合作AI安全研究，并支持澳大利亚国家AI计划。",
+      "impact": "重大",
+      "sources": [
+        "Anthropic Official"
+      ],
+      "new_members": [
+        "澳大利亚政府"
+      ]
     }
   ],
   "tracking_lines": [
@@ -138,6 +162,186 @@
     "Anthropic 后续 Opus 模型：safeguard 是否如期推出",
     "开源模型 coding benchmark 追赶情况（Meta Llama / DeepSeek 新版本）",
     "EU AI Act 8月2日执行：对 Mythos 级模型的监管定义",
-    "中国应对措施：是否推出国家级 AI 网安防御计划"
-  ]
+    "中国应对措施：是否推出国家级 AI 网安防御计划",
+    "Glasswing 是否新增合作伙伴（当前 12 家创始 + 40 家扩展）"
+  ],
+  "members": {
+    "founding": [
+      "AWS",
+      "Apple",
+      "Google",
+      "Microsoft",
+      "Nvidia",
+      "Broadcom",
+      "Cisco",
+      "CrowdStrike",
+      "JPMorgan",
+      "Linux Foundation",
+      "Palo Alto Networks",
+      "Anthropic"
+    ],
+    "all": [
+      "AWS",
+      "Anthropic",
+      "Apple",
+      "Broadcom",
+      "Cisco",
+      "CrowdStrike",
+      "Google",
+      "JPMorgan",
+      "Linux Foundation",
+      "Microsoft",
+      "Nvidia",
+      "Palo Alto Networks",
+      "澳大利亚政府"
+    ],
+    "excluded_notable": [
+      "Cloudflare"
+    ],
+    "history": [
+      {
+        "date": "2026-04-07",
+        "added": [
+          "AWS",
+          "Apple",
+          "Google",
+          "Microsoft",
+          "Nvidia",
+          "Broadcom",
+          "Cisco",
+          "CrowdStrike",
+          "JPMorgan",
+          "Linux Foundation",
+          "Palo Alto Networks",
+          "Anthropic"
+        ],
+        "note": "12 家创始成员正式发布"
+      },
+      {
+        "date": "2026-04-11",
+        "added": [
+          "澳大利亚政府"
+        ]
+      }
+    ]
+  },
+  "impact_analysis": {
+    "last_updated": "2026-04-11",
+    "bullish": [
+      {
+        "target": "CrowdStrike (CRWD)",
+        "category": "网安成员股",
+        "logic": "Glasswing 创始成员身份 = 经过 Mythos 压力测试认证。市场将其视为'防御能力被验证'的代表，相对非成员厂商获得溢价。",
+        "confidence": "高",
+        "signals": [
+          "股价相对 Cloudflare 分化",
+          "Q2 财报是否提及 Glasswing 合作深度"
+        ]
+      },
+      {
+        "target": "Palo Alto Networks (PANW)",
+        "category": "网安成员股",
+        "logic": "同为 Glasswing 创始成员，网络层防御集成度高。在 AI 漏洞发现时代，边界防御+实时响应的价值凸显。",
+        "confidence": "高",
+        "signals": [
+          "PANW 与 CRWD 股价联动性",
+          "企业客户续约率"
+        ]
+      },
+      {
+        "target": "Anthropic 估值 / Amazon (AMZN)",
+        "category": "AI 基础设施",
+        "logic": "Anthropic 首次展示前沿模型的国家安全级商业化。AWS 作为主要托管方+投资方双重受益。$100M 使用额度暗示模型定价能力。",
+        "confidence": "中",
+        "signals": [
+          "Anthropic 下一轮融资估值",
+          "AWS Bedrock Anthropic 调用量"
+        ]
+      },
+      {
+        "target": "JPMorgan (JPM)",
+        "category": "金融成员股",
+        "logic": "作为 Glasswing 创始成员中唯一的银行，在系统性风险预警中提前获得防御工具。Dimon 缺席财政部会议暗示其已有独立准备。",
+        "confidence": "中",
+        "signals": [
+          "Q2 财报网安投入披露",
+          "Dimon 后续公开表态"
+        ]
+      },
+      {
+        "target": "防御性资产 (黄金 / 美债)",
+        "category": "避险",
+        "logic": "AI 网安能力首次被政府定位为系统性风险。若后续出现实质性攻击事件，避险资金流入。",
+        "confidence": "低",
+        "signals": [
+          "VIX 对 Mythos 相关新闻的敏感度",
+          "10Y 美债收益率"
+        ]
+      }
+    ],
+    "bearish": [
+      {
+        "target": "Cloudflare (NET)",
+        "category": "网安非成员股",
+        "logic": "被明确排除在 Glasswing 之外，市场解读为'未通过 Mythos 压测'。4月9日已暴跌 8.62%，定价逻辑已经重构，后续反弹需要实质性加入或独立证明。",
+        "confidence": "高",
+        "signals": [
+          "是否后续被邀请加入",
+          "Q2 财报能否稳住企业客户"
+        ]
+      },
+      {
+        "target": "传统 SAST/DAST 厂商 (Synopsys / Veracode / Checkmarx)",
+        "category": "传统漏洞扫描",
+        "logic": "Mythos 单模型数小时内发现数千零日漏洞，覆盖所有主流 OS。传统静态/动态扫描工具的价值曲线正在被压平。",
+        "confidence": "高",
+        "signals": [
+          "Synopsys SIG 业务营收增速",
+          "中小网安厂商被并购节奏"
+        ]
+      },
+      {
+        "target": "小型/中型网安 SaaS",
+        "category": "长尾网安",
+        "logic": "企业 CISO 在预算有限时，更倾向于购买 Glasswing 成员的集成方案，而非多家点状工具。非成员厂商续约率压力。",
+        "confidence": "中",
+        "signals": [
+          "中型网安 ARR 增速",
+          "Gartner MQ 位次变化"
+        ]
+      },
+      {
+        "target": "开源依赖密集的软件供应链",
+        "category": "软件供应链",
+        "logic": "FFmpeg 16年、OpenBSD 27年老漏洞被发现。开源代码历史包袱一次性暴露，下游厂商补丁压力巨大。",
+        "confidence": "中",
+        "signals": [
+          "主流 OSS 项目 CVE 披露节奏",
+          "Log4Shell 级别事件是否重现"
+        ]
+      },
+      {
+        "target": "OpenAI / Google DeepMind (相对地位)",
+        "category": "AI 竞争",
+        "logic": "Anthropic 抢占'前沿模型+国家安全'叙事高地。竞争对手被迫在'能力发布'和'安全限制'之间做二选一。",
+        "confidence": "低",
+        "signals": [
+          "OpenAI 是否跟进限制发布策略",
+          "GPT-6 网安 benchmark"
+        ]
+      }
+    ],
+    "watch": [
+      {
+        "target": "开源模型 (Llama / DeepSeek)",
+        "logic": "'追赶窗口'决定 Glasswing 的先修后公开策略何时失效。这是整个故事的终局变量。",
+        "trigger": "开源模型在 SWE-bench / 网安 benchmark 触及 90%+"
+      },
+      {
+        "target": "A股网安板块 (奇安信 / 深信服 / 启明星辰)",
+        "logic": "中国是否推出对标项目决定整个板块叙事。",
+        "trigger": "国家层面官方表态 / 类似'国产 Glasswing'计划"
+      }
+    ]
+  }
 }

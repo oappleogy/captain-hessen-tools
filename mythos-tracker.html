@@ -180,6 +180,114 @@
     letter-spacing: 0.15em;
   }
 
+  /* Impact view */
+  .impact-columns {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 720px) {
+    .impact-columns { grid-template-columns: 1fr; }
+  }
+  .col-header {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+    padding: 12px 16px; border-radius: 10px 10px 0 0;
+    margin-bottom: 0;
+  }
+  .bullish-header {
+    background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+    color: #059669; border: 1px solid rgba(16,185,129,0.2); border-bottom: none;
+  }
+  .bearish-header {
+    background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
+    color: #dc2626; border: 1px solid rgba(239,68,68,0.2); border-bottom: none;
+  }
+  .col-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: currentColor; color: white; font-size: 13px; font-weight: 700;
+  }
+  .impact-card {
+    background: white; border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 0; padding: 14px 16px;
+    border-top: none;
+  }
+  .impact-card:last-child { border-radius: 0 0 10px 10px; }
+  .impact-card + .impact-card { border-top: 1px solid rgba(0,0,0,0.04); }
+  .impact-target {
+    font-size: 14px; font-weight: 600; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .impact-category {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(0,0,0,0.05); color: #64748b; font-weight: 500;
+  }
+  .impact-confidence {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600;
+  }
+  .conf-高 { background: rgba(59,130,246,0.15); color: #3b82f6; }
+  .conf-中 { background: rgba(245,158,11,0.15); color: #d97706; }
+  .conf-低 { background: rgba(107,114,128,0.15); color: #6b7280; }
+  .impact-logic {
+    font-size: 12px; color: #475569; line-height: 1.6; margin: 6px 0 8px;
+  }
+  .impact-signals {
+    font-size: 11px; color: #64748b; line-height: 1.6;
+  }
+  .impact-signals strong { color: #3b82f6; font-weight: 600; }
+  .impact-signals span { display: inline-block; margin-right: 10px; }
+  .impact-signals span::before { content: '◦ '; color: #94a3b8; }
+
+  .watch-section { margin-top: 32px; }
+  .watch-card {
+    background: rgba(59,130,246,0.04);
+    border: 1px dashed rgba(59,130,246,0.25);
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 10px;
+  }
+  .watch-target { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .watch-logic { font-size: 12px; color: #64748b; line-height: 1.6; margin-bottom: 6px; }
+  .watch-trigger {
+    font-size: 11px; color: #3b82f6;
+    padding: 4px 10px; background: rgba(59,130,246,0.08); border-radius: 6px;
+    display: inline-block;
+  }
+  .watch-trigger::before { content: '触发条件: '; color: #94a3b8; }
+
+  /* Members view */
+  .members-box {
+    background: white; border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 10px; padding: 18px 20px; margin-bottom: 16px;
+  }
+  .members-box.excluded {
+    background: rgba(239,68,68,0.03);
+    border-color: rgba(239,68,68,0.15);
+  }
+  .members-subtitle {
+    font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 12px;
+    letter-spacing: 0.03em;
+  }
+  .members-grid {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .member-chip {
+    font-size: 12px; padding: 6px 12px; border-radius: 6px;
+    background: rgba(59,130,246,0.08); color: #3b82f6;
+    border: 1px solid rgba(59,130,246,0.15); font-weight: 500;
+  }
+  .members-box.excluded .member-chip {
+    background: rgba(239,68,68,0.08); color: #dc2626;
+    border-color: rgba(239,68,68,0.2); text-decoration: line-through;
+  }
+  .history-entry {
+    font-size: 12px; color: #475569; padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .history-entry:last-child { border-bottom: none; }
+  .history-date {
+    color: #94a3b8; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; margin-right: 10px;
+  }
+
   .hidden { display: none !important; }
 
   @media (max-width: 640px) {
@@ -203,6 +311,8 @@
     <div class="view-switch">
       <button class="active" data-view="timeline">时间线</button>
       <button data-view="lines">追踪线</button>
+      <button data-view="impact">利好利空</button>
+      <button data-view="members">成员名单</button>
     </div>
   </div>
   <div class="metrics" id="metrics"></div>
@@ -221,6 +331,45 @@
   <div id="lines-view" class="hidden">
     <div class="section-title">五条追踪线</div>
     <div class="lines" id="lines"></div>
+  </div>
+
+  <div id="impact-view" class="hidden">
+    <div class="impact-columns">
+      <div class="impact-col">
+        <div class="col-header bullish-header">
+          <span class="col-icon">↑</span>
+          <span>利好 BULLISH</span>
+        </div>
+        <div id="bullish-list"></div>
+      </div>
+      <div class="impact-col">
+        <div class="col-header bearish-header">
+          <span class="col-icon">↓</span>
+          <span>利空 BEARISH</span>
+        </div>
+        <div id="bearish-list"></div>
+      </div>
+    </div>
+    <div class="watch-section">
+      <div class="section-title">持续观察</div>
+      <div id="watch-list"></div>
+    </div>
+  </div>
+
+  <div id="members-view" class="hidden">
+    <div class="section-title">Project Glasswing 成员名单</div>
+    <div class="members-box">
+      <div class="members-subtitle">创始成员 · <span id="founding-count"></span> 家</div>
+      <div class="members-grid" id="founding-members"></div>
+    </div>
+    <div class="members-box excluded">
+      <div class="members-subtitle">值得关注的被排除方</div>
+      <div class="members-grid" id="excluded-members"></div>
+    </div>
+    <div class="members-box">
+      <div class="members-subtitle">成员变动历史</div>
+      <div id="members-history"></div>
+    </div>
   </div>
 </div>
 
@@ -328,14 +477,73 @@ function renderLines(lines) {
   });
 }
 
+function renderImpact(impact) {
+  const b = impact || {};
+  const bullEl = document.getElementById('bullish-list');
+  const bearEl = document.getElementById('bearish-list');
+  const watchEl = document.getElementById('watch-list');
+
+  const renderCard = (item) => `
+    <div class="impact-card">
+      <div class="impact-target">
+        <span>${escapeHtml(item.target)}</span>
+        ${item.category ? `<span class="impact-category">${escapeHtml(item.category)}</span>` : ''}
+        ${item.confidence ? `<span class="impact-confidence conf-${escapeHtml(item.confidence)}">置信度 ${escapeHtml(item.confidence)}</span>` : ''}
+      </div>
+      <div class="impact-logic">${escapeHtml(item.logic || '')}</div>
+      ${item.signals && item.signals.length ? `
+        <div class="impact-signals"><strong>关注信号：</strong>${item.signals.map(s => `<span>${escapeHtml(s)}</span>`).join('')}</div>
+      ` : ''}
+    </div>
+  `;
+
+  bullEl.innerHTML = (b.bullish || []).map(renderCard).join('') || '<div class="impact-card">暂无数据</div>';
+  bearEl.innerHTML = (b.bearish || []).map(renderCard).join('') || '<div class="impact-card">暂无数据</div>';
+
+  watchEl.innerHTML = (b.watch || []).map(w => `
+    <div class="watch-card">
+      <div class="watch-target">${escapeHtml(w.target)}</div>
+      <div class="watch-logic">${escapeHtml(w.logic)}</div>
+      ${w.trigger ? `<span class="watch-trigger">${escapeHtml(w.trigger)}</span>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderMembers(members) {
+  const m = members || {};
+  const founding = m.founding || [];
+  const excluded = m.excluded_notable || [];
+  const history = m.history || [];
+
+  document.getElementById('founding-count').textContent = founding.length;
+  document.getElementById('founding-members').innerHTML =
+    founding.map(n => `<span class="member-chip">${escapeHtml(n)}</span>`).join('');
+  document.getElementById('excluded-members').innerHTML =
+    excluded.map(n => `<span class="member-chip">${escapeHtml(n)}</span>`).join('') || '<span style="font-size:12px;color:#94a3b8">无</span>';
+  document.getElementById('members-history').innerHTML =
+    history.map(h => `
+      <div class="history-entry">
+        <span class="history-date">${escapeHtml(h.date)}</span>
+        ${escapeHtml(h.note || ('新增 ' + (h.added || []).length + ' 家: ' + (h.added || []).join(', ')))}
+      </div>
+    `).join('');
+}
+
 // View switch
+const VIEW_IDS = {
+  timeline: 'timeline-view',
+  lines: 'lines-view',
+  impact: 'impact-view',
+  members: 'members-view',
+};
 document.querySelectorAll('.view-switch button').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.view-switch button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const view = btn.dataset.view;
-    document.getElementById('timeline-view').classList.toggle('hidden', view !== 'timeline');
-    document.getElementById('lines-view').classList.toggle('hidden', view !== 'lines');
+    Object.entries(VIEW_IDS).forEach(([k, id]) => {
+      document.getElementById(id).classList.toggle('hidden', k !== view);
+    });
   });
 });
 
@@ -348,6 +556,8 @@ document.querySelectorAll('.view-switch button').forEach(btn => {
     renderTimeline(data.timeline || []);
     renderPending(data.pending || []);
     renderLines(data.tracking_lines || []);
+    renderImpact(data.impact_analysis || {});
+    renderMembers(data.members || {});
   } catch (e) {
     document.getElementById('timeline').innerHTML =
       '<div style="color:#dc2626; padding:20px;">数据加载失败: ' + escapeHtml(String(e)) + '</div>';

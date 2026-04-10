@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mythos / Project Glasswing 追踪 · 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: #eef4fa;
+    color: #1e293b;
+    font-family: 'IBM Plex Sans', 'Noto Sans SC', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .back-link {
+    position: fixed; top: 20px; left: 20px; z-index: 100;
+    font-size: 12px; color: #64748b; text-decoration: none;
+    padding: 6px 14px; border-radius: 8px;
+    background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.08); transition: all 0.2s;
+  }
+  .back-link:hover { color: #3b82f6; border-color: rgba(59,130,246,0.3); }
+
+  .header {
+    padding: 72px 32px 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .header-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.2em;
+    color: #64748b; text-transform: uppercase; margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 28px; font-weight: 700; margin: 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .tagline {
+    font-size: 13px; color: #64748b; margin-top: 6px; max-width: 600px;
+  }
+  .view-switch {
+    display: flex; gap: 4px;
+    background: rgba(0,0,0,0.03); border-radius: 8px; padding: 3px;
+  }
+  .view-switch button {
+    padding: 6px 16px; font-size: 12px;
+    border: none; border-radius: 6px; cursor: pointer;
+    background: transparent; color: #6b7280; font-weight: 400;
+    transition: all 0.2s;
+  }
+  .view-switch button.active {
+    background: rgba(59,130,246,0.2); color: #3b82f6; font-weight: 600;
+  }
+
+  .metrics {
+    display: flex; gap: 24px; margin-top: 20px;
+    flex-wrap: wrap; max-width: 1200px; margin-left: auto; margin-right: auto;
+    padding-top: 20px;
+  }
+  .metric { min-width: 100px; }
+  .metric-label { font-size: 11px; color: #64748b; }
+  .metric-value {
+    font-size: 20px; font-weight: 700; color: #1e293b; letter-spacing: -0.02em;
+  }
+  .metric-sub { font-size: 10px; color: #94a3b8; }
+
+  .content {
+    padding: 24px 32px 100px; max-width: 1200px; margin: 0 auto;
+  }
+  .section-title {
+    font-size: 12px; color: #64748b; margin-bottom: 16px; font-weight: 500;
+  }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 7px; top: 8px; bottom: 8px; width: 1px;
+    background: linear-gradient(to bottom, rgba(59,130,246,0.4), rgba(59,130,246,0.05));
+  }
+  .event { position: relative; margin-bottom: 20px; padding-bottom: 20px; }
+  .event:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .event-dot {
+    position: absolute; left: -20px; top: 6px;
+    width: 9px; height: 9px; border-radius: 50%;
+  }
+  .event-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .event-date {
+    font-size: 12px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;
+  }
+  .event-tag, .event-impact {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600;
+  }
+  .event-title {
+    font-size: 15px; font-weight: 600; margin-bottom: 6px;
+  }
+  .event-detail {
+    font-size: 13px; color: #475569; line-height: 1.6; max-width: 700px;
+  }
+  .event-sources {
+    font-size: 10px; color: #94a3b8; margin-top: 6px; display: flex; gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Pending */
+  .pending {
+    margin-top: 32px; padding: 20px; border-radius: 10px;
+    border: 1px dashed rgba(59,130,246,0.2);
+    background: rgba(59,130,246,0.03);
+  }
+  .pending-title {
+    font-size: 12px; font-weight: 600; color: #3b82f6; margin-bottom: 10px;
+  }
+  .pending-item {
+    font-size: 13px; color: #64748b; line-height: 1.8;
+    display: flex; gap: 8px;
+  }
+  .pending-item::before { content: '◇'; color: #3b82f6; }
+
+  /* Tracking Lines */
+  .lines { display: flex; flex-direction: column; gap: 12px; }
+  .line-card {
+    border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.02); padding: 16px 20px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .line-card.open {
+    border-color: rgba(59,130,246,0.3);
+    background: rgba(59,130,246,0.04);
+  }
+  .line-head {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .line-head-left {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .line-icon { font-size: 20px; }
+  .line-name { font-size: 15px; font-weight: 600; }
+  .line-status {
+    font-size: 10px; padding: 2px 10px; border-radius: 10px; font-weight: 600;
+  }
+  .line-arrow {
+    font-size: 14px; color: #64748b; transition: transform 0.2s;
+  }
+  .line-card.open .line-arrow { transform: rotate(180deg); }
+  .line-body { margin-top: 14px; display: none; }
+  .line-card.open .line-body { display: block; }
+  .line-desc {
+    font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 14px;
+  }
+  .signals-title {
+    font-size: 12px; font-weight: 600; color: #3b82f6; margin-bottom: 8px;
+  }
+  .signal {
+    font-size: 12px; color: #64748b; padding: 6px 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .signal:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .signal::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(59,130,246,0.3); flex-shrink: 0;
+  }
+
+  .watermark {
+    position: fixed; bottom: 12px; right: 20px;
+    font-size: 10px; color: rgba(0,0,0,0.15);
+    letter-spacing: 0.15em;
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 640px) {
+    .header { padding: 72px 20px 20px; }
+    .content { padding: 20px 20px 100px; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">← 返回</a>
+
+<div class="header">
+  <div class="header-row">
+    <div>
+      <div class="eyebrow">黑森船长 · 事件追踪</div>
+      <h1>MYTHOS / PROJECT GLASSWING</h1>
+      <p class="tagline">AI 前沿模型网安能力突破 → 金融系统性风险预警 → 行业重新定价</p>
+    </div>
+    <div class="view-switch">
+      <button class="active" data-view="timeline">时间线</button>
+      <button data-view="lines">追踪线</button>
+    </div>
+  </div>
+  <div class="metrics" id="metrics"></div>
+</div>
+
+<div class="content">
+  <div id="timeline-view">
+    <div class="section-title">事件时间线</div>
+    <div class="timeline" id="timeline"></div>
+    <div class="pending">
+      <div class="pending-title">待追踪事件</div>
+      <div id="pending"></div>
+    </div>
+  </div>
+
+  <div id="lines-view" class="hidden">
+    <div class="section-title">五条追踪线</div>
+    <div class="lines" id="lines"></div>
+  </div>
+</div>
+
+<div class="watermark">黑森船长 · 锚定确定性</div>
+
+<script>
+const IMPACT_COLORS = {
+  '重大': { bg: '#dc2626', text: '#fff' },
+  '市场': { bg: '#f59e0b', text: '#000' },
+  '信息': { bg: '#6b7280', text: '#fff' }
+};
+const TAG_COLORS = {
+  '泄露': '#3b82f6', '发布': '#34d399', '能力': '#f472b6',
+  '监管': '#fb923c', '市场': '#fbbf24', '政治': '#60a5fa'
+};
+const STATUS_MAP = {
+  'critical': { label: '紧急', color: '#ef4444' },
+  'active':   { label: '活跃', color: '#f59e0b' },
+  'watch':    { label: '观察', color: '#64748b' }
+};
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function renderMetrics(data) {
+  const el = document.getElementById('metrics');
+  const eventCount = data.timeline ? data.timeline.length : 0;
+  const metrics = [
+    { label: '事件总数', value: String(eventCount), sub: '已追踪事件' },
+    { label: 'Glasswing 成员', value: '12+40', sub: '家机构' },
+    { label: '零日漏洞', value: '数千', sub: '所有主流OS/浏览器' },
+    { label: '使用额度', value: '$100M', sub: 'Anthropic 承诺' },
+    { label: '定价', value: '$25/$125', sub: 'per M input/output' },
+    { label: '最后更新', value: data.last_updated || '—', sub: '自动跟踪' }
+  ];
+  el.innerHTML = metrics.map(m => `
+    <div class="metric">
+      <div class="metric-label">${escapeHtml(m.label)}</div>
+      <div class="metric-value">${escapeHtml(m.value)}</div>
+      <div class="metric-sub">${escapeHtml(m.sub)}</div>
+    </div>
+  `).join('');
+}
+
+function renderTimeline(timeline) {
+  const el = document.getElementById('timeline');
+  // 按日期降序
+  const sorted = [...timeline].sort((a, b) => b.date.localeCompare(a.date));
+  el.innerHTML = sorted.map(evt => {
+    const tagColor = TAG_COLORS[evt.tag] || '#6b7280';
+    const impact = IMPACT_COLORS[evt.impact] || IMPACT_COLORS['信息'];
+    const sources = (evt.sources || []).map(s => `<span>📎 ${escapeHtml(s)}</span>`).join('');
+    return `
+      <div class="event">
+        <div class="event-dot" style="background:${tagColor}; box-shadow:0 0 8px ${tagColor}44"></div>
+        <div class="event-header">
+          <span class="event-date">${escapeHtml(evt.date)}</span>
+          <span class="event-tag" style="background:${tagColor}22; color:${tagColor}">${escapeHtml(evt.tag)}</span>
+          <span class="event-impact" style="background:${impact.bg}; color:${impact.text}">${escapeHtml(evt.impact)}</span>
+        </div>
+        <div class="event-title">${escapeHtml(evt.title)}</div>
+        <div class="event-detail">${escapeHtml(evt.detail)}</div>
+        <div class="event-sources">${sources}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderPending(pending) {
+  const el = document.getElementById('pending');
+  el.innerHTML = (pending || []).map(item =>
+    `<div class="pending-item">${escapeHtml(item)}</div>`
+  ).join('');
+}
+
+function renderLines(lines) {
+  const el = document.getElementById('lines');
+  el.innerHTML = (lines || []).map(line => {
+    const st = STATUS_MAP[line.status] || STATUS_MAP['watch'];
+    const signals = (line.signals || []).map(s => `<div class="signal">${escapeHtml(s)}</div>`).join('');
+    return `
+      <div class="line-card" data-id="${escapeHtml(line.id)}">
+        <div class="line-head">
+          <div class="line-head-left">
+            <span class="line-icon">${escapeHtml(line.icon || '')}</span>
+            <span class="line-name">${escapeHtml(line.name)}</span>
+            <span class="line-status" style="background:${st.color}22; color:${st.color}">${st.label}</span>
+          </div>
+          <span class="line-arrow">▾</span>
+        </div>
+        <div class="line-body">
+          <div class="line-desc">${escapeHtml(line.desc)}</div>
+          <div class="signals-title">关键信号</div>
+          ${signals}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  el.querySelectorAll('.line-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('open'));
+  });
+}
+
+// View switch
+document.querySelectorAll('.view-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.view-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const view = btn.dataset.view;
+    document.getElementById('timeline-view').classList.toggle('hidden', view !== 'timeline');
+    document.getElementById('lines-view').classList.toggle('hidden', view !== 'lines');
+  });
+});
+
+// Load data
+(async function() {
+  try {
+    const resp = await fetch('data/mythos-timeline.json?t=' + Date.now());
+    const data = await resp.json();
+    renderMetrics(data);
+    renderTimeline(data.timeline || []);
+    renderPending(data.pending || []);
+    renderLines(data.tracking_lines || []);
+  } catch (e) {
+    document.getElementById('timeline').innerHTML =
+      '<div style="color:#dc2626; padding:20px;">数据加载失败: ' + escapeHtml(String(e)) + '</div>';
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+{
+  "last_updated": "2026-04-11",
+  "timeline": [
+    {
+      "date": "2026-03-26",
+      "tag": "泄露",
+      "title": "Fortune 曝光 Mythos 存在",
+      "detail": "Anthropic CMS 配置错误泄露近3000个文件，含 Mythos 草稿博客。模型内部代号 Capybara，定位高于 Opus 层级。",
+      "impact": "信息",
+      "sources": [
+        "Fortune"
+      ]
+    },
+    {
+      "date": "2026-04-07",
+      "tag": "发布",
+      "title": "Mythos Preview + Project Glasswing 正式发布",
+      "detail": "12家创始合作伙伴（AWS/Apple/Google/Microsoft/Nvidia/Broadcom/Cisco/CrowdStrike/JPMorgan/Linux Foundation/Palo Alto Networks）。Anthropic 承诺 $1亿使用额度。模型不公开发售。",
+      "impact": "重大",
+      "sources": [
+        "Anthropic Blog",
+        "CNN",
+        "TechCrunch"
+      ]
+    },
+    {
+      "date": "2026-04-07",
+      "tag": "能力",
+      "title": "零日漏洞发现能力曝光",
+      "detail": "数千个高危/严重零日漏洞，覆盖所有主流操作系统和浏览器。最老的是 OpenBSD 27年漏洞、FFmpeg 16年漏洞。89% 严重性评级获人工验证确认。SWE-bench 93.9%，USAMO 97.6%。",
+      "impact": "重大",
+      "sources": [
+        "Anthropic System Card",
+        "red.anthropic.com"
+      ]
+    },
+    {
+      "date": "2026-04-08",
+      "tag": "监管",
+      "title": "贝森特+鲍威尔紧急召集银行CEO会议",
+      "detail": "财政部总部闭门会议。Citi Jane Fraser、MS Ted Pick、BofA Brian Moynihan、Wells Fargo Charlie Scharf、GS David Solomon 出席。Jamie Dimon 缺席。",
+      "impact": "重大",
+      "sources": [
+        "Bloomberg"
+      ]
+    },
+    {
+      "date": "2026-04-09",
+      "tag": "市场",
+      "title": "网安股集体暴跌",
+      "detail": "Cloudflare -8.62%，CrowdStrike -7.46%。市场定价逻辑：是否进入 Glasswing = 是否经过压力测试。Cloudflare 被排除在外。",
+      "impact": "市场",
+      "sources": [
+        "TradingKey"
+      ]
+    },
+    {
+      "date": "2026-04-09",
+      "tag": "政治",
+      "title": "民主党议员施压贝森特",
+      "detail": "参议院财政委员会首席民主党人 Ron Wyden 要求贝森特说明财政部是否就 AI 网安风险+伊朗战争经济后果进行过规划。",
+      "impact": "信息",
+      "sources": [
+        "新浪财经"
+      ]
+    }
+  ],
+  "tracking_lines": [
+    {
+      "id": "fin-systemic",
+      "name": "金融系统性风险",
+      "icon": "🏦",
+      "status": "active",
+      "desc": "财政部+美联储联合召集银行CEO，规格对标2023硅谷银行危机。AI网安能力已被视为金融基础设施级别威胁。",
+      "signals": [
+        "银行是否公开披露 Mythos 相关防御措施",
+        "FSOC 是否将 AI 网安列为系统性风险",
+        "银行资本要求是否因此调整",
+        "Dimon 缺席后续是否有表态"
+      ]
+    },
+    {
+      "id": "oss-window",
+      "name": "开源模型追赶窗口",
+      "icon": "⏳",
+      "status": "critical",
+      "desc": "Anthropic 自认窗口期有限。当开源模型（Llama/DeepSeek）达到类似漏洞发现能力时，Glasswing 先修后公开策略失效。",
+      "signals": [
+        "Meta Llama 系列网安 benchmark 表现",
+        "DeepSeek 后续版本 coding 能力",
+        "开源社区是否复现零日发现能力",
+        "Anthropic 是否加速 safeguard 开发节奏"
+      ]
+    },
+    {
+      "id": "cybersec-repricing",
+      "name": "网安行业重新定价",
+      "icon": "📉",
+      "status": "active",
+      "desc": "Cloudflare 被排除在 Glasswing 外直接暴跌8.6%。市场新定价维度：防御能力是否经 Mythos 验证。",
+      "signals": [
+        "Glasswing 成员 vs 非成员股价分化",
+        "网安公司财报是否提及 AI 漏洞发现竞争",
+        "传统 SAST/DAST 厂商被替代风险",
+        "CrowdStrike 作为成员是否获得溢价"
+      ]
+    },
+    {
+      "id": "geopolitics",
+      "name": "地缘博弈 / 中国维度",
+      "icon": "🌏",
+      "status": "watch",
+      "desc": "Glasswing 全部美国企业+盟友体系，无中国实体。Anthropic 明确在美国国家安全框架下定位此项目。潘功胜同期会见达利欧。",
+      "signals": [
+        "中国是否推出对标防御计划",
+        "中国开源模型网安能力追赶速度",
+        "美国是否将 AI 网安能力纳入出口管制",
+        "中国关键基础设施是否为 Mythos 级攻击做准备"
+      ]
+    },
+    {
+      "id": "model-governance",
+      "name": "模型治理先例",
+      "icon": "⚖️",
+      "status": "watch",
+      "desc": "首次有前沿AI实验室宣布模型太危险不公开发售。是真正的安全考量还是定位策略？这个先例将影响所有后续前沿模型的发布方式。",
+      "signals": [
+        "其他实验室（OpenAI/Google/Meta）是否跟进限制发布",
+        "EU AI Act 对 Mythos 级模型的监管反应",
+        "Anthropic 后续 Opus 模型 safeguard 是否如期推出",
+        "公众/开发者社区对限制发布的接受度"
+      ]
+    }
+  ],
+  "pending": [
+    "Q1 财报季（下周开启）：银行是否在财报中披露 AI 网安防御投入",
+    "鲍威尔 5月卸任：网安议题是否移交新主席 Kevin Warsh",
+    "Anthropic 后续 Opus 模型：safeguard 是否如期推出",
+    "开源模型 coding benchmark 追赶情况（Meta Llama / DeepSeek 新版本）",
+    "EU AI Act 8月2日执行：对 Mythos 级模型的监管定义",
+    "中国应对措施：是否推出国家级 AI 网安防御计划"
+  ]
+}

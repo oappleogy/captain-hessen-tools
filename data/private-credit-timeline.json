@@ -1,0 +1,195 @@
+{
+  "last_updated": "2026-04-11",
+  "metrics": [
+    { "label": "私募信贷市场", "value": "$3.5T", "sub": "总规模" },
+    { "label": "SaaS 贷款敞口", "value": "$500B+", "sub": "BIS 2025年底" },
+    { "label": "困境贷款", "value": "$46.9B", "sub": "WSJ 2026初" },
+    { "label": "BDC 到期墙", "value": "$12.7B", "sub": "2026年到期，YoY +73%" },
+    { "label": "MS 违约率预测", "value": "8%", "sub": "UBS 激进 13%" },
+    { "label": "Blue Owl 跌幅", "value": "-68%", "sub": "从2025.1高点" }
+  ],
+  "chain": [
+    { "step": "① AI Agent 崛起", "desc": "Claude Code / Mythos / GPT-5.4 等 coding+reasoning 能力跨越阈值", "color": "#3b82f6" },
+    { "step": "② SaaS 估值崩塌", "desc": "IGV -30%，P/S 从 9x 压缩至 6x，IPO 窗口关闭", "color": "#6366f1" },
+    { "step": "③ 私募信贷暴露", "desc": "25-35% 敞口 SaaS，$500B+ 贷款，15% 借款人无法覆盖利息", "color": "#8b5cf6" },
+    { "step": "④ 赎回潮", "desc": "Blue Owl 40.7%，Ares 11.6%，Apollo 11.2%，全部 gate 5%", "color": "#a855f7" },
+    { "step": "⑤ 流动性挤兑", "desc": "被迫折价出售贷款组合，NAV markdown，BDC 股价暴跌", "color": "#c026d3" },
+    { "step": "⑥ 银行传染？", "desc": "银行 subscription line 敞口 $1.1T，40% 借款人负自由现金流", "color": "#dc2626" }
+  ],
+  "timeline": [
+    { "date": "2025-10", "tag": "触发", "title": "SaaS 股票暴跌 30%", "detail": "IGV 指数 Oct 2025 至 Feb 2026 下跌 30%+。Jefferies 命名 'SaaSpocalypse'。Figma IPO 后跌 80%，Navan 跌 60%。$285B 市值单日蒸发。", "impact": "重大", "sources": ["Jefferies", "Bloomberg"] },
+    { "date": "2026-02-01", "tag": "传导", "title": "私募信贷 SaaS 敞口曝光", "detail": "Bloomberg: 部分 SaaS 借款人被错误分类为零售商/食品商，真实敞口被低估。Morgan Stanley 估算私募信贷 SaaS 敞口约 26%。BIS 数据：SaaS 贷款从2015年 $8B 增至2025年底 $500B+。", "impact": "重大", "sources": ["Bloomberg", "Morgan Stanley", "BIS"] },
+    { "date": "2026-02-18", "tag": "预警", "title": "Bloomberg: AI 或触发软件债务奇点", "detail": "Paul Davies 专栏：投资者仍在追赶，私募信贷尚未充分评估 AI 暴露度。", "impact": "信息", "sources": ["Bloomberg"] },
+    { "date": "2026-02-26", "tag": "事件", "title": "Blue Owl OBDC II 永久关闭赎回", "detail": "OBDC II ($1.6B) 赎回请求暴增 200%，永久关闭赎回门。此后 OWL 股价连跌11天，从高点跌 68%。Saba Capital 成立专项基金以 NAV 65折收购。", "impact": "重大", "sources": ["Bloomberg", "Saba Capital"] },
+    { "date": "2026-03-16", "tag": "预测", "title": "Morgan Stanley: 违约率将升至 8%", "detail": "AI 持续颠覆软件行业+高杠杆+到期墙 → 违约率接近疫情期峰值。UBS 激进情景预测 13%。", "impact": "市场", "sources": ["Morgan Stanley", "UBS"] },
+    { "date": "2026-03-25", "tag": "事件", "title": "Ares 启动赎回上限", "detail": "赎回请求 11.6%，封顶 5%。Apollo 同期 11.2% 请求。'零损失幻想终结'。小型发行人违约率已达 10.9%。", "impact": "重大", "sources": ["Bloomberg", "Reuters"] },
+    { "date": "2026-04-02", "tag": "事件", "title": "Blue Owl 旗舰基金赎回请求 21.9%/40.7%", "detail": "OCIC $36B 旗舰：21.9% 赎回请求 (上季 5.2%)。OTIC $6.2B 科技基金：40.7% (上季 15.4%)。Q1 总请求 $5.4B。OWL 股价创历史新低 $7.95。", "impact": "重大", "sources": ["Blue Owl", "Bloomberg"] },
+    { "date": "2026-04-06", "tag": "分析", "title": "鲍威尔淡化系统性危机", "detail": "鲍威尔哈佛讲话：'这是市场调整…不具备演变为更广泛系统性风险事件的条件'。但 FSOC 已成立市场韧性工作组。", "impact": "信息", "sources": ["FED", "FSOC"] },
+    { "date": "2026-04-09", "tag": "叠加", "title": "Mythos 发布 + 软件股再度重挫", "detail": "AI agent 能力进一步证实 → SaaS 替代叙事强化。软件股集体重挫。私募信贷 SaaS 敞口压力叠加。", "impact": "重大", "sources": ["TradingKey"] }
+  ],
+  "redemption": [
+    { "name": "Blue Owl (OTIC)", "req": 40.7, "cap": 5, "focus": "科技/SaaS", "aum": "$6.2B", "status": "gated" },
+    { "name": "Blue Owl (OCIC)", "req": 21.9, "cap": 5, "focus": "综合信贷", "aum": "$36B", "status": "gated" },
+    { "name": "Ares (ASIF)", "req": 11.6, "cap": 5, "focus": "综合信贷", "aum": "$10.7B", "status": "gated" },
+    { "name": "Apollo (ADS)", "req": 11.2, "cap": 5, "focus": "综合信贷", "aum": "$15.1B", "status": "gated" },
+    { "name": "BlackRock-HPS", "req": 9.3, "cap": 5, "focus": "综合信贷", "aum": "-", "status": "gated" },
+    { "name": "Blackstone (BCRED)", "req": 8.0, "cap": 5, "focus": "综合信贷", "aum": "$82.5B", "status": "gated" }
+  ],
+  "tracking_lines": [
+    {
+      "id": "redemption",
+      "name": "赎回压力",
+      "icon": "🚪",
+      "status": "critical",
+      "desc": "Blue Owl 科技基金 40.7% 赎回请求为行业之最。亚洲家族办公室和机构投资者是主力。5% gate 意味着 $5.4B 请求中仅 ~$1.5B 可兑付。",
+      "signals": [
+        "Q2 赎回请求是否继续攀升",
+        "是否有基金被迫永久清算",
+        "gate 比例是否从 5% 进一步收紧",
+        "新资金流入是否持续放缓"
+      ]
+    },
+    {
+      "id": "default",
+      "name": "违约传导",
+      "icon": "💀",
+      "status": "active",
+      "desc": "小型发行人违约率已达 10.9%。IMF 数据：40% 私募信贷借款人负自由现金流。Medallia 等 SaaS 贷款已被 markdown。",
+      "signals": [
+        "Q1 财报季 BDC NAV markdown 幅度",
+        "Golub Capital 是否再次削减分红",
+        "PIK (实物支付) 利息选择频率",
+        "amend-and-pretend 操作规模"
+      ]
+    },
+    {
+      "id": "bank-contagion",
+      "name": "银行传染",
+      "icon": "🏦",
+      "status": "watch",
+      "desc": "银行通过 subscription line 向私募信贷基金提供 $1.1T 融资。如果基金被迫折价出售资产，银行面临抵押品贬值风险。FSOC 已成立工作组。",
+      "signals": [
+        "Fed 压力测试是否纳入 NBFI 传染情景",
+        "银行 subscription line drawdown rate",
+        "FSOC 工作组是否发布风险警告",
+        "鲍威尔 '非系统性' 判断是否改变"
+      ]
+    },
+    {
+      "id": "saas-ai",
+      "name": "SaaS × AI 颠覆",
+      "icon": "🤖",
+      "status": "critical",
+      "desc": "Mythos 发布进一步验证 AI agent 替代 SaaS 的叙事。Claude Code 已改变开发者工作流。软件股与私募信贷正在形成负反馈循环。",
+      "signals": [
+        "软件股 Q1 财报 ARR 增速变化",
+        "企业 IT 预算向 AI 倾斜幅度",
+        "更多 SaaS 企业 IPO 失败或撤回",
+        "AI agent 实际替代 SaaS 工具的案例数据"
+      ]
+    },
+    {
+      "id": "secondary",
+      "name": "二级市场出清",
+      "icon": "🔄",
+      "status": "active",
+      "desc": "2025年二级市场交易量 $240B（+48% YoY）。LP 被锁定 > 4年的公司超16,000家（52%）。均价 87% NAV，buyout 定价降 200bp 至 92%。",
+      "signals": [
+        "H1 2026 是否突破 $100B",
+        "折价幅度是否从 87% 继续恶化",
+        "vulture fund（如 Saba）规模扩张速度",
+        "GP-led continuation vehicle 是否加速"
+      ]
+    }
+  ],
+  "pending": [
+    "Q1 财报季：BDC NAV markdown 幅度",
+    "Blue Owl 是否出现继 OBDC II 之后的第二例永久 gate",
+    "FSOC 市场韧性工作组是否发布首份风险警告",
+    "Fed 5月FOMC 是否提及 NBFI 系统性风险",
+    "Golub Capital / Main Street / Ares BDC 是否削减分红",
+    "二级市场折价是否从 87% NAV 进一步下探",
+    "鲍威尔 5月卸任：Kevin Warsh 上任后对 NBFI 的表态"
+  ],
+  "impact_analysis": {
+    "bullish": [
+      {
+        "target": "Saba Capital / Vulture Fund 策略",
+        "category": "另类策略",
+        "logic": "NAV 65 折收购锁仓 LP 份额的专项基金正在规模化。Blue Owl OBDC II 案例验证了折价套利空间。",
+        "confidence": "高",
+        "signals": ["Saba 类基金募资节奏", "二级市场折价幅度"]
+      },
+      {
+        "target": "大型综合资管 (BLK / BX 核心业务)",
+        "category": "资管龙头",
+        "logic": "私募信贷出清过程中，受信托责任+规模优势保护的龙头相对受益。BLK 的 HPS 合资仍具谈判筹码。",
+        "confidence": "中",
+        "signals": ["BLK Q2 Alts 业务资金净流入", "BX BCRED 赎回请求比例"]
+      },
+      {
+        "target": "银行 (JPM / GS 高质量借贷账簿)",
+        "category": "银行",
+        "logic": "如果私募信贷出清逼迫 subscription line 收缩，传统银行贷款业务份额回流。高质量承销的大行相对受益。",
+        "confidence": "中",
+        "signals": ["Q1 财报 NBFI 敞口披露", "C&I 贷款环比增长"]
+      },
+      {
+        "target": "黄金 / 美债",
+        "category": "避险",
+        "logic": "若 FSOC 将 NBFI 升级为系统性风险信号，避险资金流入。现金+短债配置价值回归。",
+        "confidence": "低",
+        "signals": ["HY 信用利差扩张速度", "10Y 美债收益率"]
+      }
+    ],
+    "bearish": [
+      {
+        "target": "Blue Owl (OWL)",
+        "category": "私募信贷 BDC",
+        "logic": "OTIC 40.7% + OCIC 21.9% 赎回请求为行业之最。OBDC II 已永久 gate。股价从高点跌 68%，估值重构未完成。",
+        "confidence": "高",
+        "signals": ["Q2 赎回请求", "分红削减", "新募资净流入"]
+      },
+      {
+        "target": "Ares Capital / Apollo / Blackstone BDC",
+        "category": "私募信贷 BDC",
+        "logic": "11.2-11.6% 赎回请求已触发 5% gate。SaaS+科技敞口集中，Mythos 发布进一步强化替代叙事。",
+        "confidence": "高",
+        "signals": ["Q1 财报 NAV markdown", "PIK 利息占比变化"]
+      },
+      {
+        "target": "中小 SaaS 上市公司 / Pre-IPO",
+        "category": "软件股",
+        "logic": "Figma -80%、Navan -60% 之后，IPO 窗口基本关闭。ARR 增速放缓叠加 AI agent 替代压力，估值重心下移。",
+        "confidence": "高",
+        "signals": ["Q1 ARR YoY 增速", "企业 IT 预算 AI 分配比例"]
+      },
+      {
+        "target": "小型资管 / 独立 BDC",
+        "category": "长尾私募信贷",
+        "logic": "规模 <$5B 的独立 BDC 抗赎回能力最弱，负自由现金流借款人占比最高。潜在永久 gate 或清算风险。",
+        "confidence": "中",
+        "signals": ["Golub Capital 分红政策", "小型 BDC 季度流动性披露"]
+      },
+      {
+        "target": "银行 NBFI 敞口 (subscription line)",
+        "category": "银行",
+        "logic": "$1.1T subscription line 融资于出清周期面临抵押品贬值。若进入 drawdown，中型区域行最先承压。",
+        "confidence": "中",
+        "signals": ["Fed 压力测试 NBFI 情景", "区域行 CRE+NBFI 合并披露"]
+      }
+    ],
+    "watch": [
+      {
+        "target": "FSOC 市场韧性工作组",
+        "logic": "首份报告若将 NBFI 正式纳入系统性风险框架，将触发监管加码+风险溢价重估。",
+        "trigger": "工作组发布正式风险警告或框架文件"
+      },
+      {
+        "target": "鲍威尔 → Kevin Warsh 5月交接",
+        "logic": "新主席对 NBFI 和 AI 颠覆的态度将定义 2026 下半年货币政策与宏观审慎方向。",
+        "trigger": "Warsh 上任后首次公开讲话涉及私募信贷"
+      }
+    ]
+  }
+}

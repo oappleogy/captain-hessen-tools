@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>私募信贷 × SaaS 危机 追踪 · 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: #eef4fa;
+    color: #1e293b;
+    font-family: 'IBM Plex Sans', 'Noto Sans SC', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .back-link {
+    position: fixed; top: 20px; left: 20px; z-index: 100;
+    font-size: 12px; color: #64748b; text-decoration: none;
+    padding: 6px 14px; border-radius: 8px;
+    background: rgba(255,255,255,0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.08); transition: all 0.2s;
+  }
+  .back-link:hover { color: #7c3aed; border-color: rgba(124,58,237,0.3); }
+
+  .header {
+    padding: 72px 32px 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .header-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 20px; max-width: 1200px; margin: 0 auto;
+  }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.2em;
+    color: #64748b; text-transform: uppercase; margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 28px; font-weight: 700; margin: 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #1e293b 0%, #7c3aed 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .tagline { font-size: 13px; color: #64748b; margin-top: 6px; max-width: 620px; }
+  .view-switch {
+    display: flex; gap: 4px;
+    background: rgba(0,0,0,0.03); border-radius: 8px; padding: 3px;
+    flex-wrap: wrap;
+  }
+  .view-switch button {
+    padding: 6px 14px; font-size: 12px;
+    border: none; border-radius: 6px; cursor: pointer;
+    background: transparent; color: #6b7280; font-weight: 400;
+    transition: all 0.2s;
+  }
+  .view-switch button.active {
+    background: rgba(124,58,237,0.15); color: #7c3aed; font-weight: 600;
+  }
+
+  .metrics {
+    display: flex; gap: 24px; margin-top: 20px;
+    flex-wrap: wrap; max-width: 1200px; margin-left: auto; margin-right: auto;
+    padding-top: 20px;
+  }
+  .metric { min-width: 100px; }
+  .metric-label { font-size: 11px; color: #64748b; }
+  .metric-value { font-size: 20px; font-weight: 700; color: #1e293b; letter-spacing: -0.02em; }
+  .metric-sub { font-size: 10px; color: #94a3b8; }
+
+  .content { padding: 24px 32px 100px; max-width: 1200px; margin: 0 auto; }
+  .section-title { font-size: 12px; color: #64748b; margin-bottom: 16px; font-weight: 500; }
+
+  /* Chain */
+  .chain { display: flex; flex-direction: column; gap: 2px; }
+  .chain-row { display: flex; align-items: stretch; }
+  .chain-bar { width: 4px; border-radius: 2px; flex-shrink: 0; }
+  .chain-body { flex: 1; padding: 14px 18px; border-radius: 0 8px 8px 0; margin-left: 2px; }
+  .chain-step { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .chain-desc { font-size: 13px; color: #475569; line-height: 1.5; }
+  .chain-note {
+    margin-top: 24px; padding: 16px; border-radius: 8px;
+    background: rgba(220,38,38,0.04); border: 1px solid rgba(220,38,38,0.12);
+  }
+  .chain-note-title { font-size: 12px; font-weight: 600; color: #dc2626; margin-bottom: 6px; }
+  .chain-note-body { font-size: 13px; color: #475569; line-height: 1.7; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 7px; top: 8px; bottom: 8px; width: 1px;
+    background: linear-gradient(to bottom, rgba(124,58,237,0.4), rgba(124,58,237,0.05));
+  }
+  .event { position: relative; margin-bottom: 20px; padding-bottom: 20px; }
+  .event:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .event-dot { position: absolute; left: -20px; top: 6px; width: 9px; height: 9px; border-radius: 50%; }
+  .event-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .event-date { font-size: 12px; color: #94a3b8; font-family: 'JetBrains Mono', monospace; }
+  .event-tag, .event-impact { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .event-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .event-detail { font-size: 13px; color: #475569; line-height: 1.6; max-width: 700px; }
+  .event-sources { font-size: 10px; color: #94a3b8; margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* Pending */
+  .pending {
+    margin-top: 32px; padding: 20px; border-radius: 10px;
+    border: 1px dashed rgba(124,58,237,0.2);
+    background: rgba(124,58,237,0.03);
+  }
+  .pending-title { font-size: 12px; font-weight: 600; color: #7c3aed; margin-bottom: 10px; }
+  .pending-item { font-size: 13px; color: #64748b; line-height: 1.8; display: flex; gap: 8px; }
+  .pending-item::before { content: '◇'; color: #7c3aed; }
+
+  /* Redemption */
+  .redemption-list { display: flex; flex-direction: column; gap: 10px; }
+  .red-card {
+    padding: 14px 18px; border-radius: 8px;
+    background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.04);
+  }
+  .red-card.high { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.1); }
+  .red-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+  .red-name { font-size: 14px; font-weight: 600; }
+  .red-focus { font-size: 11px; color: #64748b; margin-left: 10px; }
+  .red-gate-badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600;
+    background: rgba(220,38,38,0.08); color: #dc2626;
+  }
+  .red-bar-wrap {
+    position: relative; height: 24px; background: rgba(0,0,0,0.04);
+    border-radius: 4px; overflow: hidden;
+  }
+  .red-bar {
+    position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px;
+    opacity: 0.75;
+  }
+  .red-bar.high { background: linear-gradient(90deg, #ef4444, #dc2626); }
+  .red-bar.mid  { background: linear-gradient(90deg, #f59e0b, #d97706); }
+  .red-cap-line {
+    position: absolute; top: 0; bottom: 0; width: 2px; background: #1e293b; z-index: 2;
+  }
+  .red-value {
+    position: absolute; right: 8px; top: 0; bottom: 0;
+    display: flex; align-items: center; font-size: 13px; font-weight: 700;
+    z-index: 3;
+  }
+  .red-footnote { font-size: 10px; color: #94a3b8; margin-top: 4px; }
+
+  /* Tracking Lines */
+  .lines { display: flex; flex-direction: column; gap: 12px; }
+  .line-card {
+    border-radius: 10px; border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(0,0,0,0.02); padding: 16px 20px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .line-card.open {
+    border-color: rgba(124,58,237,0.3);
+    background: rgba(124,58,237,0.04);
+  }
+  .line-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .line-head-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .line-icon { font-size: 20px; }
+  .line-name { font-size: 15px; font-weight: 600; }
+  .line-status { font-size: 10px; padding: 2px 10px; border-radius: 10px; font-weight: 600; }
+  .line-arrow { font-size: 14px; color: #64748b; transition: transform 0.2s; }
+  .line-card.open .line-arrow { transform: rotate(180deg); }
+  .line-body { margin-top: 14px; display: none; }
+  .line-card.open .line-body { display: block; }
+  .line-desc { font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 14px; }
+  .signals-title { font-size: 12px; font-weight: 600; color: #7c3aed; margin-bottom: 8px; }
+  .signal { font-size: 12px; color: #64748b; padding: 6px 0; display: flex; align-items: center; gap: 8px; }
+  .signal:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .signal::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(124,58,237,0.3); flex-shrink: 0;
+  }
+
+  /* Impact view */
+  .impact-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+  @media (max-width: 720px) { .impact-columns { grid-template-columns: 1fr; } }
+  .col-header {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+    padding: 12px 16px; border-radius: 10px 10px 0 0; margin-bottom: 0;
+  }
+  .bullish-header {
+    background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+    color: #059669; border: 1px solid rgba(16,185,129,0.2); border-bottom: none;
+  }
+  .bearish-header {
+    background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05));
+    color: #dc2626; border: 1px solid rgba(239,68,68,0.2); border-bottom: none;
+  }
+  .col-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: currentColor; color: white; font-size: 13px; font-weight: 700;
+  }
+  .impact-card {
+    background: white; border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 0; padding: 14px 16px; border-top: none;
+  }
+  .impact-card:last-child { border-radius: 0 0 10px 10px; }
+  .impact-card + .impact-card { border-top: 1px solid rgba(0,0,0,0.04); }
+  .impact-target {
+    font-size: 14px; font-weight: 600; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .impact-category {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px;
+    background: rgba(0,0,0,0.05); color: #64748b; font-weight: 500;
+  }
+  .impact-confidence { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .conf-高 { background: rgba(124,58,237,0.15); color: #7c3aed; }
+  .conf-中 { background: rgba(245,158,11,0.15); color: #d97706; }
+  .conf-低 { background: rgba(107,114,128,0.15); color: #6b7280; }
+  .impact-logic { font-size: 12px; color: #475569; line-height: 1.6; margin: 6px 0 8px; }
+  .impact-signals { font-size: 11px; color: #64748b; line-height: 1.6; }
+  .impact-signals strong { color: #7c3aed; font-weight: 600; }
+  .impact-signals span { display: inline-block; margin-right: 10px; }
+  .impact-signals span::before { content: '◦ '; color: #94a3b8; }
+
+  .watch-section { margin-top: 32px; }
+  .watch-card {
+    background: rgba(124,58,237,0.04);
+    border: 1px dashed rgba(124,58,237,0.25);
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 10px;
+  }
+  .watch-target { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .watch-logic { font-size: 12px; color: #64748b; line-height: 1.6; margin-bottom: 6px; }
+  .watch-trigger {
+    font-size: 11px; color: #7c3aed;
+    padding: 4px 10px; background: rgba(124,58,237,0.08); border-radius: 6px;
+    display: inline-block;
+  }
+  .watch-trigger::before { content: '触发条件: '; color: #94a3b8; }
+
+  .watermark {
+    position: fixed; bottom: 12px; right: 20px;
+    font-size: 10px; color: rgba(0,0,0,0.15); letter-spacing: 0.15em;
+  }
+  .hidden { display: none !important; }
+  @media (max-width: 640px) {
+    .header { padding: 72px 20px 20px; }
+    .content { padding: 20px 20px 100px; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">← 返回</a>
+
+<div class="header">
+  <div class="header-row">
+    <div>
+      <div class="eyebrow">黑森船长 · 事件追踪</div>
+      <h1>私募信贷 × SaaS 危机</h1>
+      <p class="tagline">AI Agent 颠覆 SaaS → 私募信贷 $500B+ 敞口暴露 → 赎回挤兑 → 银行传染链条</p>
+    </div>
+    <div class="view-switch">
+      <button class="active" data-view="chain">因果链</button>
+      <button data-view="timeline">时间线</button>
+      <button data-view="redemption">赎回</button>
+      <button data-view="lines">追踪线</button>
+      <button data-view="impact">利好利空</button>
+    </div>
+  </div>
+  <div class="metrics" id="metrics"></div>
+</div>
+
+<div class="content">
+  <div id="chain-view">
+    <div class="section-title">因果传导链</div>
+    <div class="chain" id="chain"></div>
+    <div class="chain-note">
+      <div class="chain-note-title">核心判断</div>
+      <div class="chain-note-body">
+        鲍威尔 4/6 判断"非系统性"。但 IMF 数据显示 40% 私募信贷借款人负自由现金流，银行通过 subscription line 向基金提供 $1.1T 融资。
+        这不是 2008（不是存款机构），但可能是 "慢动作出清"——逐笔贷款、逐个 markdown、逐家基金。不会上 CNN 头条，但会重塑整个行业。
+      </div>
+    </div>
+  </div>
+
+  <div id="timeline-view" class="hidden">
+    <div class="section-title">事件时间线</div>
+    <div class="timeline" id="timeline"></div>
+    <div class="pending">
+      <div class="pending-title">待追踪事件</div>
+      <div id="pending"></div>
+    </div>
+  </div>
+
+  <div id="redemption-view" class="hidden">
+    <div class="section-title">Q1 2026 赎回请求 vs 实际上限 (%)</div>
+    <div class="redemption-list" id="redemption"></div>
+  </div>
+
+  <div id="lines-view" class="hidden">
+    <div class="section-title">五条追踪线</div>
+    <div class="lines" id="lines"></div>
+  </div>
+
+  <div id="impact-view" class="hidden">
+    <div class="impact-columns">
+      <div class="impact-col">
+        <div class="col-header bullish-header">
+          <span class="col-icon">↑</span><span>利好 BULLISH</span>
+        </div>
+        <div id="bullish-list"></div>
+      </div>
+      <div class="impact-col">
+        <div class="col-header bearish-header">
+          <span class="col-icon">↓</span><span>利空 BEARISH</span>
+        </div>
+        <div id="bearish-list"></div>
+      </div>
+    </div>
+    <div class="watch-section">
+      <div class="section-title">持续观察</div>
+      <div id="watch-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="watermark">黑森船长 · 锚定确定性</div>
+
+<script>
+const IMPACT_COLORS = {
+  '重大': { bg: '#dc2626', text: '#fff' },
+  '市场': { bg: '#f59e0b', text: '#000' },
+  '信息': { bg: '#6b7280', text: '#fff' }
+};
+const TAG_COLORS = {
+  '触发': '#3b82f6', '传导': '#6366f1', '预警': '#f59e0b',
+  '事件': '#ef4444', '预测': '#8b5cf6', '分析': '#64748b', '叠加': '#dc2626'
+};
+const STATUS_MAP = {
+  'critical': { label: '紧急', color: '#ef4444' },
+  'active':   { label: '活跃', color: '#f59e0b' },
+  'watch':    { label: '观察', color: '#64748b' }
+};
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function renderMetrics(metrics, lastUpdated) {
+  const el = document.getElementById('metrics');
+  const list = (metrics || []).concat([
+    { label: '最后更新', value: lastUpdated || '—', sub: '自动跟踪' }
+  ]);
+  el.innerHTML = list.map(m => `
+    <div class="metric">
+      <div class="metric-label">${escapeHtml(m.label)}</div>
+      <div class="metric-value">${escapeHtml(m.value)}</div>
+      <div class="metric-sub">${escapeHtml(m.sub)}</div>
+    </div>
+  `).join('');
+}
+
+function renderChain(chain) {
+  const el = document.getElementById('chain');
+  el.innerHTML = (chain || []).map(c => `
+    <div class="chain-row">
+      <div class="chain-bar" style="background:${c.color}"></div>
+      <div class="chain-body" style="background:${c.color}0d">
+        <div class="chain-step" style="color:${c.color}">${escapeHtml(c.step)}</div>
+        <div class="chain-desc">${escapeHtml(c.desc)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTimeline(timeline) {
+  const el = document.getElementById('timeline');
+  const sorted = [...timeline].sort((a, b) => b.date.localeCompare(a.date));
+  el.innerHTML = sorted.map(evt => {
+    const tagColor = TAG_COLORS[evt.tag] || '#6b7280';
+    const impact = IMPACT_COLORS[evt.impact] || IMPACT_COLORS['信息'];
+    const sources = (evt.sources || []).map(s => `<span>📎 ${escapeHtml(s)}</span>`).join('');
+    return `
+      <div class="event">
+        <div class="event-dot" style="background:${tagColor}; box-shadow:0 0 8px ${tagColor}44"></div>
+        <div class="event-header">
+          <span class="event-date">${escapeHtml(evt.date)}</span>
+          <span class="event-tag" style="background:${tagColor}22; color:${tagColor}">${escapeHtml(evt.tag)}</span>
+          <span class="event-impact" style="background:${impact.bg}; color:${impact.text}">${escapeHtml(evt.impact)}</span>
+        </div>
+        <div class="event-title">${escapeHtml(evt.title)}</div>
+        <div class="event-detail">${escapeHtml(evt.detail)}</div>
+        <div class="event-sources">${sources}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderPending(pending) {
+  const el = document.getElementById('pending');
+  el.innerHTML = (pending || []).map(item =>
+    `<div class="pending-item">${escapeHtml(item)}</div>`
+  ).join('');
+}
+
+function renderRedemption(data) {
+  const el = document.getElementById('redemption');
+  const list = data || [];
+  if (!list.length) { el.innerHTML = ''; return; }
+  const maxReq = Math.max(...list.map(d => d.req));
+  el.innerHTML = list.map(d => {
+    const high = d.req > 20;
+    const fillPct = (d.req / maxReq) * 100;
+    const capPct = (d.cap / maxReq) * 100;
+    const capPayout = (d.cap / d.req * 100).toFixed(0);
+    return `
+      <div class="red-card ${high ? 'high' : ''}">
+        <div class="red-head">
+          <div>
+            <span class="red-name">${escapeHtml(d.name)}</span>
+            <span class="red-focus">${escapeHtml(d.focus)} · AUM ${escapeHtml(d.aum)}</span>
+          </div>
+          <div class="red-gate-badge">GATED</div>
+        </div>
+        <div class="red-bar-wrap">
+          <div class="red-bar ${high ? 'high' : 'mid'}" style="width:${fillPct}%"></div>
+          <div class="red-cap-line" style="left:${capPct}%"></div>
+          <div class="red-value" style="color:${high ? '#dc2626' : '#d97706'}">${d.req}%</div>
+        </div>
+        <div class="red-footnote">黑线 = 5% 赎回上限 · 实际兑付率仅为请求的 ${capPayout}%</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderLines(lines) {
+  const el = document.getElementById('lines');
+  el.innerHTML = (lines || []).map(line => {
+    const st = STATUS_MAP[line.status] || STATUS_MAP['watch'];
+    const signals = (line.signals || []).map(s => `<div class="signal">${escapeHtml(s)}</div>`).join('');
+    return `
+      <div class="line-card" data-id="${escapeHtml(line.id)}">
+        <div class="line-head">
+          <div class="line-head-left">
+            <span class="line-icon">${escapeHtml(line.icon || '')}</span>
+            <span class="line-name">${escapeHtml(line.name)}</span>
+            <span class="line-status" style="background:${st.color}22; color:${st.color}">${st.label}</span>
+          </div>
+          <span class="line-arrow">▾</span>
+        </div>
+        <div class="line-body">
+          <div class="line-desc">${escapeHtml(line.desc)}</div>
+          <div class="signals-title">关键信号</div>
+          ${signals}
+        </div>
+      </div>
+    `;
+  }).join('');
+  el.querySelectorAll('.line-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('open'));
+  });
+}
+
+function renderImpact(impact) {
+  const b = impact || {};
+  const renderCard = (item) => `
+    <div class="impact-card">
+      <div class="impact-target">
+        <span>${escapeHtml(item.target)}</span>
+        ${item.category ? `<span class="impact-category">${escapeHtml(item.category)}</span>` : ''}
+        ${item.confidence ? `<span class="impact-confidence conf-${escapeHtml(item.confidence)}">置信度 ${escapeHtml(item.confidence)}</span>` : ''}
+      </div>
+      <div class="impact-logic">${escapeHtml(item.logic || '')}</div>
+      ${item.signals && item.signals.length ? `
+        <div class="impact-signals"><strong>关注信号：</strong>${item.signals.map(s => `<span>${escapeHtml(s)}</span>`).join('')}</div>
+      ` : ''}
+    </div>
+  `;
+  document.getElementById('bullish-list').innerHTML =
+    (b.bullish || []).map(renderCard).join('') || '<div class="impact-card">暂无数据</div>';
+  document.getElementById('bearish-list').innerHTML =
+    (b.bearish || []).map(renderCard).join('') || '<div class="impact-card">暂无数据</div>';
+  document.getElementById('watch-list').innerHTML = (b.watch || []).map(w => `
+    <div class="watch-card">
+      <div class="watch-target">${escapeHtml(w.target)}</div>
+      <div class="watch-logic">${escapeHtml(w.logic)}</div>
+      ${w.trigger ? `<span class="watch-trigger">${escapeHtml(w.trigger)}</span>` : ''}
+    </div>
+  `).join('');
+}
+
+const VIEW_IDS = {
+  chain: 'chain-view',
+  timeline: 'timeline-view',
+  redemption: 'redemption-view',
+  lines: 'lines-view',
+  impact: 'impact-view',
+};
+document.querySelectorAll('.view-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.view-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const view = btn.dataset.view;
+    Object.entries(VIEW_IDS).forEach(([k, id]) => {
+      document.getElementById(id).classList.toggle('hidden', k !== view);
+    });
+  });
+});
+
+(async function() {
+  try {
+    const resp = await fetch('data/private-credit-timeline.json?t=' + Date.now());
+    const data = await resp.json();
+    renderMetrics(data.metrics || [], data.last_updated);
+    renderChain(data.chain || []);
+    renderTimeline(data.timeline || []);
+    renderPending(data.pending || []);
+    renderRedemption(data.redemption || []);
+    renderLines(data.tracking_lines || []);
+    renderImpact(data.impact_analysis || {});
+  } catch (e) {
+    document.getElementById('chain').innerHTML =
+      '<div style="color:#dc2626; padding:20px;">数据加载失败: ' + escapeHtml(String(e)) + '</div>';
+  }
+})();
+</script>
+
+</body>
+</html>

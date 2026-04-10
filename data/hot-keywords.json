@@ -1,30 +1,31 @@
 {
-  "last_updated": "2026-04-11 02:11",
+  "last_updated": "2026-04-11 02:25",
   "date": "2026-04-11",
   "source_counts": {
-    "baidu": 0,
-    "weibo": 25,
-    "google_news": 25
+    "wallstreetcn": 25,
+    "cls": 20,
+    "google_news": 25,
+    "weibo": 20
   },
   "keywords": [
     {
-      "keyword": "伊朗战争局势升级",
+      "keyword": "霍尔木兹海峡关闭",
       "heat": 95,
       "category": "geo",
-      "summary": "伊朗与以色列冲突加剧，地区局势紧张影响全球市场",
+      "summary": "伊朗因以色列袭击黎巴嫩关闭霍尔木兹海峡，航运受阻。",
       "sources": [
-        "Google News / WSJ",
-        "Google News / AP News"
+        "华尔街见闻",
+        "财联社"
       ]
     },
     {
-      "keyword": "美国通胀压力上升",
+      "keyword": "美伊谈判",
       "heat": 90,
-      "category": "macro",
-      "summary": "汽油价格飙升推动3月美国消费者通胀创新高",
+      "category": "geo",
+      "summary": "美国与伊朗将在巴基斯坦举行谈判，寻求解决中东危机。",
       "sources": [
-        "Google News / Reuters",
-        "Google News / CNN"
+        "华尔街见闻",
+        "财联社"
       ],
       "tool": {
         "href": "america-dashboard.html",
@@ -32,21 +33,32 @@
       }
     },
     {
-      "keyword": "欧洲航空燃油短缺",
+      "keyword": "软件股持续下跌",
       "heat": 85,
-      "category": "industry",
-      "summary": "欧洲机场面临三周内航空燃油短缺风险",
+      "category": "ai-tech",
+      "summary": "AI模型颠覆性影响引发担忧，软件股连续下跌。",
       "sources": [
-        "Google News / Financial Times"
+        "华尔街见闻"
       ]
     },
     {
-      "keyword": "NATO存续危机",
+      "keyword": "中东局势升级",
       "heat": 80,
       "category": "geo",
-      "summary": "特朗普若当选美国总统，NATO可能面临解体风险",
+      "summary": "黎巴嫩遭以色列空袭，伊朗警告将强力回应，局势紧张。",
       "sources": [
-        "Google News / Al Jazeera"
+        "华尔街见闻",
+        "财联社"
+      ]
+    },
+    {
+      "keyword": "特朗普对伊朗强硬表态",
+      "heat": 75,
+      "category": "geo",
+      "summary": "特朗普称若谈判失败，美国将恢复对伊朗的军事行动。",
+      "sources": [
+        "华尔街见闻",
+        "财联社"
       ],
       "tool": {
         "href": "america-dashboard.html",
@@ -54,34 +66,22 @@
       }
     },
     {
-      "keyword": "美国AI监管加强",
-      "heat": 75,
-      "category": "ai-tech",
-      "summary": "美国银行高管因Anthropic AI模型风险被召见",
-      "sources": [
-        "Google News / The Guardian"
-      ],
-      "tool": {
-        "href": "mythos-tracker.html",
-        "label": "Mythos 追踪"
-      }
-    },
-    {
-      "keyword": "中国海水制氢技术突破",
+      "keyword": "全球能源互联网倡议",
       "heat": 70,
       "category": "industry",
-      "summary": "中国在海水直接制氢领域取得研究新进展",
+      "summary": "合作组织发起全球能源互联网倡议，推动能源转型应对气候变化。",
       "sources": [
-        "微博热搜"
+        "华尔街见闻"
       ]
     },
     {
-      "keyword": "欧洲Linux替代Windows",
+      "keyword": "美国预算赤字扩大",
       "heat": 65,
-      "category": "ai-tech",
-      "summary": "法国计划用Linux取代Windows以减少对美国技术依赖",
+      "category": "macro",
+      "summary": "美国3月预算赤字超预期，达到1641亿美元。",
       "sources": [
-        "Google News / TechCrunch"
+        "华尔街见闻",
+        "财联社"
       ],
       "tool": {
         "href": "america-dashboard.html",
@@ -89,48 +89,64 @@
       }
     },
     {
-      "keyword": "PC行业困境",
+      "keyword": "国际铜价上涨",
       "heat": 60,
       "category": "industry",
-      "summary": "PC行业面临严重困境，Framework CEO称行业在呼吁'拥有更少'",
+      "summary": "国际铜价上涨1.20%，受中东局势和需求预期影响。",
       "sources": [
-        "Google News / Gizmodo"
+        "华尔街见闻",
+        "财联社"
       ]
     },
     {
-      "keyword": "Gmail端到端加密",
+      "keyword": "Suzano警告纸制品涨价",
       "heat": 55,
-      "category": "ai-tech",
-      "summary": "谷歌在移动设备上推出Gmail端到端加密功能",
-      "sources": [
-        "Google News / BleepingComputer"
-      ]
-    },
-    {
-      "keyword": "英国Bafta种族歧视争议",
-      "heat": 50,
       "category": "industry",
-      "summary": "Bafta因种族歧视事件被指未尽到照顾责任",
+      "summary": "Suzano称美伊战争将推高纸制品价格，影响全球供应链。",
       "sources": [
-        "Google News / BBC"
+        "华尔街见闻"
       ]
     },
     {
-      "keyword": "匈牙利大选结果",
+      "keyword": "西班牙呼吁暂停与以色列协定",
+      "heat": 50,
+      "category": "geo",
+      "summary": "西班牙敦促欧盟成员国暂停与以色列的联系国协定，回应中东局势。",
+      "sources": [
+        "财联社"
+      ]
+    },
+    {
+      "keyword": "美联储逆回购规模",
       "heat": 45,
-      "category": "geo",
-      "summary": "匈牙利大选结果引发关注，选举结果可能影响欧盟政策",
+      "category": "finance",
+      "summary": "美联储逆回购规模小幅上升至5.07亿美元。",
       "sources": [
-        "Google News / Euronews.com"
+        "华尔街见闻",
+        "财联社"
+      ],
+      "tool": {
+        "href": "america-dashboard.html",
+        "label": "美国仪表盘"
+      }
+    },
+    {
+      "keyword": "京东获Burry增持",
+      "heat": 40,
+      "category": "finance",
+      "summary": "知名投资人Burry增持京东和阿里巴巴股票，称其估值吸引。",
+      "sources": [
+        "华尔街见闻"
       ]
     },
     {
-      "keyword": "美国选举邮件投票争议",
-      "heat": 40,
+      "keyword": "黎巴嫩人道主义危机",
+      "heat": 35,
       "category": "geo",
-      "summary": "特朗普对邮件投票的攻击引发美国选举制度担忧",
+      "summary": "约旦与美国讨论黎巴嫩停火及人道主义援助问题。",
       "sources": [
-        "Google News / The New York Times"
+        "华尔街见闻",
+        "财联社"
       ],
       "tool": {
         "href": "america-dashboard.html",

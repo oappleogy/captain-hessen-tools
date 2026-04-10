@@ -609,7 +609,7 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
       return;
     }
 
-    if (sub) sub.textContent = '更新于 ' + (data.last_updated || data.date || '—') + ' · 来源: 百度/微博/Google News';
+    if (sub) sub.textContent = '更新于 ' + (data.last_updated || data.date || '—') + ' · 来源: 华尔街见闻/财联社/Google News';
 
     // 热度 → 字号 (12px ~ 22px)
     const maxHeat = Math.max(...kws.map(k => k.heat || 0), 1);

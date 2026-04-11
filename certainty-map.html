@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>黑森船长 · 确定性地图</title>
+<!--
+  黑森船长 · 确定性地图（主页）
+  Sprint 1+2+3+4 已完成，Sprint 5-7 待做
+  设计原则见 project_hessen_investment_system.md
+
+  双击本文件即可在浏览器中运行（依赖 CDN 的 React + Babel）
+  数据层：certainty-map.data.js (同目录)
+-->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="./certainty-map.data.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #0a0a0f;
+    color: #e2e0dc;
+    font-family: 'IBM Plex Sans', 'Noto Sans SC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+  button { font-family: inherit; }
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .drawer-enter { animation: slideIn 0.25s ease-out; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+const { useState } = React;
+
+// ============================================================
+// 视觉常量
+// ============================================================
+
+const CATEGORY_COLORS = {
+  地缘: "#fb923c",
+  技术: "#f472b6",
+  货币: "#60a5fa",
+  政策: "#a78bfa",
+  产业: "#34d399",
+};
+
+const NODE_TYPE_LABEL = {
+  event:    { label: "事件", color: "#fbbf24" },
+  industry: { label: "行业", color: "#34d399" },
+  asset:    { label: "资产", color: "#60a5fa" },
+  company:  { label: "公司", color: "#a78bfa" },
+  policy:   { label: "政策", color: "#f472b6" },
+};
+
+const HCT_DIMS = [
+  { key: "narrative",    label: "叙事", desc: "市场共识拥挤度" },
+  { key: "institution",  label: "制度", desc: "规则变化影响" },
+  { key: "technology",   label: "技术", desc: "技术变革催化" },
+  { key: "coordination", label: "协调", desc: "多方博弈均衡" },
+  { key: "resources",    label: "资源", desc: "物理约束+流动性" },
+  { key: "feedback",     label: "反馈", desc: "自强化/自纠正" },
+];
+
+// HCT 分 → 节点亮度/发光强度
+const hctGlow = (hct) => {
+  const intensity = Math.max(0, Math.min(1, hct / 10));
+  return { opacity: 0.35 + intensity * 0.65, glow: intensity };
+};
+
+// 叙事拥挤度颜色
+const crowdingColor = (pct) => {
+  if (pct >= 80) return "#ef4444";
+  if (pct >= 60) return "#f59e0b";
+  if (pct >= 40) return "#fbbf24";
+  return "#34d399";
+};
+
+const hexAlpha = (hex, alpha01) => {
+  const a = Math.round(Math.max(0, Math.min(1, alpha01)) * 255);
+  return hex + a.toString(16).padStart(2, "0");
+};
+
+// ============================================================
+// 数据（来自 window.HESSEN_ONTOLOGY）
+// ============================================================
+
+const EVENTS = window.HESSEN_ONTOLOGY.events;
+
+// ============================================================
+// 主组件
+// ============================================================
+
+function CertaintyMap() {
+  const [selectedId, setSelectedId] = useState(null);
+  const [drawerNode, setDrawerNode] = useState(null);
+
+  const selected = selectedId ? EVENTS.find((e) => e.id === selectedId) : null;
+  const hotEvents = EVENTS.filter((e) => !e.isCold);
+  const coldEvents = EVENTS.filter((e) => e.isCold);
+
+  const selectEvent = (id) => {
+    setSelectedId(id);
+    setDrawerNode(null);
+  };
+
+  return (
+    <div style={{ minHeight: "100vh", position: "relative", overflow: "hidden" }}>
+      {/* 战场态势图栅格背景 */}
+      <div
+        style={{
+          position: "fixed", inset: 0,
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+          pointerEvents: "none",
+        }}
+      />
+
+      <Header selected={selected} onBack={() => selectEvent(null)} />
+
+      <div style={{ padding: "24px 32px", position: "relative", maxWidth: 1440, margin: "0 auto" }}>
+        {!selected ? (
+          <HotGrid events={hotEvents} coldEvents={coldEvents} onSelect={selectEvent} />
+        ) : (
+          <EventDetail
+            event={selected}
+            coldEvents={coldEvents.filter((c) => c.id !== selected.id).concat(hotEvents.filter((h) => h.id !== selected.id).slice(0, 1))}
+            onSelectCold={selectEvent}
+            onSelectNode={setDrawerNode}
+          />
+        )}
+      </div>
+
+      {drawerNode && (
+        <NodeDrawer node={drawerNode} onClose={() => setDrawerNode(null)} />
+      )}
+
+      {/* 水印 */}
+      <div
+        style={{
+          position: "fixed", bottom: 12, right: 20,
+          fontSize: 10, color: "rgba(255,255,255,0.08)",
+          letterSpacing: "0.15em", pointerEvents: "none",
+        }}
+      >
+        黑森船长 · 确定性地图 · v0.1
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// Header
+// ============================================================
+
+function Header({ selected, onBack }) {
+  return (
+    <div
+      style={{
+        padding: "28px 32px 20px",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        position: "relative",
+        maxWidth: 1440,
+        margin: "0 auto",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div>
+          <div
+            style={{
+              fontSize: 11, letterSpacing: "0.2em",
+              color: "#6b7280", textTransform: "uppercase", marginBottom: 8,
+            }}
+          >
+            CAPTAIN HESSEN · CERTAINTY MAP
+          </div>
+          <h1
+            style={{
+              fontSize: 28, fontWeight: 700, margin: 0,
+              letterSpacing: "-0.02em",
+              background: "linear-gradient(135deg, #e2e0dc 0%, #a78bfa 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            {selected ? selected.title : "确定性地图"}
+          </h1>
+          <p style={{ fontSize: 13, color: "#6b7280", marginTop: 6, maxWidth: 700 }}>
+            {selected
+              ? "事件 → 因果链 → 节点亮度按 HCT 确定性评级 · 点击任意节点查看六维打分和证据"
+              : "把隔行如隔山变成一张图 · 热点是钩子，结构是答案"}
+          </p>
+        </div>
+        {selected && (
+          <button
+            onClick={onBack}
+            style={{
+              padding: "8px 18px", fontSize: 12,
+              border: "1px solid rgba(167,139,250,0.3)",
+              borderRadius: 6, cursor: "pointer",
+              background: "rgba(167,139,250,0.08)",
+              color: "#a78bfa", fontWeight: 500,
+            }}
+          >
+            ← 返回地图
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// 首页热点网格
+// ============================================================
+
+function HotGrid({ events, onSelect, coldEvents }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, marginTop: 12 }}>
+      <div>
+        <SectionTitle title="循环 A · 事件驱动" subtitle="点击事件进入因果链 · 热点进，结构出" />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: 16,
+          }}
+        >
+          {events.map((evt) => (
+            <HotTile key={evt.id} event={evt} onClick={() => onSelect(evt.id)} />
+          ))}
+        </div>
+      </div>
+      <ColdSidebar coldEvents={coldEvents} onSelect={onSelect} />
+    </div>
+  );
+}
+
+function SectionTitle({ title, subtitle }) {
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ fontSize: 12, color: "#a78bfa", fontWeight: 600, letterSpacing: "0.05em" }}>
+        {title}
+      </div>
+      {subtitle && <div style={{ fontSize: 11, color: "#4b5563", marginTop: 4 }}>{subtitle}</div>}
+    </div>
+  );
+}
+
+function HotTile({ event, onClick }) {
+  const catColor = CATEGORY_COLORS[event.category] || "#6b7280";
+  const [hover, setHover] = useState(false);
+  return (
+    <div
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        borderRadius: 10,
+        border: `1px solid ${hover ? catColor + "66" : "rgba(255,255,255,0.06)"}`,
+        background: hover ? "rgba(255,255,255,0.035)" : "rgba(255,255,255,0.02)",
+        padding: "18px 20px",
+        cursor: "pointer",
+        transition: "all 0.2s",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+        <span
+          style={{
+            fontSize: 10, padding: "2px 8px", borderRadius: 4,
+            background: catColor + "22", color: catColor, fontWeight: 600,
+          }}
+        >
+          {event.category}
+        </span>
+        <span style={{ fontSize: 11, color: "#4b5563", fontFamily: "JetBrains Mono, monospace" }}>
+          {event.date}
+        </span>
+      </div>
+      <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 12, lineHeight: 1.4 }}>
+        {event.title}
+      </div>
+      <CrowdingMini crowding={event.narrative_crowding} narrativeHct={event.hct_narrative} />
+      <div style={{ display: "flex", gap: 4, marginTop: 12, flexWrap: "wrap" }}>
+        {event.chain.nodes.slice(0, 3).map((n, i) => (
+          <span
+            key={i}
+            style={{
+              fontSize: 10, padding: "3px 8px", borderRadius: 4,
+              background: "rgba(255,255,255,0.04)", color: "#9ca3af",
+              border: "1px solid rgba(255,255,255,0.04)",
+            }}
+          >
+            {n.label}
+          </span>
+        ))}
+        {event.chain.nodes.length > 3 && (
+          <span style={{ fontSize: 10, color: "#4b5563" }}>+{event.chain.nodes.length - 3}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CrowdingMini({ crowding, narrativeHct }) {
+  const c = crowdingColor(crowding);
+  return (
+    <div style={{ marginTop: 4 }}>
+      <div
+        style={{
+          display: "flex", justifyContent: "space-between",
+          fontSize: 10, color: "#6b7280", marginBottom: 4,
+        }}
+      >
+        <span>叙事拥挤度 {crowding}%</span>
+        <span>HCT 叙事 {narrativeHct.toFixed(1)}/10</span>
+      </div>
+      <div style={{ height: 3, background: "rgba(255,255,255,0.05)", borderRadius: 2, overflow: "hidden" }}>
+        <div style={{ width: crowding + "%", height: "100%", background: c }} />
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// 事件详情页
+// ============================================================
+
+function EventDetail({ event, coldEvents, onSelectCold, onSelectNode }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 24, marginTop: 12 }}>
+      <div>
+        <NarrativeCrowdingBar event={event} />
+        <CausalChainFlow chain={event.chain} onSelectNode={onSelectNode} />
+        <ChainNodesSummary chain={event.chain} onSelectNode={onSelectNode} />
+      </div>
+      <ColdSidebar coldEvents={coldEvents} onSelect={onSelectCold} compact />
+    </div>
+  );
+}
+
+function NarrativeCrowdingBar({ event }) {
+  const c = crowdingColor(event.narrative_crowding);
+  const hctBad = event.hct_narrative < 4;
+  return (
+    <div
+      style={{
+        marginBottom: 24, padding: "16px 20px", borderRadius: 10,
+        border: "1px solid " + c + "33", background: c + "08",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+        <div>
+          <div style={{ fontSize: 10, color: c, fontWeight: 600, letterSpacing: "0.1em", marginBottom: 4 }}>
+            HCT 叙事维度自我批判
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: "#e2e0dc" }}>
+            叙事拥挤度 <span style={{ color: c }}>{event.narrative_crowding}%</span>
+            <span style={{ fontSize: 13, fontWeight: 500, color: "#6b7280", marginLeft: 14 }}>
+              HCT 叙事分 {event.hct_narrative.toFixed(1)}/10
+            </span>
+          </div>
+        </div>
+        <div
+          style={{
+            fontSize: 10, padding: "4px 10px", borderRadius: 4,
+            background: hctBad ? "rgba(239,68,68,0.15)" : "rgba(52,211,153,0.15)",
+            color: hctBad ? "#ef4444" : "#34d399",
+            fontWeight: 600, letterSpacing: "0.05em",
+          }}
+        >
+          {hctBad ? "⚠ 共识已充分定价" : "✓ 叙事空间仍在"}
+        </div>
+      </div>
+      <div style={{ height: 5, background: "rgba(255,255,255,0.05)", borderRadius: 3, overflow: "hidden", marginBottom: 12 }}>
+        <div style={{ width: event.narrative_crowding + "%", height: "100%", background: c }} />
+      </div>
+      <div style={{ fontSize: 11, color: "#6b7280", display: "flex", gap: 14, flexWrap: "wrap" }}>
+        {event.signals.map((s, i) => <span key={i}>• {s}</span>)}
+      </div>
+      {hctBad && (
+        <div
+          style={{
+            marginTop: 12, padding: "10px 12px", borderRadius: 6,
+            background: "rgba(239,68,68,0.06)",
+            fontSize: 12, color: "#d4a1a1", lineHeight: 1.5,
+          }}
+        >
+          这条链的叙事已经被充分定价。你看到它是因为它很热，但热的不等于值得下注的。
+          看完因果链后，请把右侧冷点对照一起看完再决策。
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── 因果链横向流图 ─────────────────────────────────
+
+function CausalChainFlow({ chain, onSelectNode }) {
+  return (
+    <div
+      style={{
+        marginBottom: 24, padding: "20px 20px 24px", borderRadius: 10,
+        border: "1px solid rgba(255,255,255,0.06)",
+        background: "rgba(255,255,255,0.015)",
+      }}
+    >
+      <div style={{ fontSize: 11, color: "#a78bfa", fontWeight: 600, letterSpacing: "0.1em", marginBottom: 4 }}>
+        因果链 · 节点亮度 = HCT 确定性
+      </div>
+      <div style={{ fontSize: 10, color: "#4b5563", marginBottom: 16 }}>
+        点击任意节点查看 HCT 六维打分和支持证据
+      </div>
+      <div style={{ display: "flex", alignItems: "stretch", gap: 0, overflowX: "auto", paddingBottom: 8 }}>
+        <ChainNode node={chain.trigger} isTrigger />
+        {chain.nodes.map((node, i) => (
+          <ChainNode key={i} node={node} onClick={() => onSelectNode(node)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ChainNode({ node, isTrigger = false, onClick }) {
+  const type = NODE_TYPE_LABEL[node.type] || NODE_TYPE_LABEL.event;
+  const glow = node.hct != null ? hctGlow(node.hct) : { opacity: 1, glow: 0.8 };
+  const [hover, setHover] = useState(false);
+  const clickable = !isTrigger && onClick;
+
+  return (
+    <React.Fragment>
+      {!isTrigger && (
+        <div
+          style={{
+            display: "flex", alignItems: "center", padding: "0 10px",
+            color: "#4b5563", fontSize: 20,
+          }}
+        >
+          →
+        </div>
+      )}
+      <div
+        onClick={clickable ? onClick : undefined}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        style={{
+          minWidth: 150, padding: "14px 16px", borderRadius: 8,
+          border: "1px solid " + hexAlpha(type.color, glow.opacity * (hover ? 1 : 0.6)),
+          background: hexAlpha(type.color, (hover ? 0.15 : 0.08) * glow.opacity),
+          boxShadow: glow.glow > 0.5
+            ? "0 0 " + (hover ? 24 : 16) + "px " + hexAlpha(type.color, glow.glow * (hover ? 0.35 : 0.25))
+            : "none",
+          transition: "all 0.2s",
+          cursor: clickable ? "pointer" : "default",
+          opacity: glow.opacity,
+          transform: hover && clickable ? "translateY(-2px)" : "none",
+        }}
+      >
+        <div style={{ fontSize: 9, color: type.color, fontWeight: 600, letterSpacing: "0.1em", marginBottom: 6 }}>
+          {type.label}
+        </div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: "#e2e0dc", marginBottom: node.hct != null ? 8 : 0 }}>
+          {node.label}
+        </div>
+        {node.hct != null && (
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <div
+              style={{
+                flex: 1, height: 3,
+                background: "rgba(255,255,255,0.08)",
+                borderRadius: 2, overflow: "hidden",
+              }}
+            >
+              <div style={{ width: (node.hct * 10) + "%", height: "100%", background: type.color }} />
+            </div>
+            <span style={{ fontSize: 10, color: "#9ca3af", fontFamily: "JetBrains Mono, monospace" }}>
+              {node.hct.toFixed(1)}
+            </span>
+          </div>
+        )}
+      </div>
+    </React.Fragment>
+  );
+}
+
+// ─── 节点列表快捷入口（可选，也展示节点下的证据条数）──
+
+function ChainNodesSummary({ chain, onSelectNode }) {
+  return (
+    <div
+      style={{
+        padding: "16px 20px", borderRadius: 10,
+        border: "1px solid rgba(255,255,255,0.04)",
+        background: "rgba(255,255,255,0.01)",
+      }}
+    >
+      <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 600, letterSpacing: "0.1em", marginBottom: 12 }}>
+        节点索引 · 新闻已降级为节点附件
+      </div>
+      {chain.nodes.map((n, i) => {
+        const type = NODE_TYPE_LABEL[n.type];
+        const evCount = (n.evidence || []).length;
+        return (
+          <div
+            key={i}
+            onClick={() => onSelectNode(n)}
+            style={{
+              display: "flex", alignItems: "center", gap: 12,
+              padding: "10px 0",
+              borderBottom: i < chain.nodes.length - 1 ? "1px solid rgba(255,255,255,0.03)" : "none",
+              cursor: "pointer",
+            }}
+          >
+            <span
+              style={{
+                fontSize: 9, padding: "2px 6px", borderRadius: 3,
+                background: type.color + "22", color: type.color, fontWeight: 600,
+                minWidth: 30, textAlign: "center",
+              }}
+            >
+              {type.label}
+            </span>
+            <span style={{ fontSize: 12, color: "#e2e0dc", flex: 1 }}>{n.label}</span>
+            <span style={{ fontSize: 10, color: "#6b7280" }}>📎 {evCount} 条证据</span>
+            <span
+              style={{
+                fontSize: 10, fontFamily: "JetBrains Mono, monospace",
+                color: type.color, minWidth: 30, textAlign: "right",
+              }}
+            >
+              {n.hct.toFixed(1)}
+            </span>
+            <span style={{ fontSize: 12, color: "#4b5563" }}>›</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ============================================================
+// Sprint 3 核心：节点抽屉（HCT 六维 + 证据）
+// ============================================================
+
+function NodeDrawer({ node, onClose }) {
+  const type = NODE_TYPE_LABEL[node.type] || NODE_TYPE_LABEL.event;
+
+  return (
+    <React.Fragment>
+      {/* 遮罩 */}
+      <div
+        onClick={onClose}
+        style={{
+          position: "fixed", inset: 0,
+          background: "rgba(0,0,0,0.4)", zIndex: 99,
+        }}
+      />
+      {/* 抽屉本体 */}
+      <div
+        className="drawer-enter"
+        style={{
+          position: "fixed", top: 0, right: 0, bottom: 0,
+          width: 440,
+          background: "#0d0d15",
+          borderLeft: "1px solid rgba(255,255,255,0.08)",
+          padding: "28px 32px",
+          overflowY: "auto",
+          zIndex: 100,
+          boxShadow: "-20px 0 60px rgba(0,0,0,0.6)",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+          <div>
+            <span
+              style={{
+                fontSize: 10, padding: "3px 10px", borderRadius: 4,
+                background: type.color + "22", color: type.color,
+                fontWeight: 600, letterSpacing: "0.05em",
+              }}
+            >
+              {type.label}
+            </span>
+            <h2
+              style={{
+                fontSize: 22, fontWeight: 700, margin: "10px 0 4px",
+                color: "#e2e0dc", letterSpacing: "-0.01em",
+              }}
+            >
+              {node.label}
+            </h2>
+            <div
+              style={{
+                fontSize: 11, color: "#6b7280",
+                fontFamily: "JetBrains Mono, monospace",
+              }}
+            >
+              HCT 综合 · {node.hct.toFixed(1)} / 10
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            style={{
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              color: "#9ca3af", cursor: "pointer",
+              fontSize: 18, width: 30, height: 30,
+              borderRadius: 6, lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+        </div>
+
+        {/* HCT 六维打分 */}
+        <div style={{ marginBottom: 28 }}>
+          <div
+            style={{
+              fontSize: 11, color: "#a78bfa", fontWeight: 600,
+              letterSpacing: "0.1em", marginBottom: 12,
+            }}
+          >
+            HCT 六维打分
+          </div>
+          {HCT_DIMS.map((dim) => (
+            <HCTBar key={dim.key} dim={dim} score={node.hct_6dim[dim.key]} color={type.color} />
+          ))}
+        </div>
+
+        {/* 证据（从事件降级到节点附件） */}
+        <div>
+          <div
+            style={{
+              fontSize: 11, color: "#a78bfa", fontWeight: 600,
+              letterSpacing: "0.1em", marginBottom: 4,
+            }}
+          >
+            支持证据
+          </div>
+          <div style={{ fontSize: 10, color: "#4b5563", marginBottom: 14 }}>
+            新闻是节点的附件，不是主角
+          </div>
+          {(node.evidence || []).length === 0 ? (
+            <div style={{ fontSize: 12, color: "#6b7280", fontStyle: "italic" }}>暂无证据</div>
+          ) : (
+            node.evidence.map((e, i) => <EvidenceRow key={i} evidence={e} />)
+          )}
+        </div>
+      </div>
+    </React.Fragment>
+  );
+}
+
+function HCTBar({ dim, score, color }) {
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div
+        style={{
+          display: "flex", justifyContent: "space-between",
+          alignItems: "center", marginBottom: 4,
+        }}
+      >
+        <span style={{ fontSize: 12, color: "#e2e0dc", fontWeight: 500 }}>
+          {dim.label}
+          <span style={{ fontSize: 10, color: "#6b7280", marginLeft: 8 }}>{dim.desc}</span>
+        </span>
+        <span
+          style={{
+            fontSize: 11, color: "#9ca3af",
+            fontFamily: "JetBrains Mono, monospace",
+          }}
+        >
+          {score.toFixed(1)}
+        </span>
+      </div>
+      <div
+        style={{
+          height: 5, background: "rgba(255,255,255,0.05)",
+          borderRadius: 3, overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            width: (score * 10) + "%", height: "100%",
+            background: color,
+            boxShadow: score >= 7 ? "0 0 8px " + hexAlpha(color, 0.5) : "none",
+            transition: "width 0.3s",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function EvidenceRow({ evidence }) {
+  return (
+    <div
+      style={{
+        padding: "10px 0",
+        borderBottom: "1px solid rgba(255,255,255,0.04)",
+        display: "flex", gap: 12, alignItems: "flex-start",
+      }}
+    >
+      <span
+        style={{
+          fontSize: 10, color: "#4b5563",
+          fontFamily: "JetBrains Mono, monospace",
+          minWidth: 110, paddingTop: 2,
+        }}
+      >
+        {evidence.time}
+      </span>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: 12, color: "#c5c3bf", lineHeight: 1.4 }}>
+          {evidence.title}
+        </div>
+        <div style={{ fontSize: 10, color: "#6b7280", marginTop: 3 }}>
+          📎 {evidence.src}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// 冷点对照栏
+// ============================================================
+
+function ColdSidebar({ coldEvents, onSelect, compact = false }) {
+  return (
+    <div
+      style={{
+        borderRadius: 10,
+        border: "1px solid rgba(52,211,153,0.15)",
+        background: "rgba(52,211,153,0.02)",
+        padding: "18px 18px 20px",
+        alignSelf: "flex-start",
+        position: compact ? "sticky" : "static",
+        top: 20,
+      }}
+    >
+      <div style={{ fontSize: 10, color: "#34d399", fontWeight: 600, letterSpacing: "0.1em", marginBottom: 4 }}>
+        你可能没注意到的
+      </div>
+      <div style={{ fontSize: 11, color: "#4b5563", marginBottom: 16 }}>
+        低叙事拥挤度 · 高 HCT 综合分
+      </div>
+      {coldEvents.map((evt) => (
+        <ColdCard key={evt.id} event={evt} onClick={() => onSelect(evt.id)} />
+      ))}
+      <div
+        style={{
+          marginTop: 14, padding: 10, borderRadius: 6,
+          background: "rgba(167,139,250,0.04)",
+          fontSize: 10, color: "#6b7280", lineHeight: 1.6,
+        }}
+      >
+        冷点对照是"认知压缩循环"的种子：
+        系统根据 HCT 综合分主动推送被低估的链，
+        使用次数越多，你的点击分布会越偏向结构。
+      </div>
+    </div>
+  );
+}
+
+function ColdCard({ event, onClick }) {
+  const catColor = CATEGORY_COLORS[event.category] || "#6b7280";
+  const [hover, setHover] = useState(false);
+  return (
+    <div
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        marginBottom: 10, padding: "12px 14px", borderRadius: 8,
+        border: "1px solid " + (hover ? "rgba(52,211,153,0.3)" : "rgba(255,255,255,0.05)"),
+        background: "rgba(255,255,255,0.02)",
+        cursor: "pointer", transition: "all 0.2s",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+        <span
+          style={{
+            fontSize: 9, padding: "1px 6px", borderRadius: 3,
+            background: catColor + "22", color: catColor, fontWeight: 600,
+          }}
+        >
+          {event.category}
+        </span>
+        <span
+          style={{
+            fontSize: 9, padding: "1px 6px", borderRadius: 3,
+            background: "rgba(52,211,153,0.15)", color: "#34d399", fontWeight: 600,
+          }}
+        >
+          HCT {event.hct_composite.toFixed(1)}
+        </span>
+      </div>
+      <div style={{ fontSize: 12, fontWeight: 600, color: "#e2e0dc", marginBottom: 6, lineHeight: 1.4 }}>
+        {event.title}
+      </div>
+      <div style={{ fontSize: 10, color: "#6b7280" }}>
+        叙事拥挤度仅 {event.narrative_crowding}%
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// 挂载
+// ============================================================
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<CertaintyMap />);
+</script>
+</body>
+</html>

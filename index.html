@@ -498,6 +498,10 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 <aside class="lineage-drawer" id="lineage-drawer" role="dialog" aria-hidden="true">
   <div class="lineage-header">
     <button class="lineage-close" id="lineage-close" aria-label="关闭">×</button>
+    <button class="lineage-back" id="lineage-back" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      返回
+    </button>
     <div class="lineage-badge" id="lineage-badge"><i></i><span id="lineage-cat"></span></div>
     <div class="lineage-title" id="lineage-title"></div>
     <div class="lineage-summary" id="lineage-summary"></div>
@@ -779,6 +783,8 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
   const overlay = document.getElementById('lineage-overlay');
   const drawer = document.getElementById('lineage-drawer');
   const closeBtn = document.getElementById('lineage-close');
+  const backBtn = document.getElementById('lineage-back');
+  let lineageOpen = false;
 
   function openLineage(k) {
     const style = CATEGORY_STYLE[k.category] || CATEGORY_STYLE['finance'];
@@ -800,8 +806,10 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
       evList.innerHTML = evidence.map(ev => {
         const src = (ev.source || '').replace(/</g, '&lt;');
         const txt = (ev.text || '').replace(/</g, '&lt;');
+        const tm = (ev.time || '').replace(/</g, '&lt;');
+        const timeHtml = tm ? '<span class="ev-time">' + tm + '</span>' : '';
         return '<li style="--bubble-color:' + style.color + ';--bubble-bg:' + style.bg + '">'
-             + '<span class="ev-source">' + src + '</span><br>' + txt + '</li>';
+             + '<span class="ev-source">' + src + '</span>' + timeHtml + '<br>' + txt + '</li>';
       }).join('');
     } else {
       evList.innerHTML = '<div class="lineage-empty">暂无原始溯源数据</div>';
@@ -821,19 +829,36 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     drawer.classList.add('open');
     drawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    // 推一个 history state,使物理返回键/手势可以关闭抽屉
+    if (!lineageOpen) {
+      lineageOpen = true;
+      history.pushState({ lineage: true }, '', location.href);
+    }
   }
 
-  function closeLineage() {
+  function closeLineage(fromPop) {
     overlay.classList.remove('open');
     drawer.classList.remove('open');
     drawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    // 如果不是由 popstate 触发的关闭,需要 history.back() 消掉推入的 state
+    if (lineageOpen && !fromPop) {
+      lineageOpen = false;
+      history.back();
+    } else {
+      lineageOpen = false;
+    }
   }
 
-  overlay.addEventListener('click', closeLineage);
-  closeBtn.addEventListener('click', closeLineage);
+  overlay.addEventListener('click', () => closeLineage(false));
+  closeBtn.addEventListener('click', () => closeLineage(false));
+  backBtn.addEventListener('click', () => closeLineage(false));
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLineage();
+    if (e.key === 'Escape' && lineageOpen) closeLineage(false);
+  });
+  window.addEventListener('popstate', () => {
+    if (lineageOpen) closeLineage(true);
   });
 
   try {

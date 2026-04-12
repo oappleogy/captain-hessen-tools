@@ -1,5 +1,5 @@
 {
-  "score": 36.1,
+  "score": 36.3,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 95.63,
+      "current": 96.57,
       "base": 75,
-      "deviation_pct": 27.5,
+      "deviation_pct": 28.8,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 151.2
+      "contribution": 165.9
     },
     {
       "variable": "credit_spread",
@@ -47,7 +47,7 @@
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 98.7,
+      "current": 98.65,
       "base": 100,
       "deviation_pct": 1.3,
       "weight": 0.15,
@@ -66,18 +66,18 @@
       "level": "极端偏离"
     },
     {
-      "name": "天然气TTF",
-      "current": 46.17,
-      "base": 35,
-      "deviation_pct": 31.9,
+      "name": "WTI油价",
+      "current": 96.57,
+      "base": 75,
+      "deviation_pct": 28.8,
       "direction": "偏高",
       "level": "显著偏离"
     },
     {
-      "name": "WTI油价",
-      "current": 95.63,
-      "base": 75,
-      "deviation_pct": 27.5,
+      "name": "天然气TTF",
+      "current": 43.64,
+      "base": 35,
+      "deviation_pct": 24.7,
       "direction": "偏高",
       "level": "显著偏离"
     },
@@ -90,5 +90,5 @@
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-04-11 08:15"
+  "timestamp": "2026-04-12 08:44"
 }

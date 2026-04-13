@@ -230,6 +230,94 @@ body {
 .fade-up-3 { animation-delay: 0.15s; }
 .fade-up-4 { animation-delay: 0.2s; }
 .fade-up-5 { animation-delay: 0.25s; }
+.fade-up-6 { animation-delay: 0.3s; }
+.fade-up-7 { animation-delay: 0.35s; }
+
+/* Rule engine divider */
+.divider-rule {
+  margin: 32px 0 16px; padding: 10px 0; text-align: center;
+  font-size: 11px; color: var(--muted); letter-spacing: 2px;
+  font-family: var(--mono); border-top: 1px solid var(--border);
+}
+
+/* Regime banner */
+.regime-banner {
+  border-radius: 12px; padding: 20px; margin-bottom: 20px;
+  background: var(--card); border: 1px solid var(--border); text-align: center;
+}
+.regime-emoji { font-size: 32px; margin-bottom: 4px; }
+.regime-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.regime-desc { font-size: 13px; color: var(--dim); }
+.regime-switch { margin-top: 10px; padding: 4px 12px; background: rgba(245,158,11,0.12); border-radius: 8px; font-size: 11px; color: var(--amber); display: inline-block; }
+.regime-meta { margin-top: 8px; font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+/* Variable table */
+.var-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.var-table th { text-align: left; padding: 8px 12px; font-size: 11px; color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--border); }
+.var-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.var-table tr:last-child td { border-bottom: none; }
+.var-table .val { font-family: var(--mono); font-weight: 500; }
+.var-table .delta-up { color: var(--green); font-size: 11px; }
+.var-table .delta-down { color: #ef4444; font-size: 11px; }
+.var-table .delta-flat { color: var(--muted); font-size: 11px; }
+.fresh-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 500; }
+.fresh-badge.fresh { background: rgba(34,197,94,0.12); color: var(--green); }
+.fresh-badge.stale { background: rgba(245,158,11,0.12); color: var(--amber); }
+.fresh-badge.unknown { background: rgba(100,116,139,0.12); color: var(--muted); }
+
+/* Macro bars */
+.macro-list { display: flex; flex-direction: column; gap: 12px; }
+.macro-item .macro-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.macro-name { font-size: 13px; font-weight: 500; }
+.macro-val { font-family: var(--mono); font-size: 12px; }
+.macro-delta { font-size: 11px; margin-left: 6px; }
+.bar-bg { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease-out; }
+.label-good { color: var(--green); }
+.label-neutral { color: var(--amber); }
+.label-bad { color: #ef4444; }
+
+/* Industry grid */
+.ind-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; }
+@media (max-width: 768px) { .ind-grid { grid-template-columns: 1fr; } }
+.ind-item { padding: 12px 16px; background: var(--card); }
+.ind-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.ind-name { font-size: 12px; color: var(--dim); }
+.ind-val-wrap { font-family: var(--mono); font-size: 14px; font-weight: 600; }
+.ind-label { font-size: 10px; margin-left: 4px; font-weight: 400; }
+.ind-bar-bg { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.ind-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease-out; }
+
+/* Stress index */
+.stress-banner { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.stress-gauge {
+  width: 72px; height: 72px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  border: 3px solid; font-family: var(--mono); flex-shrink: 0;
+}
+.stress-gauge .sg-num { font-size: 22px; font-weight: 700; line-height: 1; }
+.stress-gauge .sg-label { font-size: 9px; margin-top: 2px; }
+.stress-info { flex: 1; min-width: 180px; }
+.stress-info .si-label { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.stress-info .si-desc { font-size: 12px; color: var(--dim); }
+.stress-components { margin-top: 12px; }
+.stress-comp { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; }
+.stress-comp:last-child { border-bottom: none; }
+.stress-comp .sc-name { width: 72px; flex-shrink: 0; color: var(--dim); font-size: 11px; }
+.stress-comp .sc-bar-bg { flex: 1; height: 5px; border-radius: 2px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.stress-comp .sc-bar-fill { height: 100%; border-radius: 2px; }
+.stress-comp .sc-val { width: 50px; text-align: right; font-family: var(--mono); font-size: 11px; color: var(--dim); }
+.sig-dev { padding: 5px 10px; margin-bottom: 3px; border-radius: 6px; font-size: 11px; background: rgba(245,158,11,0.08); display: flex; justify-content: space-between; align-items: center; }
+.sig-dev .sd-name { font-weight: 500; }
+.sig-dev .sd-val { font-family: var(--mono); color: var(--amber); }
+
+/* Distances */
+.dist-list { display: flex; flex-direction: column; gap: 0; }
+.dist-item { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 12px; }
+.dist-item:last-child { border-bottom: none; }
+.dist-name { font-weight: 600; font-size: 13px; }
+.dist-status { margin-left: 6px; }
+.dist-detail { color: var(--dim); margin-top: 3px; font-size: 11px; }
 </style>
 </head>
 <body>
@@ -280,7 +368,7 @@ body {
     return 'var(--dim)';
   }
 
-  let data;
+  let data, weekly;
   try {
     const resp = await fetch('data/s2-radar.json?t=' + Date.now());
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -290,6 +378,14 @@ body {
       + '<p style="color:var(--muted);font-size:12px;margin-top:8px">数据文件尚未生成或加载失败，请稍后刷新</p>';
     return;
   }
+  try {
+    const wResp = await fetch('data/weekly-latest.json?t=' + Date.now());
+    if (wResp.ok) weekly = await wResp.json();
+  } catch(e) { /* weekly data optional */ }
+
+  const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown: '未知' };
+  function barColor(val) { return val >= 60 ? 'var(--green)' : val < 40 ? '#ef4444' : 'var(--amber)'; }
+  function labelCls(label) { return label === '景气' ? 'label-good' : label === '承压' ? 'label-bad' : 'label-neutral'; }
 
   // Build page
   const ss = data.system_state || {};
@@ -447,7 +543,132 @@ body {
     html += '</div></div>';
   }
 
-  // ── 6. Footer ──
+  // ── 6. Rule Engine Data ──
+  if (weekly) {
+    const d = weekly;
+    html += '<div class="divider-rule fade-up fade-up-5">── 以下为规则引擎数据 ──</div>';
+
+    // 6a. Regime banner
+    if (d.regime) {
+      html += '<div class="regime-banner fade-up fade-up-5">'
+        + '<div class="regime-emoji">' + esc(d.regime.emoji) + '</div>'
+        + '<div class="regime-name" style="color:' + esc(d.regime.color) + '">' + esc(d.regime.name) + '</div>'
+        + '<div class="regime-desc">' + esc(d.regime.desc) + '</div>';
+      if (d.prev_regime) {
+        html += '<div class="regime-switch">⚡ 体制切换：' + esc(d.prev_regime.emoji) + ' ' + esc(d.prev_regime.name) + ' → ' + esc(d.regime.emoji) + ' ' + esc(d.regime.name) + '</div>';
+      }
+      html += '<div class="regime-meta">' + esc(d.week_label || '') + ' · 数据 ' + esc(d.data_time || '') + '</div></div>';
+    }
+
+    // 6b. Variables table
+    if (d.variables && d.variables.length) {
+      html += '<div class="sec fade-up fade-up-5"><div class="sec-head">核心变量</div>'
+        + '<table class="var-table"><thead><tr><th>变量</th><th>当前值</th>';
+      if (d.has_comparison) html += '<th>上周</th><th>变动</th>';
+      html += '<th>日期</th><th>状态</th></tr></thead><tbody>';
+      for (var i = 0; i < d.variables.length; i++) {
+        var v = d.variables[i];
+        var val = v.value != null ? v.value : '—';
+        var freshLabel = FRESH_MAP[v.freshness] || v.freshness || '未知';
+        html += '<tr><td>' + esc(v.name) + '</td><td class="val">' + val + esc(v.unit || '') + '</td>';
+        if (d.has_comparison) {
+          var prev = v.prev_value != null ? v.prev_value.toFixed(2) : '—';
+          var dH = '<td class="delta-flat">—</td>';
+          if (v.delta != null && Math.abs(v.delta) > 0.001) {
+            var s = v.delta > 0 ? '+' : '', c = v.delta > 0 ? 'delta-up' : 'delta-down', a = v.delta > 0 ? '↑' : '↓';
+            dH = '<td class="' + c + '">' + a + ' ' + s + v.delta.toFixed(2) + '</td>';
+          }
+          html += '<td class="val" style="color:var(--muted)">' + prev + esc(v.unit || '') + '</td>' + dH;
+        }
+        html += '<td style="font-size:11px;color:var(--muted)">' + esc(v.date || '') + '</td>'
+          + '<td><span class="fresh-badge ' + (v.freshness || 'unknown') + '">' + esc(freshLabel) + '</span></td></tr>';
+      }
+      html += '</tbody></table></div>';
+    }
+
+    // 6c. Macro prosperity
+    if (d.macro && d.macro.length) {
+      html += '<div class="sec fade-up fade-up-6"><div class="sec-head">宏观景气度</div><div class="macro-list">';
+      for (var mi = 0; mi < d.macro.length; mi++) {
+        var m = d.macro[mi];
+        var lc = labelCls(m.label), bc = barColor(m.value);
+        var deltaH = '';
+        if (m.delta != null && m.delta !== 0) {
+          var ds = m.delta > 0 ? '+' : '', dc = m.delta > 0 ? 'label-good' : 'label-bad';
+          deltaH = '<span class="macro-delta ' + dc + '">(' + ds + m.delta + ')</span>';
+        }
+        html += '<div class="macro-item"><div class="macro-header"><span class="macro-name">' + esc(m.name) + '</span>'
+          + '<span class="macro-val">' + m.value + ' <span class="' + lc + '">' + esc(m.label) + '</span>' + deltaH + '</span></div>'
+          + '<div class="bar-bg"><div class="bar-fill" style="width:' + m.value + '%;background:' + bc + '"></div></div></div>';
+      }
+      html += '</div></div>';
+    }
+
+    // 6d. Industry prosperity
+    if (d.industries && d.industries.length) {
+      html += '<div class="sec fade-up fade-up-6"><div class="sec-head">产业层景气度</div><div class="ind-grid">';
+      for (var ii = 0; ii < d.industries.length; ii++) {
+        var ind = d.industries[ii];
+        var ilc = labelCls(ind.label), ibc = barColor(ind.value);
+        html += '<div class="ind-item"><div class="ind-top"><span class="ind-name">' + esc(ind.name) + '</span>'
+          + '<span class="ind-val-wrap">' + ind.value + '<span class="ind-label ' + ilc + '">' + esc(ind.label) + '</span></span></div>'
+          + '<div class="ind-bar-bg"><div class="ind-bar-fill" style="width:' + ind.value + '%;background:' + ibc + '"></div></div></div>';
+      }
+      html += '</div></div>';
+    }
+
+    // 6e. Stress index
+    if (d.stress_index) {
+      var si = d.stress_index;
+      var gaugeColor = si.level === 'red' ? '#ef4444' : si.level === 'yellow' ? 'var(--amber)' : si.level === 'orange' ? '#f97316' : 'var(--green)';
+      html += '<div class="sec fade-up fade-up-7"><div class="sec-head">组合压力指数</div>'
+        + '<div class="stress-banner"><div class="stress-gauge" style="border-color:' + gaugeColor + ';color:' + gaugeColor + '">'
+        + '<div class="sg-num">' + si.score + '</div><div class="sg-label">' + esc(si.label) + '</div></div>'
+        + '<div class="stress-info"><div class="si-label" style="color:' + gaugeColor + '">' + esc(si.label) + '</div>'
+        + '<div class="si-desc">' + esc(si.desc) + '</div></div></div>'
+        + '<div class="stress-components">';
+      var maxContr = Math.max.apply(null, si.components.map(function(c){return c.contribution;})) || 1;
+      for (var ci = 0; ci < si.components.length; ci++) {
+        var c = si.components[ci];
+        var cpct = Math.min(c.contribution / maxContr * 100, 100);
+        var cbc = c.deviation_pct > 40 ? '#ef4444' : c.deviation_pct > 20 ? 'var(--amber)' : 'var(--green)';
+        html += '<div class="stress-comp"><span class="sc-name">' + esc(c.name) + '</span>'
+          + '<div class="sc-bar-bg"><div class="sc-bar-fill" style="width:' + cpct + '%;background:' + cbc + '"></div></div>'
+          + '<span class="sc-val">偏离' + c.deviation_pct + '%</span></div>';
+      }
+      html += '</div>';
+      if (d.significant_deviations && d.significant_deviations.length) {
+        html += '<div style="margin-top:10px;font-size:11px;color:var(--muted);margin-bottom:5px">⚠️ 值得关注的信号偏离：</div>';
+        for (var si2 = 0; si2 < d.significant_deviations.length; si2++) {
+          var sd = d.significant_deviations[si2];
+          html += '<div class="sig-dev"><span class="sd-name">' + esc(sd.name) + ': ' + sd.current + ' (基准' + sd.base + ')</span>'
+            + '<span class="sd-val">' + esc(sd.direction) + ' ' + Math.abs(sd.deviation_pct) + '%</span></div>';
+        }
+      }
+      html += '</div>';
+    }
+
+    // 6f. Regime distances
+    if (d.distances && d.distances.length) {
+      html += '<div class="sec fade-up fade-up-7"><div class="sec-head">体制切换距离</div><div class="dist-list">';
+      for (var di = 0; di < d.distances.length; di++) {
+        var dist = d.distances[di];
+        var dStatus, dSty;
+        if (dist.met) { dStatus = '✅ 已触发'; dSty = 'color:var(--green);font-weight:600'; }
+        else if (dist.total_gap < 5) { dStatus = '⚠️ 接近'; dSty = 'color:var(--amber)'; }
+        else { dStatus = '→ 远'; dSty = 'color:var(--muted)'; }
+        var gaps = dist.triggers.filter(function(t){return t.gap>0;}).map(function(t){
+          return esc(t.name) + '需' + t.need + t.threshold + '(当前' + t.current + ', 差' + t.gap + ')';
+        }).join('，');
+        html += '<div class="dist-item"><span class="dist-name">' + esc(dist.regime) + '</span>'
+          + '<span class="dist-status" style="' + dSty + '">' + dStatus + '</span>'
+          + '<div class="dist-detail">' + (gaps || '所有条件已满足') + '</div></div>';
+      }
+      html += '</div></div>';
+    }
+  }
+
+  // ── 7. Footer ──
   html += '<div class="page-footer fade-up fade-up-5">'
     + '<div class="footer-brand">黑森船长 | 独立资本投资决策系统</div>'
     + '<div class="footer-disclaimer">'

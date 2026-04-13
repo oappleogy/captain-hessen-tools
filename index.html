@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme:dark)">
 <meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme:light)">
-<title>BaseAlpha · 投资分析工具</title>
+<title>BaseAlpha · 独立资本投资决策系统</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -27,13 +27,13 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
   --shadow: 0 4px 24px rgba(0,0,0,0.06);
   --shadow-lg: 0 12px 48px rgba(0,0,0,0.1);
-  --gradient-1: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
-  --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-3: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-4: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   --tag-bg: rgba(45,90,240,0.08);
   --tag-text: #2d5af0;
   --radius: 20px;
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --blue: #3b82f6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,9 +81,9 @@ body {
   max-width: 960px; margin: 0 auto; padding: 0 24px;
 }
 
-/* Header */
-.hero { text-align: center; padding: 80px 0 60px; }
-@media (max-width: 600px) { .hero { padding: 48px 0 40px; } }
+/* Hero */
+.hero { text-align: center; padding: 72px 0 48px; }
+@media (max-width: 600px) { .hero { padding: 48px 0 36px; } }
 
 .logo {
   display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
@@ -114,7 +114,6 @@ body {
 .hero .tagline {
   font-size: 16px; color: var(--text2); line-height: 1.8;
   max-width: 580px; margin: 0 auto;
-  letter-spacing: 0.2px;
 }
 .hero .pipeline {
   display: inline-flex; align-items: center; gap: 8px;
@@ -125,140 +124,142 @@ body {
 }
 .pipeline .arrow { opacity: 0.4; }
 
-/* Section headers (ontology layers) */
-.section {
-  margin-bottom: 48px;
-}
-.section-header {
-  margin-bottom: 18px;
-  padding-bottom: 14px;
+/* Module headers */
+.module { margin-bottom: 40px; }
+.module-head {
+  margin-bottom: 14px;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 17px; font-weight: 600; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
-.section-title {
-  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
-  font-family: 'Noto Serif SC', serif;
-  font-size: 18px; font-weight: 600; color: var(--text);
-  margin-bottom: 6px;
-}
-.section-title .section-icon { font-size: 20px; }
-.section-title .section-meta {
+.module-head .mh-icon { font-size: 18px; }
+.module-head .mh-meta {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px; font-weight: 400; color: var(--text3);
-  letter-spacing: 1.2px; text-transform: uppercase;
-  padding: 3px 10px; border: 1px solid var(--border2); border-radius: 10px;
-}
-.section-quote {
-  font-size: 12px; color: var(--text2);
-  font-style: italic; line-height: 1.5;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 8px; border: 1px solid var(--border2); border-radius: 10px;
+  margin-left: auto;
 }
 
-/* Cards */
-.cards {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-@media (max-width: 660px) { .cards { grid-template-columns: 1fr; gap: 16px; } }
-
-.card {
-  position: relative; background: var(--card-bg);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 32px 24px 24px; text-decoration: none; color: var(--text);
+/* ── S₂ Radar summary card ── */
+.s2-card {
+  display: block; text-decoration: none; color: var(--text);
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 28px 24px;
   box-shadow: var(--shadow-sm);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex; flex-direction: column; gap: 14px; overflow: hidden;
+  position: relative; overflow: hidden;
 }
-.card::before {
+.s2-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--card-grad, linear-gradient(135deg, var(--accent), var(--accent2)));
-  opacity: 0; transition: opacity 0.35s;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  opacity: 0.8;
 }
+.s2-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border2); }
+.s2-card-top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.s2-state { font-size: 26px; font-weight: 700; }
+.s2-attractor {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--text2);
+  background: var(--bg2); padding: 4px 14px; border-radius: 20px;
+}
+.s2-attractor .emoji { font-size: 16px; }
+.s2-meta-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--text3); margin-bottom: 16px; }
+.s2-dims { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.dim-tag {
+  font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.dim-tag.robust { background: rgba(34,197,94,0.1); color: var(--green); }
+.dim-tag.healthy { background: rgba(59,130,246,0.1); color: var(--blue); }
+.dim-tag.neutral { background: rgba(155,155,165,0.1); color: var(--text3); }
+.dim-tag.stressed { background: rgba(245,158,11,0.1); color: var(--amber); }
+.dim-tag.deteriorating { background: rgba(239,68,68,0.1); color: var(--red); }
+.s2-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border); }
+.s2-extremes { font-size: 12px; color: var(--red); display: flex; align-items: center; gap: 4px; }
+.s2-cta { font-size: 13px; color: var(--accent); font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.s2-card:hover .s2-cta { text-decoration: underline; }
+.s2-loading { font-size: 13px; color: var(--text3); padding: 20px 0; }
 
-.card:hover {
-  transform: translateY(-6px); box-shadow: var(--shadow-lg);
-  border-color: var(--border2); background: var(--card-hover);
+/* ── Certainty map card ── */
+.map-card {
+  display: block; text-decoration: none; color: var(--text);
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; overflow: hidden;
 }
-.card:hover::before { opacity: 1; }
+.map-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(135deg, #a78bfa, #6366f1);
+  opacity: 0; transition: opacity 0.3s;
+}
+.map-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border2); }
+.map-card:hover::before { opacity: 1; }
+.map-card-inner { display: flex; align-items: center; gap: 16px; }
+.map-icon { font-size: 32px; flex-shrink: 0; }
+.map-body { flex: 1; }
+.map-title { font-family: 'Noto Serif SC', serif; font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.map-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.map-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.map-arrow { font-size: 20px; color: var(--text3); transition: all 0.3s; flex-shrink: 0; }
+.map-card:hover .map-arrow { color: var(--accent); transform: translateX(4px); }
 
-.card-icon-wrap {
-  width: 48px; height: 48px; border-radius: 14px;
-  display: flex; align-items: center; justify-content: center; font-size: 24px;
-  background: var(--card-icon-bg, var(--tag-bg));
+/* ── Tool cards (small) ── */
+.tool-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
 }
+@media (max-width: 660px) { .tool-grid { grid-template-columns: 1fr; gap: 12px; } }
 
-.card-title {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 17px; font-weight: 600; line-height: 1.4;
+.tool-card {
+  display: block; text-decoration: none; color: var(--text);
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.card-desc {
-  font-size: 13px; color: var(--text2); line-height: 1.65; flex: 1;
-}
-.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.tag {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  padding: 3px 10px; border-radius: 12px;
+.tool-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border2); }
+.tool-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.tool-icon { font-size: 20px; }
+.tool-title { font-family: 'Noto Serif SC', serif; font-size: 14px; font-weight: 600; flex: 1; }
+.tool-arrow { font-size: 14px; color: var(--text3); transition: all 0.3s; }
+.tool-card:hover .tool-arrow { color: var(--accent); transform: translateX(3px); }
+.tool-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.tool-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.tool-tags .tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  padding: 2px 7px; border-radius: 10px;
   background: var(--tag-bg); color: var(--tag-text); letter-spacing: 0.3px;
 }
 
-.card-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--border);
+/* ── Archive cards (smallest) ── */
+.archive-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
 }
-.card-status {
-  font-size: 11px; color: var(--text3);
-  display: flex; align-items: center; gap: 5px;
-}
-.status-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.4);
-}
-.status-dot.beta { background: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.4); }
-.card-arrow { font-size: 18px; color: var(--text3); transition: all 0.3s; }
-.card:hover .card-arrow { color: var(--accent); transform: translateX(4px); }
+@media (max-width: 660px) { .archive-grid { grid-template-columns: 1fr; gap: 10px; } }
 
-.card-update {
-  font-size: 10px; color: var(--text3);
-  font-family: 'JetBrains Mono', monospace;
-  margin-top: 2px;
+.archive-card {
+  display: block; text-decoration: none; color: var(--text);
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s;
+  opacity: 0.85;
 }
+.archive-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); opacity: 1; }
+.archive-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.archive-icon { font-size: 16px; }
+.archive-title { font-size: 13px; font-weight: 600; flex: 1; }
+.archive-desc { font-size: 11px; color: var(--text3); line-height: 1.5; }
+.archive-date { font-size: 10px; color: var(--text3); font-family: 'JetBrains Mono', monospace; margin-top: 6px; }
 
-footer {
-  text-align: center; padding: 40px 0; border-top: 1px solid var(--border);
-}
-.footer-brand {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; font-weight: 500; color: var(--text2);
-  letter-spacing: 1px; margin-bottom: 12px;
-}
-.footer-disclaimer {
-  font-size: 11px; color: var(--text3); line-height: 1.7;
-  max-width: 520px; margin: 0 auto;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.hero { animation: fadeUp 0.6s ease-out; }
-.card:nth-child(1) { animation: fadeUp 0.6s ease-out 0.1s both; }
-.card:nth-child(2) { animation: fadeUp 0.6s ease-out 0.2s both; }
-.card:nth-child(3) { animation: fadeUp 0.6s ease-out 0.3s both; }
-.card:nth-child(4) { animation: fadeUp 0.6s ease-out 0.4s both; }
-.card:nth-child(5) { animation: fadeUp 0.6s ease-out 0.5s both; }
-.card:nth-child(6) { animation: fadeUp 0.6s ease-out 0.6s both; }
-.card:nth-child(7) { animation: fadeUp 0.6s ease-out 0.7s both; }
-.card:nth-child(8) { animation: fadeUp 0.6s ease-out 0.8s both; }
-.section { animation: fadeUp 0.6s ease-out both; }
-.section:nth-of-type(1) { animation-delay: 0.15s; }
-.section:nth-of-type(2) { animation-delay: 0.25s; }
-.section:nth-of-type(3) { animation-delay: 0.35s; }
-.section:nth-of-type(4) { animation-delay: 0.45s; }
-footer { animation: fadeUp 0.6s ease-out 0.6s both; }
-
-/* Hot keywords bubble chart */
+/* ── Hot keywords (compact) ── */
 .hot-keywords {
-  margin-bottom: 48px;
-  padding: 24px 24px 20px;
+  margin-bottom: 12px;
+  padding: 18px 20px 16px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -266,12 +267,12 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 }
 .hot-keywords-header {
   display: flex; align-items: baseline; justify-content: space-between;
-  gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  gap: 12px; margin-bottom: 12px; flex-wrap: wrap;
 }
 .hot-keywords-title {
   font-family: 'Noto Serif SC', serif;
-  font-size: 16px; font-weight: 600; color: var(--text);
-  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--text);
+  display: flex; align-items: center; gap: 6px;
 }
 .hot-keywords-sub {
   font-family: 'JetBrains Mono', monospace;
@@ -279,14 +280,14 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 }
 .bubble-canvas {
   position: relative;
-  display: flex; flex-wrap: wrap; gap: 8px 10px;
+  display: flex; flex-wrap: wrap; gap: 6px 8px;
   align-items: center; justify-content: center;
-  min-height: 140px;
-  padding: 12px 4px;
+  min-height: 80px;
+  padding: 8px 4px;
 }
 .bubble {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 14px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 12px; border-radius: 999px;
   font-weight: 500;
   background: var(--bubble-bg, rgba(45,90,240,0.08));
   color: var(--bubble-color, var(--accent));
@@ -301,28 +302,28 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
   box-shadow: 0 4px 16px var(--bubble-glow, rgba(45,90,240,0.2));
 }
 .bubble .heat-dot {
-  width: 6px; height: 6px; border-radius: 50%;
+  width: 5px; height: 5px; border-radius: 50%;
   background: currentColor;
-  box-shadow: 0 0 8px currentColor;
+  box-shadow: 0 0 6px currentColor;
 }
 .bubble-empty {
   font-size: 12px; color: var(--text3);
-  padding: 40px 0; text-align: center; width: 100%;
+  padding: 20px 0; text-align: center; width: 100%;
 }
 .hot-keywords-footer {
-  margin-top: 12px; padding-top: 12px;
+  margin-top: 10px; padding-top: 10px;
   border-top: 1px dashed var(--border);
   display: flex; justify-content: space-between; align-items: center;
   font-size: 10px; color: var(--text3);
   font-family: 'JetBrains Mono', monospace;
 }
-.hot-keywords-legend { display: flex; gap: 14px; flex-wrap: wrap; }
+.hot-keywords-legend { display: flex; gap: 12px; flex-wrap: wrap; }
 .hot-keywords-legend span { display: inline-flex; align-items: center; gap: 4px; }
 .hot-keywords-legend i {
-  width: 6px; height: 6px; border-radius: 50%; display: inline-block;
+  width: 5px; height: 5px; border-radius: 50%; display: inline-block;
 }
 
-/* Lineage 抽屉 — 点击气泡查看数据溯源 */
+/* Lineage drawer */
 .lineage-overlay {
   position: fixed; inset: 0; background: rgba(5,10,20,0.68);
   backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
@@ -471,6 +472,42 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
   .lineage-drawer { width: 100vw; }
   .lineage-title { font-size: 19px; }
 }
+
+/* Footer */
+footer {
+  text-align: center; padding: 40px 0; border-top: 1px solid var(--border);
+}
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 500; color: var(--text2);
+  letter-spacing: 1px; margin-bottom: 12px;
+}
+.footer-disclaimer {
+  font-size: 11px; color: var(--text3); line-height: 1.7;
+  max-width: 520px; margin: 0 auto;
+}
+
+/* Watermark */
+body::after {
+  content: '黑森船长'; position: fixed;
+  bottom: 50%; left: 50%; transform: translate(-50%, 50%) rotate(-30deg);
+  font-size: 80px; font-weight: 700; color: var(--text);
+  opacity: 0.02; pointer-events: none; z-index: 0; white-space: nowrap;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero { animation: fadeUp 0.6s ease-out; }
+.anim { animation: fadeUp 0.5s ease-out both; }
+.anim-1 { animation-delay: 0.1s; }
+.anim-2 { animation-delay: 0.2s; }
+.anim-3 { animation-delay: 0.3s; }
+.anim-4 { animation-delay: 0.4s; }
+.anim-5 { animation-delay: 0.5s; }
+footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 </style>
 </head>
 <body>
@@ -484,12 +521,12 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     <div class="logo-icon">B</div>
     <span class="logo-text">BaseAlpha</span>
   </div>
-  <h1>独立资本的<span class="highlight">认知操作系统</span></h1>
-  <p class="tagline">把宏观事件、产业传导与资金流动，编译为可执行的确定性叙事<br>本体论驱动 · 人机协同 · 为独立投资者而生</p>
+  <h1>独立资本的<span class="highlight">投资决策系统</span></h1>
+  <p class="tagline">人机协同 · 本体论驱动 · 为独立投资者而生</p>
   <div class="pipeline">
     <span>Data</span><span class="arrow">→</span>
     <span>Ontology</span><span class="arrow">→</span>
-    <span>Action</span>
+    <span>Decision</span>
   </div>
 </div>
 
@@ -522,240 +559,156 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
   </div>
 </aside>
 
-<!-- 热点关键词气泡图 -->
-<div class="hot-keywords" id="hot-keywords">
-  <div class="hot-keywords-header">
-    <div class="hot-keywords-title">
-      <span>🔥</span>
-      <span>今日热点关键词</span>
-    </div>
-    <div class="hot-keywords-sub" id="hot-keywords-sub">加载中…</div>
-  </div>
-  <div class="bubble-canvas" id="bubble-canvas">
-    <div class="bubble-empty">正在抓取主流媒体热点…</div>
-  </div>
-  <div class="hot-keywords-footer">
-    <div class="hot-keywords-legend">
-      <span><i style="background:#ef4444"></i>地缘</span>
-      <span><i style="background:#2d5af0"></i>金融</span>
-      <span><i style="background:#7c3aed"></i>AI/科技</span>
-      <span><i style="background:#10b981"></i>产业</span>
-      <span><i style="background:#f59e0b"></i>宏观</span>
-    </div>
-    <span>气泡大小 = 热度</span>
-  </div>
-</div>
-
-<!-- Section 1: 态势感知 -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-title">
-      <span class="section-icon">🛰️</span>
-      <span>态势感知</span>
-      <span class="section-meta">循环A · 事件驱动</span>
-    </div>
-    <div class="section-quote">"世界现在是什么状态？因果链上哪些节点被激活了？"</div>
-  </div>
-  <div class="cards">
-
-  <a href="certainty-map.html" class="card" style="--card-grad: linear-gradient(135deg, #a78bfa 0%, #6366f1 100%); --card-icon-bg: linear-gradient(135deg, rgba(167,139,250,0.14), rgba(99,102,241,0.14));">
-    <div class="card-icon-wrap">&#128506;&#65039;</div>
-    <div class="card-title">确定性地图 · 因果链首屏</div>
-    <div class="card-desc">热点进，结构出。点击热点事件直接进入因果链横向流图，每个节点可展开 HCT 六维评分与节点级证据。右侧冷点栏展示被低估的高确定性链条。</div>
-    <div class="card-tags">
-      <span class="tag">因果链</span>
-      <span class="tag">HCT 六维</span>
-      <span class="tag">节点级证据</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot beta"></span>Sprint 1-4</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-
-  <a href="private-credit-tracker.html" class="card" style="--card-grad: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); --card-icon-bg: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(124,58,237,0.12));">
-    <div class="card-icon-wrap">&#128179;</div>
-    <div class="card-title">私募信贷 × SaaS 危机追踪</div>
-    <div class="card-desc">AI Agent 崛起 → SaaS 估值崩塌 → 私募信贷暴露 → 赎回潮 → 流动性挤兑 → 银行传染。6 大 BDC 赎回数据 + 5 条追踪线，每日自动更新。</div>
-    <div class="card-tags">
-      <span class="tag">$3.5T 市场</span>
-      <span class="tag">5 条线</span>
-      <span class="tag">每日自动</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot"></span>可用</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-
-  <a href="mythos-tracker.html" class="card" style="--card-grad: linear-gradient(135deg, #3b82f6 0%, #1e293b 100%); --card-icon-bg: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(30,41,59,0.12));">
-    <div class="card-icon-wrap">&#128302;</div>
-    <div class="card-title">Mythos / Glasswing 追踪</div>
-    <div class="card-desc">Anthropic Mythos + Project Glasswing 事件追踪。AI 前沿模型网安能力突破 → 金融系统性风险 → 网安行业重新定价。时间线 + 五条追踪线，每日自动更新。</div>
-    <div class="card-tags">
-      <span class="tag">事件追踪</span>
-      <span class="tag">5 条线</span>
-      <span class="tag">每日自动</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot"></span>可用</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-
-  <a href="weekly.html" class="card" style="--card-grad: linear-gradient(135deg, #f97316 0%, #ef4444 100%); --card-icon-bg: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(239,68,68,0.12));">
-    <div class="card-icon-wrap">&#128202;</div>
-    <div class="card-title">宏观雷达总览</div>
-    <div class="card-desc">9种宏观体制识别、多极景气度计算、产业链传导分析。数据日更，每周自动对比变动与异常信号。</div>
-    <div class="card-tags">
-      <span class="tag">9 体制</span>
-      <span class="tag">异常触发</span>
-      <span class="tag">周对比</span>
-    </div>
-    <div class="card-footer">
-      <div>
-        <span class="card-status"><span class="status-dot"></span>可用</span>
-        <div class="card-update" id="weekly-update"></div>
+<!-- ═══ 模块一：今日数据 ═══ -->
+<div class="module anim anim-1">
+  <div class="hot-keywords" id="hot-keywords">
+    <div class="hot-keywords-header">
+      <div class="hot-keywords-title">
+        <span>🔥</span>
+        <span>今日热点关键词</span>
       </div>
-      <span class="card-arrow">&rarr;</span>
+      <div class="hot-keywords-sub" id="hot-keywords-sub">加载中…</div>
     </div>
-  </a>
-
-  <a href="s2-battle.html" class="card" style="--card-grad: linear-gradient(135deg, #ef4444 0%, #7f1d1d 100%); --card-icon-bg: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(127,29,29,0.12));">
-    <div class="card-icon-wrap">&#9876;&#65039;</div>
-    <div class="card-title">美以伊战局博弈推演</div>
-    <div class="card-desc">基于S₂框架的中东局势实时博弈分析。三方力量对比、升级/降温概率、关键节点推演与市场冲击路径。</div>
-    <div class="card-tags">
-      <span class="tag">博弈推演</span>
-      <span class="tag">三方对比</span>
-      <span class="tag">概率评估</span>
+    <div class="bubble-canvas" id="bubble-canvas">
+      <div class="bubble-empty">正在抓取主流媒体热点…</div>
     </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot beta"></span>实验性</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-  </div>
-</div>
-
-<!-- Section 2: 结构拓扑 -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-title">
-      <span class="section-icon">🏭</span>
-      <span>结构拓扑</span>
-      <span class="section-meta">循环B · 结构驱动</span>
-    </div>
-    <div class="section-quote">"这条链上哪里有机会？在等什么催化剂？"</div>
-  </div>
-  <div class="cards">
-
-  <a href="agentic-infra.html" class="card" style="--card-grad: linear-gradient(135deg, #d4a853 0%, #8b6914 100%); --card-icon-bg: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(139,105,20,0.12));">
-    <div class="card-icon-wrap">&#129302;</div>
-    <div class="card-title">Agent基础设施确定性地图</div>
-    <div class="card-desc">Agentic经济三层基础设施拆解：身份层×编排层×结算层。关键玩家卡位分析、跨层控制力评估、Citrini持仓映射。</div>
-    <div class="card-tags">
-      <span class="tag">3 层拆解</span>
-      <span class="tag">14 玩家</span>
-      <span class="tag">确定性评分</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot"></span>可用</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-
-  <a href="ai-capex.html" class="card" style="--card-grad: linear-gradient(135deg, #4ECDC4 0%, #E8B931 100%); --card-icon-bg: linear-gradient(135deg, rgba(78,205,196,0.12), rgba(232,185,49,0.12));">
-    <div class="card-icon-wrap">&#128176;</div>
-    <div class="card-title">AI Capex vs Revenue</div>
-    <div class="card-desc">$7000亿数据中心投入 vs 大模型公司收入现实。五大云厂商资本支出、GPU折旧争议、Anthropic/OpenAI收入交叉、FCF断崖与发债融资。</div>
-    <div class="card-tags">
-      <span class="tag">$650B Capex</span>
-      <span class="tag">折旧争议</span>
-      <span class="tag">收入对比</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot"></span>可用</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-
-  <a href="america.html" class="card" style="--card-grad: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); --card-icon-bg: linear-gradient(135deg, rgba(240,147,251,0.12), rgba(245,87,108,0.12));">
-    <div class="card-icon-wrap">&#127963;&#65039;</div>
-    <div class="card-title">美国经济结构透视</div>
-    <div class="card-desc">如果美国经济是一栋建筑——双体剖面结构、6条管道系统、承重墙与裂缝的结构化分析。</div>
-    <div class="card-tags">
-      <span class="tag">双体剖面</span>
-      <span class="tag">6 管道系统</span>
-      <span class="tag">深色/浅色</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot"></span>可用</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-
-  <a href="gear.html" class="card" style="--card-grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%); --card-icon-bg: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12));">
-    <div class="card-icon-wrap">&#9881;&#65039;</div>
-    <div class="card-title">多极齿轮传导系统</div>
-    <div class="card-desc">宏观变量（多国）→ 产业景气度 → 个股弹性的三级传导模型。支持多国联动、反向咬合剪切力分析。</div>
-    <div class="card-tags">
-      <span class="tag">12 场景预设</span>
-      <span class="tag">8 产业链</span>
-      <span class="tag">上下游钻取</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot"></span>可用</span>
-      <span class="card-arrow">&rarr;</span>
-    </div>
-  </a>
-  </div>
-</div>
-
-<!-- Section 3: 情景推演 × 决策支持 -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-title">
-      <span class="section-icon">🎯</span>
-      <span>情景推演 × 决策支持</span>
-      <span class="section-meta">HCT 六维 · 概率分布</span>
-    </div>
-    <div class="section-quote">"哪些确定性值得下注？用什么工具表达？"</div>
-  </div>
-  <div class="cards">
-
-  <a href="s2-certainty.html" class="card" style="--card-grad: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%); --card-icon-bg: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(220,38,38,0.12));">
-    <div class="card-icon-wrap">&#128752;</div>
-    <div class="card-title">S₂ 宏观雷达</div>
-    <div class="card-desc">六维宏观监控系统实时状态：信用韧性、制度稳定、情绪反馈、市场协调、叙事共识、技术动能。吸引子域判定、极端指标预警、结构性机会识别。</div>
-    <div class="card-tags">
-      <span class="tag">S₂ 六维</span>
-      <span class="tag">每日更新</span>
-      <span class="tag">脱敏公开</span>
-    </div>
-    <div class="card-footer">
-      <div>
-        <span class="card-status"><span class="status-dot"></span>可用</span>
-        <div class="card-update" id="s2-radar-update"></div>
+    <div class="hot-keywords-footer">
+      <div class="hot-keywords-legend">
+        <span><i style="background:#ef4444"></i>地缘</span>
+        <span><i style="background:#2d5af0"></i>金融</span>
+        <span><i style="background:#7c3aed"></i>AI/科技</span>
+        <span><i style="background:#10b981"></i>产业</span>
+        <span><i style="background:#f59e0b"></i>宏观</span>
       </div>
-      <span class="card-arrow">&rarr;</span>
+      <span>气泡大小 = 热度 · 点击查看溯源</span>
     </div>
-  </a>
+  </div>
+</div>
 
-  <a href="monte-carlo.html" class="card" style="--card-grad: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); --card-icon-bg: linear-gradient(135deg, rgba(79,172,254,0.12), rgba(0,242,254,0.12));">
-    <div class="card-icon-wrap">&#127922;</div>
-    <div class="card-title">文明碰撞概率模拟</div>
-    <div class="card-desc">蒙特卡洛方法模拟技术文明与人类文明的百年碰撞概率。可调AI发展速率、治理滞后等参数。</div>
-    <div class="card-tags">
-      <span class="tag">蒙特卡洛</span>
-      <span class="tag">50K 模拟</span>
-      <span class="tag">概率分布</span>
-    </div>
-    <div class="card-footer">
-      <span class="card-status"><span class="status-dot beta"></span>实验性</span>
-      <span class="card-arrow">&rarr;</span>
+<!-- ═══ 模块二：系统判断 — S₂ 宏观雷达 ═══ -->
+<div class="module anim anim-2">
+  <div class="module-head">
+    <span class="mh-icon">📡</span>
+    <span>系统判断 — S₂ 宏观雷达</span>
+    <span class="mh-meta">Ontology · 每日更新</span>
+  </div>
+  <a href="s2-certainty.html" class="s2-card" id="s2-card">
+    <div class="s2-loading" id="s2-loading">加载 S₂ 雷达数据...</div>
+    <div id="s2-content" style="display:none"></div>
+  </a>
+</div>
+
+<!-- ═══ 模块三：确定性地图 ═══ -->
+<div class="module anim anim-3">
+  <div class="module-head">
+    <span class="mh-icon">🗺️</span>
+    <span>确定性地图</span>
+    <span class="mh-meta">Ontology · 因果链</span>
+  </div>
+  <a href="certainty-map.html" class="map-card">
+    <div class="map-card-inner">
+      <span class="map-icon">🗺️</span>
+      <div class="map-body">
+        <div class="map-title">因果链首屏</div>
+        <div class="map-desc">热点进，结构出。点击事件进入因果链横向流图，每个节点可展开 HCT 六维评分与节点级证据。</div>
+        <div class="map-tags">
+          <span class="tag" style="font-size:10px;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:var(--tag-text);font-family:'JetBrains Mono',monospace;">因果链</span>
+          <span class="tag" style="font-size:10px;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:var(--tag-text);font-family:'JetBrains Mono',monospace;">HCT 六维</span>
+          <span class="tag" style="font-size:10px;padding:3px 10px;border-radius:12px;background:var(--tag-bg);color:var(--tag-text);font-family:'JetBrains Mono',monospace;">节点级证据</span>
+        </div>
+      </div>
+      <span class="map-arrow">→</span>
     </div>
   </a>
+</div>
+
+<!-- ═══ 模块四：分析工具 ═══ -->
+<div class="module anim anim-4">
+  <div class="module-head">
+    <span class="mh-icon">🏭</span>
+    <span>分析工具</span>
+    <span class="mh-meta">结构拓扑</span>
+  </div>
+  <div class="tool-grid">
+    <a href="gear.html" class="tool-card">
+      <div class="tool-card-top">
+        <span class="tool-icon">⚙️</span>
+        <span class="tool-title">多极齿轮传导系统</span>
+        <span class="tool-arrow">→</span>
+      </div>
+      <div class="tool-desc">宏观变量→产业景气度→个股弹性的三级传导</div>
+      <div class="tool-tags"><span class="tag">12 场景</span><span class="tag">8 产业链</span></div>
+    </a>
+    <a href="america.html" class="tool-card">
+      <div class="tool-card-top">
+        <span class="tool-icon">🏛️</span>
+        <span class="tool-title">美国经济结构透视</span>
+        <span class="tool-arrow">→</span>
+      </div>
+      <div class="tool-desc">双体剖面结构、6条管道系统、承重墙与裂缝</div>
+      <div class="tool-tags"><span class="tag">双体剖面</span><span class="tag">6 管道</span></div>
+    </a>
+    <a href="agentic-infra.html" class="tool-card">
+      <div class="tool-card-top">
+        <span class="tool-icon">🤖</span>
+        <span class="tool-title">Agent基础设施确定性地图</span>
+        <span class="tool-arrow">→</span>
+      </div>
+      <div class="tool-desc">身份层×编排层×结算层三层拆解与玩家卡位</div>
+      <div class="tool-tags"><span class="tag">3 层</span><span class="tag">14 玩家</span></div>
+    </a>
+    <a href="ai-capex.html" class="tool-card">
+      <div class="tool-card-top">
+        <span class="tool-icon">💰</span>
+        <span class="tool-title">AI Capex vs Revenue</span>
+        <span class="tool-arrow">→</span>
+      </div>
+      <div class="tool-desc">$7000亿数据中心投入 vs 大模型公司收入现实</div>
+      <div class="tool-tags"><span class="tag">$650B Capex</span><span class="tag">折旧争议</span></div>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ 模块五：专题研究 ═══ -->
+<div class="module anim anim-5">
+  <div class="module-head">
+    <span class="mh-icon">📚</span>
+    <span>专题研究</span>
+    <span class="mh-meta">存档</span>
+  </div>
+  <div class="archive-grid">
+    <a href="s2-battle.html" class="archive-card">
+      <div class="archive-top">
+        <span class="archive-icon">⚔️</span>
+        <span class="archive-title">美以伊战局博弈推演</span>
+      </div>
+      <div class="archive-desc">三方力量对比、升级/降温概率、市场冲击路径</div>
+      <div class="archive-date">2026.04</div>
+    </a>
+    <a href="private-credit-tracker.html" class="archive-card">
+      <div class="archive-top">
+        <span class="archive-icon">💳</span>
+        <span class="archive-title">私募信贷×SaaS危机</span>
+      </div>
+      <div class="archive-desc">$3.5T市场、6大BDC赎回、5条追踪线</div>
+      <div class="archive-date">2026.03</div>
+    </a>
+    <a href="mythos-tracker.html" class="archive-card">
+      <div class="archive-top">
+        <span class="archive-icon">🔮</span>
+        <span class="archive-title">Mythos/Glasswing追踪</span>
+      </div>
+      <div class="archive-desc">AI网安能力突破→金融系统性风险</div>
+      <div class="archive-date">2026.03</div>
+    </a>
+    <a href="monte-carlo.html" class="archive-card">
+      <div class="archive-top">
+        <span class="archive-icon">🎲</span>
+        <span class="archive-title">文明碰撞概率模拟</span>
+      </div>
+      <div class="archive-desc">蒙特卡洛模拟技术文明百年碰撞概率</div>
+      <div class="archive-date">实验性</div>
+    </a>
   </div>
 </div>
 
@@ -772,35 +725,70 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 </footer>
 
 <script>
-// 动态加载更新时间
+// ── S₂ 雷达实时摘要 ──
 (async function() {
+  var el = document.getElementById('s2-content');
+  var loading = document.getElementById('s2-loading');
+  if (!el) return;
+
+  var LEVEL_CLS = {'强健':'robust','健康':'healthy','中性':'neutral','承压':'stressed','恶化':'deteriorating'};
+  var DIM_LABELS = {R:'信用韧性',I:'制度稳定',F:'情绪反馈',C:'市场协调',N:'叙事共识',T:'技术动能'};
+
   try {
-    const resp = await fetch('data/weekly-latest.json?t=' + Date.now());
-    if (!resp.ok) return;
-    const d = await resp.json();
-    const el = document.getElementById('weekly-update');
-    if (el && d.generated_at) el.textContent = '更新于 ' + d.generated_at;
-  } catch(e) {}
+    var resp = await fetch('data/s2-radar.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    var d = await resp.json();
+
+    var ss = d.system_state || {};
+    var att = d.attractor || {};
+    var dims = d.dimensions || {};
+    var extremes = d.extremes || {};
+    var ts = (d.timestamp || '').replace('T', ' ').slice(0, 16);
+
+    var html = '<div class="s2-card-top">'
+      + '<span class="s2-state" style="color:' + (ss.color || 'var(--text)') + '">' + (ss.label || '未知') + '</span>'
+      + '<span class="s2-attractor"><span class="emoji">' + (att.captured_emoji || '⚪') + '</span>' + (att.captured_name || '—') + '</span>'
+      + '</div>';
+
+    html += '<div class="s2-meta-row">';
+    if (att.moving_toward) html += '<span>运动方向 → ' + att.moving_toward + '</span>';
+    if (att.early_warning && att.early_warning !== '无') html += '<span style="color:var(--red)">⚠ ' + att.early_warning + '</span>';
+    html += '<span>数据 ' + ts + '</span></div>';
+
+    html += '<div class="s2-dims">';
+    ['R','I','F','C','N','T'].forEach(function(k) {
+      var dim = dims[k] || {};
+      var level = dim.level || '中性';
+      var cls = LEVEL_CLS[level] || 'neutral';
+      html += '<span class="dim-tag ' + cls + '">' + k + ' ' + level + '</span>';
+    });
+    html += '</div>';
+
+    html += '<div class="s2-bottom">';
+    var extCount = extremes.count || (Array.isArray(extremes) ? extremes.length : 0);
+    if (extCount > 0) {
+      html += '<span class="s2-extremes">⚠️ ' + extCount + ' 项极端指标</span>';
+    } else {
+      html += '<span></span>';
+    }
+    html += '<span class="s2-cta">查看完整雷达 →</span>';
+    html += '</div>';
+
+    loading.style.display = 'none';
+    el.style.display = 'block';
+    el.innerHTML = html;
+  } catch(e) {
+    loading.textContent = 'S₂ 数据暂不可用';
+  }
 })();
 
-// S₂ 雷达更新时间
+// ── 热点关键词气泡图 + Lineage 抽屉 ──
 (async function() {
-  try {
-    const resp = await fetch('data/s2-radar.json?t=' + Date.now());
-    if (!resp.ok) return;
-    const d = await resp.json();
-    const el = document.getElementById('s2-radar-update');
-    if (el && d.timestamp) el.textContent = '更新于 ' + d.timestamp.replace('T', ' ').slice(0, 16);
-  } catch(e) {}
-})();
-
-// 热点关键词气泡图 + Lineage 抽屉
-(async function() {
-  const canvas = document.getElementById('bubble-canvas');
-  const sub = document.getElementById('hot-keywords-sub');
+  var canvas = document.getElementById('bubble-canvas');
+  var sub = document.getElementById('hot-keywords-sub');
   if (!canvas) return;
 
-  const CATEGORY_STYLE = {
+  var CATEGORY_STYLE = {
     'geo':      { color: '#ef4444', bg: 'rgba(239,68,68,0.08)',  glow: 'rgba(239,68,68,0.25)', label: '地缘' },
     'finance':  { color: '#2d5af0', bg: 'rgba(45,90,240,0.08)',  glow: 'rgba(45,90,240,0.25)', label: '金融' },
     'ai-tech':  { color: '#7c3aed', bg: 'rgba(124,58,237,0.08)', glow: 'rgba(124,58,237,0.25)', label: 'AI/科技' },
@@ -808,35 +796,33 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     'macro':    { color: '#f59e0b', bg: 'rgba(245,158,11,0.08)', glow: 'rgba(245,158,11,0.25)', label: '宏观' },
   };
 
-  // ── Lineage 抽屉控制 ──
-  const overlay = document.getElementById('lineage-overlay');
-  const drawer = document.getElementById('lineage-drawer');
-  const closeBtn = document.getElementById('lineage-close');
-  const backBtn = document.getElementById('lineage-back');
-  let lineageOpen = false;
+  var overlay = document.getElementById('lineage-overlay');
+  var drawer = document.getElementById('lineage-drawer');
+  var closeBtn = document.getElementById('lineage-close');
+  var backBtn = document.getElementById('lineage-back');
+  var lineageOpen = false;
 
   function openLineage(k) {
-    const style = CATEGORY_STYLE[k.category] || CATEGORY_STYLE['finance'];
-    const badge = document.getElementById('lineage-badge');
+    var style = CATEGORY_STYLE[k.category] || CATEGORY_STYLE['finance'];
+    var badge = document.getElementById('lineage-badge');
     badge.style.color = style.color;
     badge.style.borderColor = style.color;
     badge.style.background = style.bg;
     document.getElementById('lineage-cat').textContent = style.label.toUpperCase();
-
     document.getElementById('lineage-title').textContent = k.keyword || '';
     document.getElementById('lineage-summary').textContent = k.summary || '';
     document.getElementById('lineage-heat').textContent = 'HEAT ' + (k.heat || '—');
 
-    const evList = document.getElementById('lineage-evidence');
-    const evidence = Array.isArray(k.evidence) ? k.evidence : [];
+    var evList = document.getElementById('lineage-evidence');
+    var evidence = Array.isArray(k.evidence) ? k.evidence : [];
     document.getElementById('lineage-count').textContent = evidence.length + ' 条溯源';
 
     if (evidence.length) {
-      evList.innerHTML = evidence.map(ev => {
-        const src = (ev.source || '').replace(/</g, '&lt;');
-        const txt = (ev.text || '').replace(/</g, '&lt;');
-        const tm = (ev.time || '').replace(/</g, '&lt;');
-        const timeHtml = tm ? '<span class="ev-time">' + tm + '</span>' : '';
+      evList.innerHTML = evidence.map(function(ev) {
+        var src = (ev.source || '').replace(/</g, '&lt;');
+        var txt = (ev.text || '').replace(/</g, '&lt;');
+        var tm = (ev.time || '').replace(/</g, '&lt;');
+        var timeHtml = tm ? '<span class="ev-time">' + tm + '</span>' : '';
         return '<li style="--bubble-color:' + style.color + ';--bubble-bg:' + style.bg + '">'
              + '<span class="ev-source">' + src + '</span>' + timeHtml + '<br>' + txt + '</li>';
       }).join('');
@@ -844,8 +830,8 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
       evList.innerHTML = '<div class="lineage-empty">暂无原始溯源数据</div>';
     }
 
-    const footer = document.getElementById('lineage-footer');
-    const cta = document.getElementById('lineage-cta');
+    var footer = document.getElementById('lineage-footer');
+    var cta = document.getElementById('lineage-cta');
     if (k.tool && k.tool.href) {
       footer.style.display = 'block';
       cta.href = k.tool.href;
@@ -859,7 +845,6 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     drawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // 推一个 history state,使物理返回键/手势可以关闭抽屉
     if (!lineageOpen) {
       lineageOpen = true;
       history.pushState({ lineage: true }, '', location.href);
@@ -871,7 +856,6 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     drawer.classList.remove('open');
     drawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    // 如果不是由 popstate 触发的关闭,需要 history.back() 消掉推入的 state
     if (lineageOpen && !fromPop) {
       lineageOpen = false;
       history.back();
@@ -880,42 +864,41 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     }
   }
 
-  overlay.addEventListener('click', () => closeLineage(false));
-  closeBtn.addEventListener('click', () => closeLineage(false));
-  backBtn.addEventListener('click', () => closeLineage(false));
-  document.addEventListener('keydown', (e) => {
+  overlay.addEventListener('click', function() { closeLineage(false); });
+  closeBtn.addEventListener('click', function() { closeLineage(false); });
+  backBtn.addEventListener('click', function() { closeLineage(false); });
+  document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && lineageOpen) closeLineage(false);
   });
-  window.addEventListener('popstate', () => {
+  window.addEventListener('popstate', function() {
     if (lineageOpen) closeLineage(true);
   });
 
   try {
-    const resp = await fetch('data/hot-keywords.json?t=' + Date.now());
+    var resp = await fetch('data/hot-keywords.json?t=' + Date.now());
     if (!resp.ok) throw new Error('fetch failed');
-    const data = await resp.json();
-    const kws = data.keywords || [];
+    var data = await resp.json();
+    var kws = data.keywords || [];
     if (!kws.length) {
       canvas.innerHTML = '<div class="bubble-empty">暂无热点数据</div>';
       return;
     }
 
-    if (sub) sub.textContent = '更新于 ' + (data.last_updated || data.date || '—') + ' · 来源: 华尔街见闻/财联社/Google News · 点击气泡查看溯源';
+    if (sub) sub.textContent = '更新于 ' + (data.last_updated || data.date || '—') + ' · 来源: 华尔街见闻/财联社/Google News';
 
-    const maxHeat = Math.max(...kws.map(k => k.heat || 0), 1);
-    const minHeat = Math.min(...kws.map(k => k.heat || 0), maxHeat);
-    const span = Math.max(1, maxHeat - minHeat);
+    var maxHeat = Math.max.apply(null, kws.map(function(k){return k.heat||0;})) || 1;
+    var minHeat = Math.min.apply(null, kws.map(function(k){return k.heat||0;}));
+    var span = Math.max(1, maxHeat - minHeat);
 
     canvas.innerHTML = '';
-    kws.forEach(k => {
-      const style = CATEGORY_STYLE[k.category] || CATEGORY_STYLE['finance'];
-      const ratio = ((k.heat || 0) - minHeat) / span;
-      const fontSize = (12 + ratio * 10).toFixed(1);
-      const padY = (6 + ratio * 4).toFixed(0);
-      const padX = (12 + ratio * 6).toFixed(0);
+    kws.forEach(function(k) {
+      var style = CATEGORY_STYLE[k.category] || CATEGORY_STYLE['finance'];
+      var ratio = ((k.heat || 0) - minHeat) / span;
+      var fontSize = (11 + ratio * 8).toFixed(1);
+      var padY = (5 + ratio * 3).toFixed(0);
+      var padX = (10 + ratio * 5).toFixed(0);
 
-      // 所有气泡统一为 button — 点击弹出 lineage 抽屉
-      const el = document.createElement('button');
+      var el = document.createElement('button');
       el.type = 'button';
       el.className = 'bubble';
       el.title = k.summary || '';
@@ -929,7 +912,7 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
       el.style.border = '1px solid transparent';
       el.style.fontFamily = 'inherit';
       el.innerHTML = '<span class="heat-dot"></span>' + k.keyword;
-      el.addEventListener('click', () => openLineage(k));
+      el.addEventListener('click', function() { openLineage(k); });
       canvas.appendChild(el);
     });
   } catch(e) {

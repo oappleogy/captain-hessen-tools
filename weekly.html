@@ -558,9 +558,9 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
           <div class="s2-state-badge" style="background:${st.color}18;color:${st.color}">
             ⚠ S₂ ${st.label}
           </div>
-          <div class="s2-score">综合得分 ${st.score > 0 ? '+' : ''}${st.score} · 安全边际 ${s2.attractor.safety_margin}</div>
+          ${st.score != null ? `<div class="s2-score">综合得分 ${st.score > 0 ? '+' : ''}${st.score}${s2.attractor.safety_margin ? ' · 安全边际 ' + s2.attractor.safety_margin : ''}</div>` : ''}
         </div>
-        <div class="s2-action">${st.action}</div>
+        ${st.action ? `<div class="s2-action">${st.action}</div>` : ''}
         <div class="s2-meta">S₂ 宏观监控 · 数据 ${s2.timestamp}</div>
       </div>`;
 
@@ -643,71 +643,73 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
 
       // ── 六维评分 ──
       html += `<div class="section animate" style="${ad()}">
-        <div class="section-title">📡 S₂ 六维评分</div>
+        <div class="section-title">📡 S₂ 六维雷达</div>
         <div class="section-body"><div class="dim-list">`;
 
+      const LEVEL_MAP = {'强健':{pct:95,color:'var(--green)'},'健康':{pct:75,color:'var(--blue,#3b82f6)'},'中性':{pct:50,color:'var(--yellow)'},'承压':{pct:30,color:'var(--red)'},'恶化':{pct:10,color:'var(--red)'}};
       for (const [key, dim] of Object.entries(s2.dimensions)) {
-        const score = dim.score;
-        const pct = ((score + 1) / 2 * 100);  // -1~+1 → 0~100%
-        const color = score > 0.2 ? 'var(--green)' : score < -0.2 ? 'var(--red)' : 'var(--yellow)';
+        const level = dim.level || '中性';
+        const lm = LEVEL_MAP[level] || LEVEL_MAP['中性'];
         const statusIcon = dim.status === 'healthy' ? '🟢' : dim.status === 'stressed' ? '🔴' : '🟡';
         const label = dim.name_cn || dim.name;
-        const arrow = dim.state;
-
-        // Bar: center-aligned (50% = zero)
-        const barLeft = score >= 0 ? '50%' : (50 + score * 50) + '%';
-        const barWidth = Math.abs(score) * 50 + '%';
+        const arrow = dim.state || '►';
 
         html += `<div class="dim-item">
           <div class="dim-header">
             <span class="dim-name">${statusIcon} ${label} <span style="color:var(--text3)">${arrow}</span></span>
-            <span class="dim-score" style="color:${color}">${score > 0 ? '+' : ''}${score.toFixed(2)} ${dim.confidence}</span>
+            <span class="dim-score" style="color:${lm.color}">${level}</span>
           </div>
           <div class="dim-bar-bg">
-            <div class="dim-bar-fill" style="left:${barLeft};width:${barWidth};background:${color}"></div>
+            <div class="dim-bar-fill" style="left:0;width:${lm.pct}%;background:${lm.color}"></div>
           </div>
-          <div class="dim-note">${dim.note}</div>
+          <div class="dim-note">${dim.note || ''}</div>
         </div>`;
       }
       html += `</div></div></div>`;
 
-      // ── 吸引子概率分布 ──
+      // ── 吸引子状态 ──
       html += `<div class="section animate" style="${ad()}">
-        <div class="section-title">🌀 吸引子概率分布</div>
-        <div class="section-body">
-        <div class="attr-grid">`;
+        <div class="section-title">🌀 吸引子状态</div>
+        <div class="section-body">`;
 
-      for (const a of s2.attractor.basin_pct) {
-        const isCaptured = a.key === s2.attractor.captured;
-        const nameClass = isCaptured ? 'attr-captured' : '';
-        const barW = Math.max(a.pct, 1);
-        html += `<div class="attr-row">
-          <span class="attr-emoji">${a.emoji}</span>
-          <span class="attr-name ${nameClass}">${a.name}</span>
-          <div class="attr-bar-bg">
-            <div class="attr-bar-fill" style="width:${barW}%;background:${a.color}">
-              ${a.pct >= 8 ? `<span class="attr-pct">${a.pct}%</span>` : ''}
+      if (s2.attractor.basin_pct) {
+        html += `<div class="attr-grid">`;
+        for (const a of s2.attractor.basin_pct) {
+          const isCaptured = a.key === s2.attractor.captured;
+          const nameClass = isCaptured ? 'attr-captured' : '';
+          const barW = Math.max(a.pct, 1);
+          html += `<div class="attr-row">
+            <span class="attr-emoji">${a.emoji}</span>
+            <span class="attr-name ${nameClass}">${a.name}</span>
+            <div class="attr-bar-bg">
+              <div class="attr-bar-fill" style="width:${barW}%;background:${a.color}">
+                ${a.pct >= 8 ? `<span class="attr-pct">${a.pct}%</span>` : ''}
+              </div>
             </div>
-          </div>
-          ${a.pct < 8 ? `<span class="attr-pct-outside">${a.pct}%</span>` : ''}
-        </div>`;
+            ${a.pct < 8 ? `<span class="attr-pct-outside">${a.pct}%</span>` : ''}
+          </div>`;
+        }
+        html += `</div>`;
       }
 
-      html += `</div>`;
       const moveEmoji = {'停滞':'🟡','崩塌':'🔴','稳态':'🔵','黄金':'🟢','技术主导':'🟣'}[s2.attractor.moving_toward] || '➡️';
       html += `<div class="attr-heading">
-        当前位于 <strong>${s2.attractor.captured_emoji} ${s2.attractor.captured_name}</strong>
-        ，运动方向：${moveEmoji} <strong>${s2.attractor.moving_toward}</strong>
-        · 早期预警：${s2.attractor.early_warning}
+        当前位于 <strong>${s2.attractor.captured_emoji || '⚪'} ${s2.attractor.captured_name || s2.attractor.captured || '—'}</strong>
+        ${s2.attractor.moving_toward ? `，运动方向：${moveEmoji} <strong>${s2.attractor.moving_toward}</strong>` : ''}
+        ${s2.attractor.early_warning ? `· 早期预警：${s2.attractor.early_warning}` : ''}
       </div>`;
       html += `</div></div>`;
 
       // ── 极端指标 ──
-      if (s2.extremes && s2.extremes.length > 0) {
+      const extremeList = Array.isArray(s2.extremes) ? s2.extremes
+        : (s2.extremes && s2.extremes.categories) ? s2.extremes.categories : [];
+      const extremeCount = Array.isArray(s2.extremes) ? s2.extremes.length
+        : (s2.extremes && s2.extremes.count) ? s2.extremes.count : extremeList.length;
+      if (extremeCount > 0) {
         html += `<div class="section animate" style="${ad()}">
-          <div class="section-title">🚨 极端指标 (${s2.extremes.length}项)</div>
+          <div class="section-title">🚨 极端指标 (${extremeCount}项)</div>
           <div class="section-body">`;
-        for (const e of s2.extremes) {
+        for (const e of extremeList) {
           html += `<div class="extreme-item">${e}</div>`;
         }
         html += `</div></div>`;

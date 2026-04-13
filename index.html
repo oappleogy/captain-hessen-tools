@@ -20,6 +20,9 @@
 <meta name="twitter:description" content="S₂六维宏观监控 · 确定性地图 · 人机协同">
 <meta name="twitter:image" content="https://tools.basealpha.ai/og-image.png">
 
+<!-- 微信 JS-SDK -->
+<script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -946,6 +949,40 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     canvas.innerHTML = '<div class="bubble-empty">加载失败，请稍后刷新</div>';
     if (sub) sub.textContent = '加载失败';
   }
+})();
+
+// ── 微信 JS-SDK 分享 ──
+(function() {
+  if (typeof wx === 'undefined') return;
+  var url = location.href.split('#')[0];
+  fetch('/api/wx-config?url=' + encodeURIComponent(url))
+    .then(function(r) { return r.json(); })
+    .then(function(cfg) {
+      if (cfg.error) return;
+      wx.config({
+        debug: false,
+        appId: cfg.appId,
+        timestamp: cfg.timestamp,
+        nonceStr: cfg.nonceStr,
+        signature: cfg.signature,
+        jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData']
+      });
+      wx.ready(function() {
+        var shareData = {
+          title: 'BaseAlpha · 独立资本投资决策系统',
+          desc: '人机协同 · 本体论驱动 · S₂六维宏观监控 · 确定性地图',
+          link: location.href,
+          imgUrl: 'https://tools.basealpha.ai/og-image.png'
+        };
+        wx.updateAppMessageShareData(shareData);
+        wx.updateTimelineShareData({
+          title: 'BaseAlpha · 独立资本投资决策系统',
+          link: location.href,
+          imgUrl: 'https://tools.basealpha.ai/og-image.png'
+        });
+      });
+    })
+    .catch(function() {});
 })();
 </script>
 

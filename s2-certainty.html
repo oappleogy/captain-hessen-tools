@@ -25,6 +25,9 @@
 <meta name="twitter:description" content="六维宏观监控系统实时状态">
 <meta name="twitter:image" content="https://tools.basealpha.ai/og-image.png">
 
+<!-- 微信 JS-SDK -->
+<script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -871,6 +874,40 @@ if ('serviceWorker' in navigator) {
   }
 
   updateOnlineStatus();
+})();
+
+// ── 微信 JS-SDK 分享 ──
+(function() {
+  if (typeof wx === 'undefined') return;
+  var url = location.href.split('#')[0];
+  fetch('/api/wx-config?url=' + encodeURIComponent(url))
+    .then(function(r) { return r.json(); })
+    .then(function(cfg) {
+      if (cfg.error) return;
+      wx.config({
+        debug: false,
+        appId: cfg.appId,
+        timestamp: cfg.timestamp,
+        nonceStr: cfg.nonceStr,
+        signature: cfg.signature,
+        jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData']
+      });
+      wx.ready(function() {
+        var shareData = {
+          title: 'S₂ 宏观雷达 · 独立资本',
+          desc: '六维宏观监控系统 — 信用韧性、制度稳定、情绪反馈、市场协调、叙事共识、技术动能',
+          link: location.href,
+          imgUrl: 'https://tools.basealpha.ai/og-image.png'
+        };
+        wx.updateAppMessageShareData(shareData);
+        wx.updateTimelineShareData({
+          title: 'S₂ 宏观雷达 · 六维宏观监控',
+          link: location.href,
+          imgUrl: 'https://tools.basealpha.ai/og-image.png'
+        });
+      });
+    })
+    .catch(function() {});
 })();
 </script>
 

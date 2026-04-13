@@ -725,16 +725,19 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
   <div class="cards">
 
   <a href="s2-certainty.html" class="card" style="--card-grad: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%); --card-icon-bg: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(220,38,38,0.12));">
-    <div class="card-icon-wrap">&#9733;</div>
-    <div class="card-title">确定性存量实时坍缩</div>
-    <div class="card-desc">基于人类确定性理论（S₂框架）的六维量化诊断。冲突前vs当前确定性评分、贝叶斯路径概率更新、资产传导分析。</div>
+    <div class="card-icon-wrap">&#128752;</div>
+    <div class="card-title">S₂ 宏观雷达</div>
+    <div class="card-desc">六维宏观监控系统实时状态：信用韧性、制度稳定、情绪反馈、市场协调、叙事共识、技术动能。吸引子域判定、极端指标预警、结构性机会识别。</div>
     <div class="card-tags">
       <span class="tag">S₂ 六维</span>
-      <span class="tag">贝叶斯路径</span>
-      <span class="tag">Canvas</span>
+      <span class="tag">每日更新</span>
+      <span class="tag">脱敏公开</span>
     </div>
     <div class="card-footer">
-      <span class="card-status"><span class="status-dot"></span>可用</span>
+      <div>
+        <span class="card-status"><span class="status-dot"></span>可用</span>
+        <div class="card-update" id="s2-radar-update"></div>
+      </div>
       <span class="card-arrow">&rarr;</span>
     </div>
   </a>
@@ -777,6 +780,17 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     const d = await resp.json();
     const el = document.getElementById('weekly-update');
     if (el && d.generated_at) el.textContent = '更新于 ' + d.generated_at;
+  } catch(e) {}
+})();
+
+// S₂ 雷达更新时间
+(async function() {
+  try {
+    const resp = await fetch('data/s2-radar.json?t=' + Date.now());
+    if (!resp.ok) return;
+    const d = await resp.json();
+    const el = document.getElementById('s2-radar-update');
+    if (el && d.timestamp) el.textContent = '更新于 ' + d.timestamp.replace('T', ' ').slice(0, 16);
   } catch(e) {}
 })();
 

@@ -5,6 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>S₂ 宏观雷达 | 黑森船长</title>
 <meta name="description" content="S₂六维宏观监控系统 — 信用韧性、制度稳定、情绪反馈、市场协调、叙事共识、技术动能的定性监控仪表盘">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<!-- Open Graph -->
+<meta property="og:title" content="S₂ 宏观雷达 · 独立资本">
+<meta property="og:description" content="六维宏观监控系统 — 信用韧性、制度稳定、情绪反馈、市场协调、叙事共识、技术动能">
+<meta property="og:image" content="https://tools.basealpha.ai/og-image.png">
+<meta property="og:url" content="https://tools.basealpha.ai/s2-certainty.html">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="S₂ 宏观雷达 · 独立资本">
+<meta name="twitter:description" content="六维宏观监控系统实时状态">
+<meta name="twitter:image" content="https://tools.basealpha.ai/og-image.png">
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -318,9 +338,38 @@ body {
 .dist-name { font-weight: 600; font-size: 13px; }
 .dist-status { margin-left: 6px; }
 .dist-detail { color: var(--dim); margin-top: 3px; font-size: 11px; }
+
+/* Offline banner */
+.offline-banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  background: #f59e0b; color: #0f172a; text-align: center;
+  padding: 8px 16px; font-size: 12px; font-weight: 600;
+  transform: translateY(-100%); transition: transform 0.3s;
+}
+.offline-banner.show { transform: translateY(0); }
+
+/* State explanation */
+.status-explain {
+  position: relative; z-index: 1;
+  font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 10px;
+  line-height: 1.6; padding: 8px 14px;
+  background: rgba(0,0,0,0.2); border-radius: 8px;
+}
+
+/* Attractor explanation */
+.attractor-explain {
+  font-size: 12px; color: var(--dim); margin-top: 4px; line-height: 1.5;
+}
+
+/* Extreme explanation */
+.extreme-explain {
+  font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4;
+}
 </style>
 </head>
 <body>
+
+<div class="offline-banner" id="offline-banner">数据可能不是最新 · 离线模式</div>
 
 <nav class="nav">
   <a href="index.html" class="nav-back">← 返回工具箱</a>
@@ -353,6 +402,77 @@ body {
     C: '市场协调', N: '叙事共识', T: '技术动能',
   };
 
+  // ── 可读性：解读映射表 ──
+  const STATE_EXPLANATIONS = {
+    1: "各维度健康，可正常配置风险资产",
+    2: "部分维度承压，关注结构性机会，控制仓位",
+    3: "多维度恶化，优先防守，减少风险敞口",
+    4: "系统性风险信号明确，极度谨慎",
+    5: "历史级危机特征，现金为王"
+  };
+
+  const DIM_EXPLANATIONS = {
+    "R": {
+      "强健": "信用体系稳健，融资成本低，流动性充裕",
+      "健康": "信用市场正常运转，无异常压力",
+      "中性": "信用状况平稳，暂无明确方向",
+      "承压": "信用利差走阔，融资条件收紧",
+      "恶化": "信用市场严重恶化，流动性枯竭风险"
+    },
+    "I": {
+      "强健": "政策清晰有力，制度响应迅速",
+      "健康": "制度运转正常，政策方向明确",
+      "中性": "制度面平稳，政策观望期",
+      "承压": "政策不确定性上升，制度响应滞后",
+      "恶化": "制度失效信号，政策混乱或缺位"
+    },
+    "F": {
+      "强健": "市场情绪乐观，风险偏好充足",
+      "健康": "情绪稳定，市场定价合理",
+      "中性": "情绪观望，多空分歧",
+      "承压": "恐慌情绪蔓延，波动率上升",
+      "恶化": "极度恐慌，市场功能受损"
+    },
+    "C": {
+      "强健": "各市场高度协调，资金流动顺畅",
+      "健康": "跨市场关联正常",
+      "中性": "市场间联动平稳",
+      "承压": "市场间出现背离，协调性下降",
+      "恶化": "严重背离，传导机制断裂"
+    },
+    "N": {
+      "强健": "市场叙事积极，共识清晰",
+      "健康": "主流叙事稳定",
+      "中性": "叙事分化，新旧叙事切换中",
+      "承压": "悲观叙事主导，市场信心不足",
+      "恶化": "恐慌叙事失控，羊群效应显著"
+    },
+    "T": {
+      "强健": "技术进步有序，与制度适配良好",
+      "健康": "技术动能正常",
+      "中性": "技术面平稳",
+      "承压": "技术变革过快，制度跟不上",
+      "恶化": "技术-制度严重脱节，破坏性失衡"
+    }
+  };
+
+  const ATTRACTOR_EXPLANATIONS = {
+    "GOLDEN": "最理想状态：经济增长、制度健全、创新活跃",
+    "STABLE": "健康常态：系统稳定运转，适合长期投资",
+    "STAGNANT": "低增长+高通胀的泥潭，资产回报压缩",
+    "TECH_DOM": "技术进步远超制度适应力，赢家通吃加剧",
+    "COLLAPSE": "系统性危机区域，多维度同时恶化"
+  };
+
+  const EXTREME_EXPLANATIONS = {
+    "OVX极端": "原油波动率异常，能源市场剧烈震荡",
+    "OVX原油波动率": "原油波动率异常，能源市场剧烈震荡",
+    "地缘风险": "地缘政治紧张度超常，市场避险情绪升温",
+    "地缘政治风险": "地缘政治紧张度超常，市场避险情绪升温",
+    "VIX极端": "市场恐慌指数飙升，短期大幅波动风险",
+    "信用利差极端": "企业融资成本急剧上升，信用违约风险加大"
+  };
+
   function esc(s) { return String(s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
   function pctColor(p) {
@@ -368,9 +488,16 @@ body {
     return 'var(--dim)';
   }
 
+  // Fetch with timeout
+  function fetchWithTimeout(url, ms) {
+    var controller = new AbortController();
+    var timer = setTimeout(function() { controller.abort(); }, ms);
+    return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(timer); });
+  }
+
   let data, weekly;
   try {
-    const resp = await fetch('data/s2-radar.json?t=' + Date.now());
+    const resp = await fetchWithTimeout('data/s2-radar.json?t=' + Date.now(), 5000);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     data = await resp.json();
   } catch(e) {
@@ -379,7 +506,7 @@ body {
     return;
   }
   try {
-    const wResp = await fetch('data/weekly-latest.json?t=' + Date.now());
+    const wResp = await fetchWithTimeout('data/weekly-latest.json?t=' + Date.now(), 5000);
     if (wResp.ok) weekly = await wResp.json();
   } catch(e) { /* weekly data optional */ }
 
@@ -425,7 +552,21 @@ body {
   if (hasWarning) {
     html += '<span class="warning-badge">⚠ ' + esc(ew) + '</span>';
   }
-  html += '</div></div>';
+  html += '</div>';
+
+  // State explanation
+  var stateExplain = STATE_EXPLANATIONS[ss.level] || '';
+  if (stateExplain) {
+    html += '<div class="status-explain">' + esc(stateExplain) + '</div>';
+  }
+
+  // Attractor explanation
+  var attExplain = ATTRACTOR_EXPLANATIONS[att.captured] || '';
+  if (attExplain) {
+    html += '<div class="attractor-explain" style="position:relative;z-index:1;margin-top:8px;padding:0 14px;color:rgba(255,255,255,0.6);font-size:12px;">' + esc(att.captured_name || '') + '：' + esc(attExplain) + '</div>';
+  }
+
+  html += '</div>';
 
   // ── 2. Dimension Cards ──
   html += '<div class="sec fade-up fade-up-1"><div class="sec-head">六维雷达</div>'
@@ -439,11 +580,14 @@ body {
     const note = d.note || '';
     const label = d.name_cn || DIM_LABELS[key] || key;
 
+    // Use note if present, otherwise use DIM_EXPLANATIONS
+    var dimExplain = note || (DIM_EXPLANATIONS[key] && DIM_EXPLANATIONS[key][level]) || '';
+
     html += '<div class="dim-card">'
       + '<div class="dim-header"><span class="dim-name">' + esc(key) + ' · ' + esc(label) + '</span>'
       + '<span class="dim-arrow">' + esc(arrow) + '</span></div>'
       + '<div class="dim-level lv-' + ls.cls + '">' + esc(level) + '</div>'
-      + '<div class="dim-note">' + esc(note) + '</div>'
+      + '<div class="dim-note">' + esc(dimExplain) + '</div>'
       + '<div class="dim-bar"><div class="dim-bar-fill bar-' + ls.cls + '" style="width:' + ls.pct + '%"></div></div>'
       + '</div>';
   }
@@ -501,6 +645,16 @@ body {
         + '<span class="extreme-badge">&#9888; ' + extremes.count + ' 个极端指标</span>';
       if (extremes.categories && extremes.categories.length) {
         html += '<div class="extreme-cats">' + extremes.categories.map(c => esc(c)).join(' · ') + '</div>';
+        // Extreme explanations
+        extremes.categories.forEach(function(cat) {
+          var explain = '';
+          for (var ek in EXTREME_EXPLANATIONS) {
+            if (cat.indexOf(ek) !== -1) { explain = EXTREME_EXPLANATIONS[ek]; break; }
+          }
+          if (explain) {
+            html += '<div class="extreme-explain">' + esc(cat) + '：' + esc(explain) + '</div>';
+          }
+        });
       }
       html += '</div>';
     }
@@ -684,6 +838,39 @@ body {
 
   loading.style.display = 'none';
   app.insertAdjacentHTML('beforeend', html);
+})();
+
+// ── Service Worker 注册 ──
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
+// ── 离线提示 ──
+(function() {
+  var banner = document.getElementById('offline-banner');
+  if (!banner) return;
+
+  function updateOnlineStatus() {
+    if (!navigator.onLine) {
+      banner.classList.add('show');
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+
+  // Listen for SW offline messages
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'OFFLINE') {
+        banner.classList.add('show');
+      }
+    });
+  }
+
+  updateOnlineStatus();
 })();
 </script>
 

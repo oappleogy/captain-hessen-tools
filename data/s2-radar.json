@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-04-10T10:20:53",
+  "timestamp": "2026-04-13T08:53:05",
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
-    "score": 0.051,
+    "score": 0.046,
     "action": "系统临界。建议仓位≤30%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.39,
+      "score": 0.38,
       "state": "▲",
       "note": "信用市场平稳，系统有足够缓冲",
       "confidence": "★★",
@@ -20,16 +20,16 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.35,
-      "state": "▲",
-      "note": "政策路径清晰，制度运行稳定",
+      "score": 0.26,
+      "state": "►",
+      "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.1,
+      "score": -0.08,
       "state": "►",
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
@@ -47,7 +47,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.0,
+      "score": 0.08,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
@@ -56,7 +56,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.57,
+      "score": -0.56,
       "state": "▼",
       "note": "技术加速度超过制度消化，结构性失配严重",
       "confidence": "★★",
@@ -82,14 +82,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 70.4
+        "pct": 71.4
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 29.6
+        "pct": 28.6
       },
       {
         "key": "TECH_DOM",
@@ -106,14 +106,14 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "黄金",
-    "safety_margin": 0.151,
+    "moving_toward": "TECH_DOM",
+    "safety_margin": 0.146,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=81.7 (历史97%分位)",
+    "OVX原油波动率=78.0 (历史97%分位)",
     "地缘政治风险(GPR)=297 (历史100%分位)",
-    "地缘交叉验证(OVX)=81.7 (历史97%分位) [仅验证，不计分]"
+    "地缘交叉验证(OVX)=78.0 (历史97%分位) [仅验证，不计分]"
   ],
   "opportunities": [],
   "contradiction": {
@@ -130,12 +130,12 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 19.5,
-      "percentile": 81,
+      "value": 19.2,
+      "percentile": 79,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {
-      "value": 2.94,
+      "value": 2.9,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

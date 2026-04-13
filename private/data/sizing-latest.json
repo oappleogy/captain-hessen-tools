@@ -1,61 +1,72 @@
 {
-  "date": "2026-03-30",
+  "date": "2026-04-13",
   "market": "US",
   "market_label": "美股",
   "regime_position_cap": {
     "hmm_state": "S2",
-    "sub_classification": "easing",
-    "confidence": 0.8,
-    "cap_range": "70%-85%",
-    "max_total_position": "81%",
-    "max_total_position_pct": 81.2,
-    "reasoning": "降息初期，观察"
+    "sub_classification": "transition",
+    "confidence": 0.65,
+    "cap_range": "40%-60%",
+    "max_total_position": "48%",
+    "max_total_position_pct": 47.5,
+    "reasoning": "压力上升，降杠杆"
   },
   "opportunity_sizing": [
     {
-      "opportunity": "看多美股地产/REITs（景气38低于体制'easing'预期下界55）",
-      "sector": "地产/REITs",
-      "type": "regime_mismatch",
-      "win_rate": 0.6,
-      "win_rate_source": "保守默认值（待vault/decisions积累后替换）",
+      "opportunity": "看空美股消费/零售（能源成本传导），或看多美股能源持续性",
+      "sector": "能源↔消费/零售",
+      "type": "supply_chain_scissors",
+      "win_rate": 0.55,
+      "win_rate_source": "保守默认值（传导时滞不确定）",
       "payoff_ratio": 1.5,
       "payoff_source": "默认1.5",
-      "kelly_raw": 0.3333,
-      "kelly_safe": 0.1667,
-      "suggested_size": "16.7%",
-      "suggested_size_pct": 16.7,
-      "cap_binding": "25%单笔上限未触发",
+      "kelly_raw": 0.25,
+      "kelly_safe": 0.125,
+      "suggested_size": "11.9%",
+      "suggested_size_pct": 11.9,
+      "cap_binding": "25%单笔上限触发（凯利建议12.5%）",
       "viable": true
     }
   ],
   "portfolio_risk": {
     "factor_concentration": {
+      "能源(油价)": {
+        "level": "低",
+        "count": 1,
+        "sectors": [
+          "能源"
+        ],
+        "details": [
+          "能源(极高(e=+25))"
+        ]
+      },
       "利率": {
         "level": "低",
         "count": 1,
         "sectors": [
-          "地产/REITs"
+          "消费/零售"
         ],
         "details": [
-          "地产/REITs(极高(r=+30))"
+          "消费/零售(中(r=+10))"
         ]
       },
-      "美元": {
+      "风险(VIX)": {
         "level": "低",
         "count": 1,
         "sectors": [
-          "地产/REITs"
+          "消费/零售"
         ],
         "details": [
-          "地产/REITs(中(d=-10))"
+          "消费/零售(中(v=+10))"
         ]
       }
     },
     "warnings": [
-      "因子分散度良好，无集中风险"
+      "注意: 能源(油价), 利率, 风险(VIX)因子上有方向对冲——可能降低净暴露但增加交易成本"
     ],
     "involved_sectors": [
-      "地产/REITs"
+      "消费/零售",
+      "能源"
     ]
   },
   "disclaimer": "仅为参考建议，最终决策由你做出。当前模型仅覆盖美国市场。"

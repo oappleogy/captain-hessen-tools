@@ -383,7 +383,8 @@ const IMPACT_COLORS = {
 };
 const TAG_COLORS = {
   '泄露': '#3b82f6', '发布': '#34d399', '能力': '#f472b6',
-  '监管': '#fb923c', '市场': '#fbbf24', '政治': '#60a5fa'
+  '监管': '#fb923c', '市场': '#fbbf24', '政治': '#60a5fa',
+  '反叙事': '#14b8a6', '成员': '#8b5cf6'
 };
 const STATUS_MAP = {
   'critical': { label: '紧急', color: '#ef4444' },
@@ -432,6 +433,7 @@ function renderTimeline(timeline) {
           <span class="event-date">${escapeHtml(evt.date)}</span>
           <span class="event-tag" style="background:${tagColor}22; color:${tagColor}">${escapeHtml(evt.tag)}</span>
           <span class="event-impact" style="background:${impact.bg}; color:${impact.text}">${escapeHtml(evt.impact)}</span>
+          ${evt.score ? `<span style="margin-left:auto;display:flex;gap:2px">${Array.from({length:5},(_,i)=>`<span style="color:${i<evt.score?'#3b82f6':'rgba(0,0,0,0.1)'};font-size:9px">●</span>`).join('')}</span>` : ''}
         </div>
         <div class="event-title">${escapeHtml(evt.title)}</div>
         <div class="event-detail">${escapeHtml(evt.detail)}</div>
@@ -460,8 +462,12 @@ function renderLines(lines) {
             <span class="line-icon">${escapeHtml(line.icon || '')}</span>
             <span class="line-name">${escapeHtml(line.name)}</span>
             <span class="line-status" style="background:${st.color}22; color:${st.color}">${st.label}</span>
+            ${line.importance ? `<span style="display:flex;gap:2px;margin-left:4px">${Array.from({length:5},(_,i)=>`<span style="color:${i<line.importance?'#3b82f6':'rgba(0,0,0,0.1)'};font-size:8px">●</span>`).join('')}</span>` : ''}
           </div>
-          <span class="line-arrow">▾</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            ${line.lastUpdate ? `<span style="font-size:10px;color:#94a3b8">更新 ${escapeHtml(line.lastUpdate)}</span>` : ''}
+            <span class="line-arrow">▾</span>
+          </div>
         </div>
         <div class="line-body">
           <div class="line-desc">${escapeHtml(line.desc)}</div>

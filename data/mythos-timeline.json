@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-11",
+  "last_updated": "2026-04-13",
   "timeline": [
     {
       "date": "2026-03-26",
@@ -7,73 +7,8 @@
       "title": "Fortune 曝光 Mythos 存在",
       "detail": "Anthropic CMS 配置错误泄露近3000个文件，含 Mythos 草稿博客。模型内部代号 Capybara，定位高于 Opus 层级。",
       "impact": "信息",
-      "sources": [
-        "Fortune"
-      ]
-    },
-    {
-      "date": "2026-04-07",
-      "tag": "发布",
-      "title": "Mythos Preview + Project Glasswing 正式发布",
-      "detail": "12家创始合作伙伴（AWS/Apple/Google/Microsoft/Nvidia/Broadcom/Cisco/CrowdStrike/JPMorgan/Linux Foundation/Palo Alto Networks）。Anthropic 承诺 $1亿使用额度。模型不公开发售。",
-      "impact": "重大",
-      "sources": [
-        "Anthropic Blog",
-        "CNN",
-        "TechCrunch"
-      ]
-    },
-    {
-      "date": "2026-04-07",
-      "tag": "能力",
-      "title": "零日漏洞发现能力曝光",
-      "detail": "数千个高危/严重零日漏洞，覆盖所有主流操作系统和浏览器。最老的是 OpenBSD 27年漏洞、FFmpeg 16年漏洞。89% 严重性评级获人工验证确认。SWE-bench 93.9%，USAMO 97.6%。",
-      "impact": "重大",
-      "sources": [
-        "Anthropic System Card",
-        "red.anthropic.com"
-      ]
-    },
-    {
-      "date": "2026-04-08",
-      "tag": "监管",
-      "title": "贝森特+鲍威尔紧急召集银行CEO会议",
-      "detail": "财政部总部闭门会议。Citi Jane Fraser、MS Ted Pick、BofA Brian Moynihan、Wells Fargo Charlie Scharf、GS David Solomon 出席。Jamie Dimon 缺席。",
-      "impact": "重大",
-      "sources": [
-        "Bloomberg"
-      ]
-    },
-    {
-      "date": "2026-04-09",
-      "tag": "市场",
-      "title": "网安股集体暴跌",
-      "detail": "Cloudflare -8.62%，CrowdStrike -7.46%。市场定价逻辑：是否进入 Glasswing = 是否经过压力测试。Cloudflare 被排除在外。",
-      "impact": "市场",
-      "sources": [
-        "TradingKey"
-      ]
-    },
-    {
-      "date": "2026-04-09",
-      "tag": "政治",
-      "title": "民主党议员施压贝森特",
-      "detail": "参议院财政委员会首席民主党人 Ron Wyden 要求贝森特说明财政部是否就 AI 网安风险+伊朗战争经济后果进行过规划。",
-      "impact": "信息",
-      "sources": [
-        "新浪财经"
-      ]
-    },
-    {
-      "date": "2026-04-06",
-      "tag": "发布",
-      "title": "Anthropic与Google和Broadcom达成新合作",
-      "detail": "Anthropic与Google和Broadcom签署协议，将于2027年上线数千兆瓦下一代TPU容量，用于支持Claude模型。",
-      "impact": "重大",
-      "sources": [
-        "Anthropic Official"
-      ],
-      "new_members": []
+      "score": 2,
+      "sources": ["Fortune"]
     },
     {
       "date": "2026-03-31",
@@ -81,12 +16,100 @@
       "title": "澳大利亚政府加入Project Glasswing",
       "detail": "澳大利亚政府与Anthropic签署谅解备忘录，合作AI安全研究，并支持澳大利亚国家AI计划。",
       "impact": "重大",
-      "sources": [
-        "Anthropic Official"
-      ],
-      "new_members": [
-        "澳大利亚政府"
-      ]
+      "score": 3,
+      "sources": ["Anthropic Official"],
+      "new_members": ["澳大利亚政府"]
+    },
+    {
+      "date": "2026-04-06",
+      "tag": "发布",
+      "title": "Anthropic与Google和Broadcom达成新合作",
+      "detail": "Anthropic与Google和Broadcom签署协议，将于2027年上线数千兆瓦下一代TPU容量，用于支持Claude模型。",
+      "impact": "重大",
+      "score": 3,
+      "sources": ["Anthropic Official"],
+      "new_members": []
+    },
+    {
+      "date": "2026-04-07",
+      "tag": "发布",
+      "title": "Mythos Preview + Project Glasswing 正式发布",
+      "detail": "12家创始合作伙伴（AWS/Apple/Google/Microsoft/Nvidia/Broadcom/Cisco/CrowdStrike/JPMorgan/Linux Foundation/Palo Alto Networks）。Anthropic 承诺 $1亿使用额度。模型不公开发售。",
+      "impact": "重大",
+      "score": 5,
+      "sources": ["Anthropic Blog", "CNN", "TechCrunch"]
+    },
+    {
+      "date": "2026-04-07",
+      "tag": "能力",
+      "title": "零日漏洞发现能力曝光",
+      "detail": "声称数千个高危/严重零日漏洞，覆盖所有主流OS和浏览器。OpenBSD 27年漏洞、FFmpeg 16年漏洞。但仅198次人工复核，89%吻合率外推。Firefox exploit: Opus 2次 → Mythos 181次。",
+      "impact": "重大",
+      "score": 5,
+      "sources": ["Anthropic System Card", "red.anthropic.com"]
+    },
+    {
+      "date": "2026-04-08",
+      "tag": "监管",
+      "title": "贝森特+鲍威尔紧急召集银行CEO会议",
+      "detail": "财政部总部闭门会议。Citi Jane Fraser、MS Ted Pick、BofA Brian Moynihan、Wells Fargo Charlie Scharf、GS David Solomon 出席。Jamie Dimon 缺席。规格对标 2023 硅谷银行危机。",
+      "impact": "重大",
+      "score": 5,
+      "sources": ["Bloomberg"]
+    },
+    {
+      "date": "2026-04-08",
+      "tag": "发布",
+      "title": "Anthropic 发布 Managed Agents",
+      "detail": "托管 agent 基础设施，$0.08/小时。Agent 可自主跑代码、浏览网页、执行任务。市场担忧：AI agent 是否绕过传统 CDN。",
+      "impact": "重大",
+      "score": 4,
+      "sources": ["Anthropic Blog"]
+    },
+    {
+      "date": "2026-04-09",
+      "tag": "市场",
+      "title": "网安+CDN 股集体暴跌",
+      "detail": "Mythos 排除效应：Cloudflare -8.62%，CrowdStrike -7.46%。Managed Agents 替代效应：Fastly -18%，Akamai -13%，Cloudflare 再跌 -11%。NET 两波合计从 $216→$167（-23%）。",
+      "impact": "市场",
+      "score": 4,
+      "sources": ["TradingKey", "Seeking Alpha"]
+    },
+    {
+      "date": "2026-04-09",
+      "tag": "反叙事",
+      "title": "AISLE + Clem Delangue: 小模型复现 Mythos 旗舰漏洞",
+      "detail": "AISLE 测试：8/8 开源模型检测出 FreeBSD NFS 漏洞（含 3.6B/$0.11 模型）。5.1B 模型完成 OpenBSD SACK 全链分析。但关键：测试针对已知代码片段，非全代码库自主扫描。HN 高赞：'Mythos 扫大陆，小模型被指着一亩地问'。IBM 同日发文主张开源才是正路。",
+      "impact": "重大",
+      "score": 4,
+      "sources": ["AISLE Blog", "HuggingFace/Clem", "IBM Newsroom", "HN"]
+    },
+    {
+      "date": "2026-04-09",
+      "tag": "政治",
+      "title": "民主党议员施压贝森特",
+      "detail": "参议院财政委员会首席民主党人 Ron Wyden 要求贝森特说明财政部是否就 AI 网安风险+伊朗战争经济后果进行过规划。",
+      "impact": "信息",
+      "score": 2,
+      "sources": ["新浪财经"]
+    },
+    {
+      "date": "2026-04-10",
+      "tag": "反叙事",
+      "title": "Tom's Hardware: Mythos 是营销，不是超级黑客",
+      "detail": "深度分析：FFmpeg 16年漏洞 Anthropic 自己承认'非严重'且难以利用。Linux 内核漏洞因纵深防御全部无法利用。OSS-Fuzz 7000+项目仅10个严重漏洞。'数千零日'基于198次复核外推。Red Hat: 很多是功能性缺陷非安全威胁。Jensen Huang 2025年就批评 Anthropic 用恐惧做营销。",
+      "impact": "重大",
+      "score": 4,
+      "sources": ["Tom's Hardware", "Red Hat Blog"]
+    },
+    {
+      "date": "2026-04-10",
+      "tag": "反叙事",
+      "title": "Wiz 评估：开源追平需 12-18 个月",
+      "detail": "Wiz 安全团队独立评估：Mythos 能力是真的但非独占。预计 12-18 个月后开源模型达到类似能力，届时恶意行为者可本地运行无限制模型。短期主要后果是 CVE 数量暴增。",
+      "impact": "信息",
+      "score": 3,
+      "sources": ["Wiz Blog"]
     }
   ],
   "tracking_lines": [
@@ -95,6 +118,8 @@
       "name": "金融系统性风险",
       "icon": "🏦",
       "status": "active",
+      "importance": 5,
+      "lastUpdate": "2026-04-08",
       "desc": "财政部+美联储联合召集银行CEO，规格对标2023硅谷银行危机。AI网安能力已被视为金融基础设施级别威胁。",
       "signals": [
         "银行是否公开披露 Mythos 相关防御措施",
@@ -108,12 +133,31 @@
       "name": "开源模型追赶窗口",
       "icon": "⏳",
       "status": "critical",
-      "desc": "Anthropic 自认窗口期有限。当开源模型（Llama/DeepSeek）达到类似漏洞发现能力时，Glasswing 先修后公开策略失效。",
+      "importance": 5,
+      "lastUpdate": "2026-04-10",
+      "desc": "Anthropic 自认窗口期有限。AISLE 测试显示 3.6B 小模型即可检测 Mythos 展示的 FreeBSD 漏洞（$0.11/M tokens），5.1B 模型完成 OpenBSD SACK 全链分析。但关键区别：小模型是'指哪打哪'，Mythos 是全代码库自主扫描。Wiz 估计开源追平需 12-18 个月。",
       "signals": [
         "Meta Llama 系列网安 benchmark 表现",
         "DeepSeek 后续版本 coding 能力",
-        "开源社区是否复现零日发现能力",
-        "Anthropic 是否加速 safeguard 开发节奏"
+        "开源社区是否复现全代码库自主零日发现（非指定片段）",
+        "Anthropic 是否加速 safeguard 开发节奏",
+        "AISLE 等 model-agnostic 安全平台实际 maintainer 接受率"
+      ]
+    },
+    {
+      "id": "counter-narrative",
+      "name": "能力夸大 / 营销质疑",
+      "icon": "🎭",
+      "status": "active",
+      "importance": 4,
+      "lastUpdate": "2026-04-10",
+      "desc": "HuggingFace CEO Clem Delangue 转发 AISLE 测试：8/8 开源小模型检测出 Mythos 旗舰 FreeBSD 漏洞。中文自媒体标题'Anthropic 神话破灭'。IBM 发文呼吁开源才是安全基础设施正确路径。Interconnects 分析认为反开源恐慌被误导。但 HN 高赞评论指出：'Mythos 扫描整个大陆找金子，小模型是被人指着一亩地问有没有金子'。",
+      "signals": [
+        "AISLE 是否公布全代码库扫描（非指定片段）对比结果",
+        "Anthropic 是否回应小模型复现质疑",
+        "Glasswing 合作伙伴是否发布独立验证报告",
+        "叙事演变：安全能力争议 vs 商业定位争议",
+        "198次人工复核的详细方法论是否被独立审计"
       ]
     },
     {
@@ -121,7 +165,9 @@
       "name": "网安行业重新定价",
       "icon": "📉",
       "status": "active",
-      "desc": "Cloudflare 被排除在 Glasswing 外直接暴跌8.6%。市场新定价维度：防御能力是否经 Mythos 验证。",
+      "importance": 4,
+      "lastUpdate": "2026-04-11",
+      "desc": "双重打击：① Glasswing 排除 → Cloudflare -8.6%；② Managed Agents 替代恐慌 → Fastly -18%, Akamai -13%, NET 再跌 -11%。NET 累计从 $216→$167（-23%）。叙事确定性远高于技术确定性。",
       "signals": [
         "Glasswing 成员 vs 非成员股价分化",
         "网安公司财报是否提及 AI 漏洞发现竞争",
@@ -134,6 +180,8 @@
       "name": "地缘博弈 / 中国维度",
       "icon": "🌏",
       "status": "watch",
+      "importance": 3,
+      "lastUpdate": "2026-04-09",
       "desc": "Glasswing 全部美国企业+盟友体系，无中国实体。Anthropic 明确在美国国家安全框架下定位此项目。潘功胜同期会见达利欧。",
       "signals": [
         "中国是否推出对标防御计划",
@@ -147,6 +195,8 @@
       "name": "模型治理先例",
       "icon": "⚖️",
       "status": "watch",
+      "importance": 3,
+      "lastUpdate": "2026-04-10",
       "desc": "首次有前沿AI实验室宣布模型太危险不公开发售。是真正的安全考量还是定位策略？这个先例将影响所有后续前沿模型的发布方式。",
       "signals": [
         "其他实验室（OpenAI/Google/Meta）是否跟进限制发布",
@@ -167,116 +217,65 @@
   ],
   "members": {
     "founding": [
-      "AWS",
-      "Apple",
-      "Google",
-      "Microsoft",
-      "Nvidia",
-      "Broadcom",
-      "Cisco",
-      "CrowdStrike",
-      "JPMorgan",
-      "Linux Foundation",
-      "Palo Alto Networks",
-      "Anthropic"
+      "AWS", "Apple", "Google", "Microsoft", "Nvidia",
+      "Broadcom", "Cisco", "CrowdStrike", "JPMorgan",
+      "Linux Foundation", "Palo Alto Networks", "Anthropic"
     ],
     "all": [
-      "AWS",
-      "Anthropic",
-      "Apple",
-      "Broadcom",
-      "Cisco",
-      "CrowdStrike",
-      "Google",
-      "JPMorgan",
-      "Linux Foundation",
-      "Microsoft",
-      "Nvidia",
-      "Palo Alto Networks",
-      "澳大利亚政府"
+      "AWS", "Anthropic", "Apple", "Broadcom", "Cisco",
+      "CrowdStrike", "Google", "JPMorgan", "Linux Foundation",
+      "Microsoft", "Nvidia", "Palo Alto Networks", "澳大利亚政府"
     ],
-    "excluded_notable": [
-      "Cloudflare"
-    ],
+    "excluded_notable": ["Cloudflare"],
     "history": [
       {
         "date": "2026-04-07",
-        "added": [
-          "AWS",
-          "Apple",
-          "Google",
-          "Microsoft",
-          "Nvidia",
-          "Broadcom",
-          "Cisco",
-          "CrowdStrike",
-          "JPMorgan",
-          "Linux Foundation",
-          "Palo Alto Networks",
-          "Anthropic"
-        ],
+        "added": ["AWS", "Apple", "Google", "Microsoft", "Nvidia", "Broadcom", "Cisco", "CrowdStrike", "JPMorgan", "Linux Foundation", "Palo Alto Networks", "Anthropic"],
         "note": "12 家创始成员正式发布"
       },
       {
         "date": "2026-04-11",
-        "added": [
-          "澳大利亚政府"
-        ]
+        "added": ["澳大利亚政府"]
       }
     ]
   },
   "impact_analysis": {
-    "last_updated": "2026-04-11",
+    "last_updated": "2026-04-13",
     "bullish": [
       {
         "target": "CrowdStrike (CRWD)",
         "category": "网安成员股",
         "logic": "Glasswing 创始成员身份 = 经过 Mythos 压力测试认证。市场将其视为'防御能力被验证'的代表，相对非成员厂商获得溢价。",
         "confidence": "高",
-        "signals": [
-          "股价相对 Cloudflare 分化",
-          "Q2 财报是否提及 Glasswing 合作深度"
-        ]
+        "signals": ["股价相对 Cloudflare 分化", "Q2 财报是否提及 Glasswing 合作深度"]
       },
       {
         "target": "Palo Alto Networks (PANW)",
         "category": "网安成员股",
         "logic": "同为 Glasswing 创始成员，网络层防御集成度高。在 AI 漏洞发现时代，边界防御+实时响应的价值凸显。",
         "confidence": "高",
-        "signals": [
-          "PANW 与 CRWD 股价联动性",
-          "企业客户续约率"
-        ]
+        "signals": ["PANW 与 CRWD 股价联动性", "企业客户续约率"]
       },
       {
         "target": "Anthropic 估值 / Amazon (AMZN)",
         "category": "AI 基础设施",
         "logic": "Anthropic 首次展示前沿模型的国家安全级商业化。AWS 作为主要托管方+投资方双重受益。$100M 使用额度暗示模型定价能力。",
         "confidence": "中",
-        "signals": [
-          "Anthropic 下一轮融资估值",
-          "AWS Bedrock Anthropic 调用量"
-        ]
+        "signals": ["Anthropic 下一轮融资估值", "AWS Bedrock Anthropic 调用量"]
       },
       {
         "target": "JPMorgan (JPM)",
         "category": "金融成员股",
         "logic": "作为 Glasswing 创始成员中唯一的银行，在系统性风险预警中提前获得防御工具。Dimon 缺席财政部会议暗示其已有独立准备。",
         "confidence": "中",
-        "signals": [
-          "Q2 财报网安投入披露",
-          "Dimon 后续公开表态"
-        ]
+        "signals": ["Q2 财报网安投入披露", "Dimon 后续公开表态"]
       },
       {
         "target": "防御性资产 (黄金 / 美债)",
         "category": "避险",
         "logic": "AI 网安能力首次被政府定位为系统性风险。若后续出现实质性攻击事件，避险资金流入。",
         "confidence": "低",
-        "signals": [
-          "VIX 对 Mythos 相关新闻的敏感度",
-          "10Y 美债收益率"
-        ]
+        "signals": ["VIX 对 Mythos 相关新闻的敏感度", "10Y 美债收益率"]
       }
     ],
     "bearish": [
@@ -285,50 +284,35 @@
         "category": "网安非成员股",
         "logic": "被明确排除在 Glasswing 之外，市场解读为'未通过 Mythos 压测'。4月9日已暴跌 8.62%，定价逻辑已经重构，后续反弹需要实质性加入或独立证明。",
         "confidence": "高",
-        "signals": [
-          "是否后续被邀请加入",
-          "Q2 财报能否稳住企业客户"
-        ]
+        "signals": ["是否后续被邀请加入", "Q2 财报能否稳住企业客户"]
       },
       {
         "target": "传统 SAST/DAST 厂商 (Synopsys / Veracode / Checkmarx)",
         "category": "传统漏洞扫描",
         "logic": "Mythos 单模型数小时内发现数千零日漏洞，覆盖所有主流 OS。传统静态/动态扫描工具的价值曲线正在被压平。",
         "confidence": "高",
-        "signals": [
-          "Synopsys SIG 业务营收增速",
-          "中小网安厂商被并购节奏"
-        ]
+        "signals": ["Synopsys SIG 业务营收增速", "中小网安厂商被并购节奏"]
       },
       {
         "target": "小型/中型网安 SaaS",
         "category": "长尾网安",
         "logic": "企业 CISO 在预算有限时，更倾向于购买 Glasswing 成员的集成方案，而非多家点状工具。非成员厂商续约率压力。",
         "confidence": "中",
-        "signals": [
-          "中型网安 ARR 增速",
-          "Gartner MQ 位次变化"
-        ]
+        "signals": ["中型网安 ARR 增速", "Gartner MQ 位次变化"]
       },
       {
         "target": "开源依赖密集的软件供应链",
         "category": "软件供应链",
         "logic": "FFmpeg 16年、OpenBSD 27年老漏洞被发现。开源代码历史包袱一次性暴露，下游厂商补丁压力巨大。",
         "confidence": "中",
-        "signals": [
-          "主流 OSS 项目 CVE 披露节奏",
-          "Log4Shell 级别事件是否重现"
-        ]
+        "signals": ["主流 OSS 项目 CVE 披露节奏", "Log4Shell 级别事件是否重现"]
       },
       {
         "target": "OpenAI / Google DeepMind (相对地位)",
         "category": "AI 竞争",
         "logic": "Anthropic 抢占'前沿模型+国家安全'叙事高地。竞争对手被迫在'能力发布'和'安全限制'之间做二选一。",
         "confidence": "低",
-        "signals": [
-          "OpenAI 是否跟进限制发布策略",
-          "GPT-6 网安 benchmark"
-        ]
+        "signals": ["OpenAI 是否跟进限制发布策略", "GPT-6 网安 benchmark"]
       }
     ],
     "watch": [

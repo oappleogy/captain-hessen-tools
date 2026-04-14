@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日简报 | 黑森船长</title>
+<meta name="description" content="独立资本每日宏观雷达简报 — S₂六维系统状态速览">
+
+<!-- Open Graph -->
+<meta property="og:title" content="每日宏观雷达简报 · 独立资本">
+<meta property="og:description" content="S₂六维系统状态速览 — 信用韧性、制度稳定、情绪反馈、市场协调、叙事共识、技术动能">
+<meta property="og:image" content="https://tools.basealpha.ai/og-image.png">
+<meta property="og:url" content="https://tools.basealpha.ai/today.html">
+<meta property="og:type" content="website">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --card: #1e293b;
+  --border: #334155;
+  --text: #e2e8f0;
+  --dim: #94a3b8;
+  --muted: #64748b;
+  --gold: #d4a853;
+  --green: #22c55e;
+  --blue: #3b82f6;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mono: 'Menlo', 'Consolas', monospace;
+}
+html, body { width: 100%; overflow-x: hidden; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(15,23,42,0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 10px 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.nav-back {
+  color: var(--dim); font-size: 13px; text-decoration: none;
+  padding: 4px 12px; border: 1px solid var(--border); border-radius: 6px;
+  transition: all 0.2s;
+}
+.nav-back:hover { color: var(--gold); border-color: var(--gold); }
+.nav-brand { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+/* Container */
+.wrap { max-width: 640px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* Briefing sections */
+.briefing-title {
+  font-size: 20px; font-weight: 700; color: var(--gold);
+  margin-bottom: 4px;
+}
+.briefing-date {
+  font-size: 13px; color: var(--muted); margin-bottom: 20px;
+  font-family: var(--mono);
+}
+
+.section {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.section:last-of-type { border-bottom: none; }
+.section-label {
+  font-size: 14px; font-weight: 600; color: var(--dim);
+  margin-bottom: 10px; letter-spacing: 0.3px;
+}
+
+/* System state */
+.state-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 6px;
+}
+.state-label { font-size: 22px; font-weight: 700; }
+.state-emoji { font-size: 22px; }
+.state-score {
+  font-size: 11px; color: var(--muted); font-family: var(--mono);
+}
+.state-explain {
+  font-size: 13px; color: var(--dim); line-height: 1.6;
+  padding: 8px 12px; background: rgba(255,255,255,0.04);
+  border-radius: 8px; margin-top: 6px;
+}
+
+/* Dimension list */
+.dim-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 0;
+}
+.dim-emoji { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.dim-body { flex: 1; }
+.dim-head {
+  font-size: 14px; font-weight: 600;
+}
+.dim-head .dim-level { margin-left: 4px; }
+.dim-note {
+  font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 2px;
+}
+.dim-score-tag {
+  font-size: 10px; color: var(--muted); font-family: var(--mono);
+}
+
+/* Metrics */
+.metric-line {
+  font-size: 14px; padding: 4px 0; line-height: 1.6;
+}
+.metric-val { font-weight: 600; font-family: var(--mono); }
+.metric-pct { color: var(--muted); font-size: 12px; }
+
+/* Attractor */
+.att-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 600; margin-bottom: 4px;
+}
+.att-explain {
+  font-size: 12px; color: var(--dim); line-height: 1.5;
+}
+
+/* Extremes */
+.extreme-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--red); font-size: 14px; font-weight: 600;
+  margin-bottom: 4px;
+}
+.extreme-cats {
+  font-size: 12px; color: var(--muted); line-height: 1.5;
+}
+
+/* Opportunities */
+.opp-line {
+  font-size: 14px; padding: 3px 0; line-height: 1.6;
+}
+
+/* Footer link */
+.radar-link {
+  display: block; text-align: center; margin-top: 20px;
+  padding: 12px; border: 1px solid var(--border); border-radius: 8px;
+  color: var(--gold); text-decoration: none; font-size: 14px;
+  transition: all 0.2s;
+}
+.radar-link:hover { border-color: var(--gold); background: rgba(212,168,83,0.08); }
+
+/* Copy button */
+.copy-btn {
+  display: block; width: 100%; margin-top: 12px;
+  padding: 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: rgba(255,255,255,0.04); color: var(--dim);
+  font-size: 14px; font-family: var(--sans); cursor: pointer;
+  transition: all 0.2s;
+}
+.copy-btn:hover { border-color: var(--dim); color: var(--text); }
+.copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+/* Footer */
+.page-footer {
+  text-align: center; padding: 24px 0 16px;
+  border-top: 1px solid var(--border); margin-top: 24px;
+}
+.footer-brand { font-size: 12px; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px; }
+.footer-disclaimer { font-size: 10px; color: var(--muted); line-height: 1.8; }
+
+/* Loading */
+.loading-state {
+  text-align: center; padding: 80px 20px;
+  color: var(--muted); font-size: 14px;
+}
+.loading-state .pulse {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); margin-right: 8px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.4s ease-out both; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-back">← 返回首页</a>
+  <span class="nav-brand">BASEALPHA</span>
+</nav>
+
+<div class="wrap" id="app">
+  <div class="loading-state" id="loading">
+    <span class="pulse"></span>正在加载简报数据...
+  </div>
+</div>
+
+<script>
+(async function() {
+  var app = document.getElementById('app');
+  var loading = document.getElementById('loading');
+
+  // 5 级系统状态映射
+  var STATE_EXPLANATIONS = {
+    1: "各维度健康，可正常配置风险资产",
+    2: "部分维度轻度承压，关注结构性机会",
+    3: "多维度承压，控制仓位，偏防守",
+    4: "系统性风险信号明确，极度谨慎",
+    5: "历史级危机特征，现金为王"
+  };
+  var STATE_COLOR = {
+    1: "#22c55e", 2: "#84cc16", 3: "#f59e0b", 4: "#ef4444", 5: "#7f1d1d"
+  };
+  var STATE_EMOJI = {
+    1: "🟢", 2: "🟢", 3: "🟡", 4: "🔴", 5: "⚫"
+  };
+  var LEVEL_EMOJI = {
+    "强健": "🟢", "健康": "🟢", "中性": "🟡", "承压": "🔴", "恶化": "🔴"
+  };
+  var DIM_LABELS = {
+    R: "信用韧性", I: "制度稳定", F: "情绪反馈",
+    C: "跨市场协调", N: "叙事共识", T: "技术动能"
+  };
+  var ATTRACTOR_EXPLANATIONS = {
+    "GOLDEN": "最理想状态：经济增长、制度健全、创新活跃",
+    "STABLE": "健康常态：系统稳定运转，适合长期投资",
+    "STAGNANT": "低增长+高通胀的泥潭，资产回报压缩",
+    "TECH_DOM": "技术进步远超制度适应力，赢家通吃加剧",
+    "COLLAPSE": "系统性危机区域，多维度同时恶化"
+  };
+
+  function esc(s) { return String(s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  var data;
+  try {
+    var resp = await fetch('data/s2-radar.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    data = await resp.json();
+  } catch(e) {
+    loading.innerHTML = '<p style="color:var(--muted)">简报数据暂不可用</p>';
+    return;
+  }
+
+  var ss = data.system_state || {};
+  var dims = data.dimensions || {};
+  var att = data.attractor || {};
+  var km = data.key_metrics || {};
+  var extremes = data.extremes || {};
+  var opps = data.opportunities || [];
+  var ts = data.timestamp || '';
+  var dateStr = ts ? ts.slice(0, 10) : new Date().toISOString().slice(0, 10);
+
+  var stateLevel = ss.level || 0;
+  var stateColor = STATE_COLOR[stateLevel] || '#ffffff';
+  var stateEmoji = STATE_EMOJI[stateLevel] || '❓';
+  var stateExplain = STATE_EXPLANATIONS[stateLevel] || '';
+
+  var html = '<div class="fade-up">';
+
+  // Title
+  html += '<div class="briefing-title">📡 独立资本 · 每日宏观雷达</div>';
+  html += '<div class="briefing-date">' + esc(dateStr) + '</div>';
+
+  // System state
+  html += '<div class="section">';
+  html += '<div class="section-label">【系统状态】</div>';
+  html += '<div class="state-row">';
+  html += '<span class="state-label" style="color:' + stateColor + '">' + esc(ss.label || '未知') + '</span>';
+  html += '<span class="state-emoji">' + stateEmoji + '</span>';
+  html += '</div>';
+  if (ss.score != null) {
+    var sign = ss.score >= 0 ? '+' : '';
+    html += '<div class="state-score">系统分 ' + sign + ss.score + '</div>';
+  }
+  if (stateExplain) {
+    html += '<div class="state-explain">' + esc(stateExplain) + '</div>';
+  }
+  html += '</div>';
+
+  // Six dimensions
+  html += '<div class="section">';
+  html += '<div class="section-label">【六维快报】</div>';
+  ['R', 'I', 'F', 'C', 'N', 'T'].forEach(function(key) {
+    var d = dims[key] || {};
+    var level = d.level || '中性';
+    var emoji = LEVEL_EMOJI[level] || '⚪';
+    var label = DIM_LABELS[key] || key;
+    var note = d.note || '';
+    html += '<div class="dim-item">';
+    html += '<span class="dim-emoji">' + emoji + '</span>';
+    html += '<div class="dim-body">';
+    html += '<div class="dim-head">' + esc(key) + ' ' + esc(label) + '：<span class="dim-level">' + esc(level) + '</span></div>';
+    if (note) html += '<div class="dim-note">' + esc(note) + '</div>';
+    if (d.score != null) html += '<div class="dim-score-tag">(' + (d.score >= 0 ? '+' : '') + d.score + ')</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+
+  // Key metrics
+  if (km.vix || km.credit_spread || km.consumer) {
+    html += '<div class="section">';
+    html += '<div class="section-label">【关键指标】</div>';
+    if (km.vix && km.vix.value != null) {
+      html += '<div class="metric-line">VIX: <span class="metric-val">' + km.vix.value + '</span> <span class="metric-pct">（3年' + (km.vix.percentile || '—') + '%分位）</span></div>';
+    }
+    if (km.credit_spread && km.credit_spread.value != null) {
+      html += '<div class="metric-line">信用利差: <span class="metric-val">' + km.credit_spread.value + '%</span> <span class="metric-pct">（3年' + (km.credit_spread.percentile || '—') + '%分位）</span></div>';
+    }
+    if (km.consumer && km.consumer.value != null) {
+      html += '<div class="metric-line">消费者信心: <span class="metric-val">' + km.consumer.value + '</span> <span class="metric-pct">（3年' + (km.consumer.percentile || '—') + '%分位）</span></div>';
+    }
+    html += '</div>';
+  }
+
+  // Attractor
+  html += '<div class="section">';
+  html += '<div class="section-label">【吸引子】</div>';
+  html += '<div class="att-row">';
+  html += '<span>' + esc(att.captured_emoji || '⚪') + '</span>';
+  html += '<span>' + esc(att.captured_name || '—') + '</span>';
+  html += '</div>';
+  var attExplain = ATTRACTOR_EXPLANATIONS[att.captured] || '';
+  if (attExplain) html += '<div class="att-explain">' + esc(attExplain) + '</div>';
+  html += '</div>';
+
+  // Extremes
+  var extCount = extremes.count || 0;
+  if (extCount > 0) {
+    html += '<div class="section">';
+    html += '<div class="section-label">【极端指标】</div>';
+    html += '<div class="extreme-badge">⚠️ ' + extCount + ' 项</div>';
+    if (extremes.categories && extremes.categories.length) {
+      html += '<div class="extreme-cats">' + extremes.categories.map(function(c) { return esc(c); }).join(' · ') + '</div>';
+    }
+    html += '</div>';
+  }
+
+  // Opportunities
+  var activeOpps = opps.filter(function(o) { return o.active; });
+  if (activeOpps.length) {
+    html += '<div class="section">';
+    html += '<div class="section-label">【结构性机会】</div>';
+    activeOpps.forEach(function(o) {
+      html += '<div class="opp-line">✅ ' + esc(o.name) + '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Radar link
+  html += '<a href="s2-certainty.html" class="radar-link">🔗 查看完整雷达 →</a>';
+
+  // Copy button
+  html += '<button class="copy-btn" id="copy-btn">📋 复制简报文本</button>';
+
+  // Footer
+  html += '<div class="page-footer">';
+  html += '<div class="footer-brand">黑森船长 · 人机协同 · 仅供参考</div>';
+  html += '<div class="footer-disclaimer">所有分析仅供参考，不构成投资建议 · Not investment advice</div>';
+  html += '</div>';
+
+  html += '</div>';
+
+  loading.style.display = 'none';
+  app.insertAdjacentHTML('beforeend', html);
+
+  // Generate plain text for copy
+  function generateText() {
+    var lines = [];
+    lines.push('📡 独立资本 · 每日宏观雷达');
+    lines.push('日期：' + dateStr);
+    lines.push('');
+    lines.push('【系统状态】' + (ss.label || '未知') + ' ' + stateEmoji);
+    if (stateExplain) lines.push(stateExplain);
+    lines.push('');
+    lines.push('【六维快报】');
+    ['R', 'I', 'F', 'C', 'N', 'T'].forEach(function(key) {
+      var d = dims[key] || {};
+      var level = d.level || '中性';
+      var emoji = LEVEL_EMOJI[level] || '⚪';
+      var label = DIM_LABELS[key] || key;
+      var note = d.note || '';
+      var line = emoji + ' ' + key + ' ' + label + '：' + level;
+      if (note) line += ' — ' + note;
+      lines.push(line);
+    });
+    lines.push('');
+    lines.push('【关键指标】');
+    if (km.vix && km.vix.value != null) lines.push('VIX: ' + km.vix.value + '（3年' + (km.vix.percentile || '—') + '%分位）');
+    if (km.credit_spread && km.credit_spread.value != null) lines.push('信用利差: ' + km.credit_spread.value + '%（3年' + (km.credit_spread.percentile || '—') + '%分位）');
+    if (km.consumer && km.consumer.value != null) lines.push('消费者信心: ' + km.consumer.value + '（3年' + (km.consumer.percentile || '—') + '%分位）');
+    lines.push('');
+    lines.push('【吸引子】' + (att.captured_emoji || '⚪') + ' ' + (att.captured_name || '—'));
+    if (attExplain) lines.push(attExplain);
+    if (extCount > 0) {
+      lines.push('');
+      lines.push('【极端指标】⚠️ ' + extCount + ' 项');
+      if (extremes.categories && extremes.categories.length) lines.push(extremes.categories.join('、'));
+    }
+    if (activeOpps.length) {
+      lines.push('');
+      lines.push('【结构性机会】');
+      activeOpps.forEach(function(o) { lines.push('✅ ' + o.name); });
+    }
+    lines.push('');
+    lines.push('🔗 完整雷达：tools.basealpha.ai/s2-certainty.html');
+    lines.push('');
+    lines.push('—— 黑森船长 · 人机协同 · 仅供参考');
+    return lines.join('\n');
+  }
+
+  // Copy handler
+  var btn = document.getElementById('copy-btn');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      var text = generateText();
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = '已复制 ✓';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = '📋 复制简报文本';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        // Fallback
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;left:-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '已复制 ✓';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = '📋 复制简报文本';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

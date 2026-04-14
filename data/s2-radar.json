@@ -1,25 +1,25 @@
 {
-  "timestamp": "2026-04-14T10:12:44",
+  "timestamp": "2026-04-14T20:02:42",
   "system_state": {
-    "state": "STRESSED_MILD",
-    "label": "轻度压力",
-    "color": "#84cc16",
-    "level": 2,
-    "score": 0.087
+    "state": "CRITICAL",
+    "label": "系统临界",
+    "color": "#ef4444",
+    "level": 4,
+    "score": 0.089
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.29,
-      "level": "健康",
-      "state": "►",
-      "note": "利差温和扩张，韧性开始消耗",
+      "score": 0.39,
+      "level": "强健",
+      "state": "▲",
+      "note": "信用市场平稳，系统有足够缓冲",
       "name_cn": "信用韧性",
       "status": "healthy"
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.25,
+      "score": 0.17,
       "level": "健康",
       "state": "►",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -28,8 +28,8 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.02,
-      "level": "中性",
+      "score": 0.05,
+      "level": "健康",
       "state": "►",
       "note": "情绪混合，反馈方向尚未确认",
       "name_cn": "情绪反馈",
@@ -37,7 +37,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.15,
+      "score": 0.22,
       "level": "健康",
       "state": "►",
       "note": "部分信号出现分化，协调性下降",
@@ -46,17 +46,17 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.13,
+      "score": 0.19,
       "level": "健康",
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "name_cn": "叙事共识",
-      "status": "watch"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.35,
-      "level": "承压",
+      "score": -0.56,
+      "level": "恶化",
       "state": "▼",
       "note": "技术加速度超过制度消化，结构性失配严重",
       "name_cn": "技术动能",
@@ -70,13 +70,14 @@
     "captured_color": "#3b82f6",
     "secondary": "停滞吸引子",
     "moving_toward": "停滞",
-    "early_warning": "弱预警"
+    "early_warning": "无"
   },
   "extremes": {
-    "count": 2,
+    "count": 3,
     "categories": [
+      "政策不确定性",
       "OVX原油波动率=80.6（97%分位）",
-      "政策不确定性"
+      "地缘政治风险"
     ]
   },
   "opportunities": [
@@ -112,31 +113,31 @@
       "name": "国防科技与网络安全",
       "desc": "大国竞争→结构性国防预算上升",
       "asymmetry": "中",
-      "active": false,
-      "reason": ""
+      "active": true,
+      "reason": "地缘极端 + 协调或技术承压"
     }
   ],
   "contradiction": {
-    "title": "「技术动能」本周剧烈改善",
-    "thesis": "技术动能维度从-0.56变为-0.35，单周变化0.21，超过异动阈值。需要判断这是噪音还是趋势的开始。",
-    "metaphor": "引擎在修复"
+    "title": "「技术动能」本周剧烈恶化",
+    "thesis": "技术动能维度从-0.35变为-0.56，单周变化0.21，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "引擎出现裂缝"
   },
   "key_metrics": {
     "vix": {
-      "value": 19.1,
-      "percentile": 79,
-      "desc": "美股恐惧情绪处于过去三年的高位"
+      "value": 18.3,
+      "percentile": 73,
+      "desc": "市场恐惧情绪处于过去三年的高位"
     },
     "credit_spread": {
-      "value": 4.0,
+      "value": 2.94,
       "percentile": 50,
-      "desc": "美国企业借钱成本处于低位，美国信用市场很放松"
+      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 56.6,
       "percentile": 23,
-      "desc": "美国消费者信心接近三年最低"
+      "desc": "普通人的消费信心接近三年最低"
     },
-    "extreme_count": 2
+    "extreme_count": 3
   }
 }

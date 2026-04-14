@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-04-13T08:53:05",
+  "timestamp": "2026-04-14T10:12:44",
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
-    "score": 0.046,
-    "action": "系统临界。建议仓位≤30%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
+    "score": 0.087,
+    "action": "系统临界。建议仓位≤35%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.38,
-      "state": "▲",
-      "note": "信用市场平稳，系统有足够缓冲",
+      "score": 0.29,
+      "state": "►",
+      "note": "利差温和扩张，韧性开始消耗",
       "confidence": "★★",
       "name_cn": "信用韧性",
       "status": "healthy"
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.26,
+      "score": 0.25,
       "state": "►",
       "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
@@ -29,7 +29,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.08,
+      "score": -0.02,
       "state": "►",
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
@@ -38,25 +38,25 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.06,
+      "score": 0.15,
       "state": "►",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.08,
+      "score": 0.13,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.56,
+      "score": -0.35,
       "state": "▼",
       "note": "技术加速度超过制度消化，结构性失配严重",
       "confidence": "★★",
@@ -65,10 +65,10 @@
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -82,14 +82,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 71.4
+        "pct": 72.4
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 28.6
+        "pct": 27.6
       },
       {
         "key": "TECH_DOM",
@@ -107,20 +107,19 @@
       }
     ],
     "moving_toward": "TECH_DOM",
-    "safety_margin": 0.146,
+    "safety_margin": 0.187,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=78.0 (历史97%分位)",
-    "地缘政治风险(GPR)=297 (历史100%分位)",
+    "OVX原油波动率=80.6 (历史97%分位)",
     "地缘交叉验证(OVX)=78.0 (历史97%分位) [仅验证，不计分]"
   ],
   "opportunities": [],
   "contradiction": {
-    "type": "quiet_day",
-    "title": "系统今天没有新信息",
-    "thesis": "维持昨天的判断不变。波动率低位运行本身也是一种信号——市场在等待新的催化剂。",
-    "metaphor": "暴风眼里的平静"
+    "type": "dimension_shift",
+    "title": "「技术动能」本周剧烈改善",
+    "thesis": "技术动能维度从-0.56变为-0.35，单周变化0.21，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "引擎在修复"
   },
   "allocation": {
     "short_term": "情绪面相对平稳，正常操作即可。",
@@ -128,16 +127,11 @@
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 3,
+    "extreme_count": 2,
     "vix": {
-      "value": 19.2,
+      "value": 19.1,
       "percentile": 79,
       "desc": "市场恐惧情绪偏高"
-    },
-    "credit_spread": {
-      "value": 2.9,
-      "percentile": 50,
-      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 56.6,

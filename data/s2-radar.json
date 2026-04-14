@@ -4,54 +4,62 @@
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
-    "level": 4
+    "level": 4,
+    "score": 0.087,
+    "action": "系统临界。建议仓位≤35%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "level": "健康",
+      "score": 0.29,
       "state": "►",
       "note": "利差温和扩张，韧性开始消耗",
+      "confidence": "★★",
       "name_cn": "信用韧性",
       "status": "healthy"
     },
     "I": {
       "name": "I｜制度",
-      "level": "健康",
+      "score": 0.25,
       "state": "►",
       "note": "政策不确定性上升，规则可预测性下降",
+      "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "level": "中性",
+      "score": -0.02,
       "state": "►",
       "note": "情绪混合，反馈方向尚未确认",
+      "confidence": "★★★",
       "name_cn": "情绪反馈",
-      "status": "watch"
+      "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "level": "健康",
+      "score": 0.15,
       "state": "►",
       "note": "部分信号出现分化，协调性下降",
+      "confidence": "★★★",
       "name_cn": "市场协调",
       "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "level": "健康",
+      "score": 0.13,
       "state": "►",
       "note": "叙事出现分化或转向迹象",
+      "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "watch"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "level": "承压",
+      "score": -0.35,
       "state": "▼",
       "note": "技术加速度超过制度消化，结构性失配严重",
+      "confidence": "★★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
@@ -61,75 +69,74 @@
     "captured_name": "稳态吸引子",
     "captured_emoji": "🔵",
     "captured_color": "#3b82f6",
-    "secondary": "停滞吸引子",
-    "moving_toward": "停滞",
-    "early_warning": "弱预警"
+    "basin_pct": [
+      {
+        "key": "GOLDEN",
+        "name": "黄金吸引子",
+        "emoji": "🟢",
+        "color": "#22c55e",
+        "pct": 0.0
+      },
+      {
+        "key": "STABLE",
+        "name": "稳态吸引子",
+        "emoji": "🔵",
+        "color": "#3b82f6",
+        "pct": 72.4
+      },
+      {
+        "key": "STAGNANT",
+        "name": "停滞吸引子",
+        "emoji": "🟡",
+        "color": "#f59e0b",
+        "pct": 27.6
+      },
+      {
+        "key": "TECH_DOM",
+        "name": "技术主导吸引子",
+        "emoji": "🟣",
+        "color": "#8b5cf6",
+        "pct": 0.0
+      },
+      {
+        "key": "COLLAPSE",
+        "name": "崩塌吸引子",
+        "emoji": "🔴",
+        "color": "#ef4444",
+        "pct": 0.0
+      }
+    ],
+    "moving_toward": "TECH_DOM",
+    "safety_margin": 0.187,
+    "early_warning": "无"
   },
-  "extremes": {
-    "count": 2,
-    "categories": [
-      "OVX原油波动率=80.6（97%分位）",
-      "政策不确定性"
-    ]
-  },
-  "opportunities": [
-    {
-      "name": "能源安全基础设施",
-      "desc": "能源作为安全资产，10年基础设施投资周期",
-      "asymmetry": "高",
-      "active": true,
-      "reason": "能源波动率极端 + 信用韧性健康"
-    },
-    {
-      "name": "电力与AI基础设施",
-      "desc": "电力成为AI瓶颈，电网扩建5-10年",
-      "asymmetry": "高",
-      "active": true,
-      "reason": "技术-制度失配显著 + 信用韧性健康"
-    },
-    {
-      "name": "实物资产重定价",
-      "desc": "财政赤字+供应链重构=结构性通胀",
-      "asymmetry": "高",
-      "active": false,
-      "reason": ""
-    },
-    {
-      "name": "去美元化受益资产",
-      "desc": "央行购金、BRICS体系、人民币结算",
-      "asymmetry": "中",
-      "active": false,
-      "reason": ""
-    },
-    {
-      "name": "国防科技与网络安全",
-      "desc": "大国竞争→结构性国防预算上升",
-      "asymmetry": "中",
-      "active": false,
-      "reason": ""
-    }
+  "extremes": [
+    "OVX原油波动率=80.6 (历史97%分位)",
+    "地缘交叉验证(OVX)=78.0 (历史97%分位) [仅验证，不计分]"
   ],
+  "opportunities": [],
   "contradiction": {
+    "type": "dimension_shift",
     "title": "「技术动能」本周剧烈改善",
     "thesis": "技术动能维度从-0.56变为-0.35，单周变化0.21，超过异动阈值。需要判断这是噪音还是趋势的开始。",
     "metaphor": "引擎在修复"
   },
+  "allocation": {
+    "short_term": "情绪面相对平稳，正常操作即可。",
+    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
+    "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
+  },
   "key_metrics": {
+    "extreme_count": 2,
     "vix": {
       "value": 19.1,
       "percentile": 79,
-      "desc": "美股恐惧情绪处于过去三年的高位"
-    },
-    "credit_spread": {
-      "value": 4.0,
-      "percentile": 50,
-      "desc": "美国企业借钱成本处于低位，美国信用市场很放松"
+      "desc": "市场恐惧情绪偏高"
     },
     "consumer": {
       "value": 56.6,
       "percentile": 23,
-      "desc": "美国消费者信心接近三年最低"
-    },
-    "extreme_count": 2
+      "desc": "消费信心偏低"
+    }
   }
 }

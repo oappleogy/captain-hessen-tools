@@ -587,7 +587,7 @@ function resetToLive(){
 }
 
 function loadLiveData(){
-  fetch('data/latest.json').then(function(r){
+  fetch('data/latest.json?t='+Date.now()).then(function(r){
     if(!r.ok)throw new Error('HTTP '+r.status);
     return r.json();
   }).then(function(data){
@@ -607,7 +607,7 @@ function toggleStressDetail(){
 }
 
 function loadStressIndex(){
-  fetch('data/stress-index.json').then(function(r){
+  fetch('data/stress-index.json?t='+Date.now()).then(function(r){
     if(!r.ok)throw new Error('HTTP '+r.status);
     return r.json();
   }).then(function(s){

@@ -1,7 +1,7 @@
 // Service Worker — 黑森船长 · S₂ 宏观雷达
 // Network First, Cache Fallback
 
-var CACHE_VERSION = 'v1';
+var CACHE_VERSION = 'v2';
 var CACHE_NAME = 's2-radar-' + CACHE_VERSION;
 var CACHE_URLS = [
   '/s2-certainty.html',

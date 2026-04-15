@@ -364,7 +364,7 @@ const $ = id => document.getElementById(id);
 async function loadData() {
   // 加载决策数据
   try {
-    const resp = await fetch('data/decisions.json');
+    const resp = await fetch('data/decisions.json?t='+Date.now());
     if (resp.ok) {
       const data = await resp.json();
       renderDecisions(data);
@@ -382,8 +382,8 @@ async function loadData() {
 
   // 加载扫描+仓位建议
   try {
-    const scanResp = await fetch('data/scan-latest.json');
-    const sizingResp = await fetch('data/sizing-latest.json');
+    const scanResp = await fetch('data/scan-latest.json?t='+Date.now());
+    const sizingResp = await fetch('data/sizing-latest.json?t='+Date.now());
     if (scanResp.ok && sizingResp.ok) {
       const scan = await scanResp.json();
       const sizing = await sizingResp.json();

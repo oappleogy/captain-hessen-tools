@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>化工品种地缘冲击打分表 · 黑森船长</title>
+</head>
+<body>
+  <a href="index.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08)">← 返回</a>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+const TIERS={T1:{label:"T1·核心",color:"#16a34a",bg:"#f0fdf4",desc:"高确定性+低管制"},T2:{label:"T2·关注",color:"#d97706",bg:"#fffbeb",desc:"有驱动但存在约束"},T3:{label:"T3·观望",color:"#6b7280",bg:"#f9fafb",desc:"情绪跟涨为主"},T4:{label:"T4·回避",color:"#dc2626",bg:"#fef2f2",desc:"弱基本面/高管制"}};
+
+const ITEMS=[
+  {name:"PX(对二甲苯)",code:"PX/郑商所",path:"原油→石脑油→PX",s:[5,5,4,5,4,5,4],total:32,tier:"T1",policy:"精细化工品，非民生，管制概率中低；PXN暴涨挤压下游聚酯利润可能被约谈",note:"炼厂降负+3月检修季，PXN估值空间打开",pl:"🟢"},
+  {name:"纯苯",code:"BZ/大商所",path:"原油→石脑油→纯苯",s:[5,4,3,5,4,4,5],total:30,tier:"T1",policy:"化工中间体，非终端民生品，管制概率极低",note:"开工低位反弹，成本端强支撑",pl:"🟢"},
+  {name:"苯乙烯",code:"EB/大商所",path:"原油→纯苯+乙烯→EB",s:[5,4,3,4,3,5,5],total:29,tier:"T1",policy:"上市时间短，非战略物资，干预历史少，政策风险最低",note:"港口17.56万吨累库，但中东EB外销受阻",pl:"🟢"},
+  {name:"乙二醇",code:"EG/大商所",path:"原油→乙烯→EG",s:[4,5,4,3,4,5,4],total:29,tier:"T1",policy:"聚酯原料，关联纺织产业链，但煤制EG分散了政策关注度",note:"伊朗装置停车，负荷降至73.3%",pl:"🟡"},
+  {name:"PTA",code:"TA/郑商所",path:"原油→PX→PTA",s:[5,4,2,4,4,5,4],total:28,tier:"T1",policy:"聚酯原料涉纺织就业，极端情况下可能限仓提保",note:"社会库存259.7万吨偏高，加工费修复+聚酯刚需",pl:"🟡"},
+  {name:"丙烯",code:"PL/郑商所",path:"原油→丙烷(PDH)",s:[4,4,4,3,4,4,4],total:27,tier:"T2",policy:"新上市品种，暂无干预先例",note:"PDH利润被压缩，部分装置被动减产",pl:"🟢"},
+  {name:"LPG",code:"PG/大商所",path:"中东丙烷/丁烷",s:[4,5,3,4,3,5,2],total:26,tier:"T2",policy:"⚠️高危！居民燃气+化工，涨价直接影响民生，类似动力煤",note:"中东敞口最大但政策天花板明确",pl:"🟠"},
+  {name:"瓶片",code:"郑商所",path:"PTA+EG→瓶片",s:[4,3,3,4,3,3,5],total:25,tier:"T2",policy:"非战略物资，政策关注度极低",note:"负荷回升中",pl:"🟢"},
+  {name:"沥青",code:"BU/上期所",path:"原油→沥青",s:[5,4,3,5,2,3,3],total:25,tier:"T2",policy:"基建相关，地方政府关注，但干预主要在现货端",note:"跟原油但下游基建需求偏弱",pl:"🟡"},
+  {name:"短纤",code:"PF/郑商所",path:"PTA+EG→短纤",s:[4,3,3,4,2,3,5],total:24,tier:"T2",policy:"下游深加工品，政策关注度极低",note:"跟随上游成本",pl:"🟢"},
+  {name:"聚丙烯",code:"PP/大商所",path:"丙烯→PP",s:[3,3,4,2,3,4,3],total:22,tier:"T3",policy:"涉及包装/汽车/家电，价格过高触发保供稳价",note:"供应偏紧去化，但煤制替代路径存在",pl:"🟡"},
+  {name:"塑料(LLDPE)",code:"L/大商所",path:"乙烯→LLDPE",s:[3,3,3,2,3,4,3],total:21,tier:"T3",policy:"塑料制品涉及面广，极端涨价触发保供",note:"工厂去库4.35万吨，开工86.7%",pl:"🟡"},
+  {name:"甲醇",code:"MA/郑商所",path:"天然气/煤→甲醇",s:[2,5,2,1,3,4,3],total:20,tier:"T3",policy:"煤化工龙头，国内产能充裕，但伊朗依赖度高",note:"伊朗进口依赖45%，但国内煤制可替代",pl:"🟡"},
+  {name:"烧碱",code:"SH/郑商所",path:"氯碱工艺",s:[1,1,2,1,3,2,3],total:13,tier:"T4",policy:"氯碱产业链，政策关注度一般",note:"高库存+交割压力",pl:"🟡"},
+  {name:"PVC",code:"V/大商所",path:"电石(煤)为主",s:[1,2,1,1,2,2,3],total:12,tier:"T4",policy:"电石法主导，当前方向偏空不触发干预",note:"库存89万吨高位，弱基本面",pl:"🟡"},
+  {name:"尿素",code:"UR/郑商所",path:"煤/天然气→尿素",s:[1,1,2,1,3,2,1],total:11,tier:"T4",policy:"⚠️最高危！农资品种，关系粮食安全",note:"日产22万吨高位，政策+供应=双重压制",pl:"🔴"},
+  {name:"纯碱",code:"SA/郑商所",path:"天然碱/合成碱",s:[1,1,1,1,2,2,2],total:10,tier:"T4",policy:"23年曾被交易所多次提保限仓",note:"产量79.1万吨，库存192.9万吨",pl:"🟠"},
+];
+
+const DIMS=["①油价关联","②中东敞口","③库存水位","④替代受阻","⑤需求刚性","⑥资金共识","⑦政策管制"];
+const DS=["油价","中东","库存","替代","需求","资金","政策"];
+
+const STRATS=[
+  {tier:"T1",items:[
+    {n:"PX",sh:"跟PXN扩张逢回调加仓",mid:"炼厂降负+检修=供减需增",w:"发改委约谈炼厂新闻",st:"PXN跌破250美元"},
+    {n:"苯乙烯",sh:"政策风险最低+出口利好，首选",mid:"近月多单，3月检修落地",w:"交易所提保通知（概率极低）",st:"非一体化利润跌至-200"},
+    {n:"纯苯",sh:"低估值+零政策风险，逢低做多",mid:"芳烃链整体偏强",w:"几乎无政策风险",st:"BZN价差持续收窄"},
+    {n:"乙二醇",sh:"伊朗停车最直接利多",mid:"中东进口缺口持续",w:"纺织企业大面积停工",st:"EG负荷回升至80%+"},
+  ]},
+  {tier:"T2",items:[
+    {n:"PTA",sh:"资金共识强但库存偏高",mid:"加工费修复趋势",w:"聚酯开工率跌破85%",st:"加工费跌破150元"},
+    {n:"LPG ⚠️",sh:"⚠️首轮冲击可参与，不恋战",mid:"政策天花板明确，控仓位",w:"⚠️交易所提保=立即减仓",st:"任何交易所风控公告"},
+    {n:"丙烯",sh:"PDH利润监控，成本推动",mid:"PDH被动减产→供给收缩",w:"煤制烯烃放量",st:"PDH开工率回升至80%"},
+  ]},
+  {tier:"T3",items:[
+    {n:"PP/LLDPE",sh:"情绪跟涨，轻仓",mid:"区间操作",w:"中石化出厂价不跟涨",st:"煤制利润转正"},
+    {n:"甲醇",sh:"矛盾品种：高敞口低天花板",mid:"港口去库拐点",w:"煤制甲醇增产公告",st:"港口库存回升"},
+  ]},
+  {tier:"T4",items:[
+    {n:"PVC/纯碱/烧碱",sh:"弱基本面，回避",mid:"回避",w:"无需监控",st:"不参与"},
+    {n:"尿素 ⚠️",sh:"⚠️政策雷区！坚决回避",mid:"回避",w:"发改委保供稳价文件",st:"不参与"},
+  ]},
+];
+
+const BLINDS=[
+  {t:"⚠️ 交易所行政干预",d:"品种涨幅过大时交易所可单方面提保/限仓/限制开仓。路径：连续涨停→公告→提保至20-30%→多头被迫减仓",m:"每日收盘后检查三大交易所公告；涨停后T+1必查",l:"🔴"},
+  {t:"⚠️ 发改委窗口指导",d:"涉民生品种(LPG/尿素)，发改委可直接发文要求保供稳价，不经交易所",m:"国务院会议纪要「保供稳价」；发改委公告；官媒批评大宗涨价",l:"🔴"},
+  {t:"⚠️ 两桶油保供令",d:"中石化/中石油作为央企有政治任务，极端情况下被要求增产/降价。PP/LLDPE/PTA最受影响",m:"出厂价调整频率；出厂价vs期货价差；央企保供新闻",l:"🟠"},
+  {t:"需求破坏拐点",d:"油价涨幅超80%时下游开始砍单，「无负反馈」假设崩塌",m:"Brent>$100后监控聚酯开工率、织机负荷",l:"🟡"},
+  {t:"煤化工替代套利",d:"油煤价差扩大后煤制产能释放，稀释油化工溢价。甲醇/PP/LLDPE/EG均有煤制路径",m:"煤制PP/PE/EG利润、煤制装置开工率",l:"🟡"},
+  {t:"地缘缓和黑天鹅",d:"美伊和谈/海峡重开→化工品暴跌，跌幅大于原油（情绪溢价更高）",m:"美伊外交信号、海峡通行量日度数据",l:"🟡"},
+  {t:"资金拥挤踩踏",d:"化工集体涨停后多头拥挤，利多出尽时踩踏式平仓",m:"持仓量异动、涨停后次日成交量骤增",l:"🟡"},
+];
+
+const ScoreBar=({v,color="#3b82f6"})=>(
+  <div style={{display:"flex",gap:1,alignItems:"center"}}>
+    {[1,2,3,4,5].map(i=><div key={i} style={{width:9,height:9,borderRadius:2,background:i<=v?color:"#e2e8f0"}}/>)}
+    <span style={{fontSize:9,color:"#94a3b8",marginLeft:2,fontFamily:"monospace"}}>{v}</span>
+  </div>
+);
+
+const Radar=({scores,color="#3b82f6"})=>{
+  const n=7,cx=58,cy=58,r=44;
+  const ag=scores.map((_,i)=>(Math.PI*2*i/n)-Math.PI/2);
+  const pts=scores.map((s,i)=>({x:cx+Math.cos(ag[i])*r*(s/5),y:cy+Math.sin(ag[i])*r*(s/5)}));
+  const gp=l=>ag.map(a=>({x:cx+Math.cos(a)*r*(l/5),y:cy+Math.sin(a)*r*(l/5)}));
+  return(
+    <svg viewBox="0 0 116 116" style={{width:105,height:105,flexShrink:0}}>
+      {[2,4,5].map(l=>{const g=gp(l);return <polygon key={l} points={g.map(p=>p.x+","+p.y).join(" ")} fill="none" stroke="#e2e8f0" strokeWidth={l===5?.5:.3}/>;})}
+      {ag.map((a,i)=><line key={i} x1={cx} y1={cy} x2={cx+Math.cos(a)*r} y2={cy+Math.sin(a)*r} stroke="#f1f5f9" strokeWidth={.3}/>)}
+      <polygon points={pts.map(p=>p.x+","+p.y).join(" ")} fill={color+"22"} stroke={color} strokeWidth={1.5}/>
+      {pts.map((p,i)=><circle key={i} cx={p.x} cy={p.y} r={1.8} fill={color}/>)}
+      {ag.map((a,i)=>{const x=cx+Math.cos(a)*(r+9),y=cy+Math.sin(a)*(r+9);return <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="central" fontSize={6.5} fill="#94a3b8">{DS[i]}</text>;})}
+    </svg>
+  );
+};
+
+function App(){
+  const [tab,setTab]=useState("score");
+  const [sel,setSel]=useState(null);
+  const [tf,setTf]=useState(null);
+  const tabs=[{id:"score",label:"多维打分"},{id:"policy",label:"政策管制"},{id:"strategy",label:"分层策略"},{id:"blind",label:"框架盲区"}];
+  const filtered=tf?ITEMS.filter(i=>i.tier===tf):ITEMS;
+
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(180deg,#e8f1f8,#dbeafe,#eff6ff)",color:"#1e293b",fontFamily:"'Segoe UI','PingFang SC',sans-serif"}}>
+      <style>{`@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}*{box-sizing:border-box;margin:0}`}</style>
+
+      <header style={{padding:"14px 16px 10px",textAlign:"center",background:"linear-gradient(135deg,#1e3a5f,#1e40af)",color:"#fff"}}>
+        <div style={{fontSize:9,letterSpacing:4,color:"#93c5fd",fontFamily:"monospace"}}>CAPTAIN HESSEN</div>
+        <h1 style={{fontSize:15,fontWeight:900,margin:"4px 0",color:"#f0f9ff"}}>化工品种 · 地缘供给冲击多维打分表 v2.0</h1>
+        <div style={{fontSize:9,color:"#93c5fd",marginTop:2}}>油价供给冲击 + 霍尔木兹关闭 + 中国「求稳」政策管制</div>
+      </header>
+
+      <nav style={{display:"flex",background:"#fff",borderBottom:"1px solid #e2e8f0",position:"sticky",top:0,zIndex:50,boxShadow:"0 1px 3px #0001"}}>
+        {tabs.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,padding:"9px 2px",border:"none",borderBottom:tab===t.id?"2px solid #2563eb":"2px solid transparent",cursor:"pointer",fontSize:10,fontWeight:tab===t.id?700:400,fontFamily:"inherit",background:"transparent",color:tab===t.id?"#1e40af":"#94a3b8"}}>{t.label}</button>)}
+      </nav>
+
+      <main style={{maxWidth:640,margin:"0 auto",padding:"10px 12px 50px"}}>
+
+        {tab==="score"&&<div style={{animation:"fu .4s"}}>
+          <div style={{fontSize:10,color:"#64748b",marginBottom:6}}>打分1-5（5=最有利做多）| ⑦政策：5=管制风险极低 1=极高</div>
+          <div style={{display:"flex",gap:3,marginBottom:8,flexWrap:"wrap"}}>
+            <button onClick={()=>setTf(null)} style={{padding:"3px 7px",borderRadius:4,fontSize:9,fontWeight:600,border:"1px solid "+(tf?null?"#2563eb33":"#e2e8f0":"#2563eb33"),background:!tf?"#dbeafe":"#fff",color:!tf?"#2563eb":"#94a3b8",cursor:"pointer",fontFamily:"inherit"}}>全部({ITEMS.length})</button>
+            {Object.entries(TIERS).map(([k,v])=><button key={k} onClick={()=>setTf(tf===k?null:k)} style={{padding:"3px 7px",borderRadius:4,fontSize:9,fontWeight:600,border:"1px solid "+(tf===k?v.color+"33":"#e2e8f0"),background:tf===k?v.bg:"#fff",color:tf===k?v.color:"#94a3b8",cursor:"pointer",fontFamily:"inherit"}}>{v.label}({ITEMS.filter(x=>x.tier===k).length})</button>)}
+          </div>
+
+          {filtered.map((item,idx)=>{const t=TIERS[item.tier];const is=sel===item.name;
+            return <div key={idx} onClick={()=>setSel(is?null:item.name)} style={{background:"#fff",border:"1px solid "+(is?t.color+"33":"#e2e8f0"),borderRadius:8,padding:"8px 10px",marginBottom:4,cursor:"pointer"}}>
+              <div style={{display:"flex",alignItems:"center",gap:5}}>
+                <span style={{fontSize:8,padding:"1px 5px",borderRadius:3,background:t.bg,color:t.color,fontWeight:700}}>{t.label.split("·")[0]}</span>
+                <span style={{fontSize:12,fontWeight:700,flex:1}}>{item.name}</span>
+                <span style={{fontSize:9}}>{item.pl}</span>
+                <span style={{fontSize:15,fontWeight:900,color:t.color,fontFamily:"monospace"}}>{item.total}</span>
+                <span style={{fontSize:8,color:"#94a3b8"}}>/35</span>
+              </div>
+              {is&&<div style={{animation:"fu .2s",marginTop:6}}>
+                <div style={{display:"flex",gap:8,alignItems:"flex-start",marginBottom:6}}>
+                  <Radar scores={item.s} color={t.color}/>
+                  <div style={{flex:1,fontSize:10}}>
+                    {DIMS.map((d,j)=><div key={j} style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:1}}>
+                      <span style={{color:"#64748b",fontSize:9}}>{d}</span>
+                      <ScoreBar v={item.s[j]} color={t.color}/>
+                    </div>)}
+                  </div>
+                </div>
+                <div style={{fontSize:10,color:"#475569",lineHeight:1.6}}>
+                  <div style={{marginBottom:2}}><span style={{color:"#94a3b8"}}>代码</span> {item.code}　<span style={{color:"#94a3b8"}}>路径</span> {item.path}</div>
+                  <div style={{padding:"4px 8px",background:"#f8fafc",borderRadius:4,marginBottom:2,borderLeft:"2px solid "+t.color}}>{item.note}</div>
+                  <div style={{padding:"4px 8px",background:item.pl==="🔴"||item.pl==="🟠"?"#fef2f2":"#f8fafc",borderRadius:4,borderLeft:"2px solid #94a3b8"}}><span style={{fontSize:9,color:"#94a3b8"}}>政策</span> {item.policy}</div>
+                </div>
+              </div>}
+            </div>;})}
+        </div>}
+
+        {tab==="policy"&&<div style={{animation:"fu .4s"}}>
+          <div style={{fontSize:11,color:"#64748b",marginBottom:8}}>中国「求稳」国情下，涉民生/能源/粮食安全品种存在政策天花板</div>
+          {[
+            {lv:"🔴 极高危",c:"#dc2626",bg:"#fef2f2",items:[{n:"尿素",d:"农资，关系18亿亩耕地粮食安全。22-23年多次提保至20%+",a:"做多尿素=与政策对赌，坚决回避"}]},
+            {lv:"🟠 高危",c:"#d97706",bg:"#fffbeb",items:[{n:"LPG",d:"居民燃气，民生属性极强。涨价推高CPI",a:"短线首轮冲击可参与(1-2涨停)，硬止损，提保→减仓"},{n:"纯碱",d:"玻璃→房地产→政治敏感。23年连续3次提保至30%",a:"基本面空+管制=双杀，回避"}]},
+            {lv:"🟡 中度",c:"#6b7280",bg:"#f9fafb",items:[{n:"PP/LLDPE",d:"塑料涉包装/农膜/汽车。暴涨触发约谈。两桶油有保供任务",a:"可做多控仓位。中石化出厂价不跟涨→见顶信号"},{n:"PTA/EG",d:"聚酯原料涉纺织就业(千万工人)。极端情况发改委协调保供",a:"中线主力品种。监控纺织企业停工潮"}]},
+            {lv:"🟢 低度",c:"#16a34a",bg:"#f0fdf4",items:[{n:"PX/纯苯/苯乙烯",d:"精细化工中间体，非民生品。上市时间短，干预先例少",a:"政策约束最小，可放更大仓位。苯乙烯和纯苯尤其安全"},{n:"短纤/瓶片/丙烯",d:"下游深加工/新品种，政策关注极低",a:"可参与但注意流动性"}]},
+          ].map((g,i)=><div key={i} style={{background:g.bg,border:"1px solid "+g.c+"22",borderRadius:10,padding:12,marginBottom:8}}>
+            <div style={{fontSize:13,fontWeight:800,color:g.c,marginBottom:6}}>{g.lv}</div>
+            {g.items.map((it,j)=><div key={j} style={{background:"#fff",borderRadius:6,padding:10,marginBottom:j<g.items.length-1?4:0,border:"1px solid #f1f5f9"}}>
+              <div style={{fontSize:12,fontWeight:700,marginBottom:3}}>{it.n}</div>
+              <div style={{fontSize:10,color:"#64748b",lineHeight:1.6,marginBottom:3}}>{it.d}</div>
+              <div style={{fontSize:10,color:g.c,fontWeight:600,padding:"3px 8px",background:g.bg,borderRadius:4}}>策略：{it.a}</div>
+            </div>)}
+          </div>)}
+        </div>}
+
+        {tab==="strategy"&&<div style={{animation:"fu .4s"}}>
+          <div style={{fontSize:10,color:"#64748b",marginBottom:8}}>LPG从T1降至T2(政策天花板)，苯乙烯/纯苯因低政策风险优先级提升</div>
+          {STRATS.map((g,i)=>{const t=TIERS[g.tier];return <div key={i} style={{marginBottom:12}}>
+            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:5}}>
+              <span style={{fontSize:10,fontWeight:800,color:t.color,padding:"2px 7px",background:t.bg,borderRadius:4}}>{t.label}</span>
+              <span style={{fontSize:9,color:"#94a3b8"}}>{t.desc}</span>
+            </div>
+            {g.items.map((it,j)=><div key={j} style={{background:"#fff",border:"1px solid #e2e8f0",borderRadius:8,padding:10,marginBottom:4}}>
+              <div style={{fontSize:12,fontWeight:700,marginBottom:5}}>{it.n}</div>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"3px 8px",fontSize:10,color:"#475569",lineHeight:1.5}}>
+                <div><span style={{color:"#94a3b8",fontSize:9}}>短线策略</span><br/>{it.sh}</div>
+                <div><span style={{color:"#94a3b8",fontSize:9}}>中线策略</span><br/>{it.mid}</div>
+                <div><span style={{color:it.w.includes("⚠️")?"#dc2626":"#94a3b8",fontSize:9}}>政策预警</span><br/><span style={{color:it.w.includes("⚠️")?"#dc2626":"inherit"}}>{it.w}</span></div>
+                <div><span style={{color:"#dc2626",fontSize:9}}>硬止损</span><br/><span style={{color:"#dc2626"}}>{it.st}</span></div>
+              </div>
+            </div>)}
+          </div>;})}
+        </div>}
+
+        {tab==="blind"&&<div style={{animation:"fu .4s"}}>
+          <div style={{fontSize:11,color:"#64748b",marginBottom:8}}>框架盲区与压力测试</div>
+          {BLINDS.map((b,i)=><div key={i} style={{background:"#fff",border:"1px solid "+(b.l==="🔴"?"#fca5a5":b.l==="🟠"?"#fed7aa":"#e2e8f0"),borderRadius:8,padding:10,marginBottom:5}}>
+            <div style={{fontSize:12,fontWeight:700,marginBottom:3}}>{b.t}</div>
+            <div style={{fontSize:10,color:"#475569",lineHeight:1.6,marginBottom:4}}>{b.d}</div>
+            <div style={{padding:"5px 8px",background:"#f8fafc",borderRadius:4,borderLeft:"2px solid #3b82f6"}}>
+              <div style={{fontSize:9,color:"#3b82f6",fontWeight:600}}>监控指标</div>
+              <div style={{fontSize:10,color:"#64748b",lineHeight:1.5}}>{b.m}</div>
+            </div>
+          </div>)}
+        </div>}
+      </main>
+
+      <footer style={{textAlign:"center",padding:"10px",background:"#f0f4f8",borderTop:"1px solid #e2e8f0"}}>
+        <div style={{fontSize:8,color:"#94a3b8"}}>黑森船长 · Captain Hessen · 数据截至2026年3月 · 仅供分析框架参考，不构成投资建议</div>
+      </footer>
+    </div>
+  );
+}
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

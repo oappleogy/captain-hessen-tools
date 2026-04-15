@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全球原油基准与供应链图谱 · 黑森船长</title>
+</head>
+<body>
+  <a href="index.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08)">← 返回</a>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+const RC={"无":"#16a34a","间接":"#d97706","部分":"#d97706","高度依赖":"#dc2626","极高":"#dc2626","极低":"#16a34a","低-中等":"#22c55e","中等":"#d97706"};
+
+const BENCHMARKS = [
+  {name:"ICE Brent (BFOET)",cur:"USD",settle:"EFP+现金结算",origin:"北海(英+挪)+WTI Midland",quality:"轻质低硫",api:38,sulfur:0.4,buyers:"全球78%出口原油以此定价",storage:"Sullom Voe/Hound Point/挪威+浮仓",route:"北海→欧洲 | 好望角→亚洲",hormuz:"间接",note:"Dated Brent现货$141 vs 期货$109",color:"#0ea5e9",exchange:"洲际交易所欧洲 (ICE Futures Europe)"},
+  {name:"NYMEX WTI",cur:"USD",settle:"物理交割(库欣)",origin:"美国二叠纪/Bakken/Eagle Ford",quality:"轻质低硫",api:39.6,sulfur:0.24,buyers:"国内炼厂+出口400万桶/日",storage:"库欣OK—9100万桶储罐",route:"管道→库欣→墨西哥湾出口",hormuz:"无",note:"2015年解禁后接入全球；当前获安全溢价",color:"#ef4444",exchange:"纽约商品交易所 (NYMEX/CME集团)"},
+  {name:"DME Oman (OQD)",cur:"USD",settle:"物理交割(FOB)",origin:"阿曼~85万桶/日",quality:"中质中硫",api:31,sulfur:0.8,buyers:"沙特/科威特/阿曼/巴林均采用",storage:"Mina al Fahal港(阿曼湾)",route:"阿曼湾→直航亚洲",hormuz:"无(海峡外)",note:"定价520万桶/日；不受OPEC配额",color:"#f59e0b",exchange:"海湾商品交易所 (GME, 原迪拜商品交易所)"},
+  {name:"ICE Murban",cur:"USD",settle:"物理交割(FOB Fujairah)",origin:"阿联酋Abu Dhabi陆上",quality:"轻质低硫",api:40,sulfur:0.8,buyers:"亚洲:中日韩印",storage:"Fujairah港(ADCOP管道)",route:"ADCOP→Fujairah→亚洲",hormuz:"部分",note:"2021上线；海上油田仍依赖海峡",color:"#22c55e",exchange:"洲际交易所阿布扎比 (ICE Futures Abu Dhabi)"},
+  {name:"Dubai/Platts",cur:"USD",settle:"现金结算(Platts评估)",origin:"迪拜(产量极低)",quality:"中质含硫",api:31,sulfur:2,buyers:"亚洲炼厂传统基准",storage:"无固定交割地",route:"波斯湾→霍尔木兹→亚洲",hormuz:"高度依赖",note:"正被Oman和Murban替代",color:"#a855f7",exchange:"场外市场 (普氏能源Platts窗口评估)"},
+  {name:"上海INE SC",cur:"RMB",settle:"物理交割(保税库)",origin:"阿曼/迪拜/巴士拉等",quality:"中质含硫",api:32,sulfur:1.5,buyers:"中国炼厂本币对冲",storage:"中国沿海保税库",route:"中东/西非→中国沿海",hormuz:"间接",note:"唯一人民币计价；石油人民币化",color:"#14b8a6",exchange:"上海国际能源交易中心 (INE)"},
+  {name:"Urals",cur:"USD",settle:"现金结算",origin:"俄西西伯利亚/乌拉尔",quality:"中质含硫",api:31,sulfur:1.3,buyers:"中国/印度(折价$10-20)",storage:"Primorsk/Novorossiysk",route:"波罗的海→好望角→亚洲",hormuz:"无",note:"G7价格上限$60；影子船队",color:"#6b7280",exchange:"场外市场 (阿格斯Argus/普氏Platts评估)"},
+  {name:"ESPO",cur:"USD",settle:"现金结算",origin:"俄东西伯利亚",quality:"轻质低硫",api:34.8,sulfur:0.62,buyers:"中国(管道)/韩日(港口)",storage:"Kozmino港+大庆(管道)",route:"ESPO管道→大庆 | Kozmino→日韩",hormuz:"无",note:"管道直连中国；俄东向核心",color:"#9ca3af",exchange:"场外市场 (普氏Platts/阿格斯Argus评估)"},
+  {name:"WCS (加拿大油砂)",cur:"USD",settle:"物理交割",origin:"加拿大阿尔伯塔油砂",quality:"重质含硫",api:20.5,sulfur:3.5,buyers:"美国中西部/墨西哥湾",storage:"Hardisty, 阿尔伯塔",route:"Keystone→库欣 | TMX→温哥华",hormuz:"无",note:"折价WTI $15-25; TMX扩容",color:"#92400e",exchange:"场外市场 / 洲际交易所 (ICE)"},
+  {name:"Bonny Light",cur:"USD",settle:"现金结算",origin:"尼日利亚尼日尔三角洲",quality:"轻质低硫",api:33,sulfur:0.14,buyers:"欧洲/印度/中国",storage:"Bonny Island/Forcados",route:"几内亚湾→欧洲|→好望角→亚洲",hormuz:"无",note:"大西洋盆地重要品种",color:"#15803d",exchange:"场外市场 (普氏Platts评估)"},
+  {name:"Tapis (马来西亚)",cur:"USD",settle:"现金结算",origin:"马来西亚近海",quality:"轻质低硫",api:44,sulfur:0.04,buyers:"亚太:新加坡/澳/日/韩",storage:"马来西亚各港口",route:"马来西亚→新加坡→亚太",hormuz:"无",note:"亚太轻质基准；产量下降",color:"#0284c7",exchange:"场外市场 (普氏Platts评估)"},
+];
+
+const COUNTRIES=[
+  {name:"中国",f:"🇨🇳",cons:1600,prod:434,imp:73,hz:50,spr:120,risk:"中等",rs:4.4,c:"#ef4444",src:[{n:"俄罗斯",p:20},{n:"沙特",p:14},{n:"伊拉克",p:11},{n:"马来西亚*",p:9},{n:"巴西",p:8},{n:"其他",p:38}],sea:"波斯湾→霍尔木兹→马六甲→沿海 | 西非→好望角→马六甲 | 巴西→好望角→马六甲",pipe:"ESPO(俄→大庆) | 中哈管道 | 中缅管道",str:"最大买家议价权|管道替代|120天储备|电动化",wk:"马六甲瓶颈|制裁油依赖|50%海运经霍尔木兹",pricing:"INE SC/Dubai/Brent"},
+  {name:"印度",f:"🇮🇳",cons:550,prod:66,imp:88,hz:50,spr:48,risk:"极高",rs:4.9,c:"#f97316",src:[{n:"伊拉克",p:22},{n:"沙特",p:16},{n:"俄罗斯",p:15},{n:"UAE",p:8},{n:"其他",p:39}],sea:"波斯湾→霍尔木兹→西海岸(1周) | 俄→好望角 | 西非→好望角",pipe:"无",str:"紧急多元化(非霍源70%)",wk:"无管道|SPR仅48天|三重暴露",pricing:"Dubai/Oman/Brent"},
+  {name:"日本",f:"🇯🇵",cons:340,prod:2,imp:95,hz:85,spr:150,risk:"极高",rs:6.4,c:"#dc2626",src:[{n:"沙特",p:35},{n:"UAE",p:30},{n:"科威特",p:8},{n:"卡塔尔",p:7},{n:"其他",p:20}],sea:"波斯湾→霍尔木兹→马六甲→日本 | 俄ESPO→日本 | 美→太平洋",pipe:"无",str:"SPR~150天|精炼顶级",wk:"90%+依赖中东|零产量|无管道",pricing:"Dubai/Oman/Brent"},
+  {name:"韩国",f:"🇰🇷",cons:270,prod:0,imp:100,hz:65,spr:90,risk:"极高",rs:5.3,c:"#eab308",src:[{n:"沙特",p:30},{n:"科威特",p:13},{n:"UAE",p:11},{n:"伊拉克",p:10},{n:"其他",p:36}],sea:"波斯湾→霍尔木兹→马六甲→韩国 | 美→太平洋 | 俄ESPO→韩国",pipe:"无",str:"亚洲精炼中心|100万亿韩元稳定基金",wk:"零产量|100%进口|70%中东",pricing:"Dubai/Oman/Brent"},
+  {name:"美国",f:"🇺🇸",cons:2000,prod:1360,imp:-14,hz:2.5,spr:200,risk:"极低",rs:0.3,c:"#22c55e",src:[{n:"加拿大",p:52},{n:"墨西哥",p:10},{n:"沙特",p:5},{n:"其他",p:33}],sea:"净出口国(~400万桶/日)",pipe:"Keystone|Enbridge|国内管道网络",str:"最大产油国|净出口|管道|SPR最大",wk:"炼厂需重油|钻机数降",pricing:"WTI"},
+  {name:"欧盟",f:"🇪🇺",cons:1050,prod:300,imp:70,hz:6,spr:90,risk:"低-中等",rs:1.8,c:"#3b82f6",src:[{n:"挪威",p:25},{n:"美国",p:15},{n:"哈萨克",p:8},{n:"尼日利亚",p:6},{n:"其他",p:46}],sea:"北海→欧洲(短程)|大西洋盆地→欧洲|美→跨大西洋",pipe:"BTC(阿塞拜疆→地中海)|CPC(哈萨克→黑海)",str:"北海自有|已去俄化|大西洋地利",wk:"LNG依赖卡塔尔|炼厂不足",pricing:"Brent"},
+];
+
+const EXPORTERS=[
+  {name:"沙特阿拉伯",f:"🇸🇦",exp:7.3,share:15.2,dest:[{n:"中国",p:18},{n:"日本",p:14},{n:"韩国",p:12},{n:"印度",p:11},{n:"美国",p:5},{n:"其他",p:40}],route:"波斯湾→霍尔木兹→亚洲(主) | 东西管道→Yanbu→红海→欧洲",hormuz:"37.2%经海峡",note:"OPEC领导者；东西管道可绕行3-5百万桶/日",c:"#22c55e"},
+  {name:"俄罗斯",f:"🇷🇺",exp:5.0,share:10.5,dest:[{n:"中国",p:32},{n:"印度",p:28},{n:"土耳其",p:6},{n:"韩国",p:4},{n:"其他",p:30}],route:"波罗的海→好望角→亚洲 | ESPO管道→大庆/Kozmino | 黑海→地中海",hormuz:"不经海峡",note:"制裁后重定向亚洲；影子船队运输",c:"#6b7280"},
+  {name:"美国",f:"🇺🇸",exp:4.1,share:8.5,dest:[{n:"韩国",p:15},{n:"荷兰",p:12},{n:"中国",p:8},{n:"英国",p:7},{n:"印度",p:6},{n:"其他",p:52}],route:"墨西哥湾→跨大西洋→欧洲 | 墨西哥湾→巴拿马→亚洲",hormuz:"不经海峡",note:"2015年解禁后快速增长；轻质低硫为主",c:"#3b82f6"},
+  {name:"伊拉克",f:"🇮🇶",exp:3.4,share:7.1,dest:[{n:"中国",p:30},{n:"印度",p:22},{n:"韩国",p:10},{n:"美国",p:8},{n:"其他",p:30}],route:"波斯湾→霍尔木兹→亚洲 | 少量经土耳其Ceyhan管道",hormuz:"22.8%经海峡",note:"100%原油经HS 2709出口；严重依赖海峡",c:"#f59e0b"},
+  {name:"加拿大",f:"🇨🇦",exp:3.9,share:8.1,dest:[{n:"美国",p:88},{n:"中国",p:3},{n:"其他",p:9}],route:"管道→美国(Keystone/Enbridge为主) | TMX→温哥华→亚洲",hormuz:"不经海峡",note:"出口88%去美国；TMX扩容打开亚洲通道",c:"#dc2626"},
+  {name:"阿联酋",f:"🇦🇪",exp:2.7,share:5.6,dest:[{n:"日本",p:25},{n:"中国",p:18},{n:"印度",p:15},{n:"韩国",p:10},{n:"其他",p:32}],route:"波斯湾→霍尔木兹→亚洲 | ADCOP→Fujairah(绕海峡)",hormuz:"12.9%经海峡",note:"ADCOP管道180万桶/日可绕行；海上油田仍依赖海峡",c:"#14b8a6"},
+  {name:"科威特",f:"🇰🇼",exp:1.7,share:3.5,dest:[{n:"中国",p:22},{n:"韩国",p:18},{n:"日本",p:15},{n:"印度",p:12},{n:"其他",p:33}],route:"波斯湾→霍尔木兹→亚洲",hormuz:"10.1%经海峡",note:"完全依赖海峡；无绕行管道",c:"#8b5cf6"},
+  {name:"挪威",f:"🇳🇴",exp:1.8,share:3.7,dest:[{n:"英国",p:22},{n:"荷兰",p:18},{n:"德国",p:12},{n:"瑞典",p:8},{n:"其他",p:40}],route:"北海→欧洲各港(短程海运)",hormuz:"不经海峡",note:"Brent篮子成分之一；欧洲最大供应国",c:"#0ea5e9"},
+  {name:"巴西",f:"🇧🇷",exp:2.1,share:4.4,dest:[{n:"中国",p:35},{n:"美国",p:10},{n:"智利",p:6},{n:"印度",p:5},{n:"其他",p:44}],route:"大西洋→好望角→亚洲 | 大西洋→北美/欧洲",hormuz:"不经海峡",note:"深水盐下层产量快速增长；对华出口增28%",c:"#eab308"},
+  {name:"尼日利亚",f:"🇳🇬",exp:1.4,share:2.9,dest:[{n:"欧洲",p:35},{n:"印度",p:20},{n:"中国",p:12},{n:"美国",p:5},{n:"其他",p:28}],route:"几内亚湾→欧洲 | 几内亚湾→好望角→亚洲",hormuz:"不经海峡",note:"Bonny Light品质优良；受盗油和安全影响",c:"#15803d"},
+  {name:"哈萨克斯坦",f:"🇰🇿",exp:1.4,share:2.9,dest:[{n:"欧洲",p:55},{n:"中国",p:20},{n:"其他",p:25}],route:"CPC管道→黑海Novorossiysk | 中哈管道→中国",hormuz:"不经海峡",note:"CPC管道是主要出口通道；对华管道直连",c:"#d97706"},
+];
+
+const HZ_O=[{n:"沙特",p:37.2,c:"#22c55e"},{n:"伊拉克",p:22.8,c:"#f59e0b"},{n:"UAE",p:12.9,c:"#14b8a6"},{n:"伊朗",p:10.6,c:"#dc2626"},{n:"科威特",p:10.1,c:"#8b5cf6"},{n:"其他",p:6.4,c:"#94a3b8"}];
+const HZ_D=[{n:"中国",p:37.7,c:"#ef4444"},{n:"印度",p:14.7,c:"#f97316"},{n:"韩国",p:12.0,c:"#eab308"},{n:"日本",p:10.9,c:"#dc2626"},{n:"其他亚洲",p:13.9,c:"#14b8a6"},{n:"欧洲",p:4.0,c:"#3b82f6"},{n:"美国",p:2.5,c:"#22c55e"},{n:"其他",p:4.3,c:"#94a3b8"}];
+
+/* ─── Shared ─── */
+const Bar=({data,h=22})=><div style={{display:"flex",borderRadius:5,overflow:"hidden",height:h,background:"#cbd5e1"}}>{data.map((d,i)=><div key={i} title={`${d.n}: ${d.p}%`} style={{width:`${d.p}%`,background:d.c||["#ef4444","#3b82f6","#22c55e","#f59e0b","#8b5cf6","#14b8a6","#6b7280"][i%7],display:"flex",alignItems:"center",justifyContent:"center"}}>{d.p>8&&<span style={{fontSize:8,fontWeight:700,color:"#fff",textShadow:"0 1px 2px #0004",whiteSpace:"nowrap"}}>{d.n} {d.p}%</span>}</div>)}</div>;
+
+const Metric=({label,value,color="#1e293b"})=><div style={{background:"#f0f4f8",borderRadius:6,padding:"5px 4px",textAlign:"center",flex:1,border:"1px solid #e2e8f0"}}><div style={{fontSize:13,fontWeight:800,color,fontFamily:"monospace"}}>{value}</div><div style={{fontSize:8,color:"#64748b"}}>{label}</div></div>;
+
+const Pill=({children,color="#0ea5e9"})=><span style={{display:"inline-block",padding:"1px 7px",borderRadius:10,fontSize:9,fontWeight:600,background:color+"15",color,border:`1px solid ${color}25`,marginRight:3,marginBottom:2}}>{children}</span>;
+
+/* ─── APP ─── */
+function App(){
+  const [tab,setTab]=useState("benchmark");
+  const [selBM,setSelBM]=useState(null);
+  const [expCty,setExpCty]=useState(null);
+  const [expExp,setExpExp]=useState(null);
+  const [memos,setMemos]=useState([]);
+  const [memoInput,setMemoInput]=useState("");
+  const [memoTag,setMemoTag]=useState("事件");
+
+  useEffect(()=>{try{const r=localStorage.getItem("oil-memos");if(r)setMemos(JSON.parse(r));}catch(e){}},[]);
+  const save=m=>{setMemos(m);try{localStorage.setItem("oil-memos",JSON.stringify(m));}catch(e){}};
+  const addMemo=()=>{if(!memoInput.trim())return;save([{id:Date.now(),text:memoInput,tag:memoTag,time:new Date().toLocaleDateString("zh-CN"),done:false},...memos]);setMemoInput("");};
+
+  const tabs=[{id:"benchmark",label:"品种对比"},{id:"export",label:"出口格局"},{id:"country",label:"进口脆弱度"},{id:"hormuz",label:"海峡"},{id:"memo",label:"备忘录"}];
+  const sorted=[...COUNTRIES].sort((a,b)=>b.rs-a.rs);
+
+  return(
+    <div style={{minHeight:"100vh",background:"linear-gradient(180deg,#e8f1f8,#dbeafe,#eff6ff)",color:"#1e293b",fontFamily:"'Segoe UI','PingFang SC',sans-serif"}}>
+      <style>{`@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}*{box-sizing:border-box;margin:0}input,textarea{font-family:inherit}`}</style>
+
+      <header style={{padding:"14px 16px 10px",textAlign:"center",background:"linear-gradient(135deg,#1e3a5f,#1e40af)",color:"#fff",borderBottom:"2px solid #3b82f6"}}>
+        <div style={{fontSize:9,letterSpacing:4,color:"#93c5fd",fontFamily:"monospace",fontWeight:700}}>CAPTAIN HESSEN · 黑森船长</div>
+        <h1 style={{fontSize:17,fontWeight:900,margin:"4px 0",color:"#f0f9ff"}}>全球原油基准与供应链图谱</h1>
+        <div style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 10px",borderRadius:12,background:"#ff475720",border:"1px solid #ff475733",marginTop:4}}>
+          <span style={{width:5,height:5,borderRadius:"50%",background:"#ff4757"}}/>
+          <span style={{fontSize:9,color:"#fca5a5",fontWeight:600}}>2026.04 霍尔木兹海峡受阻中</span>
+        </div>
+      </header>
+
+      <nav style={{display:"flex",background:"#fff",borderBottom:"1px solid #e2e8f0",position:"sticky",top:0,zIndex:50,boxShadow:"0 1px 3px #0001"}}>
+        {tabs.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,padding:"9px 2px",border:"none",borderBottom:tab===t.id?"2px solid #2563eb":"2px solid transparent",cursor:"pointer",fontSize:10,fontWeight:tab===t.id?700:400,fontFamily:"inherit",background:"transparent",color:tab===t.id?"#1e40af":"#94a3b8"}}>
+          {t.label}{t.id==="memo"&&memos.length>0&&<span style={{marginLeft:2,fontSize:8,color:"#2563eb"}}>({memos.filter(m=>!m.done).length})</span>}
+        </button>)}
+      </nav>
+
+      <main style={{maxWidth:640,margin:"0 auto",padding:"10px 12px 50px"}}>
+
+        {/* ═══ BENCHMARK ═══ */}
+        {tab==="benchmark"&&<div style={{animation:"fu .4s"}}>
+          {/* Scatter */}
+          <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:10,border:"1px solid #e2e8f0",boxShadow:"0 1px 4px #0001"}}>
+            <div style={{fontSize:11,color:"#64748b",fontWeight:600,marginBottom:6}}>品质分布 · API度 × 含硫量</div>
+            <div style={{position:"relative",height:150,background:"#f8fafc",borderRadius:8,overflow:"hidden",border:"1px solid #e2e8f0"}}>
+              <div style={{position:"absolute",left:"50%",top:0,bottom:0,width:1,background:"#e2e8f0"}}/>
+              <div style={{position:"absolute",top:"50%",left:0,right:0,height:1,background:"#e2e8f0"}}/>
+              <div style={{position:"absolute",bottom:2,right:4,fontSize:7,color:"#94a3b8"}}>含硫量 →</div>
+              <div style={{position:"absolute",top:2,left:4,fontSize:7,color:"#94a3b8"}}>API ↑</div>
+              {BENCHMARKS.map((b,i)=>{const x=Math.min(95,Math.max(5,(b.sulfur/4)*100));const y=Math.min(95,Math.max(5,100-(b.api-18)/(46-18)*100));
+                return <div key={i} onClick={()=>setSelBM(selBM===i?null:i)} style={{position:"absolute",left:`${x}%`,top:`${y}%`,transform:"translate(-50%,-50%)",cursor:"pointer",zIndex:selBM===i?10:1}}>
+                  <div style={{width:selBM===i?14:9,height:selBM===i?14:9,borderRadius:"50%",background:b.color,boxShadow:`0 0 ${selBM===i?8:4}px ${b.color}44`,border:selBM===i?"2px solid #1e40af":"1px solid #fff",transition:"all .15s"}}/>
+                  {selBM===i&&<div style={{position:"absolute",top:-16,left:"50%",transform:"translateX(-50%)",fontSize:8,color:"#1e293b",whiteSpace:"nowrap",fontWeight:800,background:"#fff",padding:"0 3px",borderRadius:2}}>{b.name.split("(")[0].trim()}</div>}
+                </div>;})}
+            </div>
+            <div style={{display:"flex",flexWrap:"wrap",gap:4,marginTop:6}}>
+              {BENCHMARKS.map((b,i)=><span key={i} onClick={()=>setSelBM(selBM===i?null:i)} style={{display:"flex",alignItems:"center",gap:2,fontSize:8,color:selBM===i?"#1e293b":"#94a3b8",cursor:"pointer",fontWeight:selBM===i?700:400}}>
+                <span style={{width:5,height:5,borderRadius:"50%",background:b.color}}/>{b.name.split("(")[0].trim().split("\n")[0]}
+              </span>)}
+            </div>
+          </div>
+
+          {BENCHMARKS.map((b,i)=>{const sel=selBM===i;
+            return <div key={i} onClick={()=>setSelBM(sel?null:i)} style={{background:sel?"#fff":"#fff",border:`1px solid ${sel?b.color+"44":"#e2e8f0"}`,borderRadius:8,padding:"8px 10px",marginBottom:4,cursor:"pointer",transition:"all .15s",boxShadow:sel?`0 2px 8px ${b.color}15`:"none"}}>
+              <div style={{display:"flex",alignItems:"center",gap:5}}>
+                <div style={{width:7,height:7,borderRadius:"50%",background:b.color}}/>
+                <span style={{fontSize:12,fontWeight:700,color:"#1e293b",flex:1}}>{b.name}</span>
+                <Pill color={b.cur==="RMB"?"#dc2626":"#2563eb"}>{b.cur}</Pill>
+                <span style={{fontSize:9,padding:"1px 5px",borderRadius:3,background:RC[b.hormuz]+"15",color:RC[b.hormuz],fontWeight:600}}>{b.hormuz==="无"||b.hormuz==="无(海峡外)"?"🟢":b.hormuz==="高度依赖"?"🔴":"🟡"} {b.hormuz}</span>
+              </div>
+              {sel&&<div style={{animation:"fu .2s",marginTop:6,fontSize:11,color:"#475569",lineHeight:1.7}}>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2px 10px"}}>
+                  <div><span style={{color:"#94a3b8",fontSize:10}}>交易所</span><br/>{b.exchange}</div>
+                  <div><span style={{color:"#94a3b8",fontSize:10}}>结算方式</span><br/>{b.settle}</div>
+                  <div><span style={{color:"#94a3b8",fontSize:10}}>原油产地</span><br/>{b.origin}</div>
+                  <div><span style={{color:"#94a3b8",fontSize:10}}>油品等级</span><br/>{b.quality} API~{b.api} 含硫{b.sulfur}%</div>
+                  <div><span style={{color:"#94a3b8",fontSize:10}}>采购方</span><br/>{b.buyers}</div>
+                  <div><span style={{color:"#94a3b8",fontSize:10}}>交割仓储</span><br/>{b.storage}</div>
+                  <div style={{gridColumn:"span 2"}}><span style={{color:"#94a3b8",fontSize:10}}>航运线路</span><br/>{b.route}</div>
+                </div>
+                <div style={{marginTop:4,padding:"5px 8px",background:"#f0f4f8",borderRadius:5,color:b.color,fontSize:10,fontWeight:600,borderLeft:`2px solid ${b.color}`}}>{b.note}</div>
+              </div>}
+            </div>;})}
+        </div>}
+
+        {/* ═══ EXPORT ═══ */}
+        {tab==="export"&&<div style={{animation:"fu .4s"}}>
+          <div style={{fontSize:11,color:"#64748b",marginBottom:8}}>全球前11大原油出口国 · 出口量/全球占比/主要买家/航运线</div>
+          {/* Top 5 share bar */}
+          <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:10,border:"1px solid #e2e8f0"}}>
+            <div style={{fontSize:10,color:"#94a3b8",marginBottom:4}}>前5大出口国占全球52%以上</div>
+            <Bar data={EXPORTERS.slice(0,5).map(e=>({n:e.name.slice(0,3),p:e.share,c:e.c}))} h={26}/>
+          </div>
+
+          {EXPORTERS.map((e,i)=>{const sel=expExp===i;
+            return <div key={i} onClick={()=>setExpExp(sel?null:i)} style={{background:"#fff",border:`1px solid ${sel?e.c+"33":"#e2e8f0"}`,borderRadius:8,padding:"10px 12px",marginBottom:4,cursor:"pointer",transition:"all .15s"}}>
+              <div style={{display:"flex",alignItems:"center",gap:6}}>
+                <span style={{fontSize:16}}>{e.f}</span>
+                <div style={{flex:1}}>
+                  <span style={{fontSize:13,fontWeight:700,color:"#1e293b"}}>{e.name}</span>
+                  <span style={{fontSize:10,color:"#94a3b8",marginLeft:6}}>出口 {e.exp}百万桶/日</span>
+                </div>
+                <div style={{textAlign:"right"}}>
+                  <div style={{fontSize:14,fontWeight:800,color:e.c,fontFamily:"monospace"}}>{e.share}%</div>
+                  <div style={{fontSize:8,color:"#94a3b8"}}>全球占比</div>
+                </div>
+              </div>
+              {sel&&<div style={{animation:"fu .2s",marginTop:8}}>
+                <div style={{fontSize:10,color:"#94a3b8",marginBottom:3}}>出口目的地</div>
+                <Bar data={e.dest.map((d,j)=>({...d,c:["#ef4444","#f59e0b","#3b82f6","#22c55e","#8b5cf6","#14b8a6","#6b7280"][j%7]}))} h={20}/>
+                <div style={{display:"flex",flexWrap:"wrap",gap:3,marginTop:3}}>
+                  {e.dest.filter(d=>d.p<=8).map((d,j)=><span key={j} style={{fontSize:8,color:"#94a3b8"}}>{d.n} {d.p}%</span>)}
+                </div>
+                <div style={{fontSize:11,color:"#475569",marginTop:6,lineHeight:1.6}}>
+                  <div><span style={{color:"#94a3b8",fontSize:10}}>航运线路</span> {e.route}</div>
+                  <div style={{marginTop:2}}><span style={{color:"#94a3b8",fontSize:10}}>霍尔木兹</span> <span style={{color:e.hormuz.includes("不经")?"#16a34a":"#d97706",fontWeight:600}}>{e.hormuz}</span></div>
+                  <div style={{marginTop:3,padding:"4px 8px",background:"#f0f4f8",borderRadius:5,fontSize:10,borderLeft:`2px solid ${e.c}`}}>{e.note}</div>
+                </div>
+              </div>}
+            </div>;})}
+        </div>}
+
+        {/* ═══ COUNTRY ═══ */}
+        {tab==="country"&&<div style={{animation:"fu .4s"}}>
+          <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:10,border:"1px solid #e2e8f0"}}>
+            <div style={{fontSize:11,color:"#64748b",fontWeight:600,marginBottom:6}}>霍尔木兹脆弱度评分</div>
+            {sorted.map(c=><div key={c.name} style={{display:"flex",alignItems:"center",gap:5,marginBottom:4}}>
+              <span style={{fontSize:13,width:20}}>{c.f}</span>
+              <span style={{width:26,fontSize:10,color:"#64748b",fontWeight:600}}>{c.name}</span>
+              <div style={{flex:1,height:14,background:"#e2e8f0",borderRadius:3,overflow:"hidden"}}>
+                <div style={{width:`${(c.rs/7)*100}%`,height:"100%",background:`linear-gradient(90deg,${c.c}88,${c.c})`,borderRadius:3,display:"flex",alignItems:"center",justifyContent:"flex-end",paddingRight:3}}>
+                  <span style={{fontSize:8,fontWeight:800,color:"#fff",fontFamily:"monospace"}}>{c.rs}</span>
+                </div>
+              </div>
+              <span style={{fontSize:9,color:RC[c.risk],fontWeight:700,width:36,textAlign:"right"}}>{c.risk}</span>
+            </div>)}
+          </div>
+
+          {COUNTRIES.map((c,i)=>{const exp=expCty===i;const self=Math.round(c.prod/c.cons*100);
+            return <div key={i} onClick={()=>setExpCty(exp?null:i)} style={{background:"#fff",border:`1px solid ${exp?c.c+"33":"#e2e8f0"}`,borderRadius:8,padding:10,marginBottom:4,cursor:"pointer"}}>
+              <div style={{display:"flex",alignItems:"center",gap:5,marginBottom:5}}>
+                <span style={{fontSize:16}}>{c.f}</span>
+                <div style={{flex:1}}><span style={{fontSize:13,fontWeight:700}}>{c.name}</span><span style={{fontSize:9,color:"#94a3b8",marginLeft:4}}>消费{c.cons}|产量{c.prod} 万桶/日</span></div>
+                <span style={{padding:"1px 5px",borderRadius:3,fontSize:9,fontWeight:700,background:RC[c.risk]+"15",color:RC[c.risk]}}>{c.risk}</span>
+              </div>
+              <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:3,marginBottom:4}}>
+                <Metric label="进口依赖" value={c.imp<0?"净出口":`${c.imp}%`} color={c.imp>80?"#dc2626":c.imp>50?"#d97706":"#16a34a"}/>
+                <Metric label="霍尔木兹" value={`${c.hz}%`} color={c.hz>60?"#dc2626":c.hz>30?"#d97706":"#16a34a"}/>
+                <Metric label="战略储备" value={`${c.spr}天`} color={c.spr>=120?"#16a34a":c.spr>=80?"#d97706":"#dc2626"}/>
+                <Metric label="自给率" value={`${self}%`} color={self>50?"#16a34a":self>20?"#d97706":"#dc2626"}/>
+              </div>
+              <Bar data={c.src.map((s,j)=>({...s,c:["#ef4444","#3b82f6","#22c55e","#f59e0b","#8b5cf6","#14b8a6","#6b7280"][j%7]}))} h={16}/>
+              {exp&&<div style={{animation:"fu .2s",marginTop:6,fontSize:10,color:"#475569",lineHeight:1.6}}>
+                <div><span style={{color:"#f59e0b",fontWeight:600}}>🚢 海运</span> {c.sea.split("|").join(" | ")}</div>
+                {c.pipe&&c.pipe!=="无"&&<div style={{marginTop:2}}><span style={{color:"#0ea5e9",fontWeight:600}}>🔧 管道</span> {c.pipe}</div>}
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:4,marginTop:4}}>
+                  <div><span style={{color:"#16a34a",fontWeight:600}}>优势</span>{c.str.split("|").map((s,j)=><div key={j} style={{fontSize:9,color:"#64748b"}}>+ {s.trim()}</div>)}</div>
+                  <div><span style={{color:"#dc2626",fontWeight:600}}>劣势</span>{c.wk.split("|").map((s,j)=><div key={j} style={{fontSize:9,color:"#64748b"}}>- {s.trim()}</div>)}</div>
+                </div>
+                <div style={{marginTop:3,fontSize:9,color:"#94a3b8"}}>定价基准: {c.pricing}</div>
+              </div>}
+            </div>;})}
+        </div>}
+
+        {/* ═══ HORMUZ ═══ */}
+        {tab==="hormuz"&&<div style={{animation:"fu .4s"}}>
+          <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:8,border:"1px solid #e2e8f0"}}>
+            <div style={{fontSize:11,color:"#64748b",fontWeight:600,marginBottom:5}}>出口来源国 (Q1 2025)</div>
+            <Bar data={HZ_O} h={26}/>
+          </div>
+          <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:8,border:"1px solid #e2e8f0"}}>
+            <div style={{fontSize:11,color:"#64748b",fontWeight:600,marginBottom:5}}>目的地 (Q1 2025)</div>
+            <Bar data={HZ_D} h={26}/>
+          </div>
+          <div style={{background:"#fff",borderRadius:10,padding:12,border:"1px solid #fca5a5"}}>
+            <div style={{fontSize:12,fontWeight:700,color:"#dc2626",marginBottom:6}}>绕行基础设施 — 覆盖率不足25%</div>
+            {[{n:"沙特东西管道→Yanbu",cap:"5-7",spare:"3-5",c:"#22c55e"},{n:"UAE ADCOP→Fujairah",cap:"1.8",spare:"0(满载)",c:"#3b82f6"},{n:"伊朗Jask终端",cap:"0.35",spare:"—(战时不可用)",c:"#dc2626"}].map((p,i)=>
+              <div key={i} style={{display:"flex",alignItems:"center",gap:5,padding:"5px 0",borderBottom:i<2?"1px solid #f1f5f9":"none"}}>
+                <span style={{width:5,height:5,borderRadius:"50%",background:p.c}}/>
+                <span style={{flex:1,fontSize:11,color:"#334155"}}>{p.n}</span>
+                <span style={{fontSize:10,color:"#94a3b8",fontFamily:"monospace"}}>容量{p.cap} | 闲置{p.spare} 百万桶/日</span>
+              </div>)}
+            <div style={{marginTop:6,padding:8,background:"#fef2f2",borderRadius:6,fontSize:11,color:"#dc2626",fontWeight:600}}>海峡2000万桶/日 → 最大绕行~500万 → 缺口至少1500万桶/日</div>
+          </div>
+        </div>}
+
+        {/* ═══ MEMO ═══ */}
+        {tab==="memo"&&<div style={{animation:"fu .4s"}}>
+          <div style={{fontSize:11,color:"#64748b",marginBottom:10}}>跟踪市场事件、记录分析假设、标注需要验证的判断</div>
+          <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:12,border:"1px solid #e2e8f0"}}>
+            <textarea value={memoInput} onChange={e=>setMemoInput(e.target.value)} placeholder="记录事件、假设或待验证判断..." rows={2} style={{width:"100%",background:"transparent",border:"none",color:"#1e293b",fontSize:12,resize:"none",outline:"none",lineHeight:1.6}}/>
+            <div style={{display:"flex",alignItems:"center",gap:4,marginTop:6,flexWrap:"wrap"}}>
+              {["事件","假设","待验证","风险","机会"].map(t=><button key={t} onClick={()=>setMemoTag(t)} style={{padding:"2px 7px",borderRadius:4,fontSize:9,fontWeight:600,border:`1px solid ${memoTag===t?"#2563eb33":"#e2e8f0"}`,background:memoTag===t?"#dbeafe":"transparent",color:memoTag===t?"#2563eb":"#94a3b8",cursor:"pointer",fontFamily:"inherit"}}>{t}</button>)}
+              <button onClick={addMemo} style={{marginLeft:"auto",padding:"4px 12px",borderRadius:6,border:"none",background:"#2563eb",color:"#fff",fontSize:10,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>添加</button>
+            </div>
+          </div>
+
+          {memos.length===0&&<div style={{textAlign:"center",padding:20,color:"#cbd5e1",fontSize:12}}>还没有备忘记录<br/><span style={{fontSize:10,color:"#e2e8f0"}}>试试记录："如果海峡一个月内重开，Brent-WTI价差回归到+$5"</span></div>}
+          {memos.map(m=><div key={m.id} style={{display:"flex",alignItems:"flex-start",gap:6,padding:"8px 10px",background:"#fff",borderRadius:6,marginBottom:3,border:"1px solid #e2e8f0",opacity:m.done?.5:1}}>
+            <button onClick={e=>{e.stopPropagation();save(memos.map(x=>x.id===m.id?{...x,done:!x.done}:x));}} style={{width:15,height:15,borderRadius:3,border:`1px solid ${m.done?"#22c55e":"#cbd5e1"}`,background:m.done?"#22c55e":"transparent",cursor:"pointer",flexShrink:0,marginTop:1,display:"flex",alignItems:"center",justifyContent:"center",fontSize:8,color:"#fff"}}>{m.done&&"✓"}</button>
+            <div style={{flex:1}}>
+              <div style={{fontSize:11,color:m.done?"#94a3b8":"#1e293b",textDecoration:m.done?"line-through":"none",lineHeight:1.5}}>{m.text}</div>
+              <div style={{display:"flex",gap:4,marginTop:2}}>
+                <span style={{fontSize:8,padding:"0 4px",borderRadius:2,background:{"事件":"#dbeafe","假设":"#fef9c3","待验证":"#f3e8ff","风险":"#fee2e2","机会":"#dcfce7"}[m.tag],color:{"事件":"#2563eb","假设":"#ca8a04","待验证":"#9333ea","风险":"#dc2626","机会":"#16a34a"}[m.tag]}}>{m.tag}</span>
+                <span style={{fontSize:8,color:"#cbd5e1"}}>{m.time}</span>
+              </div>
+            </div>
+            <button onClick={e=>{e.stopPropagation();save(memos.filter(x=>x.id!==m.id));}} style={{border:"none",background:"transparent",color:"#e2e8f0",cursor:"pointer",fontSize:11}}>×</button>
+          </div>)}
+        </div>}
+      </main>
+
+      <footer style={{textAlign:"center",padding:"10px",background:"#f0f4f8",borderTop:"1px solid #e2e8f0"}}>
+        <div style={{fontSize:8,color:"#94a3b8",letterSpacing:1}}>黑森船长 · Captain Hessen · IEA / EIA / Kpler / OPEC / Columbia CGEP · 2026.04</div>
+      </footer>
+    </div>
+  );
+}
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

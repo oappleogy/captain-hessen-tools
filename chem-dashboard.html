@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    const { useState } = React;
+    const { useState, useEffect } = React;
 
 const TIERS={T1:{label:"T1·核心",color:"#16a34a",bg:"#f0fdf4",desc:"高确定性+低管制"},T2:{label:"T2·关注",color:"#d97706",bg:"#fffbeb",desc:"有驱动但存在约束"},T3:{label:"T3·观望",color:"#6b7280",bg:"#f9fafb",desc:"情绪跟涨为主"},T4:{label:"T4·回避",color:"#dc2626",bg:"#fef2f2",desc:"弱基本面/高管制"}};
 
@@ -98,8 +98,17 @@ function App(){
   const [tab,setTab]=useState("score");
   const [sel,setSel]=useState(null);
   const [tf,setTf]=useState(null);
+  const [live,setLive]=useState(null);
   const tabs=[{id:"score",label:"多维打分"},{id:"policy",label:"政策管制"},{id:"strategy",label:"分层策略"},{id:"blind",label:"框架盲区"}];
   const filtered=tf?ITEMS.filter(i=>i.tier===tf):ITEMS;
+
+  useEffect(()=>{
+    fetch("data/chem-latest.json").then(r=>r.json()).then(d=>setLive(d)).catch(()=>{});
+  },[]);
+
+  const getLive=(name)=>live&&live.items&&live.items[name]?live.items[name]:null;
+  const fmtVol=(v)=>v>=10000?(v/10000).toFixed(1)+"万":v.toLocaleString();
+  const fmtOI=(v)=>v>=10000?(v/10000).toFixed(1)+"万":v.toLocaleString();
 
   return(
     <div style={{minHeight:"100vh",background:"linear-gradient(180deg,#e8f1f8,#dbeafe,#eff6ff)",color:"#1e293b",fontFamily:"'Segoe UI','PingFang SC',sans-serif"}}>
@@ -109,6 +118,11 @@ function App(){
         <div style={{fontSize:9,letterSpacing:4,color:"#93c5fd",fontFamily:"monospace"}}>CAPTAIN HESSEN</div>
         <h1 style={{fontSize:15,fontWeight:900,margin:"4px 0",color:"#f0f9ff"}}>化工品种 · 地缘供给冲击多维打分表 v2.0</h1>
         <div style={{fontSize:9,color:"#93c5fd",marginTop:2}}>油价供给冲击 + 霍尔木兹关闭 + 中国「求稳」政策管制</div>
+        {live&&live.oil&&<div style={{display:"flex",justifyContent:"center",gap:16,marginTop:6,fontSize:10}}>
+          {live.oil.WTI&&<span style={{color:"#fbbf24"}}>WTI ${live.oil.WTI.price}</span>}
+          {live.oil.Brent&&<span style={{color:"#fbbf24"}}>Brent ${live.oil.Brent.price}</span>}
+          <span style={{color:"#93c5fd",fontSize:9}}>更新 {live.updated_at?live.updated_at.slice(0,10):""}</span>
+        </div>}
       </header>
 
       <nav style={{display:"flex",background:"#fff",borderBottom:"1px solid #e2e8f0",position:"sticky",top:0,zIndex:50,boxShadow:"0 1px 3px #0001"}}>
@@ -124,12 +138,14 @@ function App(){
             {Object.entries(TIERS).map(([k,v])=><button key={k} onClick={()=>setTf(tf===k?null:k)} style={{padding:"3px 7px",borderRadius:4,fontSize:9,fontWeight:600,border:"1px solid "+(tf===k?v.color+"33":"#e2e8f0"),background:tf===k?v.bg:"#fff",color:tf===k?v.color:"#94a3b8",cursor:"pointer",fontFamily:"inherit"}}>{v.label}({ITEMS.filter(x=>x.tier===k).length})</button>)}
           </div>
 
-          {filtered.map((item,idx)=>{const t=TIERS[item.tier];const is=sel===item.name;
+          {filtered.map((item,idx)=>{const t=TIERS[item.tier];const is=sel===item.name;const lv=getLive(item.name);
             return <div key={idx} onClick={()=>setSel(is?null:item.name)} style={{background:"#fff",border:"1px solid "+(is?t.color+"33":"#e2e8f0"),borderRadius:8,padding:"8px 10px",marginBottom:4,cursor:"pointer"}}>
               <div style={{display:"flex",alignItems:"center",gap:5}}>
                 <span style={{fontSize:8,padding:"1px 5px",borderRadius:3,background:t.bg,color:t.color,fontWeight:700}}>{t.label.split("·")[0]}</span>
                 <span style={{fontSize:12,fontWeight:700,flex:1}}>{item.name}</span>
-                <span style={{fontSize:9}}>{item.pl}</span>
+                {lv&&<span style={{fontSize:10,fontFamily:"monospace",color:"#475569",fontWeight:600}}>{lv.price.toLocaleString()}</span>}
+                {lv&&<span style={{fontSize:9,fontFamily:"monospace",fontWeight:700,color:lv.change_pct>0?"#dc2626":lv.change_pct<0?"#16a34a":"#94a3b8",minWidth:42,textAlign:"right"}}>{lv.change_pct>0?"+":""}{lv.change_pct}%</span>}
+                {!lv&&<span style={{fontSize:9}}>{item.pl}</span>}
                 <span style={{fontSize:15,fontWeight:900,color:t.color,fontFamily:"monospace"}}>{item.total}</span>
                 <span style={{fontSize:8,color:"#94a3b8"}}>/35</span>
               </div>
@@ -145,6 +161,18 @@ function App(){
                 </div>
                 <div style={{fontSize:10,color:"#475569",lineHeight:1.6}}>
                   <div style={{marginBottom:2}}><span style={{color:"#94a3b8"}}>代码</span> {item.code}　<span style={{color:"#94a3b8"}}>路径</span> {item.path}</div>
+                  {lv&&<div style={{padding:"4px 8px",background:"#eef2ff",borderRadius:4,marginBottom:2,borderLeft:"2px solid #6366f1",display:"flex",flexWrap:"wrap",gap:"4px 12px",fontSize:9}}>
+                    <span><span style={{color:"#94a3b8"}}>成交</span> <b>{fmtVol(lv.volume)}</b></span>
+                    <span><span style={{color:"#94a3b8"}}>持仓</span> <b>{fmtOI(lv.open_interest)}</b></span>
+                    {lv.oi_change_5d_pct!==null&&<span><span style={{color:"#94a3b8"}}>5日持仓</span> <b style={{color:lv.oi_change_5d_pct>5?"#dc2626":lv.oi_change_5d_pct<-5?"#16a34a":"#475569"}}>{lv.oi_change_5d_pct>0?"+":""}{lv.oi_change_5d_pct}%</b></span>}
+                    <span><span style={{color:"#94a3b8"}}>振幅</span> <b>{((lv.high-lv.low)/lv.low*100).toFixed(1)}%</b></span>
+                  </div>}
+                  {lv&&(lv.spot_price||lv.inventory!==undefined||lv.net_position!==undefined)&&<div style={{padding:"4px 8px",background:"#f0fdf4",borderRadius:4,marginBottom:2,borderLeft:"2px solid #22c55e",display:"flex",flexWrap:"wrap",gap:"4px 12px",fontSize:9}}>
+                    {lv.spot_price&&<span><span style={{color:"#94a3b8"}}>现货</span> <b>{lv.spot_price.toLocaleString()}</b></span>}
+                    {lv.basis_rate!==undefined&&lv.basis_rate!==null&&<span><span style={{color:"#94a3b8"}}>基差</span> <b style={{color:lv.basis_rate>2?"#dc2626":lv.basis_rate<-5?"#16a34a":"#475569"}}>{lv.basis_rate>0?"+":""}{lv.basis_rate}%</b></span>}
+                    {lv.inventory!==undefined&&<span><span style={{color:"#94a3b8"}}>库存</span> <b>{lv.inventory>=10000?(lv.inventory/10000).toFixed(1)+"万":lv.inventory.toLocaleString()}</b>{lv.inv_change!==0&&<span style={{color:lv.inv_change>0?"#dc2626":"#16a34a",marginLeft:2}}>({lv.inv_change>0?"+":""}{lv.inv_change.toLocaleString()})</span>}</span>}
+                    {lv.net_position!==undefined&&<span><span style={{color:"#94a3b8"}}>净多</span> <b style={{color:lv.net_position>0?"#dc2626":"#16a34a"}}>{lv.net_position>=10000||lv.net_position<=-10000?(lv.net_position/10000).toFixed(1)+"万":lv.net_position.toLocaleString()}</b>{lv.net_change!==undefined&&<span style={{color:lv.net_change>0?"#dc2626":"#16a34a",marginLeft:2}}>({lv.net_change>0?"+":""}{lv.net_change>=10000||lv.net_change<=-10000?(lv.net_change/10000).toFixed(1)+"万":lv.net_change.toLocaleString()})</span>}</span>}
+                  </div>}
                   <div style={{padding:"4px 8px",background:"#f8fafc",borderRadius:4,marginBottom:2,borderLeft:"2px solid "+t.color}}>{item.note}</div>
                   <div style={{padding:"4px 8px",background:item.pl==="🔴"||item.pl==="🟠"?"#fef2f2":"#f8fafc",borderRadius:4,borderLeft:"2px solid #94a3b8"}}><span style={{fontSize:9,color:"#94a3b8"}}>政策</span> {item.policy}</div>
                 </div>
@@ -202,7 +230,7 @@ function App(){
       </main>
 
       <footer style={{textAlign:"center",padding:"10px",background:"#f0f4f8",borderTop:"1px solid #e2e8f0"}}>
-        <div style={{fontSize:8,color:"#94a3b8"}}>黑森船长 · Captain Hessen · 数据截至2026年3月 · 仅供分析框架参考，不构成投资建议</div>
+        <div style={{fontSize:8,color:"#94a3b8"}}>黑森船长 · Captain Hessen · 打分框架v2.0 · 行情数据{live?("自动更新于 "+live.updated_at.slice(0,10)):"加载中..."} · 仅供分析框架参考，不构成投资建议</div>
       </footer>
     </div>
   );

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI产业前沿双报告 · 黑森船长</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { margin: 0; padding: 0; }
+#root { min-height: 100vh; }
+</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const C = {
+  bg: "#e8f4f8", s1: "#d4eaf2", s2: "#ffffff",
+  bd: "#b8d4e3", o: "#d97706", cy: "#0891b2", v: "#7c3aed",
+  g: "#059669", pk: "#e11d48", yl: "#ca8a04",
+  t: "#1e293b", tm: "#475569", td: "#94a3b8",
+};
+
+function Pill({ color, children }) {
+  return <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: 10, background: color + "20", color, fontSize: 11, fontWeight: 600, marginRight: 4, marginBottom: 4 }}>{children}</span>;
+}
+
+function Section({ icon, title, sub, children }) {
+  return (
+    <div style={{ marginBottom: 48 }}>
+      <div style={{ fontSize: 11, color: C.o, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>{icon} {sub}</div>
+      <h2 style={{ fontSize: 22, fontWeight: 800, color: C.t, margin: "0 0 20px", lineHeight: 1.3 }}>{title}</h2>
+      {children}
+    </div>
+  );
+}
+
+function Card({ children, style = {}, borderColor }) {
+  return <div style={{ background: C.s2, borderRadius: 10, padding: 18, border: "1px solid " + (borderColor || C.bd), boxShadow: "0 1px 3px rgba(0,0,0,0.06)", ...style }}>{children}</div>;
+}
+
+function TabBar({ tabs, active, onChange, size = "sm" }) {
+  return (
+    <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 14 }}>
+      {tabs.map((t, i) => (
+        <button key={i} onClick={() => onChange(i)} style={{
+          padding: size === "sm" ? "6px 14px" : "10px 18px",
+          background: active === i ? (t.color || C.o) + "18" : "#fff",
+          border: "1px solid " + (active === i ? (t.color || C.o) : C.bd),
+          borderRadius: 7, color: active === i ? (t.color || C.o) : C.tm,
+          cursor: "pointer", fontSize: size === "sm" ? 12 : 13, fontWeight: active === i ? 700 : 500,
+          transition: "all .25s", fontFamily: "inherit",
+        }}>{t.icon ? t.icon + " " : ""}{t.label}</button>
+      ))}
+    </div>
+  );
+}
+
+// ═══ 具身智能报告 ═══
+
+function EIReport() {
+  const [techTab, setTechTab] = useState(0);
+  const [appTab, setAppTab] = useState(0);
+  const [countryTab, setCountryTab] = useState(0);
+  const [expandStage, setExpandStage] = useState(null);
+  const [chinaTab, setChinaTab] = useState(0);
+
+  const stages = [
+    { phase: "萌芽探索", period: "~1990s", icon: "🌱", color: C.v,
+      people: "Norbert Wiener · W. Grey Walter · Rodney Brooks",
+      control: "程序化控制（基于预编程的固定执行）",
+      algo: "符号主义为主（基于逻辑规则与搜索）",
+      model: "无", perception: "机电一体化",
+      desc: "哲学与认知科学反思'身心关系'，动摇传统'离身智能'观，提出认知依赖身体与环境互动的思想基础。" },
+    { phase: "理论成型与实验验证", period: "1990s–2010s", icon: "🔬", color: C.cy,
+      people: "Francisco Varela · Luc Steels · Rolf Pfeifer",
+      control: "行为主义控制（反应式 / 发展型架构 / 集群控制）",
+      algo: "行为主义为主（进化 / 模块化 / 自组织学习）",
+      model: "元世界模型（通过SLAM等技术构建环境模型）",
+      perception: "触觉 / 视觉 / 力控融合",
+      desc: "具身认知跨学科整合，AI通过机器人原型系统验证感知—行动闭环对智能生成的关键作用，但暴露出学习效率和泛化能力不足的问题。" },
+    { phase: "融合发展与智能体深化", period: "2010s–2023", icon: "⚡", color: C.o,
+      people: "Yann LeCun · Dennis Hassabis · Pieter Abbeel",
+      control: "协作与主题控制（深层人机协作）",
+      algo: "深度学习为主（多模态 / 强化学习 / 模仿学习）",
+      model: "世界模型（模式分离 / 隐式 / 网络动态物体预测）",
+      perception: "多模态认知融合（视触融合 / 意图感知）",
+      desc: "多模态感知、强化学习与世界模型等技术路径加速汇聚，智能体范式成为核心框架，系统由单点能力验证转向整体协同演化。" },
+    { phase: "探索系统化与产业化", period: "2024—", icon: "🏭", color: C.g,
+      people: "Jensen Huang · Sam Altman · Elon Musk",
+      control: "智能调度闭环",
+      algo: "多模态融合与泛化学习",
+      model: "VLA / 大世界模型（仿真 / 虚实迁移）",
+      perception: "多模态深度融合（跨模态交互协同）",
+      desc: "在大模型赋能下形成'通用能力+具身约束'的新结构，推动从任务定制向平台化演进，并在结构化场景中逐步实现落地应用。" },
+  ];
+
+  const techDims = [
+    { name: "算力体系", icon: "🧮", color: C.o, subtitle: "由规模扩展转向协同架构与工程化能力约束下的综合竞争", id: "compute" },
+    { name: "数据与环境", icon: "📊", color: C.cy, subtitle: "由离线供给转向实时生成与虚实协同驱动的能力重构", id: "data" },
+    { name: "模型与算法", icon: "🧠", color: C.v, subtitle: "由单点优化迈向多模态融合与系统级协同优化", id: "model" },
+    { name: "能源与动力", icon: "🔋", color: C.g, subtitle: "由基础保障转向能效、安全与系统协同驱动的能力竞争", id: "energy" },
+    { name: "结构与本体", icon: "🦾", color: C.pk, subtitle: "由机械实现转向结构—算法协同驱动的系统能力塑造", id: "body" },
+    { name: "操作系统", icon: "💻", color: C.yl, subtitle: "正向实时闭环、软硬件协同与高可靠生态方向演进", id: "os" },
+  ];
+
+  const techContent = {
+    compute: {
+      keypoint: "核心不在规模扩展，而在结构、实时性、能效与协同能力的系统平衡",
+      arch: [
+        { layer: "云端算力", role: "模型训练 / 知识整合", chip: "GPU / AI加速", func: "感知、认知" },
+        { layer: "边缘算力", role: "推理 / 协调 / 缓冲", chip: "CPU", func: "调度、逻辑" },
+        { layer: "本体算力", role: "感知融合 / 控制", chip: "实时控制单元", func: "安全、执行" },
+      ],
+      challenges: [
+        "三层算力需动态调度，否则易产生资源失衡与通信瓶颈",
+        "异构计算提升性能，但带来软件复杂度与跨单元延迟",
+        "高端芯片成本高、功耗大，本体端部署受限",
+        "'云强端弱'问题突出",
+        "工具链与软硬件协同不足",
+        "算力成本制约商业化落地",
+      ],
+    },
+    data: {
+      keypoint: "数据已由支撑条件转变为核心变量，与算力和算法共同塑造认知与行为生成机制",
+      features: [
+        { f: "多模态", d: "视觉 / 触觉 / 力觉 / 本体感知等多源数据" },
+        { f: "强时序", d: "需毫秒级时间对齐与因果关系保持" },
+        { f: "动态生成", d: "系统运行即数据生产过程" },
+        { f: "在线交互", d: "由离线采集转向在线交互生成" },
+      ],
+      challenges: [
+        "数据与硬件耦合度高、跨平台迁移困难",
+        "真实采集成本与风险较高",
+        "仿真环境与合成数据的虚实差异影响泛化能力",
+        "需围绕标准体系、多模态融合、仿真平台及安全治理协同推进",
+      ],
+    },
+    model: {
+      keypoint: "连接算力、数据与物理本体的核心中枢，支撑感知—理解—决策—行动闭环",
+      layers: [
+        { l: "高层", name: "任务理解与决策模型", func: "规划 / 策略 / 语言对齐" },
+        { l: "中层", name: "世界模型与状态表征", func: "动态预测 / 抽象状态" },
+        { l: "底层", name: "感知与控制模型", func: "多模态感知 / 动作执行" },
+      ],
+      trends: [
+        "多模态融合不断深化",
+        "自适应学习能力持续增强",
+        "分层架构与端到端方法（VLA）并行演进",
+        "仿真与合成数据降低训练成本",
+        "系统级协同优化逐步强化各环节联动",
+      ],
+    },
+    energy: {
+      keypoint: "直接约束结构设计、续航能力与性能边界",
+      arch: [
+        { layer: "能源供给", role: "电池 / 外供" },
+        { layer: "电源管理", role: "功率分配 / 状态检测" },
+        { layer: "计算与感知", role: "传感器 / 算力模块" },
+        { layer: "动力系统", role: "驱动 / 执行机构" },
+      ],
+      tradeoffs: ["体积 vs 容量", "重量 vs 续航", "功率 vs 稳定性", "能量 vs 安全"],
+      direction: "高能量密度、轻量化与智能化协同管理",
+    },
+    body: {
+      keypoint: "通过自由度、质量分布与刚柔特性直接影响控制复杂度与学习效率",
+      coupling: [
+        { a: "机械结构", d: "自由度、布局、刚度", icon: "⚙️" },
+        { a: "材料与本体特性", d: "质量、柔顺性、强度", icon: "🧱" },
+        { a: "执行器与动力", d: "驱动 / 执行机构", icon: "⚡" },
+        { a: "智能算法", d: "感知、控制、学习", icon: "🧠" },
+      ],
+      trends: ["轻量化设计优化能耗", "高强度提升安全性", "柔性化增强适应性", "模块化与可重构提升集成能力", "多功能材料推动结构与感知融合"],
+      challenge: "轻量化 / 柔性化增加建模与控制难度",
+    },
+    os: {
+      keypoint: "连接硬件与算法的核心中枢，承担资源调度、设备抽象、通信管理与状态控制",
+      layers: [
+        { l: "上层", name: "算法与应用", func: "感知 / 决策 / 学习 / 任务规划" },
+        { l: "中间件", name: "通信层", func: "消息传递 / 服务管理 / 接口封装" },
+        { l: "内核", name: "操作系统内核", func: "任务调度 / 资源管理 / 实时机制" },
+        { l: "底层", name: "硬件层", func: "传感器 / 执行器 / 通信 / 算力" },
+      ],
+      requirements: ["确定性调度", "故障隔离", "统一接口屏蔽硬件差异", "多线程与异构计算协调"],
+      gaps: ["通信可靠性", "延迟控制", "跨平台适配", "生态工具链"],
+    },
+  };
+
+  const renderTech = () => {
+    const t = techDims[techTab];
+    const tc = techContent[t.id];
+    return (
+      <Card borderColor={t.color + "55"}>
+        <div style={{ fontSize: 11, color: t.color, fontWeight: 700, letterSpacing: 1, marginBottom: 2 }}>{t.icon} {t.name}</div>
+        <div style={{ fontSize: 12, color: C.tm, marginBottom: 12 }}>{t.subtitle}</div>
+        <div style={{ fontSize: 13, color: C.t, lineHeight: 1.7, marginBottom: 14, padding: "8px 12px", background: C.s1, borderRadius: 6, borderLeft: "3px solid " + t.color }}>{tc.keypoint}</div>
+
+        {tc.arch && (<>
+          <div style={{ fontSize: 12, color: C.cy, fontWeight: 700, marginBottom: 8 }}>▸ {t.id === "compute" ? "云—边—端三层架构" : "系统架构"}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+            {tc.arch.map((a, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "center", background: C.s1, borderRadius: 5, padding: "7px 12px", fontSize: 12 }}>
+                <span style={{ color: t.color, fontWeight: 700, minWidth: 76 }}>{a.layer}</span>
+                <span style={{ color: C.tm, flex: 1 }}>{a.role}</span>
+                {a.chip && <span style={{ color: C.v, fontSize: 11 }}>{a.chip}</span>}
+                {a.func && <span style={{ color: C.g, fontSize: 11 }}>{a.func}</span>}
+              </div>
+            ))}
+          </div>
+        </>)}
+
+        {tc.features && (<>
+          <div style={{ fontSize: 12, color: C.cy, fontWeight: 700, marginBottom: 8 }}>▸ 数据四大特征</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
+            {tc.features.map((f, i) => (
+              <div key={i} style={{ background: C.s1, borderRadius: 6, padding: "8px 10px" }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: C.cy }}>{f.f}</div>
+                <div style={{ fontSize: 11, color: C.tm, marginTop: 3 }}>{f.d}</div>
+              </div>
+            ))}
+          </div>
+        </>)}
+
+        {tc.layers && (<>
+          <div style={{ fontSize: 12, color: t.color, fontWeight: 700, marginBottom: 8 }}>▸ 分层架构</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 14 }}>
+            {tc.layers.map((l, i) => (
+              <div key={i} style={{ background: C.s1, borderRadius: 5, padding: "8px 12px", borderLeft: "3px solid " + t.color }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: t.color }}>{l.l}：{l.name}</div>
+                <div style={{ fontSize: 11, color: C.tm, marginTop: 2 }}>{l.func}</div>
+              </div>
+            ))}
+          </div>
+        </>)}
+
+        {tc.coupling && (<>
+          <div style={{ fontSize: 12, color: t.color, fontWeight: 700, marginBottom: 8 }}>▸ 四要素耦合关系</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
+            {tc.coupling.map((c, i) => (
+              <div key={i} style={{ background: C.s1, borderRadius: 6, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ fontSize: 18 }}>{c.icon}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: t.color, marginTop: 2 }}>{c.a}</div>
+                <div style={{ fontSize: 11, color: C.tm }}>{c.d}</div>
+              </div>
+            ))}
+          </div>
+        </>)}
+
+        {tc.tradeoffs && (<>
+          <div style={{ fontSize: 12, color: C.yl, fontWeight: 700, marginBottom: 6 }}>▸ 核心权衡</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>{tc.tradeoffs.map((tf, i) => <Pill key={i} color={C.yl}>{tf}</Pill>)}</div>
+        </>)}
+
+        {tc.trends && (<>
+          <div style={{ fontSize: 12, color: C.g, fontWeight: 700, marginBottom: 6 }}>▸ 演进趋势</div>
+          {tc.trends.map((tr, i) => <div key={i} style={{ fontSize: 12, color: C.tm, marginBottom: 3, paddingLeft: 10 }}>• {tr}</div>)}
+        </>)}
+
+        {tc.challenges && (<>
+          <div style={{ fontSize: 12, color: C.pk, fontWeight: 700, marginBottom: 6, marginTop: 10 }}>▸ 核心挑战</div>
+          {tc.challenges.map((c, i) => <div key={i} style={{ fontSize: 12, color: C.tm, marginBottom: 3, paddingLeft: 10 }}>⚠ {c}</div>)}
+        </>)}
+
+        {tc.requirements && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 10 }}>
+            <div>
+              <div style={{ fontSize: 12, color: C.g, fontWeight: 700, marginBottom: 6 }}>▸ 核心要求</div>
+              {tc.requirements.map((r, i) => <div key={i} style={{ fontSize: 11, color: C.tm, marginBottom: 3 }}>✓ {r}</div>)}
+            </div>
+            <div>
+              <div style={{ fontSize: 12, color: C.pk, fontWeight: 700, marginBottom: 6 }}>▸ 待提升</div>
+              {tc.gaps.map((g, i) => <div key={i} style={{ fontSize: 11, color: C.tm, marginBottom: 3 }}>⚠ {g}</div>)}
+            </div>
+          </div>
+        )}
+
+        {tc.challenge && <div style={{ marginTop: 8, fontSize: 12, color: C.pk }}>⚠ {tc.challenge}</div>}
+        {tc.direction && <div style={{ marginTop: 6, fontSize: 12, color: C.g }}>✦ 演进方向：{tc.direction}</div>}
+      </Card>
+    );
+  };
+
+  const apps = [
+    { name: "工业制造", icon: "🏭", color: C.o, tasks: ["搬运", "装配", "质检"], value: "柔性生产与智能运维", detail: "通过'感知—决策—执行'闭环承担核心制造任务，推动从刚性产线到柔性生产的转变" },
+    { name: "仓储物流", icon: "📦", color: C.cy, tasks: ["异形抓取", "路径优化", "高效分拣"], value: "全流程协同与网络化运行", detail: "实现异形物体抓取与路径智能优化，促进仓储全流程从单点自动化到网络化协同" },
+    { name: "高危场景", icon: "⚠️", color: C.pk, tasks: ["巡检", "排险", "救援"], value: "替代人工，提升安全与效率", detail: "在矿山、核电、消防等场景替代人工开展危险作业，显著降低人员伤亡风险" },
+    { name: "服务与家庭", icon: "🏠", color: C.g, tasks: ["导览", "配送", "护理", "陪伴"], value: "人机协同发展", detail: "拓展公共服务与家庭场景应用，推动从工具辅助到人机共生的范式转变" },
+  ];
+
+  const countries = [
+    { name: "美国", flag: "🇺🇸", type: "平台驱动型", color: "#3b82f6",
+      items: [
+        { l: "政策", v: "规则引导 + 需求牵引，统一且具弹性的政策框架，通过风险治理与政府采购推动技术落地" },
+        { l: "创新", v: "高校 + 国家实验室 + 企业 →'基础研究—工程验证—产业转化'协同机制" },
+        { l: "产业", v: "'底座化支撑 + 生态化扩张'，科技巨头 + 头部企业为核心，端到端模型演进" },
+      ],
+      s: ["跨场景泛化", "商业化落地", "大模型 + 算力"],
+      w: ["工程化能力", "硬件能力"] },
+    { name: "欧盟", flag: "🇪🇺", type: "标准规范型", color: "#fbbf24",
+      items: [
+        { l: "政策", v: "统一法规与协同框架，'上层协同、下层竞争'" },
+        { l: "创新", v: "SPARC / ADRA 平台促进资源协同，euRobotics / euROBIN 推动数据共享" },
+        { l: "差异化", v: "德国 = 工业智能 · 法国 = 基础研究 · 英国 = 应用生态与商业化落地" },
+      ],
+      s: ["信任度与合规体系", "测试验证", "跨国协同"],
+      w: ["创新效率", "规模化"] },
+    { name: "日本", flag: "🇯🇵", type: "制造牵引型", color: "#ef4444",
+      items: [
+        { l: "模式", v: "企业主导、工程驱动的长期创新模式，依托精益制造与供应链优势" },
+        { l: "路径", v: "'工程迭代 + 场景闭环'推进产品演进，偏重本体与质量" },
+        { l: "特点", v: "可交付性与系统可靠性强，精细化与场景深耕" },
+      ],
+      s: ["工程可靠性", "场景积累", "供应链"],
+      w: ["通用化", "软件生态", "大模型"] },
+    { name: "韩国", flag: "🇰🇷", type: "制造牵引型", color: "#06b6d4",
+      items: [
+        { l: "模式", v: "大型企业为核心，加快芯片—云—应用链条协同整合" },
+        { l: "路径", v: "提升系统集成与产业落地效率，侧重系统集成" },
+        { l: "特点", v: "芯片优势突出，与日本均处于向更高通用化水平演进阶段" },
+      ],
+      s: ["系统集成效率", "芯片优势"],
+      w: ["复杂环境适应性", "通用化水平"] },
+  ];
+
+  return (
+    <div>
+      {/* 核心定义 */}
+      <Section icon="📖" title="具身智能的核心定义与内涵界定" sub="Definition">
+        <Card>
+          <div style={{ fontSize: 15, color: C.o, fontWeight: 700, marginBottom: 10, lineHeight: 1.6 }}>
+            具身智能是"有身体"的人工智能，可执行现实世界任务并主动学习进化
+          </div>
+          <div style={{ fontSize: 13, color: C.t, lineHeight: 1.7, marginBottom: 14 }}>
+            催生颠覆性产品和装备、促进人工智能与实体经济深度融合、重塑人类生产生活范式和全球竞争格局的新领域新赛道。
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div style={{ background: C.s1, borderRadius: 8, padding: 14 }}>
+              <div style={{ fontSize: 12, color: C.cy, fontWeight: 700, marginBottom: 6 }}>▸ 运行机理</div>
+              <div style={{ fontSize: 12, color: C.tm, lineHeight: 1.6 }}>
+                在"感知—行动—学习"闭环中不断优化行为策略。本质：身体、环境与任务耦合过程中动态涌现的能力体系。
+              </div>
+              <div style={{ marginTop: 8, display: "flex", gap: 4, flexWrap: "wrap" }}>
+                <Pill color={C.cy}>具身性</Pill><Pill color={C.g}>交互性</Pill><Pill color={C.v}>学习性</Pill><Pill color={C.o}>闭环性</Pill><Pill color={C.yl}>学习适应性</Pill>
+              </div>
+            </div>
+            <div style={{ background: C.s1, borderRadius: 8, padding: 14 }}>
+              <div style={{ fontSize: 12, color: C.v, fontWeight: 700, marginBottom: 6 }}>▸ 三类产品形态</div>
+              {[
+                { t: "通用具身智能", d: "多模态感知、拟人化操作、跨场景适应，由功能执行→情境适应跃迁", c: C.o },
+                { t: "专用具身智能", d: "面向工业 / 服务 / 特种场景，提升专业化作业与自主运行能力", c: C.cy },
+                { t: "前沿具身智能", d: "可变构型、群体智能与人机融合等方向探索", c: C.v },
+              ].map((p, i) => (
+                <div key={i} style={{ marginBottom: 6 }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: p.c }}>{p.t}</span>
+                  <div style={{ fontSize: 11, color: C.tm, marginTop: 2 }}>{p.d}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </Section>
+
+      {/* 四阶段演进 */}
+      <Section icon="📜" title="概念演进四阶段：从哲学反思到产业落地" sub="Evolution">
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {stages.map((s, i) => (
+            <div key={i} onClick={() => setExpandStage(expandStage === i ? null : i)} style={{ background: C.s2, borderRadius: 10, border: "1px solid " + (expandStage === i ? s.color : C.bd), cursor: "pointer", transition: "border-color .3s", overflow: "hidden", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+              <div style={{ padding: "12px 14px", display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 34, height: 34, borderRadius: "50%", background: expandStage === i ? s.color + "30" : C.s1, border: "2px solid " + s.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, flexShrink: 0 }}>{s.icon}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: s.color }}>{s.phase}</div>
+                  <div style={{ fontSize: 11, color: C.tm }}>{s.period}</div>
+                </div>
+                <span style={{ color: C.td, fontSize: 14, transition: "transform .3s", display: "inline-block", transform: expandStage === i ? "rotate(180deg)" : "none" }}>▾</span>
+              </div>
+              {expandStage === i && (
+                <div style={{ padding: "0 14px 14px", borderTop: "1px solid " + C.bd }}>
+                  <div style={{ fontSize: 12, color: C.t, lineHeight: 1.7, margin: "10px 0" }}>{s.desc}</div>
+                  <div style={{ fontSize: 11, color: C.td, marginBottom: 6 }}>代表人物：{s.people}</div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+                    {[
+                      { label: "控制方式", val: s.control },
+                      { label: "算法范式", val: s.algo },
+                      { label: "大模型 / 世界模型", val: s.model },
+                      { label: "感知方式", val: s.perception },
+                    ].map((d, j) => (
+                      <div key={j} style={{ background: C.s1, borderRadius: 5, padding: "6px 8px" }}>
+                        <div style={{ fontSize: 10, color: s.color, fontWeight: 700 }}>{d.label}</div>
+                        <div style={{ fontSize: 11, color: C.tm, marginTop: 2 }}>{d.val}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 六大技术维度 */}
+      <Section icon="⚙️" title="六大核心技术维度深度解析" sub="Technology Stack">
+        <TabBar tabs={techDims.map(t => ({ label: t.name, icon: t.icon, color: t.color }))} active={techTab} onChange={setTechTab} />
+        {renderTech()}
+      </Section>
+
+      {/* 产业链 */}
+      <Section icon="🔗" title="产业链三层结构：技术基础 → 系统实现 → 行业应用" sub="Industry Chain">
+        {[
+          { layer: "上游", label: "核心技术与关键部件", desc: "感知 / 执行 / 计算 / 能源材料 — 高端集中与多元突破并行，多传感融合与本地化供应加快", c: C.o },
+          { layer: "中游", label: "系统集成与整机实现", desc: "多形态载体驱动，云边端协同与仿真平台支撑，由原型走向平台化", c: C.cy },
+          { layer: "下游", label: "场景落地与数据回流", desc: "应用持续拓展形成'应用—数据—能力提升'循环闭环", c: C.g },
+        ].map((l, i) => (
+          <div key={i} style={{ display: "flex", gap: 10, alignItems: "center", background: C.s2, borderRadius: 8, padding: "10px 14px", borderLeft: "3px solid " + l.c, marginBottom: 8, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+            <div style={{ minWidth: 40, textAlign: "center" }}><div style={{ fontSize: 13, fontWeight: 800, color: l.c }}>{l.layer}</div></div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: C.t }}>{l.label}</div>
+              <div style={{ fontSize: 12, color: C.tm, marginTop: 2 }}>{l.desc}</div>
+            </div>
+          </div>
+        ))}
+        <div style={{ fontSize: 12, color: C.o, background: C.o + "11", borderRadius: 8, padding: "10px 14px", border: "1px solid " + C.o + "33", marginTop: 8 }}>
+          ⚡ 产业发展正由以技术突破为主导，转向以场景价值牵引的闭环协同演进路径
+        </div>
+      </Section>
+
+      {/* 应用场景 */}
+      <Section icon="🎯" title="多元应用场景中的赋能路径与价值重构" sub="Applications">
+        <TabBar tabs={apps.map(a => ({ label: a.name, icon: a.icon, color: a.color }))} active={appTab} onChange={setAppTab} />
+        <Card borderColor={apps[appTab].color + "55"}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+            <span style={{ fontSize: 26 }}>{apps[appTab].icon}</span>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: apps[appTab].color }}>{apps[appTab].name}</div>
+              <div style={{ fontSize: 12, color: C.tm }}>{apps[appTab].value}</div>
+            </div>
+          </div>
+          <div style={{ fontSize: 13, color: C.t, lineHeight: 1.7, marginBottom: 10 }}>{apps[appTab].detail}</div>
+          <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>{apps[appTab].tasks.map((t, i) => <Pill key={i} color={apps[appTab].color}>{t}</Pill>)}</div>
+        </Card>
+      </Section>
+
+      {/* 国际比较 */}
+      <Section icon="🌍" title="国际具身智能产业发展情况" sub="Global Landscape">
+        <TabBar tabs={countries.map(c => ({ label: c.flag + " " + c.name, color: c.color }))} active={countryTab} onChange={setCountryTab} size="md" />
+        <Card borderColor={countries[countryTab].color + "55"}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: countries[countryTab].color, marginBottom: 4 }}>
+            {countries[countryTab].flag} {countries[countryTab].name}
+            <span style={{ fontSize: 12, fontWeight: 500, color: C.tm, marginLeft: 8 }}>{countries[countryTab].type}</span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, margin: "12px 0" }}>
+            {countries[countryTab].items.map((it, i) => (
+              <div key={i} style={{ background: C.s1, borderRadius: 6, padding: "8px 12px" }}>
+                <div style={{ fontSize: 10, color: countries[countryTab].color, fontWeight: 700 }}>{it.l}</div>
+                <div style={{ fontSize: 12, color: C.tm, marginTop: 3, lineHeight: 1.5 }}>{it.v}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            <div style={{ background: C.g + "11", borderRadius: 6, padding: "8px 12px" }}>
+              <div style={{ fontSize: 10, color: C.g, fontWeight: 700 }}>✦ 优势</div>
+              {countries[countryTab].s.map((s, i) => <div key={i} style={{ fontSize: 12, color: C.tm, marginTop: 2 }}>• {s}</div>)}
+            </div>
+            <div style={{ background: C.pk + "11", borderRadius: 6, padding: "8px 12px" }}>
+              <div style={{ fontSize: 10, color: C.pk, fontWeight: 700 }}>⚠ 短板</div>
+              {countries[countryTab].w.map((w, i) => <div key={i} style={{ fontSize: 12, color: C.tm, marginTop: 2 }}>• {w}</div>)}
+            </div>
+          </div>
+        </Card>
+      </Section>
+
+      {/* 中国 */}
+      <Section icon="🇨🇳" title="我国具身智能产业发展情况" sub="China">
+        <TabBar tabs={[{ label: "🗺️ 空间格局与产业链" }, { label: "💰 创新能力与资本逻辑" }]} active={chinaTab} onChange={setChinaTab} />
+        {chinaTab === 0 ? (
+          <Card>
+            <div style={{ fontSize: 13, color: C.t, marginBottom: 12 }}>"东部集聚引领、中西部协同支撑"的空间格局</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 14 }}>
+              {[
+                { name: "京津冀", role: "技术策源", c: C.pk },
+                { name: "长三角", role: "产业链协同", c: C.cy },
+                { name: "大湾区", role: "规模化制造", c: C.g },
+                { name: "中西部 / 东北", role: "特色能力 · 梯度互补", c: C.yl },
+              ].map((c, i) => (
+                <div key={i} style={{ background: C.s1, borderRadius: 8, padding: 10, textAlign: "center", borderTop: "3px solid " + c.c }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: c.c }}>{c.name}</div>
+                  <div style={{ fontSize: 11, color: C.tm, marginTop: 3 }}>{c.role}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize: 12, color: C.cy, fontWeight: 700, marginBottom: 6 }}>▸ 产业链现状</div>
+            {[
+              { l: "上游", d: "'中端较强、高端不足'，感知 / 执行 / 计算 / 能源材料多元突破" },
+              { l: "中游", d: "多形态产品并行发展，专用加快落地、通用持续突破" },
+              { l: "下游", d: "制造与物流场景加速应用，通用能力与标准体系仍需完善" },
+            ].map((c, i) => (
+              <div key={i} style={{ display: "flex", gap: 8, marginBottom: 6, alignItems: "flex-start" }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: C.o, minWidth: 34 }}>{c.l}</span>
+                <span style={{ fontSize: 12, color: C.tm, lineHeight: 1.5 }}>{c.d}</span>
+              </div>
+            ))}
+          </Card>
+        ) : (
+          <Card>
+            <div style={{ fontSize: 13, fontWeight: 700, color: C.v, marginBottom: 10 }}>"应用驱动突出、基础相对薄弱"</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+              <div style={{ background: C.s1, borderRadius: 6, padding: 12 }}>
+                <div style={{ fontSize: 11, color: C.cy, fontWeight: 700 }}>学术界</div>
+                <div style={{ fontSize: 12, color: C.tm, marginTop: 4, lineHeight: 1.5 }}>
+                  高校 / 科研在基础理论与核心算法有优势，但与产业衔接不足，工程化验证与系统集成能力仍需提升
+                </div>
+              </div>
+              <div style={{ background: C.s1, borderRadius: 6, padding: 12 }}>
+                <div style={{ fontSize: 11, color: C.o, fontWeight: 700 }}>企业界</div>
+                <div style={{ fontSize: 12, color: C.tm, marginTop: 4, lineHeight: 1.5 }}>
+                  整机制造与场景落地快，但核心技术积累、标准体系与规模化能力待加强
+                </div>
+              </div>
+            </div>
+            <div style={{ fontSize: 12, color: C.yl, fontWeight: 700, marginBottom: 8 }}>▸ 资本逻辑演变</div>
+            {[
+              { t: "2024年：", d: "投融资快速增长，但以早期项目为主，技术路径尚未收敛", c: C.tm },
+              { t: "2025年转向：", d: "资本逻辑由'概念驱动'转向'工程化验证与场景回报导向'", c: C.o },
+            ].map((d, i) => (
+              <div key={i} style={{ background: C.s1, borderRadius: 6, padding: "8px 12px", borderLeft: "3px solid " + d.c, marginBottom: 6 }}>
+                <div style={{ fontSize: 11, color: d.c }}>{d.t}</div>
+                <div style={{ fontSize: 12, color: C.t, marginTop: 2 }}>{d.d}</div>
+              </div>
+            ))}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }}>
+              <div style={{ fontSize: 12, color: C.g, background: C.g + "11", borderRadius: 6, padding: "8px 12px" }}>
+                关注重点：泛化能力、系统稳定性与成本控制
+              </div>
+              <div style={{ fontSize: 12, color: C.v, background: C.v + "11", borderRadius: 6, padding: "8px 12px" }}>
+                资本效应：通过资源配置反向塑造技术路线
+              </div>
+            </div>
+          </Card>
+        )}
+      </Section>
+
+      {/* 趋势与路线图 */}
+      <Section icon="🔭" title="全球发展趋势与十年路线图" sub="Trends & Roadmap">
+        <Card style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.cy, marginBottom: 10 }}>
+            ▸ 技术趋势："模型牵引、数据赋能与系统协同驱动"一体化
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 14 }}>
+            {[
+              { title: "模型牵引", items: ["大模型 + 世界模型驱动", "VLA 端到端'理解即执行'", "'预测建模 + 规划'提升决策"], c: C.v },
+              { title: "数据赋能", items: ["仿真 + 数字孪生 + 合成数据", "闭环迭代机制", "强化泛化与演进效率"], c: C.cy },
+              { title: "系统协同", items: ["统一操作系统 + 标准接口", "模块化工具链降低门槛", "云—边—端协同支撑"], c: C.g },
+            ].map((d, i) => (
+              <div key={i} style={{ background: C.s1, borderRadius: 7, padding: 12, borderTop: "2px solid " + d.c }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: d.c, marginBottom: 6 }}>{d.title}</div>
+                {d.items.map((it, j) => <div key={j} style={{ fontSize: 11, color: C.tm, marginBottom: 3 }}>• {it}</div>)}
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: C.o, marginBottom: 8 }}>
+            ▸ 产业趋势：由技术竞争转向生态主导与规则塑造的全链条博弈
+          </div>
+          <div style={{ fontSize: 12, color: C.tm, lineHeight: 1.7, marginBottom: 8 }}>
+            竞争从单点能力升级为算法、硬件、数据与治理规则的系统性协同。应用沿"任务—场景—价值"递进，高危替代与公共服务优先落地。焦点由性能转向生态与标准主导权。
+          </div>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            <Pill color={C.o}>接口规范博弈</Pill>
+            <Pill color={C.cy}>数据规则博弈</Pill>
+            <Pill color={C.pk}>安全治理博弈</Pill>
+          </div>
+        </Card>
+
+        <div style={{ fontSize: 13, fontWeight: 700, color: C.t, marginBottom: 10 }}>▸ 十年三阶段路线图</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+          {[
+            { period: "2026–2028", title: "商业验证与能力闭环", items: ["突破多模态感知与运动控制", "工业 / 物流场景形成闭环", "'训练—优化—反馈'机制建立"], c: C.o },
+            { period: "2029–2032", title: "规模扩展与生态构建", items: ["多形态智能体规模部署", "完善接口标准与开源体系", "强化全栈协同能力"], c: C.cy },
+            { period: "2032–2035", title: "通用能力与规则主导", items: ["跨场景泛化与持续进化", "安全 / 伦理 / 数据治理框架", "重塑全球竞争格局"], c: C.v },
+          ].map((r, i) => (
+            <div key={i} style={{ background: C.s2, borderRadius: 10, padding: 14, borderTop: "3px solid " + r.c, boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+              <div style={{ fontSize: 12, color: r.c, fontWeight: 700 }}>{r.period}</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: C.t, margin: "4px 0 10px" }}>{r.title}</div>
+              {r.items.map((item, j) => (
+                <div key={j} style={{ display: "flex", alignItems: "flex-start", gap: 5, marginBottom: 5 }}>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: r.c, marginTop: 5, flexShrink: 0 }} />
+                  <span style={{ fontSize: 12, color: C.tm, lineHeight: 1.5 }}>{item}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </Section>
+    </div>
+  );
+}
+
+// ═══ Token经济学报告 ═══
+
+function TokenReport() {
+  const [hovBar, setHovBar] = useState(null);
+  const spectrum = [
+    { l: "闲聊 / 角色扮演", v: 0.01, c: "#94a3b8" },
+    { l: "翻译 / 摘要", v: 0.5, c: C.cy },
+    { l: "数据分析", v: 5, c: C.g },
+    { l: "代码生成", v: 50, c: C.v },
+    { l: "法律审阅", v: 200, c: C.o },
+    { l: "药物研发", v: 1000, c: "#ef4444" },
+  ];
+  const market = [
+    { n: "小米", v: 3.96, cn: true },
+    { n: "MiniMax", v: 2.20, cn: true },
+    { n: "阶跃星辰", v: 1.49, cn: true },
+    { n: "DeepSeek", v: 1.24, cn: true },
+    { n: "Anthropic", v: 2.04, cn: false },
+    { n: "智谱", v: 0.97, cn: true },
+    { n: "Google", v: 0.97, cn: false },
+    { n: "xAI", v: 0.60, cn: false },
+  ];
+  const mx = Math.max(...market.map(m => m.v));
+
+  return (
+    <div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 36 }}>
+        {[
+          { l: "中国日均Token量", v: "140万亿", s: "两年增长1400倍" },
+          { l: "OpenAI API", v: "150亿 / 分", s: "日均21.6万亿" },
+          { l: "Token单价降幅", v: "99.9%", s: "2022–2026" },
+          { l: "AI云支出增长", v: "3倍+", s: "杰文斯悖论" },
+        ].map((s, i) => (
+          <div key={i} style={{ background: C.s2, border: "1px solid " + C.bd, borderRadius: 10, padding: "16px 14px", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: C.cy }}>{s.v}</div>
+            <div style={{ fontSize: 12, color: C.t, fontWeight: 600, margin: "3px 0" }}>{s.l}</div>
+            <div style={{ fontSize: 10, color: C.tm }}>{s.s}</div>
+          </div>
+        ))}
+      </div>
+
+      <Section icon="💎" title="同一物理单元，经济价值差十万倍" sub="Value Spectrum">
+        <Card>
+          <div style={{ fontSize: 11, color: C.td, marginBottom: 14, textAlign: "right" }}>
+            物理成本 ≈ $0.0005/M → 每百万Token价值（美元, 对数尺度）
+          </div>
+          {spectrum.map((t, i) => {
+            const pct = ((Math.log10(t.v) + 2) / 5) * 100;
+            return (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <div style={{ width: 90, fontSize: 11, color: C.tm, textAlign: "right", flexShrink: 0 }}>{t.l}</div>
+                <div style={{ flex: 1, height: 24, background: C.s1, borderRadius: 5, overflow: "hidden" }}>
+                  <div style={{
+                    width: Math.max(pct, 5) + "%", height: "100%", borderRadius: 5,
+                    background: "linear-gradient(to right, " + t.c + "88, " + t.c + ")",
+                    display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 8,
+                    transition: "width 1s ease",
+                  }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>${t.v}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          <div style={{ marginTop: 14, padding: "10px 14px", borderRadius: 8, background: C.o + "11", border: "1px solid " + C.o + "33", fontSize: 12, color: C.o, lineHeight: 1.6 }}>
+            ⚡ Token的价值不取决于生产成本，而取决于它被用来做什么。不到5%的Token消耗创造了超过80%的可测量价值。
+          </div>
+        </Card>
+      </Section>
+
+      <Section icon="📈" title="AI版杰文斯悖论：价格崩塌99.9%，支出反涨3倍" sub="Jevons Paradox">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+          <Card>
+            <div style={{ fontSize: 13, fontWeight: 700, color: C.cy, marginBottom: 12 }}>Token均价（$ / 百万）</div>
+            {[
+              { y: "2022", v: 60, p: 100 },
+              { y: "2023", v: 20, p: 33 },
+              { y: "2024", v: 5, p: 8 },
+              { y: "2025", v: 0.6, p: 1 },
+              { y: "2026", v: 0.06, p: 0.1 },
+            ].map((d, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                <span style={{ width: 36, fontSize: 11, color: C.tm }}>{d.y}</span>
+                <div style={{ flex: 1, height: 16, background: C.s1, borderRadius: 3, overflow: "hidden" }}>
+                  <div style={{ width: Math.max(d.p, 2) + "%", height: "100%", borderRadius: 3, background: C.cy, transition: "width 1s ease" }} />
+                </div>
+                <span style={{ width: 44, fontSize: 11, color: C.t, textAlign: "right" }}>${d.v}</span>
+              </div>
+            ))}
+            <div style={{ fontSize: 10, color: C.td, marginTop: 6 }}>硬件效率 × 算法优化 × 系统优化 → 每年降5–10倍</div>
+          </Card>
+          <Card>
+            <div style={{ fontSize: 13, fontWeight: 700, color: C.o, marginBottom: 12 }}>全球AI云支出（$B）</div>
+            {[
+              { y: "2022", v: 115, p: 31 },
+              { y: "2023", v: 160, p: 43 },
+              { y: "2024", v: 230, p: 62 },
+              { y: "2025", v: 300, p: 81 },
+              { y: "2026", v: 370, p: 100 },
+            ].map((d, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                <span style={{ width: 36, fontSize: 11, color: C.tm }}>{d.y}</span>
+                <div style={{ flex: 1, height: 16, background: C.s1, borderRadius: 3, overflow: "hidden" }}>
+                  <div style={{ width: d.p + "%", height: "100%", borderRadius: 3, background: C.o, transition: "width 1s ease" }} />
+                </div>
+                <span style={{ width: 50, fontSize: 11, color: C.t, textAlign: "right" }}>${d.v}B</span>
+              </div>
+            ))}
+            <div style={{ fontSize: 10, color: C.td, marginTop: 6 }}>价格下降释放被抑制的需求 → 总支出不降反升</div>
+          </Card>
+        </div>
+      </Section>
+
+      <Section icon="🚀" title="从人到机器：Token需求三阶段" sub="Demand Phases">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+          {[
+            { p: "人类用户驱动", t: "2023–2025", d: "注意力为天花板，C端习惯养成 + 企业嵌入业务", pct: 5, icon: "👤", c: "#94a3b8" },
+            { p: "人 + 智能体共存", t: "2026–2027", d: "Agent自主执行任务，不断调用大模型消耗Token", pct: 35, icon: "🤝", c: C.cy },
+            { p: "智能体主导", t: "2028+", d: "机器消费远超人类，智能体拥有账户自主接任务", pct: 85, icon: "🤖", c: C.v },
+          ].map((p, i) => (
+            <div key={i} style={{ background: C.s2, borderRadius: 10, padding: 14, borderTop: "3px solid " + p.c, textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+              <div style={{ fontSize: 28, marginBottom: 4 }}>{p.icon}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: p.c }}>{p.p}</div>
+              <div style={{ fontSize: 11, color: C.tm, margin: "3px 0 10px" }}>{p.t}</div>
+              <div style={{
+                width: 60, height: 60, borderRadius: "50%", margin: "0 auto 8px",
+                background: "conic-gradient(" + p.c + " " + (p.pct * 3.6) + "deg, " + C.s1 + " 0deg)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <div style={{ width: 44, height: 44, borderRadius: "50%", background: C.s2, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, color: p.c }}>
+                  {p.pct}%
+                </div>
+              </div>
+              <div style={{ fontSize: 11, color: C.tm, lineHeight: 1.4 }}>{p.d}</div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section icon="🏆" title="OpenRouter平台Token份额：中国厂商占73%" sub="Market Share">
+        <Card>
+          <div style={{ display: "flex", gap: 14, marginBottom: 14, fontSize: 12 }}>
+            <span>
+              <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#ef4444", marginRight: 5, verticalAlign: "middle" }} />
+              中国（5家）9.9T / 73%
+            </span>
+            <span>
+              <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#3b82f6", marginRight: 5, verticalAlign: "middle" }} />
+              美国（3家）3.6T / 27%
+            </span>
+          </div>
+          {market.map((t, i) => (
+            <div key={i} onMouseEnter={() => setHovBar(i)} onMouseLeave={() => setHovBar(null)} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 7, cursor: "default" }}>
+              <div style={{ width: 70, fontSize: 11, color: C.tm, textAlign: "right", flexShrink: 0 }}>{t.n}</div>
+              <div style={{ flex: 1, height: 20, background: C.s1, borderRadius: 3, overflow: "hidden" }}>
+                <div style={{
+                  width: ((t.v / mx) * 100) + "%", height: "100%", borderRadius: 3,
+                  background: t.cn ? "#ef4444" : "#3b82f6",
+                  opacity: hovBar === null || hovBar === i ? 1 : 0.3,
+                  transition: "all .25s",
+                }} />
+              </div>
+              <span style={{ width: 40, fontSize: 11, fontWeight: 700, color: C.t }}>{t.v}T</span>
+            </div>
+          ))}
+          <div style={{ fontSize: 10, color: C.td, marginTop: 10 }}>
+            数据来源：OpenRouter Rankings（2026.3）| 周Token消耗量（万亿）
+          </div>
+          <div style={{ marginTop: 10, fontSize: 12, color: C.t, lineHeight: 1.7 }}>
+            核心驱动力：MoE架构 + 量化技术创新（算法效率）；DeepSeek / Qwen开源策略（生态飞轮）；中国厂商极致定价策略（近成本价换份额）。
+          </div>
+        </Card>
+      </Section>
+    </div>
+  );
+}
+
+// ═══ 主应用 ═══
+
+function App() {
+  const [tab, setTab] = useState(0);
+  return (
+    <div style={{ fontFamily: "'Noto Sans SC', 'SF Pro Display', system-ui, sans-serif", background: C.bg, color: C.t, minHeight: "100vh" }}>
+      <div style={{ background: "linear-gradient(180deg, #d4eaf2, " + C.bg + ")", padding: "28px 20px 20px", borderBottom: "1px solid " + C.bd, marginBottom: 28 }}>
+        <div style={{ maxWidth: 920, margin: "0 auto" }}>
+          <div style={{ fontSize: 10, color: C.td, letterSpacing: 3, marginBottom: 6 }}>黑森船长 · 研报可视化</div>
+          <h1 style={{
+            fontSize: 24, fontWeight: 800, margin: "0 0 6px",
+            background: "linear-gradient(135deg, " + C.o + ", " + C.cy + ")",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}>
+            AI产业前沿双报告交互阅读
+          </h1>
+          <p style={{ fontSize: 13, color: C.tm, margin: "0 0 16px" }}>
+            赛迪研究院《具身智能产业报告》(2026.03) × 腾讯研究院《Token经济学七问》(2026.04)
+          </p>
+          <div style={{ display: "flex", gap: 10 }}>
+            {[
+              { icon: "🦾", title: "具身智能产业报告", sub: "赛迪研究院 · 19页 · 6大技术维度", c: C.o },
+              { icon: "🪙", title: "Token经济学七问", sub: "腾讯研究院 · 9页 · 7大问题", c: C.cy },
+            ].map((r, i) => (
+              <button key={i} onClick={() => setTab(i)} style={{
+                flex: 1, padding: "12px 14px", borderRadius: 10, cursor: "pointer", textAlign: "left", fontFamily: "inherit",
+                border: "2px solid " + (tab === i ? r.c : C.bd),
+                background: tab === i ? r.c + "12" : "#fff",
+                transition: "all .3s",
+              }}>
+                <div style={{ fontSize: 16, marginBottom: 2 }}>{r.icon}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: tab === i ? r.c : C.t }}>{r.title}</div>
+                <div style={{ fontSize: 10, color: C.tm }}>{r.sub}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div style={{ maxWidth: 920, margin: "0 auto", padding: "0 20px 40px" }}>
+        {tab === 0 ? <EIReport /> : <TokenReport />}
+      </div>
+      <div style={{ textAlign: "center", padding: "16px 0 24px", borderTop: "1px solid " + C.bd, fontSize: 11, color: C.td, letterSpacing: 2 }}>
+        黑森船长 · CAPTAIN HESSEN
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

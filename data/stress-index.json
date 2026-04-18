@@ -1,53 +1,43 @@
 {
-  "score": 31.4,
-  "level": "yellow",
-  "label": "组合风险",
-  "desc": "多变量同时偏离基准，注意组合风险敞口",
+  "score": 6.4,
+  "level": "green",
+  "label": "正常",
+  "desc": "各变量在基准附近，系统压力可控",
   "components": [
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 17.94,
+      "current": 17.48,
       "base": 16,
-      "deviation_pct": 12.1,
+      "deviation_pct": 9.3,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 43.9
+      "contribution": 25.9
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 90.18,
+      "current": 84.0,
       "base": 75,
-      "deviation_pct": 20.2,
+      "deviation_pct": 12.0,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 81.6
-    },
-    {
-      "variable": "credit_spread",
-      "name": "信用利差",
-      "current": 2.85,
-      "base": 1.5,
-      "deviation_pct": 90.0,
-      "weight": 0.25,
-      "weight_pct": 25,
-      "contribution": 2025.0
+      "contribution": 28.8
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 159.32,
+      "current": 158.58,
       "base": 145,
-      "deviation_pct": 9.9,
+      "deviation_pct": 9.4,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 9.8
+      "contribution": 8.8
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 98.24,
+      "current": 98.23,
       "base": 100,
       "deviation_pct": 1.8,
       "weight": 0.15,
@@ -55,32 +45,7 @@
       "contribution": 0.5
     }
   ],
-  "hard_alerts_count": 1,
-  "significant_deviations": [
-    {
-      "name": "信用利差",
-      "current": 2.85,
-      "base": 1.5,
-      "deviation_pct": 90.0,
-      "direction": "偏高",
-      "level": "极端偏离"
-    },
-    {
-      "name": "天然气TTF",
-      "current": 42.19,
-      "base": 35,
-      "deviation_pct": 20.5,
-      "direction": "偏高",
-      "level": "显著偏离"
-    },
-    {
-      "name": "WTI油价",
-      "current": 90.18,
-      "base": 75,
-      "deviation_pct": 20.2,
-      "direction": "偏高",
-      "level": "显著偏离"
-    }
-  ],
-  "timestamp": "2026-04-17 12:19"
+  "hard_alerts_count": 0,
+  "significant_deviations": [],
+  "timestamp": "2026-04-18 10:30"
 }

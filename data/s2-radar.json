@@ -1,18 +1,29 @@
 {
-  "timestamp": "2026-04-18T11:27:19",
+  "timestamp": "2026-04-18T13:15:09",
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
-    "score": 0.123,
+    "score": 0.167,
     "action": "系统轻度承压。建议仓位≤40%（趋势↑），增加对冲，缩短持仓周期。"
+  },
+  "regime_label": "WATCH",
+  "red_count": 1,
+  "dim_lights": {
+    "R": "green",
+    "I": "green",
+    "F": "yellow",
+    "C": "yellow",
+    "N": "yellow",
+    "T": "red"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
       "score": 0.49,
       "state": "▲",
+      "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
       "confidence": "★★",
       "name_cn": "信用韧性",
@@ -22,6 +33,7 @@
       "name": "I｜制度",
       "score": 0.44,
       "state": "▲",
+      "light": "green",
       "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
       "name_cn": "制度稳定",
@@ -31,6 +43,7 @@
       "name": "F｜反馈",
       "score": -0.06,
       "state": "►",
+      "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
@@ -40,6 +53,7 @@
       "name": "C｜协调",
       "score": -0.09,
       "state": "►",
+      "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
@@ -49,6 +63,7 @@
       "name": "N｜叙事",
       "score": 0.12,
       "state": "►",
+      "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
@@ -58,6 +73,7 @@
       "name": "T｜技术失配",
       "score": -0.33,
       "state": "▼",
+      "light": "red",
       "note": "技术加速度超过制度消化，结构性失配严重",
       "confidence": "★★",
       "name_cn": "技术动能",
@@ -82,14 +98,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 68.4
+        "pct": 66.7
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 28.9
+        "pct": 30.8
       },
       {
         "key": "TECH_DOM",
@@ -107,7 +123,7 @@
       }
     ],
     "moving_toward": "停滞",
-    "safety_margin": 0.223,
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": [

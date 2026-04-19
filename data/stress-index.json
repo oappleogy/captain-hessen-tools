@@ -1,5 +1,5 @@
 {
-  "score": 6.4,
+  "score": 28.7,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -17,12 +17,22 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 84.0,
+      "current": 82.59,
       "base": 75,
-      "deviation_pct": 12.0,
+      "deviation_pct": 10.1,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 28.8
+      "contribution": 20.4
+    },
+    {
+      "variable": "credit_spread",
+      "name": "信用利差",
+      "current": 2.86,
+      "base": 1.5,
+      "deviation_pct": 90.7,
+      "weight": 0.25,
+      "weight_pct": 25,
+      "contribution": 2056.6
     },
     {
       "variable": "usdjpy",
@@ -37,15 +47,24 @@
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 98.23,
+      "current": 98.1,
       "base": 100,
-      "deviation_pct": 1.8,
+      "deviation_pct": 1.9,
       "weight": 0.15,
       "weight_pct": 15,
       "contribution": 0.5
     }
   ],
-  "hard_alerts_count": 0,
-  "significant_deviations": [],
-  "timestamp": "2026-04-18 10:30"
+  "hard_alerts_count": 1,
+  "significant_deviations": [
+    {
+      "name": "信用利差",
+      "current": 2.86,
+      "base": 1.5,
+      "deviation_pct": 90.7,
+      "direction": "偏高",
+      "level": "极端偏离"
+    }
+  ],
+  "timestamp": "2026-04-19 13:02"
 }

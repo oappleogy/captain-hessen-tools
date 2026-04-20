@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-18T13:15:09",
+  "timestamp": "2026-04-20T07:37:09",
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
     "score": 0.167,
-    "action": "系统轻度承压。建议仓位≤40%（趋势↑），增加对冲，缩短持仓周期。"
+    "action": "系统轻度承压。建议仓位≤45%（趋势↑），增加对冲，缩短持仓周期。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -91,21 +91,21 @@
         "name": "黄金吸引子",
         "emoji": "🟢",
         "color": "#22c55e",
-        "pct": 2.6
+        "pct": 2.5
       },
       {
         "key": "STABLE",
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 66.7
+        "pct": 65.0
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 30.8
+        "pct": 32.5
       },
       {
         "key": "TECH_DOM",

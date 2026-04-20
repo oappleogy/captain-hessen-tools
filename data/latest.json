@@ -1,18 +1,18 @@
 {
-  "fetched_at": "2026-04-19T05:02:06Z",
-  "cleaned_at": "2026-04-19T05:02:06Z",
+  "fetched_at": "2026-04-20T00:15:31Z",
+  "cleaned_at": "2026-04-20T00:15:31Z",
   "sliders": {
     "us_rate": {
       "value": 3.64,
       "name": "Fed利率",
       "date": "2026-04-16",
-      "freshness": "fresh",
+      "freshness": "stale",
       "source": "FRED/DFF"
     },
     "us_dxy": {
-      "value": 98.1,
+      "value": 98.294,
       "name": "美元指数DXY",
-      "date": "2026-04-17",
+      "date": "2026-04-19",
       "freshness": "fresh",
       "source": "Yahoo/DX-Y.NYB"
     },
@@ -26,7 +26,7 @@
     "cn_yuan": {
       "value": 6.8164,
       "name": "USD/CNY汇率",
-      "date": "2026-04-17",
+      "date": "2026-04-20",
       "freshness": "fresh",
       "source": "Yahoo/CNY=X"
     },
@@ -38,9 +38,9 @@
       "source": "Yahoo/TTF=F"
     },
     "jp_yen": {
-      "value": 158.584,
+      "value": 159.182,
       "name": "USD/JPY汇率",
-      "date": "2026-04-17",
+      "date": "2026-04-20",
       "freshness": "fresh",
       "source": "Yahoo/JPY=X"
     },

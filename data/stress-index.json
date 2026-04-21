@@ -1,70 +1,10 @@
 {
-  "score": 28.7,
+  "score": 0,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
-  "components": [
-    {
-      "variable": "vix",
-      "name": "VIX",
-      "current": 17.48,
-      "base": 16,
-      "deviation_pct": 9.3,
-      "weight": 0.3,
-      "weight_pct": 30,
-      "contribution": 25.9
-    },
-    {
-      "variable": "oil",
-      "name": "WTI油价",
-      "current": 82.59,
-      "base": 75,
-      "deviation_pct": 10.1,
-      "weight": 0.2,
-      "weight_pct": 20,
-      "contribution": 20.4
-    },
-    {
-      "variable": "credit_spread",
-      "name": "信用利差",
-      "current": 2.86,
-      "base": 1.5,
-      "deviation_pct": 90.7,
-      "weight": 0.25,
-      "weight_pct": 25,
-      "contribution": 2056.6
-    },
-    {
-      "variable": "usdjpy",
-      "name": "USD/JPY",
-      "current": 159.18,
-      "base": 145,
-      "deviation_pct": 9.8,
-      "weight": 0.1,
-      "weight_pct": 10,
-      "contribution": 9.6
-    },
-    {
-      "variable": "dxy",
-      "name": "DXY",
-      "current": 98.29,
-      "base": 100,
-      "deviation_pct": 1.7,
-      "weight": 0.15,
-      "weight_pct": 15,
-      "contribution": 0.4
-    }
-  ],
-  "hard_alerts_count": 1,
-  "significant_deviations": [
-    {
-      "name": "信用利差",
-      "current": 2.86,
-      "base": 1.5,
-      "deviation_pct": 90.7,
-      "direction": "偏高",
-      "level": "极端偏离"
-    }
-  ],
-  "timestamp": "2026-04-20 08:15"
+  "components": [],
+  "hard_alerts_count": 0,
+  "significant_deviations": [],
+  "timestamp": "2026-04-21 15:24"
 }

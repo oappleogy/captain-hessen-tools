@@ -1,0 +1,4090 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>农产品期货弹性评分矩阵 v0.1 · 黑森船长</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg-deep: #e8eff7;
+    --bg-panel: #ffffff;
+    --bg-panel-2: #f0f5fb;
+    --border: #c5d4e3;
+    --border-soft: #dae3ed;
+    --text-primary: #1a2a44;
+    --text-secondary: #4a5c78;
+    --text-muted: #8090a8;
+    --gold: #8a6818;
+    --gold-soft: #b08738;
+    --crimson: #9a3028;
+    --amber: #a85c18;
+    --jade: #2c6a4a;
+    --slate: #3d5c80;
+    --cell-1: #e4ebf4;
+    --cell-2: #b6c8de;
+    --cell-3: #7a9b6c;
+    --cell-4: #c78e4f;
+    --cell-5: #b54a42;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Inter', 'Noto Serif SC', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(138, 104, 24, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(61, 92, 128, 0.07) 0%, transparent 50%);
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+    position: relative;
+    z-index: 2;
+  }
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .brand {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+  }
+  .brand::before {
+    content: '✦ ';
+    opacity: 0.7;
+  }
+  .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: clamp(24px, 4vw, 38px);
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-top: 8px;
+  }
+  h1 .sub {
+    color: var(--gold);
+    font-weight: 400;
+    font-size: 0.5em;
+    margin-left: 14px;
+    letter-spacing: 0.1em;
+  }
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+    max-width: 800px;
+    margin-top: 6px;
+  }
+  /* DISCLOSURE STRIP */
+  .disclosure {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border-soft);
+    border: 1px solid var(--border);
+    margin-bottom: 32px;
+    font-size: 12px;
+  }
+  .disc-cell {
+    background: var(--bg-panel);
+    padding: 14px 16px;
+  }
+  .disc-cell .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .disc-cell .value {
+    color: var(--text-primary);
+    font-size: 13px;
+  }
+  .tier-y { color: var(--amber); font-weight: 600; }
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    background: var(--bg-deep);
+    z-index: 50;
+    padding-top: 2px;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    padding: 14px 20px;
+    cursor: pointer;
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .tab-btn .tab-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    font-weight: 400;
+  }
+  .tab-btn:hover {
+    color: var(--text-secondary);
+  }
+  .tab-btn:hover .tab-num {
+    color: var(--gold-soft);
+  }
+  .tab-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  .tab-btn.active .tab-num {
+    color: var(--gold);
+  }
+  .tab-btn .tab-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-left: 8px;
+    vertical-align: 2px;
+    font-weight: 400;
+  }
+  .tab-panel {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 640px) {
+    .tab-btn { padding: 10px 14px; font-size: 13px; }
+    .tab-btn .tab-num { font-size: 8px; }
+  }
+
+  /* SECTION */
+  .tab-panel .section:last-child {
+    margin-bottom: 0;
+  }
+  .section {
+    margin-bottom: 40px;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 10px;
+  }
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--text-primary);
+  }
+  .section-desc {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-left: auto;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  /* DIMENSION CARDS */
+  .dim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .dim-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 14px 14px 12px;
+    border-left: 3px solid var(--gold-soft);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .dim-card:hover {
+    transform: translateY(-2px);
+    border-left-color: var(--gold);
+  }
+  .dim-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+  .dim-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--gold);
+    margin: 4px 0 6px;
+  }
+  .dim-desc {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .dim-china {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    font-size: 10.5px;
+    color: var(--amber);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  /* MATRIX & RADAR */
+  .matrix-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 1100px) {
+    .matrix-wrap {
+      grid-template-columns: 1.6fr 1fr;
+    }
+  }
+  .matrix-table {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    min-width: 720px;
+  }
+  thead tr {
+    background: var(--bg-panel-2);
+  }
+  th {
+    padding: 10px 8px 9px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 10.5px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    vertical-align: top;
+  }
+  th.l { text-align: left; padding-left: 14px; }
+  th .dim-code {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: inherit;
+    letter-spacing: 0.08em;
+  }
+  th .dim-short {
+    display: block;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+    position: relative;
+  }
+  th.sortable:hover { color: var(--gold-soft); }
+  th.sortable:hover .dim-short { color: var(--gold-soft); }
+  th.sortable .dim-code::after {
+    content: ' ⇅';
+    opacity: 0.3;
+    font-size: 9px;
+    margin-left: 3px;
+    letter-spacing: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  th.sort-asc  .dim-code::after { content: ' ▴'; opacity: 1; color: var(--gold); }
+  th.sort-desc .dim-code::after { content: ' ▾'; opacity: 1; color: var(--gold); }
+  th.sort-asc, th.sort-desc { color: var(--gold); }
+  th.sort-asc .dim-short, th.sort-desc .dim-short { color: var(--gold-soft); }
+  td {
+    padding: 9px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--text-primary);
+  }
+  td.l { text-align: left; padding-left: 14px; }
+  tbody tr {
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  tbody tr:hover {
+    background: rgba(201, 169, 97, 0.06);
+  }
+  tbody tr.active {
+    background: rgba(201, 169, 97, 0.12);
+    border-left: 3px solid var(--gold);
+  }
+  .product-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-primary);
+  }
+  .product-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+  }
+  .badge-cn {
+    background: rgba(192, 82, 74, 0.15);
+    color: var(--crimson);
+    border: 1px solid var(--crimson);
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-size: 9px;
+    margin-left: 4px;
+    letter-spacing: 0.05em;
+  }
+  .score-cell {
+    font-weight: 600;
+    color: var(--text-primary);
+    border-radius: 2px;
+  }
+  .s1 { background: var(--cell-1); color: var(--text-muted); }
+  .s2 { background: var(--cell-2); color: #1a2a44; }
+  .s3 { background: var(--cell-3); color: #ffffff; }
+  .s4 { background: var(--cell-4); color: #fff8ec; }
+  .s5 { background: var(--cell-5); color: #fff5f0; }
+  .total-cell {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--gold);
+    border-left: 1px solid var(--border);
+  }
+  .tier-cell {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tier-A { color: var(--crimson); font-weight: 700; }
+  .tier-B { color: var(--amber); font-weight: 600; }
+  .tier-C { color: var(--jade); }
+  .tier-D { color: var(--slate); }
+
+  /* RADAR PANEL */
+  .radar-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .radar-head {
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .radar-product {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--gold);
+  }
+  .radar-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .radar-score {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+  }
+  .radar-score b {
+    color: var(--text-primary);
+    font-size: 16px;
+  }
+  #radarChart {
+    max-height: 320px;
+  }
+  .radar-note {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--gold);
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    min-height: 60px;
+  }
+  /* POLICY CARD */
+  .policy-card {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--crimson);
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .policy-card.dir-floor { border-left-color: var(--jade); }
+  .policy-card.dir-ceiling { border-left-color: var(--crimson); }
+  .policy-card.dir-both { border-left-color: var(--gold); }
+  .policy-card.dir-none { border-left-color: var(--slate); opacity: 0.85; }
+  .policy-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .policy-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .policy-dir-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .policy-dir-tag.dir-floor { background: rgba(44, 106, 74, 0.15); color: var(--jade); border: 1px solid var(--jade); }
+  .policy-dir-tag.dir-ceiling { background: rgba(154, 48, 40, 0.15); color: var(--crimson); border: 1px solid var(--crimson); }
+  .policy-dir-tag.dir-both { background: rgba(138, 104, 24, 0.15); color: var(--gold); border: 1px solid var(--gold); }
+  .policy-dir-tag.dir-none { background: rgba(61, 92, 128, 0.15); color: var(--slate); border: 1px solid var(--slate); }
+  .policy-row {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 8px;
+    margin-bottom: 5px;
+    align-items: baseline;
+  }
+  .policy-row .k {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .policy-row .v {
+    color: var(--text-primary);
+    font-size: 11.5px;
+  }
+  .policy-row .v .hl {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  /* POLICY DETAIL TOGGLE */
+  .policy-expand-btn {
+    margin-top: 8px;
+    background: transparent;
+    border: none;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    cursor: pointer;
+    padding: 4px 0;
+    letter-spacing: 0.08em;
+    user-select: none;
+  }
+  .policy-expand-btn:hover { color: var(--gold-soft); }
+  .policy-expand-btn .arrow { display: inline-block; transition: transform 0.2s; }
+  .policy-expand-btn.open .arrow { transform: rotate(180deg); }
+  .policy-detail {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--bg-deep);
+    border-left: 2px dashed var(--border);
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .policy-detail.open { display: block; }
+  .pd-section { margin-bottom: 10px; }
+  .pd-section:last-child { margin-bottom: 0; }
+  .pd-section .pd-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .pd-section .pd-text { color: var(--text-primary); font-size: 11px; }
+  .pd-history li {
+    list-style: none;
+    padding: 3px 0 3px 14px;
+    position: relative;
+    font-size: 10.5px;
+    color: var(--text-secondary);
+  }
+  .pd-history li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 3px;
+    color: var(--gold);
+    font-size: 9px;
+  }
+  /* STRATEGY CARD */
+  .strategy-card {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: linear-gradient(180deg, var(--bg-panel-2) 0%, #e8f0f8 100%);
+    border-left: 2px solid var(--gold);
+    font-size: 11.5px;
+    color: var(--text-primary);
+    line-height: 1.65;
+  }
+  .strategy-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .strategy-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .strategy-label::before { content: '◆ '; opacity: 0.7; }
+  .strategy-text {
+    color: var(--text-primary);
+    font-size: 11.5px;
+    line-height: 1.65;
+  }
+  /* CHART CONTAINERS */
+  .chart-box {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 20px;
+    position: relative;
+  }
+  .chart-box canvas {
+    max-height: 380px;
+  }
+  /* DUAL CHART GRID */
+  .dual-chart {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 900px) {
+    .dual-chart {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  /* POLICY SPECTRUM */
+  .policy-spectrum {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 900px) {
+    .policy-spectrum {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .spectrum-col {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--slate);
+    padding: 14px 14px 10px;
+    min-height: 120px;
+  }
+  .spectrum-col.col-floor { border-top-color: var(--jade); }
+  .spectrum-col.col-ceiling { border-top-color: var(--crimson); }
+  .spectrum-col.col-both { border-top-color: var(--gold); }
+  .spectrum-col.col-none { border-top-color: var(--slate); opacity: 0.85; }
+  .spectrum-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .spectrum-head .dir-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .col-floor .dir-name { color: var(--jade); }
+  .col-ceiling .dir-name { color: var(--crimson); }
+  .col-both .dir-name { color: var(--gold); }
+  .col-none .dir-name { color: var(--slate); }
+  .spectrum-head .dir-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+  .spectrum-head .dir-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .spectrum-item {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--border);
+    font-size: 11px;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .spectrum-item:hover {
+    transform: translateX(2px);
+    border-left-color: var(--gold);
+  }
+  .spectrum-item .sp-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 12px;
+  }
+  .spectrum-item .sp-thr {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-secondary);
+    font-size: 10.5px;
+    margin-top: 4px;
+    line-height: 1.45;
+  }
+  .spectrum-item .sp-cn {
+    display: inline-block;
+    font-size: 8.5px;
+    color: var(--crimson);
+    border: 1px solid var(--crimson);
+    padding: 0 4px;
+    margin-left: 5px;
+    vertical-align: 1px;
+    letter-spacing: 0.05em;
+  }
+  /* SCENARIO · HORMUZ */
+  .scenario-intro {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    font-size: 12.5px;
+    color: var(--text-primary);
+    line-height: 1.75;
+  }
+  .scenario-intro-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--amber);
+    letter-spacing: 0.14em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .scenario-intro p { margin: 0 0 10px 0; }
+  .scenario-intro p:last-child { margin-bottom: 0; }
+  .scenario-intro .hl { color: var(--amber); font-weight: 600; }
+  .scenario-intro b { color: var(--gold); font-weight: 600; }
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  @media (max-width: 1080px) { .scenario-grid { grid-template-columns: 1fr; } }
+  .scenario-tier {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--slate);
+    padding: 14px 16px;
+  }
+  .scenario-tier.tier-direct { border-top-color: var(--crimson); }
+  .scenario-tier.tier-indirect { border-top-color: var(--amber); }
+  .scenario-tier.tier-weak { border-top-color: var(--slate); opacity: 0.95; }
+  .scenario-tier-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border);
+    gap: 10px;
+  }
+  .scenario-tier-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13.5px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .scenario-tier-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    letter-spacing: 0.05em;
+  }
+  .scenario-tier-delta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .scenario-tier.tier-direct .scenario-tier-delta { background: rgba(154,48,40,0.12); color: var(--crimson); border: 1px solid rgba(154,48,40,0.4); }
+  .scenario-tier.tier-indirect .scenario-tier-delta { background: rgba(168,92,24,0.12); color: var(--amber); border: 1px solid rgba(168,92,24,0.4); }
+  .scenario-tier.tier-weak .scenario-tier-delta { background: rgba(61,92,128,0.12); color: var(--slate); border: 1px solid rgba(61,92,128,0.4); }
+  .scenario-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border-soft);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .scenario-item:hover { background: rgba(138, 104, 24, 0.06); }
+  .scenario-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .scenario-item:first-child { padding-top: 4px; }
+  .scenario-item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+    gap: 8px;
+  }
+  .scenario-item-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .scenario-item-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .scenario-item-mech {
+    color: var(--text-secondary);
+    font-size: 10.5px;
+    line-height: 1.55;
+  }
+  .scenario-note {
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--text-muted);
+    padding: 14px 18px;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .scenario-note-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .scenario-note p { margin: 0; }
+  .scenario-note b { color: var(--text-primary); }
+
+  /* ============ ENSO TAB ============ */
+  .enso-intro {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    font-size: 12.5px;
+    color: var(--text-primary);
+    line-height: 1.75;
+  }
+  .enso-intro-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--amber);
+    letter-spacing: 0.14em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .enso-intro p { margin: 0 0 8px 0; }
+  .enso-intro p:last-child { margin-bottom: 0; }
+  .enso-intro b { color: var(--gold); font-weight: 600; }
+  .enso-intro .hl { color: var(--amber); font-weight: 600; }
+
+  .phase-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    max-width: fit-content;
+  }
+  .phase-tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-right: 1px solid var(--border);
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .phase-tab:last-child { border-right: none; }
+  .phase-tab:hover { background: var(--bg-panel-2); color: var(--text-primary); }
+  .phase-tab.active {
+    background: var(--text-primary);
+    color: #fff;
+    font-weight: 500;
+  }
+  .phase-desc {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    padding: 10px 14px;
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--gold);
+  }
+  .phase-desc b { color: var(--gold); font-weight: 600; }
+
+  .map-wrap {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .map-crown {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px dashed var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .map-crown .compass {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    color: var(--gold);
+  }
+  #ensoWorldMap { display: block; width: 100%; height: auto; background: var(--bg-panel-2); }
+  .region-tile {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .region-tile:hover { filter: brightness(0.9); }
+  .region-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    fill: var(--text-primary);
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+  .continent-shape {
+    fill: var(--border-soft);
+    stroke: var(--border);
+    stroke-width: 0.6;
+    opacity: 0.72;
+  }
+  .grid-line { stroke: var(--border); stroke-width: 0.4; stroke-dasharray: 2 4; fill: none; }
+  .grid-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    fill: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+  .map-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 20px;
+    border-top: 1px dashed var(--border);
+    background: var(--bg-panel-2);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .legend-swatch {
+    width: 12px; height: 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  .legend-note {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+  .region-detail {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 20px 22px;
+    margin-bottom: 24px;
+    min-height: 120px;
+  }
+  .rd-empty {
+    color: var(--text-muted);
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 12px;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .rd-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .rd-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.25;
+  }
+  .rd-name em {
+    display: block;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-top: 3px;
+    font-weight: 300;
+  }
+  .rd-countries {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+  .rd-signal {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .rd-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 720px) { .rd-body { grid-template-columns: 1fr; } }
+  .rd-col-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  .rd-col-val {
+    font-size: 12px;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .rd-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 2px;
+  }
+  .rd-product-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    padding: 2px 6px;
+    background: var(--bg-panel-2);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    letter-spacing: 0.03em;
+  }
+  .rd-note {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    margin-top: 10px;
+  }
+
+  /* ENSO impact table */
+  .enso-impact-wrap {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+  table.enso-impact {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  table.enso-impact thead th {
+    background: var(--bg-panel-2);
+    padding: 11px 14px;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  table.enso-impact tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px dashed var(--border);
+    vertical-align: middle;
+  }
+  table.enso-impact tbody tr { cursor: pointer; }
+  table.enso-impact tbody tr:hover { background: var(--bg-panel-2); }
+  table.enso-impact tbody tr:last-child td { border-bottom: none; }
+  .ei-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .ei-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 12px;
+  }
+  .ei-dir {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .ei-dir.pos { background: rgba(154,48,40,0.12); color: var(--crimson); }
+  .ei-dir.neg { background: rgba(44,106,74,0.12); color: var(--jade); }
+  .ei-dir.mix { background: rgba(138,104,24,0.12); color: var(--gold); }
+  .ei-dir.zero { background: rgba(128,144,168,0.12); color: var(--text-muted); }
+  .ei-mech {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  /* ENSO positioning cards */
+  .enso-pos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 860px) { .enso-pos-grid { grid-template-columns: 1fr; } }
+  .enso-pos-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+  }
+  .enso-pos-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .enso-pos-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .enso-pos-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-left: 6px;
+  }
+  .enso-pos-rating {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    border-radius: 2px;
+  }
+  .enso-pos-rating.clear { background: rgba(154,48,40,0.15); color: var(--crimson); border: 1px solid var(--crimson); }
+  .enso-pos-rating.dual { background: rgba(138,104,24,0.12); color: var(--gold); border: 1px solid var(--gold); }
+  .enso-pos-rating.watch { background: rgba(199,142,79,0.15); color: var(--amber); border: 1px solid var(--amber); }
+  .enso-pos-rating.noisy { background: rgba(128,144,168,0.15); color: var(--slate); border: 1px solid var(--slate); }
+  .enso-pos-row {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+  .enso-pos-row .k {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding-top: 2px;
+  }
+  .enso-pos-row .v { color: var(--text-primary); }
+
+  /* ENSO history timeline */
+  .enso-history-wrap {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 16px 20px 12px;
+    margin-bottom: 18px;
+  }
+  #ensoHistoryChart { display: block; width: 100%; height: auto; }
+  .enso-history-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  /* GLOBAL AGENCY FORECAST COMPARISON */
+  .agency-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 14px 18px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    margin-bottom: 16px;
+  }
+  @media (max-width: 720px) { .agency-top { grid-template-columns: 1fr; } }
+  .agency-top-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13.5px;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .agency-top-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+  .agency-top-sub b { color: var(--gold); font-weight: 600; }
+  .agency-consensus {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  @media (max-width: 720px) { .agency-consensus { align-items: flex-start; } }
+  .agency-consensus-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .agency-consensus-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    color: var(--crimson);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .agency-consensus-note {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .agency-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .agency-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 16px 18px 14px;
+    position: relative;
+    transition: all 0.15s;
+  }
+  .agency-card:hover { border-color: var(--gold); }
+  .agency-card.placeholder { opacity: 0.6; background: var(--bg-panel-2); }
+  .agency-card.stale { border-left: 3px solid var(--crimson); }
+  .agency-card.aging { border-left: 3px solid var(--amber); }
+  .agency-card.fresh { border-left: 3px solid var(--jade); }
+  .agency-card.placeholder { border-left: 3px dashed var(--border); }
+  .ag-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border);
+    gap: 10px;
+  }
+  .ag-name-block {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .ag-flag {
+    font-size: 18px;
+    line-height: 1;
+  }
+  .ag-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .ag-country {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    display: block;
+  }
+  .ag-freshness {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 3px 7px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .ag-freshness.fresh { background: rgba(44,106,74,0.12); color: var(--jade); border: 1px solid var(--jade); }
+  .ag-freshness.aging { background: rgba(199,142,79,0.15); color: var(--amber); border: 1px solid var(--amber); }
+  .ag-freshness.stale { background: rgba(154,48,40,0.12); color: var(--crimson); border: 1px solid var(--crimson); }
+  .ag-freshness.pending { background: rgba(128,144,168,0.12); color: var(--text-muted); border: 1px dashed var(--text-muted); }
+  .ag-status-line {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .ag-status-line .k { text-transform: uppercase; }
+  .ag-status-line .v { color: var(--text-primary); font-weight: 500; }
+  .ag-status-banner {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 11.5px;
+    color: var(--text-primary);
+    padding: 6px 10px;
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--gold);
+    margin: 10px 0 12px;
+    font-style: italic;
+  }
+  .ag-forecast-row {
+    margin-bottom: 10px;
+  }
+  .ag-forecast-row:last-child { margin-bottom: 0; }
+  .ag-forecast-period {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ag-forecast-period .sub { color: var(--text-muted); font-weight: 400; }
+  .ag-prob-bar {
+    display: flex;
+    height: 14px;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+  }
+  .ag-prob-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    min-width: 0;
+    transition: flex-grow 0.3s;
+  }
+  .ag-prob-seg.el { background: var(--crimson); }
+  .ag-prob-seg.ne { background: var(--slate); }
+  .ag-prob-seg.la { background: var(--jade); }
+  .ag-prob-key {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    letter-spacing: 0.04em;
+  }
+  .ag-prob-key .el { color: var(--crimson); font-weight: 600; }
+  .ag-prob-key .ne { color: var(--slate); font-weight: 600; }
+  .ag-prob-key .la { color: var(--jade); font-weight: 600; }
+  .ag-note {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .ag-link {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    margin-top: 8px;
+    text-decoration: none;
+    border-bottom: 1px dashed var(--gold);
+    padding-bottom: 1px;
+  }
+  .ag-link:hover { color: var(--gold-soft); border-bottom-style: solid; }
+  .ag-placeholder-msg {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 14px 0 6px;
+  }
+  .agency-disclaimer {
+    padding: 12px 16px;
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--text-muted);
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .agency-disclaimer b { color: var(--text-primary); font-style: normal; font-weight: 600; }
+
+  /* DAILY TRACKER */
+  .daily-tracker {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--jade);
+    padding: 14px 18px;
+    margin-bottom: 16px;
+  }
+  .daily-tracker.has-overdue { border-left-color: var(--crimson); }
+  .daily-tracker.has-upcoming { border-left-color: var(--amber); }
+  .dt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .dt-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .dt-today {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .dt-today em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-left: 6px;
+  }
+  .dt-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .dt-col {
+    padding: 8px 0;
+  }
+  .dt-col-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  .dt-col.col-upcoming .dt-col-label { color: var(--amber); }
+  .dt-col.col-overdue  .dt-col-label { color: var(--crimson); }
+  .dt-col.col-fresh    .dt-col-label { color: var(--jade); }
+  .dt-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border-soft);
+    font-size: 11.5px;
+  }
+  .dt-item:last-child { border-bottom: none; }
+  .dt-item-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .dt-item-detail {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .dt-check-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 3px 8px;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .dt-check-btn:hover { background: var(--gold); color: #fff; }
+  .dt-empty {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    padding: 4px 0;
+  }
+
+  /* ============ TIMELINE TAB ============ */
+  .tl-intro {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    font-size: 12.5px;
+    color: var(--text-primary);
+    line-height: 1.75;
+  }
+  .tl-intro b { color: var(--gold); font-weight: 600; }
+  .tl-intro-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .tl-filter {
+    display: flex;
+    gap: 0;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    max-width: fit-content;
+    flex-wrap: wrap;
+  }
+  .tl-filter-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    padding: 8px 14px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-right: 1px solid var(--border);
+    text-transform: uppercase;
+    transition: all 0.15s;
+  }
+  .tl-filter-btn:last-child { border-right: none; }
+  .tl-filter-btn:hover { background: var(--bg-panel-2); color: var(--text-primary); }
+  .tl-filter-btn.active {
+    background: var(--text-primary);
+    color: #fff;
+    font-weight: 500;
+  }
+  .tl-filter-btn .count {
+    margin-left: 6px;
+    font-size: 9px;
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+
+  .tl-legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tl-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .tl-legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+  .tl-legend-sev {
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+  }
+  .tl-sev-bar {
+    width: 3px;
+    height: 10px;
+    background: var(--text-muted);
+    opacity: 0.4;
+  }
+  .tl-sev-bar.on { opacity: 1; background: var(--gold); }
+
+  .tl-chart-wrap {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    margin-bottom: 14px;
+  }
+  .tl-chart {
+    min-width: 900px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+  }
+  .tl-months {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-panel-2);
+  }
+  .tl-month {
+    padding: 8px 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+    border-right: 1px dashed var(--border);
+    position: relative;
+  }
+  .tl-month:last-child { border-right: none; }
+  .tl-month.today {
+    background: rgba(199,142,79,0.14);
+    color: var(--amber);
+    font-weight: 600;
+  }
+  .tl-month.today::after {
+    content: 'TODAY';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 7.5px;
+    background: var(--amber);
+    color: #fff;
+    padding: 1px 5px;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  .tl-rows { display: contents; }
+  .tl-side {
+    padding: 10px 14px;
+    border-bottom: 1px dashed var(--border);
+    border-right: 1px solid var(--border);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12px;
+    color: var(--text-primary);
+    font-weight: 600;
+    background: var(--bg-panel-2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .tl-side .code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+  .tl-side:last-of-type { border-bottom: none; }
+  .tl-lane {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    border-bottom: 1px dashed var(--border);
+    min-height: 42px;
+    background-image: repeating-linear-gradient(to right, transparent 0, transparent calc(100% / 12 - 1px), var(--border-soft) calc(100% / 12 - 1px), var(--border-soft) calc(100% / 12));
+  }
+  .tl-lane:last-of-type { border-bottom: none; }
+  .tl-lane.today-col::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: calc(100% * 3 / 12);
+    width: calc(100% / 12);
+    background: rgba(199,142,79,0.07);
+    pointer-events: none;
+  }
+  .tl-event {
+    position: absolute;
+    top: 5px;
+    height: 32px;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 3px 7px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 1px solid rgba(0,0,0,0.15);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.02em;
+  }
+  .tl-event:hover {
+    filter: brightness(1.05);
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(26,42,68,0.2);
+  }
+  .tl-event.cat-weather { background: var(--crimson); }
+  .tl-event.cat-policy  { background: var(--gold); }
+  .tl-event.cat-supply  { background: var(--slate); }
+  .tl-event.cat-enso    { background: var(--amber); }
+  .tl-event.cat-event   { background: var(--jade); }
+  .tl-event.sev-low     { opacity: 0.55; height: 22px; top: 10px; font-size: 8.5px; }
+  .tl-event.sev-mid     { opacity: 0.78; }
+  .tl-event.sev-high    { opacity: 1; }
+  .tl-event.sev-high::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: rgba(255,255,255,0.5);
+  }
+  .tl-event.hidden { display: none; }
+
+  /* Timeline detail card (active event) */
+  .tl-detail {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    min-height: 110px;
+  }
+  .tl-detail-empty {
+    color: var(--text-muted);
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 12px;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .tl-detail-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+    gap: 12px;
+  }
+  .tl-detail-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+  .tl-detail-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-left: 6px;
+  }
+  .tl-detail-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 3px 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .tl-detail-tag.cat-weather { background: rgba(154,48,40,0.14); color: var(--crimson); border: 1px solid var(--crimson); }
+  .tl-detail-tag.cat-policy  { background: rgba(138,104,24,0.14); color: var(--gold); border: 1px solid var(--gold); }
+  .tl-detail-tag.cat-supply  { background: rgba(61,92,128,0.14); color: var(--slate); border: 1px solid var(--slate); }
+  .tl-detail-tag.cat-enso    { background: rgba(199,142,79,0.14); color: var(--amber); border: 1px solid var(--amber); }
+  .tl-detail-tag.cat-event   { background: rgba(44,106,74,0.14); color: var(--jade); border: 1px solid var(--jade); }
+  .tl-detail-window {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .tl-detail-window b { color: var(--text-primary); }
+  .tl-detail-desc {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5px;
+    color: var(--text-primary);
+    line-height: 1.65;
+  }
+
+  /* Current month active list */
+  .tl-active {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--amber);
+    padding: 16px 20px;
+  }
+  .tl-active-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--amber);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .tl-active-head .cnt {
+    color: var(--text-muted);
+    font-size: 9.5px;
+  }
+  .tl-active-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+  }
+  .tl-active-item {
+    padding: 10px 12px;
+    background: var(--bg-panel-2);
+    border-left: 2px solid var(--amber);
+    font-size: 11.5px;
+    line-height: 1.55;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .tl-active-item:hover { background: rgba(199,142,79,0.1); }
+  .tl-active-item.cat-weather { border-left-color: var(--crimson); }
+  .tl-active-item.cat-policy  { border-left-color: var(--gold); }
+  .tl-active-item.cat-supply  { border-left-color: var(--slate); }
+  .tl-active-item.cat-enso    { border-left-color: var(--amber); }
+  .tl-active-item.cat-event   { border-left-color: var(--jade); }
+  .tl-active-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .tl-active-name {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-left: 4px;
+  }
+  .tl-active-label {
+    color: var(--text-primary);
+    margin-top: 4px;
+    font-size: 11.5px;
+  }
+  .tl-active-sev {
+    display: inline-block;
+    margin-left: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tl-active-sev.high { background: var(--crimson); color: #fff; }
+  .tl-active-sev.mid  { background: var(--amber); color: #fff; }
+  .tl-active-sev.low  { background: var(--border); color: var(--text-secondary); }
+
+  .fail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .fail-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--crimson);
+    padding: 16px 18px;
+  }
+  .fail-card .case-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--crimson);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .fail-card h4 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    margin: 6px 0 8px;
+  }
+  .fail-card p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  /* FOOTER */
+  .footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+  .footer .compass {
+    color: var(--gold);
+    letter-spacing: 0.2em;
+  }
+  /* WATERMARK */
+  .watermark {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 10px;
+    color: var(--gold);
+    opacity: 0.28;
+    letter-spacing: 0.3em;
+    z-index: 100;
+    pointer-events: none;
+    writing-mode: vertical-rl;
+  }
+  /* LEGEND */
+  .scale-legend {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+  .scale-swatch {
+    width: 22px;
+    height: 14px;
+    display: inline-block;
+    margin-right: 2px;
+  }
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .container { padding: 16px 12px 60px; }
+    h1 { font-size: 22px; }
+    .section-title { font-size: 16px; }
+    .radar-product { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="brand">CAPTAIN HESSEN · 黑森船长</div>
+    <div class="meta">FRAMEWORK v0.1 · 2026.04 · CONFIDENCE 🟡 二阶综合</div>
+  </div>
+  <h1>农产品期货弹性评分矩阵<span class="sub">AGRI-FUTURES ELASTICITY MATRIX</span></h1>
+  <div class="subtitle">基于七维结构性风险评估,横跨 CBOT / ICE / BMD / DCE / CZCE 全球可比合约。框架延续化工评分逻辑,但维度针对农产品的天气-地理-政策-季节四重特异性重构。</div>
+</div>
+
+<!-- DISCLOSURE -->
+<div class="disclosure">
+  <div class="disc-cell">
+    <div class="label">框架结构</div>
+    <div class="value">Annie 原创(化工框架延伸 + HCT 七维范式)</div>
+  </div>
+  <div class="disc-cell">
+    <div class="label">品种映射 / 维度评分</div>
+    <div class="value">Claude 综合公开结构性事实生成</div>
+  </div>
+  <div class="disc-cell">
+    <div class="label">数据可信度</div>
+    <div class="value tier-y">🟡 框架估值,需用 USDA WASDE / Oil World / 海关 / 持仓数据回测</div>
+  </div>
+  <div class="disc-cell">
+    <div class="label">使用边界</div>
+    <div class="value">用于事件驱动情景的相对排序,非择时</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs" role="tablist">
+  <button class="tab-btn" data-tab="framework" role="tab">
+    <span class="tab-num">01 · FRAMEWORK</span>
+    <span>框架</span>
+  </button>
+  <button class="tab-btn active" data-tab="matrix" role="tab">
+    <span class="tab-num">02 · MATRIX</span>
+    <span>矩阵<span class="tab-count">20 品种</span></span>
+  </button>
+  <button class="tab-btn" data-tab="rankings" role="tab">
+    <span class="tab-num">03 · RANKINGS</span>
+    <span>排序</span>
+  </button>
+  <button class="tab-btn" data-tab="policy" role="tab">
+    <span class="tab-num">04 · POLICY</span>
+    <span>政策</span>
+  </button>
+  <button class="tab-btn" data-tab="scenario" role="tab">
+    <span class="tab-num">05 · SCENARIO</span>
+    <span>情景 · Hormuz</span>
+  </button>
+  <button class="tab-btn" data-tab="enso" role="tab">
+    <span class="tab-num">06 · ENSO</span>
+    <span>情景 · 厄尔尼诺</span>
+  </button>
+  <button class="tab-btn" data-tab="timeline" role="tab">
+    <span class="tab-num">07 · TIMELINE</span>
+    <span>时序日历</span>
+  </button>
+  <button class="tab-btn" data-tab="caveats" role="tab">
+    <span class="tab-num">08 · BOUNDARIES</span>
+    <span>边界</span>
+  </button>
+</div>
+
+<!-- PANEL: FRAMEWORK -->
+<div class="tab-panel" id="panel-framework">
+<!-- DIMENSION CARDS -->
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <span class="section-title">七维评分定义</span>
+    <span class="section-desc">SCORE 1–5 · 数值越高 = 弹性贡献越大</span>
+  </div>
+  <div class="dim-grid">
+    <div class="dim-card">
+      <div class="dim-num">D1</div>
+      <div class="dim-name">供给集中度</div>
+      <div class="dim-desc">前两大产国出口份额。集中度越高,单点冲击放大越剧烈。</div>
+      <div class="dim-china">代理:HHI / 出口前2占比</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">D2</div>
+      <div class="dim-name">天气敏感度</div>
+      <div class="dim-desc">单产对温度/降雨/极端事件的弹性。霜冻、干旱、ENSO 周期。</div>
+      <div class="dim-china">代理:历史单产标准差/事件频率</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">D3</div>
+      <div class="dim-name">库销比紧度</div>
+      <div class="dim-desc">全球期末库存/年消费。库存厚 = 缓冲器,库存薄 = 价格弹性放大。</div>
+      <div class="dim-china">代理:WASDE Stocks-to-Use</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">D4</div>
+      <div class="dim-name">替代刚性</div>
+      <div class="dim-desc">下游难以切换替代品的程度。咖啡/可可几乎无替代,植物油彼此可替。</div>
+      <div class="dim-china">代理:消费习惯+技术工艺锁定</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">D5</div>
+      <div class="dim-name">政策干预风险</div>
+      <div class="dim-desc">出口禁令/配额/最低收购价/储备投放/关税。方向和阈值比分数更重要——托价≠压价。</div>
+      <div class="dim-china">方向见 §04 图谱</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">D6</div>
+      <div class="dim-name">金融化深度</div>
+      <div class="dim-desc">总持仓与基金净持仓占比。深 = 容纳大资金,薄 = 单边波动放大。</div>
+      <div class="dim-china">注:薄合约≠低弹性,反而事件放大</div>
+    </div>
+    <div class="dim-card">
+      <div class="dim-num">D7</div>
+      <div class="dim-name">地缘物流暴露</div>
+      <div class="dim-desc">关键运输节点依赖度。黑海/马六甲/巴拿马/红海/密西西比。</div>
+      <div class="dim-china">代理:出口走航必经节点数</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORING MATRIX + RADAR -->
+</div><!-- /panel-framework -->
+
+<!-- PANEL: MATRIX -->
+<div class="tab-panel active" id="panel-matrix">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <span class="section-title">品种 × 维度 评分矩阵</span>
+    <span class="section-desc">点击行查看雷达图 · 数据 🟡 估值层</span>
+  </div>
+  <div class="matrix-wrap">
+    <div class="matrix-table">
+      <table id="scoreTable">
+        <thead>
+          <tr>
+            <th class="l sortable" data-sort="name"><span class="dim-code">品种 / 合约</span></th>
+            <th class="sortable" data-sort="d0"><span class="dim-code">D1</span><span class="dim-short">供给集中</span></th>
+            <th class="sortable" data-sort="d1"><span class="dim-code">D2</span><span class="dim-short">天气敏感</span></th>
+            <th class="sortable" data-sort="d2"><span class="dim-code">D3</span><span class="dim-short">库销紧度</span></th>
+            <th class="sortable" data-sort="d3"><span class="dim-code">D4</span><span class="dim-short">替代刚性</span></th>
+            <th class="sortable" data-sort="d4"><span class="dim-code">D5</span><span class="dim-short">政策干预</span></th>
+            <th class="sortable" data-sort="d5"><span class="dim-code">D6</span><span class="dim-short">金融化深</span></th>
+            <th class="sortable" data-sort="d6"><span class="dim-code">D7</span><span class="dim-short">地缘物流</span></th>
+            <th class="sortable" data-sort="total"><span class="dim-code">总分</span><span class="dim-short">SUM / 35</span></th>
+            <th class="sortable" data-sort="tier"><span class="dim-code">梯队</span><span class="dim-short">TIER</span></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="radar-panel">
+      <div class="radar-head">
+        <div class="radar-product" id="radarName">ICE 可可 CC</div>
+        <div class="radar-meta" id="radarTag">NYBOT · 西非主导 · 现货代理</div>
+        <div class="radar-score" id="radarScore">总分: <b>29</b>/35 · 梯队 <b>A+</b></div>
+      </div>
+      <canvas id="radarChart"></canvas>
+      <div class="radar-note" id="radarNote">
+        西非两国(科特迪瓦+加纳)占全球 65% 以上,2023–24 哈马丹季 + 黑荚病联袂冲击,库销比降至历史极值,价格年内翻倍。无可替代品决定弹性顶级,但金融化偏薄进一步放大波动率。
+      </div>
+      <div class="policy-card dir-floor" id="policyCard">
+        <div class="policy-head">
+          <span class="policy-label">政策容忍度 · Policy Tolerance</span>
+          <span class="policy-dir-tag dir-floor" id="policyDirTag">托价 FLOOR</span>
+        </div>
+        <div class="policy-row"><span class="k">工具</span><span class="v" id="policyTool">—</span></div>
+        <div class="policy-row"><span class="k">阈值</span><span class="v hl" id="policyThreshold">—</span></div>
+        <div class="policy-row"><span class="k">最近</span><span class="v" id="policyLast">—</span></div>
+        <button class="policy-expand-btn" id="policyExpandBtn" style="display:none;">
+          <span>展开机制 · 历史 · 监控信号</span> <span class="arrow">▾</span>
+        </button>
+        <div class="policy-detail" id="policyDetail">
+          <div class="pd-section">
+            <div class="pd-label">机制 Mechanism</div>
+            <div class="pd-text" id="pdMechanism"></div>
+          </div>
+          <div class="pd-section">
+            <div class="pd-label">历史触发 History</div>
+            <ul class="pd-history" id="pdHistory"></ul>
+          </div>
+          <div class="pd-section">
+            <div class="pd-label">监控信号 Monitor</div>
+            <div class="pd-text" id="pdMonitor"></div>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-card" id="strategyCard">
+        <div class="strategy-head">
+          <span class="strategy-label">交易策略 · Strategy</span>
+        </div>
+        <div class="strategy-text" id="strategyText">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DUAL CHARTS -->
+</div><!-- /panel-matrix -->
+
+<!-- PANEL: RANKINGS -->
+<div class="tab-panel" id="panel-rankings">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <span class="section-title">总分排序 & 弹性-拥挤度散点</span>
+    <span class="section-desc">右上象限 = 高弹性 + 低拥挤 = 机会区</span>
+  </div>
+  <div class="dual-chart">
+    <div class="chart-box">
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart-box">
+      <canvas id="scatterChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- POLICY SPECTRUM -->
+</div><!-- /panel-rankings -->
+
+<!-- PANEL: POLICY -->
+<div class="tab-panel" id="panel-policy">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <span class="section-title">政策容忍度图谱 · 方向 × 工具</span>
+    <span class="section-desc">托价 = 政策撑底 / 压价 = 政策压顶 / 双向 = 可反转</span>
+  </div>
+  <div class="policy-spectrum" id="policySpectrum"></div>
+</div>
+
+<!-- FRAMEWORK FAILURE CASES -->
+</div><!-- /panel-policy -->
+
+<!-- PANEL: SCENARIO · HORMUZ -->
+<div class="tab-panel" id="panel-scenario">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <span class="section-title">情景叠加:Hormuz 海峡封闭</span>
+    <span class="section-desc">D7 只反映平时状态;极端封锁须作为独立叠加层</span>
+  </div>
+
+  <div class="scenario-intro">
+    <div class="scenario-intro-head">方法论诚实 · Method Note</div>
+    <p>七维框架中 <b>D7 地缘物流</b> 得分基于<span class="hl">平时状态</span>——常规航运路径、政治敏感度、主产国分散度。但 Hormuz 这类"极端封锁"不是渐变,是跳变,框架对此<b>结构性盲视</b>。解法不是修改 D7 权重——而是把封锁作为<b>独立情景叠加层</b>,给每品种一个 <span class="hl">Δ 增量</span>(0 ~ +3),在框架本体之外单独看。</p>
+    <p>核心传导链有三:<b>(1) 原油飙升 → 生柴掺混经济性抬升 → 油脂类直接受益</b>;<b>(2) 氮肥/尿素/磷肥成本暴涨 → 种植成本重估 → 谷物跟涨</b>;<b>(3) 亚洲能源补库 → LNG 紧张+红海/印度洋保险费溢价 → 远距离航运品种到岸溢价</b>。弱相关品种靠"替代被压缩/非路径/国内闭环定价"三种机制被隔绝在外。</p>
+  </div>
+
+  <div class="scenario-grid" id="scenarioGrid"></div>
+
+  <div class="scenario-note">
+    <div class="scenario-note-label">Note · 不要把 Δ 当价格目标</div>
+    <p>Δ 增量是框架下的<b>结构性估计</b>,非逐笔价格测算。实际落地需叠加四个变量:(a) 封锁持续时长——72 小时短闭锁与 30 天+ 封锁的传导量级差 10 倍;(b) 美方 SPR 释放节奏与 OPEC+ 补位意愿;(c) 中东其他产油国(沙特/阿联酋)物理补位能力;(d) 亚洲 LNG 买家(日/韩/中)合约覆盖比例与斋月/冬季取暖季节错位。另:此 Δ 与 D5 政策开关存在交互——棕榈/原糖等 direct 品种若触发 CPI 恐慌会被产国反手禁运,Δ 上限可达 +4,但此时已进入框架失效区,不在本表覆盖。</p>
+  </div>
+
+</div>
+</div><!-- /panel-scenario -->
+
+<!-- PANEL: ENSO -->
+<div class="tab-panel" id="panel-enso">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <span class="section-title">情景叠加:ENSO · 厄尔尼诺 / 拉尼娜</span>
+    <span class="section-desc">D2 天气维度的周期性重构 · 全球传导</span>
+  </div>
+
+  <div class="enso-intro">
+    <div class="enso-intro-head">当前状态 · Current Status</div>
+    <p>赤道太平洋 2025–26 冬季<b>弱拉尼娜</b>,正过渡到 ENSO 中性。NOAA CPC 最新判定:4–6 月中性概率 80%;<span class="hl">5–7 月厄尔尼诺形成概率 61%</span>,大概率持续至 2026 年底,1/3 概率为"强"等级(Niño 3.4 ≥ +1.5°C)。</p>
+    <p>这意味着 D2 天气维度在 2026 H2 进入<b>厄尔尼诺叠加状态</b>——印尼/马来干旱风险抬头(棕榈利多)、南美洲南部多雨(大豆供给双刃)、印度季风减弱(糖利多)、澳洲东部小麦减产、美中西玉米授粉期反而温和(玉米利空)。</p>
+  </div>
+
+  <div class="phase-tabs" role="tablist">
+    <button class="phase-tab active" data-phase="elnino" role="tab">厄尔尼诺 · El Niño</button>
+    <button class="phase-tab" data-phase="lanina" role="tab">拉尼娜 · La Niña</button>
+    <button class="phase-tab" data-phase="neutral" role="tab">中性 · Neutral</button>
+  </div>
+  <div class="phase-desc" id="ensoPhaseDesc">点击地图上的区域查看该地气候影响与对应品种。2026 H2 预期相位:<b>厄尔尼诺</b>(61% 概率)。</div>
+
+  <div class="map-wrap">
+    <div class="map-crown">
+      <div>Lat · Lon · Climate Impact Grid</div>
+      <div class="compass">N · 航海图风格示意 · S</div>
+      <div>Simplified Equirectangular</div>
+    </div>
+    <svg id="ensoWorldMap" viewBox="0 0 1200 540" xmlns="http://www.w3.org/2000/svg">
+      <g class="grid">
+        <line class="grid-line" x1="0" y1="270" x2="1200" y2="270"/>
+        <line class="grid-line" x1="0" y1="194" x2="1200" y2="194"/>
+        <line class="grid-line" x1="0" y1="346" x2="1200" y2="346"/>
+        <line class="grid-line" x1="0" y1="120" x2="1200" y2="120"/>
+        <line class="grid-line" x1="0" y1="420" x2="1200" y2="420"/>
+        <line class="grid-line" x1="200" y1="0" x2="200" y2="540"/>
+        <line class="grid-line" x1="400" y1="0" x2="400" y2="540"/>
+        <line class="grid-line" x1="600" y1="0" x2="600" y2="540"/>
+        <line class="grid-line" x1="800" y1="0" x2="800" y2="540"/>
+        <line class="grid-line" x1="1000" y1="0" x2="1000" y2="540"/>
+        <text class="grid-label" x="8" y="268">EQ 0°</text>
+        <text class="grid-label" x="8" y="192">23°N</text>
+        <text class="grid-label" x="8" y="344">23°S</text>
+        <text class="grid-label" x="198" y="10">120°W</text>
+        <text class="grid-label" x="398" y="10">60°W</text>
+        <text class="grid-label" x="598" y="10">0°</text>
+        <text class="grid-label" x="798" y="10">60°E</text>
+        <text class="grid-label" x="998" y="10">120°E</text>
+      </g>
+      <g>
+        <path class="continent-shape" d="M 70 90 Q 130 70 200 80 L 260 95 L 280 130 L 300 170 L 310 220 L 290 250 L 260 270 L 220 265 L 180 250 L 150 230 L 115 200 L 85 170 L 75 130 Z"/>
+        <path class="continent-shape" d="M 260 270 L 280 280 L 320 300 L 335 315 L 310 305 L 285 295 L 265 285 Z"/>
+        <path class="continent-shape" d="M 330 300 L 365 290 L 395 310 L 410 350 L 400 390 L 385 430 L 375 465 L 360 490 L 340 485 L 325 460 L 320 420 L 325 380 L 335 340 Z"/>
+        <path class="continent-shape" d="M 550 120 L 600 115 L 640 130 L 660 155 L 640 175 L 605 180 L 570 170 L 555 150 Z"/>
+        <path class="continent-shape" d="M 570 200 L 620 195 L 665 215 L 680 260 L 690 310 L 680 355 L 655 395 L 620 415 L 585 410 L 560 385 L 545 340 L 542 290 L 550 240 Z"/>
+        <path class="continent-shape" d="M 660 180 L 710 170 L 760 180 L 780 210 L 760 235 L 720 240 L 685 230 L 665 205 Z"/>
+        <path class="continent-shape" d="M 790 220 L 830 215 L 860 230 L 870 265 L 860 290 L 835 300 L 815 285 L 800 260 Z"/>
+        <path class="continent-shape" d="M 860 140 L 960 135 L 1030 155 L 1050 190 L 1040 225 L 1010 245 L 960 245 L 910 235 L 880 215 L 870 180 Z"/>
+        <path class="continent-shape" d="M 950 285 L 1000 280 L 1050 290 L 1075 300 L 1070 320 L 1040 330 L 1000 328 L 970 320 L 955 305 Z"/>
+        <path class="continent-shape" d="M 1055 175 L 1075 170 L 1085 185 L 1075 205 L 1060 210 L 1048 195 Z"/>
+        <path class="continent-shape" d="M 1000 380 L 1070 375 L 1120 395 L 1130 425 L 1100 445 L 1050 445 L 1005 430 L 985 405 Z"/>
+        <path class="continent-shape" d="M 650 85 L 800 75 L 950 80 L 1080 95 L 1100 125 L 1020 135 L 920 135 L 820 130 L 720 125 L 665 118 Z"/>
+      </g>
+      <g id="ensoRegionTiles"></g>
+      <g id="ensoRegionLabels"></g>
+    </svg>
+    <div class="map-foot">
+      <div class="legend">
+        <div class="legend-item"><span class="legend-swatch" style="background:#9a3028"></span> 干旱</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#c78e4f"></span> 高温</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#3d5c80"></span> 多雨</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#2c6a4a"></span> 温和</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#8090a8"></span> 中性</div>
+      </div>
+      <div class="legend-note">色块为结构示意,非精确地理</div>
+    </div>
+  </div>
+
+  <div class="region-detail" id="ensoRegionDetail">
+    <div class="rd-empty">▸ 点击任一区域查看该地在当前相位下的气候影响、关键农产品及历史印证</div>
+  </div>
+
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">06 · A</span>
+    <span class="section-title">品种影响矩阵</span>
+    <span class="section-desc">Direction × Mechanism</span>
+  </div>
+  <div class="enso-impact-wrap">
+    <table class="enso-impact">
+      <thead>
+        <tr>
+          <th style="width: 150px">品种</th>
+          <th style="width: 80px">交易所</th>
+          <th style="width: 100px">El Niño</th>
+          <th style="width: 100px">La Niña</th>
+          <th>核心传导机制</th>
+        </tr>
+      </thead>
+      <tbody id="ensoImpactBody"></tbody>
+    </table>
+  </div>
+
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">06 · B</span>
+    <span class="section-title">H2 2026 布局 · 前夜期非追高期</span>
+    <span class="section-desc">Four Contracts · Four Playbooks</span>
+  </div>
+  <div class="enso-pos-grid">
+    <div class="enso-pos-card">
+      <div class="enso-pos-head">
+        <div><span class="enso-pos-code">P</span><span class="enso-pos-name">棕榈油</span></div>
+        <span class="enso-pos-rating clear">清晰做多</span>
+      </div>
+      <div class="enso-pos-row"><span class="k">逻辑</span><span class="v">印尼/马来干旱 + B40 生柴 + 原油同向(若) → 库存双侧压缩</span></div>
+      <div class="enso-pos-row"><span class="k">信号</span><span class="v">GAPKI/MPOB 连续 2 月库存 -10% 且 Niño 3.4 ≥ +0.8°C</span></div>
+      <div class="enso-pos-row"><span class="k">工具</span><span class="v">BMD+DCE 共振;价外看涨期权为主,避 DMO 反转</span></div>
+      <div class="enso-pos-row"><span class="k">风险</span><span class="v">DMO 加码 / 印度进口减速 / 强等级未兑现</span></div>
+    </div>
+    <div class="enso-pos-card">
+      <div class="enso-pos-head">
+        <div><span class="enso-pos-code">SB</span><span class="enso-pos-name">原糖</span></div>
+        <span class="enso-pos-rating dual">双向对冲</span>
+      </div>
+      <div class="enso-pos-row"><span class="k">逻辑</span><span class="v">印度季风减弱利多;巴西南部多雨压榨顺利短期利空</span></div>
+      <div class="enso-pos-row"><span class="k">信号</span><span class="v">ISMA 产量下调 + UNICA 双周糖醇比</span></div>
+      <div class="enso-pos-row"><span class="k">工具</span><span class="v">跨期(SB H/K 2027)非单边;避巴西收获季</span></div>
+      <div class="enso-pos-row"><span class="k">风险</span><span class="v">印度 CPI 压力反开出口 / 巴西糖醇比偏糖</span></div>
+    </div>
+    <div class="enso-pos-card">
+      <div class="enso-pos-head">
+        <div><span class="enso-pos-code">ZS</span><span class="enso-pos-name">大豆</span></div>
+        <span class="enso-pos-rating watch">观察期</span>
+      </div>
+      <div class="enso-pos-row"><span class="k">逻辑</span><span class="v">10-12 月南美播种,强 El Niño 下南巴西+阿根廷过湿烂田</span></div>
+      <div class="enso-pos-row"><span class="k">信号</span><span class="v">10 月 USDA 播种进度 + Conab 下调 + 阿根廷 BCR</span></div>
+      <div class="enso-pos-row"><span class="k">工具</span><span class="v">仓位 0 · 观察清单,10 月再决策</span></div>
+      <div class="enso-pos-row"><span class="k">风险</span><span class="v">弱信号被噪声盖过 / 中美贸易独立压制</span></div>
+    </div>
+    <div class="enso-pos-card">
+      <div class="enso-pos-head">
+        <div><span class="enso-pos-code">KC</span><span class="enso-pos-name">咖啡</span></div>
+        <span class="enso-pos-rating noisy">信号混杂</span>
+      </div>
+      <div class="enso-pos-row"><span class="k">逻辑</span><span class="v">巴西米纳斯多雨花期伤/灌浆利,历史响应不一致</span></div>
+      <div class="enso-pos-row"><span class="k">信号</span><span class="v">ICE 认证库存 + CONAB 产量预估 + ICO 出口</span></div>
+      <div class="enso-pos-row"><span class="k">工具</span><span class="v">不适合 ENSO 单驱持仓;保留为事件型机会</span></div>
+      <div class="enso-pos-row"><span class="k">风险</span><span class="v">汇率反向 / 越南罗咖独立 / 霜冻尾部</span></div>
+    </div>
+  </div>
+
+  <div class="enso-history-wrap">
+    <div class="enso-history-title">ENSO 历史 × Niño 3.4 异常 (1972–2026)</div>
+    <svg id="ensoHistoryChart" viewBox="0 0 1200 220" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+
+  <!-- 06 · C 全球机构预测对比 -->
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">06 · C</span>
+    <span class="section-title">全球机构预测对比</span>
+    <span class="section-desc">Agency Consensus · Last Update · Next Release</span>
+  </div>
+
+  <div class="agency-disclaimer">
+    <b>诚实提示:</b>各机构 ENSO 预测实际为<b>月度或双周更新</b>(非每日),NOAA 每月第二个周四、JMA 每月 10 日左右、BOM 每两周、ECMWF 每月 1 日。下方数据为静态快照,页面打开时会根据今日日期自动标注"fresh / aging / stale"。真正的"每日更新"需要后端抓取(未来可接 Cloudflare Workers 做半自动)。
+  </div>
+
+  <!-- Daily Tracker -->
+  <div class="daily-tracker" id="dailyTracker">
+    <div class="dt-head">
+      <div class="dt-title">今日追踪器 · Daily Tracker</div>
+      <div class="dt-today" id="dtToday">—</div>
+    </div>
+    <div class="dt-body" id="dtBody"></div>
+  </div>
+
+  <!-- 顶部 consensus -->
+  <div class="agency-top">
+    <div>
+      <div class="agency-top-title">共识判定 · Cross-Agency Consensus</div>
+      <div class="agency-top-sub">北美 · 日本 · 澳洲 · IRI 四家官方机构对 <b>MJJ 2026 El Niño 形成概率</b>区间 <b>50% – 70%</b>,<b>夏末至秋季</b>进入 El Niño 相位为高概率路径;<b>一致性强</b>但强度判定分歧(NOAA 给 33% 强等级概率,JMA 未定量)。</div>
+    </div>
+    <div class="agency-consensus">
+      <div class="agency-consensus-label">Aggregate · MJJ 2026</div>
+      <div class="agency-consensus-val">~60% El Niño</div>
+      <div class="agency-consensus-note">4 家机构平均</div>
+    </div>
+  </div>
+
+  <div class="agency-grid" id="agencyGrid"></div>
+
+  <div class="enso-history-wrap" style="display:none;"></div><!-- spacer guard -->
+
+</div>
+</div><!-- /panel-enso -->
+
+<!-- PANEL: TIMELINE -->
+<div class="tab-panel" id="panel-timeline">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <span class="section-title">时序日历 · 全年关键事件窗口</span>
+    <span class="section-desc">12 月 × 20 品种 × 5 类信号</span>
+  </div>
+
+  <div class="tl-intro">
+    <div class="tl-intro-head">时间维度 · Timing Dimension</div>
+    <p>每个品种都有自己的"日历节奏"——播种、授粉、霜冻、政策发布、收获、储备轮储,都是<b>结构化的时间窗口</b>。框架评分是空间维度(谁弹性高),这个 tab 是时间维度(什么时候该盯谁)。</p>
+    <p>色条长度 = 事件窗口跨度;色条亮度 = 影响强度;色块颜色 = 信号类型。点击色块看详情。当前月份自动高亮,下面列出本月活跃事件清单。</p>
+  </div>
+
+  <!-- 筛选 -->
+  <div class="tl-filter" role="tablist">
+    <button class="tl-filter-btn active" data-cat="all">全部 <span class="count" id="cntAll">—</span></button>
+    <button class="tl-filter-btn" data-cat="weather">天气/气候 <span class="count" id="cntWeather">—</span></button>
+    <button class="tl-filter-btn" data-cat="policy">政策 <span class="count" id="cntPolicy">—</span></button>
+    <button class="tl-filter-btn" data-cat="supply">产能/产量 <span class="count" id="cntSupply">—</span></button>
+    <button class="tl-filter-btn" data-cat="enso">ENSO 窗口 <span class="count" id="cntEnso">—</span></button>
+    <button class="tl-filter-btn" data-cat="event">离散事件 <span class="count" id="cntEvent">—</span></button>
+  </div>
+
+  <!-- 图例 -->
+  <div class="tl-legend">
+    <div class="tl-legend-item"><span class="tl-legend-swatch" style="background:#9a3028"></span> 天气</div>
+    <div class="tl-legend-item"><span class="tl-legend-swatch" style="background:#8a6818"></span> 政策</div>
+    <div class="tl-legend-item"><span class="tl-legend-swatch" style="background:#3d5c80"></span> 产能</div>
+    <div class="tl-legend-item"><span class="tl-legend-swatch" style="background:#c78e4f"></span> ENSO</div>
+    <div class="tl-legend-item"><span class="tl-legend-swatch" style="background:#2c6a4a"></span> 事件</div>
+    <div style="width:1px; height:16px; background:var(--border); margin:0 6px;"></div>
+    <div class="tl-legend-item">强度:
+      <span class="tl-legend-sev" style="margin-left:4px;">
+        <span class="tl-sev-bar on"></span><span class="tl-sev-bar"></span><span class="tl-sev-bar"></span>
+      </span> 低
+      <span class="tl-legend-sev" style="margin-left:6px;">
+        <span class="tl-sev-bar on"></span><span class="tl-sev-bar on"></span><span class="tl-sev-bar"></span>
+      </span> 中
+      <span class="tl-legend-sev" style="margin-left:6px;">
+        <span class="tl-sev-bar on"></span><span class="tl-sev-bar on"></span><span class="tl-sev-bar on"></span>
+      </span> 高
+    </div>
+  </div>
+
+  <!-- 甘特图 -->
+  <div class="tl-chart-wrap">
+    <div class="tl-chart" id="tlChart">
+      <div></div>
+      <div class="tl-months">
+        <div class="tl-month">1月</div><div class="tl-month">2月</div><div class="tl-month">3月</div>
+        <div class="tl-month today">4月</div><div class="tl-month">5月</div><div class="tl-month">6月</div>
+        <div class="tl-month">7月</div><div class="tl-month">8月</div><div class="tl-month">9月</div>
+        <div class="tl-month">10月</div><div class="tl-month">11月</div><div class="tl-month">12月</div>
+      </div>
+      <!-- rows populated by JS -->
+    </div>
+  </div>
+
+  <!-- Event detail -->
+  <div class="tl-detail" id="tlDetail">
+    <div class="tl-detail-empty">▸ 点击任一事件色块查看详情 · 或查看下方"本月活跃"清单</div>
+  </div>
+
+  <!-- Active this month -->
+  <div class="tl-active">
+    <div class="tl-active-head">
+      <span id="tlActiveTitle">本月活跃 · April(4 月)</span>
+      <span class="cnt" id="tlActiveCount">—</span>
+    </div>
+    <div class="tl-active-list" id="tlActiveList"></div>
+  </div>
+
+</div>
+</div><!-- /panel-timeline -->
+
+<!-- PANEL: CAVEATS -->
+<div class="tab-panel" id="panel-caveats">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">08</span>
+    <span class="section-title">框架失效场景 · 何时不要用此分数排序</span>
+    <span class="section-desc">事件型、政策反转型、流动性悬崖型</span>
+  </div>
+  <div class="fail-grid">
+    <div class="fail-card">
+      <div class="case-tag">CASE A · 事件单点放大</div>
+      <h4>苹果 AP / 鸡蛋 JD</h4>
+      <p>总分中等,但天气与产能周期是单点高弹性变量。清明霜冻一个事件可使期价 30%+ 跳变,框架的均匀加权会显著低估。建议叠加事件日历单独看 D2 / D5。</p>
+    </div>
+    <div class="fail-card">
+      <div class="case-tag">CASE B · 持仓薄反向放大</div>
+      <h4>橙汁 OJ / 红枣 CJ</h4>
+      <p>D6 金融化得分低本应是减分项,但极薄持仓在事件来临时反而无对手盘 → 涨停连板。OJ 在佛州黄龙病+飓风背景下 2023–24 创历史新高即此机制。低分品种需做反向解读。</p>
+    </div>
+    <div class="fail-card">
+      <div class="case-tag">CASE C · 政策反转</div>
+      <h4>中国玉米 / 棉花 / 白糖</h4>
+      <p>D5 高分品种存在国储这把双向开关。收储推涨、抛储压价,方向反转时框架打分稳定但价格剧变。需配 收储节奏 / 拍卖底价 / 进口配额释放 三路独立信号。</p>
+    </div>
+    <div class="fail-card">
+      <div class="case-tag">CASE D · 替代矩阵共振</div>
+      <h4>豆油 / 棕榈油 / 菜籽油</h4>
+      <p>三油 D4 替代刚性都低,但弹性需作为板块共振分析,不是单品种。当生柴政策/出口禁令切换主导逻辑,板块价差(P-Y / OI-Y)比单边更具结构性机会。</p>
+    </div>
+    <div class="fail-card">
+      <div class="case-tag">CASE E · 国内孤品流动性</div>
+      <h4>苹果 / 红枣 / 生猪 / 鸡蛋</h4>
+      <p>无外盘对照,但流动性受国内政策+主力席位影响显著。框架适合发现弹性方向,但持仓集中度/单一席位风险需独立监控。</p>
+    </div>
+    <div class="fail-card">
+      <div class="case-tag">CASE F · 地缘加速</div>
+      <h4>小麦 / 葵花籽油 / 玉米</h4>
+      <p>D7 地缘暴露评分基于平时状态。一旦黑海/红海发生主动封锁,这些品种弹性会从中段跳变到顶段,框架是滞后指示器,需配Hormuz式情景叠加。</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+</div><!-- /panel-caveats -->
+
+<div class="footer">
+  <div>© 2026 黑森船长 · 框架版本 v0.1 · 适用于相对排序与情景压力测试,不作为择时工具</div>
+  <div class="compass">✦ HCT × AGRI ✦</div>
+</div>
+
+</div>
+
+<div class="watermark">黑森船长 · CAPTAIN HESSEN</div>
+
+<script>
+(function init() {
+  if (typeof Chart === 'undefined') {
+    // Chart.js 还没加载,等待一下
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(init, 50));
+    } else {
+      setTimeout(init, 100);
+    }
+    return;
+  }
+  try {
+// ============ DATA ============
+// policy.dir: 'ceiling'=压价 / 'floor'=托价 / 'both'=双向 / 'none'=无干预
+// hormuz.delta: Hormuz 封闭情景下弹性增量 (-1 ~ +3)
+// hormuz.tier: 'direct'直接受益 / 'indirect'间接 / 'weak'弱相关
+const products = [
+  { code:'ZS', name:'CBOT 大豆', tag:'CBOT · 美巴阿三国', d:[4,5,3,2,4,5,3],
+    note:'美中西部干旱+巴西雷亚尔+中美关税三重驱动。CBOT 流动性最深,弹性传导通过豆粕/豆油向全球扩散。', cn:false,
+    policy:{ tool:'中美关税 · USDA 补贴 · 巴西雷亚尔间接干预', threshold:'无硬价格线;中美关税是离散事件开关', dir:'none', last:'2018 中方对美豆加 25% 关税 → 巴西份额永久化;2024 中方对美豆未重启新关税' },
+    strategy:'大周期跟随中美关系温度。短期无关税触发时,基本面定价为主——北美种植→南美上市的季节节奏远比单一事件可靠。工具首选期货+价外看跌期权组合,用贴水保护避免单边关税反转。监控信号:美豆种植面积、巴西雷亚尔、中方饲料储备投放节奏。',
+    hormuz:{ delta:2, tier:'indirect', mech:'生柴需求(豆油)传导至压榨利润 + 化肥(氮肥)价格飙升推升种植成本 + 美湾-中国航线保险费溢价' } },
+
+  { code:'ZM', name:'CBOT 豆粕', tag:'CBOT · 蛋白核心', d:[4,4,3,4,4,5,3],
+    note:'饲料蛋白难替代(菜粕替代有上限),与生猪存栏耦合。中国进口主导价差结构。', cn:false,
+    policy:{ tool:'中国菜粕/DDGs 反倾销 · 饲料替代指引', threshold:'能繁母猪存栏<政策目标线时间接刺激', dir:'none', last:'2024.9 中方对加菜籽/菜油反倾销立案,挤压菜粕→豆粕替代需求' },
+    strategy:'中国生猪周期决定豆粕节奏。2024 能繁母猪目标下调至 3900 万头 → 2026 需求结构性递减。单边做多需要找到"存栏回升拐点+美豆天气"双触发。工具:跨美豆/豆粕压榨利润(crush spread)比单边更稳。',
+    hormuz:{ delta:1, tier:'indirect', mech:'跟随大豆,但压榨利润端或受 ZL 豆油暴涨拉动,产生负 crush → 压榨厂倒挂风险' } },
+
+  { code:'ZL', name:'CBOT 豆油', tag:'CBOT · 三油之一', d:[4,4,3,1,3,5,3],
+    note:'与棕榈/菜油强替代,单边弹性弱,板块价差与生柴政策驱动更强。', cn:false,
+    policy:{ tool:'美国 RFS 掺混义务 · 45Z 生柴税收抵免 · 印尼 B40', threshold:'EPA RVO 年度义务量 = 直接需求开关', dir:'floor', last:'2025 EPA RVO 生物质柴油义务 53 亿加仑;45Z 规则 2025 生效' },
+    policyDetail:{
+      mechanism:'美国 RFS (Renewable Fuel Standard) 每年发布 RVO (Renewable Volume Obligation) 强制混合义务量,决定生物柴油需求底。45Z Clean Fuel Production Credit 于 2025 年生效,对国产植物油生柴给予 $1/加仑级别税抵。印尼 B40(棕榈油 40% 生柴掺混强制)间接影响全球油脂格局。',
+      history:['2022 美国 RIN (Renewable Identification Number) 价格峰值 $1.80+,豆油-豆粕价差破历史','2024.6 EPA 发布 2024-26 RVO 将再生柴油设为 53 亿加仑','2025.1 45Z 生效,本土大豆压榨利润结构性上行'],
+      monitor:'EPA 月度 RIN 生成量 · 45Z 实施细则(进口植物油是否同样享受)· 印尼 B40 落地时间表 · 欧盟反补贴关税(针对美国生柴)'
+    },
+    strategy:'45Z 是最强政策托底。当前 RVO 义务+45Z 双重保险,豆油下行空间被政策压缩。做多首选期权,对冲生柴政策反转风险(如特朗普政府下一轮改法)。注意:欧洲反补贴若落地短期冲击反噬。',
+    hormuz:{ delta:3, tier:'direct', mech:'原油飙升 → 生柴经济性急剧提升 → RIN 飙升 → 豆油需求挤压豆粕。同时化肥传导上游,且欧洲柴油紧张再度拉升豆油生柴出口' } },
+
+  { code:'ZC', name:'CBOT 玉米', tag:'CBOT · 全球饲料锚', d:[3,5,3,2,4,5,4],
+    note:'授粉期天气+乙醇政策+黑海出口三轴驱动。深度合约但天气季节性弹性顶级。', cn:false,
+    policy:{ tool:'美国乙醇 RFS 掺混 · 墨西哥转基因禁令 · 中方进口配额', threshold:'乙醇掺混义务 ~15bn gal · 中方配额 720 万吨', dir:'floor', last:'2024 USMCA 转基因玉米案美方胜诉,墨方禁令失效;2024 中方进口量配额内' },
+    strategy:'天气主导+乙醇托底双引擎。7-8 月授粉期是全年最大 swing。若遇拉尼娜 → 美中西旱 → 玉米独立走强。策略:下半年早布局看涨期权,授粉前 2 周 gamma 最贵。地面信号:ProFarmer 作物巡查、USDA WASDE 月报。',
+    hormuz:{ delta:2, tier:'indirect', mech:'乙醇需求增量(原油飞涨) + 氮肥价格暴涨推升种植成本 + 美湾出口运费上涨对冲出口竞争力' } },
+
+  { code:'ZW', name:'CBOT 小麦', tag:'CBOT · SRW · 黑海风向标', d:[3,4,3,2,5,4,5],
+    note:'黑海中心化+多产国分散使供给波动复杂,政策(俄罗斯出口、印度禁运)是主弹性源。', cn:false,
+    policy:{ tool:'俄罗斯出口浮动关税+配额 · 印度突发禁运 · 欧盟关税', threshold:'俄罗斯出口价指示价 $240/吨触发关税 · 印度 CPI 小麦 >8% 触发禁运', dir:'ceiling', last:'2022.5 印度全面禁止小麦出口至今;2024 俄每半年重设出口配额' },
+    policyDetail:{
+      mechanism:'俄罗斯自 2021 年启用浮动出口关税机制,以 FOB 出口价减去 $200/吨(2023 后调整为 $240)的 70% 作为关税,动态压制出口溢价并上交国库。同时每半年(7-12 月 / 1-6 月)设定出口配额,近两个窗口分别为 2400 万吨、1100 万吨级别。印度 2022.5 突然对小麦全面禁运以对抗国内 CPI,至今未解除。欧盟对俄白小麦加征 95 欧元/吨关税(2024.7)。',
+      history:['2022.2 俄乌冲突 → CBOT 小麦 48 小时内+60%','2022.5 印度禁令出台后一日跳空+6%,延续 30 天上行','2022.7 黑海粮食走廊启动 → 价格回吐大部分地缘溢价','2023.7 俄罗斯单方面退出走廊 → 再度冲高但力度递减','2024.7 欧盟对俄白小麦加征关税强化出口紧张'],
+      monitor:'俄罗斯每月出口量 vs 配额 · 印度批发价 vs MSP · 黑海港口航运保险费 · 欧盟反倾销调查进展'
+    },
+    strategy:'地缘驱动 > 基本面驱动,永远要问"黑海下一步是什么"。印度禁运已结构化,俄罗斯浮动关税是真正 swing。策略:做多赢在尾部事件,短线需看 UNGC 粮食走廊是否续签。工具:价外看涨期权吃尾部,而非裸多。',
+    hormuz:{ delta:3, tier:'direct', mech:'原油→化肥→小麦成本 + Hormuz 若外溢至红海/黑海物流异动,则欧洲→北非→中东小麦供应链中断 + 埃及/土耳其等大买家恐慌补库' } },
+
+  { code:'SB', name:'ICE 11号原糖', tag:'ICE · 巴西霜冻 + 印度季风', d:[4,5,4,3,4,4,3],
+    note:'巴西甘蔗 vs 乙醇分流是核心 swing 变量。印度出口政策反转放大年度波动。', cn:false,
+    policy:{ tool:'印度出口许可制 · 巴西乙醇混合比 · 欧盟糖改革', threshold:'印度国内糖价 >ISMA 心理底 ~3800 卢比/公担 触发出口放开', dir:'ceiling', last:'2023 印度零出口许可 → 2024.6 定向放开 60 万吨;巴西乙醇掺混比 27%' },
+    policyDetail:{
+      mechanism:'印度采用出口许可制,每榨季由食品部根据国内库存、MSP 补贴成本和 CPI 走势决定发放配额。2022-23 榨季放开 610 万吨,2023-24 榨季直接降为零。巴西通过《生物燃料法》设定乙醇混合比(目前 27%),当糖醇比 <0.85 时经济上压榨更倾向乙醇,反之倾向食糖。泰国出口能力是第三变量。',
+      history:['2023.10 印度宣布 2023-24 榨季零出口许可 → SB 跳涨至 27.5 美分','2024.4 巴西中南部提前遭遇霜冻+干旱 → 再冲 25 美分','2024.6 印度定向放开 60 万吨出口 → 价格阶梯下行','2024.12 巴西乙醇混合比从 25% 升至 27% → 结构性分流糖'],
+      monitor:'UNICA 巴西中南部双周压榨数据 · 印度 ISMA 月度产量预估 · 巴西雷亚尔汇率(弱雷亚尔促进出口) · 泰国榨季进度'
+    },
+    strategy:'巴西糖醇比是隐形水位线,印度政策反转是催化剂。当糖醇比<0.85 → 乙醇分流 → 糖供应收缩。策略:糖醇比+印度季风同时做多空头检验器——两者一致看多才真做多。工具:SB 期权跨式+巴西雷亚尔对冲。',
+    hormuz:{ delta:3, tier:'direct', mech:'油价飙升 → 乙醇经济性狂增 → 巴西甘蔗分流去制乙醇 → 糖供应断崖 + 印度能源进口账单扩大 → 大概率延续出口禁令' } },
+
+  { code:'KC', name:'ICE 阿拉比卡咖啡', tag:'ICE · 巴西+越南 60%+', d:[5,5,5,4,2,4,3],
+    note:'2024–25 ICE 库存历史低位,巴西天气一个季度就能改写全年价格。无政策缓冲,纯供给弹性。', cn:false,
+    policy:{ tool:'欧盟 EUDR 合规成本(2025.12 生效)', threshold:'无硬价格管制', dir:'none', last:'2024.12 EUDR 再延期 1 年至 2025.12;主产国无国内价格干预' },
+    strategy:'ICO 认证库存是最硬的实盘指标。<50 万袋 = 紧张到极致,需求端溢价见顶在所难免。但巴西霜冻季(6-8月)是永恒尾部。策略:基本面中性但备下尾部看涨期权;咖啡对美元高贝塔,注意汇率对冲。',
+    hormuz:{ delta:1, tier:'weak', mech:'主要通过航运成本(巴西桑托斯港→欧美)和美元走强汇率传导,非核心直接受益' } },
+
+  { code:'RM', name:'ICE 罗布斯塔咖啡', tag:'ICE · 越南主导', d:[5,5,5,3,2,3,4],
+    note:'越南占全球 40%+,东南亚物流敏感。2023–24 罗咖紧度甚至超过阿咖,价差结构罕见倒挂。', cn:false,
+    policy:{ tool:'越南出口税率调整(非硬配额)· 印尼 EUDR 合规', threshold:'无硬容忍区间', dir:'none', last:'2024 越南出口基本自由,政府仅发布指导价' },
+    strategy:'越南库存见底故事已过半,但 ICE 库存周转仍紧。与阿咖价差倒挂是罕见结构,说明全球速溶咖啡用户进入成本拐点。策略:做多阿咖 + 空罗咖捕捉价差回归(罗咖超涨)。不适合裸多。',
+    hormuz:{ delta:2, tier:'indirect', mech:'东南亚→欧洲航线(须经苏伊士/红海)在地缘紧张期受阻,胡塞袭扰延伸至 Hormuz 外溢则直接提升罗咖到岸溢价' } },
+
+  { code:'CC', name:'ICE 可可', tag:'NYBOT · 西非寡头', d:[5,5,5,5,3,3,3],
+    note:'西非两国 65%+,无可替代,2024 史无前例三倍涨幅是七维满分共振案例。', cn:false,
+    policy:{ tool:'科特迪瓦 CCC / 加纳 COCOBOD 国家定价 · LID $400/吨溢价', threshold:'只设农民收购底价;对出口价无上限', dir:'floor', last:'2024 两国分别上调农民收购价 +50%,仍远落后 ICE 现货涨幅 +180%' },
+    strategy:'史诗级爆涨已兑现,当前处于峰值后的分歧期。供给端(西非灾害)是慢变量,需求端(工业止损)是快变量,价差结构(contango/backwardation)比绝对价格更能反映此平衡。不追单边,用日历价差+波动率卖方。核心风险:非农可可税制改革若落地,抑制上行。',
+    hormuz:{ delta:0, tier:'weak', mech:'西非→欧美直达海运,不经 Hormuz/红海。唯航运保险整体上升传导微弱' } },
+
+  { code:'CT', name:'ICE 棉花', tag:'ICE · 中美印分散', d:[3,4,3,2,4,3,3],
+    note:'供给分散+化纤替代+中国储备扭曲,框架排名偏低,但中美贸易事件可制造短期高弹性。', cn:false,
+    policy:{ tool:'印度 MSP 最低收购价 · 美国 Marketing Loan · 中方储备棉', threshold:'印度 MSP 年涨幅 ~5-7% · 美 Loan Rate 52¢/磅 托底', dir:'floor', last:'2024 印度 MSP +5-7%(选举年)· 美国无触发 Loan' },
+    strategy:'纺织终端需求弱+化纤替代+中美分散 → 框架评分偏低合理。中美关税事件是唯一高弹性窗口。策略:贴近 8 月 USDA 报告布局做多尾部期权(棉质+收获季双叠)。',
+    hormuz:{ delta:1, tier:'weak', mech:'化纤(聚酯)成本飙升 → 棉花价比替代优势回归,但纺织终端需求同时被原油通胀压制,净影响偏中性' } },
+
+  { code:'OJ', name:'ICE 橙汁', tag:'ICE · 佛州+巴西', d:[5,5,5,4,1,1,1],
+    note:'框架总分中段,但 D6 极薄持仓 → 事件触发涨停板成常态。佛州黄龙病已结构性破坏供给。', cn:false,
+    policy:{ tool:'佛州黄龙病应急补贴(生产端)', threshold:'无价格管制', dir:'none', last:'2023 佛州 $30M 应急拨款救助果农;无出口/进口管制' },
+    strategy:'薄合约 + 产能毁灭 + 无替代 = 事件型高弹性。不要用宏观框架看,要用飓风路径预测+佛州黄龙病扩散率看。短线事件驱动 > 长期趋势。仓位极小(账户 1-3%),拿尾部不拿基本面。',
+    hormuz:{ delta:0, tier:'weak', mech:'基本无关联,价格主要由佛州病害和飓风驱动' } },
+
+  { code:'P', name:'BMD/DCE 棕榈油', tag:'BMD · 印马 85%', d:[5,4,4,2,5,4,3],
+    note:'印尼 DMO/出口禁令是政策手枪。EUDR 长期减分需求。与豆/菜油价差结构是主战场。', cn:false,
+    policy:{ tool:'印尼 DMO+DPO+出口税阶梯 · 马来 B20 生柴 · 欧盟 EUDR', threshold:'CPO 现货 >$1000/吨 强化 DMO;出口税分 11 档至 $288/吨', dir:'ceiling', last:'2022.4 印尼全面禁运 3 周;2024 多次调整 DMO 配比 1:4→1:6' },
+    policyDetail:{
+      mechanism:'印尼 DMO (Domestic Market Obligation) 要求出口商每出口 1 吨必须先以政府指导价 (DPO = Domestic Price Obligation, ~RM 9300/吨) 向国内市场供给一定比例(2024 年 1:6,即出口 1 吨前需向国内供应 6 吨),抑制国内食用油通胀。出口税 Pungutan Ekspor 分 11 档,随 CPO 参考价阶梯递增,最高 $288/吨。马来西亚 B20 生柴强制混合(2024)+印尼 B40 计划拉动国内消费。欧盟 EUDR (2025.12 生效) 要求零毁林证明,合规成本抬升出口壁垒。',
+      history:['2022.4.28 印尼总统 Jokowi 突发全面禁运(含 CPO/棕榈仁油/RBD),BMD 棕榈一周内 -20%','2022.5.23 解除禁运但加强 DMO 至 1:5','2023.Q4 DMO 降至 1:4 宽松','2024.1 DMO 再升至 1:6 应对斋月需求','2024.12 EUDR 延期一年至 2025.12'],
+      monitor:'GAPKI 月度库存与出口 · MPOB 月度数据(毛棕油库存) · 印尼参考价 HPE 月度调整 · 印尼食用油国内零售价 · 欧盟反补贴调查'
+    },
+    strategy:'印尼 DMO 是政策手枪,随时可击发。CPO > 4500 林吉特/吨阈值是历史 DMO 加强/禁运线。三油板块共振 → 用棕榈空+豆油多捕捉政策反转前夕。当前阶段应做波段不做趋势。监控指标:印尼斋月前 DMO 调整、欧盟 EUDR 细则落地、印度进口量月度数据。',
+    hormuz:{ delta:3, tier:'direct', mech:'原油飙升→生柴需求 + 印尼自用优先(B40 加速) + 马来/印尼→欧洲须经红海(若连锁封锁)+亚洲买家集中补库印棕' } },
+
+  { code:'RS', name:'ICE 加拿大油菜籽', tag:'ICE · 加拿大独大', d:[5,4,4,1,5,3,3],
+    note:'加拿大近垄断北美出口。中加反倾销+欧盟 EUDR 是政策双轴。三油价差显著弹性源。', cn:false,
+    policy:{ tool:'中方对加菜籽油反倾销 · 欧盟 EUDR · 美国 45Z', threshold:'2025.3 中方对加菜籽油 +100% 关税生效', dir:'ceiling', last:'2024.9 中方反倾销立案 → 2025.3 加征关税;加拿大报复加征美钢 25%' },
+    policyDetail:{
+      mechanism:'中国商务部 2024.9 对加拿大原产菜籽油发起反倾销调查,2025.3.20 决定征收最高 100% 反倾销税。加方随后宣布对美国钢铝报复性关税。欧盟 EUDR 合规要求 2025.12 对进口菜籽建立毁林证明链。美国 45Z 对本土压榨的菜籽油生柴给予税抵,间接挤压加拿大出口。',
+      history:['2019.3 中加孟晚舟事件后首轮菜籽贸易冻结(Richardson/Viterra 禁令)','2024.9 中方启动反倾销调查,加菜籽 5% 跳空下跌','2025.3 100% 关税落地,ICE 菜籽当日 -8%,之后 1 个月结构性下移 15%','2025.4 中国采购转向澳大利亚/俄罗斯/乌克兰菜籽填补缺口'],
+      monitor:'加拿大统计局周度商业库存 · 中方菜籽油进口月度数据(看替代来源) · 加美贸易摩擦新闻 · 欧盟 EUDR 合规细则'
+    },
+    strategy:'中加政治定价器。关税一旦加征后反向解除是重大催化,但时间表不可控。策略:欧盟 EUDR 合规 + 中加税率双轴驱动 → 买跨(长期宽跨式)做非线性。不赌方向赌方差。监控信号:加总理竞选周期、中加经贸部长会晤节奏。',
+    hormuz:{ delta:2, tier:'indirect', mech:'生柴需求上行(原油飙) + 欧洲菜油补库挤占出口份额 + 加拿大太平洋/大西洋港运输保险上浮' } },
+
+  { code:'M', name:'DCE 豆粕', tag:'DCE · 中国蛋白入口', d:[4,4,3,4,4,5,4],
+    note:'中国进口 91% 大豆 → 豆粕是地缘+汇率传导终端。生猪存栏周期叠加放大季节弹性。', cn:true,
+    policy:{ tool:'中储粮大豆轮储拍卖 · 饲料替代指引 · 低蛋白饲料标准', threshold:'豆粕现货 >4000 元/吨 触发国储大豆加量拍卖', dir:'ceiling', last:'2024.Q3-Q4 中储粮多次组织进口大豆拍卖 ~50 万吨/次' },
+    policyDetail:{
+      mechanism:'中储粮大豆轮储是核心政策工具,进口大豆储备 ~2000 万吨量级,每季度可组织 50-200 万吨拍卖以压制油厂挺价。2024 版《饲料用豆粕减量替代三年行动方案》继续推进,目标 2025 年饲料蛋白利用率 +1.5pp,间接压制豆粕需求增长。低蛋白饲料标准通过国标形式推进(猪料粗蛋白降至 13%,禽料降至 16%)。',
+      history:['2022.4 豆粕现货突破 5000,中储粮启动进口大豆拍卖 70 万吨/次','2023.3 美豆进口受阻期,中储粮加密拍卖频率至每周','2024.Q3 中美贸易预期恶化,提前释放储备平稳心理','2024.12 农业部重申"低蛋白饲料"路径,强化需求端预期管理'],
+      monitor:'中储粮官网拍卖公告 · 张家港/黄埔油厂豆粕库存周报 · 海关总署大豆进口月度数据 · 饲料工业协会月度产量'
+    },
+    strategy:'进口大豆是汇率+地缘+美豆天气传导末端。抛储加量压上行,人民币贬值托价。策略:套保视角关注 M01-M05 跨月,现货端跟进猪料需求节奏。期权维度注意豆粕 vega 偏薄,不宜裸买期权,组合结构更稳。',
+    hormuz:{ delta:2, tier:'indirect', mech:'中国是东北亚最大大豆消费 → 原油飙+航运保险上升直接抬升到岸成本 + 美湾/巴西→东亚航线溢价' } },
+
+  { code:'OI', name:'CZCE 菜籽油', tag:'CZCE · 中加敏感', d:[4,3,3,1,5,3,4],
+    note:'中加关系是显性政治风险变量。储备投放节奏使政策弹性远高于供需基本面。', cn:true,
+    policy:{ tool:'国储菜油抛售 · 对加反倾销 · 进口源切换', threshold:'现货 >10000 元/吨 触发密集抛储(历史经验)', dir:'ceiling', last:'2024 多次 5-10 万吨批次抛储;2025.3 对加菜油加征 100% 关税' },
+    policyDetail:{
+      mechanism:'中储粮菜籽油储备 200+ 万吨级别(2015 临储退出后转为商业+政策双轨)。抛储频次取决于 CPI 食品项与菜油现货价格。对加反倾销关税导致进口结构被动切换至澳洲/俄罗斯/乌克兰,短期进口链紧张。沿海四大油厂(中粮、路易达孚、丰益、嘉吉)压榨利润倒挂时政策通常以投放缓解。',
+      history:['2022.Q2 俄乌冲突后葵花籽油断供 → 菜油跳涨至 13000 → 中储粮抛储 5 万吨/批次共 10 轮','2024.Q3 预期中加反倾销叠加国内新作减产 → 现货 >10500 → 抛储 8 万吨','2025.3 中加关税落地 → 进口源切换至俄乌 → 基差短期冲高后结构性下行','2025.Q2 四大油厂菜籽到港量集中释放,基差收敛'],
+      monitor:'中储粮官网抛储公告 · 四大油厂周度菜籽菜油库存 · CPI 食品价格月度数据 · 澳洲/俄罗斯菜籽到港数据'
+    },
+    strategy:'中加反倾销关税已落地,菜油供需端重塑——替代豆棕的需求从政治敏感切换到成本结构。做空前先看进口源是否切换到澳俄乌。波段交易>趋势交易。M01-OI01 跨品种价差是更稳工具。',
+    hormuz:{ delta:2, tier:'indirect', mech:'油脂板块共振 + 欧洲菜油紧张外溢 + 中国加大替代进口的汇率与运费敏感度' } },
+
+  { code:'SR', name:'CZCE 白糖', tag:'CZCE · 进口配额+国储', d:[4,3,3,3,5,3,2],
+    note:'国储+进口配额双轴扭曲价格发现。框架适用于事件预判但日常择时易被政策反向打脸。', cn:true,
+    policy:{ tool:'进口配额 194.5 万吨+配额外关税 · 国储糖 600-800 万吨 · 糖浆预拌粉监管', threshold:'历史抛储触发线 ~6800-7000 元/吨;收储托底 ~5500', dir:'both', last:'2023.9 现货 >7200 启动抛储 70 万吨;2024.3 糖浆进口监管收紧' },
+    policyDetail:{
+      mechanism:'进口配额制度:每年 194.5 万吨配额内 50% 关税(约 3100 元/吨),配额外 50%+50% 附加关税(已降为 35%)。国家糖储 600-800 万吨规模,由中糖协与发改委协同调度。糖浆/预拌粉原料走非配额通道曾是 2019-23 价格扭曲源,2024.3 海关总署与食药监重拳打击超范围进口。广西/云南甘蔗主产区有地方收储托底价 ~500-520 元/吨原料蔗。',
+      history:['2017 配额外保障措施启动,45% 附加关税 3 年(2020 到期降为 35%)','2023.9 巴西减产+印度禁运推 SR 现货破 7200,中糖协启动抛储 70 万吨','2024.3 海关总署对糖浆/预拌粉 HS 编码重新定义,堵住绕道通道','2024.Q4 广西新作压榨提前,基差走弱'],
+      monitor:'中糖协周报(产销率/库存) · 海关总署白糖+糖浆进口数据 · 郑商所仓单 · 巴西 UNICA 数据(外盘传导)'
+    },
+    strategy:'国储+配额双向开关决定区间震荡。核心策略:跨式期权,6800 卖看涨、5500 卖看跌,吃时间价值。核心风险:印度出口政策反转+巴西雷亚尔极端变动使区间跳破。跨年持仓慎——糖浆监管是黑天鹅变量。更稳的表达:SR01-SR05 跨期做 contango 扩大/收窄。',
+    hormuz:{ delta:2, tier:'indirect', mech:'全球糖价跟外盘 SB 上行,但国储抛售加码部分对冲。净 delta +2' } },
+
+  { code:'CF', name:'CZCE 棉花', tag:'CZCE · 新疆 95%', d:[4,3,3,2,5,3,3],
+    note:'供给极度集中于新疆,但储备体量厚实+需求与化纤替代弱化弹性传导。', cn:true,
+    policy:{ tool:'国储棉收抛 · 进口滑准税配额 89.4 万吨 · 目标价格补贴', threshold:'抛储触发 ~17000 元/吨 · 收储底价 ~13600 · 目标价格 18600/吨(2024-26)', dir:'both', last:'2023 现货 >17500 启动抛储;2024-26 目标价格确定 18600 元/吨' },
+    policyDetail:{
+      mechanism:'三层政策:(1) 棉农目标价格补贴,2024-26 年新疆 18600 元/吨,市场价差由中央财政补贴;(2) 滑准税进口配额 89.4 万吨,税率随国内价上下浮动(内外价差大时税率降至 5%,价差小时升至 40%);(3) 国储棉常年规模 200-400 万吨,抛储通常在 17000+ 启动、13600 以下转为收储。新疆"三丝棉"质量管控是隐性政策变量。',
+      history:['2014-16 累计抛储 600 万吨以消化 2011-13 高价收储积压','2023.6 中美关税再平衡预期+下游纺织去库结束 → 抛储 50 万吨','2024.Q1 新疆兵团产量创新高 → 目标价格补贴支出扩大','2024.Q4 滑准税下调至 5% 以纾解下游原料紧张'],
+      monitor:'中国储备棉信息系统(cncotton.com) · 滑准税公告 · 新疆轧花厂周度库存 · 海关棉花纱进口数据'
+    },
+    strategy:'目标价格 18600 已基本托底,但新疆产区产量稳定 → 上行空间有限。做多需等中美事件或印度出口政策放松。跨期结构(CF501-CF505)是更安全的表达。长期看,纺织订单回流中国与否是更大变量,框架未覆盖此需求端。',
+    hormuz:{ delta:1, tier:'weak', mech:'化纤替代上升部分对冲;纺织出口需求受原油通胀间接压制' } },
+
+  { code:'AP', name:'CZCE 苹果', tag:'CZCE · 国内独有', d:[4,5,3,4,2,2,1],
+    note:'框架总分偏低,但 D2 天气是单点炸药桶——清明前后冻害一日决定全年价格区间。', cn:true,
+    policy:{ tool:'地方政府霜冻农业保险 · 无国家直接价格干预', threshold:'无价格线', dir:'none', last:'陕西/山东地方保险覆盖花期冻害;无国储/无抛储机制' },
+    strategy:'清明前后 10 天是年度 1 次的关键窗口。霜冻确认 → 产量下调 → 期货跳变。其他时段都是震荡。策略:清明前 3 周布局 2 倍仓位看涨期权(外虚),有霜冻兑现就平仓。仓位小(2-3%)、赔率高、胜率低的结构。',
+    hormuz:{ delta:0, tier:'weak', mech:'国内孤品,基本无外盘传导' } },
+
+  { code:'LH', name:'DCE 生猪', tag:'DCE · 国内独有', d:[5,1,3,3,4,3,1],
+    note:'弹性源于产能周期非天气。能繁母猪存栏+疫病+储备肉投放是三轴。框架适配度偏低。', cn:true,
+    policy:{ tool:'中央+省级储备肉 · 猪粮比预警机制 · 能繁母猪存栏目标', threshold:'猪粮比<5 收储 · >9 抛储 · 能繁母猪正常保有量 3900 万头', dir:'both', last:'2024.Q1 多省抛储 + 中央三次冻猪收储;2024.5 能繁母猪目标下调至 3900 万头' },
+    policyDetail:{
+      mechanism:'两级储备体系:中央储备肉(冻猪肉)由中储肉类管理总公司运营,规模估计 ~10-15 万吨;省级储备更分散,每省 0.5-3 万吨级别。猪粮比 (猪价/玉米价) 是核心预警指标,<5:1 触发收储,>9:1 触发抛储。2024.5 能繁母猪正常保有量从 4100 万头下调至 3900 万头,意味着官方默认产能下限下移。农业农村部月度监测 4000 个监测点。',
+      history:['2018.Q3-2019 非洲猪瘟导致能繁母猪锐减 40% → LH 期货 2021.1 上市即高位','2021.6-2022.3 连续 10 批次中央冻猪收储共约 30 万吨','2022.9-2023.3 猪价冲高后连续抛储 6 批次','2024.5 能繁母猪目标下调 → 政策对产能的容忍度结构性下移','2024.11 全国平均猪价跌破 16 元/公斤,地方开启省级收储'],
+      monitor:'农业农村部月度能繁母猪存栏 · 发改委猪粮比周度公告 · 全国冷鲜/冻品周度出库数据 · Mysteel 周度屠宰量'
+    },
+    strategy:'产能周期>天气>政策>金融。能繁母猪下调到 3900 万头 → 长期供需拐点。短期猪粮比 5/9 两端是政策套利区。策略:做多前看仔猪价先行,做空看能繁回升拐点。跨期(LH01-LH05)比单边更重要——季节性肌理清晰。',
+    hormuz:{ delta:0, tier:'weak', mech:'国内闭环定价,饲料成本(豆粕、玉米)间接传导但非主导' } },
+
+  { code:'CJ', name:'CZCE 红枣', tag:'CZCE · 国内独有', d:[4,4,3,4,2,1,1],
+    note:'D6 持仓极薄,主力席位影响大于基本面。事件驱动型品种,框架仅供方向参考。', cn:true,
+    policy:{ tool:'无国家储备 · 无价格干预', threshold:'纯市场化定价', dir:'none', last:'产业政策仅限于新疆地方种植补贴,无任何价格触发机制' },
+    strategy:'薄合约+单一主产区+主力席位影响 → 事件驱动型。纯技术面+主力持仓变化,基本面只做背景。仓位控制优先,不是策略品种。如果一定要做,等仓单同比下降 30%+ 或新疆灾害确认后跟随主力。',
+    hormuz:{ delta:0, tier:'weak', mech:'国内特产品种,无地缘传导' } },
+];
+
+// Tier classification
+function tier(t) {
+  if (t >= 28) return { label: 'A+', cls: 'tier-A' };
+  if (t >= 25) return { label: 'A',  cls: 'tier-A' };
+  if (t >= 22) return { label: 'B',  cls: 'tier-B' };
+  if (t >= 18) return { label: 'C',  cls: 'tier-C' };
+  return { label: 'D', cls: 'tier-D' };
+}
+
+// ============ TABLE RENDER + SORT ============
+const tbody = document.querySelector('#scoreTable tbody');
+
+// 预计算总分/梯队
+products.forEach(p => {
+  p.total = p.d.reduce((a,b)=>a+b, 0);
+  const t = tier(p.total);
+  p.tier = t.label;
+  p._tierCls = t.cls;
+});
+
+// 梯队排序权重(A+ 最高)
+const tierRank = { 'A+':5, 'A':4, 'B':3, 'C':2, 'D':1 };
+
+// 排序状态
+let sortState = { col: 'total', dir: 'desc' };
+// 当前选中品种(用索引)
+let selectedIdx = -1;
+
+function compareProducts(a, b) {
+  let va, vb;
+  const c = sortState.col;
+  if (c === 'name') { va = a.name; vb = b.name; }
+  else if (c === 'total') { va = a.total; vb = b.total; }
+  else if (c === 'tier')  { va = tierRank[a.tier]; vb = tierRank[b.tier]; }
+  else if (c.startsWith('d')) {
+    const idx = parseInt(c.slice(1));
+    va = a.d[idx]; vb = b.d[idx];
+  }
+  if (va < vb) return sortState.dir === 'asc' ? -1 : 1;
+  if (va > vb) return sortState.dir === 'asc' ? 1 : -1;
+  // tie breaker: 总分降序
+  return b.total - a.total;
+}
+
+function renderTable() {
+  // 创建带原始索引的副本并排序
+  const sorted = products.map((p, i) => ({ p, i })).sort((x, y) => compareProducts(x.p, y.p));
+  tbody.innerHTML = '';
+  sorted.forEach(({ p, i }) => {
+    const cells = p.d.map(s => `<td class="score-cell s${s}">${s}</td>`).join('');
+    const cnBadge = p.cn ? '<span class="badge-cn">CN</span>' : '';
+    const activeCls = (i === selectedIdx) ? 'active' : '';
+    tbody.insertAdjacentHTML('beforeend', `
+      <tr data-i="${i}" class="${activeCls}">
+        <td class="l"><span class="product-name">${p.name}</span><span class="product-tag">${p.code}</span>${cnBadge}</td>
+        ${cells}
+        <td class="total-cell">${p.total}</td>
+        <td class="tier-cell ${p._tierCls}">${p.tier}</td>
+      </tr>
+    `);
+  });
+  // 更新列头指示器
+  document.querySelectorAll('#scoreTable th.sortable').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.sort === sortState.col) {
+      th.classList.add('sort-' + sortState.dir);
+    }
+  });
+}
+
+// 列头点击切换排序
+document.querySelectorAll('#scoreTable th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.sort;
+    if (sortState.col === col) {
+      // 同列切换方向
+      sortState.dir = (sortState.dir === 'desc') ? 'asc' : 'desc';
+    } else {
+      // 新列:name 默认 asc,其他默认 desc
+      sortState.col = col;
+      sortState.dir = (col === 'name') ? 'asc' : 'desc';
+    }
+    renderTable();
+  });
+});
+
+// ============ UPDATE SELECTION (radar + policy) ============
+const dirLabels = { floor:'托价 FLOOR', ceiling:'压价 CEILING', both:'双向 BOTH', none:'无干预 NONE' };
+function updateSelection(i) {
+  selectedIdx = i;
+  // 高亮当前行(表格可能因排序重排)
+  document.querySelectorAll('#scoreTable tbody tr').forEach(r => {
+    r.classList.toggle('active', parseInt(r.dataset.i) === i);
+  });
+  const p = products[i];
+  // Radar
+  radarChart.data.datasets[0].data = p.d;
+  radarChart.update();
+  document.getElementById('radarName').textContent = p.name;
+  document.getElementById('radarTag').textContent = p.tag;
+  const t = tier(p.total);
+  document.getElementById('radarScore').innerHTML = `总分: <b>${p.total}</b>/35 · 梯队 <b>${t.label}</b>`;
+  document.getElementById('radarNote').textContent = p.note;
+  // Policy
+  const pol = p.policy;
+  const card = document.getElementById('policyCard');
+  const tag = document.getElementById('policyDirTag');
+  card.classList.remove('dir-floor','dir-ceiling','dir-both','dir-none');
+  tag.classList.remove('dir-floor','dir-ceiling','dir-both','dir-none');
+  card.classList.add('dir-' + pol.dir);
+  tag.classList.add('dir-' + pol.dir);
+  tag.textContent = dirLabels[pol.dir];
+  document.getElementById('policyTool').textContent = pol.tool;
+  document.getElementById('policyThreshold').textContent = pol.threshold;
+  document.getElementById('policyLast').textContent = pol.last;
+
+  // Policy detail 展开区
+  const expandBtn = document.getElementById('policyExpandBtn');
+  const detailBox = document.getElementById('policyDetail');
+  detailBox.classList.remove('open');
+  expandBtn.classList.remove('open');
+  if (p.policyDetail) {
+    expandBtn.style.display = 'inline-block';
+    document.getElementById('pdMechanism').textContent = p.policyDetail.mechanism;
+    const histUl = document.getElementById('pdHistory');
+    histUl.innerHTML = p.policyDetail.history.map(h => '<li>' + h + '</li>').join('');
+    document.getElementById('pdMonitor').textContent = p.policyDetail.monitor;
+  } else {
+    expandBtn.style.display = 'none';
+  }
+
+  // Strategy
+  document.getElementById('strategyText').textContent = p.strategy || '—';
+}
+
+// 展开按钮事件
+document.getElementById('policyExpandBtn').addEventListener('click', () => {
+  const btn = document.getElementById('policyExpandBtn');
+  const box = document.getElementById('policyDetail');
+  btn.classList.toggle('open');
+  box.classList.toggle('open');
+});
+
+// 事件委托:表格行点击
+tbody.addEventListener('click', (e) => {
+  const tr = e.target.closest('tr');
+  if (!tr || !tr.dataset.i) return;
+  updateSelection(parseInt(tr.dataset.i));
+});
+
+// 初始默认选中:总分最高的品种
+const defaultIdx = products.map((p,i)=>({t:p.total, i})).sort((a,b)=>b.t-a.t)[0].i;
+selectedIdx = defaultIdx;
+renderTable();
+
+// ============ CHART COLORS (从 CSS 变量读取,随色系切换) ============
+const _cs = getComputedStyle(document.documentElement);
+const CC = {
+  gold:       _cs.getPropertyValue('--gold').trim()        || '#8a6818',
+  goldSoft:   _cs.getPropertyValue('--gold-soft').trim()   || '#b08738',
+  crimson:    _cs.getPropertyValue('--crimson').trim()     || '#9a3028',
+  amber:      _cs.getPropertyValue('--amber').trim()       || '#a85c18',
+  jade:       _cs.getPropertyValue('--jade').trim()        || '#2c6a4a',
+  slate:      _cs.getPropertyValue('--slate').trim()       || '#3d5c80',
+  textPrimary:_cs.getPropertyValue('--text-primary').trim()|| '#1a2a44',
+  textSecond: _cs.getPropertyValue('--text-secondary').trim()|| '#4a5c78',
+  textMuted:  _cs.getPropertyValue('--text-muted').trim()  || '#8090a8',
+  bgPanel:    _cs.getPropertyValue('--bg-panel').trim()    || '#ffffff',
+  border:     _cs.getPropertyValue('--border').trim()      || '#c5d4e3',
+  gridLine:   'rgba(26, 42, 68, 0.08)',
+  angleLine:  'rgba(26, 42, 68, 0.15)',
+  radarFill:  'rgba(138, 104, 24, 0.15)',
+  bubbleFillGold: 'rgba(138, 104, 24, 0.55)',
+  bubbleFillRed:  'rgba(154, 48, 40, 0.55)',
+};
+
+// ============ RADAR CHART ============
+const dimLabels = ['D1 供给集中', 'D2 天气敏感', 'D3 库销紧度', 'D4 替代刚性', 'D5 政策干预', 'D6 金融化深', 'D7 地缘物流'];
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+let radarChart = new Chart(radarCtx, {
+  type: 'radar',
+  data: {
+    labels: dimLabels,
+    datasets: [{
+      label: '弹性评分',
+      data: products[selectedIdx].d,
+      backgroundColor: CC.radarFill,
+      borderColor: CC.gold,
+      borderWidth: 2,
+      pointBackgroundColor: CC.gold,
+      pointBorderColor: CC.bgPanel,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    scales: {
+      r: {
+        suggestedMin: 0,
+        suggestedMax: 5,
+        ticks: { display: false, stepSize: 1 },
+        grid: { color: CC.gridLine },
+        angleLines: { color: CC.angleLine },
+        pointLabels: {
+          color: CC.textSecond,
+          font: { size: 10, family: 'IBM Plex Mono' }
+        }
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: CC.bgPanel,
+        borderColor: CC.gold,
+        borderWidth: 1,
+        titleColor: CC.gold,
+        bodyColor: CC.textPrimary,
+        titleFont: { family: 'IBM Plex Mono' },
+        bodyFont: { family: 'IBM Plex Mono' },
+      }
+    }
+  }
+});
+
+// 初始同步:radar chart 已存在,更新 policy 卡片 + 雷达 meta
+updateSelection(selectedIdx);
+
+// Row click 已通过事件委托处理
+
+// ============ BAR CHART · 总分排序 ============
+const sorted = [...products].sort((a,b)=>b.total - a.total);
+const barCtx = document.getElementById('barChart').getContext('2d');
+const barChart = new Chart(barCtx, {
+  type: 'bar',
+  data: {
+    labels: sorted.map(p => p.name.replace(/^(CBOT|ICE|BMD\/DCE|DCE|CZCE|NYBOT)\s*/, '')),
+    datasets: [{
+      label: '弹性总分',
+      data: sorted.map(p => p.total),
+      backgroundColor: sorted.map(p => {
+        if (p.total >= 28) return CC.crimson;
+        if (p.total >= 25) return CC.amber;
+        if (p.total >= 22) return CC.gold;
+        if (p.total >= 18) return CC.jade;
+        return CC.slate;
+      }),
+      borderColor: CC.bgPanel,
+      borderWidth: 1,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: '弹性总分排序 · 颜色 = 梯队',
+        color: CC.gold,
+        font: { size: 13, family: 'Noto Serif SC', weight: 600 },
+        padding: { bottom: 14 }
+      },
+      tooltip: {
+        backgroundColor: CC.bgPanel,
+        borderColor: CC.gold,
+        titleColor: CC.gold,
+        bodyColor: CC.textPrimary,
+        borderWidth: 1,
+        callbacks: {
+          afterLabel: (ctx) => `梯队: ${sorted[ctx.dataIndex].tier}`
+        }
+      }
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+        max: 35,
+        grid: { color: CC.gridLine },
+        ticks: { color: CC.textSecond, font: { family: 'IBM Plex Mono', size: 10 } }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { color: CC.textPrimary, font: { family: 'Noto Serif SC', size: 11 } }
+      }
+    }
+  }
+});
+
+// ============ SCATTER · 弹性 vs 拥挤倒数(D6 反向)============
+const scatterCtx = document.getElementById('scatterChart').getContext('2d');
+const scatterData = products.map(p => ({
+  x: p.total,
+  y: 6 - p.d[5],            // 拥挤度倒数 (D6 反向)
+  r: p.cn ? 8 : 7,
+  label: p.name.replace(/^(CBOT|ICE|BMD\/DCE|DCE|CZCE|NYBOT)\s*/, ''),
+  cn: p.cn,
+}));
+const scatterChart = new Chart(scatterCtx, {
+  type: 'bubble',
+  data: {
+    datasets: [
+      {
+        label: '海外品种',
+        data: scatterData.filter(d => !d.cn),
+        backgroundColor: CC.bubbleFillGold,
+        borderColor: CC.gold,
+        borderWidth: 1.5,
+      },
+      {
+        label: '国内品种 (CN)',
+        data: scatterData.filter(d => d.cn),
+        backgroundColor: CC.bubbleFillRed,
+        borderColor: CC.crimson,
+        borderWidth: 1.5,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: true,
+        text: '弹性 × 流动性 矩阵 · 右上 = 机会区',
+        color: CC.gold,
+        font: { size: 13, family: 'Noto Serif SC', weight: 600 },
+        padding: { bottom: 14 }
+      },
+      legend: {
+        labels: { color: CC.textSecond, font: { family: 'IBM Plex Mono', size: 10 } }
+      },
+      tooltip: {
+        backgroundColor: CC.bgPanel,
+        borderColor: CC.gold,
+        titleColor: CC.gold,
+        bodyColor: CC.textPrimary,
+        borderWidth: 1,
+        callbacks: {
+          label: (ctx) => {
+            const d = ctx.raw;
+            return `${d.label} · 总分 ${d.x} · 拥挤反向 ${d.y}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        title: { display: true, text: '弹性总分 →', color: CC.textSecond, font: { family: 'IBM Plex Mono', size: 10 } },
+        min: 18, max: 32,
+        grid: { color: CC.gridLine },
+        ticks: { color: CC.textSecond, font: { family: 'IBM Plex Mono', size: 10 } }
+      },
+      y: {
+        title: { display: true, text: '↑ 拥挤度反向(越高 = 持仓越薄,事件放大)', color: CC.textSecond, font: { family: 'IBM Plex Mono', size: 10 } },
+        min: 0, max: 6,
+        grid: { color: CC.gridLine },
+        ticks: { color: CC.textSecond, font: { family: 'IBM Plex Mono', size: 10 } }
+      }
+    }
+  }
+});
+
+// ============ POLICY SPECTRUM ============
+const dirOrder = [
+  { key:'floor',   label:'托价 · FLOOR',     sub:'POLICY PUT — 政策撑底' },
+  { key:'ceiling', label:'压价 · CEILING',   sub:'POLICY CAP — 政策压顶' },
+  { key:'both',    label:'双向 · BOTH',      sub:'TWO-SIDED — 可反转' },
+  { key:'none',    label:'无干预 · NONE',    sub:'FREE MARKET — 无缓冲' },
+];
+const spectrumWrap = document.getElementById('policySpectrum');
+dirOrder.forEach(d => {
+  const items = products.filter(p => p.policy.dir === d.key);
+  const col = document.createElement('div');
+  col.className = `spectrum-col col-${d.key}`;
+  col.innerHTML = `
+    <div class="spectrum-head">
+      <div>
+        <div class="dir-name">${d.label}</div>
+        <div class="dir-sub">${d.sub}</div>
+      </div>
+      <div class="dir-count">${items.length} / ${products.length}</div>
+    </div>
+    ${items.map((p, idx) => {
+      const gi = products.indexOf(p);
+      return `<div class="spectrum-item" data-gi="${gi}">
+        <div class="sp-name">${p.name}${p.cn?'<span class="sp-cn">CN</span>':''}</div>
+        <div class="sp-thr">${p.policy.threshold}</div>
+      </div>`;
+    }).join('')}
+  `;
+  spectrumWrap.appendChild(col);
+});
+// Clicking spectrum item syncs radar
+document.querySelectorAll('.spectrum-item').forEach(el => {
+  el.addEventListener('click', () => {
+    const gi = parseInt(el.dataset.gi);
+    const row = document.querySelector(`#scoreTable tbody tr[data-i="${gi}"]`);
+    if (row) {
+      switchTab('matrix', false);
+      row.click();
+      setTimeout(() => row.scrollIntoView({ behavior:'smooth', block:'center' }), 120);
+    }
+  });
+});
+
+// ============ SCENARIO · HORMUZ GRID ============
+const scenarioTiers = {
+  direct:   { title:'直接受益', sub:'OIL-LINKED · DIRECT PASS-THROUGH', delta:'Δ +3' },
+  indirect: { title:'间接受益', sub:'FERTILIZER · FREIGHT · ETHANOL ARB', delta:'Δ +2 / +1' },
+  weak:     { title:'弱相关',   sub:'SUBSTITUTION COMPRESSED · DOMESTIC LOOP', delta:'Δ +1 / 0' }
+};
+const scenarioGridEl = document.getElementById('scenarioGrid');
+if (scenarioGridEl) {
+  const tierMap = { direct: [], indirect: [], weak: [] };
+  products.forEach(p => {
+    if (p.hormuz && tierMap[p.hormuz.tier]) tierMap[p.hormuz.tier].push(p);
+  });
+  Object.values(tierMap).forEach(arr => arr.sort((a,b) => b.hormuz.delta - a.hormuz.delta));
+  scenarioGridEl.innerHTML = Object.entries(scenarioTiers).map(([key, t]) => `
+    <div class="scenario-tier tier-${key}">
+      <div class="scenario-tier-head">
+        <div>
+          <div class="scenario-tier-title">${t.title}</div>
+          <div class="scenario-tier-sub">${t.sub}</div>
+        </div>
+        <span class="scenario-tier-delta">${t.delta}</span>
+      </div>
+      ${tierMap[key].map(p => {
+        const gi = products.indexOf(p);
+        const sign = p.hormuz.delta > 0 ? '+' : '';
+        return `<div class="scenario-item" data-gi="${gi}">
+          <div class="scenario-item-head">
+            <span class="scenario-item-name">${p.name}${p.cn?'<span class="sp-cn">CN</span>':''}</span>
+            <span class="scenario-item-code">Δ ${sign}${p.hormuz.delta}</span>
+          </div>
+          <div class="scenario-item-mech">${p.hormuz.mech}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  `).join('');
+  // 点击跳到矩阵联动
+  document.querySelectorAll('#scenarioGrid .scenario-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const gi = parseInt(el.dataset.gi);
+      const row = document.querySelector(`#scoreTable tbody tr[data-i="${gi}"]`);
+      if (row) {
+        switchTab('matrix', false);
+        row.click();
+        setTimeout(() => row.scrollIntoView({ behavior:'smooth', block:'center' }), 120);
+      }
+    });
+  });
+}
+
+// ============ ENSO · GLOBAL MAP + IMPACT + HISTORY ============
+const ensoRegions = [
+  { id:'sea', name:'东南亚', nameEn:'Southeast Asia', countries:'印尼 · 马来 · 泰国', x:998, y:308, size:28,
+    elnino:{ sig:'drought', climate:'严重干旱 · 高温', yield:'棕榈 −15% ~ −25%', products:['P 棕榈油','RM 罗咖'], dir:'+', note:'1997-98/2015-16 两次超强厄尔尼诺都伴随森林火灾和棕榈减产,历史脚印最清晰的受益区' },
+    lanina:{ sig:'wet', climate:'湿润多雨', yield:'棕榈 +5%', products:['P 棕榈油'], dir:'−', note:'2020-23 三年拉尼娜期 BMD 棕榈区间震荡,需求端主导' },
+    neutral:{sig:'neutral', climate:'接近常态', yield:'中性', products:[], dir:'0', note:'ENSO 信号弱,基本面(库存/出口/印度进口)主导' } },
+  { id:'india', name:'南亚 · 印度', nameEn:'South Asia', countries:'印度 · 巴基斯坦', x:830, y:252, size:26,
+    elnino:{ sig:'drought', climate:'季风减弱 15–20%', yield:'糖 −10% · 小麦 −5%', products:['SB 原糖','ZW 小麦','CT 棉花'], dir:'+', note:'强厄尔尼诺年印度大概率延续糖出口禁令 → SB 价格中期利多最强通道' },
+    lanina:{ sig:'wet', climate:'季风偏强', yield:'糖丰产', products:['SB 原糖'], dir:'−', note:'丰产叠加出口放开 → 短期利空,但库存去化后反弹' },
+    neutral:{sig:'neutral', climate:'季风中性', yield:'基本常态', products:[], dir:'0', note:'政策变量(出口许可/MSP)压过气候信号' } },
+  { id:'easia', name:'东亚 · 华北', nameEn:'East Asia', countries:'华北平原 · 黄淮', x:960, y:180, size:24,
+    elnino:{ sig:'mild', climate:'冬温偏暖 · 降水中性', yield:'冬麦正常', products:['ZW 小麦国内'], dir:'0', note:'中国北方小麦对 ENSO 敏感度中等,政策储备缓冲强' },
+    lanina:{ sig:'drought', climate:'冬季干旱风险', yield:'局部减产', products:[], dir:'0', note:'华北冬麦区干冷,国储体量吸收波动' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'ENSO 对华北作物传导信号弱' } },
+  { id:'seasia_cont', name:'中南半岛', nameEn:'Indochina', countries:'越南 · 泰国 · 缅甸', x:930, y:262, size:22,
+    elnino:{ sig:'drought', climate:'湄公河流域干旱', yield:'越咖 −10% · 泰糖 −15%', products:['RM 罗咖','SB 原糖'], dir:'+', note:'越南咖啡带干旱 · 湄公河水位下降影响灌溉' },
+    lanina:{ sig:'wet', climate:'多雨 · 洪涝风险', yield:'丰产但洪涝', products:['SB 原糖'], dir:'−', note:'泰国稻作/甘蔗湿润利好,但极端洪涝可能损毁' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'波动由政策主导' } },
+  { id:'aus', name:'澳洲东部', nameEn:'Eastern Australia', countries:'昆士兰 · 新南威尔士', x:1080, y:418, size:26,
+    elnino:{ sig:'drought', climate:'东部干旱 · 林火风险', yield:'小麦 −10% ~ −20%', products:['ZW 小麦','CT 棉花'], dir:'+', note:'澳洲是厄尔尼诺年最稳定的减产区之一 · 2018-19 产量降至 30 年低' },
+    lanina:{ sig:'wet', climate:'东部多雨', yield:'小麦丰产', products:['ZW 小麦'], dir:'−', note:'2020-23 三年拉尼娜 · 澳洲小麦连续创纪录' },
+    neutral:{sig:'neutral', climate:'常态', yield:'基本稳定', products:[], dir:'0', note:'ENSO 之外 IOD 印度洋偶极子也强烈影响澳洲' } },
+  { id:'eafrica', name:'东非 · 咖啡', nameEn:'East Africa', countries:'埃塞俄比亚 · 肯亚', x:676, y:318, size:22,
+    elnino:{ sig:'wet', climate:'短雨季增强', yield:'咖啡利好', products:['KC 阿咖(小比例)'], dir:'−', note:'东非阿咖产量比例小,传导至 ICE KC 有限' },
+    lanina:{ sig:'drought', climate:'干旱', yield:'咖啡减产', products:['KC 阿咖'], dir:'+', note:'2020-22 东非大旱 · 埃塞俄比亚减产显著' },
+    neutral:{sig:'neutral', climate:'季节性正常', yield:'稳定', products:[], dir:'0', note:'信号弱' } },
+  { id:'wafrica', name:'西非 · 可可', nameEn:'West Africa', countries:'科特迪瓦 · 加纳', x:578, y:300, size:24,
+    elnino:{ sig:'neutral', climate:'信号较弱', yield:'中性 · 哈马丹风更关键', products:['CC 可可'], dir:'0', note:'西非气候主要受大西洋/Sahel 系统驱动,ENSO 遥相关较弱' },
+    lanina:{ sig:'neutral', climate:'信号较弱', yield:'中性', products:['CC 可可'], dir:'0', note:'2023-24 可可暴涨主因非 ENSO,是西非病害与天气叠加' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'基本面驱动为主' } },
+  { id:'safrica', name:'南非', nameEn:'Southern Africa', countries:'南非 · 赞比亚', x:640, y:398, size:22,
+    elnino:{ sig:'drought', climate:'夏季干旱 · 玉米带受伤', yield:'南非玉米 −20% ~ −30%', products:[], dir:'0', note:'南非玉米国际合约弱 · 但蔗糖减产部分传导全球' },
+    lanina:{ sig:'wet', climate:'多雨', yield:'玉米/糖偏丰', products:[], dir:'0', note:'南半球夏季降水增强' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'' } },
+  { id:'blacksea', name:'黑海 · 乌克兰', nameEn:'Black Sea', countries:'乌克兰 · 俄南 · 罗马尼亚', x:670, y:142, size:26,
+    elnino:{ sig:'mild', climate:'冬季偏暖 · 春雨中性', yield:'小麦基本常态', products:['ZW 小麦'], dir:'0', note:'黑海小麦对 ENSO 遥相关弱 · 主导因素是战争与俄出口配额' },
+    lanina:{ sig:'drought', climate:'春旱风险', yield:'小麦减产风险', products:['ZW 小麦'], dir:'+', note:'冬春季偏干 · 对乌俄冬麦返青期不利' },
+    neutral:{sig:'neutral', climate:'常态', yield:'政策主导', products:[], dir:'0', note:'非 ENSO 敏感区 · 但对全球小麦价格权重大' } },
+  { id:'europe', name:'中欧南欧', nameEn:'Europe', countries:'法 · 德 · 意 · 西', x:580, y:156, size:22,
+    elnino:{ sig:'mild', climate:'冬季偏暖 · 南欧偏湿', yield:'小麦/菜籽正常', products:['RS 菜籽(欧洲)'], dir:'0', note:'欧洲对 ENSO 遥相关弱 · NAO 北大西洋涛动影响更大' },
+    lanina:{ sig:'mild', climate:'信号弱', yield:'基本常态', products:[], dir:'0', note:'' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'EUDR 合规是更强变量' } },
+  { id:'nam_corn', name:'美国玉米带', nameEn:'US Corn Belt', countries:'艾奥瓦 · 伊利诺伊', x:230, y:170, size:28,
+    elnino:{ sig:'mild', climate:'夏季温和 · 冬季偏湿', yield:'玉米/大豆中性偏利', products:['ZC 玉米','ZS 大豆'], dir:'−', note:'厄尔尼诺年美中西部授粉期(7-8 月)通常温和,有利产量' },
+    lanina:{ sig:'drought', climate:'南方干旱 · 北方温和', yield:'大豆减产风险', products:['ZC 玉米','ZS 大豆'], dir:'+', note:'2012 年强拉尼娜叠加美中西干旱 · 玉米/大豆历史性减产' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'' } },
+  { id:'nam_south', name:'美南', nameEn:'US South', countries:'德州 · 堪萨斯 · 密西西比', x:210, y:215, size:24,
+    elnino:{ sig:'wet', climate:'南部湿润 · 冬麦利好', yield:'冬麦 +5% · 棉花中性', products:['ZW 小麦(HRW)','CT 棉花'], dir:'−', note:'厄尔尼诺年美南降雨增加,有利冬麦返青' },
+    lanina:{ sig:'drought', climate:'严重干旱 · 冬麦受伤', yield:'德州棉花 −15%', products:['CT 棉花','ZW 小麦'], dir:'+', note:'2011/2022 拉尼娜年德州干旱严重 · 棉花弃收率高' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'' } },
+  { id:'can', name:'加拿大草原', nameEn:'Canadian Prairies', countries:'萨斯喀彻温 · 阿尔伯塔', x:200, y:110, size:24,
+    elnino:{ sig:'mild', climate:'冬暖春正常', yield:'菜籽/小麦基本常态', products:['RS 菜籽','ZW 小麦'], dir:'0', note:'加拿大对 ENSO 遥相关相对弱' },
+    lanina:{ sig:'drought', climate:'干燥 · 春旱风险', yield:'菜籽减产可能 −10%', products:['RS 菜籽'], dir:'+', note:'2021 年拉尼娜叠加加拿大大旱 · ICE 菜籽创历史新高' },
+    neutral:{sig:'neutral', climate:'常态', yield:'稳定', products:[], dir:'0', note:'' } },
+  { id:'arg', name:'阿根廷潘帕斯', nameEn:'Argentine Pampas', countries:'布宜诺斯 · 科尔多瓦', x:352, y:450, size:26,
+    elnino:{ sig:'wet', climate:'夏季湿润', yield:'大豆/玉米丰产 +10% ~ +15%', products:['ZS 大豆','ZC 玉米'], dir:'−', note:'潘帕斯是厄尔尼诺年最稳定的受益区 · 大豆产量通常利好' },
+    lanina:{ sig:'drought', climate:'严重干旱', yield:'大豆 −20% ~ −40%', products:['ZS 大豆','ZC 玉米'], dir:'+', note:'2022 三年拉尼娜阿根廷大豆历史性减产 · CBOT 大豆 +20%' },
+    neutral:{sig:'neutral', climate:'常态', yield:'正常', products:[], dir:'0', note:'' } },
+  { id:'br_south', name:'巴西南部', nameEn:'Brazil South', countries:'南大河 · 巴拉那', x:388, y:412, size:24,
+    elnino:{ sig:'wet', climate:'多雨 · 洪涝风险', yield:'大豆受损 · 甘蔗压榨受阻', products:['ZS 大豆','SB 原糖'], dir:'+', note:'南巴西是"巴西多雨"的传统受影响区 · 1997-98/2015-16 均有洪涝' },
+    lanina:{ sig:'drought', climate:'干旱', yield:'大豆减产', products:['ZS 大豆','SB 原糖'], dir:'+', note:'南巴西干旱直接打击大豆主产区之一' },
+    neutral:{sig:'neutral', climate:'常态', yield:'正常', products:[], dir:'0', note:'' } },
+  { id:'br_ce', name:'巴西中西部', nameEn:'Brazil CW', countries:'马托格罗索', x:400, y:378, size:24,
+    elnino:{ sig:'mild', climate:'偏干但信号弱', yield:'大豆基本常态', products:['ZS 大豆'], dir:'0', note:'巴西第一大豆州(MT)信号复杂 · 近年研究显示不完全跟随厄尔尼诺干旱模型' },
+    lanina:{ sig:'drought', climate:'播种期偏干', yield:'播种延误风险', products:['ZS 大豆'], dir:'+', note:'近年拉尼娜年 MT 播种窗口偏干' },
+    neutral:{sig:'neutral', climate:'常态', yield:'正常', products:[], dir:'0', note:'' } },
+  { id:'br_ne', name:'巴西东北', nameEn:'Brazil NE', countries:'伯南布哥 · 巴伊亚', x:420, y:340, size:22,
+    elnino:{ sig:'drought', climate:'加剧干旱', yield:'可可/剑麻减产', products:['CC 可可(小比例)'], dir:'0', note:'巴西东北本是半干旱 · 厄尔尼诺加剧 · 与"巴西多雨"常见认知相反' },
+    lanina:{ sig:'wet', climate:'多雨', yield:'正常', products:[], dir:'0', note:'' },
+    neutral:{sig:'neutral', climate:'常态', yield:'正常', products:[], dir:'0', note:'' } },
+  { id:'br_coffee', name:'巴西咖啡带', nameEn:'Brazil Coffee', countries:'米纳斯吉拉斯 · 圣保罗', x:410, y:395, size:22,
+    elnino:{ sig:'mild', climate:'降雨偏多 · 信号混杂', yield:'花期有伤 · 灌浆利好', products:['KC 阿咖'], dir:'0', note:'巴西阿咖主产区对 ENSO 响应不一致 · 1997-98 轻度负,2015-16 中性' },
+    lanina:{ sig:'drought', climate:'干旱', yield:'咖啡减产', products:['KC 阿咖'], dir:'+', note:'2020-21 巴西拉尼娜干旱叠加霜冻 · KC 大涨' },
+    neutral:{sig:'neutral', climate:'常态', yield:'正常', products:[], dir:'0', note:'基本面+霜冻尾部' } },
+  { id:'peru', name:'秘鲁沿海', nameEn:'Peruvian Coast', countries:'秘鲁 · 厄瓜多尔', x:340, y:335, size:20,
+    elnino:{ sig:'wet', climate:'沿岸暴雨 · 冷水上涌抑', yield:'渔业巨挫 · 鱼粉供给紧', products:[], dir:'+', note:'秘鲁鱼粉是水产饲料关键 · 鱼粉紧张间接推高豆粕替代需求' },
+    lanina:{ sig:'drought', climate:'冷水上涌增强', yield:'渔业丰产', products:[], dir:'−', note:'鱼粉供给充足 · 压制水产饲料替代需求' },
+    neutral:{sig:'neutral', climate:'常态', yield:'正常', products:[], dir:'0', note:'' } }
+];
+
+const ensoImpactData = [
+  { code:'P', name:'棕榈油', exch:'BMD/DCE', el:'+ 强利多', la:'− 中性', mech:'印尼/马来干旱 · 产量 −15% 至 −25%', eld:'pos', lad:'zero' },
+  { code:'SB', name:'原糖', exch:'ICE', el:'+ 中利多', la:'− 中性', mech:'印度季风减弱 · 出口禁令延续;巴西南部短期偏空', eld:'pos', lad:'zero' },
+  { code:'KC', name:'阿拉比卡', exch:'ICE', el:'混合', la:'+ 强利多', mech:'巴西咖啡带响应不一;拉尼娜年巴西干旱叠加霜冻风险', eld:'mix', lad:'pos' },
+  { code:'RM', name:'罗布斯塔', exch:'ICE', el:'+ 中利多', la:'− 轻利空', mech:'越南咖啡带干旱;湄公河流域灌溉受限', eld:'pos', lad:'neg' },
+  { code:'ZS', name:'大豆', exch:'CBOT', el:'混合', la:'+ 强利多', mech:'阿根廷受益 vs 巴西南部受伤;拉尼娜对阿根廷毁灭性', eld:'mix', lad:'pos' },
+  { code:'ZC', name:'玉米', exch:'CBOT', el:'− 轻利空', la:'+ 中利多', mech:'厄尔尼诺年美中西温和授粉;拉尼娜年美中西干旱', eld:'neg', lad:'pos' },
+  { code:'ZW', name:'小麦', exch:'CBOT', el:'+ 中利多', la:'+ 轻利多', mech:'澳洲东部干旱减产;印度减产禁运;黑海受战争主导', eld:'pos', lad:'pos' },
+  { code:'CT', name:'棉花', exch:'ICE', el:'+ 轻利多', la:'+ 中利多', mech:'拉尼娜年德州干旱严重;印度季风影响次要', eld:'pos', lad:'pos' },
+  { code:'RS', name:'菜籽', exch:'ICE', el:'− 轻利空', la:'+ 中利多', mech:'加拿大草原对 ENSO 弱;但拉尼娜叠加可致大旱(2021)', eld:'neg', lad:'pos' },
+  { code:'CC', name:'可可', exch:'ICE', el:'○ 中性', la:'○ 中性', mech:'西非对 ENSO 遥相关弱,主要靠大西洋/Sahel 系统', eld:'zero', lad:'zero' },
+  { code:'ZL', name:'豆油', exch:'CBOT', el:'+ 中利多', la:'+ 轻利多', mech:'棕榈替代品压力传导 + 生柴需求结构支撑', eld:'pos', lad:'pos' }
+];
+
+const ensoSigColors = { drought:'#9a3028', hot:'#c78e4f', wet:'#3d5c80', mild:'#2c6a4a', neutral:'#8090a8' };
+const ensoSigLabels = { drought:'干旱 DROUGHT', hot:'高温 HEAT', wet:'多雨 WET', mild:'温和 MILD', neutral:'中性 NEUTRAL' };
+const ensoDirLabels = { '+':'价格 · 利多 +', '−':'价格 · 利空 −', '0':'价格 · 中性' };
+
+let ensoCurrentPhase = 'elnino';
+let ensoSelectedRegionId = null;
+
+const ensoTilesLayer = document.getElementById('ensoRegionTiles');
+const ensoLabelsLayer = document.getElementById('ensoRegionLabels');
+const ensoDetailBox = document.getElementById('ensoRegionDetail');
+
+function renderEnsoTiles() {
+  if (!ensoTilesLayer) return;
+  ensoTilesLayer.innerHTML = '';
+  ensoLabelsLayer.innerHTML = '';
+  ensoRegions.forEach(r => {
+    const data = r[ensoCurrentPhase];
+    const color = ensoSigColors[data.sig];
+    const size = r.size;
+    const isActive = r.id === ensoSelectedRegionId;
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', r.x - size/2);
+    rect.setAttribute('y', r.y - size/2);
+    rect.setAttribute('width', size);
+    rect.setAttribute('height', size);
+    rect.setAttribute('rx', 3);
+    rect.setAttribute('fill', color);
+    rect.setAttribute('fill-opacity', isActive ? '0.95' : '0.82');
+    rect.setAttribute('stroke', isActive ? '#1a2a44' : 'rgba(26,42,68,0.3)');
+    rect.setAttribute('stroke-width', isActive ? '2' : '0.8');
+    rect.setAttribute('class', 'region-tile');
+    rect.setAttribute('data-id', r.id);
+    rect.addEventListener('click', () => selectEnsoRegion(r.id));
+    ensoTilesLayer.appendChild(rect);
+    const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    txt.setAttribute('x', r.x);
+    txt.setAttribute('y', r.y + size/2 + 11);
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('class', 'region-label');
+    txt.textContent = r.name;
+    ensoLabelsLayer.appendChild(txt);
+  });
+}
+
+function selectEnsoRegion(id) {
+  ensoSelectedRegionId = id;
+  const r = ensoRegions.find(x => x.id === id);
+  const data = r[ensoCurrentPhase];
+  const dirColor = data.dir === '+' ? 'var(--crimson)' : (data.dir === '−' ? 'var(--jade)' : 'var(--text-muted)');
+  const productsHtml = data.products && data.products.length
+    ? data.products.map(p => `<span class="rd-product-tag">${p}</span>`).join('')
+    : '<span style="color:var(--text-muted); font-style:italic;">无直接期货合约暴露</span>';
+  ensoDetailBox.innerHTML = `
+    <div class="rd-head">
+      <div>
+        <div class="rd-name">${r.name} <em>${r.nameEn}</em></div>
+        <div class="rd-countries">${r.countries}</div>
+      </div>
+      <span class="rd-signal" style="background:${ensoSigColors[data.sig]}22; color:${ensoSigColors[data.sig]}; border:1px solid ${ensoSigColors[data.sig]}66;">${ensoSigLabels[data.sig]}</span>
+    </div>
+    <div class="rd-body">
+      <div>
+        <div class="rd-col-label">气候影响 · Climate</div>
+        <div class="rd-col-val">${data.climate}</div>
+        <div class="rd-col-label">产量传导 · Yield Delta</div>
+        <div class="rd-col-val">${data.yield}</div>
+      </div>
+      <div>
+        <div class="rd-col-label">价格方向 · Price Direction</div>
+        <div class="rd-col-val" style="color:${dirColor}; font-weight:600;">${ensoDirLabels[data.dir]}</div>
+        <div class="rd-col-label">相关合约 · Contracts</div>
+        <div class="rd-products">${productsHtml}</div>
+      </div>
+    </div>
+    ${data.note ? `<div class="rd-note">▸ ${data.note}</div>` : ''}
+  `;
+  renderEnsoTiles();
+}
+
+// Phase tabs
+document.querySelectorAll('#panel-enso .phase-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#panel-enso .phase-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    ensoCurrentPhase = btn.dataset.phase;
+    const descMap = {
+      elnino: '点击地图上的区域查看该地气候影响与对应品种。2026 H2 预期相位:<b>厄尔尼诺</b>(61% 概率,1/3 为强等级)。',
+      lanina: '拉尼娜相位:东南亚/澳洲湿润、南美干旱、美南干旱——大豆/玉米最受影响。上次三年拉尼娜(2020–23)阿根廷大豆连续减产。',
+      neutral:'中性相位:ENSO 信号弱,波动率降低,基本面(库存/政策/汇率)占主导。'
+    };
+    document.getElementById('ensoPhaseDesc').innerHTML = descMap[ensoCurrentPhase];
+    renderEnsoTiles();
+    if (ensoSelectedRegionId) selectEnsoRegion(ensoSelectedRegionId);
+  });
+});
+
+// Impact table render
+const ensoImpactBody = document.getElementById('ensoImpactBody');
+if (ensoImpactBody) {
+  ensoImpactBody.innerHTML = ensoImpactData.map(d => `
+    <tr data-code="${d.code}">
+      <td><span class="ei-code">${d.code}</span> <span class="ei-name">${d.name}</span></td>
+      <td><span class="imp-exch" style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text-muted);">${d.exch}</span></td>
+      <td><span class="ei-dir ${d.eld}">${d.el}</span></td>
+      <td><span class="ei-dir ${d.lad}">${d.la}</span></td>
+      <td><span class="ei-mech">${d.mech}</span></td>
+    </tr>
+  `).join('');
+  // Click row → jump to matrix tab
+  ensoImpactBody.querySelectorAll('tr').forEach(tr => {
+    tr.addEventListener('click', () => {
+      const code = tr.dataset.code;
+      const gi = products.findIndex(p => p.code === code);
+      if (gi >= 0) {
+        switchTab('matrix', false);
+        const row = document.querySelector(`#scoreTable tbody tr[data-i="${gi}"]`);
+        if (row) {
+          row.click();
+          setTimeout(() => row.scrollIntoView({ behavior:'smooth', block:'center' }), 120);
+        }
+      }
+    });
+  });
+}
+
+// ENSO history chart
+function drawEnsoHistory() {
+  const svg = document.getElementById('ensoHistoryChart');
+  if (!svg) return;
+  const events = [
+    {y:'1972',p:2.1}, {y:'1973',p:-2.0}, {y:'1976',p:0.9}, {y:'1982',p:2.2,s:true},
+    {y:'1988',p:-1.9,s:true}, {y:'1991',p:1.6}, {y:'1997',p:2.4,s:true},
+    {y:'1999',p:-1.7}, {y:'2007',p:-1.6}, {y:'2009',p:1.6}, {y:'2010',p:-1.7},
+    {y:'2015',p:2.6,s:true}, {y:'2020',p:-1.3}, {y:'2022',p:-1.0},
+    {y:'2023',p:2.0,s:true}, {y:'2025',p:-0.5}, {y:'2026',p:1.0,c:true}
+  ];
+  const W = 1200, H = 220, padL = 44, padR = 20, padT = 18, padB = 38;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const zeroY = padT + plotH/2, yScale = plotH / 6, xStep = plotW / events.length;
+  let c = '';
+  c += `<line x1="${padL}" y1="${zeroY}" x2="${padL+plotW}" y2="${zeroY}" stroke="#8090a8" stroke-width="0.8"/>`;
+  [0.5,1.5,-0.5,-1.5].forEach(t => {
+    const y = zeroY - t*yScale;
+    c += `<line x1="${padL}" y1="${y}" x2="${padL+plotW}" y2="${y}" stroke="#c5d4e3" stroke-dasharray="3 4" stroke-width="0.5"/>`;
+  });
+  [3,2,1,0,-1,-2,-3].forEach(t => {
+    const y = zeroY - t*yScale;
+    c += `<text x="${padL-8}" y="${y+3}" font-family="IBM Plex Mono" font-size="8.5" fill="#8090a8" text-anchor="end">${t>0?'+':''}${t}</text>`;
+  });
+  c += `<text x="${padL-30}" y="${padT+10}" font-family="IBM Plex Mono" font-size="8" fill="#9a3028">EL NIÑO</text>`;
+  c += `<text x="${padL-30}" y="${padT+plotH-2}" font-family="IBM Plex Mono" font-size="8" fill="#3d5c80">LA NIÑA</text>`;
+  events.forEach((e,i) => {
+    const cx = padL + i*xStep + xStep/2;
+    const barH = Math.abs(e.p)*yScale;
+    const y = e.p > 0 ? zeroY - barH : zeroY;
+    const bw = Math.min(xStep*0.6, 28);
+    const col = e.c ? '#c78e4f' : (e.p > 0 ? '#9a3028' : '#3d5c80');
+    const op = Math.abs(e.p) > 1.5 ? 0.88 : (Math.abs(e.p) > 1.0 ? 0.72 : 0.55);
+    c += `<rect x="${cx - bw/2}" y="${y}" width="${bw}" height="${barH}" fill="${col}" fill-opacity="${op}" stroke="${col}" stroke-width="0.6" ${e.c ? 'stroke-dasharray="3 2"' : ''}/>`;
+    c += `<text x="${cx}" y="${H-20}" font-family="IBM Plex Mono" font-size="8.5" fill="${e.c ? '#c78e4f' : '#4a5c78'}" text-anchor="middle" ${e.c ? 'font-weight="600"' : ''}>${e.y}</text>`;
+    if (e.s || e.c) {
+      const ly = e.p > 0 ? y-5 : y+barH+10;
+      c += `<text x="${cx}" y="${ly}" font-family="IBM Plex Mono" font-size="7.5" fill="${col}" text-anchor="middle">${e.p>0?'+':''}${e.p.toFixed(1)}</text>`;
+    }
+  });
+  const ci = events.findIndex(e => e.c);
+  if (ci >= 0) {
+    const cx = padL + ci*xStep + xStep/2;
+    c += `<line x1="${cx}" y1="${padT}" x2="${cx}" y2="${H-padB}" stroke="#c78e4f" stroke-width="1" stroke-dasharray="2 3" opacity="0.55"/>`;
+    c += `<text x="${cx}" y="${padT+8}" font-family="IBM Plex Mono" font-size="8" fill="#c78e4f" text-anchor="middle" letter-spacing="0.12em">NOW</text>`;
+  }
+  c += `<text x="${padL+plotW/2}" y="${H-4}" font-family="IBM Plex Mono" font-size="8" fill="#8090a8" text-anchor="middle" letter-spacing="0.12em">YEAR · NIÑO 3.4 PEAK ANOMALY (°C)</text>`;
+  svg.innerHTML = c;
+}
+
+// Init ENSO
+renderEnsoTiles();
+drawEnsoHistory();
+selectEnsoRegion('sea');
+
+// ============ GLOBAL AGENCY FORECAST COMPARISON ============
+const agencies = [
+  {
+    id:'noaa', name:'NOAA CPC', country:'United States · National Oceanic & Atmospheric Admin', flag:'🇺🇸',
+    updateFreq:'月更 · 每月第 2 个周四',
+    lastUpdate:'2026-03-13', nextUpdate:'2026-04-09', stalenessDays:32,
+    status:'La Niña Advisory / El Niño Watch',
+    forecast:[
+      { period:'AMJ 2026', sub:'4-6 月', el:13, ne:80, la:7 },
+      { period:'MJJ 2026', sub:'5-7 月', el:61, ne:35, la:4 },
+      { period:'OND 2026', sub:'10-12 月', el:77, ne:20, la:3 }
+    ],
+    note:'全球最权威 ENSO advisory 系统,CPC + IRI 联合发布。2026.2 起启用 RONI 相对指数,降低"全球变暖偏差"。强 El Niño(≥+1.5°C)概率 33%。',
+    url:'https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/'
+  },
+  {
+    id:'iri', name:'IRI Columbia', country:'United States · 纯模型客观预测', flag:'🇺🇸',
+    updateFreq:'月更 · 每月 19 日前后',
+    lastUpdate:'2026-03-19', nextUpdate:'2026-04-19', stalenessDays:32,
+    status:'Neutral → El Niño Rapidly Rising',
+    forecast:[
+      { period:'MAM 2026', sub:'3-5 月', el:9, ne:90, la:1 },
+      { period:'AMJ 2026', sub:'4-6 月', el:47, ne:53, la:0 },
+      { period:'MJJ 2026', sub:'5-7 月', el:72, ne:27, la:1 }
+    ],
+    note:'基于多模型集合(CCSR/IRI ENSO plume)的纯客观概率,不含人为判断。与 NOAA 官方结论近似,但概率分布略更激进。',
+    url:'https://iri.columbia.edu/our-expertise/climate/forecasts/enso/current/'
+  },
+  {
+    id:'jma', name:'JMA 日本气象厅', country:'Japan · Tokyo Climate Center', flag:'🇯🇵',
+    updateFreq:'月更 · 每月 10 日左右',
+    lastUpdate:'2026-03-10', nextUpdate:'2026-04-10', stalenessDays:42,
+    status:'ENSO-Neutral · El Niño Watch',
+    forecast:[
+      { period:'Spring 2026', sub:'春季', el:60, ne:40, la:0 },
+      { period:'Summer 2026', sub:'夏季', el:70, ne:30, la:0 }
+    ],
+    note:'JMA 采用 NINO.3 区(而非 NOAA 的 3.4 区)为官方指标,阈值 5 个月均值偏离 +0.5°C。3 月 NINO.3 异常 +0.3°C,亚表层暖水向东传播中。',
+    url:'https://ds.data.jma.go.jp/tcc/tcc/products/elnino/outlook.html'
+  },
+  {
+    id:'bom', name:'BOM 澳洲气象局', country:'Australia · Bureau of Meteorology', flag:'🇦🇺',
+    updateFreq:'双周更 · Climate Driver Update',
+    lastUpdate:'2026-04-12', nextUpdate:'2026-04-26', stalenessDays:9,
+    status:'Neutral · El Niño Likely by July',
+    forecast:[
+      { period:'2026 Winter', sub:'南半球冬 6-8 月', el:70, ne:30, la:0, caveat:'定性预估' }
+    ],
+    note:'2025.9 起启用 Relative Niño 指数。当前 R-Niño3.4 = -0.35°C。BOM 阈值 ±0.8°C 比 NOAA 的 ±0.5°C 更严格,判定更保守。2025.12 起 ENSO Outlook alert 系统下线,数据并入 Southern Hemisphere Monitoring。',
+    url:'https://www.bom.gov.au/climate/enso/'
+  },
+  {
+    id:'ecmwf', name:'ECMWF SEAS5', country:'European Centre · Medium-Range Weather', flag:'🇪🇺',
+    updateFreq:'月更 · 每月 1 日',
+    lastUpdate:null, nextUpdate:'2026-05-01',
+    placeholder:true,
+    note:'SEAS5 seasonal forecast · 访问需 API 或在线图表。占位待手动补充。',
+    url:'https://charts.ecmwf.int/products/seasonal_system5_nino_plumes'
+  },
+  {
+    id:'ukmo', name:'UK Met Office', country:'United Kingdom · GloSea6', flag:'🇬🇧',
+    updateFreq:'月更',
+    lastUpdate:null, nextUpdate:null,
+    placeholder:true,
+    note:'GPC Exeter 季节预测中心 · 数据需注册访问。占位待手动补充。',
+    url:'https://www.metoffice.gov.uk/research/climate/seasonal-to-decadal/gpc-outlooks/ocean-forecasts'
+  },
+  {
+    id:'cma', name:'CMA 国家气候中心', country:'China · National Climate Center', flag:'🇨🇳',
+    updateFreq:'月更',
+    lastUpdate:null, nextUpdate:null,
+    placeholder:true,
+    note:'中国气象局国家气候中心 · ENSO 诊断和预测产品。占位待手动补充(中文源)。',
+    url:'https://cmdp.ncc-cma.net/'
+  }
+];
+
+function daysBetween(dateStr, refDate) {
+  const d1 = new Date(dateStr);
+  const diff = Math.floor((refDate - d1) / 86400000);
+  return diff;
+}
+
+function renderAgencies() {
+  const grid = document.getElementById('agencyGrid');
+  if (!grid) return;
+  const today = new Date();  // actual today at render time
+  const todayStr = today.toISOString().slice(0,10);
+
+  grid.innerHTML = agencies.map(a => {
+    if (a.placeholder) {
+      return `
+        <div class="agency-card placeholder">
+          <div class="ag-head">
+            <div class="ag-name-block">
+              <span class="ag-flag">${a.flag}</span>
+              <div>
+                <div class="ag-name">${a.name}</div>
+                <span class="ag-country">${a.country}</span>
+              </div>
+            </div>
+            <span class="ag-freshness pending">待补充</span>
+          </div>
+          <div class="ag-status-line"><span class="k">更新频次</span><span class="v">${a.updateFreq}</span></div>
+          ${a.nextUpdate ? `<div class="ag-status-line"><span class="k">下次更新</span><span class="v">${a.nextUpdate}</span></div>` : ''}
+          <div class="ag-placeholder-msg">▸ 占位数据 · 需手动填入</div>
+          <div class="ag-note">${a.note}</div>
+          <a class="ag-link" href="${a.url}" target="_blank" rel="noopener">官方源 → ${a.url.replace(/^https?:\/\//,'').split('/')[0]}</a>
+        </div>
+      `;
+    }
+    // freshness computation
+    const daysSince = daysBetween(a.lastUpdate, today);
+    let freshCls, freshLabel;
+    if (daysSince <= 21)       { freshCls = 'fresh'; freshLabel = `FRESH · ${daysSince}d`; }
+    else if (daysSince <= 40)  { freshCls = 'aging'; freshLabel = `AGING · ${daysSince}d`; }
+    else                        { freshCls = 'stale'; freshLabel = `STALE · ${daysSince}d`; }
+
+    const forecastHtml = a.forecast.map(f => `
+      <div class="ag-forecast-row">
+        <div class="ag-forecast-period">
+          <span>${f.period}</span>
+          <span class="sub">${f.sub}${f.caveat ? ' · ' + f.caveat : ''}</span>
+        </div>
+        <div class="ag-prob-bar">
+          ${f.el > 0 ? `<div class="ag-prob-seg el" style="flex: ${f.el};">${f.el>=10?f.el+'%':''}</div>` : ''}
+          ${f.ne > 0 ? `<div class="ag-prob-seg ne" style="flex: ${f.ne};">${f.ne>=10?f.ne+'%':''}</div>` : ''}
+          ${f.la > 0 ? `<div class="ag-prob-seg la" style="flex: ${f.la};">${f.la>=10?f.la+'%':''}</div>` : ''}
+        </div>
+        <div class="ag-prob-key">
+          <span class="el">● El Niño ${f.el}%</span>
+          <span class="ne">● Neutral ${f.ne}%</span>
+          <span class="la">● La Niña ${f.la}%</span>
+        </div>
+      </div>
+    `).join('');
+
+    return `
+      <div class="agency-card ${freshCls}">
+        <div class="ag-head">
+          <div class="ag-name-block">
+            <span class="ag-flag">${a.flag}</span>
+            <div>
+              <div class="ag-name">${a.name}</div>
+              <span class="ag-country">${a.country}</span>
+            </div>
+          </div>
+          <span class="ag-freshness ${freshCls}">${freshLabel}</span>
+        </div>
+        <div class="ag-status-line"><span class="k">更新频次</span><span class="v">${a.updateFreq}</span></div>
+        <div class="ag-status-line"><span class="k">最后更新</span><span class="v">${a.lastUpdate}</span></div>
+        <div class="ag-status-line"><span class="k">下次预期</span><span class="v">${a.nextUpdate}</span></div>
+        <div class="ag-status-banner">${a.status}</div>
+        ${forecastHtml}
+        <div class="ag-note">${a.note}</div>
+        <a class="ag-link" href="${a.url}" target="_blank" rel="noopener">官方源 → ${a.url.replace(/^https?:\/\//,'').split('/')[0]}</a>
+      </div>
+    `;
+  }).join('');
+}
+renderAgencies();
+
+// ============ DAILY TRACKER ============
+function renderDailyTracker() {
+  const tracker = document.getElementById('dailyTracker');
+  const body = document.getElementById('dtBody');
+  const todayEl = document.getElementById('dtToday');
+  if (!tracker || !body) return;
+
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0,10);
+  const weekdays = ['周日','周一','周二','周三','周四','周五','周六'];
+  todayEl.innerHTML = `${todayStr} <em>· ${weekdays[today.getDay()]}</em>`;
+
+  // Categorize each non-placeholder agency
+  const upcoming = [];  // next update in 0-7 days
+  const overdue = [];    // past nextUpdate, no new data yet
+  const freshList = [];  // recently updated, within 14 days
+  const aging = [];      // 14-40 days since last update, not yet at next
+
+  agencies.forEach(a => {
+    if (a.placeholder || !a.lastUpdate || !a.nextUpdate) return;
+    const nextDiff = Math.floor((new Date(a.nextUpdate) - today) / 86400000);
+    const sinceLast = Math.floor((today - new Date(a.lastUpdate)) / 86400000);
+    if (nextDiff < 0) {
+      // overdue: expected date passed
+      overdue.push({a, days: -nextDiff});
+    } else if (nextDiff <= 7) {
+      // upcoming this week
+      upcoming.push({a, days: nextDiff});
+    } else if (sinceLast <= 14) {
+      freshList.push({a, days: sinceLast});
+    } else {
+      aging.push({a, days: sinceLast});
+    }
+  });
+
+  // Style tracker based on what's inside
+  tracker.classList.remove('has-overdue','has-upcoming');
+  if (overdue.length) tracker.classList.add('has-overdue');
+  else if (upcoming.length) tracker.classList.add('has-upcoming');
+
+  const renderCol = (cls, label, items, emptyMsg, fmtDetail) => `
+    <div class="dt-col ${cls}">
+      <div class="dt-col-label">${label} · ${items.length}</div>
+      ${items.length
+        ? items.map(({a, days}) => `
+            <div class="dt-item">
+              <div>
+                <div class="dt-item-name">${a.name}</div>
+                <div class="dt-item-detail">${fmtDetail(a, days)}</div>
+              </div>
+              <a class="dt-check-btn" href="${a.url}" target="_blank" rel="noopener">查官网 →</a>
+            </div>
+          `).join('')
+        : `<div class="dt-empty">${emptyMsg}</div>`
+      }
+    </div>
+  `;
+
+  body.innerHTML =
+    renderCol('col-overdue', '已逾期 · 应查', overdue,
+              '✓ 无逾期机构',
+              (a, d) => `预期 ${a.nextUpdate} · 已过 ${d} 天`)
+    + renderCol('col-upcoming', '本周内发布', upcoming,
+              '本周无新发布',
+              (a, d) => d === 0 ? '今日预期发布' : `预期 ${a.nextUpdate} · ${d} 天后`)
+    + renderCol('col-fresh', '近期已更新', freshList,
+              '近两周无新数据',
+              (a, d) => `${a.lastUpdate} · ${d} 天前更新`);
+}
+renderDailyTracker();
+
+// ============ TIMELINE · EVENT CALENDAR ============
+// k: category (weather/policy/supply/enso/event) · v: severity (low/mid/high)
+// m: months array (1-12)
+const timelineEvents = [
+  // ZS 大豆
+  {c:'ZS', m:[1,2,3], k:'supply', v:'high', n:'南美大豆灌浆', d:'阿根廷潘帕斯 + 巴西南部关键生育期,拉尼娜干旱窗口最易触发减产;CBOT 1-3 月节奏跟南美天气'},
+  {c:'ZS', m:[3,4,5], k:'weather', v:'mid', n:'美豆种植期', d:'USDA 3 月 Prospective Plantings 报告 + 5 月种植进度决定全年基调'},
+  {c:'ZS', m:[7,8], k:'weather', v:'high', n:'美中西授粉期', d:'年度最大 swing 窗口 · gamma 7/20-8/10 最贵 · 拉尼娜年干旱显著'},
+  {c:'ZS', m:[10,11,12], k:'weather', v:'high', n:'南美播种窗口', d:'强 El Niño 年南巴西+阿根廷可能过度湿润致播种延误 / 烂田 · H2 2026 观察期'},
+  // ZM 豆粕
+  {c:'ZM', m:[4,5,6], k:'supply', v:'mid', n:'南美大豆到港压榨', d:'中国进口节奏 + 油厂开机率 · 跨期价差最有信息的时期'},
+  {c:'ZM', m:[7,8,9], k:'weather', v:'mid', n:'美豆天气跟随', d:'跟随 ZS 但幅度较小 · 压榨利润(crush spread)更关键'},
+  {c:'ZM', m:[11,12], k:'policy', v:'mid', n:'中国饲料替代政策', d:'能繁母猪目标 / 低蛋白饲料标准年度评估 · 结构性压制需求'},
+  // ZL 豆油
+  {c:'ZL', m:[1,2,3], k:'policy', v:'high', n:'45Z 实施细则', d:'美国 Clean Fuel 税抵 45Z 的年度追认周期 · 决定生柴经济性'},
+  {c:'ZL', m:[6], k:'policy', v:'high', n:'EPA RVO 年度义务量', d:'RFS 生物柴油义务量公告 · 直接决定全年需求底'},
+  {c:'ZL', m:[5,6,7,8], k:'enso', v:'high', n:'El Niño 受益窗口', d:'棕榈减产+生柴替代 → 三油共振板块性利多'},
+  // ZC 玉米
+  {c:'ZC', m:[3,4,5], k:'weather', v:'mid', n:'美玉米种植', d:'3 月 Prospective Plantings + 5 月种植进度 · 基调期'},
+  {c:'ZC', m:[7,8], k:'weather', v:'high', n:'美中西授粉期', d:'年度最大 swing · 授粉前 2 周 gamma 最贵 · 拉尼娜年玉米独立走强'},
+  {c:'ZC', m:[8], k:'event', v:'high', n:'ProFarmer 作物巡查', d:'市场对产量预估的关键校准窗口 · 8 月中下旬'},
+  {c:'ZC', m:[10,11,12], k:'policy', v:'mid', n:'乙醇 RFS 义务更新', d:'RFS 年度乙醇掺混义务公告 · 影响玉米需求结构底'},
+  // ZW 小麦
+  {c:'ZW', m:[3,4,5], k:'weather', v:'high', n:'冬麦返青期', d:'美 HRW 冬麦 + 黑海冬麦关键返青期 · 拉尼娜年美南干旱高发'},
+  {c:'ZW', m:[6,7], k:'event', v:'high', n:'俄罗斯出口配额重设', d:'俄方每半年(7/12 月)重设浮动关税+配额,对全球定价影响大'},
+  {c:'ZW', m:[6,7,8], k:'weather', v:'mid', n:'北半球小麦收割', d:'美国/加拿大/欧洲收成期,产量兑现'},
+  {c:'ZW', m:[7,8,9], k:'enso', v:'high', n:'印度季风+El Niño 窗口', d:'印度小麦减产风险 + 禁运延续 · H2 2026 观察'},
+  // SB 原糖
+  {c:'SB', m:[4,5,6,7,8,9,10,11], k:'supply', v:'high', n:'巴西中南部榨季', d:'UNICA 双周数据 · 糖醇比决定蔗料分流 · <0.85 乙醇倾向,糖紧张'},
+  {c:'SB', m:[6,7,8], k:'weather', v:'high', n:'巴西霜冻风险季', d:'米纳斯/圣保罗 6-8 月霜冻概率高 · SB 尾部期权最贵时段'},
+  {c:'SB', m:[6,7,8,9], k:'event', v:'high', n:'印度季风+出口决策', d:'季风进程决定 ISMA 产量预估 · 9-10 月出口许可发放窗口'},
+  {c:'SB', m:[10,11,12,1,2,3], k:'supply', v:'mid', n:'印度榨季', d:'印度占全球 17% · 次大供应方 · 产量兑现压力时段'},
+  // KC 阿咖
+  {c:'KC', m:[9,10,11], k:'weather', v:'high', n:'巴西开花期', d:'年度产量基调确立期 · 花期雨水不足/过度都会伤'},
+  {c:'KC', m:[6,7,8], k:'weather', v:'high', n:'巴西霜冻季', d:'永恒尾部风险 · 2021 霜冻后 KC +50% · 看涨期权布局期'},
+  {c:'KC', m:[5,6,7,8], k:'supply', v:'mid', n:'巴西采收+ICE 库存', d:'ICE 认证库存转折点 · <50 万袋=紧张到极致'},
+  {c:'KC', m:[11,12], k:'policy', v:'mid', n:'EUDR 合规压力', d:'欧盟零毁林法规 2025.12 生效,合规成本抬升出口门槛'},
+  // RM 罗咖
+  {c:'RM', m:[10,11,12,1,2,3], k:'supply', v:'high', n:'越南收获季', d:'越南占全球 40% · 收获期最关键 · ICE 库存周转信号'},
+  {c:'RM', m:[5,6,7,8], k:'weather', v:'mid', n:'越南/印尼生长期', d:'东南亚生长期天气 · El Niño 年干旱利多'},
+  // CC 可可
+  {c:'CC', m:[10,11,12,1,2,3], k:'supply', v:'high', n:'西非主作季 · 占年产 80%', d:'科特迪瓦+加纳主收获季 · 期货价格定价最敏感的时段'},
+  {c:'CC', m:[4,5,6], k:'supply', v:'mid', n:'西非中间作季', d:'次要收获,占年产 ~20% · 产量兑现补充'},
+  {c:'CC', m:[6,7,8,9], k:'event', v:'mid', n:'黑荚病爆发高峰', d:'潮湿季节黑荚病高发 · 供给损失事件型'},
+  {c:'CC', m:[11,12,1,2], k:'weather', v:'high', n:'哈马丹风季', d:'撒哈拉干热风吹向几内亚湾 · 干旱应力 · 24 年史诗级涨幅主因之一'},
+  // CT 棉花
+  {c:'CT', m:[4,5], k:'weather', v:'mid', n:'美棉+新疆种植', d:'美国 Prospective Plantings + 新疆播种期 · 面积预期期'},
+  {c:'CT', m:[6,7,8,9], k:'weather', v:'high', n:'印度季风+美南天气', d:'印度季风决定全球供应 · 美南干旱(拉尼娜)独立驱动'},
+  {c:'CT', m:[8], k:'event', v:'high', n:'USDA 棉花 WASDE', d:'8 月 USDA 棉花产量报告 · 年度关键决策日 · 策略部署窗口'},
+  {c:'CT', m:[10,11], k:'supply', v:'mid', n:'新疆采收+轧花', d:'新疆抢收季 · 轧花厂排队压力 · 基差变动频繁'},
+  // OJ 橙汁
+  {c:'OJ', m:[6,7,8,9,10,11], k:'event', v:'high', n:'大西洋飓风季', d:'佛州橙汁产区飓风风险期 · 薄合约放大事件弹性'},
+  {c:'OJ', m:[1,2,3,4,5,6,7,8,9,10,11,12], k:'supply', v:'high', n:'佛州黄龙病持续', d:'结构性减产不可逆 · 基本面全年压制供给'},
+  // P 棕榈油
+  {c:'P', m:[3,4], k:'event', v:'high', n:'印尼斋月+DMO 调整', d:'斋月前印尼可能加强 DMO 保障国内供应 · 政策手枪随时触发'},
+  {c:'P', m:[5,6,7,8], k:'weather', v:'high', n:'东南亚干旱季', d:'El Niño 年马来/印尼干旱最严重月份 · 产量 -15%~-25% 高概率窗口'},
+  {c:'P', m:[9,10,11], k:'supply', v:'mid', n:'季节性高产期末', d:'棕榈年内高产期(7-10 月)尾声 · 库存转折点'},
+  {c:'P', m:[1,2,3,4,5,6,7,8,9,10,11,12], k:'policy', v:'high', n:'印尼 DMO 全年随时触发', d:'CPO 参考价 >$1000/吨 加码 DMO · 价格触发机制全年有效'},
+  {c:'P', m:[5,6,7,8,9], k:'enso', v:'high', n:'El Niño 受益窗口', d:'2026 H2 最清晰的做多品种 · 减产+生柴需求双驱动'},
+  // RS 菜籽
+  {c:'RS', m:[3], k:'policy', v:'high', n:'中加关税窗口', d:'2025.3 关税已落地 · 解除/反制预期是催化剂'},
+  {c:'RS', m:[9,10,11], k:'supply', v:'high', n:'加拿大主产区收获', d:'加拿大草原 3 省 8-10 月收获 · 产量兑现期'},
+  {c:'RS', m:[11,12], k:'policy', v:'mid', n:'EUDR 合规生效', d:'欧盟零毁林法规对菜籽合规成本抬升'},
+  // M 国内豆粕
+  {c:'M', m:[4,5,6], k:'supply', v:'high', n:'美豆进口+中储粮拍卖', d:'进口窗口叠加中储粮抛储密集期 · 基差承压'},
+  {c:'M', m:[9,10,11], k:'supply', v:'high', n:'南美+美豆到港高峰', d:'全年到港量最大 · 油厂压榨开机率高峰'},
+  {c:'M', m:[3,4,5], k:'event', v:'mid', n:'春节后饲料需求复苏', d:'饲料行业复工 · 豆粕现货基差修复期'},
+  // OI 菜籽油
+  {c:'OI', m:[3], k:'policy', v:'high', n:'中加关税落地窗口', d:'关税起征 · 油脂板块共振调整'},
+  {c:'OI', m:[10,11,12], k:'supply', v:'high', n:'菜籽到港+压榨开机', d:'四大油厂菜籽到港集中 · 压榨开机率高峰 · 基差收敛'},
+  // SR 白糖
+  {c:'SR', m:[1,2,3,4], k:'supply', v:'high', n:'广西压榨尾期', d:'广西/云南甘蔗压榨尾期 · 新糖入市 · 基差压力'},
+  {c:'SR', m:[11,12,1,2,3], k:'supply', v:'high', n:'新榨季启动', d:'广西新榨季(11月-次年4月) · 产量兑现期'},
+  {c:'SR', m:[6,7,8,9], k:'event', v:'high', n:'印度巴西供应一致性', d:'印度季风+巴西糖醇比双确认 · 对外盘 SB 传导最强时段'},
+  {c:'SR', m:[6,7,8,9,10], k:'policy', v:'mid', n:'抛储/收储窗口', d:'价格冲高(>6800)时中糖协抛储预期 · 全年触发窗口'},
+  // CF 棉花
+  {c:'CF', m:[4,5], k:'weather', v:'mid', n:'新疆棉种植', d:'播种期 · 天气事件影响次年产量预期'},
+  {c:'CF', m:[8,9,10], k:'event', v:'high', n:'USDA + 新疆采收', d:'8 月 USDA + 新疆采收季 · 年度决策窗口'},
+  {c:'CF', m:[10,11], k:'supply', v:'high', n:'轧花厂抢收季', d:'轧花厂抢收推高收购价 · 基差扭曲'},
+  // AP 苹果
+  {c:'AP', m:[4], k:'event', v:'high', n:'清明前后冻害', d:'年度 1 次最大事件窗口 · 花期冻害决定全年产量 · 布局看涨期权关键期'},
+  {c:'AP', m:[8,9,10], k:'supply', v:'high', n:'山东陕西采收', d:'主产区采收期 · 新果入市压力'},
+  {c:'AP', m:[11,12,1,2,3], k:'supply', v:'mid', n:'冷库销售期', d:'冷库货销售期 · 库存去化节奏决定期货曲线'},
+  // LH 生猪
+  {c:'LH', m:[9,10,11], k:'event', v:'high', n:'能繁母猪存栏拐点', d:'秋冬季能繁数据发布 · 长期供需拐点信号'},
+  {c:'LH', m:[2,3], k:'event', v:'mid', n:'春节后消费低谷', d:'消费季节性低点 · 猪粮比考验政策底线'},
+  {c:'LH', m:[6,7,8], k:'weather', v:'mid', n:'南方高温影响生长', d:'热应激降低生长速度 · 出栏节奏乱'},
+  {c:'LH', m:[1,2,3,4,5,6,7,8,9,10,11,12], k:'policy', v:'mid', n:'猪粮比储备肉机制', d:'猪粮比<5 收储/>9 抛储 · 全年双向开关'},
+  // CJ 红枣
+  {c:'CJ', m:[9,10], k:'supply', v:'high', n:'新疆采收关键期', d:'新疆主产区采收 · 产量兑现 · 仓单变化最频繁期'},
+  {c:'CJ', m:[4,5], k:'event', v:'mid', n:'花期冻害窗口', d:'新疆花期冻害风险 · 次要事件型'}
+];
+
+const tlCatLabels = { weather:'天气/气候', policy:'政策', supply:'产能/产量', enso:'ENSO 窗口', event:'离散事件' };
+const tlSevLabels = { high:'高', mid:'中', low:'低' };
+const monthNamesCN = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+let tlCurrentFilter = 'all';
+const TL_TODAY_MONTH = (new Date()).getMonth() + 1;  // 1-12
+
+function renderTimeline() {
+  const chart = document.getElementById('tlChart');
+  if (!chart) return;
+  // Keep first 2 children (empty + months), remove rest
+  while (chart.children.length > 2) chart.removeChild(chart.lastChild);
+
+  // Count events per category for filter labels
+  const counts = { all: timelineEvents.length, weather:0, policy:0, supply:0, enso:0, event:0 };
+  timelineEvents.forEach(e => counts[e.k]++);
+  document.getElementById('cntAll').textContent = counts.all;
+  document.getElementById('cntWeather').textContent = counts.weather;
+  document.getElementById('cntPolicy').textContent = counts.policy;
+  document.getElementById('cntSupply').textContent = counts.supply;
+  document.getElementById('cntEnso').textContent = counts.enso;
+  document.getElementById('cntEvent').textContent = counts.event;
+
+  // Group events by product code, preserving product order from products array
+  const byCode = {};
+  timelineEvents.forEach((e, idx) => {
+    if (!byCode[e.c]) byCode[e.c] = [];
+    byCode[e.c].push({ ...e, idx });
+  });
+  // Only show products that have events
+  const codes = products.filter(p => byCode[p.code]).map(p => p.code);
+
+  codes.forEach(code => {
+    const p = products.find(x => x.code === code);
+    const side = document.createElement('div');
+    side.className = 'tl-side';
+    side.innerHTML = `<span>${p.name.replace(/^(CBOT|ICE|BMD\/DCE|DCE|CZCE|NYBOT)\s*/, '')}</span><span class="code">${code}</span>`;
+    chart.appendChild(side);
+    const lane = document.createElement('div');
+    lane.className = 'tl-lane';
+    // Place events as absolute inside lane
+    byCode[code].forEach(e => {
+      // Handle wrap-around: split into ranges of consecutive months
+      const months = [...e.m].sort((a,b) => a-b);
+      // Find consecutive groups
+      const groups = [];
+      let cur = [months[0]];
+      for (let i = 1; i < months.length; i++) {
+        if (months[i] === months[i-1] + 1) cur.push(months[i]);
+        else { groups.push(cur); cur = [months[i]]; }
+      }
+      groups.push(cur);
+      groups.forEach(g => {
+        const startM = g[0];
+        const endM = g[g.length-1];
+        const left = ((startM - 1) / 12) * 100;
+        const width = ((endM - startM + 1) / 12) * 100;
+        const el = document.createElement('div');
+        el.className = `tl-event cat-${e.k} sev-${e.v}`;
+        el.dataset.idx = e.idx;
+        el.dataset.cat = e.k;
+        el.style.left = `${left}%`;
+        el.style.width = `calc(${width}% - 3px)`;
+        el.textContent = e.n;
+        el.title = `${e.n} · ${tlCatLabels[e.k]} · ${tlSevLabels[e.v]}`;
+        el.addEventListener('click', () => selectTlEvent(e.idx));
+        lane.appendChild(el);
+      });
+    });
+    chart.appendChild(lane);
+  });
+
+  applyTlFilter();
+  renderTlActiveMonth();
+}
+
+function applyTlFilter() {
+  document.querySelectorAll('#tlChart .tl-event').forEach(el => {
+    if (tlCurrentFilter === 'all' || el.dataset.cat === tlCurrentFilter) {
+      el.classList.remove('hidden');
+    } else {
+      el.classList.add('hidden');
+    }
+  });
+}
+
+function selectTlEvent(idx) {
+  const e = timelineEvents[idx];
+  if (!e) return;
+  const p = products.find(x => x.code === e.c);
+  const detail = document.getElementById('tlDetail');
+  const monthsStr = e.m.map(m => monthNamesCN[m-1]).join(' · ');
+  detail.innerHTML = `
+    <div class="tl-detail-head">
+      <div>
+        <span class="tl-detail-code">${e.c}</span><span class="tl-detail-name">${p ? p.name : e.c}</span>
+      </div>
+      <span class="tl-detail-tag cat-${e.k}">${tlCatLabels[e.k]} · ${tlSevLabels[e.v]}</span>
+    </div>
+    <div class="tl-detail-window">窗口期 · <b>${monthsStr}</b></div>
+    <div class="tl-detail-desc">▸ ${e.n} — ${e.d}</div>
+  `;
+  // Also scroll the matrix tab row into view if user clicks the code later - done via jump logic
+}
+
+function renderTlActiveMonth() {
+  const list = document.getElementById('tlActiveList');
+  const title = document.getElementById('tlActiveTitle');
+  const count = document.getElementById('tlActiveCount');
+  if (!list) return;
+  const monthIdx = TL_TODAY_MONTH;
+  const enNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  title.textContent = `本月活跃 · ${enNames[monthIdx-1]}(${monthIdx} 月)`;
+  const active = timelineEvents.filter(e => e.m.includes(monthIdx));
+  count.textContent = `${active.length} 个活跃事件`;
+  // Sort by severity high > mid > low
+  const sevOrder = { high:0, mid:1, low:2 };
+  active.sort((a,b) => sevOrder[a.v] - sevOrder[b.v]);
+  list.innerHTML = active.map((e, i) => {
+    const p = products.find(x => x.code === e.c);
+    const realIdx = timelineEvents.indexOf(e);
+    return `
+      <div class="tl-active-item cat-${e.k}" data-idx="${realIdx}">
+        <div>
+          <span class="tl-active-code">${e.c}</span>
+          <span class="tl-active-name">${p ? p.name.replace(/^(CBOT|ICE|BMD\/DCE|DCE|CZCE|NYBOT)\s*/, '') : e.c}</span>
+          <span class="tl-active-sev ${e.v}">${tlSevLabels[e.v]}</span>
+        </div>
+        <div class="tl-active-label">${e.n}</div>
+      </div>
+    `;
+  }).join('');
+  list.querySelectorAll('.tl-active-item').forEach(el => {
+    el.addEventListener('click', () => selectTlEvent(parseInt(el.dataset.idx)));
+  });
+}
+
+// Filter buttons
+document.querySelectorAll('#panel-timeline .tl-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#panel-timeline .tl-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    tlCurrentFilter = btn.dataset.cat;
+    applyTlFilter();
+  });
+});
+
+renderTimeline();
+
+// ============ TAB SWITCHING ============
+const allCharts = [radarChart, barChart, scatterChart];
+function switchTab(tabId, scrollToTop = true) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('panel-' + tabId);
+  const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+  // Chart.js loses correct size when hidden -> force resize after panel becomes visible
+  setTimeout(() => {
+    allCharts.forEach(c => { try { c.resize(); } catch(e) {} });
+  }, 30);
+  if (scrollToTop) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+window.addEventListener('resize', () => {
+  allCharts.forEach(c => { try { c.resize(); } catch(e) {} });
+});
+  } catch (err) {
+    console.error('Dashboard init error:', err);
+    const msg = document.createElement('div');
+    msg.style.cssText = 'position:fixed;top:20px;left:20px;right:20px;padding:16px;background:#a6443d;color:#fff;font-family:monospace;font-size:12px;z-index:9999;border:1px solid #fff;';
+    msg.textContent = 'Chart 渲染错误: ' + (err && err.message ? err.message : String(err));
+    document.body.appendChild(msg);
+  }
+})();
+</script>
+</body>
+</html>

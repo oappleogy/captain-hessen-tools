@@ -104,6 +104,7 @@ header .meta span::before { content:'›'; margin-right:6px; color:var(--accent)
 .dcard strong { color:var(--text-0); font-weight:600; }
 .x-link { font-family:var(--mono); font-size:11px; color:var(--text-2); background:rgba(255,255,255,.04); padding:2px 7px; border-radius:5px; border:1px solid var(--border); transition:all .18s; white-space:nowrap; }
 .x-link:hover { color:var(--text-0); border-color:var(--border-h); background:rgba(255,255,255,.08); text-decoration:none; }
+.x-compact { font-size:12px; padding:1px 5px; flex-shrink:0; }
 
 /* ── Watchlist ── */
 .search-box { position:relative; margin-bottom:20px; }
@@ -397,7 +398,7 @@ function renderWL(){
           <span class="wl-ticker">${it.tk}</span>
           <span class="wl-name">${it.nm}</span>
           <span class="wl-note">${it.nt}</span>
-          ${it.x?`<a class="x-link" href="https://x.com/${it.x}" target="_blank" rel="noopener" onclick="event.stopPropagation()">@${it.x}</a>`:''}
+          ${it.x?`<a class="x-link x-compact" href="https://x.com/${it.x}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="@${it.x}">𝕏</a>`:''}
           ${it.b?`<span class="badge b-${it.b}">${BN[it.b]}</span>`:''}
         </div>`).join('')}
       </div>

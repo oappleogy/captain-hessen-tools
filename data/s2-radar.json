@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-04-21T16:26:47",
+  "timestamp": "2026-04-22T11:45:26",
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
     "score": 0.0,
-    "action": "系统轻度承压。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统轻度承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -21,7 +21,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.48,
+      "score": 0.42,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -31,7 +31,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.17,
+      "score": 0.19,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -41,7 +41,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.14,
+      "score": -0.16,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -51,7 +51,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.16,
+      "score": 0.19,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -61,7 +61,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.03,
+      "score": 0.01,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -71,7 +71,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.55,
+      "score": -0.39,
       "state": "▼",
       "light": "red",
       "note": "技术加速度超过制度消化，结构性失配严重",
@@ -81,10 +81,10 @@
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -98,14 +98,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 65.9
+        "pct": 66.7
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 31.7
+        "pct": 31.0
       },
       {
         "key": "TECH_DOM",
@@ -127,9 +127,9 @@
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=73.8 (历史96%分位)",
+    "OVX原油波动率=85.6 (历史97%分位)",
     "地缘政治风险(GPR)=297 (历史100%分位)",
-    "地缘交叉验证(OVX)=73.8 (历史96%分位) [仅验证，不计分]"
+    "地缘交叉验证(OVX)=85.6 (历史97%分位) [仅验证，不计分]"
   ],
   "opportunities": [],
   "contradiction": {
@@ -146,14 +146,9 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 19.1,
-      "percentile": 79,
+      "value": 19.5,
+      "percentile": 81,
       "desc": "市场恐惧情绪偏高"
-    },
-    "credit_spread": {
-      "value": 2.83,
-      "percentile": 50,
-      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 56.6,

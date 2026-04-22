@@ -102,6 +102,8 @@ header .meta span::before { content:'›'; margin-right:6px; color:var(--accent)
 .dcard { margin-top:12px; padding:14px 16px; border-radius:var(--radius); background:var(--bg-2); border:1px solid var(--border); font-size:13px; line-height:1.7; color:var(--text-1); display:none; }
 .dcard.show { display:block; animation:fadeUp .2s ease; }
 .dcard strong { color:var(--text-0); font-weight:600; }
+.x-link { font-family:var(--mono); font-size:11px; color:var(--text-2); background:rgba(255,255,255,.04); padding:2px 7px; border-radius:5px; border:1px solid var(--border); transition:all .18s; white-space:nowrap; }
+.x-link:hover { color:var(--text-0); border-color:var(--border-h); background:rgba(255,255,255,.08); text-decoration:none; }
 
 /* ── Watchlist ── */
 .search-box { position:relative; margin-bottom:20px; }
@@ -200,104 +202,104 @@ footer a { color:var(--text-2); }
 const LAYERS = [
   {id:'trade',title:'交易层',sub:'撮合引擎 + 交易场馆',color:'#3b82f6',
    players:[
-    {n:'NYSE Pillar',b:'core',d:'NYSE自2016年运行的撮合引擎。代币化平台中继续负责订单撮合，交易执行层不上链，由成熟中心化系统处理，保证纳秒级延迟和监管合规。'},
-    {n:'NYSE 代币化场馆 (ATS)',b:'new',d:'独立于传统NYSE的替代交易系统（ATS），支持代币化股份与原生数字证券交易。支持7×24运营、即时结算、美元币额订单、碎股交易。采用RFQ+订单簿混合模式（初期流动性有限时RFQ为主）。Pillar撮合引擎 + 多链结算。与Securitize合作铸造链上证券（2026.03.24 MoU）。尚未上线，仍在等待SEC/FINRA审批，目标2026H2。'},
-    {n:'Nasdaq',b:'hot',d:'2026年3月18日获SEC批准代币化交易。采用"同一订单簿"模式——代币化股份与传统股份在同一系统交易，同一ticker、同一价格、同等权利。与Kraken合作全球分发，2027H1可能上线。还在开发允许上市公司直接发行链上股票的框架。'},
-    {n:'Coinbase',b:'new',d:'2025年底为美国用户推出传统股票交易（零佣金+Yahoo Finance合作）。代币化股票即将跟进，刻意排除其经纪商子公司，可能通过Base链+Aerodrome DEX实现，绕开NMS法规。'},
-    {n:'Robinhood',b:'hot',d:'已在欧洲推出200+代币化股票（基于Arbitrum），采用equity swap结构。还推出OpenAI、SpaceX等私募公司的代币化股权。Robinhood Chain测试网已上线（2026.02），首周处理400万笔交易。主网预计2026H2启动。CEO Vlad Tenev称代币化是"无法阻挡的货运火车"。'},
-    {n:'Securitize',b:'hot',d:'2026.03.24与NYSE签署MoU，成为首个数字转让代理（Digital Transfer Agent），负责在NYSE代币化平台上为上市公司和ETF发行方铸造链上证券。AUM超40亿美元，已与BlackRock（BUIDL基金）、Apollo、KKR、VanEck等合作。Q3 2026启动机构试点。母公司Securitize Markets Holdings（CEPT）。'}
+    {n:'NYSE Pillar',b:'core',x:'NYSE',d:'NYSE自2016年运行的撮合引擎。代币化平台中继续负责订单撮合，交易执行层不上链，由成熟中心化系统处理，保证纳秒级延迟和监管合规。'},
+    {n:'NYSE 代币化场馆 (ATS)',b:'new',x:'NYSE',d:'独立于传统NYSE的替代交易系统（ATS），支持代币化股份与原生数字证券交易。支持7×24运营、即时结算、美元币额订单、碎股交易。采用RFQ+订单簿混合模式（初期流动性有限时RFQ为主）。Pillar撮合引擎 + 多链结算。与Securitize合作铸造链上证券（2026.03.24 MoU）。尚未上线，仍在等待SEC/FINRA审批，目标2026H2。'},
+    {n:'Nasdaq',b:'hot',x:'Nasdaq',d:'2026年3月18日获SEC批准代币化交易。采用"同一订单簿"模式——代币化股份与传统股份在同一系统交易，同一ticker、同一价格、同等权利。与Kraken合作全球分发，2027H1可能上线。还在开发允许上市公司直接发行链上股票的框架。'},
+    {n:'Coinbase',b:'new',x:'coinbase',d:'2025年底为美国用户推出传统股票交易（零佣金+Yahoo Finance合作）。代币化股票即将跟进，刻意排除其经纪商子公司，可能通过Base链+Aerodrome DEX实现，绕开NMS法规。'},
+    {n:'Robinhood',b:'hot',x:'RobinhoodApp',d:'已在欧洲推出200+代币化股票（基于Arbitrum），采用equity swap结构。还推出OpenAI、SpaceX等私募公司的代币化股权。Robinhood Chain测试网已上线（2026.02），首周处理400万笔交易。主网预计2026H2启动。CEO Vlad Tenev称代币化是"无法阻挡的货运火车"。'},
+    {n:'Securitize',b:'hot',x:'Securitize',d:'2026.03.24与NYSE签署MoU，成为首个数字转让代理（Digital Transfer Agent），负责在NYSE代币化平台上为上市公司和ETF发行方铸造链上证券。AUM超40亿美元，已与BlackRock（BUIDL基金）、Apollo、KKR、VanEck等合作。Q3 2026启动机构试点。母公司Securitize Markets Holdings（CEPT）。'}
   ]},
   {id:'settle',title:'结算层',sub:'链上结算 + 清算基础设施',color:'#10b981',
    players:[
-    {n:'DTCC / DTC',b:'core',d:'美国证券结算的绝对中枢（2023年处理交易额达3万亿美元）。2025年12月获SEC No-Action Letter，2026H2启动代币化试点（为期3年）。覆盖Russell 1000股票、主流ETF、美国国债。证券所有权仍登记在DTC被提名人Cede & Co.名下，DTC保留root wallet的override key用于紧急情况。'},
-    {n:'Canton Network',b:'core',d:'DTCC选定的首条底层链（2025.12.17宣布）。由Digital Asset Holdings开发，隐私优先、许可制区块链，专为机构金融设计。参与者可精细控制数据可见性。背后投资方包括BlackRock、Goldman Sachs、Citadel Securities、Nasdaq、S&P Global。DTCC与Euroclear共同担任Canton基金会联席主席。2025年7月已完成首次24/7链上回购交易。'},
-    {n:'ICE 清算所',b:'new',d:'ICE全球运营6家清算所（包括全球最大能源清算所和CDS清算所）。正在与BNY和Citi合作引入代币化存款，支持非银行时段的保证金调度和跨时区资金转移——这是实现7×24交易的关键基础设施环节。'},
-    {n:'NSCC / FICC',b:'wait',d:'DTCC旗下负责股票清算（NSCC）和固定收益清算（FICC）的子公司。目前尚未直接参与代币化试点，但作为美国证券清算的核心机构，未来必然整合代币化功能。'}
+    {n:'DTCC / DTC',b:'core',x:'The_DTCC',d:'美国证券结算的绝对中枢（2023年处理交易额达3万亿美元）。2025年12月获SEC No-Action Letter，2026H2启动代币化试点（为期3年）。覆盖Russell 1000股票、主流ETF、美国国债。证券所有权仍登记在DTC被提名人Cede & Co.名下，DTC保留root wallet的override key用于紧急情况。'},
+    {n:'Canton Network',b:'core',x:'canton_network',d:'DTCC选定的首条底层链（2025.12.17宣布）。由Digital Asset Holdings开发，隐私优先、许可制区块链，专为机构金融设计。参与者可精细控制数据可见性。背后投资方包括BlackRock、Goldman Sachs、Citadel Securities、Nasdaq、S&P Global。DTCC与Euroclear共同担任Canton基金会联席主席。2025年7月已完成首次24/7链上回购交易。'},
+    {n:'ICE 清算所',b:'new',x:'ICE_Markets',d:'ICE全球运营6家清算所（包括全球最大能源清算所和CDS清算所）。正在与BNY和Citi合作引入代币化存款，支持非银行时段的保证金调度和跨时区资金转移——这是实现7×24交易的关键基础设施环节。'},
+    {n:'NSCC / FICC',b:'wait',x:'The_DTCC',d:'DTCC旗下负责股票清算（NSCC）和固定收益清算（FICC）的子公司。目前尚未直接参与代币化试点，但作为美国证券清算的核心机构，未来必然整合代币化功能。'}
   ]},
   {id:'fund',title:'资金层',sub:'稳定币 + 代币化存款',color:'#f59e0b',
    players:[
-    {n:'USDC (Circle)',b:'core',d:'ICE首选稳定币。2025年3月ICE与Circle签署MoU，探索USDC整合到清算所、衍生品交易所和数据服务。Circle于2025年6月5日在NYSE上市（ticker: CRCL），IPO定价$31，ATH $299，当前约$94。截至2025年末USDC流通量达753亿美元。已获欧盟MiCA合规批准（首家）。2025年全年营收17亿美元。⚠️ 2026.04.01 Drift Protocol（Solana DeFi）被黑客盗取$285M，攻击者通过Circle跨链协议将$232M USDC从Solana转至Ethereum，Circle因未及时冻结资金遭到批评——暴露了稳定币发行方在安全响应速度上的治理风险。'},
-    {n:'USYC (Circle/Hashnote)',b:'new',d:'Circle收购Hashnote后获得的代币化货币市场基金产品。SEC 2a-7注册。MoU覆盖范围内，可用于清算所抵押品和衍生品保证金——闲置资金可产生收益，这是传统现金做不到的。'},
-    {n:'BNY 代币化存款',b:'new',d:'与ICE合作开发（2026.01宣布），专为清算所设计。支持非银行营业时间的资金转移、保证金履约和跨时区调度。解决7×24交易的"最后一公里"资金问题。'},
-    {n:'Citi 代币化存款',b:'new',d:'同BNY，为ICE清算所提供跨时区、跨管辖区的24小时资金调度能力。与BNY形成双银行支撑体系。'},
-    {n:'USDT (Tether)',b:'wait',d:'虽然市值最大（1440亿+，市场份额63%），但因未获欧盟MiCA合规已在Coinbase Europe、Binance等多个交易所下架。在受监管的美股交易基础设施中被采用的可能性较低。监管风险是最大障碍。'},
-    {n:'Wells Fargo WFUSD',b:'wait',d:'Wells Fargo向USPTO提交WFUSD加密相关商标申请，暗示可能推出代币化存款或稳定币。跟随JPMorgan类似路径。尚处早期。'}
+    {n:'USDC (Circle)',b:'core',x:'circle',d:'ICE首选稳定币。2025年3月ICE与Circle签署MoU，探索USDC整合到清算所、衍生品交易所和数据服务。Circle于2025年6月5日在NYSE上市（ticker: CRCL），IPO定价$31，ATH $299，当前约$94。截至2025年末USDC流通量达753亿美元。已获欧盟MiCA合规批准（首家）。2025年全年营收17亿美元。⚠️ 2026.04.01 Drift Protocol（Solana DeFi）被黑客盗取$285M，攻击者通过Circle跨链协议将$232M USDC从Solana转至Ethereum，Circle因未及时冻结资金遭到批评——暴露了稳定币发行方在安全响应速度上的治理风险。'},
+    {n:'USYC (Circle/Hashnote)',b:'new',x:'circle',d:'Circle收购Hashnote后获得的代币化货币市场基金产品。SEC 2a-7注册。MoU覆盖范围内，可用于清算所抵押品和衍生品保证金——闲置资金可产生收益，这是传统现金做不到的。'},
+    {n:'BNY 代币化存款',b:'new',x:'BNYMellon',d:'与ICE合作开发（2026.01宣布），专为清算所设计。支持非银行营业时间的资金转移、保证金履约和跨时区调度。解决7×24交易的"最后一公里"资金问题。'},
+    {n:'Citi 代币化存款',b:'new',x:'Citi',d:'同BNY，为ICE清算所提供跨时区、跨管辖区的24小时资金调度能力。与BNY形成双银行支撑体系。'},
+    {n:'USDT (Tether)',b:'wait',x:'Tether_to',d:'虽然市值最大（1440亿+，市场份额63%），但因未获欧盟MiCA合规已在Coinbase Europe、Binance等多个交易所下架。在受监管的美股交易基础设施中被采用的可能性较低。监管风险是最大障碍。'},
+    {n:'Wells Fargo WFUSD',b:'wait',x:'WellsFargo',d:'Wells Fargo向USPTO提交WFUSD加密相关商标申请，暗示可能推出代币化存款或稳定币。跟随JPMorgan类似路径。尚处早期。'}
   ]},
   {id:'custody',title:'托管层',sub:'多链托管 + 钱包架构',color:'#a78bfa',
    players:[
-    {n:'DTC Cede & Co.',b:'core',d:'代币化证券的法律所有权仍登记在DTC的被提名人Cede & Co.名下——这是关键的法律设计。DTC使用"数字综合账户"(Digital Omnibus Account)记录所有代币化权益的汇总。参与者通过注册钱包（Registered Wallet）持有代币，但DTC保留override key。'},
-    {n:'ComposerX (DTCC)',b:'new',d:'DTCC的代币化平台套件，用于在Canton Network上铸造、管理和追踪代币化资产。是连接传统证券簿记与链上记录的桥梁。'},
-    {n:'BitGo',b:'new',d:'Dinari Financial Network的验证节点和托管服务提供商之一。机构级加密资产托管方案，支持多链资产管理。'},
-    {n:'OKX 多链钱包架构',b:'new',d:'ICE-OKX合作将开发多链托管和钱包架构，为机构参与数字资产市场提供结构性基础设施。这是连接1.2亿用户与NYSE代币化股票的技术桥梁。'},
-    {n:'Fireblocks / Anchorage',b:'wait',d:'市场领先的机构级加密托管方案。在多链托管需求扩大时可能成为重要服务商，尤其是为传统券商提供白标托管服务。'}
+    {n:'DTC Cede & Co.',b:'core',x:'The_DTCC',d:'代币化证券的法律所有权仍登记在DTC的被提名人Cede & Co.名下——这是关键的法律设计。DTC使用"数字综合账户"(Digital Omnibus Account)记录所有代币化权益的汇总。参与者通过注册钱包（Registered Wallet）持有代币，但DTC保留override key。'},
+    {n:'ComposerX (DTCC)',b:'new',x:'The_DTCC',d:'DTCC的代币化平台套件，用于在Canton Network上铸造、管理和追踪代币化资产。是连接传统证券簿记与链上记录的桥梁。'},
+    {n:'BitGo',b:'new',x:'BitGo',d:'Dinari Financial Network的验证节点和托管服务提供商之一。机构级加密资产托管方案，支持多链资产管理。'},
+    {n:'OKX 多链钱包架构',b:'new',x:'okx',d:'ICE-OKX合作将开发多链托管和钱包架构，为机构参与数字资产市场提供结构性基础设施。这是连接1.2亿用户与NYSE代币化股票的技术桥梁。'},
+    {n:'Fireblocks / Anchorage',b:'wait',x:'FireblocksHQ',d:'市场领先的机构级加密托管方案。在多链托管需求扩大时可能成为重要服务商，尤其是为传统券商提供白标托管服务。'}
   ]},
   {id:'dist',title:'分发层',sub:'券商 + 加密交易所分发渠道',color:'#ef4444',
    players:[
-    {n:'OKX',b:'hot',d:'ICE战略投资（2026.03.05，估值250亿美元）。ICE获得董事会席位。OKX 1.2亿用户将获得NYSE代币化股票和ICE期货的分发入口。ICE获得OKX加密资产现货价格数据，用于发布美国监管期货合约。OKB代币消息公布后飙涨50%（$78→$120）。2026H2上线。'},
-    {n:'Kraken',b:'hot',d:'Nasdaq的全球分发合作伙伴。Kraken Financial已获得美联储Master Account，可直接接入Fedwire结算——这在加密交易所中极为罕见。Citadel Securities投资2亿美元（估值200亿）。正在扩展欧洲证券业务。'},
-    {n:'Robinhood',b:'hot',d:'已在欧洲推出200+代币化股票（Arbitrum），采用equity swap结构而非直接持有。正在开发基于Arbitrum的Robinhood Chain。还推出了OpenAI、SpaceX等私募公司的代币化股权代币。'},
-    {n:'Coinbase',b:'new',d:'拥有Base链（基于Optimism）作为代币化基础设施。2025年底推出代币化股票（美国用户）。正探索通过独立实体绕开NMS法规的路径——可能是Base + Aerodrome DEX的去中心化结构。'},
-    {n:'Gemini',b:'new',d:'在欧盟推出代币化股票，后端由Dinari提供代币化基础设施。Winklevoss兄弟创办。'},
-    {n:'Bybit',b:'new',d:'已开始向用户提供代币化美股和ETF服务。'}
+    {n:'OKX',b:'hot',x:'okx',d:'ICE战略投资（2026.03.05，估值250亿美元）。ICE获得董事会席位。OKX 1.2亿用户将获得NYSE代币化股票和ICE期货的分发入口。ICE获得OKX加密资产现货价格数据，用于发布美国监管期货合约。OKB代币消息公布后飙涨50%（$78→$120）。2026H2上线。'},
+    {n:'Kraken',b:'hot',x:'kraken',d:'Nasdaq的全球分发合作伙伴。Kraken Financial已获得美联储Master Account，可直接接入Fedwire结算——这在加密交易所中极为罕见。Citadel Securities投资2亿美元（估值200亿）。正在扩展欧洲证券业务。'},
+    {n:'Robinhood',b:'hot',x:'RobinhoodApp',d:'已在欧洲推出200+代币化股票（Arbitrum），采用equity swap结构而非直接持有。正在开发基于Arbitrum的Robinhood Chain。还推出了OpenAI、SpaceX等私募公司的代币化股权代币。'},
+    {n:'Coinbase',b:'new',x:'coinbase',d:'拥有Base链（基于Optimism）作为代币化基础设施。2025年底推出代币化股票（美国用户）。正探索通过独立实体绕开NMS法规的路径——可能是Base + Aerodrome DEX的去中心化结构。'},
+    {n:'Gemini',b:'new',x:'Gemini',d:'在欧盟推出代币化股票，后端由Dinari提供代币化基础设施。Winklevoss兄弟创办。'},
+    {n:'Bybit',b:'new',x:'Bybit_Official',d:'已开始向用户提供代币化美股和ETF服务。'}
   ]},
   {id:'benefit',title:'受益标的层',sub:'直接受益 + 间接受益投资标的',color:'#8b5cf6',
    players:[
-    {n:'ICE (NYSE:ICE)',b:'core',d:'最核心的受益者。布局涵盖交易所、清算所、数据服务全链条。战略投资：OKX（250亿估值）、Polymarket（20亿投资/80-90亿估值）、MoonPay（~50亿估值）。市值700-800亿美元。'},
-    {n:'Circle (NYSE:CRCL)',b:'hot',d:'USDC作为NYSE代币化平台的首选稳定币，流通量和用例场景将显著扩大。2025年6月在NYSE上市（IPO价$31，首日收$82.84，ATH $299）。当前股价约$93，市值$23.3B。2025年全年营收17亿美元。还推出了Circle Payment Network拓展支付基础设施。'},
-    {n:'OKB',b:'hot',d:'OKX原生代币。ICE投资消息公布后曾短暂飙涨50%（$78→$120，后回落至$92）。受益于OKX成为NYSE代币化股票的全球分发入口。'},
-    {n:'AVAX',b:'new',d:'Avalanche原生代币。受益于日本Progmat迁移至Avalanche L1、Dinari基于Avalanche建链、以及复星FUSD等亚洲机构采用趋势。'},
-    {n:'Digital Asset Holdings (非上市)',b:'core',d:'Canton Network技术提供方，DTCC代币化服务的核心技术合作伙伴。获BlackRock、Goldman Sachs、Citadel Securities、Nasdaq等华尔街巨头投资。'},
-    {n:'ARB (Arbitrum)',b:'new',d:'Robinhood Chain和代币化股票的底层技术栈。Robinhood、Dinari等均基于Arbitrum生态构建。'},
-    {n:'ETH',b:'wait',d:'作为L2的安全层间接受益。JPMorgan代币化基金已部署在Ethereum主网。市场广泛猜测NYSE可能使用Ethereum生态，但官方未确认任何公链。'},
-    {n:'BLK (BlackRock)',b:'core',d:'Canton Network/Digital Asset投资方。CEO Larry Fink称代币化是"市场基础设施的下一次大进化"。已推出链上代币化基金（BUIDL）。'},
-    {n:'Dinari (非上市)',b:'new',d:'已获FINRA经纪商注册，为Gemini提供代币化基础设施后端。基于Avalanche构建Dinari Financial Network，定位为代币化股票的"DTCC"。验证节点包括BitGo、VanEck。'},
-    {n:'Securitize (CEPT)',b:'hot',d:'NYSE代币化平台首个数字转让代理。AUM $4B+，与BlackRock、Apollo、BNY、KKR、VanEck合作。2026.03.24与NYSE签署MoU，Q3启动机构试点。定位为链上证券铸造与管理的核心基础设施。'},
-    {n:'Ondo Finance',b:'new',d:'代币化证券先行者，通过Ondo Global Markets采用证券化包装路径。正在走SEC完整披露流程以面向美国零售用户。'}
+    {n:'ICE (NYSE:ICE)',b:'core',x:'ICE_Markets',d:'最核心的受益者。布局涵盖交易所、清算所、数据服务全链条。战略投资：OKX（250亿估值）、Polymarket（20亿投资/80-90亿估值）、MoonPay（~50亿估值）。市值700-800亿美元。'},
+    {n:'Circle (NYSE:CRCL)',b:'hot',x:'circle',d:'USDC作为NYSE代币化平台的首选稳定币，流通量和用例场景将显著扩大。2025年6月在NYSE上市（IPO价$31，首日收$82.84，ATH $299）。当前股价约$93，市值$23.3B。2025年全年营收17亿美元。还推出了Circle Payment Network拓展支付基础设施。'},
+    {n:'OKB',b:'hot',x:'okx',d:'OKX原生代币。ICE投资消息公布后曾短暂飙涨50%（$78→$120，后回落至$92）。受益于OKX成为NYSE代币化股票的全球分发入口。'},
+    {n:'AVAX',b:'new',x:'avax',d:'Avalanche原生代币。受益于日本Progmat迁移至Avalanche L1、Dinari基于Avalanche建链、以及复星FUSD等亚洲机构采用趋势。'},
+    {n:'Digital Asset Holdings (非上市)',b:'core',x:'DigitalAssetCom',d:'Canton Network技术提供方，DTCC代币化服务的核心技术合作伙伴。获BlackRock、Goldman Sachs、Citadel Securities、Nasdaq等华尔街巨头投资。'},
+    {n:'ARB (Arbitrum)',b:'new',x:'arbitrum',d:'Robinhood Chain和代币化股票的底层技术栈。Robinhood、Dinari等均基于Arbitrum生态构建。'},
+    {n:'ETH',b:'wait',x:'ethereum',d:'作为L2的安全层间接受益。JPMorgan代币化基金已部署在Ethereum主网。市场广泛猜测NYSE可能使用Ethereum生态，但官方未确认任何公链。'},
+    {n:'BLK (BlackRock)',b:'core',x:'BlackRock',d:'Canton Network/Digital Asset投资方。CEO Larry Fink称代币化是"市场基础设施的下一次大进化"。已推出链上代币化基金（BUIDL）。'},
+    {n:'Dinari (非上市)',b:'new',x:'dinari_io',d:'已获FINRA经纪商注册，为Gemini提供代币化基础设施后端。基于Avalanche构建Dinari Financial Network，定位为代币化股票的"DTCC"。验证节点包括BitGo、VanEck。'},
+    {n:'Securitize (CEPT)',b:'hot',x:'Securitize',d:'NYSE代币化平台首个数字转让代理。AUM $4B+，与BlackRock、Apollo、BNY、KKR、VanEck合作。2026.03.24与NYSE签署MoU，Q3启动机构试点。定位为链上证券铸造与管理的核心基础设施。'},
+    {n:'Ondo Finance',b:'new',x:'OndoFinance',d:'代币化证券先行者，通过Ondo Global Markets采用证券化包装路径。正在走SEC完整披露流程以面向美国零售用户。'}
   ]}
 ];
 
 const WATCHLIST = [
   {cat:'交易所 / 场馆',items:[
-    {tk:'ICE',nm:'Intercontinental Exchange',nt:'NYSE母公司，全链条受益，市值700-800亿',b:'core'},
-    {tk:'NDAQ',nm:'Nasdaq Inc.',nt:'已获SEC批准代币化交易，与Kraken合作',b:'hot'},
+    {tk:'ICE',nm:'Intercontinental Exchange',nt:'NYSE母公司，全链条受益，市值700-800亿',b:'core',x:'ICE_Markets'},
+    {tk:'NDAQ',nm:'Nasdaq Inc.',nt:'已获SEC批准代币化交易，与Kraken合作',b:'hot',x:'Nasdaq'},
   ]},
   {cat:'清算 / 托管',items:[
-    {tk:'DTCC',nm:'非上市',nt:'美国证券结算中枢，Canton MVP 2026H1',b:'core'},
-    {tk:'BK',nm:'BNY Mellon',nt:'ICE代币化存款合作方，7×24保证金调度',b:'new'},
-    {tk:'C',nm:'Citigroup',nt:'ICE代币化存款合作方，跨时区资金转移',b:'new'},
+    {tk:'DTCC',nm:'非上市',nt:'美国证券结算中枢，Canton MVP 2026H1',b:'core',x:'The_DTCC'},
+    {tk:'BK',nm:'BNY Mellon',nt:'ICE代币化存款合作方，7×24保证金调度',b:'new',x:'BNYMellon'},
+    {tk:'C',nm:'Citigroup',nt:'ICE代币化存款合作方，跨时区资金转移',b:'new',x:'Citi'},
   ]},
   {cat:'底层链 / 协议',items:[
-    {tk:'Canton',nm:'Digital Asset Holdings（非上市）',nt:'DTCC首选链，BlackRock/Goldman/Citadel投资',b:'core'},
-    {tk:'ETH',nm:'Ethereum',nt:'JPMorgan基金底层，L2生态最大，间接受益',b:'wait'},
-    {tk:'AVAX',nm:'Avalanche',nt:'Progmat迁移、Dinari建链、亚洲机构采用',b:'new'},
-    {tk:'ARB',nm:'Arbitrum',nt:'Robinhood Chain底层技术栈',b:'new'},
-    {tk:'OP',nm:'Optimism / Base',nt:'Coinbase代币化股票潜在底层',b:'wait'},
-    {tk:'SOL',nm:'Solana',nt:'USDC占80%份额，Dinari即将支持',b:'wait'},
+    {tk:'Canton',nm:'Digital Asset Holdings（非上市）',nt:'DTCC首选链，BlackRock/Goldman/Citadel投资',b:'core',x:'canton_network'},
+    {tk:'ETH',nm:'Ethereum',nt:'JPMorgan基金底层，L2生态最大，间接受益',b:'wait',x:'ethereum'},
+    {tk:'AVAX',nm:'Avalanche',nt:'Progmat迁移、Dinari建链、亚洲机构采用',b:'new',x:'avax'},
+    {tk:'ARB',nm:'Arbitrum',nt:'Robinhood Chain底层技术栈',b:'new',x:'arbitrum'},
+    {tk:'OP',nm:'Optimism / Base',nt:'Coinbase代币化股票潜在底层',b:'wait',x:'Optimism'},
+    {tk:'SOL',nm:'Solana',nt:'USDC占80%份额，Dinari即将支持',b:'wait',x:'solana'},
   ]},
   {cat:'稳定币',items:[
-    {tk:'CRCL',nm:'Circle (NYSE:CRCL)',nt:'ICE MoU首选，USDC流通753亿，已上市',b:'core'},
-    {tk:'USYC',nm:'Circle / Hashnote',nt:'代币化货币基金，可作清算所抵押品',b:'new'},
-    {tk:'USDT',nm:'Tether',nt:'市值最大但MiCA不合规，被采用概率低',b:'wait'},
+    {tk:'CRCL',nm:'Circle (NYSE:CRCL)',nt:'ICE MoU首选，USDC流通753亿，已上市',b:'core',x:'circle'},
+    {tk:'USYC',nm:'Circle / Hashnote',nt:'代币化货币基金，可作清算所抵押品',b:'new',x:'circle'},
+    {tk:'USDT',nm:'Tether',nt:'市值最大但MiCA不合规，被采用概率低',b:'wait',x:'Tether_to'},
   ]},
   {cat:'券商 / 分发',items:[
-    {tk:'OKB',nm:'OKX',nt:'ICE投资250亿估值，1.2亿用户分发入口',b:'hot'},
-    {tk:'COIN',nm:'Coinbase',nt:'Base链 + 代币化股票，NMS合规路径待定',b:'new'},
-    {tk:'HOOD',nm:'Robinhood',nt:'Arbitrum代币化股票 + 自建链，equity swap模式',b:'hot'},
-    {tk:'Kraken',nm:'非上市',nt:'Nasdaq合作，已获Fed Master Account',b:'hot'},
-    {tk:'Gemini',nm:'非上市',nt:'Dinari后端，欧盟代币化股票',b:'new'},
+    {tk:'OKB',nm:'OKX',nt:'ICE投资250亿估值，1.2亿用户分发入口',b:'hot',x:'okx'},
+    {tk:'COIN',nm:'Coinbase',nt:'Base链 + 代币化股票，NMS合规路径待定',b:'new',x:'coinbase'},
+    {tk:'HOOD',nm:'Robinhood',nt:'Arbitrum代币化股票 + 自建链，equity swap模式',b:'hot',x:'RobinhoodApp'},
+    {tk:'Kraken',nm:'非上市',nt:'Nasdaq合作，已获Fed Master Account',b:'hot',x:'kraken'},
+    {tk:'Gemini',nm:'非上市',nt:'Dinari后端，欧盟代币化股票',b:'new',x:'Gemini'},
   ]},
   {cat:'做市商 / 流动性',items:[
-    {tk:'Citadel',nm:'Citadel Securities（非上市）',nt:'投资Kraken 2亿 + Digital Asset/Canton投资方',b:'new'},
-    {tk:'Jump',nm:'Jump Trading',nt:'加密做市龙头，Canton生态参与者',b:'wait'},
-    {tk:'Wintermute',nm:'Wintermute',nt:'加密做市商，链上股票做市潜在参与者',b:'wait'},
+    {tk:'Citadel',nm:'Citadel Securities（非上市）',nt:'投资Kraken 2亿 + Digital Asset/Canton投资方',b:'new',x:'CitadelSecure'},
+    {tk:'Jump',nm:'Jump Trading',nt:'加密做市龙头，Canton生态参与者',b:'wait',x:'JumpCryptoHQ'},
+    {tk:'Wintermute',nm:'Wintermute',nt:'加密做市商，链上股票做市潜在参与者',b:'wait',x:'wintermute_t'},
   ]},
   {cat:'潜在受益标的',items:[
-    {tk:'BLK',nm:'BlackRock',nt:'Canton投资方 + BUIDL代币化基金 + Larry Fink公开背书',b:'core'},
-    {tk:'JPM',nm:'JPMorgan',nt:'Ethereum代币化基金，Kinexys平台，种子资金1亿',b:'new'},
-    {tk:'GS',nm:'Goldman Sachs',nt:'Canton / Digital Asset投资方',b:'new'},
-    {tk:'Dinari',nm:'非上市',nt:'FINRA注册，代币化股票"DTCC"，Avalanche生态',b:'new'},
-    {tk:'CEPT',nm:'Securitize',nt:'NYSE首个数字转让代理，AUM $4B+，BlackRock合作',b:'hot'},
-    {tk:'Ondo',nm:'Ondo Finance',nt:'代币化证券先行者，SEC完整披露流程中',b:'new'},
+    {tk:'BLK',nm:'BlackRock',nt:'Canton投资方 + BUIDL代币化基金 + Larry Fink公开背书',b:'core',x:'BlackRock'},
+    {tk:'JPM',nm:'JPMorgan',nt:'Ethereum代币化基金，Kinexys平台，种子资金1亿',b:'new',x:'jpmorgan'},
+    {tk:'GS',nm:'Goldman Sachs',nt:'Canton / Digital Asset投资方',b:'new',x:'GoldmanSachs'},
+    {tk:'Dinari',nm:'非上市',nt:'FINRA注册，代币化股票"DTCC"，Avalanche生态',b:'new',x:'dinari_io'},
+    {tk:'CEPT',nm:'Securitize',nt:'NYSE首个数字转让代理，AUM $4B+，BlackRock合作',b:'hot',x:'Securitize'},
+    {tk:'Ondo',nm:'Ondo Finance',nt:'代币化证券先行者，SEC完整披露流程中',b:'new',x:'OndoFinance'},
   ]}
 ];
 
@@ -378,7 +380,7 @@ function tglLayer(id){ document.getElementById('ly-'+id).classList.toggle('open'
 function showD(lid,idx,el){
   const p = LAYERS.find(l=>l.id===lid).players[idx];
   const dc = document.getElementById('dc-'+lid);
-  dc.innerHTML = `<strong>${p.n}</strong> — ${p.d}`;
+  dc.innerHTML = `<strong>${p.n}</strong>${p.x?` <a class="x-link" href="https://x.com/${p.x}" target="_blank" rel="noopener">@${p.x}</a>`:''} — ${p.d}`;
   dc.classList.add('show');
   el.closest('.lb').querySelectorAll('.ptag').forEach(t=>t.classList.remove('sel'));
   el.classList.add('sel');
@@ -395,6 +397,7 @@ function renderWL(){
           <span class="wl-ticker">${it.tk}</span>
           <span class="wl-name">${it.nm}</span>
           <span class="wl-note">${it.nt}</span>
+          ${it.x?`<a class="x-link" href="https://x.com/${it.x}" target="_blank" rel="noopener" onclick="event.stopPropagation()">@${it.x}</a>`:''}
           ${it.b?`<span class="badge b-${it.b}">${BN[it.b]}</span>`:''}
         </div>`).join('')}
       </div>

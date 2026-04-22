@@ -1,10 +1,60 @@
 {
-  "score": 0,
+  "score": 11.6,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
-  "components": [],
+  "components": [
+    {
+      "variable": "vix",
+      "name": "VIX",
+      "current": 19.5,
+      "base": 16,
+      "deviation_pct": 21.9,
+      "weight": 0.3,
+      "weight_pct": 30,
+      "contribution": 143.9
+    },
+    {
+      "variable": "oil",
+      "name": "WTI油价",
+      "current": 89.18,
+      "base": 75,
+      "deviation_pct": 18.9,
+      "weight": 0.2,
+      "weight_pct": 20,
+      "contribution": 71.4
+    },
+    {
+      "variable": "usdjpy",
+      "name": "USD/JPY",
+      "current": 159.37,
+      "base": 145,
+      "deviation_pct": 9.9,
+      "weight": 0.1,
+      "weight_pct": 10,
+      "contribution": 9.8
+    },
+    {
+      "variable": "dxy",
+      "name": "DXY",
+      "current": 98.38,
+      "base": 100,
+      "deviation_pct": 1.6,
+      "weight": 0.15,
+      "weight_pct": 15,
+      "contribution": 0.4
+    }
+  ],
   "hard_alerts_count": 0,
-  "significant_deviations": [],
-  "timestamp": "2026-04-21 15:24"
+  "significant_deviations": [
+    {
+      "name": "VIX",
+      "current": 19.5,
+      "base": 16,
+      "deviation_pct": 21.9,
+      "direction": "偏高",
+      "level": "显著偏离"
+    }
+  ],
+  "timestamp": "2026-04-22 11:44"
 }

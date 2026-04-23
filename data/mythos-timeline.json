@@ -234,6 +234,89 @@
         "Anthropic Official"
       ],
       "new_members": []
+    },
+    {
+      "date": "2026-04-16",
+      "tag": "发布",
+      "title": "Bloomberg深度报道：Anthropic如何发现Mythos太危险而不能发布",
+      "detail": "Bloomberg长篇特稿详述Mythos开发过程和内部决策。揭示Anthropic内部对是否公开发布存在激烈辩论，最终安全团队说服管理层限制发布。",
+      "impact": "信息",
+      "score": 3,
+      "sources": [
+        "Bloomberg"
+      ]
+    },
+    {
+      "date": "2026-04-20",
+      "tag": "监管",
+      "title": "US News发布Mythos全面解析：政府和监管层面关注升温",
+      "detail": "白宫与Anthropic CEO Dario Amodei讨论Mythos事宜。美国政府计划向主要联邦机构提供Mythos版本。英国也与主要银行和网安官员举行了相关会议。",
+      "impact": "重大",
+      "score": 4,
+      "sources": [
+        "US News",
+        "白宫"
+      ]
+    },
+    {
+      "date": "2026-04-20",
+      "tag": "能力",
+      "title": "英国AISI发布Mythos独立评估报告",
+      "detail": "英国AI安全研究所(AISI)发布对Claude Mythos Preview网安能力的独立评估报告，为Glasswing合作伙伴之外的首个政府级独立验证。",
+      "impact": "重大",
+      "score": 4,
+      "sources": [
+        "AISI (UK)"
+      ]
+    },
+    {
+      "date": "2026-04-21",
+      "tag": "泄露",
+      "title": "Bloomberg曝光：Mythos被未授权用户访问",
+      "detail": "一个Discord群组通过第三方承包商凭证+从Mercor（AI训练数据供应商）数据泄露中推断URL模式，在Mythos发布当天（4/7）即获取访问权限并持续使用至今。攻击手段被评为'低技术复杂度、高影响力'。该群组专门挖掘未发布AI模型信息，但据报未将Mythos用于网安攻击目的。",
+      "impact": "重大",
+      "score": 5,
+      "sources": [
+        "Bloomberg",
+        "TechCrunch",
+        "CBS News"
+      ]
+    },
+    {
+      "date": "2026-04-22",
+      "tag": "泄露",
+      "title": "Anthropic确认调查承包商凭证泄露事件",
+      "detail": "Anthropic正式确认正在调查来自第三方供应商环境的未授权访问。声称未发现对Anthropic系统的实际影响。事件被定性为'供应商安全管理失败'——最薄弱环节不是Anthropic自身安全而是承包商的凭证管理。这是Mythos发布仅两周后即遭突破，严重质疑'太危险不能公开'的叙事根基。",
+      "impact": "重大",
+      "score": 5,
+      "sources": [
+        "Anthropic",
+        "CryptoBriefing",
+        "SiliconAngle",
+        "Cybernews"
+      ]
+    },
+    {
+      "date": "2026-04-23",
+      "tag": "市场",
+      "title": "Motley Fool分析：Mythos对Ethereum和Solana的威胁",
+      "detail": "分析文章讨论Mythos的零日漏洞发现能力是否对主流智能合约平台（Ethereum/Solana）构成系统性安全威胁。",
+      "impact": "信息",
+      "score": 3,
+      "sources": [
+        "Motley Fool"
+      ]
+    },
+    {
+      "date": "2026-04-17",
+      "tag": "发布",
+      "title": "Anthropic发布Claude Opus 4.7",
+      "detail": "Opus 4.7在高级软件工程任务上较Opus 4.6有显著提升，尤其是最困难的任务场景。",
+      "impact": "信息",
+      "score": 3,
+      "sources": [
+        "Anthropic Official"
+      ]
     }
   ],
   "tracking_lines": [
@@ -315,31 +398,51 @@
       ]
     },
     {
+      "id": "vendor-breach",
+      "name": "承包商凭证泄露事件",
+      "icon": "🔓",
+      "status": "critical",
+      "importance": 5,
+      "lastUpdate": "2026-04-22",
+      "desc": "Mythos发布仅两周即被未授权访问。攻击链：第三方承包商凭证 + Mercor数据泄露推断URL + Discord群组持续使用。Anthropic称'未影响系统'但严重动摇'太危险不能公开'的叙事根基。核心矛盾：模型安全等级最高但供应链安全最薄弱。",
+      "signals": [
+        "Anthropic 调查结论和整改措施",
+        "受影响承包商身份和Mercor泄露范围",
+        "Glasswing 成员是否要求独立安全审计",
+        "是否有更多未授权访问被发现",
+        "Cloudflare/非成员是否以此事件质疑Glasswing排除逻辑"
+      ]
+    },
+    {
       "id": "model-governance",
       "name": "模型治理先例",
       "icon": "⚖️",
-      "status": "watch",
-      "importance": 3,
-      "lastUpdate": "2026-04-10",
-      "desc": "首次有前沿AI实验室宣布模型太危险不公开发售。是真正的安全考量还是定位策略？这个先例将影响所有后续前沿模型的发布方式。",
+      "status": "active",
+      "importance": 4,
+      "lastUpdate": "2026-04-22",
+      "desc": "首次有前沿AI实验室宣布模型太危险不公开发售，但两周即被供应链攻击突破。白宫已与Amodei讨论，联邦机构计划部署。英国AISI发布独立评估。核心问题：限制发布策略在供应链安全面前是否可持续？",
       "signals": [
         "其他实验室（OpenAI/Google/Meta）是否跟进限制发布",
         "EU AI Act 对 Mythos 级模型的监管反应",
-        "Anthropic 后续 Opus 模型 safeguard 是否如期推出",
-        "公众/开发者社区对限制发布的接受度"
+        "承包商泄露是否推动更严格的模型访问管控标准",
+        "美国联邦机构部署 Mythos 的安全架构设计"
       ]
     }
   ],
   "pending": [
+    "【紧急】承包商凭证泄露后续：Anthropic 是否更换访问架构 / 撤销受影响凭证 / 公布调查结论",
+    "【紧急】Discord 群组是否已被切断访问 / 是否有更多未授权用户",
+    "【紧急】Mercor 数据泄露规模：泄露的 URL 模式信息是否影响其他 Anthropic 内部系统",
+    "【叙事】'太危险不能公开'但两周即被突破 — 这是否动摇 Glasswing 成员对 Anthropic 安全承诺的信任",
     "【反叙事】AISLE 是否公布全代码库扫描（非指定片段）对比结果 — 这是'指哪打哪 vs 扫大陆'争议的决定性证据",
     "【反叙事】Anthropic 是否正式回应小模型复现质疑 / 198次人工复核方法论是否被独立审计",
-    "【反叙事】Glasswing 合作伙伴（CrowdStrike/Palo Alto）是否发布独立验证报告，证实 Mythos 能力",
-    "Q1 财报季（下周开启）：银行是否在财报中披露 AI 网安防御投入",
-    "鲍威尔 5月卸任：网安议题是否移交新主席 Kevin Warsh",
+    "英国 AISI 独立评估报告详细结论 — 是否与 Anthropic 自称能力一致",
+    "美国联邦机构部署 Mythos 的具体时间表和安全架构",
+    "Q1 财报季：银行是否在财报中披露 AI 网安防御投入",
     "Anthropic 后续 Opus 模型：safeguard 是否如期推出",
     "开源模型 coding benchmark 追赶情况（Meta Llama / DeepSeek 新版本）",
     "EU AI Act 8月2日执行：对 Mythos 级模型的监管定义",
-    "中国应对措施：是否推出国家级 AI 网安防御计划",
+    "Mythos 对加密生态（Ethereum/Solana 智能合约）的实际威胁验证",
     "Glasswing 是否新增合作伙伴（当前 12 家创始 + 40 家扩展）"
   ],
   "members": {
@@ -403,7 +506,7 @@
     ]
   },
   "impact_analysis": {
-    "last_updated": "2026-04-13",
+    "last_updated": "2026-04-23",
     "bullish": [
       {
         "target": "CrowdStrike (CRWD)",
@@ -518,6 +621,11 @@
         "target": "A股网安板块 (奇安信 / 深信服 / 启明星辰)",
         "logic": "中国是否推出对标项目决定整个板块叙事。",
         "trigger": "国家层面官方表态 / 类似'国产 Glasswing'计划"
+      },
+      {
+        "target": "Ethereum / Solana 智能合约平台",
+        "logic": "Mythos零日发现能力是否可扩展到智能合约漏洞。如果AI模型可自主发现合约漏洞+构造exploit，DeFi安全模型需要根本性重构。",
+        "trigger": "Mythos或类似模型被用于智能合约审计的公开案例"
       }
     ]
   }

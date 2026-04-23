@@ -176,6 +176,38 @@ input[type=range]::-webkit-slider-thumb{
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .g2-wide{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
 
+/* ── events timeline ── */
+.evt-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.evt-fbtn{
+  padding:5px 12px;border-radius:6px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-size:11px;font-family:var(--font);
+  cursor:pointer;transition:all .2s;font-weight:600;
+}
+.evt-fbtn:hover{border-color:var(--blue);color:var(--text)}
+.evt-fbtn.active{background:rgba(92,172,255,.15);border-color:var(--blue);color:#fff}
+.evt-card{
+  padding:14px 16px;border-radius:10px;background:rgba(6,10,16,.6);
+  border:1px solid var(--border2);margin-bottom:8px;
+  display:flex;gap:14px;align-items:flex-start;transition:border-color .2s;
+}
+.evt-card:hover{border-color:var(--blue)}
+.evt-date{
+  font-family:var(--mono);font-size:11px;color:var(--muted);
+  min-width:72px;flex-shrink:0;line-height:1.8;
+}
+.evt-body{flex:1;min-width:0}
+.evt-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.5}
+.evt-desc{font-size:11.5px;color:#9db3ca;line-height:1.7}
+.evt-tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.evt-sev{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px;
+}
+.evt-year{
+  font-size:13px;font-weight:700;color:var(--gold);letter-spacing:1px;
+  padding:8px 0 6px;border-bottom:1px solid rgba(228,184,96,.15);margin-bottom:8px;
+}
+
 @media(max-width:1100px){
   .kpi-strip{grid-template-columns:repeat(3,1fr)}
   .ctrl-grid,.sc-grid,.g2,.g2-wide{grid-template-columns:1fr}
@@ -219,6 +251,7 @@ input[type=range]::-webkit-slider-thumb{
   <button class="tab-btn" onclick="switchTab('network')">因果网络</button>
   <button class="tab-btn" onclick="switchTab('analysis')">链路与级联</button>
   <button class="tab-btn" onclick="switchTab('anchors')">事实锚点</button>
+  <button class="tab-btn" onclick="switchTab('events')">事件追踪</button>
 </div>
 
 <!-- ═══════════ TAB 1: OVERVIEW ═══════════ -->
@@ -457,6 +490,31 @@ input[type=range]::-webkit-slider-thumb{
         煤价时间序列、JKM LNG现货、VLCC/LNG运价、澳洲港口拥堵指数、柴油库存天数、台风与地缘事件触发器。
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 6: EVENTS ═══════════ -->
+<div id="tab-events" class="tab-page">
+  <div class="card">
+    <h2>日韩供给链脆弱性事件追踪</h2>
+    <p style="font-size:12px;color:#8098b0;margin-bottom:14px;line-height:1.6">
+      追踪影响日韩半导体供给链的关键事件——能源中断、航道封锁、自然灾害、地缘冲突、晶圆厂扰动。
+      <span style="color:var(--muted)">严重度：</span>
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#3fdfaa;vertical-align:middle"></span> 低
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#5cacff;vertical-align:middle;margin-left:6px"></span> 中
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ffb830;vertical-align:middle;margin-left:6px"></span> 高
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff5a5a;vertical-align:middle;margin-left:6px"></span> 极高
+    </p>
+    <div class="evt-filters">
+      <button class="evt-fbtn active" onclick="filterEvt('all')">全部</button>
+      <button class="evt-fbtn" onclick="filterEvt('shipping')">航道/运输</button>
+      <button class="evt-fbtn" onclick="filterEvt('energy')">能源</button>
+      <button class="evt-fbtn" onclick="filterEvt('disaster')">自然灾害</button>
+      <button class="evt-fbtn" onclick="filterEvt('geo')">地缘政治</button>
+      <button class="evt-fbtn" onclick="filterEvt('fab')">晶圆厂</button>
+      <button class="evt-fbtn" onclick="filterEvt('positive')">正面/缓冲</button>
+    </div>
+    <div id="evtList"></div>
   </div>
 </div>
 
@@ -744,9 +802,131 @@ function applySc(name){
   update();
 }
 
+/* ── Events data ── */
+const events=[
+  {date:'2024-01',cat:'shipping',sev:'high',
+   title:'胡塞武装红海袭击升级',
+   desc:'马士基、MSC、赫伯罗特等主要航运公司绕行好望角，亚欧航线增加10-14天。日韩半导体出口欧洲的运费和交期显著上升。'},
+  {date:'2024-01',cat:'disaster',sev:'mid',
+   title:'能登半岛M7.6地震',
+   desc:'日本石川县遭受强震，虽非主要晶圆厂区域，但中部本州基础设施和电子元器件供应商受到影响。'},
+  {date:'2024-02',cat:'fab',sev:'low',pos:true,
+   title:'TSMC熊本厂(JASM)建设里程碑',
+   desc:'日本投入约¥4760亿补贴，Fab 1即将投产。正面：供给链多元化；风险：九州地震/火山带集中度。'},
+  {date:'2024-03',cat:'fab',sev:'mid',
+   title:'三星代工良率问题持续',
+   desc:'3nm GAA制程良率偏低，失去高通订单给台积电。韩国代工竞争力结构性隐忧。'},
+  {date:'2024-04',cat:'disaster',sev:'high',
+   title:'台湾花莲M7.4地震',
+   desc:'台积电台南厂短暂停产，部分晶圆受损。数日内恢复，但暴露日韩下游客户对台积电集中依赖的脆弱性。'},
+  {date:'2024-04',cat:'energy',sev:'low',pos:true,
+   title:'日本高浜1号机组重启',
+   desc:'关西电力重启49年机龄反应堆，日本核电重启进程推进，降低LNG发电依赖，有助于降低国内晶圆厂电力成本。'},
+  {date:'2024-05',cat:'geo',sev:'high',
+   title:'美国CHIPS法案出口管制收紧',
+   desc:'对华半导体设备出口新限制，日本(东京电子)、荷兰(ASML)协同执行。中国加速自主替代，地缘紧张加剧。'},
+  {date:'2024-06',cat:'energy',sev:'mid',
+   title:'韩国工业电价再次上调',
+   desc:'KEPCO为弥补累计亏损(超30万亿韩元)持续提高工业电价，直接影响三星、SK海力士晶圆厂运营成本。'},
+  {date:'2024-07',cat:'energy',sev:'low',pos:true,
+   title:'岛根核电2号机组重启',
+   desc:'中国电力重启日本海侧首个福岛后反应堆，助力日本2030年核电20-22%目标。'},
+  {date:'2024-08',cat:'disaster',sev:'mid',
+   title:'宫崎M7.1地震触发南海海槽预警',
+   desc:'日本首次发布"巨大地震注意"预警。九州晶圆厂集群(台积电JASM、索尼传感器厂)面临潜在巨大风险，暴露防备缺口。'},
+  {date:'2024-09',cat:'disaster',sev:'mid',
+   title:'台风珊珊袭击九州',
+   desc:'九州地区物流和电力中断，台积电JASM、索尼传感器厂、多家封测设施短暂停产。'},
+  {date:'2024-10',cat:'fab',sev:'mid',
+   title:'SK海力士HBM3E产能集中风险',
+   desc:'SK海力士拿下英伟达大部分HBM订单，生产集中在利川/清州。这些特定工厂的任何中断将严重影响全球AI芯片供给。'},
+  {date:'2024-10',cat:'energy',sev:'mid',
+   title:'澳洲煤炭/LNG出口受飓风季扰动',
+   desc:'昆士兰港口因气旋季受阻，焦煤出口中断。日韩为澳洲最大LNG/煤炭买家，现货LNG价格跳升。'},
+  {date:'2024-12',cat:'fab',sev:'low',pos:true,
+   title:'台积电JASM熊本Fab 1投产',
+   desc:'12/28nm和40nm制程量产。日本半导体回流里程碑。同时宣布Fab 2(6/7nm)计划，追加约¥7300亿补贴。'},
+  {date:'2024-12',cat:'geo',sev:'high',
+   title:'韩国政治危机：戒严/弹劾',
+   desc:'尹锡悦短暂戒严令及随后弹劾，政治不稳定导致韩元急贬。三星/SK海力士补贴政策和能源政策延续性存疑。'},
+  {date:'2025-01',cat:'shipping',sev:'mid',
+   title:'红海航运中断进入第二年',
+   desc:'胡塞武装袭击持续，红海航行保险费居高不下。亚欧航运路线出现永久性结构转变，日韩半导体出口欧洲成本增加。'},
+  {date:'2025-02',cat:'energy',sev:'mid',pos:true,
+   title:'日本GX绿色转型核电政策推进',
+   desc:'内阁批准反应堆运行寿命延至60年以上，并可能建设新一代反应堆。为日本扩大国内晶圆厂产能提供稳定基荷电力至关重要。'},
+  {date:'2025-Q1',cat:'fab',sev:'mid',
+   title:'三星HBM认证延迟持续',
+   desc:'三星HBM3E仍未通过英伟达认证，市场份额被SK海力士蚕食。韩国HBM供给越来越集中于单一公司的结构性风险。'},
+  {date:'2025-04',cat:'geo',sev:'high',
+   title:'美国关税升级',
+   desc:'特朗普政府广泛关税行动波及全球贸易。半导体设备和材料面临贸易政策不确定性。日韩在美中市场准入间艰难平衡。'},
+  {date:'2025-Q2',cat:'shipping',sev:'mid',
+   title:'马六甲海峡安全担忧升温',
+   desc:'中国海军南海活动增加，海峡通行保险和安全成本上升。全球约25%贸易经马六甲，几乎所有日韩能源进口和大量半导体元件走此航道。'},
+  {date:'2025-08',cat:'disaster',sev:'mid',
+   title:'台风季九州再受考验',
+   desc:'强台风影响九州物流和电网，JASM及周边封测产业链短暂受扰。半导体重镇的气候脆弱性反复验证。'},
+  {date:'2025-10',cat:'energy',sev:'low',pos:true,
+   title:'日本女川核电2号机组商业运行',
+   desc:'东北电力女川2号机组恢复商业运行，福岛同型BWR首次重启，象征意义重大，进一步提升日本核电占比。'},
+  {date:'2026-01',cat:'geo',sev:'mid',
+   title:'韩国新政府能源政策转向',
+   desc:'新政府推进核电扩张计划，计划增建APR-1400机组。有助于降低化石燃料依赖，但政策执行存不确定性。'},
+  {date:'2026-02',cat:'shipping',sev:'high',
+   title:'霍尔木兹海峡紧张态势再起',
+   desc:'伊朗核谈判破裂后海峡通行风险上升，韩国原油进口(中东占72%)面临直接威胁，保险费率飙升。'},
+  {date:'2026-03',cat:'energy',sev:'mid',
+   title:'澳洲液体燃料储备立法推进',
+   desc:'澳洲政府推进战略燃料储备立法，目标将储备天数从现有的不足30天提升至90天IEA标准。对矿业柴油供给链有长远正面影响。'},
+  {date:'2026-04',cat:'geo',sev:'high',
+   title:'美国对华芯片禁令扩大至成熟制程',
+   desc:'新一轮限制扩展到成熟制程设备出口，日本半导体设备商(东京电子、迪恩士)订单面临重大影响，产业链重构压力加大。'},
+];
+
+let curFilter='all';
+function filterEvt(cat){
+  curFilter=cat;
+  document.querySelectorAll('.evt-fbtn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderEvts();
+}
+
+function renderEvts(){
+  const filtered=curFilter==='all'?events
+    :curFilter==='positive'?events.filter(e=>e.pos)
+    :events.filter(e=>e.cat===curFilter);
+  const sevCol={low:'#3fdfaa',mid:'#5cacff',high:'#ffb830',crit:'#ff5a5a'};
+  const catLabel={shipping:'航道/运输',energy:'能源',disaster:'自然灾害',geo:'地缘政治',fab:'晶圆厂'};
+  let html='';
+  let lastYear='';
+  filtered.forEach(e=>{
+    const yr=e.date.slice(0,4);
+    if(yr!==lastYear){html+=`<div class="evt-year">${yr}</div>`;lastYear=yr;}
+    const tagCls=e.sev==='low'?'tag-low':e.sev==='mid'?'tag-mid':e.sev==='high'?'tag-high':'tag-crit';
+    const sevLbl=e.sev==='low'?'低':e.sev==='mid'?'中':e.sev==='high'?'高':'极高';
+    html+=`<div class="evt-card" data-cat="${e.cat}">
+      <div class="evt-sev" style="background:${sevCol[e.sev]}"></div>
+      <div class="evt-date">${e.date}</div>
+      <div class="evt-body">
+        <div class="evt-title">${e.title}</div>
+        <div class="evt-desc">${e.desc}</div>
+        <div class="evt-tags">
+          <span class="tag ${tagCls}">${sevLbl}</span>
+          <span class="tag tag-mid" style="background:rgba(255,255,255,.06);border-color:var(--border);color:var(--muted)">${catLabel[e.cat]||e.cat}</span>
+          ${e.pos?'<span class="tag tag-low">正面/缓冲</span>':''}
+        </div>
+      </div>
+    </div>`;
+  });
+  if(!filtered.length) html='<div style="text-align:center;color:var(--muted);padding:40px">暂无该分类事件</div>';
+  $('evtList').innerHTML=html;
+}
+
 /* ── Init ── */
 sliders.forEach(s=>$(s.id).addEventListener('input',update));
 applySc('base');
+renderEvts();
 </script>
 </body>
 </html>

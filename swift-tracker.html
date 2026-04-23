@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SWIFT 全球货币份额追踪 · 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #eaf1f7; font-family: 'Noto Sans SC', 'SF Pro Display', -apple-system, sans-serif; }
+  .back-link { position: fixed; top: 10px; left: 12px; z-index: 100; font-size: 13px; color: #eaf1f7; text-decoration: none; opacity: 0.8; }
+  .back-link:hover { opacity: 1; }
+  .watermark { position: fixed; bottom: 20px; right: 20px; font-size: 48px; color: rgba(201,149,58,0.07); font-weight: 700; pointer-events: none; z-index: 0; transform: rotate(-15deg); }
+</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/recharts@2.15.3/umd/Recharts.js"></script>
+</head>
+<body>
+<a class="back-link" href="index.html">← 返回</a>
+<div class="watermark">黑森船长</div>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+const { PieChart, Pie, Cell, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } = Recharts;
+
+const GOLD = "#c9953a";
+const NAVY = "#1a3a5c";
+const BG = "#eaf1f7";
+const COLORS = { USD:"#1a3a5c", EUR:"#2e6b9e", GBP:"#8b5cf6", JPY:"#e74c3c", CAD:"#2ecc71", CNY:"#c9953a", AUD:"#e67e22", CHF:"#1abc9c", HKD:"#e84393", SEK:"#6c5ce7", SGD:"#00b894", Other:"#b2bec3" };
+
+// CORRECTED DATA (labels were swapped in v1)
+const globalPayments = [
+  {currency:"USD",share:49.25},{currency:"EUR",share:22.82},{currency:"GBP",share:7.16},
+  {currency:"JPY",share:3.46},{currency:"CAD",share:2.94},{currency:"CNY",share:2.74},
+  {currency:"AUD",share:1.71},{currency:"HKD",share:1.68},{currency:"CHF",share:1.29},
+  {currency:"SGD",share:0.97},
+];
+const intlPayments = [
+  {currency:"USD",share:57.49},{currency:"EUR",share:14.07},{currency:"GBP",share:5.68},
+  {currency:"JPY",share:5.11},{currency:"CAD",share:2.71},{currency:"CNY",share:2.16},
+  {currency:"AUD",share:2.03},{currency:"CHF",share:1.94},{currency:"HKD",share:1.33},
+  {currency:"SEK",share:0.99},
+];
+const rmbMonthly = [
+  {m:"Jan 25",v:3.79,r:4},{m:"Feb 25",v:4.33,r:4},{m:"Mar 25",v:4.13,r:4},{m:"Apr 25",v:3.50,r:5},
+  {m:"May 25",v:2.89,r:6},{m:"Jun 25",v:2.88,r:6},{m:"Jul 25",v:2.88,r:6},{m:"Aug 25",v:2.88,r:6},
+  {m:"Sep 25",v:3.17,r:5},{m:"Oct 25",v:2.94,r:6},{m:"Nov 25",v:2.47,r:6},{m:"Dec 25",v:2.73,r:6},
+  {m:"Jan 26",v:3.13,r:5},{m:"Feb 26",v:2.74,r:6},
+];
+const tradeFinance = [
+  {m:"Jun 25",USD:82.75,CNY:5.90,EUR:5.94,JPY:1.55},
+  {m:"Jul 25",USD:79.62,CNY:7.70,EUR:7.02,JPY:1.56},
+  {m:"Aug 25",USD:81.40,CNY:7.59,EUR:5.40,JPY:1.49},
+  {m:"Sep 25",USD:80.50,CNY:7.28,EUR:7.00,JPY:1.24},
+  {m:"Nov 25",USD:79.00,CNY:8.48,EUR:6.50,JPY:1.30},
+  {m:"Feb 26",USD:81.96,CNY:5.90,EUR:6.02,JPY:1.56},
+];
+const cipsGrowth = [
+  {y:"2020",vol:45},{y:"2021",vol:80},{y:"2022",vol:97},{y:"2023",vol:123},{y:"2024",vol:175},{y:"2025",vol:180},
+];
+
+const TT = ({active,payload,label})=>{
+  if(!active||!payload) return null;
+  return <div style={{background:"rgba(26,58,92,0.95)",padding:"10px 14px",borderRadius:6,border:"1px solid #c9953a",color:"#eaf1f7",fontSize:12}}>
+    <div style={{fontWeight:700,marginBottom:4,color:"#c9953a"}}>{label}</div>
+    {payload.map((p,i)=><div key={i} style={{display:"flex",gap:8,alignItems:"center"}}>
+      <span style={{width:8,height:8,borderRadius:"50%",background:p.color,display:"inline-block"}}/>
+      <span>{p.name}: {typeof p.value==='number'?p.value+'%':p.value}</span>
+    </div>)}
+  </div>;
+};
+
+function DonutChart({data,title,subtitle}) {
+  const other = Math.max(0, 100 - data.reduce((s,d)=>s+d.share,0));
+  const all = [...data, {currency:"Other",share:other}].filter(d=>d.share>0);
+  return <div style={{textAlign:"center"}}>
+    <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 2px"}}>{title}</h3>
+    {subtitle&&<p style={{color:"#6b8299",fontSize:9,margin:"0 0 4px"}}>{subtitle}</p>}
+    <ResponsiveContainer width="100%" height={200}>
+      <PieChart>
+        <Pie data={all} dataKey="share" nameKey="currency" cx="50%" cy="50%" innerRadius={40} outerRadius={72} paddingAngle={1} stroke="none">
+          {all.map(e=><Cell key={e.currency} fill={COLORS[e.currency]||COLORS.Other}/>)}
+        </Pie>
+        <Tooltip formatter={v=>v+"%"} contentStyle={{background:"rgba(26,58,92,0.95)",border:"1px solid #c9953a",borderRadius:6,color:"#eaf1f7",fontSize:11}}/>
+      </PieChart>
+    </ResponsiveContainer>
+    <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:"2px 8px",marginTop:0}}>
+      {all.filter(d=>d.share>0.9).map(d=><div key={d.currency} style={{display:"flex",alignItems:"center",gap:3,fontSize:10,color:d.currency==="CNY"?GOLD:NAVY}}>
+        <span style={{width:6,height:6,borderRadius:"50%",background:COLORS[d.currency]||COLORS.Other,display:"inline-block"}}/>
+        <b>{d.currency}</b> {d.share}%
+      </div>)}
+    </div>
+  </div>;
+}
+
+function Tab0() {
+  return <div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
+      <div style={{background:"white",borderRadius:10,padding:10,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+        <DonutChart data={globalPayments} title="全球支付" subtitle="含欧元区 · Feb 26"/>
+      </div>
+      <div style={{background:"white",borderRadius:10,padding:10,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+        <DonutChart data={intlPayments} title="国际支付" subtitle="剔除欧元区 · Feb 26"/>
+      </div>
+    </div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderLeft:"4px solid #c9953a"}}>
+      <h4 style={{color:NAVY,fontSize:12,fontWeight:700,margin:"0 0 6px"}}>📐 两种口径有什么区别？</h4>
+      <div style={{fontSize:11,lineHeight:1.8,color:"#3d5a73"}}>
+        <p style={{margin:"0 0 4px"}}><b style={{color:NAVY}}>全球支付</b>：含欧元区内部结算。EUR因区内流量被推高至23%，USD被稀释至49%。</p>
+        <p style={{margin:"0 0 4px"}}><b style={{color:NAVY}}>国际支付(剔除欧元区)</b>：去掉EUR"省际转账"后，EUR暴跌至14%，USD回升至57%。</p>
+        <p style={{margin:0,padding:"6px 8px",background:"#f5f8fb",borderRadius:6,fontSize:10,color:"#5a7a94"}}>💡 ECB研究：EUR交易的57%为区内结算。央行行长潘功胜按"全口径"统计，称人民币已是全球第三大支付货币。</p>
+      </div>
+    </div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>Top 10 货币排名 · Feb 2026</h3>
+      <table style={{width:"100%",borderCollapse:"collapse",fontSize:11}}>
+        <thead><tr style={{borderBottom:"2px solid #c9953a"}}>
+          <th style={{padding:"5px 3px",textAlign:"left",color:NAVY}}>#</th>
+          <th style={{padding:"5px 3px",textAlign:"left",color:NAVY}}>货币</th>
+          <th style={{padding:"5px 3px",textAlign:"right",color:NAVY}}>全球%</th>
+          <th style={{padding:"5px 3px",textAlign:"right",color:NAVY}}>国际%</th>
+        </tr></thead>
+        <tbody>{globalPayments.map((g,i)=>{
+          const intl = intlPayments.find(x=>x.currency===g.currency);
+          return <tr key={g.currency} style={{borderBottom:"1px solid #e8eff7",background:g.currency==="CNY"?"rgba(201,149,58,0.08)":"transparent"}}>
+            <td style={{padding:"4px 3px",color:NAVY}}>{i+1}</td>
+            <td style={{padding:"4px 3px",fontWeight:600,color:g.currency==="CNY"?GOLD:NAVY}}>
+              <span style={{display:"inline-block",width:7,height:7,borderRadius:"50%",background:COLORS[g.currency],marginRight:4}}/>
+              {g.currency}
+            </td>
+            <td style={{padding:"4px 3px",textAlign:"right",color:NAVY,fontFamily:"monospace"}}>{g.share.toFixed(2)}</td>
+            <td style={{padding:"4px 3px",textAlign:"right",color:NAVY,fontFamily:"monospace"}}>{intl?intl.share.toFixed(2):"—"}</td>
+          </tr>;
+        })}</tbody>
+      </table>
+      <p style={{fontSize:9,color:"#8ba3b8",marginTop:5}}>SWIFT Global Currency Tracker Mar 2026 (Feb data) 🟢</p>
+    </div>
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,color:"#eaf1f7"}}>
+      <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:6}}>
+        <span style={{fontSize:14}}>⚡</span><span style={{fontWeight:700,fontSize:12,color:"#c9953a"}}>关键发现</span>
+      </div>
+      <div style={{fontSize:11,lineHeight:1.7,opacity:0.92}}>
+        <p style={{margin:"0 0 4px"}}>• SWIFT-CIPS报文重叠率从90%(2023)降至30%(2025)——七成人民币跨境交易已对SWIFT"隐形"</p>
+        <p style={{margin:"0 0 4px"}}>• CNY贸易融资份额8.48%(全球#2)，远高于支付口径2.7%——实体贸易渗透率显著高于金融交易</p>
+        <p style={{margin:0}}>• 2026年3月CIPS单日峰值$178.5B，但CHIPS日均$1.8T——量级差距仍~10x</p>
+      </div>
+    </div>
+  </div>;
+}
+
+function Tab1() {
+  return <div>
+    {/* 四层架构 */}
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:14,fontWeight:700,margin:"0 0 10px"}}>🌐 SWIFT 运行机制</h3>
+      {[
+        {l:"📨 报文层",d:"MT/MX标准化金融报文 → ISO 20022迁移中(2026.11完成)",c:"#1a3a5c"},
+        {l:"🔗 网络层",d:"SWIFTNet · 11,500+机构 · 235+国家 · 日均4600万条",c:"#2e5577"},
+        {l:"🛡 合规层",d:"KYC Registry · 制裁筛查 · OFAC可调取数据(TFTP项目)",c:"#3d6e8f"},
+        {l:"💰 结算层",d:"⚠️ SWIFT不结算！依赖Fedwire/TARGET2/CNAPS等RTGS",c:"#4a8ab0"},
+      ].map((l,i)=><div key={i} style={{background:l.c,borderRadius:8,padding:"9px 11px",marginBottom:5,color:"#eaf1f7"}}>
+        <div style={{fontWeight:700,fontSize:12,marginBottom:2}}>{l.l}</div>
+        <div style={{fontSize:10,opacity:0.88}}>{l.d}</div>
+      </div>)}
+    </div>
+
+    {/* 制裁机制——核心新增 */}
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderLeft:"4px solid #e74c3c"}}>
+      <h3 style={{color:NAVY,fontSize:14,fontWeight:700,margin:"0 0 8px"}}>🔒 美国凭什么能制裁？三层杀伤链</h3>
+      <p style={{fontSize:11,color:"#3d5a73",lineHeight:1.7,margin:"0 0 10px"}}>
+        很多人以为制裁=把你踢出SWIFT。实际上SWIFT只是制裁工具链的一环。美国的金融制裁能力建立在三层嵌套结构上：
+      </p>
+
+      {/* Layer 1 */}
+      <div style={{background:"#fef3f3",borderRadius:8,padding:12,marginBottom:8,border:"1px solid #f5c6cb"}}>
+        <div style={{fontWeight:700,fontSize:12,color:"#c0392b",marginBottom:4}}>第一层：USD清算垄断（真正的杀手锏）</div>
+        <div style={{fontSize:10,lineHeight:1.8,color:"#3d5a73"}}>
+          <p style={{margin:"0 0 4px"}}>全球所有USD交易——无论发生在哪两个国家之间——最终都必须通过美国的Fedwire或CHIPS系统完成清算。这意味着<b style={{color:"#c0392b"}}>每一笔美元交易都经过美国管辖权</b>。</p>
+          <p style={{margin:"0 0 4px"}}>一家德国银行给一家日本银行汇美元，这笔钱必须经过纽约的代理行。美国财政部OFAC可以要求任何经手美元的银行冻结特定账户，否则该银行本身将被切断美元清算资格。</p>
+          <p style={{margin:0,fontWeight:600,color:"#c0392b"}}>→ 这就是"次级制裁"(secondary sanctions)的底层逻辑：不是制裁你，而是制裁任何跟你做生意的人。</p>
+        </div>
+      </div>
+
+      {/* Layer 2 */}
+      <div style={{background:"#fff8e1",borderRadius:8,padding:12,marginBottom:8,border:"1px solid #ffe0b2"}}>
+        <div style={{fontWeight:700,fontSize:12,color:"#e67e22",marginBottom:4}}>第二层：SWIFT报文监控（情报网）</div>
+        <div style={{fontSize:10,lineHeight:1.8,color:"#3d5a73"}}>
+          <p style={{margin:"0 0 4px"}}>SWIFT本身是比利时公司，理论上不受美国单方面管辖。但2006年曝光的<b>TFTP（反恐融资追踪项目）</b>显示，美国CIA和财政部自9/11后即秘密调取SWIFT数据，监控全球资金流向。</p>
+          <p style={{margin:0}}>SWIFT上的每一条报文都包含：付款人、收款人、金额、货币、用途——这是一张全球金融X光片。即使无法直接冻结资金，<b style={{color:"#e67e22"}}>看得见就能追踪、能定点打击</b>。</p>
+        </div>
+      </div>
+
+      {/* Layer 3 */}
+      <div style={{background:"#e8f5e9",borderRadius:8,padding:12,marginBottom:8,border:"1px solid #c8e6c9"}}>
+        <div style={{fontWeight:700,fontSize:12,color:"#27ae60",marginBottom:4}}>第三层：SWIFT断连（公开绞杀）</div>
+        <div style={{fontSize:10,lineHeight:1.8,color:"#3d5a73"}}>
+          <p style={{margin:"0 0 4px"}}>将特定银行或整个国家从SWIFT网络中踢出——这是最极端的手段。效果：该国银行无法发送/接收跨境支付指令，国际贸易几乎瘫痪。</p>
+          <p style={{margin:0}}>案例：2012年伊朗4家银行被踢出→石油出口收入骤降近半；2022年俄罗斯160家银行被踢出→催生CIPS/SPFS替代路径。</p>
+        </div>
+      </div>
+
+      <div style={{background:"rgba(201,149,58,0.1)",borderRadius:8,padding:10,fontSize:10,color:"#5a7a94",lineHeight:1.7}}>
+        <b style={{color:GOLD}}>为什么CIPS能部分对冲制裁风险？</b><br/>
+        CIPS同时解决了第二层（自有报文通道，不经过SWIFT，美国看不到）和第三层（不依赖SWIFT即可完成跨境支付）。但<b>第一层——USD清算垄断——CIPS无法绕过</b>，除非你彻底不用美元。这就是为什么石油人民币结算如此关键：它从根上绕开了美元清算链路。
+      </div>
+    </div>
+
+    {/* 组织治理 */}
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:14,fontWeight:700,margin:"0 0 10px"}}>🏛 SWIFT 组织治理</h3>
+      <div style={{background:NAVY,borderRadius:8,padding:10,color:"#eaf1f7",marginBottom:8,textAlign:"center"}}>
+        <div style={{fontSize:13,fontWeight:700}}>SWIFT SCRL</div>
+        <div style={{fontSize:10,opacity:0.7}}>比利时拉许尔普 · 1973年成立 · 会员制合作社</div>
+      </div>
+      <div style={{fontSize:11,lineHeight:1.7,color:"#3d5a73"}}>
+        <b style={{color:NAVY}}>董事会（25席）</b>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,margin:"6px 0"}}>
+          <div style={{background:"rgba(26,58,92,0.05)",borderRadius:6,padding:7,fontSize:10}}>
+            <div style={{fontWeight:700,color:NAVY,marginBottom:3}}>各2席(Top6股东国)</div>
+            🇺🇸美国 🇧🇪比利时 🇫🇷法国<br/>🇩🇪德国 🇬🇧英国 🇨🇭瑞士
+          </div>
+          <div style={{background:"rgba(26,58,92,0.05)",borderRadius:6,padding:7,fontSize:10}}>
+            <div style={{fontWeight:700,color:NAVY,marginBottom:3}}>各1席(#7-16)</div>
+            日本、加拿大、荷兰等<br/><span style={{color:GOLD,fontWeight:600}}>🇨🇳中国：2018年首获1席</span>
+          </div>
+        </div>
+        <p style={{fontSize:10,margin:"6px 0 0",color:"#5a7a94"}}>
+          <b style={{color:NAVY}}>监管：</b>G10央行"SWIFT监督论坛"，比利时央行主导。美国虽无法单方面命令SWIFT（需EU配合），但通过次级制裁威胁可以倒逼SWIFT合规——"不配合就切断你在美国的业务"。
+        </p>
+      </div>
+    </div>
+
+    {/* 结算系统对比 */}
+    <div style={{background:"white",borderRadius:10,padding:14,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:14,fontWeight:700,margin:"0 0 8px"}}>🏦 全球结算系统对比</h3>
+      <table style={{width:"100%",borderCollapse:"collapse",fontSize:10}}>
+        <thead><tr style={{borderBottom:"2px solid #c9953a"}}>
+          {["系统","类型","货币","运营方"].map(h=><th key={h} style={{padding:"5px 3px",textAlign:"left",color:NAVY,fontWeight:700}}>{h}</th>)}
+        </tr></thead>
+        <tbody>{[
+          {n:"SWIFT",t:"报文",c:"多币种",o:"SWIFT SCRL(比)"},
+          {n:"Fedwire",t:"RTGS",c:"USD",o:"美联储"},
+          {n:"CHIPS",t:"净额",c:"USD",o:"TCH(美)"},
+          {n:"TARGET2",t:"RTGS",c:"EUR",o:"ECB"},
+          {n:"CIPS",t:"RTGS+报文",c:"CNY",o:"跨清公司(央行)"},
+          {n:"SPFS",t:"报文",c:"多币种",o:"俄央行"},
+        ].map((s,i)=><tr key={i} style={{borderBottom:"1px solid #e8eff7",background:s.n==="CIPS"?"rgba(201,149,58,0.06)":"transparent"}}>
+          <td style={{padding:"4px 3px",fontWeight:600,color:s.n==="CIPS"?GOLD:NAVY}}>{s.n}</td>
+          <td style={{padding:"4px 3px",color:"#3d5a73"}}>{s.t}</td>
+          <td style={{padding:"4px 3px",color:"#3d5a73"}}>{s.c}</td>
+          <td style={{padding:"4px 3px",color:"#3d5a73"}}>{s.o}</td>
+        </tr>)}</tbody>
+      </table>
+      <div style={{background:"rgba(201,149,58,0.08)",borderRadius:6,padding:8,fontSize:10,color:"#5a7a94",lineHeight:1.6,marginTop:6}}>
+        <b style={{color:GOLD}}>完整链路：</b>一笔跨境USD汇款的路径是：发起行→SWIFT报文→收款行代理行(纽约)→CHIPS/Fedwire清算→到账。美国在"报文"和"清算"两个环节都有控制力，双重锁定。CIPS的价值在于：用人民币交易时，可以同时跳过这两个环节。
+      </div>
+    </div>
+  </div>;
+}
+
+function Tab2() {
+  const tradeData = [
+    {s:"石油/能源",v:"41%",n:"中东对华原油RMB结算(Mar 26)·伊朗100%·沙特阿美45%",tr:"↑↑↑",c:"#c9953a"},
+    {s:"贸易融资(信用证)",v:"8.48%",n:"全球#2超越EUR · SWIFT MT400/700(Nov 25)",tr:"↑↑",c:"#2e6b9e"},
+    {s:"货物贸易整体",v:"28.1%",n:"中国进出口RMB结算占比(2025H1)·2020年仅16%",tr:"↑",c:"#4a90c4"},
+    {s:"一带一路沿线",v:"24.3%",n:"跨境收付(2024)·从1.4万亿→10.2万亿(2017-24)",tr:"↑↑",c:"#6bb0d9"},
+    {s:"非洲贸易",v:"25%+",n:"中非贸易RMB占比·15年前仅0.3%",tr:"↑↑",c:"#8dc8e8"},
+  ];
+  const regionGrowth = [
+    {region:"中亚",cagr:59.1},{region:"中东",cagr:53.0},{region:"非洲",cagr:35.9},{region:"东盟",cagr:21.8},{region:"欧洲",cagr:19.9},
+  ];
+  return <div>
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,marginBottom:12,color:"#eaf1f7"}}>
+      <h3 style={{margin:"0 0 6px",fontSize:13,color:GOLD,fontWeight:700}}>🏭 为什么SWIFT低估人民币？</h3>
+      <p style={{fontSize:11,lineHeight:1.7,margin:0,opacity:0.92}}>SWIFT统计以证券/金融交易为主，贸易类占比很低。人民币强在实体贸易——这就是为什么SWIFT显示2.7%，但渣打报告显示全球300家大企业中24%收入涉及人民币敞口。</p>
+    </div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 10px"}}>人民币实体贸易渗透率</h3>
+      {tradeData.map((t,i)=><div key={i} style={{borderBottom:i<tradeData.length-1?"1px solid #e8eff7":"none",padding:"8px 0"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:3}}>
+          <span style={{fontWeight:700,fontSize:11,color:NAVY}}>{t.s}</span>
+          <div style={{display:"flex",alignItems:"center",gap:4}}>
+            <span style={{fontWeight:700,fontSize:13,color:GOLD}}>{t.v}</span>
+            <span style={{fontSize:11,color:"#2d9b4e"}}>{t.tr}</span>
+          </div>
+        </div>
+        <div style={{width:"100%",height:5,background:"#e8eff7",borderRadius:3,marginBottom:3}}>
+          <div style={{height:5,borderRadius:3,background:t.c,width:Math.min(parseFloat(t.v)*2,100)+"%"}}/>
+        </div>
+        <p style={{margin:0,fontSize:9,color:"#6b8299"}}>{t.n}</p>
+      </div>)}
+      <p style={{fontSize:8,color:"#8ba3b8",marginTop:6}}>来源：《财富》·渣打·央行·SWIFT贸易融资 🟡🟢混合</p>
+    </div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 10px"}}>CIPS人民币跨境结算区域增速(2020-24 CAGR)</h3>
+      <ResponsiveContainer width="100%" height={180}>
+        <BarChart data={regionGrowth} layout="vertical" margin={{top:5,right:30,left:30,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7" horizontal={false}/>
+          <XAxis type="number" tick={{fontSize:10,fill:NAVY}} domain={[0,65]} tickFormatter={v=>v+"%"}/>
+          <YAxis type="category" dataKey="region" tick={{fontSize:11,fill:NAVY}} width={35}/>
+          <Bar dataKey="cagr" fill={GOLD} radius={[0,4,4,0]} name="CAGR%">
+            {regionGrowth.map((_,i)=><Cell key={i} fill={[GOLD,"#e8a84c","#f0c060","#2e6b9e","#4a90c4"][i]}/>)}
+          </Bar>
+          <Tooltip formatter={v=>v+"%"} contentStyle={{background:"rgba(26,58,92,0.95)",border:"1px solid #c9953a",borderRadius:6,color:"#eaf1f7",fontSize:11}}/>
+        </BarChart>
+      </ResponsiveContainer>
+      <p style={{fontSize:8,color:"#8ba3b8",marginTop:4}}>来源：银河证券、中证鹏元 🟡</p>
+    </div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>CIPS年处理金额(万亿¥)</h3>
+      <ResponsiveContainer width="100%" height={180}>
+        <BarChart data={cipsGrowth} margin={{top:5,right:10,left:0,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="y" tick={{fontSize:10,fill:NAVY}}/>
+          <YAxis tick={{fontSize:10,fill:NAVY}}/>
+          <Bar dataKey="vol" fill={GOLD} radius={[4,4,0,0]} name="万亿¥"/>
+          <Tooltip content={<TT/>}/>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,color:"#eaf1f7"}}>
+      <h3 style={{margin:"0 0 8px",fontSize:13,color:GOLD,fontWeight:700}}>🔄 SWIFT-CIPS报文重叠率</h3>
+      <div style={{display:"flex",justifyContent:"space-around",marginBottom:10}}>
+        {[{y:"2023",v:"~90%"},{y:"2025",v:"~30%"},{y:"趋势",v:"持续脱钩"}].map(d=>
+          <div key={d.y} style={{textAlign:"center"}}>
+            <div style={{fontSize:18,fontWeight:700,color:d.y==="趋势"?"#6bb0d9":GOLD}}>{d.v}</div>
+            <div style={{fontSize:10,opacity:0.7}}>{d.y}</div>
+          </div>
+        )}
+      </div>
+      <p style={{fontSize:10,lineHeight:1.7,margin:0,opacity:0.9}}>70%的CIPS交易已通过自有报文完成，对SWIFT"隐形"。SWIFT统计的人民币份额与真实跨境使用量的差距正在系统性扩大。</p>
+    </div>
+  </div>;
+}
+
+function Tab3() {
+  return <div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 2px"}}>人民币SWIFT全球支付份额月度走势</h3>
+      <p style={{color:"#8ba3b8",fontSize:9,margin:"0 0 8px"}}>MT103+MT202 · 按金额 🟢</p>
+      <ResponsiveContainer width="100%" height={230}>
+        <AreaChart data={rmbMonthly} margin={{top:5,right:10,left:0,bottom:5}}>
+          <defs><linearGradient id="gG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor={GOLD} stopOpacity={0.3}/><stop offset="95%" stopColor={GOLD} stopOpacity={0.05}/>
+          </linearGradient></defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="m" tick={{fontSize:8,fill:NAVY}} interval={1}/>
+          <YAxis tick={{fontSize:10,fill:NAVY}} domain={[1.5,5]}/>
+          <Tooltip formatter={v=>v+"%"} contentStyle={{background:"rgba(26,58,92,0.95)",border:"1px solid #c9953a",borderRadius:6,color:"#eaf1f7",fontSize:11}}/>
+          <Area type="monotone" dataKey="v" stroke={GOLD} strokeWidth={2.5} fill="url(#gG)" dot={{fill:GOLD,r:3}} name="CNY%"/>
+        </AreaChart>
+      </ResponsiveContainer>
+      <div style={{background:"rgba(201,149,58,0.08)",borderRadius:6,padding:8,fontSize:10,color:"#5a7a94",lineHeight:1.7,marginTop:4}}>
+        <b style={{color:GOLD}}>解读：</b>2025年初4.3%→年中跌至2.9%→2026.1反弹至3.13%→2月回落2.74%。下降主因是交易迁移至CIPS自有通道。
+      </div>
+    </div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 2px"}}>贸易融资口径各币种走势</h3>
+      <p style={{color:"#8ba3b8",fontSize:9,margin:"0 0 8px"}}>MT400/MT700 · CNY在此口径下份额远高于支付口径</p>
+      <ResponsiveContainer width="100%" height={220}>
+        <LineChart data={tradeFinance} margin={{top:5,right:10,left:0,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="m" tick={{fontSize:9,fill:NAVY}}/>
+          <YAxis tick={{fontSize:10,fill:NAVY}} domain={[0,90]}/>
+          <Tooltip content={<TT/>}/><Legend wrapperStyle={{fontSize:10}}/>
+          <Line type="monotone" dataKey="USD" stroke={NAVY} strokeWidth={2.5} dot={{r:3}} name="USD"/>
+          <Line type="monotone" dataKey="CNY" stroke={GOLD} strokeWidth={2.5} dot={{r:3}} name="CNY"/>
+          <Line type="monotone" dataKey="EUR" stroke="#4a90c4" strokeWidth={2} dot={{r:3}} name="EUR"/>
+          <Line type="monotone" dataKey="JPY" stroke="#6bb0d9" strokeWidth={1.5} dot={{r:3}} name="JPY"/>
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+    <div style={{background:"white",borderRadius:10,padding:14,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>美元 vs 人民币：多维度份额对比</h3>
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={[
+          {m:"SWIFT全球",USD:49.25,CNY:2.74},{m:"SWIFT国际",USD:57.49,CNY:2.16},
+          {m:"贸易融资",USD:82,CNY:5.9},{m:"贸易发票",USD:88,CNY:4},{m:"外汇储备",USD:58,CNY:2.1},
+        ]} margin={{top:5,right:10,left:0,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="m" tick={{fontSize:9,fill:NAVY}}/>
+          <YAxis tick={{fontSize:10,fill:NAVY}}/>
+          <Tooltip content={<TT/>}/><Legend wrapperStyle={{fontSize:10}}/>
+          <Bar dataKey="USD" fill={NAVY} name="USD%" radius={[4,4,0,0]}/>
+          <Bar dataKey="CNY" fill={GOLD} name="CNY%" radius={[4,4,0,0]}/>
+        </BarChart>
+      </ResponsiveContainer>
+      <p style={{fontSize:8,color:"#8ba3b8",marginTop:4}}>贸易发票/储备为近似值🔴 · SWIFT🟢</p>
+    </div>
+  </div>;
+}
+
+function Tab4() {
+  return <div>
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,marginBottom:12,color:"#eaf1f7"}}>
+      <h3 style={{margin:"0 0 6px",fontSize:13,color:GOLD,fontWeight:700}}>⚠️ 统计口径决定叙事</h3>
+      <p style={{fontSize:11,lineHeight:1.7,margin:0,opacity:0.92}}>同一数据源(SWIFT)，不同口径下货币份额可相差数倍。自2026.2起RMB Tracker更名为Global Currency Tracker。</p>
+    </div>
+    {[
+      {t:"全球支付",msg:"MT103+MT202+ISO",sc:"所有SWIFT成员间支付",n:"含欧元区内部→EUR被推高至23%",c:"#2e6b9e"},
+      {t:"国际支付(剔除€区)",msg:"MT103+MT202+ISO",sc:"剔除欧元区成员间",n:"EUR从23%→14%，更真实反映国际化",c:"#4a90c4"},
+      {t:"贸易融资",msg:"MT400+MT700(跨行)",sc:"信用证、托收等",n:"CNY 5-8%(#2)远高于支付口径，反映实体贸易",c:GOLD},
+      {t:"外汇即期",msg:"MT300",sc:"含央行外汇确认",n:"CNY FX排名#6，份额相对更低",c:"#6bb0d9"},
+    ].map((m,i)=><div key={i} style={{background:"white",borderRadius:10,padding:12,marginBottom:8,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderLeft:"4px solid "+m.c}}>
+      <h4 style={{color:NAVY,fontSize:12,fontWeight:700,margin:"0 0 6px"}}>{m.t}</h4>
+      <div style={{fontSize:10,lineHeight:1.7,color:"#3d5a73"}}>
+        <div><b>报文：</b>{m.msg} · <b>范围：</b>{m.sc}</div>
+        <div style={{marginTop:4,padding:"5px 7px",background:"#f5f8fb",borderRadius:5,fontSize:10,color:"#5a7a94"}}>💡 {m.n}</div>
+      </div>
+    </div>)}
+    <div style={{background:"white",borderRadius:10,padding:12,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h4 style={{color:NAVY,fontSize:12,fontWeight:700,margin:"0 0 6px"}}>⚙️ SWIFT不统计的交易</h4>
+      <div style={{fontSize:10,color:"#3d5a73",lineHeight:1.7}}>
+        <p style={{margin:"0 0 2px"}}>• 现金 · 数字支付(支付宝/微信/PayPal) · 加密货币</p>
+        <p style={{margin:"0 0 2px"}}>• CIPS自有报文通道(2025年已占CIPS交易70%)</p>
+        <p style={{margin:"0 0 2px"}}>• SPFS(俄罗斯) · 双边本币互换直接结算</p>
+        <p style={{margin:"0 0 2px"}}>• Open Account交易(赊销，占全球贸易60-80%，不走LC)</p>
+        <p style={{margin:0,padding:"5px 7px",background:"rgba(201,149,58,0.08)",borderRadius:5,fontSize:10}}>央行行长(2025.6)：按全口径统计，人民币已是全球第三大支付货币</p>
+      </div>
+    </div>
+
+    {/* 贸易融资数据采集指南 */}
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderLeft:"4px solid #e67e22"}}>
+      <h4 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>📊 贸易融资数据：去哪里找？</h4>
+      <p style={{fontSize:10,color:"#5a7a94",lineHeight:1.7,margin:"0 0 10px"}}>
+        贸易融资没有像支付那样的统一实时追踪器。一笔信用证涉及开证行/通知行/议付行/保兑行四方，每方看到的数据切面不同，没有人看到全景。以下是现有最佳数据源：
+      </p>
+
+      {[
+        {tier:"🟢",name:"SWIFT Global Currency Tracker",freq:"月度",cost:"免费PDF",url:"swift.com → Insights → Global Currency Tracker",
+         what:"贸易融资口径(MT400/700)各币种份额。唯一能按月追踪CNY贸易融资占比的公开源。需从PDF手动提取'Trade Finance'部分数据。",
+         limit:"仅统计走SWIFT报文的银行间信用证/托收，Open Account(占全球贸易60-80%)不在统计范围内。"},
+        {tier:"🟢",name:"ICC Trade Register",freq:"年度",cost:"会员免费/非会员付费",url:"iccwbo.org → Trade Register",
+         what:"全球贸易融资风险基准。26家银行、$25.7万亿交易数据。覆盖进口LC/出口LC/保函/供应链金融的违约率、损失率、区域分布。",
+         limit:"以信用风险为主，不直接披露币种份额。数据滞后12-18个月。"},
+        {tier:"🟢",name:"ADB贸易融资缺口调查",freq:"年度",cost:"免费",url:"adb.org → Publications → Trade Finance Gap",
+         what:"全球贸易融资缺口规模($2.5T/2024)、银行拒贷率、中小企业融资难度、区域分布。110+家机构数据。",
+         limit:"侧重'缺口'而非'流量'。亚太视角偏重。"},
+        {tier:"🟡",name:"BIS季度银行统计",freq:"季度",cost:"免费",url:"bis.org → Statistics → Banking statistics",
+         what:"跨境银行债权中的贸易信贷分项。可追踪主要银行体系的贸易融资敞口变化。",
+         limit:"分类较粗，贸易信贷与其他短期信贷混在一起。"},
+        {tier:"🟡",name:"Berne Union",freq:"年度",cost:"部分公开",url:"berneunion.org",
+         what:"全球出口信用保险和投资保险数据。覆盖出口信用机构(ECA)担保的贸易融资。",
+         limit:"仅覆盖有ECA支持的交易，私营银行自担风险部分不含。"},
+        {tier:"🟡",name:"WTO贸易融资报告",freq:"年度",cost:"免费",url:"wto.org → Trade finance",
+         what:"全球贸易融资市场综述、政策环境、多边开发银行支持情况。",
+         limit:"偏政策叙事，数据颗粒度不如ICC/ADB。"},
+        {tier:"🔴",name:"Documentary Credit World",freq:"季度",cost:"付费订阅",url:"dcwonline.com",
+         what:"美国银行LC统计（含SBLC和CLC分拆）、全球信用证趋势分析。专业领域最深的出版物。",
+         limit:"美国市场为主。订阅费较高。"},
+      ].map((s,i)=><div key={i} style={{borderBottom:i<6?"1px solid #e8eff7":"none",padding:"8px 0"}}>
+        <div style={{display:"flex",alignItems:"center",gap:4,marginBottom:3}}>
+          <span style={{fontSize:11}}>{s.tier}</span>
+          <span style={{fontWeight:700,fontSize:11,color:NAVY}}>{s.name}</span>
+          <span style={{fontSize:9,color:"#8ba3b8",marginLeft:"auto"}}>{s.freq} · {s.cost}</span>
+        </div>
+        <div style={{fontSize:10,color:"#3d5a73",lineHeight:1.6,marginBottom:3}}>{s.what}</div>
+        <div style={{fontSize:9,color:"#e67e22"}}>⚠️ {s.limit}</div>
+        <div style={{fontSize:9,color:"#4a90c4",marginTop:2}}>🔗 {s.url}</div>
+      </div>)}
+    </div>
+
+    {/* 数据采集SOP */}
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderLeft:"4px solid #27ae60"}}>
+      <h4 style={{color:NAVY,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>🔄 持续追踪SOP（数据采集流程）</h4>
+
+      <div style={{fontSize:10,color:"#3d5a73",lineHeight:1.8}}>
+        <div style={{background:"rgba(39,174,96,0.08)",borderRadius:6,padding:8,marginBottom:8}}>
+          <b style={{color:"#27ae60"}}>月度（每月20-25日SWIFT发布上月数据）</b>
+          <p style={{margin:"4px 0 0"}}>① 下载SWIFT Global Currency Tracker PDF</p>
+          <p style={{margin:"2px 0"}}>② 提取三个口径数据：全球支付/国际支付/贸易融资</p>
+          <p style={{margin:"2px 0"}}>③ 贸易融资部分找"Trade Finance (MT 400/700)"表格</p>
+          <p style={{margin:"2px 0"}}>④ 录入各币种份额到追踪表，标注 🟢</p>
+          <p style={{margin:"2px 0 0"}}>⑤ 同步检查CIPS官网月度数据（cips.com.cn）</p>
+        </div>
+
+        <div style={{background:"rgba(46,107,158,0.08)",borderRadius:6,padding:8,marginBottom:8}}>
+          <b style={{color:"#2e6b9e"}}>季度</b>
+          <p style={{margin:"4px 0 0"}}>① BIS季度银行统计 → 提取贸易信贷分项</p>
+          <p style={{margin:"2px 0 0"}}>② 交叉验证SWIFT贸易融资趋势是否与BIS银行敞口数据一致</p>
+        </div>
+
+        <div style={{background:"rgba(201,149,58,0.08)",borderRadius:6,padding:8}}>
+          <b style={{color:GOLD}}>年度（通常Q4发布）</b>
+          <p style={{margin:"4px 0 0"}}>① ICC Trade Register → 提取违约率、产品分布、区域分布</p>
+          <p style={{margin:"2px 0"}}>② ADB Gap Survey → 全球缺口规模、拒贷率、中小企业数据</p>
+          <p style={{margin:"2px 0"}}>③ Berne Union → 出口信用保险覆盖趋势</p>
+          <p style={{margin:"2px 0 0"}}>④ 综合三者校准年度贸易融资市场全景</p>
+        </div>
+      </div>
+    </div>
+
+    {/* 为什么贸易融资数据这么碎 */}
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,color:"#eaf1f7"}}>
+      <h3 style={{margin:"0 0 8px",fontSize:13,color:GOLD,fontWeight:700}}>🧩 为什么贸易融资数据如此碎片化？</h3>
+      <div style={{fontSize:11,lineHeight:1.8}}>
+        {[
+          {q:"信用证只占全球贸易12-15%",a:"60-80%是Open Account(赊销)，不走银行信用证通道，无报文记录"},
+          {q:"一笔LC涉及多方",a:"开证行/通知行/议付行/保兑行各看一个切面，没有全局视角"},
+          {q:"统计主体分散",a:"SWIFT看报文、ICC看银行风险、ADB看缺口、BIS看敞口——各自回答不同的问题"},
+          {q:"国家/区域差异大",a:"亚洲55%的贸易用LC(高风险市场)，欧美以Open Account为主"},
+          {q:"数字化程度低",a:"贸易融资是银行业最后一个大量依赖纸质文件的领域，数据采集成本高"},
+        ].map((x,i)=><div key={i} style={{padding:"5px 0",borderBottom:i<4?"1px solid rgba(234,241,247,0.1)":"none"}}>
+          <span style={{fontWeight:700,color:GOLD}}>{x.q}</span>
+          <div style={{fontSize:10,opacity:0.8,marginTop:1}}>{x.a}</div>
+        </div>)}
+      </div>
+    </div>
+  </div>;
+}
+
+const TABS = ["总览","SWIFT机制","实体贸易","趋势追踪","口径与数据源"];
+
+function App() {
+  const [tab,setTab] = useState(0);
+  return <div style={{background:BG,minHeight:"100vh",fontFamily:"'Noto Sans SC','SF Pro Display',-apple-system,sans-serif"}}>
+    <div style={{background:"linear-gradient(135deg,#1a3a5c 0%,#1f4a6e 50%,#2e5577 100%)",padding:"20px 16px 12px",position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:-30,right:-30,width:100,height:100,borderRadius:"50%",background:"rgba(201,149,58,0.08)"}}/>
+      <div style={{position:"relative",zIndex:1}}>
+        <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:3}}>
+          <span style={{fontSize:16}}>🌍</span>
+          <h1 style={{margin:0,fontSize:16,fontWeight:700,color:"#eaf1f7"}}>SWIFT 全球货币份额追踪</h1>
+        </div>
+        <p style={{margin:0,fontSize:10,color:"rgba(234,241,247,0.6)"}}>Global Currency Tracker · CIPS对比 · 实体贸易分析</p>
+        <div style={{display:"flex",gap:4,marginTop:6}}>
+          <span style={{fontSize:9,padding:"2px 6px",background:"rgba(201,149,58,0.2)",color:GOLD,borderRadius:4,border:"1px solid rgba(201,149,58,0.3)"}}>最新: Feb 2026</span>
+          <span style={{fontSize:9,padding:"2px 6px",background:"rgba(234,241,247,0.1)",color:"rgba(234,241,247,0.7)",borderRadius:4}}>Mar数据待发布</span>
+        </div>
+      </div>
+    </div>
+    <div style={{display:"flex",overflowX:"auto",background:"white",borderBottom:"1px solid #e0e8f0",padding:"0 4px",position:"sticky",top:0,zIndex:10}}>
+      {TABS.map((t,i)=><button key={t} onClick={()=>setTab(i)} style={{
+        flex:"none",padding:"9px 11px",fontSize:12,fontWeight:tab===i?700:400,
+        color:tab===i?GOLD:"#8ba3b8",background:"transparent",border:"none",
+        borderBottom:tab===i?"2.5px solid "+GOLD:"2.5px solid transparent",
+        cursor:"pointer",whiteSpace:"nowrap",fontFamily:"inherit"
+      }}>{t}</button>)}
+    </div>
+    <div style={{padding:12}}>
+      {tab===0&&<Tab0/>}{tab===1&&<Tab1/>}{tab===2&&<Tab2/>}{tab===3&&<Tab3/>}{tab===4&&<Tab4/>}
+    </div>
+    <div style={{textAlign:"center",padding:"12px 0 20px",fontSize:10,color:"#a0b4c4"}}>黑森船长 · basealpha.ai</div>
+  </div>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);
+</script>
+</body>
+</html>

@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霍尔木兹危机 · 能源损毁全景</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #06090f;
+    font-family: 'Noto Sans SC', -apple-system, 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; }
+  .back-link {
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    z-index: 1000;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: rgba(255,255,255,0.7); }
+</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<a class="back-link" href="index.html">← 返回</a>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const GOLD = "#f0c040";
+const GOLD_DIM = "#8b6914";
+const RED = "#ff4444";
+const RED_BG = "rgba(255,68,68,0.12)";
+const ORANGE = "#ff9933";
+const GREEN = "#33cc66";
+const BLUE = "#4499ee";
+const BG = "#06090f";
+const CARD = "#0c1220";
+const CARD_HOVER = "#111a2e";
+const TEXT = "#e8ecf4";
+const TEXT_DIM = "#7888aa";
+const BORDER = "rgba(255,255,255,0.06)";
+
+const tabs = [
+  { id: "damage", label: "设施损毁" },
+  { id: "loss", label: "减产规模" },
+  { id: "timeline", label: "修复周期" },
+  { id: "jpkr", label: "日韩风险" },
+  { id: "chain", label: "脆弱性链条" },
+];
+
+// === DATA ===
+const facilities = [
+  { country: "🇸🇦 沙特", name: "Manifa + Khurais", impact: "-60万桶/天", severity: "critical", note: "两大油田被精确打击" },
+  { country: "🇸🇦 沙特", name: "东西管道泵站", impact: "-70万桶/天", severity: "critical", note: "霍尔木兹封锁后唯一出口干线" },
+  { country: "🇸🇦 沙特", name: "Ras Tanura", impact: "55万桶/天 已恢复", severity: "resumed", note: "最大加工厂，停运后重启" },
+  { country: "🇸🇦 沙特", name: "Satorp + Riyadh炼厂", impact: "-58万桶/天", severity: "high", note: "4月停产" },
+  { country: "🇸🇦 沙特", name: "Shaybah", impact: "100万桶/天 未损", severity: "targeted", note: "多次被无人机瞄准，未报告损坏" },
+  { country: "🇶🇦 卡塔尔", name: "Ras Laffan LNG S4/S6", impact: "-1280万吨/年", severity: "critical", note: "LNG产能-17%，修复≤5年" },
+  { country: "🇧🇭 巴林", name: "Bapco 炼油厂", impact: "-40万桶/天", severity: "critical", note: "宣布不可抗力" },
+  { country: "🇮🇶 伊拉克", name: "Zubair + 南部", impact: "产量 -70%", severity: "high", note: "40万→25万桶/天" },
+  { country: "🇦🇪 阿联酋", name: "Fujairah / Ruwais", impact: "反复停摆", severity: "high", note: "替代港被无人机多次打击" },
+  { country: "🇮🇷 伊朗", name: "South Pars 气田", impact: "严重受损", severity: "critical", note: "全球最大气田，修复需数年" },
+];
+
+const waterfallData = [
+  { label: "沙特油田", val: 0.6, color: RED },
+  { label: "东西管道", val: 0.7, color: ORANGE },
+  { label: "沙特炼厂", val: 0.58, color: RED },
+  { label: "巴林Bapco", val: 0.4, color: RED },
+  { label: "伊拉克", val: 0.15, color: RED },
+  { label: "科/阿/伊等", val: 5.0, color: "#cc3333" },
+];
+
+const tierData = [
+  { tier: "T1", label: "表面/模块化维修", time: "2-5周", pct: 12, color: GREEN, detail: "沙特/阿联酋70-80%产能" },
+  { tier: "T2", label: "核心工艺单元重建", time: "3-12月", pct: 40, color: ORANGE, detail: "伊拉克/科威特重油系统" },
+  { tier: "T3", label: "LNG生产线重建", time: "≤5年", pct: 100, color: RED, detail: "全球仅3家OEM · 积压2-4年" },
+];
+
+const chainNodes = [
+  { text: "AI数据中心", sub: "算力扩张", danger: false },
+  { text: "电力需求", sub: "激增", danger: false },
+  { text: "LNG/天然气", sub: "核心燃料", danger: true },
+  { text: "霍尔木兹", sub: "20%全球供给", danger: true },
+  { text: "修复周期", sub: "≤5年", danger: true },
+  { text: "折现率 ↑", sub: "未定价", danger: false, gold: true },
+];
+
+const jpData = {
+  flag: "🇯🇵", name: "日本",
+  indexName: "日经225", indexLevel: "59,200+", indexYtd: "+10%",
+  indexJan: "53,847", indexPeak: "59,691",
+  bars: [
+    { k: "原油中东依赖", v: 95, unit: "%", src: "S&P Global · H1 2025: 230万桶/天 / 总进口242万桶/天" },
+    { k: "经霍尔木兹占比", v: 77, unit: "%", src: "IEA 2025年数据" },
+    { k: "发电LNG占比", v: 29, unit: "%", src: "ISEP 2024年实际29.1% · 部分来源估2025年约31% · 取保守值" },
+    { k: "一次能源化石占比", v: 85, unit: "%", src: "一次能源结构 · 电力结构中化石约65%" },
+  ],
+  reserves: [
+    { k: "战略石油储备", v: "254天(战前)", sub: "政府+民间约3.5亿桶 · 3月16日已释放8000万桶 · 释放后实际天数更低", danger: false },
+    { k: "LNG库存", v: "2-3周", sub: "电力用LNG仅够2-3周 · 无法像原油那样长期储备", danger: true },
+    { k: "核电实际占比", v: "8.2%", sub: "2024年 · 目标2040年20% · 15座反应堆运行中" },
+  ],
+  macro: [
+    { k: "油价每升$10", v: "通胀+0.3pp", danger: false },
+    { k: "油价持续$120+", v: "GDP -0.6% · 滞胀", danger: true },
+    { k: "贸易逆差风险", v: "或超¥20万亿", sub: "2022年因俄乌达¥20T", danger: true },
+    { k: "家庭电费", v: "+¥1.5万/年", sub: "从2026年4月起调", danger: false },
+    { k: "公共债务", v: "260% GDP", sub: "OECD最高 · 补贴空间有限", danger: true },
+  ],
+};
+
+const krData = {
+  flag: "🇰🇷", name: "韩国",
+  indexName: "KOSPI", indexLevel: "6,388", indexYtd: "+28%",
+  indexJan: "4,990", indexPeak: "6,388 (历史新高)",
+  bars: [
+    { k: "原油中东依赖", v: 70, unit: "%", src: "MEES: 2025年195万桶/天 / 总进口280万桶/天 · 实际69.9%" },
+    { k: "经霍尔木兹占比", v: 62, unit: "%", src: "IEA 2025年数据" },
+    { k: "LNG海湾直接进口", v: 19.5, unit: "%", src: "卡塔尔14.9% + 阿曼4.1% + 阿联酋0.5% · ⚠️ 价格传导风险远超此比例：LNG全球联动定价，欧洲仅10%来自卡塔尔但价格涨39%" },
+  ],
+  reserves: [
+    { k: "战略石油储备", v: "210天", sub: "政府储备7900万桶 (EIA 2025年底)" },
+    { k: "已锁定非霍尔木兹原油", v: "2.73亿桶", sub: "够维持3个月+ · 高层出访阿曼/沙特/哈萨克", danger: false },
+    { k: "应对措施", v: "延缓煤电退役", sub: "推迟煤电机组关停以应对油气冲击", danger: false },
+  ],
+  macro: [
+    { k: "半导体出口(KOSPI驱动力)", v: "+180% YoY", sub: "4月前20天 · 总出口+49.4% · SK hynix +5.19%", danger: false },
+    { k: "石脑油进口量", v: "2670万吨/年", sub: "45%消费依赖进口 · 其中77%来自中东 · 占蒸汽裂解原料67%", danger: true },
+    { k: "石脑油库存", v: "仅够~1个月", sub: "已锁定210万吨(≈1个月) · LG Chem裂解装置已因断供关停", danger: true },
+    { k: "政府应急等级", v: "经济战时状态", sub: "禁止石脑油出口5个月 · 禁止尿素囤积 · 核电利用率提至80%+ · 放宽煤电限制", danger: true },
+    { k: "PPI增速", v: "3年最快", sub: "3月 · 油价→石脑油→石化成本全链传导", danger: true },
+    { k: "LNG价格暴露", v: "JKM已翻倍", sub: "全球联动定价 · 即使直接份额19.5%，采购成本全面承压", danger: true },
+  ],
+};
+
+// === COMPONENTS ===
+
+function SeverityDot({ severity }) {
+  const c = severity === "critical" ? RED : severity === "high" ? ORANGE : severity === "resumed" ? GREEN : TEXT_DIM;
+  return <div style={{ width: 8, height: 8, borderRadius: "50%", background: c, flexShrink: 0 }} />;
+}
+
+function DamageTab() {
+  const [hovered, setHovered] = useState(null);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 8 }}>
+        {[
+          { n: "150+", l: "攻击次数", c: RED },
+          { n: "44+", l: "设施受损", c: ORANGE },
+          { n: "$340-580亿", l: "修复成本(Rystad est.)", c: GOLD },
+        ].map((s, i) => (
+          <div key={i} style={{ background: CARD, borderRadius: 8, padding: "16px 12px", textAlign: "center", border: `1px solid ${BORDER}` }}>
+            <div style={{ fontFamily: "monospace", fontSize: 24, fontWeight: 700, color: s.c }}>{s.n}</div>
+            <div style={{ fontSize: 11, color: TEXT_DIM, marginTop: 4 }}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{
+        fontSize: 11, color: TEXT_DIM, padding: "6px 10px", marginBottom: 2,
+        background: "rgba(255,255,255,0.02)", borderRadius: 4, lineHeight: 1.6,
+      }}>
+        <span style={{ color: TEXT, fontWeight: 500 }}>单位说明</span>
+        　万桶/天 = 日产量（万桶）　·　万吨/年 = LNG年产能（万吨）　·
+        <span style={{ color: RED }}>●</span> 停产
+        <span style={{ color: ORANGE }}>●</span> 减产
+        <span style={{ color: GREEN }}>●</span> 已恢复
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+        {facilities.map((f, i) => (
+          <div
+            key={i}
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "90px 1fr auto",
+              alignItems: "center",
+              gap: 12,
+              padding: "10px 14px",
+              background: hovered === i ? CARD_HOVER : CARD,
+              borderRadius: 6,
+              border: `1px solid ${hovered === i ? "rgba(255,255,255,0.1)" : BORDER}`,
+              cursor: "default",
+              transition: "all 0.15s",
+            }}
+          >
+            <div style={{ fontSize: 12, color: TEXT_DIM, whiteSpace: "nowrap" }}>{f.country}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <SeverityDot severity={f.severity} />
+              <span style={{ fontSize: 14, color: TEXT, fontWeight: 500 }}>{f.name}</span>
+              {hovered === i && (
+                <span style={{ fontSize: 11, color: TEXT_DIM, marginLeft: 4 }}>{f.note}</span>
+              )}
+            </div>
+            <div style={{
+              fontFamily: "monospace",
+              fontSize: 13,
+              fontWeight: 600,
+              color: f.severity === "critical" ? RED : f.severity === "high" ? ORANGE : f.severity === "resumed" ? GREEN : TEXT,
+              textAlign: "right",
+              whiteSpace: "nowrap",
+            }}>
+              {f.impact}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LossTab() {
+  const [animated, setAnimated] = useState(false);
+  const [hoveredBar, setHoveredBar] = useState(null);
+  const total = waterfallData.reduce((s, d) => s + d.val, 0);
+  const maxH = 280;
+  const totalH = maxH;
+
+  useEffect(() => {
+    const t = setTimeout(() => setAnimated(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ background: CARD, borderRadius: 8, padding: "24px 20px", border: `1px solid ${BORDER}` }}>
+        <div style={{ fontSize: 13, color: TEXT_DIM, marginBottom: 20 }}>
+          海湾四国合计减产 · 单位：百万桶/天 · 截至2026年3月中旬
+        </div>
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 6, height: maxH + 40, paddingBottom: 40, position: "relative" }}>
+          {/* grid lines */}
+          {[2, 4, 6, 8, 10].map(v => (
+            <div key={v} style={{
+              position: "absolute",
+              left: 0, right: 60,
+              bottom: 40 + (v / total) * maxH,
+              borderTop: "1px solid rgba(255,255,255,0.04)",
+              display: "flex", alignItems: "center",
+            }}>
+              <span style={{ position: "absolute", right: -40, fontSize: 10, color: "rgba(255,255,255,0.15)", fontFamily: "monospace" }}>{v}</span>
+            </div>
+          ))}
+          {waterfallData.map((d, i) => {
+            const h = animated ? (d.val / total) * maxH : 0;
+            return (
+              <div
+                key={i}
+                style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", position: "relative", zIndex: 2 }}
+                onMouseEnter={() => setHoveredBar(i)}
+                onMouseLeave={() => setHoveredBar(null)}
+              >
+                <div style={{
+                  fontFamily: "monospace",
+                  fontSize: hoveredBar === i ? 15 : 13,
+                  fontWeight: 600,
+                  color: hoveredBar === i ? "#fff" : TEXT,
+                  marginBottom: 4,
+                  transition: "all 0.2s",
+                }}>
+                  {d.val}
+                </div>
+                <div style={{
+                  width: "80%",
+                  maxWidth: 48,
+                  height: h,
+                  background: `linear-gradient(180deg, ${d.color}, ${d.color}88)`,
+                  borderRadius: "4px 4px 0 0",
+                  transition: "height 0.8s cubic-bezier(0.22,1,0.36,1)",
+                  transitionDelay: `${i * 0.08}s`,
+                  opacity: hoveredBar !== null && hoveredBar !== i ? 0.4 : 1,
+                  cursor: "default",
+                }} />
+                <div style={{
+                  position: "absolute",
+                  bottom: -32,
+                  fontSize: 11,
+                  color: hoveredBar === i ? TEXT : TEXT_DIM,
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                  transition: "color 0.2s",
+                }}>
+                  {d.label}
+                </div>
+              </div>
+            );
+          })}
+          {/* total bar */}
+          <div style={{ width: 2, background: "rgba(255,255,255,0.06)", margin: "0 4px", alignSelf: "stretch" }} />
+          <div
+            style={{ flex: 1.2, display: "flex", flexDirection: "column", alignItems: "center", position: "relative", zIndex: 2 }}
+            onMouseEnter={() => setHoveredBar(99)}
+            onMouseLeave={() => setHoveredBar(null)}
+          >
+            <div style={{ fontFamily: "monospace", fontSize: 18, fontWeight: 700, color: RED, marginBottom: 4 }}>
+              ≥{total.toFixed(1)}
+            </div>
+            <div style={{
+              width: "80%",
+              maxWidth: 56,
+              height: animated ? totalH : 0,
+              background: `linear-gradient(180deg, ${RED}, #881111)`,
+              borderRadius: "4px 4px 0 0",
+              transition: "height 1s cubic-bezier(0.22,1,0.36,1)",
+              transitionDelay: "0.5s",
+              boxShadow: `0 0 30px ${RED}33`,
+            }} />
+            <div style={{ position: "absolute", bottom: -32, fontSize: 12, fontWeight: 600, color: RED }}>
+              合计峰值
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{
+        background: RED_BG,
+        borderRadius: 8,
+        padding: 16,
+        borderLeft: `3px solid ${RED}`,
+        fontSize: 13,
+        color: TEXT,
+        lineHeight: 1.8,
+      }}>
+        7周内全球累计损失 <span style={{ color: RED, fontWeight: 700, fontFamily: "monospace" }}>&gt;5亿桶</span> 产量。
+        霍尔木兹承载全球 <span style={{ fontWeight: 600 }}>20%</span> 海运原油、<span style={{ fontWeight: 600 }}>20%</span> LNG。
+      </div>
+    </div>
+  );
+}
+
+function TimelineTab() {
+  const [animated, setAnimated] = useState(false);
+  const [activeTier, setActiveTier] = useState(null);
+
+  useEffect(() => {
+    const t = setTimeout(() => setAnimated(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {tierData.map((t, i) => (
+        <div
+          key={i}
+          onClick={() => setActiveTier(activeTier === i ? null : i)}
+          style={{
+            background: activeTier === i ? CARD_HOVER : CARD,
+            borderRadius: 8,
+            padding: 20,
+            border: `1px solid ${activeTier === i ? `${t.color}33` : BORDER}`,
+            cursor: "pointer",
+            transition: "all 0.2s",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{
+                fontFamily: "monospace",
+                fontSize: 11,
+                color: t.color,
+                background: `${t.color}18`,
+                padding: "3px 8px",
+                borderRadius: 4,
+                fontWeight: 600,
+              }}>
+                {t.tier}
+              </div>
+              <span style={{ fontSize: 15, color: TEXT, fontWeight: 500 }}>{t.label}</span>
+            </div>
+            <div style={{ fontFamily: "monospace", fontSize: 20, fontWeight: 700, color: t.color }}>
+              {t.time}
+            </div>
+          </div>
+          <div style={{ height: 8, background: "rgba(255,255,255,0.04)", borderRadius: 4, overflow: "hidden" }}>
+            <div style={{
+              height: "100%",
+              width: animated ? `${t.pct}%` : "0%",
+              background: `linear-gradient(90deg, ${t.color}, ${t.color}66)`,
+              borderRadius: 4,
+              transition: "width 1s cubic-bezier(0.22,1,0.36,1)",
+              transitionDelay: `${i * 0.15}s`,
+            }} />
+          </div>
+          {activeTier === i && (
+            <div style={{ marginTop: 14, fontSize: 13, color: TEXT_DIM, lineHeight: 1.7, borderTop: `1px solid ${BORDER}`, paddingTop: 12 }}>
+              {i === 0 && "表面设备和模块化维修。沙特/阿联酋70-80%产能可在数周内恢复。但即使油田未被打击，停产后整个管线需逐步重新加压——小型油田2-3周，大型4-5周。"}
+              {i === 1 && "核心工艺单元需要重建。伊拉克和科威特因原油更重、设施更复杂，需要数月。储罐积满的原油需要先消化才能恢复生产。"}
+              {i === 2 && (
+                <>
+                  LNG主冷却压缩机所需大型燃气轮机，全球仅
+                  <span style={{ color: RED, fontWeight: 600 }}> 3家OEM </span>
+                  制造。2026年初已有
+                  <span style={{ color: ORANGE, fontWeight: 600 }}> 2-4年 </span>
+                  订单积压——来自数据中心电气化和煤电退役。
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+
+      <div style={{
+        background: CARD,
+        borderRadius: 8,
+        padding: 20,
+        border: `1px solid ${BORDER}`,
+        marginTop: 8,
+      }}>
+        <div style={{ fontSize: 13, color: TEXT_DIM, marginBottom: 20 }}>
+          修复成本（Rystad Energy估算）· 中位约$460亿
+        </div>
+        {[
+          { l: "伊朗", v: "≤$190亿", w: 38 },
+          { l: "卡塔尔", v: "~$120-150亿", w: 28 },
+          { l: "沙特", v: "~$80-120亿", w: 22 },
+          { l: "阿联酋/巴林", v: "~$30-60亿", w: 12 },
+        ].map((r, i) => (
+          <div key={i} style={{ display: "grid", gridTemplateColumns: "72px 1fr 72px", alignItems: "center", gap: 10, marginBottom: 8 }}>
+            <div style={{ fontSize: 12, color: TEXT_DIM, textAlign: "right" }}>{r.l}</div>
+            <div style={{ height: 20, background: "rgba(255,255,255,0.03)", borderRadius: 3, overflow: "hidden" }}>
+              <div style={{
+                height: "100%",
+                width: animated ? `${r.w}%` : "0%",
+                background: `linear-gradient(90deg, ${GOLD}, ${GOLD_DIM})`,
+                borderRadius: 3,
+                transition: "width 0.8s cubic-bezier(0.22,1,0.36,1)",
+                transitionDelay: `${0.6 + i * 0.1}s`,
+              }} />
+            </div>
+            <div style={{ fontFamily: "monospace", fontSize: 13, color: TEXT, fontWeight: 500 }}>{r.v}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ChainTab() {
+  const [activeNode, setActiveNode] = useState(null);
+  const [pulse, setPulse] = useState(0);
+
+  useEffect(() => {
+    const iv = setInterval(() => setPulse(p => (p + 1) % chainNodes.length), 1200);
+    return () => clearInterval(iv);
+  }, []);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      {/* Chain visualization */}
+      <div style={{
+        background: CARD,
+        borderRadius: 8,
+        padding: "28px 20px",
+        border: `1px solid ${BORDER}`,
+      }}>
+        <div style={{ fontSize: 12, color: GOLD, fontFamily: "monospace", letterSpacing: 1, marginBottom: 20, textAlign: "center" }}>
+          脆弱性传导链 · 点击节点查看详情
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 0, alignItems: "center" }}>
+          {chainNodes.map((n, i) => (
+            <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div
+                onClick={() => setActiveNode(activeNode === i ? null : i)}
+                style={{
+                  background: activeNode === i
+                    ? (n.danger ? `${RED}22` : n.gold ? `${GOLD}22` : "rgba(255,255,255,0.08)")
+                    : "rgba(255,255,255,0.03)",
+                  border: `1.5px solid ${
+                    pulse === i
+                      ? (n.danger ? RED : n.gold ? GOLD : "rgba(255,255,255,0.3)")
+                      : (n.danger ? `${RED}44` : n.gold ? `${GOLD}44` : BORDER)
+                  }`,
+                  borderRadius: 8,
+                  padding: "14px 28px",
+                  cursor: "pointer",
+                  transition: "all 0.3s",
+                  textAlign: "center",
+                  minWidth: 200,
+                  boxShadow: pulse === i ? `0 0 20px ${n.danger ? RED : n.gold ? GOLD : "#fff"}15` : "none",
+                }}
+              >
+                <div style={{
+                  fontSize: 16,
+                  fontWeight: 600,
+                  color: n.danger ? RED : n.gold ? GOLD : TEXT,
+                }}>
+                  {n.text}
+                </div>
+                <div style={{ fontSize: 11, color: TEXT_DIM, marginTop: 2 }}>{n.sub}</div>
+              </div>
+              {i < chainNodes.length - 1 && (
+                <div style={{
+                  width: 1.5,
+                  height: 20,
+                  background: `linear-gradient(180deg, ${
+                    chainNodes[i].danger || chainNodes[i + 1].danger ? `${RED}66` : "rgba(255,255,255,0.1)"
+                  }, ${
+                    chainNodes[i + 1].danger ? `${RED}66` : chainNodes[i + 1].gold ? `${GOLD}66` : "rgba(255,255,255,0.1)"
+                  })`,
+                }} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {activeNode !== null && (
+          <div style={{
+            marginTop: 20,
+            padding: 16,
+            background: "rgba(255,255,255,0.03)",
+            borderRadius: 6,
+            fontSize: 13,
+            color: TEXT,
+            lineHeight: 1.8,
+            borderLeft: `3px solid ${chainNodes[activeNode].danger ? RED : chainNodes[activeNode].gold ? GOLD : TEXT_DIM}`,
+          }}>
+            {activeNode === 0 && "全球AI数据中心电力需求指数级增长，同时挤占LNG修复所需的燃气轮机OEM产能。"}
+            {activeNode === 1 && "数据中心电气化推动燃气轮机OEM积压2-4年订单，与煤电退役需求叠加。"}
+            {activeNode === 2 && "海湾LNG占全球约20%贸易量。卡塔尔QatarEnergy已宣布Force Majeure。JKM(亚洲LNG基准价)已翻倍——即使直接进口份额低，价格传导也是全球联动的。"}
+            {activeNode === 3 && "霍尔木兹承载全球20%原油和20%LNG贸易。封锁后替代管道容量仅约900万桶/天，远低于海峡的约2000万桶/天。"}
+            {activeNode === 4 && "Ras Laffan LNG修复≤5年。油田停产后管线重新加压需2-5周。日本已释放8000万桶战略储备，但LNG无法长期储备——库存仅够2-3周。"}
+            {activeNode === 5 && "市场在给AI forward earnings折现时，未将能源供给链脆弱性纳入折现率。日韩指数新高(日经59,691 / KOSPI 6,388)隐含假设'供给冲击是暂时的'——但修复周期说的是L型。"}
+          </div>
+        )}
+      </div>
+
+      {/* Self-reinforcing loop */}
+      <div style={{
+        background: `linear-gradient(135deg, ${CARD}, #0d1630)`,
+        borderRadius: 8,
+        padding: 24,
+        border: `1px solid ${GOLD}33`,
+      }}>
+        <div style={{ fontSize: 12, color: GOLD, fontFamily: "monospace", letterSpacing: 1, marginBottom: 14 }}>
+          自反性结构 · REFLEXIVE LOOP
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap" }}>
+          {["AI扩张", "→", "电力需求↑", "→", "燃气轮机OEM被占", "→", "LNG修复延迟", "→", "能源风险↑", "→"].map((t, i) => (
+            <span key={i} style={{
+              fontSize: t === "→" ? 16 : 13,
+              color: t === "→" ? TEXT_DIM : (i >= 6 ? RED : i >= 4 ? ORANGE : TEXT),
+              fontWeight: t === "→" ? 400 : 600,
+              padding: t === "→" ? 0 : "4px 10px",
+              background: t === "→" ? "none" : "rgba(255,255,255,0.04)",
+              borderRadius: 4,
+            }}>
+              {t}
+            </span>
+          ))}
+          <span style={{ fontSize: 13, fontWeight: 700, color: GOLD, padding: "4px 10px", background: `${GOLD}15`, borderRadius: 4 }}>
+            ♻️ 循环
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// === JAPAN/KOREA QUANTITATIVE TAB ===
+function CountryCard({ data }) {
+  const [expanded, setExpanded] = useState(null);
+  const [animated, setAnimated] = useState(false);
+  useEffect(() => { setTimeout(() => setAnimated(true), 100); }, []);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {/* Index banner */}
+      <div style={{
+        background: CARD, borderRadius: 8, padding: 16,
+        border: `1px solid ${BORDER}`,
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+      }}>
+        <div>
+          <span style={{ fontSize: 24, marginRight: 8 }}>{data.flag}</span>
+          <span style={{ fontSize: 18, fontWeight: 700, color: TEXT }}>{data.name}</span>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontFamily: "monospace", fontSize: 20, fontWeight: 700, color: GREEN }}>{data.indexLevel}</div>
+          <div style={{ fontSize: 11, color: TEXT_DIM }}>
+            {data.indexName} · YTD {data.indexYtd} · 1月 {data.indexJan}
+          </div>
+        </div>
+      </div>
+
+      {/* Dependency bars */}
+      <div style={{ background: CARD, borderRadius: 8, padding: 16, border: `1px solid ${BORDER}` }}>
+        <div style={{ fontSize: 11, color: GOLD, fontFamily: "monospace", letterSpacing: 1, marginBottom: 12 }}>
+          能源依赖度
+        </div>
+        {data.bars.map((b, i) => (
+          <div key={i}
+            onClick={() => setExpanded(expanded === i ? null : i)}
+            style={{ cursor: "pointer", marginBottom: expanded === i ? 12 : 8 }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 13, color: TEXT }}>{b.k}</span>
+              <span style={{ fontFamily: "monospace", fontSize: 14, fontWeight: 700, color: b.v > 60 ? RED : b.v > 30 ? ORANGE : TEXT }}>
+                {b.v}{b.unit}
+              </span>
+            </div>
+            <div style={{ height: 6, background: "rgba(255,255,255,0.04)", borderRadius: 3, overflow: "hidden" }}>
+              <div style={{
+                height: "100%",
+                width: animated ? `${Math.min(b.v, 100)}%` : "0%",
+                background: b.v > 60
+                  ? `linear-gradient(90deg, ${RED}, ${RED}88)`
+                  : b.v > 30
+                    ? `linear-gradient(90deg, ${ORANGE}, ${ORANGE}88)`
+                    : `linear-gradient(90deg, ${BLUE}, ${BLUE}88)`,
+                borderRadius: 3,
+                transition: "width 0.8s cubic-bezier(0.22,1,0.36,1)",
+                transitionDelay: `${i * 0.1}s`,
+              }} />
+            </div>
+            {expanded === i && (
+              <div style={{ fontSize: 11, color: TEXT_DIM, marginTop: 4, paddingLeft: 8, borderLeft: `2px solid ${BORDER}` }}>
+                {b.src}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Reserves */}
+      <div style={{ background: CARD, borderRadius: 8, padding: 16, border: `1px solid ${BORDER}` }}>
+        <div style={{ fontSize: 11, color: GOLD, fontFamily: "monospace", letterSpacing: 1, marginBottom: 12 }}>
+          储备与缓冲
+        </div>
+        {data.reserves.map((r, i) => (
+          <div key={i} style={{
+            padding: "10px 0",
+            borderBottom: i < data.reserves.length - 1 ? `1px solid ${BORDER}` : "none",
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 13, color: TEXT }}>{r.k}</span>
+              <span style={{
+                fontFamily: "monospace", fontSize: 15, fontWeight: 700,
+                color: r.danger ? RED : GREEN,
+              }}>
+                {r.v}
+              </span>
+            </div>
+            <div style={{ fontSize: 11, color: TEXT_DIM, marginTop: 2 }}>{r.sub}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Macro impact */}
+      <div style={{ background: CARD, borderRadius: 8, padding: 16, border: `1px solid ${BORDER}` }}>
+        <div style={{ fontSize: 11, color: GOLD, fontFamily: "monospace", letterSpacing: 1, marginBottom: 12 }}>
+          宏观传导
+        </div>
+        {data.macro.map((m, i) => (
+          <div key={i} style={{
+            display: "flex", justifyContent: "space-between", alignItems: "flex-start",
+            padding: "8px 0",
+            borderBottom: i < data.macro.length - 1 ? `1px solid ${BORDER}` : "none",
+          }}>
+            <div>
+              <div style={{ fontSize: 13, color: TEXT }}>{m.k}</div>
+              {m.sub && <div style={{ fontSize: 11, color: TEXT_DIM, marginTop: 1 }}>{m.sub}</div>}
+            </div>
+            <span style={{
+              fontFamily: "monospace", fontSize: 14, fontWeight: 600,
+              color: m.danger ? RED : TEXT,
+              whiteSpace: "nowrap", marginLeft: 12,
+            }}>
+              {m.v}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function JpKrTab() {
+  const [country, setCountry] = useState("jp");
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {/* Country toggle */}
+      <div style={{ display: "flex", gap: 6 }}>
+        {[{ id: "jp", label: "🇯🇵 日本", d: jpData }, { id: "kr", label: "🇰🇷 韩国", d: krData }].map(c => (
+          <button
+            key={c.id}
+            onClick={() => setCountry(c.id)}
+            style={{
+              flex: 1, padding: "12px 0", border: "none", borderRadius: 6, fontSize: 15, fontWeight: 600,
+              color: country === c.id ? "#fff" : TEXT_DIM,
+              background: country === c.id ? "rgba(255,255,255,0.08)" : CARD,
+              borderBottom: country === c.id ? `2px solid ${GOLD}` : `2px solid transparent`,
+              cursor: "pointer", transition: "all 0.2s",
+            }}
+          >
+            {c.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Contradiction callout */}
+      <div style={{
+        background: RED_BG, borderRadius: 8, padding: 14,
+        borderLeft: `3px solid ${RED}`, fontSize: 13, color: TEXT, lineHeight: 1.7,
+      }}>
+        <strong style={{ color: RED }}>结构性矛盾：</strong>
+        {country === "jp"
+          ? "日经225创历史新高(59,691) · 但95%原油依赖中东 · LNG库存仅够发电2-3周 · 战略储备已释放8000万桶 · 公共债务260% GDP补贴空间几乎为零"
+          : "KOSPI历史新高(6,388) · 半导体出口+180%驱动 · 但77%石脑油进口来自中东 · LG Chem裂解装置已因断供关停 · 政府宣布经济战时状态"
+        }
+      </div>
+
+      <CountryCard data={country === "jp" ? jpData : krData} />
+
+      {/* Source */}
+      <div style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", lineHeight: 1.6, padding: "4px 0" }}>
+        数据来源：S&P Global (Aug 2025 / Apr 2026) · IEA Oil Market Report (Mar 12, 2026) · Atlantic Council (Mar 5, 2026) · EIA (Apr 2026) · ISEP (2024实际值) · ORF Middle East · Climate Bonds · ICIS (Mar 2026) · Korea Herald (Apr 2026) · MEES · Trading Economics · 韩国海关
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [activeTab, setActiveTab] = useState("damage");
+
+  return (
+    <div style={{
+      background: BG,
+      minHeight: "100vh",
+      color: TEXT,
+      fontFamily: "'Noto Sans SC', -apple-system, 'Helvetica Neue', sans-serif",
+      position: "relative",
+    }}>
+      {/* Watermark */}
+      <div style={{
+        position: "fixed",
+        bottom: 12,
+        right: 16,
+        fontSize: 11,
+        color: "rgba(240,192,64,0.12)",
+        letterSpacing: 3,
+        writingMode: "vertical-rl",
+        zIndex: 999,
+        pointerEvents: "none",
+        fontFamily: "serif",
+      }}>
+        黑森船长
+      </div>
+
+      {/* Header */}
+      <div style={{ padding: "32px 20px 20px", maxWidth: 800, margin: "0 auto" }}>
+        <div style={{ fontFamily: "monospace", fontSize: 10, color: GOLD, letterSpacing: 2, marginBottom: 8 }}>
+          RESEARCH · 2026.04.22
+        </div>
+        <h1 style={{
+          fontSize: 28,
+          fontWeight: 800,
+          color: "#fff",
+          lineHeight: 1.3,
+          margin: 0,
+        }}>
+          霍尔木兹危机
+          <span style={{ color: RED }}> · </span>
+          <span style={{ color: RED, fontSize: 24 }}>能源损毁全景</span>
+        </h1>
+        <div style={{ fontSize: 12, color: TEXT_DIM, marginTop: 6 }}>
+          "稳定性"尚未被纳入AI总盘定价 — 确定性的分母变了
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div style={{
+        display: "flex",
+        gap: 2,
+        padding: "0 20px",
+        maxWidth: 800,
+        margin: "0 auto 16px",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        background: BG,
+        paddingTop: 8,
+        paddingBottom: 8,
+      }}>
+        {tabs.map(t => (
+          <button
+            key={t.id}
+            onClick={() => setActiveTab(t.id)}
+            style={{
+              flex: 1,
+              padding: "10px 0",
+              border: "none",
+              borderRadius: 6,
+              fontSize: 13,
+              fontWeight: activeTab === t.id ? 600 : 400,
+              color: activeTab === t.id ? "#fff" : TEXT_DIM,
+              background: activeTab === t.id ? "rgba(255,255,255,0.08)" : "transparent",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              borderBottom: activeTab === t.id ? `2px solid ${GOLD}` : "2px solid transparent",
+            }}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: "0 20px 80px", maxWidth: 800, margin: "0 auto" }}>
+        {activeTab === "damage" && <DamageTab />}
+        {activeTab === "loss" && <LossTab />}
+        {activeTab === "timeline" && <TimelineTab />}
+        {activeTab === "jpkr" && <JpKrTab />}
+        {activeTab === "chain" && <ChainTab />}
+      </div>
+
+      {/* Source */}
+      <div style={{
+        padding: "16px 20px 32px",
+        maxWidth: 800,
+        margin: "0 auto",
+        fontSize: 10,
+        color: "rgba(255,255,255,0.2)",
+        lineHeight: 1.6,
+      }}>
+        Bloomberg · Rystad Energy · CNBC · Dallas Fed · CRS · AFP | 部分为估算值(E)
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

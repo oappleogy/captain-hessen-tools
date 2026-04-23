@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>日韩半导体供给链脆弱性 · 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#080c14;--panel:rgba(16,24,38,.95);--panel2:rgba(12,18,28,.96);
+  --border:rgba(130,180,240,.22);--border2:rgba(130,180,240,.12);
+  --text:#edf2f8;--muted:#9db3ca;--dim:#6b849e;
+  --blue:#5cacff;--cyan:#34e0f0;--green:#3fdfaa;--amber:#ffb830;--red:#ff5a5a;--rose:#ff5078;
+  --gold:#e4b860;
+  --font:'Noto Sans SC',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{
+  font-family:var(--font);background:var(--bg);color:var(--text);
+  min-height:100vh;overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% 10%,rgba(77,158,255,.04),transparent),
+    radial-gradient(ellipse 60% 40% at 80% 90%,rgba(239,68,68,.03),transparent);
+}
+body::after{
+  content:'黑森船长';position:fixed;bottom:14px;right:18px;
+  font-size:11px;letter-spacing:4px;color:rgba(228,184,96,.25);
+  font-weight:700;pointer-events:none;z-index:9999;
+}
+.wrap{max-width:1500px;margin:0 auto;padding:20px}
+
+/* ── header ── */
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.hdr h1{
+  font-size:24px;font-weight:900;letter-spacing:-.4px;
+  background:linear-gradient(135deg,#d8e4f0,var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3;
+}
+.hdr .sub{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.7;max-width:720px}
+.brand{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:3px;
+  color:var(--gold);opacity:.7;padding:5px 12px;
+  border:1px solid rgba(212,168,83,.18);border-radius:5px;white-space:nowrap;flex-shrink:0;
+}
+
+/* ── KPI strip (always visible) ── */
+.kpi-strip{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:6px;
+}
+.kpi{
+  padding:12px 14px;border-radius:11px;background:rgba(10,16,26,.8);
+  border:1px solid var(--border);text-align:center;position:relative;overflow:hidden;
+}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kc,var(--blue));opacity:.7}
+.kpi .n{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:-1px;transition:color .3s}
+.kpi .l{font-size:10.5px;color:#8ea6be;margin-top:3px;letter-spacing:.3px}
+.mbar{height:5px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0 4px}
+.mbar>div{height:100%;border-radius:3px;transition:width .5s,background .5s}
+#masterTxt{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+
+/* ── tabs ── */
+.tab-bar{
+  display:flex;gap:2px;background:rgba(255,255,255,.06);border-radius:10px;
+  padding:3px;margin-bottom:16px;overflow-x:auto;
+}
+.tab-btn{
+  flex:1;min-width:0;padding:9px 6px;border:none;background:transparent;
+  color:#8ea6be;font-size:12.5px;font-family:var(--font);font-weight:600;
+  border-radius:8px;cursor:pointer;transition:all .2s;white-space:nowrap;
+  letter-spacing:.3px;
+}
+.tab-btn:hover{color:var(--text);background:rgba(255,255,255,.07)}
+.tab-btn.active{color:#fff;background:rgba(92,172,255,.18);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.tab-page{display:none}
+.tab-page.active{display:block}
+
+/* ── card ── */
+.card{
+  background:var(--panel);border:1px solid var(--border);border-radius:14px;
+  padding:18px;backdrop-filter:blur(12px);
+}
+.card h2{font-size:15px;font-weight:700;margin-bottom:12px;color:#e0eaf4}
+.card h3{font-size:13px;font-weight:600;margin-bottom:8px;color:#c8d8e8}
+
+/* ── controls ── */
+.ctrl-section{margin-bottom:18px}
+.ctrl-section-hdr{
+  font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:#9db3ca;margin-bottom:10px;padding-bottom:6px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;
+}
+.ctrl-section-hdr .dir-tag{
+  font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;
+  letter-spacing:.5px;text-transform:none;
+}
+.dir-risk{background:rgba(255,90,90,.16);color:#ff7070;border:1px solid rgba(255,90,90,.3)}
+.dir-buf{background:rgba(63,223,170,.16);color:#4de8b8;border:1px solid rgba(63,223,170,.3)}
+
+.ctrl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.ctrl-item{padding:8px 0}
+.ctrl-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.ctrl-name{font-size:12.5px;color:#b8cedf}
+.ctrl-val{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+.ctrl-meta{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.ctrl-hint{font-size:10.5px;color:#7a96af;line-height:1.4}
+.ctrl-dir{
+  font-size:10px;font-family:var(--mono);padding:1px 6px;border-radius:3px;
+  white-space:nowrap;flex-shrink:0;margin-left:6px;
+}
+.ctrl-dir.risk{background:rgba(255,90,90,.12);color:rgba(255,90,90,.85)}
+.ctrl-dir.buf{background:rgba(63,223,170,.12);color:rgba(63,223,170,.85)}
+
+/* range: risk slider (red gradient) */
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+  background:#fff;border:2px solid var(--blue);cursor:pointer;
+  box-shadow:0 0 6px rgba(77,158,255,.35);
+}
+.sl-risk{background:linear-gradient(90deg,#1a4a30,#6a5520,#6a2020)}
+.sl-buf{background:linear-gradient(90deg,#6a2020,#6a5520,#1a4a30)}
+
+/* ── scenario cards ── */
+.sc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sc{
+  padding:12px;border-radius:10px;background:rgba(6,10,16,.6);
+  border:1px solid var(--border2);cursor:pointer;transition:all .2s;
+}
+.sc:hover{border-color:var(--blue);background:rgba(77,158,255,.04)}
+.sc.active{border-color:var(--gold);box-shadow:0 0 12px rgba(212,168,83,.08)}
+.sc strong{font-size:12.5px;display:block;margin-bottom:4px}
+.sc p{font-size:10.5px;color:#8ea6be;line-height:1.5;margin:0}
+
+/* ── network ── */
+.net-box{position:relative;border-radius:12px;overflow:hidden;background:rgba(4,8,14,.6)}
+.net-box svg{width:100%;height:100%;display:block}
+
+/* ── tables ── */
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{
+  text-align:left;padding:7px 8px;color:#a0b8d0;font-weight:600;
+  border-bottom:1px solid var(--border);font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;
+}
+.tbl td{padding:7px 8px;border-bottom:1px solid var(--border2);vertical-align:middle}
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-family:var(--mono);font-weight:600}
+.tag-low{background:rgba(63,223,170,.15);color:#3fdfaa;border:1px solid rgba(63,223,170,.3)}
+.tag-mid{background:rgba(92,172,255,.15);color:#5cacff;border:1px solid rgba(92,172,255,.3)}
+.tag-high{background:rgba(255,184,48,.15);color:#ffb830;border:1px solid rgba(255,184,48,.3)}
+.tag-crit{background:rgba(255,90,90,.15);color:#ff5a5a;border:1px solid rgba(255,90,90,.3)}
+
+/* cascade */
+.cas-step{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;color:#9db3ca;border-bottom:1px solid var(--border2)}
+.cas-step:last-child{border-bottom:none}
+.cas-v{font-family:var(--mono);font-weight:700;min-width:30px;text-align:right}
+.cas-bar{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden}
+.cas-bar>div{height:100%;border-radius:2px;transition:width .5s}
+
+/* insight */
+.insight{
+  font-size:12px;line-height:1.8;color:#b8d0e4;padding:12px;border-radius:10px;
+  background:rgba(10,16,26,.7);border:1px solid var(--border2);
+}
+.insight strong{color:var(--text)}
+
+/* anchors */
+.anch-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.anch-tbl td{padding:6px 8px;border-bottom:1px solid var(--border2)}
+.anch-tbl td:first-child{color:#9db3ca;width:35%}
+.footnote{font-size:11px;color:#7e98b2;line-height:1.7;margin-top:14px}
+.footnote strong{color:#b0c6da}
+
+/* layout helpers */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g2-wide{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}
+
+@media(max-width:1100px){
+  .kpi-strip{grid-template-columns:repeat(3,1fr)}
+  .ctrl-grid,.sc-grid,.g2,.g2-wide{grid-template-columns:1fr}
+  .hdr{flex-direction:column}
+}
+@media(max-width:600px){
+  .kpi-strip{grid-template-columns:1fr 1fr}
+  .tab-bar{flex-wrap:nowrap}
+  .tab-btn{font-size:11px;padding:8px 4px}
+}
+</style>
+</head>
+<body>
+<a href="index.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.05);backdrop-filter:blur(8px);border:1px solid var(--border2);">← 返回</a>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <h1>日韩半导体供给链脆弱性量化仪表盘</h1>
+    <div class="sub">结构主题：日韩能源进口 → 澳大利亚矿业 → 柴油 → 全球航道 → 半导体供电确定性。这不是精确预测器，而是<strong>结构脆弱性的可视化推演工具</strong>——拆因果节点，设权重与冲击因子，用非线性级联模型汇总风险。</div>
+  </div>
+  <div class="brand">黑森船长 · CAPTAIN HESSEN</div>
+</div>
+
+<!-- KPI STRIP (always visible) -->
+<div class="kpi-strip">
+  <div class="kpi" style="--kc:var(--gold)"><div class="n" id="kT">0</div><div class="l">总脆弱性</div></div>
+  <div class="kpi" style="--kc:var(--amber)"><div class="n" id="kE">0</div><div class="l">能源侧压力</div></div>
+  <div class="kpi" style="--kc:var(--cyan)"><div class="n" id="kS">0</div><div class="l">运输侧压力</div></div>
+  <div class="kpi" style="--kc:var(--red)"><div class="n" id="kJP">0</div><div class="l">日本半导体</div></div>
+  <div class="kpi" style="--kc:var(--rose)"><div class="n" id="kKR">0</div><div class="l">韩国半导体</div></div>
+</div>
+<div class="mbar"><div id="mBar"></div></div>
+<div id="masterTxt"></div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('overview')">总览与情景</button>
+  <button class="tab-btn" onclick="switchTab('controls')">参数控制台</button>
+  <button class="tab-btn" onclick="switchTab('network')">因果网络</button>
+  <button class="tab-btn" onclick="switchTab('analysis')">链路与级联</button>
+  <button class="tab-btn" onclick="switchTab('anchors')">事实锚点</button>
+</div>
+
+<!-- ═══════════ TAB 1: OVERVIEW ═══════════ -->
+<div id="tab-overview" class="tab-page active">
+  <div class="g2">
+    <div class="card">
+      <h2>预设情景</h2>
+      <div class="sc-grid">
+        <div class="sc" data-sc="base" onclick="applySc('base')">
+          <strong>基准情景</strong>
+          <p>航运摩擦存在但未系统性中断，库存和替代能力一般。</p>
+        </div>
+        <div class="sc" data-sc="hormuz" onclick="applySc('hormuz')">
+          <strong>霍尔木兹封锁</strong>
+          <p>韩国原油直接受冲击，海运压力飙升。韩国半导体风险急剧上升。</p>
+        </div>
+        <div class="sc" data-sc="ausFuel" onclick="applySc('ausFuel')">
+          <strong>澳洲燃料危机</strong>
+          <p>液体燃料进口中断，矿山运输效率下降，煤炭出口受限。</p>
+        </div>
+        <div class="sc" data-sc="defense" onclick="applySc('defense')">
+          <strong>防御增强</strong>
+          <p>日韩晶圆厂备电增强，替代采购提升，终端风险下降。</p>
+        </div>
+        <div class="sc" data-sc="dualShock" onclick="applySc('dualShock')">
+          <strong>双重冲击</strong>
+          <p>霍尔木兹 + 澳洲燃料同时承压，测试链条最大脆弱性。</p>
+        </div>
+        <div class="sc" data-sc="jpNuke" onclick="applySc('jpNuke')">
+          <strong>日本核电重启</strong>
+          <p>替代弹性显著提升，化石燃料依赖下降。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>结构解读</h2>
+      <div id="insightOverview" class="insight" style="margin-bottom:14px"></div>
+      <h3 style="margin-top:12px">读数指南</h3>
+      <table class="tbl" style="font-size:11.5px">
+        <tr><td><span class="tag tag-low">0-29 低</span></td><td>链条可控，缓冲尚可覆盖扰动</td></tr>
+        <tr><td><span class="tag tag-mid">30-54 中</span></td><td>需要盯盘，扰动开始向半导体端传导</td></tr>
+        <tr><td><span class="tag tag-high">55-74 高</span></td><td>高压区间，非线性级联放大效应激活</td></tr>
+        <tr><td><span class="tag tag-crit">75+ 极高</span></td><td>危险区间，脆弱点集中暴露</td></tr>
+      </table>
+      <div style="font-size:11px;color:#8098b0;margin-top:12px;line-height:1.6">
+        <strong style="color:var(--muted)">非线性说明：</strong>当上游压力 &gt;阈值(55-60) 时，传导系数从线性变为二次方——"小扰动→大冲击"。缓冲节点对级联有阻尼效应。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 2: CONTROLS ═══════════ -->
+<div id="tab-controls" class="tab-page">
+  <div class="card">
+    <h2>参数控制台</h2>
+    <p style="font-size:12px;color:#8098b0;margin-bottom:16px;line-height:1.6">
+      每个滑块标注了数值方向：<span class="ctrl-dir risk" style="display:inline">↑高=风险↑</span> 表示越大越危险，
+      <span class="ctrl-dir buf" style="display:inline">↑高=韧性↑</span> 表示越大越安全。调节后 KPI 实时更新。
+    </p>
+
+    <!-- SECTION A: 依赖度/暴露度（数值越大=风险越大） -->
+    <div class="ctrl-section">
+      <div class="ctrl-section-hdr">
+        依赖度与暴露度
+        <span class="dir-tag dir-risk">↑ 数值越高 = 风险越大</span>
+      </div>
+      <div class="ctrl-grid">
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">澳煤对日出口占比</span><span class="ctrl-val"><span id="vCoalAus">68</span>%</span></div>
+          <input id="coalAus" type="range" min="40" max="85" value="68" class="sl-risk"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">官方"略低于70%" 🟢 ｜占比越高，日本煤电对单一来源越脆弱</span>
+            <span class="ctrl-dir risk">↑风险↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">日本 LNG 对澳依赖</span><span class="ctrl-val"><span id="vLngAus">40</span>%</span></div>
+          <input id="lngAus" type="range" min="20" max="60" value="40" class="sl-risk"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">近场 LNG 核心来源 🟡 ｜占比越高，LNG中断影响越大</span>
+            <span class="ctrl-dir risk">↑风险↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">韩国对中东油气依赖</span><span class="ctrl-val"><span id="vKrME">72</span>%</span></div>
+          <input id="krME" type="range" min="40" max="95" value="72" class="sl-risk"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">原油进口中东占比约72% 🟢 ｜霍尔木兹风险直接传导</span>
+            <span class="ctrl-dir risk">↑风险↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">澳矿柴油依赖强度</span><span class="ctrl-val"><span id="vDiesel">88</span>/100</span></div>
+          <input id="miningDiesel" type="range" min="50" max="100" value="88" class="sl-risk"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">年耗柴油约96亿升 🟢 ｜越高=矿业对柴油断供越敏感</span>
+            <span class="ctrl-dir risk">↑风险↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">澳洲液体燃料进口依赖</span><span class="ctrl-val"><span id="vFuel">90</span>%</span></div>
+          <input id="fuelImport" type="range" min="60" max="100" value="90" class="sl-risk"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">进口90%+液体燃料 🟢 ｜国内几乎无炼化冗余</span>
+            <span class="ctrl-dir risk">↑风险↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">海运 Chokepoint 压力</span><span class="ctrl-val"><span id="vShip">35</span>/100</span></div>
+          <input id="shippingStress" type="range" min="0" max="100" value="35" class="sl-risk"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">霍尔木兹/红海/马六甲/巴拿马综合 🔴est. ｜越高=航道越紧张</span>
+            <span class="ctrl-dir risk">↑风险↑</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION B: 韧性/缓冲（数值越大=风险越小） -->
+    <div class="ctrl-section">
+      <div class="ctrl-section-hdr">
+        韧性与缓冲能力
+        <span class="dir-tag dir-buf">↑ 数值越高 = 风险越小</span>
+      </div>
+      <div class="ctrl-grid">
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">澳洲库存缓冲</span><span class="ctrl-val"><span id="vBuffer">28</span>/100</span></div>
+          <input id="buffer" type="range" min="0" max="100" value="28" class="sl-buf"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">🔴est. ｜越高=战略储备越充足，对断供的承受力越强</span>
+            <span class="ctrl-dir buf">↑韧性↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">日本晶圆厂电力韧性</span><span class="ctrl-val"><span id="vFabJP">72</span>/100</span></div>
+          <input id="fabResJP" type="range" min="30" max="100" value="72" class="sl-buf"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">🔴est. ｜UPS/双路/备电能力，越高=工厂对电网波动越不敏感</span>
+            <span class="ctrl-dir buf">↑韧性↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">韩国晶圆厂电力韧性</span><span class="ctrl-val"><span id="vFabKR">68</span>/100</span></div>
+          <input id="fabResKR" type="range" min="30" max="100" value="68" class="sl-buf"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">🔴est. ｜Samsung/SK Hynix 备电水平，越高=终端越安全</span>
+            <span class="ctrl-dir buf">↑韧性↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">日本能源替代弹性</span><span class="ctrl-val"><span id="vSub">24</span>/100</span></div>
+          <input id="subElastic" type="range" min="0" max="100" value="24" class="sl-buf"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">🔴est. ｜现货补充/燃料切换/核电重启，越高=替代路径越多</span>
+            <span class="ctrl-dir buf">↑韧性↑</span>
+          </div>
+        </div>
+        <div class="ctrl-item">
+          <div class="ctrl-top"><span class="ctrl-name">韩国能源替代弹性</span><span class="ctrl-val"><span id="vSubKR">30</span>/100</span></div>
+          <input id="subElasticKR" type="range" min="0" max="100" value="30" class="sl-buf"/>
+          <div class="ctrl-meta">
+            <span class="ctrl-hint">核电占比~30%提供缓冲 🟡 ｜越高=韩国对化石燃料中断越耐受</span>
+            <span class="ctrl-dir buf">↑韧性↑</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 3: NETWORK ═══════════ -->
+<div id="tab-network" class="tab-page">
+  <div class="card">
+    <h2>因果网络图</h2>
+    <p style="font-size:11.5px;color:#8098b0;margin-bottom:12px">节点颜色：<span style="color:var(--blue)">●</span> 来源 　<span style="color:var(--amber)">●</span> 关键约束 　<span style="color:var(--green)">●</span> 冗余/缓冲 　<span style="color:var(--red)">●</span> 终端脆弱点 　｜　连线粗细 = 风险传导强度，颜色 = 严重度</p>
+    <div class="net-box" style="height:640px">
+      <svg id="netSvg" viewBox="0 0 820 620" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 4: ANALYSIS ═══════════ -->
+<div id="tab-analysis" class="tab-page">
+  <div class="g2-wide">
+    <div class="card">
+      <h2>链路状态矩阵</h2>
+      <table class="tbl">
+        <thead><tr><th>链路</th><th>值</th><th>方向</th><th>级别</th></tr></thead>
+        <tbody id="linkTbl"></tbody>
+      </table>
+      <div style="font-size:10.5px;color:#8098b0;margin-top:10px;line-height:1.5">
+        "方向"列说明该数值的含义：<strong style="color:rgba(255,100,100,.9)">↑=危</strong> 表示数值越大风险越高；<strong style="color:rgba(63,223,170,.9)">↑=安</strong> 表示数值越大越安全（阻尼链路）。
+      </div>
+    </div>
+    <div class="card">
+      <h2>级联传导路径</h2>
+      <p style="font-size:11px;color:#8098b0;margin-bottom:10px">从上游冲击到终端晶圆厂的逐级放大链。超过阈值后触发非线性放大。</p>
+      <div id="cascadeBox"></div>
+      <h3 style="margin-top:16px">结构解读</h3>
+      <div id="insightAnalysis" class="insight"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TAB 5: ANCHORS ═══════════ -->
+<div id="tab-anchors" class="tab-page">
+  <div class="g2">
+    <div class="card">
+      <h2>事实锚点与可信度</h2>
+      <table class="anch-tbl">
+        <tr><td>日本能源自给率</td><td>2022年约 <strong>12.6%</strong> <span style="font-size:12px">🟢</span></td></tr>
+        <tr><td>日本化石燃料占比</td><td>2023年一次能源约 <strong>80.8%</strong> <span style="font-size:12px">🟢</span></td></tr>
+        <tr><td>日本煤进口澳洲占比</td><td>略低于 <strong>70%</strong> <span style="font-size:12px">🟢</span></td></tr>
+        <tr><td>澳矿柴油年耗</td><td>约 <strong>96亿升</strong> <span style="font-size:12px">🟢</span></td></tr>
+        <tr><td>澳洲液体燃料进口</td><td>进口 <strong>90%+</strong> <span style="font-size:12px">🟢</span></td></tr>
+        <tr><td>韩国原油中东占比</td><td>约 <strong>72%</strong> <span style="font-size:12px">🟢</span></td></tr>
+        <tr><td>韩国核电占比</td><td>约 <strong>28-30%</strong> <span style="font-size:12px">🟡</span></td></tr>
+        <tr><td>链路权重/冲击系数</td><td>模型参数，非官方统计口径 <span style="font-size:12px">🔴 est.</span></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2>模型说明</h2>
+      <div class="footnote">
+        <strong>可信度分级</strong><br/>
+        🟢 官方/SEC级实际值 · 🟡 业界共识/公司指引级 · 🔴 分析师估算/模型建模参数<br/><br/>
+        <strong>非线性级联模型</strong><br/>
+        当上游节点压力超过阈值(55-60)时，传导系数从线性放大为二次方，模拟"小扰动→大冲击"。缓冲节点对级联产生阻尼效应，降低放大倍数。<br/><br/>
+        <strong>参数方向约定</strong><br/>
+        · 依赖度/暴露度类参数：数值越大 → 风险越大<br/>
+        · 韧性/缓冲类参数：数值越大 → 风险越小（进入模型时取反）<br/><br/>
+        <strong>知识产权标注</strong><br/>
+        · HCT六维框架 — 黑森船长原创<br/>
+        · 级联放大模型 — Claude合成<br/>
+        · 数据锚点 — 公开来源<br/><br/>
+        <strong>下一步可接入</strong><br/>
+        煤价时间序列、JKM LNG现货、VLCC/LNG运价、澳洲港口拥堵指数、柴油库存天数、台风与地缘事件触发器。
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+const fmt=n=>Math.round(n);
+
+/* ── Tab switching ── */
+function switchTab(name){
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  $('tab-'+name).classList.add('active');
+  // find matching button
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    if(b.getAttribute('onclick')?.includes(name)) b.classList.add('active');
+  });
+  // re-draw network if switching to that tab (SVG sizing)
+  if(name==='network') requestAnimationFrame(()=>update());
+}
+
+/* ── Slider registry ── */
+const sliders=[
+  {id:'coalAus',disp:'vCoalAus',dir:'risk'},
+  {id:'lngAus',disp:'vLngAus',dir:'risk'},
+  {id:'krME',disp:'vKrME',dir:'risk'},
+  {id:'miningDiesel',disp:'vDiesel',dir:'risk'},
+  {id:'fuelImport',disp:'vFuel',dir:'risk'},
+  {id:'shippingStress',disp:'vShip',dir:'risk'},
+  {id:'buffer',disp:'vBuffer',dir:'buf'},
+  {id:'fabResJP',disp:'vFabJP',dir:'buf'},
+  {id:'fabResKR',disp:'vFabKR',dir:'buf'},
+  {id:'subElastic',disp:'vSub',dir:'buf'},
+  {id:'subElasticKR',disp:'vSubKR',dir:'buf'},
+];
+
+/* ── Non-linear cascade ── */
+function cascade(input, threshold=58){
+  if(input<=threshold) return input;
+  const ex=input-threshold;
+  return threshold + ex*(1+ex/75);
+}
+
+/* ── Severity helpers ── */
+function sC(v){return v<30?'tag-low':v<55?'tag-mid':v<75?'tag-high':'tag-crit'}
+function sL(v){return v<30?'低':v<55?'中':v<75?'高':'极高'}
+function sCol(v){return v<30?'#3fdfaa':v<55?'#5cacff':v<75?'#ffb830':'#ff5a5a'}
+
+/* ── Network nodes ── */
+const nodes=[
+  {id:'ausCoal',x:70, y:80, r:22,color:'#4d9eff',label:'澳煤出口'},
+  {id:'ausLNG', x:70, y:195,r:22,color:'#4d9eff',label:'澳LNG出口'},
+  {id:'meME',   x:70, y:320,r:22,color:'#4d9eff',label:'中东油气'},
+  {id:'mining', x:250,y:138,r:26,color:'#f59e0b',label:'澳矿生产'},
+  {id:'diesel', x:400,y:138,r:26,color:'#f59e0b',label:'柴油供给'},
+  {id:'fuelImp',x:540,y:138,r:24,color:'#f59e0b',label:'进口燃料'},
+  {id:'sea',    x:400,y:320,r:28,color:'#f59e0b',label:'海运Chokepoints'},
+  {id:'buffer', x:250,y:450,r:20,color:'#34d399',label:'缓冲/替代'},
+  {id:'jpPwr',  x:580,y:380,r:30,color:'#34d399',label:'日本电力'},
+  {id:'krPwr',  x:580,y:510,r:30,color:'#34d399',label:'韩国电力'},
+  {id:'fabJP',  x:730,y:380,r:32,color:'#ef4444',label:'日本半导体'},
+  {id:'fabKR',  x:730,y:510,r:32,color:'#f43f5e',label:'韩国半导体'},
+];
+const nMap=Object.fromEntries(nodes.map(n=>[n.id,n]));
+
+const linkDefs=[
+  {a:'ausCoal',b:'mining',key:'coal_mine'},
+  {a:'ausLNG',b:'mining',key:'lng_mine'},
+  {a:'mining',b:'diesel',key:'mine_diesel'},
+  {a:'diesel',b:'fuelImp',key:'diesel_fuel'},
+  {a:'fuelImp',b:'sea',key:'fuel_sea'},
+  {a:'ausCoal',b:'jpPwr',key:'coal_jp'},
+  {a:'ausLNG',b:'jpPwr',key:'lng_jp'},
+  {a:'meME',b:'krPwr',key:'me_kr'},
+  {a:'meME',b:'sea',key:'me_sea'},
+  {a:'sea',b:'jpPwr',key:'sea_jp'},
+  {a:'sea',b:'krPwr',key:'sea_kr'},
+  {a:'buffer',b:'jpPwr',key:'buf_jp'},
+  {a:'buffer',b:'krPwr',key:'buf_kr'},
+  {a:'jpPwr',b:'fabJP',key:'jp_fab'},
+  {a:'krPwr',b:'fabKR',key:'kr_fab'},
+];
+
+function bez(a,b){
+  const dx=b.x-a.x;
+  return `M${a.x},${a.y} C${a.x+dx*.4},${a.y} ${a.x+dx*.6},${b.y} ${b.x},${b.y}`;
+}
+
+/* ── MAIN UPDATE ── */
+function update(){
+  const v={};
+  sliders.forEach(s=>{v[s.id]=+$(s.id).value;$(s.disp).textContent=v[s.id]});
+
+  const miningRisk=v.miningDiesel*0.55+v.fuelImport*0.45;
+  const shipRisk=v.shippingStress;
+
+  // Japan energy
+  const jpERaw=v.coalAus*0.28+v.lngAus*0.22+miningRisk*0.20+shipRisk*0.18-v.buffer*0.10-v.subElastic*0.12;
+  const jpE=clamp(cascade(jpERaw,55),0,100);
+
+  // Korea energy
+  const krERaw=v.krME*0.38+shipRisk*0.28+miningRisk*0.10-v.buffer*0.08-v.subElasticKR*0.14;
+  const krE=clamp(cascade(krERaw,55),0,100);
+
+  const energyRisk=jpE*0.5+krE*0.5;
+
+  // Fab risks
+  const jpFab=clamp(cascade(jpE,50)*0.60+shipRisk*0.18+(100-v.fabResJP)*0.22,0,100);
+  const krFab=clamp(cascade(krE,50)*0.58+shipRisk*0.22+(100-v.fabResKR)*0.20,0,100);
+
+  const total=clamp(energyRisk*0.35+shipRisk*0.20+jpFab*0.22+krFab*0.23,0,100);
+
+  // KPIs
+  [['kT',total],['kE',energyRisk],['kS',shipRisk],['kJP',jpFab],['kKR',krFab]].forEach(([id,val])=>{
+    $(id).textContent=fmt(val);$(id).style.color=sCol(val);
+  });
+  $('mBar').style.width=total+'%';
+  $('mBar').style.background=`linear-gradient(90deg,${sCol(Math.max(0,total-20))},${sCol(total)})`;
+
+  const desc=total<35?'链条处于<strong>可控脆弱</strong>，缓冲尚可覆盖。'
+    :total<55?'进入<strong>需要盯盘</strong>区间，扰动开始传导，非线性放大初现。'
+    :total<75?'<strong>高压</strong>区间，进一步扰动将触发级联放大到电力与工厂端。'
+    :'<strong>危险区间</strong>，脆弱点集中暴露，级联全面激活。';
+  $('masterTxt').innerHTML=desc;
+
+  // Link values
+  const lv={
+    coal_mine:{label:'澳煤→矿业',val:40,w:4,dir:'↑=危'},
+    lng_mine:{label:'澳LNG→矿业',val:30,w:3,dir:'↑=危'},
+    mine_diesel:{label:'矿业→柴油',val:v.miningDiesel,w:8,dir:'↑=危'},
+    diesel_fuel:{label:'柴油→进口',val:v.fuelImport,w:8,dir:'↑=危'},
+    fuel_sea:{label:'进口→海运',val:v.shippingStress,w:6,dir:'↑=危'},
+    coal_jp:{label:'澳煤→日本电力',val:v.coalAus,w:8,dir:'↑=危'},
+    lng_jp:{label:'澳LNG→日本电力',val:v.lngAus,w:6,dir:'↑=危'},
+    me_kr:{label:'中东→韩国电力',val:v.krME,w:8,dir:'↑=危'},
+    me_sea:{label:'中东→海运',val:v.krME*0.4,w:4,dir:'↑=危'},
+    sea_jp:{label:'海运→日本电力',val:clamp(shipRisk*0.8+v.fuelImport*0.2,0,100),w:8,dir:'↑=危'},
+    sea_kr:{label:'海运→韩国电力',val:clamp(shipRisk*0.9+v.krME*0.1,0,100),w:8,dir:'↑=危'},
+    buf_jp:{label:'缓冲→日本(阻尼)',val:100-v.buffer,w:4,dir:'↑=安'},
+    buf_kr:{label:'缓冲→韩国(阻尼)',val:100-v.buffer,w:4,dir:'↑=安'},
+    jp_fab:{label:'日本电力→晶圆厂',val:jpFab,w:10,dir:'↑=危'},
+    kr_fab:{label:'韩国电力→晶圆厂',val:krFab,w:10,dir:'↑=危'},
+  };
+
+  // Link table
+  const showLinks=['coal_jp','lng_jp','me_kr','mine_diesel','diesel_fuel','fuel_sea','sea_jp','sea_kr','buf_jp','jp_fab','kr_fab'];
+  let tHtml='';
+  showLinks.forEach(k=>{
+    const l=lv[k];const rv=Math.round(l.val);
+    const dirCls=l.dir==='↑=安'?'style="color:#4de8b8;font-weight:600"':'style="color:#ff7070;font-weight:600"';
+    tHtml+=`<tr><td>${l.label}</td><td style="font-family:var(--mono)">${rv}</td><td><span ${dirCls}>${l.dir}</span></td><td><span class="tag ${sC(rv)}">${sL(rv)}</span></td></tr>`;
+  });
+  $('linkTbl').innerHTML=tHtml;
+
+  // Cascade
+  const steps=[
+    {label:'海运冲击源',val:shipRisk},
+    {label:'→ 澳洲柴油链',val:clamp(shipRisk*0.7+v.fuelImport*0.3,0,100)},
+    {label:'→ 矿业产出',val:clamp(miningRisk*0.8+shipRisk*0.2,0,100)},
+    {label:'→ 日本电力系统',val:jpE},
+    {label:'→ 韩国电力系统',val:krE},
+    {label:'→ 日本晶圆厂',val:jpFab},
+    {label:'→ 韩国晶圆厂',val:krFab},
+  ];
+  let cHtml='';
+  steps.forEach(s=>{
+    const rv=Math.round(s.val);
+    cHtml+=`<div class="cas-step"><span class="cas-v" style="color:${sCol(rv)}">${rv}</span><span style="flex:1">${s.label}</span><div class="cas-bar"><div style="width:${rv}%;background:${sCol(rv)}"></div></div></div>`;
+  });
+  $('cascadeBox').innerHTML=cHtml;
+
+  // Insight
+  const factors=[
+    ['日本对澳煤依赖',v.coalAus,'risk'],
+    ['日本对澳LNG依赖',v.lngAus,'risk'],
+    ['韩国对中东依赖',v.krME,'risk'],
+    ['澳矿柴油依赖',v.miningDiesel,'risk'],
+    ['液体燃料进口依赖',v.fuelImport,'risk'],
+    ['海运chokepoint压力',v.shippingStress,'risk'],
+    ['日本晶圆厂韧性缺口',100-v.fabResJP,'risk'],
+    ['韩国晶圆厂韧性缺口',100-v.fabResKR,'risk'],
+  ].sort((a,b)=>b[1]-a[1]);
+  const top3=factors.slice(0,3);
+  const jpKrD=Math.abs(jpFab-krFab);
+  const diffNote=jpKrD>15
+    ?`日韩风险差异显著（差${fmt(jpKrD)}分），${jpFab>krFab?'日本':'韩国'}侧更脆弱——`+(jpFab>krFab?'源于对澳大利亚供给链的集中暴露。':'源于对中东航道的高度依赖。')
+    :`日韩风险接近（差${fmt(jpKrD)}分），说明脆弱性是<strong>结构性的</strong>，非单一国别问题。`;
+
+  const insightHtml=`最突出的三个脆弱因子：<strong>${top3[0][0]}</strong>（${fmt(top3[0][1])}）、<strong>${top3[1][0]}</strong>（${fmt(top3[1][1])}）、<strong>${top3[2][0]}</strong>（${fmt(top3[2][1])}）。<br/><br/>${diffNote}<br/><br/>当上游压力超过阈值时，非线性级联放大——<strong>资源的问题不在"有没有"，而在"能否被稳定挖出来、运出来、烧成电"</strong>。`;
+  $('insightOverview').innerHTML=insightHtml;
+  $('insightAnalysis').innerHTML=insightHtml;
+
+  // Draw network
+  drawNet(lv,total);
+}
+
+function drawNet(lv,total){
+  const svg=$('netSvg');svg.innerHTML='';
+
+  const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+  defs.innerHTML=`
+    <filter id="gl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arw" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8" fill="rgba(255,255,255,.18)"/></marker>`;
+  svg.appendChild(defs);
+
+  // links
+  linkDefs.forEach(ld=>{
+    const a=nMap[ld.a],b=nMap[ld.b],l=lv[ld.key];
+    if(!l)return;
+    const val=Math.round(l.val);
+    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',bez(a,b));
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke',sCol(val));
+    p.setAttribute('stroke-width',Math.max(1.2,l.w*(val/100)));
+    p.setAttribute('opacity',val>20?'0.65':'0.25');
+    p.setAttribute('marker-end','url(#arw)');
+    if(val>65)p.setAttribute('filter','url(#gl)');
+    svg.appendChild(p);
+    if(val>15){
+      const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+      const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',mx);t.setAttribute('y',my-4);
+      t.setAttribute('text-anchor','middle');t.setAttribute('font-size','9.5');
+      t.setAttribute('fill','#8098b0');t.setAttribute('font-family','JetBrains Mono');
+      t.textContent=val;svg.appendChild(t);
+    }
+  });
+
+  // nodes
+  nodes.forEach(n=>{
+    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    const c1=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c1.setAttribute('cx',n.x);c1.setAttribute('cy',n.y);c1.setAttribute('r',n.r);
+    c1.setAttribute('fill',n.color);c1.setAttribute('fill-opacity','0.15');
+    c1.setAttribute('stroke',n.color);c1.setAttribute('stroke-opacity','0.45');
+    c1.setAttribute('stroke-width','1.5');c1.setAttribute('filter','url(#gl)');
+    g.appendChild(c1);
+    const c2=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c2.setAttribute('cx',n.x);c2.setAttribute('cy',n.y);c2.setAttribute('r',n.r*0.48);
+    c2.setAttribute('fill',n.color);c2.setAttribute('fill-opacity','0.85');
+    g.appendChild(c2);
+    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',n.x);t.setAttribute('y',n.y+n.r+15);
+    t.setAttribute('text-anchor','middle');t.setAttribute('font-size','11');
+    t.setAttribute('fill','#c8daea');t.setAttribute('font-weight','600');
+    t.textContent=n.label;g.appendChild(t);
+    svg.appendChild(g);
+  });
+
+  // badge
+  const bc=sCol(total);
+  const badge=document.createElementNS('http://www.w3.org/2000/svg','g');
+  badge.innerHTML=`
+    <rect x="620" y="20" rx="10" ry="10" width="180" height="68" fill="rgba(6,10,16,.85)" stroke="rgba(88,166,255,.12)"/>
+    <text x="636" y="44" font-size="11" fill="#8ea6be" font-family="Noto Sans SC">系统总脆弱性</text>
+    <text x="636" y="76" font-size="30" fill="${bc}" font-weight="900" font-family="JetBrains Mono">${fmt(total)}</text>
+  `;svg.appendChild(badge);
+
+  // watermark
+  const wm=document.createElementNS('http://www.w3.org/2000/svg','text');
+  wm.setAttribute('x','410');wm.setAttribute('y','612');
+  wm.setAttribute('text-anchor','middle');wm.setAttribute('font-size','9.5');
+  wm.setAttribute('fill','rgba(228,184,96,.16)');wm.setAttribute('letter-spacing','3');
+  wm.setAttribute('font-family','JetBrains Mono');
+  wm.textContent='黑森船长 · CAPTAIN HESSEN';svg.appendChild(wm);
+}
+
+/* ── Scenarios ── */
+const scenarios={
+  base:{coalAus:68,lngAus:40,krME:72,miningDiesel:88,fuelImport:90,shippingStress:35,buffer:28,fabResJP:72,fabResKR:68,subElastic:24,subElasticKR:30},
+  hormuz:{coalAus:68,lngAus:40,krME:72,miningDiesel:88,fuelImport:92,shippingStress:85,buffer:22,fabResJP:72,fabResKR:68,subElastic:18,subElasticKR:22},
+  ausFuel:{coalAus:72,lngAus:42,krME:72,miningDiesel:95,fuelImport:97,shippingStress:56,buffer:16,fabResJP:68,fabResKR:68,subElastic:15,subElasticKR:28},
+  defense:{coalAus:68,lngAus:40,krME:72,miningDiesel:88,fuelImport:90,shippingStress:35,buffer:38,fabResJP:92,fabResKR:88,subElastic:38,subElasticKR:42},
+  dualShock:{coalAus:74,lngAus:44,krME:72,miningDiesel:95,fuelImport:98,shippingStress:90,buffer:14,fabResJP:68,fabResKR:64,subElastic:12,subElasticKR:16},
+  jpNuke:{coalAus:52,lngAus:30,krME:72,miningDiesel:88,fuelImport:90,shippingStress:35,buffer:28,fabResJP:80,fabResKR:68,subElastic:52,subElasticKR:30},
+};
+
+function applySc(name){
+  const s=scenarios[name];
+  document.querySelectorAll('.sc').forEach(el=>el.classList.toggle('active',el.dataset.sc===name));
+  sliders.forEach(sl=>{if(s[sl.id]!==undefined)$(sl.id).value=s[sl.id]});
+  update();
+}
+
+/* ── Init ── */
+sliders.forEach(s=>$(s.id).addEventListener('input',update));
+applySc('base');
+</script>
+</body>
+</html>

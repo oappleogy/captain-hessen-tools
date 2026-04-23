@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CIPS 跨境支付系统追踪 — 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #eaf1f7; font-family: 'Noto Sans SC', 'SF Pro Display', -apple-system, sans-serif; }
+  .back-link { position: fixed; top: 8px; left: 10px; z-index: 100; font-size: 13px; color: rgba(234,241,247,0.85); text-decoration: none; padding: 4px 10px; background: rgba(26,58,92,0.5); border-radius: 6px; backdrop-filter: blur(4px); }
+  .back-link:hover { background: rgba(26,58,92,0.8); }
+  .watermark { position: fixed; bottom: 12px; right: 14px; z-index: 100; font-size: 11px; color: rgba(26,58,92,0.12); font-weight: 700; pointer-events: none; letter-spacing: 1px; }
+</style>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/recharts@2.15.3/umd/Recharts.js"></script>
+</head>
+<body>
+<a class="back-link" href="index.html">← 返回</a>
+<div class="watermark">黑森船长</div>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+const { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, Cell, ComposedChart } = Recharts;
+
+const R = "#c9953a";
+const N = "#1a3a5c";
+const BG = "#eaf1f7";
+const G = "#27ae60";
+
+const annualData = [
+  {y:"2015",vol:null,direct:19,indirect:176,countries:50},
+  {y:"2018",vol:26,direct:31,indirect:695,countries:89},
+  {y:"2019",vol:33.5,direct:33,indirect:903,countries:94},
+  {y:"2020",vol:45.2,direct:43,indirect:985,countries:97},
+  {y:"2021",vol:80,direct:75,indirect:1205,countries:103},
+  {y:"2022",vol:96.7,direct:77,indirect:1350,countries:109},
+  {y:"2023",vol:123.1,direct:102,indirect:1325,countries:117},
+  {y:"2024",vol:175.5,direct:168,indirect:1362,countries:121},
+  {y:"2025",vol:180,direct:193,indirect:1573,countries:121},
+];
+
+const dailyAvg = [
+  {y:"2021",dailyVol:312,dailyTxn:11700},
+  {y:"2022",dailyVol:377,dailyTxn:17200},
+  {y:"2023",dailyVol:483,dailyTxn:25900},
+  {y:"2024",dailyVol:652,dailyTxn:30500},
+  {y:"25 Feb",dailyVol:620,dailyTxn:25930},
+  {y:"26 Mar",dailyVol:920,dailyTxn:35740},
+];
+
+const regionDist = [
+  {region:"亚洲",pct:73,count:1102},
+  {region:"欧洲",pct:17,count:261},
+  {region:"非洲",pct:4,count:61},
+  {region:"北美",pct:2,count:34},
+  {region:"南美",pct:2,count:34},
+  {region:"大洋洲",pct:1,count:22},
+];
+
+const milestones = [
+  {date:"2012",event:"央行启动CIPS建设"},
+  {date:"2015.10",event:"Phase 1上线：19直参+176间参，覆盖50国"},
+  {date:"2016.3",event:"与SWIFT签署合作备忘录(MOU)"},
+  {date:"2018.3",event:"Phase 2上线：5×24h+4h运营，支持DVP结算"},
+  {date:"2022.2",event:"俄罗斯被踢出SWIFT → CIPS间参增速跃升"},
+  {date:"2024.10",event:"汇丰香港成为最大外资直参；SIBOS北京大会"},
+  {date:"2025.3",event:"SWIFT与CIPS签署新合作备忘录"},
+  {date:"2025.6",event:"首次在非洲/中东/中亚建立外资直参"},
+  {date:"2026.2",event:"业务规则八年来首次大修：支持多币种结算"},
+  {date:"2026.3",event:"单日处理1.22万亿元($178.5B) · 42,000笔 · 历史新高"},
+];
+
+const TT = ({active,payload,label})=>{
+  if(!active||!payload) return null;
+  return <div style={{background:"rgba(26,58,92,0.95)",padding:"10px 14px",borderRadius:6,border:"1px solid #c9953a",color:"#eaf1f7",fontSize:12}}>
+    <div style={{fontWeight:700,marginBottom:4,color:"#c9953a"}}>{label}</div>
+    {payload.map((p,i)=><div key={i} style={{display:"flex",gap:8,alignItems:"center"}}>
+      <span style={{width:8,height:8,borderRadius:"50%",background:p.color,display:"inline-block"}}/>
+      <span>{p.name}: {p.value?.toLocaleString?.()??p.value}</span>
+    </div>)}
+  </div>;
+};
+
+function Tab0() {
+  const kpis = [
+    {label:"直接参与者",value:"194+",sub:"截至2026.4",color:N},
+    {label:"间接参与者",value:"1,600+",sub:"覆盖121国",color:"#2e6b9e"},
+    {label:"辐射机构",value:"5,000+",sub:"189国/地区",color:"#4a90c4"},
+    {label:"2025年处理额",value:"180万亿¥",sub:"~$25T · YoY+2.6%",color:R},
+  ];
+  return <div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}}>
+      {kpis.map((k,i)=><div key={i} style={{background:"white",borderRadius:10,padding:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderTop:"3px solid "+k.color}}>
+        <div style={{fontSize:10,color:"#6b8299",marginBottom:2}}>{k.label}</div>
+        <div style={{fontSize:20,fontWeight:800,color:k.color,fontFamily:"monospace"}}>{k.value}</div>
+        <div style={{fontSize:9,color:"#8ba3b8"}}>{k.sub}</div>
+      </div>)}
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:14,fontWeight:700,margin:"0 0 10px"}}>🏛 组织架构</h3>
+      <div style={{background:N,borderRadius:8,padding:10,color:"#eaf1f7",marginBottom:8,textAlign:"center"}}>
+        <div style={{fontSize:13,fontWeight:700}}>跨境银行间支付清算有限责任公司</div>
+        <div style={{fontSize:10,opacity:0.7}}>CIPS Co., Ltd. · 上海黄浦区 · 2015年成立</div>
+      </div>
+      <div style={{fontSize:11,lineHeight:1.7,color:"#3d5a73"}}>
+        <b style={{color:N}}>股东结构</b>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,margin:"6px 0"}}>
+          <div style={{background:"rgba(26,58,92,0.05)",borderRadius:6,padding:7,fontSize:10}}>
+            <div style={{fontWeight:700,color:N,marginBottom:3}}>中资股东</div>
+            🏦 央行 16%(最大)<br/>银联 · NAFMII<br/>工/农/中/建/交
+          </div>
+          <div style={{background:"rgba(201,149,58,0.05)",borderRadius:6,padding:7,fontSize:10}}>
+            <div style={{fontWeight:700,color:R,marginBottom:3}}>外资股东</div>
+            🇬🇧 HSBC · 渣打<br/>🇸🇬 DBS · 🇺🇸 Citi<br/>🇦🇺 ANZ · 🇫🇷 BNP
+          </div>
+        </div>
+        <p style={{margin:"6px 0 0",fontSize:10,color:"#5a7a94"}}>
+          <b style={{color:N}}>vs SWIFT：</b>SWIFT是比利时会员制合作社，CIPS是央行控股公司——治理结构决定了两者的政策服从对象完全不同。
+        </p>
+      </div>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:14,fontWeight:700,margin:"0 0 10px"}}>⚙️ 技术架构</h3>
+      {[
+        {l:"清算模式",d:"混合RTGS · 逐笔全额实时结算 + 流动性节约机制"},
+        {l:"报文标准",d:"ISO 20022原生 · 兼容SWIFT MT格式 · 支持中文字符"},
+        {l:"运营时间",d:"5×24h+4h（周一5:00至周六9:00 北京时间）"},
+        {l:"结算速度",d:"平均300ms · 数字人民币通道可达10秒"},
+        {l:"安全架构",d:"飞腾服务器 + 麒麟OS + SM4国密 · 全栈自主可控"},
+      ].map((l,i)=><div key={i} style={{borderBottom:i<4?"1px solid #e8eff7":"none",padding:"6px 0",display:"flex",justifyContent:"space-between"}}>
+        <span style={{fontWeight:700,fontSize:11,color:N,minWidth:65}}>{l.l}</span>
+        <span style={{fontSize:10,color:"#3d5a73",textAlign:"right",flex:1,marginLeft:8}}>{l.d}</span>
+      </div>)}
+      <div style={{background:"rgba(201,149,58,0.08)",borderRadius:6,padding:8,fontSize:10,color:"#5a7a94",lineHeight:1.7,marginTop:8}}>
+        <b style={{color:R}}>2026.2新规：</b>八年来首次大修，新增多币种结算——CIPS不再只是人民币系统。支持DVP(券款对付)/PVP(付款对付)，可接入债券通。
+      </div>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>📋 参与者体系</h3>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+        <div style={{background:"rgba(26,58,92,0.05)",borderRadius:8,padding:10}}>
+          <div style={{fontWeight:700,fontSize:12,color:N,marginBottom:4}}>直接参与者 (194+)</div>
+          <div style={{fontSize:10,color:"#3d5a73",lineHeight:1.7}}>
+            在CIPS开户<br/>直接收发报文<br/>每日注入最低资金<br/>HSBC香港=最大外资直参<br/>渣打香港=首家外资直参
+          </div>
+        </div>
+        <div style={{background:"rgba(26,58,92,0.05)",borderRadius:8,padding:10}}>
+          <div style={{fontWeight:700,fontSize:12,color:"#2e6b9e",marginBottom:4}}>间接参与者 (1,600+)</div>
+          <div style={{fontSize:10,color:"#3d5a73",lineHeight:1.7}}>
+            通过直参接入<br/>无需开CIPS账户<br/>辐射189国5,000+机构<br/>亚洲73% · 欧洲17%<br/>非洲4% · 美洲4%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
+function Tab1() {
+  const volData = annualData.filter(d=>d.vol).map(d=>({y:d.y,vol:d.vol}));
+  return <div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 2px"}}>年处理金额（万亿元）</h3>
+      <p style={{color:"#8ba3b8",fontSize:9,margin:"0 0 8px"}}>2021-25 CAGR ~40% · CIPS官方 🟢</p>
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={volData} margin={{top:5,right:10,left:0,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="y" tick={{fontSize:9,fill:N}}/>
+          <YAxis tick={{fontSize:10,fill:N}}/>
+          <Tooltip content={<TT/>}/>
+          <Bar dataKey="vol" radius={[4,4,0,0]} name="万亿¥">
+            {volData.map((_,i)=><Cell key={i} fill={i===volData.length-1?R:N}/>)}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 2px"}}>日均处理金额（亿元）</h3>
+      <p style={{color:"#8ba3b8",fontSize:9,margin:"0 0 8px"}}>2026.3月均920亿 · 较2月环比+48.5%</p>
+      <ResponsiveContainer width="100%" height={200}>
+        <AreaChart data={dailyAvg} margin={{top:5,right:10,left:0,bottom:5}}>
+          <defs><linearGradient id="gC" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor={R} stopOpacity={0.3}/><stop offset="95%" stopColor={R} stopOpacity={0.05}/>
+          </linearGradient></defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="y" tick={{fontSize:9,fill:N}}/>
+          <YAxis tick={{fontSize:10,fill:N}}/>
+          <Tooltip content={<TT/>}/>
+          <Area type="monotone" dataKey="dailyVol" stroke={R} strokeWidth={2.5} fill="url(#gC)" dot={{fill:R,r:4}} name="日均(亿¥)"/>
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>日均交易笔数</h3>
+      <ResponsiveContainer width="100%" height={180}>
+        <BarChart data={dailyAvg} margin={{top:5,right:10,left:0,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="y" tick={{fontSize:9,fill:N}}/>
+          <YAxis tick={{fontSize:10,fill:N}} tickFormatter={v=>(v/1000)+"K"}/>
+          <Tooltip content={<TT/>}/>
+          <Bar dataKey="dailyTxn" radius={[4,4,0,0]} name="日均笔数">
+            {dailyAvg.map((_,i)=><Cell key={i} fill={i===dailyAvg.length-1?R:N}/>)}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,color:"#eaf1f7"}}>
+      <h3 style={{margin:"0 0 8px",fontSize:13,color:R,fontWeight:700}}>🏆 2026年3月 · 历史峰值</h3>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:6,marginBottom:10}}>
+        {[{v:"1.22万亿",s:"$178.5B",l:"单日峰值"},{v:"42,000",s:"笔",l:"单日笔数"},{v:"920亿",s:"$134B/日",l:"月均日处理"}].map((d,i)=>
+          <div key={i} style={{textAlign:"center"}}>
+            <div style={{fontSize:15,fontWeight:800,color:R}}>{d.v}</div>
+            <div style={{fontSize:9,opacity:0.7}}>{d.s}</div>
+            <div style={{fontSize:8,opacity:0.5,marginTop:1}}>{d.l}</div>
+          </div>
+        )}
+      </div>
+      <p style={{fontSize:10,lineHeight:1.7,margin:0,opacity:0.9}}>催化剂：伊朗冲突(2.28起)推动石油人民币结算激增。Atlantic Council：3月中下旬日处理量从$85-105B区间跃升至$130B+。</p>
+      <p style={{fontSize:8,color:"rgba(234,241,247,0.5)",marginTop:4}}>SCMP · Disruption Banking · Atlantic Council 🟢🟡</p>
+    </div>
+  </div>;
+}
+
+function Tab2() {
+  const partGrowth = annualData.filter(d=>d.direct).map(d=>({y:d.y,direct:d.direct,indirect:d.indirect}));
+  return <div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 2px"}}>参与者增长轨迹</h3>
+      <p style={{color:"#8ba3b8",fontSize:9,margin:"0 0 8px"}}>直参19(2015)→194+(2026) · 10x</p>
+      <ResponsiveContainer width="100%" height={220}>
+        <ComposedChart data={partGrowth} margin={{top:5,right:10,left:0,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="y" tick={{fontSize:9,fill:N}}/>
+          <YAxis yAxisId="l" tick={{fontSize:10,fill:N}}/>
+          <YAxis yAxisId="r" orientation="right" tick={{fontSize:10,fill:R}}/>
+          <Tooltip content={<TT/>}/><Legend wrapperStyle={{fontSize:10}}/>
+          <Bar yAxisId="l" dataKey="direct" fill={N} radius={[4,4,0,0]} name="直接参与者"/>
+          <Line yAxisId="r" type="monotone" dataKey="indirect" stroke={R} strokeWidth={2.5} dot={{fill:R,r:3}} name="间接参与者"/>
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>间接参与者区域分布</h3>
+      <ResponsiveContainer width="100%" height={180}>
+        <BarChart data={regionDist} layout="vertical" margin={{top:5,right:30,left:35,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7" horizontal={false}/>
+          <XAxis type="number" tick={{fontSize:10,fill:N}} domain={[0,80]} tickFormatter={v=>v+"%"}/>
+          <YAxis type="category" dataKey="region" tick={{fontSize:11,fill:N}} width={35}/>
+          <Bar dataKey="pct" radius={[0,4,4,0]} name="占比%">
+            {regionDist.map((_,i)=><Cell key={i} fill={[R,"#2e6b9e","#4a90c4","#6bb0d9","#8dc8e8","#b8d4e8"][i]}/>)}
+          </Bar>
+          <Tooltip formatter={v=>v+"%"} contentStyle={{background:"rgba(26,58,92,0.95)",border:"1px solid #c9953a",borderRadius:6,color:"#eaf1f7",fontSize:11}}/>
+        </BarChart>
+      </ResponsiveContainer>
+      <p style={{fontSize:8,color:"#8ba3b8",marginTop:4}}>截至2025.6 · Wikipedia/FXCIntel 🟢🟡</p>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>🌏 重要外资参与者</h3>
+      {[
+        {bank:"HSBC 香港",type:"直参(最大外资)",date:"2024.10",note:"9年间参后升级"},
+        {bank:"渣打 香港",type:"直参(首家外资)",date:"2025.2",note:"首家大陆外外资直参"},
+        {bank:"Citi / ANZ / BNP",type:"股东+间参",date:"—",note:"外资股东但未升级直参"},
+        {bank:"中东/非洲6家",type:"直参(首批)",date:"2025.6",note:"首次在新兴市场建外资直参"},
+      ].map((b,i)=><div key={i} style={{borderBottom:i<3?"1px solid #e8eff7":"none",padding:"7px 0"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:2}}>
+          <span style={{fontWeight:700,fontSize:11,color:N}}>{b.bank}</span>
+          <span style={{fontSize:9,color:R,fontWeight:600}}>{b.type}</span>
+        </div>
+        <div style={{fontSize:9,color:"#6b8299"}}>{b.date} · {b.note}</div>
+      </div>)}
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:13,fontWeight:700,margin:"0 0 8px"}}>覆盖国家/地区数</h3>
+      <ResponsiveContainer width="100%" height={150}>
+        <LineChart data={annualData.filter(d=>d.countries)} margin={{top:5,right:10,left:0,bottom:5}}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e8eff7"/>
+          <XAxis dataKey="y" tick={{fontSize:9,fill:N}}/>
+          <YAxis tick={{fontSize:10,fill:N}} domain={[40,130]}/>
+          <Line type="monotone" dataKey="countries" stroke={G} strokeWidth={2.5} dot={{fill:G,r:3}} name="国家数"/>
+          <Tooltip content={<TT/>}/>
+        </LineChart>
+      </ResponsiveContainer>
+      <div style={{display:"flex",justifyContent:"space-between",fontSize:10,color:"#5a7a94",marginTop:4}}>
+        <span>2015: 50国</span><span style={{fontWeight:700,color:G}}>2025: 121国 · 辐射189国</span>
+      </div>
+    </div>
+  </div>;
+}
+
+function Tab3() {
+  return <div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:14,fontWeight:700,margin:"0 0 12px"}}>📅 发展里程碑</h3>
+      <div style={{position:"relative",paddingLeft:20}}>
+        <div style={{position:"absolute",left:6,top:0,bottom:0,width:2,background:"linear-gradient(#1a3a5c,#c9953a)"}}/>
+        {milestones.map((m,i)=><div key={i} style={{position:"relative",paddingBottom:14}}>
+          <div style={{position:"absolute",left:-17,top:2,width:10,height:10,borderRadius:"50%",background:i>=8?R:i>=6?"#4a90c4":N,border:"2px solid white",boxShadow:"0 0 0 1px #c5d5e4"}}/>
+          <div style={{marginLeft:8}}>
+            <span style={{fontSize:10,fontWeight:700,color:i>=8?R:N,fontFamily:"monospace"}}>{m.date}</span>
+            <p style={{margin:"2px 0 0",fontSize:11,color:"#3d5a73",lineHeight:1.5}}>{m.event}</p>
+          </div>
+        </div>)}
+      </div>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)"}}>
+      <h3 style={{color:N,fontSize:14,fontWeight:700,margin:"0 0 8px"}}>⚖️ CIPS vs SWIFT vs CHIPS</h3>
+      <div style={{overflowX:"auto"}}>
+        <table style={{width:"100%",borderCollapse:"collapse",fontSize:10}}>
+          <thead><tr style={{borderBottom:"2px solid #c9953a"}}>
+            {["","CIPS","SWIFT","CHIPS"].map(h=><th key={h} style={{padding:"5px 3px",textAlign:"left",color:N,fontWeight:700}}>{h}</th>)}
+          </tr></thead>
+          <tbody>{[
+            {d:"性质",a:"清算+报文",b:"纯报文",c:"纯清算"},
+            {d:"货币",a:"CNY→多币种",b:"所有货币",c:"仅USD"},
+            {d:"治理",a:"央行控股",b:"会员合作社",c:"美国私营"},
+            {d:"机构数",a:"~5,000",b:"11,500+",c:"~43"},
+            {d:"覆盖国",a:"189",b:"235+",c:"仅美国"},
+            {d:"日均",a:"$130B",b:"报文非金额",c:"$1.8T"},
+            {d:"运营",a:"5×24h+4h",b:"24/7",c:"工作日"},
+            {d:"报文",a:"ISO20022原生",b:"MT→ISO迁移",c:"ISO20022"},
+            {d:"自主性",a:"全栈国产",b:"西方基础设施",c:"美国管辖"},
+          ].map((r,i)=><tr key={i} style={{borderBottom:"1px solid #e8eff7"}}>
+            <td style={{padding:"4px 3px",fontWeight:600,color:N}}>{r.d}</td>
+            <td style={{padding:"4px 3px",color:R,fontWeight:600}}>{r.a}</td>
+            <td style={{padding:"4px 3px",color:"#3d5a73"}}>{r.b}</td>
+            <td style={{padding:"4px 3px",color:"#3d5a73"}}>{r.c}</td>
+          </tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,color:"#eaf1f7"}}>
+      <h3 style={{margin:"0 0 8px",fontSize:13,color:R,fontWeight:700}}>🌐 非美元支付系统生态</h3>
+      <div style={{fontSize:11,lineHeight:1.8}}>
+        {[
+          {s:"🇨🇳 CIPS",d:"清算+报文 · 人民币 · 最成熟替代"},
+          {s:"🇷🇺 SPFS",d:"报文 · 150+俄资行 · 俄伊印使用"},
+          {s:"🇮🇳 UPI/SFMS",d:"国内支付 · 探索与CIPS互联"},
+          {s:"🌍 mBridge",d:"CBDC跨境 · BIS孵化→中国主导 · $55.49B"},
+          {s:"🤝 BRICS Pay",d:"概念中 · 2026印度峰会推进"},
+        ].map((x,i)=><div key={i} style={{padding:"4px 0",borderBottom:i<4?"1px solid rgba(234,241,247,0.1)":"none"}}>
+          <span style={{fontWeight:700,color:R}}>{x.s}</span>
+          <span style={{opacity:0.8,marginLeft:6}}>{x.d}</span>
+        </div>)}
+      </div>
+      <div style={{background:"rgba(201,149,58,0.15)",borderRadius:6,padding:8,fontSize:10,marginTop:8,lineHeight:1.7}}>
+        <b style={{color:R}}>mBridge：</b>BIS孵化CBDC跨境项目，4,000+笔($55.49B)，数字人民币占95.3%。2025年BIS退出后中国实际主导。若商用化可完全跳过SWIFT+USD清算。
+      </div>
+    </div>
+  </div>;
+}
+
+function Tab4() {
+  return <div>
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderLeft:"4px solid #27ae60"}}>
+      <h3 style={{color:N,fontSize:14,fontWeight:700,margin:"0 0 8px"}}>✅ 结构性优势</h3>
+      <div style={{fontSize:11,color:"#3d5a73",lineHeight:1.8}}>
+        {[
+          "清算+报文合一：一站式完成，无需SWIFT+CHIPS两步走",
+          "ISO 20022原生：SWIFT还在迁移，CIPS已是原生标准",
+          "5×24h+4h运营：覆盖全球时区，Fedwire/CHIPS仅工作日",
+          "全栈自主可控：飞腾+麒麟+SM4，免疫技术制裁",
+          "2026新规支持多币种：突破人民币单一货币天花板",
+          "数字人民币接入：e-CNY跨境10秒，2024占12%处理量",
+        ].map((s,i)=><p key={i} style={{margin:"0 0 3px",paddingLeft:16,position:"relative"}}>
+          <span style={{position:"absolute",left:0,color:G}}>✓</span>{s}
+        </p>)}
+      </div>
+    </div>
+
+    <div style={{background:"white",borderRadius:10,padding:14,marginBottom:12,boxShadow:"0 2px 12px rgba(26,58,92,0.08)",borderLeft:"4px solid #e74c3c"}}>
+      <h3 style={{color:N,fontSize:14,fontWeight:700,margin:"0 0 8px"}}>⚠️ 结构性约束</h3>
+      <div style={{fontSize:11,color:"#3d5a73",lineHeight:1.8}}>
+        {[
+          "量级差距：CIPS $130B vs CHIPS $1.8T — 约14x",
+          "货币根基：RMB仅占全球支付2-3%，资本管制限制自由兑换",
+          "网络效应：SWIFT 11,500+ vs CIPS ~5,000——梅特卡夫定律下差距更大",
+          "政策风险：央行控股=政治工具化风险，信任度受限",
+          "地理集中：亚洲73%，非洲/美洲合计仅8%",
+          "SWIFT依赖：虽从90%降至~30%，部分交易仍需中转",
+        ].map((s,i)=><p key={i} style={{margin:"0 0 3px",paddingLeft:16,position:"relative"}}>
+          <span style={{position:"absolute",left:0,color:"#e74c3c"}}>✗</span>{s}
+        </p>)}
+      </div>
+    </div>
+
+    <div style={{background:"linear-gradient(135deg,#1a3a5c,#2e5577)",borderRadius:10,padding:14,color:"#eaf1f7"}}>
+      <h3 style={{margin:"0 0 8px",fontSize:13,color:R,fontWeight:700}}>🔮 关键跟踪指标</h3>
+      <div style={{fontSize:11,lineHeight:1.8}}>
+        {[
+          {m:"SWIFT-CIPS报文重叠率",w:"90%→30%，降至10%以下=实质脱钩"},
+          {m:"直参中外资占比",w:"HSBC后是否有更多G7银行升级直参"},
+          {m:"多币种结算比例",w:"新规后非RMB交易占比——决定能否突破天花板"},
+          {m:"mBridge商用进展",w:"CBDC若商用可跳过SWIFT+USD双环节"},
+          {m:"月均日处理趋势",w:"$130B+是脉冲还是新常态？伊朗后回落幅度是关键"},
+          {m:"BRICS Pay印度峰会",w:"多国央行联合结算若落地，CIPS成底层设施"},
+        ].map((k,i)=><div key={i} style={{padding:"5px 0",borderBottom:i<5?"1px solid rgba(234,241,247,0.1)":"none"}}>
+          <span style={{fontWeight:700,color:R}}>{k.m}</span>
+          <div style={{fontSize:10,opacity:0.8,marginTop:1}}>{k.w}</div>
+        </div>)}
+      </div>
+    </div>
+  </div>;
+}
+
+const TABS = ["系统概览","增长数据","参与者","里程碑","风险展望"];
+
+function App() {
+  const [tab,setTab] = useState(0);
+  return <div style={{background:BG,minHeight:"100vh",fontFamily:"'Noto Sans SC','SF Pro Display',-apple-system,sans-serif"}}>
+    <div style={{background:"linear-gradient(135deg,#8b1a1a 0%,#6b1515 30%,#1a3a5c 100%)",padding:"20px 16px 12px",position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:-40,right:-40,width:120,height:120,borderRadius:"50%",background:"rgba(201,149,58,0.1)"}}/>
+      <div style={{position:"relative",zIndex:1}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:3}}>
+          <span style={{fontSize:18}}>🇨🇳</span>
+          <h1 style={{margin:0,fontSize:17,fontWeight:700,color:"#eaf1f7"}}>CIPS 跨境支付系统追踪</h1>
+        </div>
+        <p style={{margin:0,fontSize:10,color:"rgba(234,241,247,0.6)"}}>Cross-Border Interbank Payment System · 人民币国际化基础设施</p>
+        <div style={{display:"flex",gap:4,marginTop:6,flexWrap:"wrap"}}>
+          <span style={{fontSize:9,padding:"2px 6px",background:"rgba(201,149,58,0.25)",color:R,borderRadius:4,border:"1px solid rgba(201,149,58,0.4)"}}>单日峰值 $178.5B</span>
+          <span style={{fontSize:9,padding:"2px 6px",background:"rgba(234,241,247,0.1)",color:"rgba(234,241,247,0.7)",borderRadius:4}}>194+直参 · 189国</span>
+        </div>
+      </div>
+    </div>
+    <div style={{display:"flex",overflowX:"auto",background:"white",borderBottom:"1px solid #e0e8f0",padding:"0 4px",position:"sticky",top:0,zIndex:10}}>
+      {TABS.map((t,i)=><button key={t} onClick={()=>setTab(i)} style={{
+        flex:"none",padding:"9px 11px",fontSize:12,fontWeight:tab===i?700:400,
+        color:tab===i?R:"#8ba3b8",background:"transparent",border:"none",
+        borderBottom:tab===i?"2.5px solid "+R:"2.5px solid transparent",
+        cursor:"pointer",whiteSpace:"nowrap",fontFamily:"inherit"
+      }}>{t}</button>)}
+    </div>
+    <div style={{padding:12}}>
+      {tab===0&&<Tab0/>}{tab===1&&<Tab1/>}{tab===2&&<Tab2/>}{tab===3&&<Tab3/>}{tab===4&&<Tab4/>}
+    </div>
+    <div style={{textAlign:"center",padding:"12px 0 20px",fontSize:10,color:"#a0b4c4"}}>黑森船长 · basealpha.ai</div>
+  </div>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);
+</script>
+</body>
+</html>

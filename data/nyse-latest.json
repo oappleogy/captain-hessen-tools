@@ -1,35 +1,40 @@
 {
-  "date": "2026-04-24",
+  "date": "2026-04-25",
   "prices": {
+    "CRCL": {
+      "name": "Circle",
+      "price": 99.66,
+      "change_pct": -0.93
+    },
     "HOOD": {
       "name": "Robinhood",
-      "price": 83.54,
-      "change_pct": -4.73
+      "price": 84.71,
+      "change_pct": 0.61
     },
     "COIN": {
       "name": "Coinbase",
-      "price": 197.93,
-      "change_pct": -3.38
+      "price": 199.77,
+      "change_pct": 0.05
     },
     "NDAQ": {
       "name": "Nasdaq",
-      "price": 87.04,
-      "change_pct": 2.36
+      "price": 89.9,
+      "change_pct": 3.92
     },
     "BK": {
       "name": "BNY Mellon",
-      "price": 135.42,
-      "change_pct": -0.33
+      "price": 134.05,
+      "change_pct": -1.61
     },
     "FFIV": {
       "name": "F5 Networks",
-      "price": 299.89,
-      "change_pct": -0.73
+      "price": 303.16,
+      "change_pct": 0.55
     },
     "BLK": {
       "name": "BlackRock",
-      "price": 1053.47,
-      "change_pct": -0.61
+      "price": 1044.97,
+      "change_pct": -0.95
     }
   },
   "news_count": 3,

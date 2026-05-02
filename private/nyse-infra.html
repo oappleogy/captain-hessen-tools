@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NYSE 链上美股 7×24 基础设施全景图 | 黑森船长</title>
-<meta name="description" content="纽交所区块链代币化证券平台基础设施建设研究：产业链分层、监控清单、时间线、关系网络">
+<meta name="description" content="链上美股 7×24 基础设施研究更新版：加入一级投资方、发币/任务机会、官网与推特、风险提示">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -26,9 +26,9 @@
   --hot: #f59e0b;
   --hot-dim: rgba(245,158,11,.1);
   --danger: #ef4444;
-  --danger-dim: rgba(239,68,68,.1);
+  --danger-dim: rgba(239,68,68,.12);
   --purple: #a78bfa;
-  --purple-dim: rgba(167,139,250,.1);
+  --purple-dim: rgba(167,139,250,.12);
   --mono: 'JetBrains Mono', monospace;
   --sans: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
   --radius: 10px;
@@ -40,21 +40,18 @@ body { font-family:var(--sans); background:var(--bg-0); color:var(--text-0); lin
 ::selection { background:var(--accent); color:#fff; }
 a { color:var(--accent); text-decoration:none; }
 a:hover { text-decoration:underline; }
+.page { max-width:1180px; margin:0 auto; padding:0 24px; }
 
-.page { max-width:1120px; margin:0 auto; padding:0 24px; }
-
-/* ── Header ── */
 header { padding:48px 0 32px; border-bottom:1px solid var(--border); margin-bottom:32px; }
 header .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
 header .eyebrow::before { content:''; display:inline-block; width:18px; height:1px; background:var(--accent); }
 header h1 { font-size:clamp(28px,4.5vw,42px); font-weight:700; line-height:1.15; letter-spacing:-.5px; margin-bottom:10px; }
 header h1 span { background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-color:transparent; background-clip:text; color:transparent; }
-header .subtitle { font-size:15px; color:var(--text-1); max-width:640px; }
+header .subtitle { font-size:15px; color:var(--text-1); max-width:780px; }
 header .meta { margin-top:16px; font-size:12px; color:var(--text-2); font-family:var(--mono); display:flex; gap:20px; flex-wrap:wrap; }
 header .meta span::before { content:'›'; margin-right:6px; color:var(--accent); }
 
-/* ── Stats ── */
-.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:32px; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:18px; }
 .stat { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; transition:border-color .2s; }
 .stat:hover { border-color:var(--border-h); }
 .stat-label { font-size:11px; color:var(--text-2); font-family:var(--mono); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
@@ -64,17 +61,19 @@ header .meta span::before { content:'›'; margin-right:6px; color:var(--accent)
 .stat:nth-child(2) .stat-val { color:var(--accent-2); }
 .stat:nth-child(3) .stat-val { color:var(--hot); }
 .stat:nth-child(4) .stat-val { color:var(--purple); }
+.stat:nth-child(5) .stat-val { color:var(--danger); }
 
-/* ── Tabs ── */
+.notice { margin-bottom:28px; padding:14px 16px; border-radius:var(--radius); border:1px solid rgba(245,158,11,.25); background:linear-gradient(135deg, rgba(245,158,11,.12), rgba(239,68,68,.08)); color:var(--text-1); font-size:13px; }
+.notice strong { color:var(--text-0); }
+
 .tabs { display:flex; gap:2px; margin-bottom:28px; background:var(--bg-2); border-radius:var(--radius); padding:3px; width:fit-content; flex-wrap:wrap; }
-.tab { padding:8px 20px; font-size:13px; font-weight:500; border-radius:8px; cursor:pointer; border:none; background:transparent; color:var(--text-2); transition:all .2s; font-family:var(--sans); }
+.tab { padding:8px 18px; font-size:13px; font-weight:500; border-radius:8px; cursor:pointer; border:none; background:transparent; color:var(--text-2); transition:all .2s; font-family:var(--sans); }
 .tab:hover { color:var(--text-1); }
 .tab.active { background:var(--bg-card); color:var(--text-0); box-shadow:0 1px 3px rgba(0,0,0,.3); }
 .panel { display:none; animation:fadeUp .3s ease; }
 .panel.active { display:block; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
 
-/* ── Layer Cards ── */
 .layer { margin-bottom:10px; border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; background:var(--bg-card); transition:border-color .25s, box-shadow .25s; }
 .layer:hover { border-color:var(--border-h); }
 .layer.open { box-shadow:0 4px 24px rgba(0,0,0,.2); }
@@ -87,7 +86,6 @@ header .meta span::before { content:'›'; margin-right:6px; color:var(--accent)
 .lb { display:none; padding:4px 20px 18px 70px; }
 .layer.open .lb { display:block; animation:fadeUp .25s ease; }
 
-/* ── Player Tags ── */
 .ptag { display:inline-flex; align-items:center; gap:6px; padding:5px 12px; margin:3px 4px 3px 0; border-radius:8px; font-size:12px; font-weight:500; border:1px solid var(--border); cursor:pointer; transition:all .18s; background:transparent; color:var(--text-0); font-family:var(--sans); }
 .ptag:hover { border-color:var(--accent); background:var(--accent-dim); }
 .ptag.sel { border-color:var(--accent); background:var(--accent-dim); }
@@ -98,12 +96,10 @@ header .meta span::before { content:'›'; margin-right:6px; color:var(--accent)
 .b-new { background:var(--accent-2-dim); color:var(--accent-2); }
 .b-wait { background:rgba(255,255,255,.05); color:var(--text-2); }
 
-/* ── Detail Card ── */
 .dcard { margin-top:12px; padding:14px 16px; border-radius:var(--radius); background:var(--bg-2); border:1px solid var(--border); font-size:13px; line-height:1.7; color:var(--text-1); display:none; }
 .dcard.show { display:block; animation:fadeUp .2s ease; }
 .dcard strong { color:var(--text-0); font-weight:600; }
 
-/* ── Watchlist ── */
 .search-box { position:relative; margin-bottom:20px; }
 .search-box input { width:100%; padding:10px 16px 10px 40px; background:var(--bg-2); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-0); font-size:13px; font-family:var(--sans); transition:border-color .2s; outline:none; }
 .search-box input:focus { border-color:var(--accent); }
@@ -115,42 +111,115 @@ header .meta span::before { content:'›'; margin-right:6px; color:var(--accent)
 .wl-group.open .wl-gb { display:block; }
 .wl-row { display:flex; align-items:baseline; gap:10px; padding:8px 16px; border-top:1px solid var(--border); font-size:12px; transition:background .15s; }
 .wl-row:hover { background:var(--bg-2); }
-.wl-ticker { font-family:var(--mono); font-weight:600; min-width:56px; color:var(--accent); font-size:11px; letter-spacing:.3px; }
-.wl-name { min-width:160px; font-weight:500; color:var(--text-0); }
+.wl-ticker { font-family:var(--mono); font-weight:600; min-width:64px; color:var(--accent); font-size:11px; letter-spacing:.3px; }
+.wl-name { min-width:170px; font-weight:500; color:var(--text-0); }
 .wl-note { flex:1; color:var(--text-2); }
 
-/* ── Timeline ── */
 .tl { list-style:none; position:relative; padding-left:20px; }
 .tl::before { content:''; position:absolute; left:6px; top:4px; bottom:4px; width:1px; background:var(--border-h); }
 .tl-item { display:flex; gap:16px; padding:12px 0; position:relative; }
 .tl-item::before { content:''; position:absolute; left:-17px; top:18px; width:7px; height:7px; border-radius:50%; background:var(--bg-3); border:1.5px solid var(--text-2); z-index:1; }
 .tl-item.major::before { background:var(--accent); border-color:var(--accent); box-shadow:0 0 8px var(--accent-dim); }
-.tl-date { min-width:72px; font-family:var(--mono); font-size:11px; color:var(--accent); flex-shrink:0; padding-top:1px; font-weight:500; }
+.tl-date { min-width:78px; font-family:var(--mono); font-size:11px; color:var(--accent); flex-shrink:0; padding-top:1px; font-weight:500; }
 .tl-text { font-size:13px; color:var(--text-1); }
 .tl-text strong { color:var(--text-0); font-weight:600; }
 
-/* ── Connections ── */
 .conn-group { margin-bottom:20px; }
 .conn-label { font-size:12px; font-weight:600; color:var(--text-2); text-transform:uppercase; letter-spacing:1.5px; font-family:var(--mono); margin-bottom:8px; padding-left:4px; }
 .conn-row { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; font-size:12px; transition:background .15s; }
 .conn-row:hover { background:var(--bg-2); }
-.conn-from, .conn-to { font-weight:600; min-width:110px; color:var(--text-0); }
+.conn-from, .conn-to { font-weight:600; min-width:120px; color:var(--text-0); }
 .conn-arr { color:var(--accent); font-family:var(--mono); font-size:14px; }
 .conn-rel { color:var(--text-2); flex:1; }
 
-/* ── Footer ── */
+.alpha-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+.alpha-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px; }
+.alpha-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:12px; }
+.alpha-title { font-size:18px; font-weight:700; letter-spacing:-.3px; }
+.alpha-sub { font-size:12px; color:var(--text-2); margin-top:2px; }
+.priority { padding:4px 10px; border-radius:999px; font-size:11px; font-weight:700; font-family:var(--mono); }
+.priority.p1 { background:var(--danger-dim); color:#ff8b8b; }
+.priority.p2 { background:var(--hot-dim); color:#ffc267; }
+.priority.p3 { background:var(--accent-dim); color:#7db0ff; }
+.alpha-links { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.link-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:var(--bg-2); color:var(--text-0); font-size:12px; }
+.link-chip:hover { border-color:var(--border-h); text-decoration:none; }
+.alpha-meta { display:grid; gap:10px; }
+.meta-row { padding-top:10px; border-top:1px solid var(--border); }
+.meta-key { font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-2); margin-bottom:4px; }
+.meta-val { font-size:13px; color:var(--text-1); }
+.meta-val strong { color:var(--text-0); }
+
+.risk-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+.risk-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px; }
+.risk-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
+.risk-title { font-size:16px; font-weight:700; }
+.risk-level { padding:4px 10px; border-radius:999px; font-size:11px; font-family:var(--mono); }
+.risk-level.high { background:var(--danger-dim); color:#ff8b8b; }
+.risk-level.mid { background:var(--hot-dim); color:#ffc267; }
+.risk-level.low { background:var(--accent-dim); color:#7db0ff; }
+.risk-text { font-size:13px; color:var(--text-1); }
+
+#live-prices { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:24px; padding:12px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); font-family:var(--mono); font-size:12px; }
+#live-prices .lp-date { color:var(--text-2); margin-right:8px; font-size:11px; }
+#live-prices .lp-item { display:flex; gap:6px; align-items:baseline; }
+#live-prices .lp-tk { font-weight:700; color:var(--text-0); }
+#live-prices .lp-pr { color:var(--text-1); }
+#live-prices .lp-chg { font-weight:600; font-size:11px; }
+#live-prices .lp-up { color:var(--accent-2); }
+#live-prices .lp-dn { color:var(--danger); }
+#live-prices .lp-flat { color:var(--text-2); }
+
+/* ── Token Tracker (integrated) ── */
+.tk-divider { margin:36px 0 24px; border:none; border-top:1px solid var(--border); }
+.tk-header { display:flex; align-items:baseline; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+.tk-title { font-size:20px; font-weight:700; letter-spacing:-.3px; }
+.tk-sub { font-size:12px; color:var(--text-2); }
+.tk-stats { display:flex; gap:16px; margin-bottom:16px; font-family:var(--mono); font-size:12px; }
+.tk-stat { display:flex; align-items:center; gap:6px; }
+.tk-stat .dot { width:7px; height:7px; border-radius:50%; }
+.tk-filters { display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; }
+.tk-fbtn { padding:6px 16px; font-size:12px; font-weight:500; border-radius:8px; cursor:pointer; border:1px solid var(--border); background:transparent; color:var(--text-2); transition:all .18s; font-family:var(--sans); }
+.tk-fbtn:hover { color:var(--text-1); border-color:var(--border-h); }
+.tk-fbtn.active { background:var(--bg-card); color:var(--text-0); border-color:var(--accent); }
+.tk-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px; margin-bottom:10px; transition:border-color .2s, box-shadow .2s; }
+.tk-card:hover { border-color:var(--border-h); box-shadow:0 2px 16px rgba(0,0,0,.15); }
+.tk-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
+.tk-card-name { font-size:15px; font-weight:700; }
+.tk-card-role { font-size:11px; color:var(--text-2); margin-top:2px; }
+.tk-card-status { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:600; font-family:var(--mono); letter-spacing:.3px; white-space:nowrap; flex-shrink:0; }
+.s-live { background:var(--accent-2-dim); color:var(--accent-2); }
+.s-live::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent-2); animation:pulse 2s infinite; }
+.s-plan { background:var(--hot-dim); color:var(--hot); }
+.s-rumor { background:var(--purple-dim); color:var(--purple); }
+.s-none { background:rgba(255,255,255,.03); color:var(--text-2); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.tk-card-body { font-size:12px; color:var(--text-1); line-height:1.7; margin-bottom:10px; }
+.tk-token-row { display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:8px; background:var(--bg-2); font-size:12px; }
+.tk-token-ticker { font-family:var(--mono); font-weight:700; color:var(--hot); font-size:13px; min-width:55px; }
+.tk-token-info { color:var(--text-1); flex:1; }
+.tk-token-note { color:var(--text-2); font-size:11px; }
+.tk-opp { margin-top:8px; padding:7px 12px; border-radius:8px; font-size:12px; }
+.tk-card-foot { display:flex; align-items:center; gap:8px; margin-top:8px; flex-wrap:wrap; }
+.tk-tag { display:inline-block; padding:2px 8px; border-radius:5px; font-size:10px; font-weight:600; font-family:var(--mono); letter-spacing:.3px; background:rgba(255,255,255,.04); color:var(--text-2); }
+.tk-xlink { font-family:var(--mono); font-size:11px; color:var(--text-2); background:rgba(255,255,255,.04); padding:3px 8px; border-radius:5px; border:1px solid var(--border); transition:all .18s; white-space:nowrap; margin-left:auto; }
+.tk-xlink:hover { color:var(--text-0); border-color:var(--border-h); background:rgba(255,255,255,.08); text-decoration:none; }
+
 footer { margin-top:48px; padding:28px 0; border-top:1px solid var(--border); font-size:11px; color:var(--text-2); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
 footer a { color:var(--text-2); }
 
-/* ── Responsive ── */
-@media(max-width:640px){
+@media (max-width:640px) {
   header h1 { font-size:24px; }
   .stats { grid-template-columns:repeat(2,1fr); }
   .tabs { width:100%; }
   .tab { flex:1; text-align:center; padding:8px 8px; font-size:12px; }
   .lb { padding-left:20px; }
-  .wl-name { min-width:80px; }
-  .conn-from, .conn-to { min-width:70px; }
+  .wl-name { min-width:90px; }
+  .conn-from, .conn-to { min-width:76px; }
+  .alpha-grid, .risk-grid { grid-template-columns:1fr; }
+  .tk-card-top { flex-direction:column; }
+  .tk-xlink { margin-left:0; }
+  .tk-token-row { flex-wrap:wrap; }
 }
 </style>
 </head>
@@ -158,311 +227,527 @@ footer a { color:var(--text-2); }
 <div class="page">
 
 <header>
-  <div class="eyebrow">Research · Infrastructure</div>
+  <div class="eyebrow">Research · Infrastructure + Alpha</div>
   <h1>NYSE <span>链上美股 7×24</span><br>基础设施全景图</h1>
-  <div class="subtitle">全球$126万亿股票市场正在经历代币化变革 — NYSE、Nasdaq、DTCC三大巨头同时布局链上证券基础设施，7×24全天候交易、T+0即时结算、碎股化将重塑资本市场格局。这是继电子化交易以来最大的结构性变革窗口。</div>
+  <div class="subtitle">在原有产业链地图基础上，补充一级投资方、发币/积分机会、项目官网与推特，以及面向币圈薅羊毛的风险提示。</div>
   <div class="meta">
     <span>黑森船长</span>
-    <span>2026.04.09 更新</span>
-    <span>含 Securitize MoU 等最新进展</span>
-    <span><a href="nyse-token-tracker.html" style="color:var(--hot)">发币追踪 →</a></span>
+    <span>2026.05.01 更新版</span>
+    <span>官方资料与公开融资信息整理</span>
   </div>
 </header>
 
 <div class="stats">
-  <div class="stat"><div class="stat-label">全球股票市场</div><div class="stat-val">$126T</div><div class="stat-note">代币化目标总量</div></div>
-  <div class="stat"><div class="stat-label">DTCC 年处理</div><div class="stat-val">$3Q</div><div class="stat-note">3万亿美元 / 年</div></div>
-  <div class="stat"><div class="stat-label">USDC 流通量</div><div class="stat-val">$75B+</div><div class="stat-note">ICE首选稳定币</div></div>
-  <div class="stat"><div class="stat-label">代币化股票市值</div><div class="stat-val">$1B+</div><div class="stat-note">链上RWA总量$23.6B</div></div>
+  <div class="stat"><div class="stat-label">全球股票市场</div><div class="stat-val">$126T</div><div class="stat-note">代币化长期目标池</div></div>
+  <div class="stat"><div class="stat-label">xStocks 累计交易量</div><div class="stat-val">$25B+</div><div class="stat-note">2026-02 官方披露</div></div>
+  <div class="stat"><div class="stat-label">Ostium 累计交易量</div><div class="stat-val">$45B+</div><div class="stat-note">官网实时指标</div></div>
+  <div class="stat"><div class="stat-label">Superstate Series B</div><div class="stat-val">$82.5M</div><div class="stat-note">Bain / Distributed 领投</div></div>
+  <div class="stat"><div class="stat-label">P1 任务机会</div><div class="stat-val">3</div><div class="stat-note">xStocks / Monday / Ostium</div></div>
 </div>
 
-<div id="live-prices" style="margin-bottom:28px"></div>
+<div id="live-prices"><span class="lp-date">行情加载中…</span></div>
+
+<div class="notice">
+  <strong>这次更新重点：</strong>不再只看“谁在做链上美股”，而是优先回答 <strong>谁投了一级</strong>、<strong>现在能做什么任务</strong>、<strong>哪些更像潜在发币/积分场</strong>。页面内的官网与推特均尽量使用项目官方域名或官方账号；但请默认所有积分和潜在发币都<strong>没有任何官方承诺</strong>。
+</div>
 
 <div class="tabs" id="tabs">
-  <button class="tab active" data-p="infra">产业链全景</button>
+  <button class="tab active" data-p="alpha">发币 / 任务机会</button>
+  <button class="tab" data-p="infra">产业链全景</button>
   <button class="tab" data-p="watchlist">监控清单</button>
   <button class="tab" data-p="timeline">时间线</button>
   <button class="tab" data-p="connections">关系网络</button>
+  <button class="tab" data-p="risk">风险提示</button>
 </div>
 
-<div class="panel active" id="infra"><div id="layers-root"></div></div>
-<div class="panel" id="watchlist"><div class="search-box"><input type="text" placeholder="搜索 ticker / 公司 / 关键词…" id="si" oninput="filterWL()"></div><div id="wl-root"></div></div>
+<div class="panel active" id="alpha">
+  <div id="alpha-root"></div>
+  <hr class="tk-divider">
+  <div class="tk-header">
+    <span class="tk-title">发币追踪</span>
+    <span class="tk-sub">跟踪全产业链项目代币发行状态 — 已发币 / 计划中 / 有传闻 / 无代币</span>
+  </div>
+  <div class="tk-stats" id="tk-stats"></div>
+  <div class="tk-filters" id="tk-filters">
+    <button class="tk-fbtn active" data-tf="all">全部</button>
+    <button class="tk-fbtn" data-tf="live">已发币</button>
+    <button class="tk-fbtn" data-tf="plan">计划中</button>
+    <button class="tk-fbtn" data-tf="rumor">有传闻</button>
+    <button class="tk-fbtn" data-tf="none">无代币</button>
+  </div>
+  <div id="tk-cards"></div>
+</div>
+<div class="panel" id="infra"><div id="layers-root"></div></div>
+<div class="panel" id="watchlist"><div class="search-box"><input type="text" placeholder="搜索项目 / 投资方 / 关键词…" id="si" oninput="filterWL()"></div><div id="wl-root"></div></div>
 <div class="panel" id="timeline"><ul class="tl" id="tl-root"></ul></div>
 <div class="panel" id="connections"><div id="conn-root"></div></div>
+<div class="panel" id="risk"><div id="risk-root"></div></div>
 
 <footer>
-  <span>© 2026 黑森船长 · 仅供研究参考，不构成投资建议</span>
-  <span>Powered by on-chain research</span>
+  <span>© 2026 黑森船长 · 本页用于研究与任务跟踪，不构成投资建议</span>
+  <span>注意：积分、空投、发币和合规路径均可能变化</span>
 </footer>
 </div>
 
 <script>
-/* ═══════ DATA ═══════ */
 const LAYERS = [
-  {id:'trade',title:'交易层',sub:'撮合引擎 + 交易场馆',color:'#3b82f6',
+  {id:'trade', title:'交易层', sub:'交易入口、RWA DEX、7×24 撮合逻辑', color:'#3b82f6',
    players:[
-    {n:'NYSE Pillar',b:'core',d:'NYSE自2016年运行的撮合引擎。代币化平台中继续负责订单撮合，交易执行层不上链，由成熟中心化系统处理，保证纳秒级延迟和监管合规。'},
-    {n:'NYSE 代币化场馆 (ATS)',b:'new',d:'独立于传统NYSE的替代交易系统（ATS），支持代币化股份与原生数字证券交易。支持7×24运营、即时结算、美元币额订单、碎股交易。采用RFQ+订单簿混合模式（初期流动性有限时RFQ为主）。Pillar撮合引擎 + 多链结算。与Securitize合作铸造链上证券（2026.03.24 MoU）。尚未上线，仍在等待SEC/FINRA审批，目标2026H2。'},
-    {n:'Nasdaq',b:'hot',d:'2026年3月18日获SEC批准代币化交易。采用"同一订单簿"模式——代币化股份与传统股份在同一系统交易，同一ticker、同一价格、同等权利。与Kraken合作全球分发，2027H1可能上线。还在开发允许上市公司直接发行链上股票的框架。'},
-    {n:'Coinbase',b:'new',d:'2025年底为美国用户推出传统股票交易（零佣金+Yahoo Finance合作）。代币化股票即将跟进，刻意排除其经纪商子公司，可能通过Base链+Aerodrome DEX实现，绕开NMS法规。'},
-    {n:'Robinhood',b:'hot',d:'已在欧洲推出200+代币化股票（基于Arbitrum），采用equity swap结构。还推出OpenAI、SpaceX等私募公司的代币化股权。Robinhood Chain测试网已上线（2026.02），首周处理400万笔交易。主网预计2026H2启动。CEO Vlad Tenev称代币化是"无法阻挡的货运火车"。'},
-    {n:'Securitize',b:'hot',d:'2026.03.24与NYSE签署MoU，成为首个数字转让代理（Digital Transfer Agent），负责在NYSE代币化平台上为上市公司和ETF发行方铸造链上证券。AUM超40亿美元，已与BlackRock（BUIDL基金）、Apollo、KKR、VanEck等合作。Q3 2026启动机构试点。母公司Securitize Markets Holdings（CEPT）。'}
-  ]},
-  {id:'settle',title:'结算层',sub:'链上结算 + 清算基础设施',color:'#10b981',
+    {n:'NYSE 代币化场馆', b:'new', d:'传统交易所端的合规升级方向。更偏机构基础设施，不是散户薅毛场。'},
+    {n:'Kraken + xStocks', b:'hot', d:'目前最贴近“链上美股 + DeFi 积分”的零售主线。Kraken 本站交易不计 xPoints，真正有用的是链上持有、LP、借贷等行为。'},
+    {n:'Robinhood', b:'hot', d:'流量入口巨大，但更像券商产品创新，不像早期发币项目。其欧洲代币化股票结构更接近包装敞口而非纯链上原生股权。'},
+    {n:'Monday Trade', b:'hot', d:'Monad 生态里最接近“链上股票交易任务”的项目，Voyage Points 已运行，适合轻仓长期刷活跃。'},
+    {n:'Ostium', b:'new', d:'更偏股票/商品/外汇 perp 敞口，不是 tokenized stock 现货，但从任务与积分角度很值得跟踪。'}
+   ]},
+  {id:'settle', title:'结算层', sub:'链上结算、登记、合规清算', color:'#10b981',
    players:[
-    {n:'DTCC / DTC',b:'core',d:'美国证券结算的绝对中枢（2023年处理交易额达3万亿美元）。2025年12月获SEC No-Action Letter，2026H2启动代币化试点（为期3年）。覆盖Russell 1000股票、主流ETF、美国国债。证券所有权仍登记在DTC被提名人Cede & Co.名下，DTC保留root wallet的override key用于紧急情况。'},
-    {n:'Canton Network',b:'core',d:'DTCC选定的首条底层链（2025.12.17宣布）。由Digital Asset Holdings开发，隐私优先、许可制区块链，专为机构金融设计。参与者可精细控制数据可见性。背后投资方包括BlackRock、Goldman Sachs、Citadel Securities、Nasdaq、S&P Global。DTCC与Euroclear共同担任Canton基金会联席主席。2025年7月已完成首次24/7链上回购交易。'},
-    {n:'ICE 清算所',b:'new',d:'ICE全球运营6家清算所（包括全球最大能源清算所和CDS清算所）。正在与BNY和Citi合作引入代币化存款，支持非银行时段的保证金调度和跨时区资金转移——这是实现7×24交易的关键基础设施环节。'},
-    {n:'NSCC / FICC',b:'wait',d:'DTCC旗下负责股票清算（NSCC）和固定收益清算（FICC）的子公司。目前尚未直接参与代币化试点，但作为美国证券清算的核心机构，未来必然整合代币化功能。'}
-  ]},
-  {id:'fund',title:'资金层',sub:'稳定币 + 代币化存款',color:'#f59e0b',
+    {n:'DTCC / DTC', b:'core', d:'美国证券结算根基础设施。真正决定链上美股能否大规模落地的仍是登记、交收与监管路径。'},
+    {n:'Canton Network', b:'core', d:'机构级许可链路线代表，偏传统金融升级，和空投逻辑关系不大。'},
+    {n:'Dinari Financial Network', b:'new', d:'代币化股票 B2B 基础设施里很关键的一层，更适合跟一级与合作扩张，而不是把时间花在刷任务上。'},
+    {n:'Superstate Opening Bell', b:'new', d:'目标是把真实股权发行与转让搬上链，方向非常大，但更像机构金融产品，不像零售积分场。'}
+   ]},
+  {id:'fund', title:'资金层', sub:'稳定币、收益型现金、保证金资金腿', color:'#f59e0b',
    players:[
-    {n:'USDC (Circle)',b:'core',d:'ICE首选稳定币。2025年3月ICE与Circle签署MoU，探索USDC整合到清算所、衍生品交易所和数据服务。Circle于2025年6月5日在NYSE上市（ticker: CRCL），IPO定价$31，ATH $299，当前约$94。截至2025年末USDC流通量达753亿美元。已获欧盟MiCA合规批准（首家）。2025年全年营收17亿美元。⚠️ 2026.04.01 Drift Protocol（Solana DeFi）被黑客盗取$285M，攻击者通过Circle跨链协议将$232M USDC从Solana转至Ethereum，Circle因未及时冻结资金遭到批评——暴露了稳定币发行方在安全响应速度上的治理风险。'},
-    {n:'USYC (Circle/Hashnote)',b:'new',d:'Circle收购Hashnote后获得的代币化货币市场基金产品。SEC 2a-7注册。MoU覆盖范围内，可用于清算所抵押品和衍生品保证金——闲置资金可产生收益，这是传统现金做不到的。'},
-    {n:'BNY 代币化存款',b:'new',d:'与ICE合作开发（2026.01宣布），专为清算所设计。支持非银行营业时间的资金转移、保证金履约和跨时区调度。解决7×24交易的"最后一公里"资金问题。'},
-    {n:'Citi 代币化存款',b:'new',d:'同BNY，为ICE清算所提供跨时区、跨管辖区的24小时资金调度能力。与BNY形成双银行支撑体系。'},
-    {n:'USDT (Tether)',b:'wait',d:'虽然市值最大（1440亿+，市场份额63%），但因未获欧盟MiCA合规已在Coinbase Europe、Binance等多个交易所下架。在受监管的美股交易基础设施中被采用的可能性较低。监管风险是最大障碍。'},
-    {n:'Wells Fargo WFUSD',b:'wait',d:'Wells Fargo向USPTO提交WFUSD加密相关商标申请，暗示可能推出代币化存款或稳定币。跟随JPMorgan类似路径。尚处早期。'}
-  ]},
-  {id:'custody',title:'托管层',sub:'多链托管 + 钱包架构',color:'#a78bfa',
+    {n:'USDC / Circle', b:'core', d:'大多数受监管链上证券路线里最容易出现的美元腿。'},
+    {n:'USYC', b:'new', d:'收益型链上现金工具，适合被用作抵押品与保证金资产。'},
+    {n:'BNY / Citi 代币化存款', b:'new', d:'解决非银行营业时间的清算与保证金调度问题。'},
+    {n:'USDT', b:'wait', d:'流动性虽强，但合规接受度较弱，在受监管证券路线中不占优。'}
+   ]},
+  {id:'custody', title:'托管层', sub:'合规托管、钱包、登记结构', color:'#a78bfa',
    players:[
-    {n:'DTC Cede & Co.',b:'core',d:'代币化证券的法律所有权仍登记在DTC的被提名人Cede & Co.名下——这是关键的法律设计。DTC使用"数字综合账户"(Digital Omnibus Account)记录所有代币化权益的汇总。参与者通过注册钱包（Registered Wallet）持有代币，但DTC保留override key。'},
-    {n:'ComposerX (DTCC)',b:'new',d:'DTCC的代币化平台套件，用于在Canton Network上铸造、管理和追踪代币化资产。是连接传统证券簿记与链上记录的桥梁。'},
-    {n:'BitGo',b:'new',d:'Dinari Financial Network的验证节点和托管服务提供商之一。机构级加密资产托管方案，支持多链资产管理。'},
-    {n:'OKX 多链钱包架构',b:'new',d:'ICE-OKX合作将开发多链托管和钱包架构，为机构参与数字资产市场提供结构性基础设施。这是连接1.2亿用户与NYSE代币化股票的技术桥梁。'},
-    {n:'Fireblocks / Anchorage',b:'wait',d:'市场领先的机构级加密托管方案。在多链托管需求扩大时可能成为重要服务商，尤其是为传统券商提供白标托管服务。'}
-  ]},
-  {id:'dist',title:'分发层',sub:'券商 + 加密交易所分发渠道',color:'#ef4444',
+    {n:'DTC Cede & Co.', b:'core', d:'很多代币化证券设计里，法律所有权和链上持仓并不完全等同，这是理解风险的关键。'},
+    {n:'BitGo', b:'new', d:'在 Dinari 等项目里扮演托管和网络参与者角色。'},
+    {n:'Anchorage / Fireblocks', b:'wait', d:'机构代币化资产若加速落地，这些托管中间件仍是核心卖铲人。'}
+   ]},
+  {id:'dist', title:'分发层', sub:'交易所、券商、钱包分发', color:'#ef4444',
    players:[
-    {n:'OKX',b:'hot',d:'ICE战略投资（2026.03.05，估值250亿美元）。ICE获得董事会席位。OKX 1.2亿用户将获得NYSE代币化股票和ICE期货的分发入口。ICE获得OKX加密资产现货价格数据，用于发布美国监管期货合约。OKB代币消息公布后飙涨50%（$78→$120）。2026H2上线。'},
-    {n:'Kraken',b:'hot',d:'Nasdaq的全球分发合作伙伴。Kraken Financial已获得美联储Master Account，可直接接入Fedwire结算——这在加密交易所中极为罕见。Citadel Securities投资2亿美元（估值200亿）。正在扩展欧洲证券业务。'},
-    {n:'Robinhood',b:'hot',d:'已在欧洲推出200+代币化股票（Arbitrum），采用equity swap结构而非直接持有。正在开发基于Arbitrum的Robinhood Chain。还推出了OpenAI、SpaceX等私募公司的代币化股权代币。'},
-    {n:'Coinbase',b:'new',d:'拥有Base链（基于Optimism）作为代币化基础设施。2025年底推出代币化股票（美国用户）。正探索通过独立实体绕开NMS法规的路径——可能是Base + Aerodrome DEX的去中心化结构。'},
-    {n:'Gemini',b:'new',d:'在欧盟推出代币化股票，后端由Dinari提供代币化基础设施。Winklevoss兄弟创办。'},
-    {n:'Bybit',b:'new',d:'已开始向用户提供代币化美股和ETF服务。'}
-  ]},
-  {id:'benefit',title:'受益标的层',sub:'直接受益 + 间接受益投资标的',color:'#8b5cf6',
+    {n:'Kraken', b:'hot', d:'当前零售侧最值得实操的分发入口之一，因为它和 xStocks 的链上积分逻辑已打通。'},
+    {n:'Gemini', b:'new', d:'通过 Dinari 获得后端支持，偏渠道而非发币机会。'},
+    {n:'Bybit', b:'wait', d:'可作为市场需求验证，但未见明显积分设计。'},
+    {n:'OKX', b:'wait', d:'更像未来潜在股票分发巨头，不是当下首选薅毛目标。'}
+   ]},
+  {id:'benefit', title:'受益标的层', sub:'一级资本、协议原生资产、间接受益方', color:'#8b5cf6',
    players:[
-    {n:'ICE (NYSE:ICE)',b:'core',d:'最核心的受益者。布局涵盖交易所、清算所、数据服务全链条。战略投资：OKX（250亿估值）、Polymarket（20亿投资/80-90亿估值）、MoonPay（~50亿估值）。市值700-800亿美元。'},
-    {n:'Circle (NYSE:CRCL)',b:'hot',d:'USDC作为NYSE代币化平台的首选稳定币，流通量和用例场景将显著扩大。2025年6月在NYSE上市（IPO价$31，首日收$82.84，ATH $299）。当前股价约$93，市值$23.3B。2025年全年营收17亿美元。还推出了Circle Payment Network拓展支付基础设施。'},
-    {n:'OKB',b:'hot',d:'OKX原生代币。ICE投资消息公布后曾短暂飙涨50%（$78→$120，后回落至$92）。受益于OKX成为NYSE代币化股票的全球分发入口。'},
-    {n:'AVAX',b:'new',d:'Avalanche原生代币。受益于日本Progmat迁移至Avalanche L1、Dinari基于Avalanche建链、以及复星FUSD等亚洲机构采用趋势。'},
-    {n:'Digital Asset Holdings (非上市)',b:'core',d:'Canton Network技术提供方，DTCC代币化服务的核心技术合作伙伴。获BlackRock、Goldman Sachs、Citadel Securities、Nasdaq等华尔街巨头投资。'},
-    {n:'ARB (Arbitrum)',b:'new',d:'Robinhood Chain和代币化股票的底层技术栈。Robinhood、Dinari等均基于Arbitrum生态构建。'},
-    {n:'ETH',b:'wait',d:'作为L2的安全层间接受益。JPMorgan代币化基金已部署在Ethereum主网。市场广泛猜测NYSE可能使用Ethereum生态，但官方未确认任何公链。'},
-    {n:'BLK (BlackRock)',b:'core',d:'Canton Network/Digital Asset投资方。CEO Larry Fink称代币化是"市场基础设施的下一次大进化"。已推出链上代币化基金（BUIDL）。'},
-    {n:'Dinari (非上市)',b:'new',d:'已获FINRA经纪商注册，为Gemini提供代币化基础设施后端。基于Avalanche构建Dinari Financial Network，定位为代币化股票的"DTCC"。验证节点包括BitGo、VanEck。'},
-    {n:'Securitize (CEPT)',b:'hot',d:'NYSE代币化平台首个数字转让代理。AUM $4B+，与BlackRock、Apollo、BNY、KKR、VanEck合作。2026.03.24与NYSE签署MoU，Q3启动机构试点。定位为链上证券铸造与管理的核心基础设施。'},
-    {n:'Ondo Finance',b:'new',d:'代币化证券先行者，通过Ondo Global Markets采用证券化包装路径。正在走SEC完整披露流程以面向美国零售用户。'}
-  ]}
+    {n:'Backed', b:'hot', d:'xStocks 背后最关键的发行方与结构设计者，一级投资方质量高，且已经把积分机制做出来。'},
+    {n:'Dinari', b:'new', d:'一级融资明确，B2B 属性强，赛道位置好。'},
+    {n:'Superstate', b:'new', d:'融资阵容很强，是最像“真链上股权基础设施”的一级项目之一。'},
+    {n:'ARB / AVAX / MON', b:'wait', d:'底层链是否直接受益，取决于真实发行与流动性是否持续迁移到其生态。'}
+   ]}
 ];
 
 const WATCHLIST = [
-  {cat:'交易所 / 场馆',items:[
-    {tk:'ICE',nm:'Intercontinental Exchange',nt:'NYSE母公司，全链条受益，市值700-800亿',b:'core'},
-    {tk:'NDAQ',nm:'Nasdaq Inc.',nt:'已获SEC批准代币化交易，与Kraken合作',b:'hot'},
+  {cat:'发币 / 任务线', items:[
+    {tk:'xStocks', nm:'Backed / xStocks', nt:'xPoints 已上线；链上持有、LP、借贷比站内交易更重要', b:'hot'},
+    {tk:'Monday', nm:'Monday Trade', nt:'Voyage Points 运行中；Monad 上最值得刷的链上股票入口之一', b:'hot'},
+    {tk:'Ostium', nm:'Ostium', nt:'RWA perp 主线；积分长期运行，但杠杆风险很高', b:'new'},
+    {tk:'Dinari', nm:'Dinari', nt:'一级融资清晰，B2B 基础设施属性更强', b:'new'},
+    {tk:'Superstate', nm:'Superstate', nt:'真股权上链方向，融资最强之一，但零售任务少', b:'new'},
+    {tk:'Anchor', nm:'Anchored', nt:'很早期，需观察是否会给积分或生态激励', b:'wait'}
   ]},
-  {cat:'清算 / 托管',items:[
-    {tk:'DTCC',nm:'非上市',nt:'美国证券结算中枢，Canton MVP 2026H1',b:'core'},
-    {tk:'BK',nm:'BNY Mellon',nt:'ICE代币化存款合作方，7×24保证金调度',b:'new'},
-    {tk:'C',nm:'Citigroup',nt:'ICE代币化存款合作方，跨时区资金转移',b:'new'},
+  {cat:'交易 / 分发', items:[
+    {tk:'Kraken', nm:'Kraken', nt:'xStocks 零售入口；与链上积分体系关系最深', b:'hot'},
+    {tk:'HOOD', nm:'Robinhood', nt:'大流量渠道，但更像券商产品，不像发币项目', b:'wait'},
+    {tk:'Gemini', nm:'Gemini', nt:'Dinari 后端支持，偏分发渠道', b:'wait'}
   ]},
-  {cat:'底层链 / 协议',items:[
-    {tk:'Canton',nm:'Digital Asset Holdings（非上市）',nt:'DTCC首选链，BlackRock/Goldman/Citadel投资',b:'core'},
-    {tk:'ETH',nm:'Ethereum',nt:'JPMorgan基金底层，L2生态最大，间接受益',b:'wait'},
-    {tk:'AVAX',nm:'Avalanche',nt:'Progmat迁移、Dinari建链、亚洲机构采用',b:'new'},
-    {tk:'ARB',nm:'Arbitrum',nt:'Robinhood Chain底层技术栈',b:'new'},
-    {tk:'OP',nm:'Optimism / Base',nt:'Coinbase代币化股票潜在底层',b:'wait'},
-    {tk:'SOL',nm:'Solana',nt:'USDC占80%份额，Dinari即将支持',b:'wait'},
+  {cat:'底层链 / 结算', items:[
+    {tk:'Canton', nm:'Canton / Digital Asset', nt:'机构链主线，偏基础设施，不偏空投', b:'core'},
+    {tk:'AVAX', nm:'Avalanche', nt:'Dinari Financial Network 所在生态', b:'new'},
+    {tk:'MON', nm:'Monad', nt:'Monday / Anchored 相关机会都在这里发酵', b:'new'},
+    {tk:'ARB', nm:'Arbitrum', nt:'Robinhood 与部分链上股票结构的技术栈受益方', b:'wait'}
   ]},
-  {cat:'稳定币',items:[
-    {tk:'CRCL',nm:'Circle (NYSE:CRCL)',nt:'ICE MoU首选，USDC流通753亿，已上市',b:'core'},
-    {tk:'USYC',nm:'Circle / Hashnote',nt:'代币化货币基金，可作清算所抵押品',b:'new'},
-    {tk:'USDT',nm:'Tether',nt:'市值最大但MiCA不合规，被采用概率低',b:'wait'},
-  ]},
-  {cat:'券商 / 分发',items:[
-    {tk:'OKB',nm:'OKX',nt:'ICE投资250亿估值，1.2亿用户分发入口',b:'hot'},
-    {tk:'COIN',nm:'Coinbase',nt:'Base链 + 代币化股票，NMS合规路径待定',b:'new'},
-    {tk:'HOOD',nm:'Robinhood',nt:'Arbitrum代币化股票 + 自建链，equity swap模式',b:'hot'},
-    {tk:'Kraken',nm:'非上市',nt:'Nasdaq合作，已获Fed Master Account',b:'hot'},
-    {tk:'Gemini',nm:'非上市',nt:'Dinari后端，欧盟代币化股票',b:'new'},
-  ]},
-  {cat:'做市商 / 流动性',items:[
-    {tk:'Citadel',nm:'Citadel Securities（非上市）',nt:'投资Kraken 2亿 + Digital Asset/Canton投资方',b:'new'},
-    {tk:'Jump',nm:'Jump Trading',nt:'加密做市龙头，Canton生态参与者',b:'wait'},
-    {tk:'Wintermute',nm:'Wintermute',nt:'加密做市商，链上股票做市潜在参与者',b:'wait'},
-  ]},
-  {cat:'潜在受益标的',items:[
-    {tk:'BLK',nm:'BlackRock',nt:'Canton投资方 + BUIDL代币化基金 + Larry Fink公开背书',b:'core'},
-    {tk:'JPM',nm:'JPMorgan',nt:'Ethereum代币化基金，Kinexys平台，种子资金1亿',b:'new'},
-    {tk:'GS',nm:'Goldman Sachs',nt:'Canton / Digital Asset投资方',b:'new'},
-    {tk:'Dinari',nm:'非上市',nt:'FINRA注册，代币化股票"DTCC"，Avalanche生态',b:'new'},
-    {tk:'CEPT',nm:'Securitize',nt:'NYSE首个数字转让代理，AUM $4B+，BlackRock合作',b:'hot'},
-    {tk:'Ondo',nm:'Ondo Finance',nt:'代币化证券先行者，SEC完整披露流程中',b:'new'},
+  {cat:'一级资本', items:[
+    {tk:'Gnosis', nm:'Gnosis', nt:'Backed 2024 融资领投，和 xStocks 路线关联最强', b:'hot'},
+    {tk:'Hack', nm:'Hack VC', nt:'Dinari Series A 联合领投', b:'new'},
+    {tk:'Bain', nm:'Bain Capital Crypto', nt:'Superstate Series B 联合领投', b:'new'},
+    {tk:'DG', nm:'Distributed Global', nt:'Superstate Series B 联合领投', b:'new'}
   ]}
 ];
 
 const TIMELINE = [
-  {d:'2025.03',t:'ICE与Circle签署MoU，探索USDC/USYC整合到清算所',m:0},
-  {d:'2025.06',t:'<strong>Circle在NYSE上市</strong>（CRCL），IPO价$31，首日收$82.84',m:1},
-  {d:'2025.06',t:'Robinhood在欧洲推出200+代币化股票（Arbitrum）',m:0},
-  {d:'2025.07',t:'Canton Network上首次完成24/7链上回购交易',m:0},
-  {d:'2025.08',t:'Dinari获FINRA批准，宣布基于Avalanche建链',m:0},
-  {d:'2025.10',t:'ICE投资Polymarket 20亿美元（估值80-90亿）',m:0},
-  {d:'2025.12',t:'<strong>DTC获SEC No-Action Letter</strong>，开启3年代币化试点',m:1},
-  {d:'2025.12',t:'<strong>DTCC选择Canton Network</strong>作为首个合作链',m:1},
-  {d:'2025.12',t:'JPMorgan在Ethereum推出代币化货币市场基金',m:0},
-  {d:'2026.01',t:'<strong>NYSE宣布开发代币化证券交易平台</strong>',m:1},
-  {d:'2026.02',t:'Robinhood Chain测试网上线（基于Arbitrum）',m:0},
-  {d:'2026.03',t:'<strong>ICE战略投资OKX</strong>（250亿估值），获董事会席位',m:1},
-  {d:'2026.03',t:'<strong>Nasdaq获SEC批准</strong>代币化证券交易',m:1},
-  {d:'2026.03.24',t:'<strong>NYSE与Securitize签署MoU</strong>，Securitize成为首个数字转让代理，负责铸造链上证券',m:1},
-  {d:'2026.04.01',t:'Drift Protocol被黑$285M，攻击者经Circle跨链转移$232M USDC，Circle因冻结延迟遭批评',m:0},
-  {d:'2026 Q3',t:'NYSE-Securitize机构试点启动（预期）',m:0},
-  {d:'2026 H1',t:'DTCC Canton MVP上线（美国国债先行）',m:1},
-  {d:'2026 H2',t:'Robinhood Chain主网上线（预期）',m:0},
-  {d:'2026 H2',t:'DTCC代币化服务公开发布（Russell 1000+ETF+国债）',m:1},
-  {d:'2026 H2',t:'NYSE代币化场馆上线（待监管批准）',m:1},
-  {d:'2026 H2',t:'OKX分发NYSE代币化股票至1.2亿用户',m:0},
-  {d:'2027 H1',t:'Nasdaq-Kraken代币化股票全球分发（预期）',m:0}
+  {d:'2024.04.30', t:'<strong>Backed 完成 $9.5M 融资</strong>，Gnosis 领投，xStocks 路线资本底牌明确', m:1},
+  {d:'2025.03.31', t:'Ostium 公布 Points Program，RWA perp 任务线开始成形', m:0},
+  {d:'2025.05.01', t:'<strong>Dinari 宣布 Series A $12.7M</strong>，Hack VC 与 Blockchange Ventures 领投', m:1},
+  {d:'2025.06', t:'xStocks 产品正式推向市场，链上股票叙事开始从“讲故事”进入“可组合资产”阶段', m:0},
+  {d:'2026.01.22', t:'<strong>Superstate 完成 Series B $82.5M</strong>，机构链上股权路线升温', m:1},
+  {d:'2026.03.10', t:'<strong>xPoints 官方公布</strong>，明确把链上持有、流动性和借贷纳入积分范围', m:1},
+  {d:'2026.03.17', t:'xPoints 正式开始计分，Kraken FAQ 说明站内交易不计分', m:1},
+  {d:'2026.04.16', t:'<strong>Monday Trade 上线 RWA / 美股交易</strong>，Monad 生态出现链上股票任务入口', m:1},
+  {d:'2026.04.16', t:'Anchored 推出 tokenized U.S. stocks，并与 Monday Trade 打通分发', m:0},
+  {d:'2026.04', t:'Monday Voyage Points 文档继续更新，显示其仍处早期激励扩展阶段', m:0}
 ];
 
 const CONNECTIONS = [
-  {cat:'投资关系',rows:[
-    {f:'ICE / NYSE',t:'OKX',r:'战略投资（250亿估值）+ 董事会席位'},
-    {f:'ICE',t:'Polymarket',r:'投资20亿（估值80-90亿）'},
-    {f:'ICE',t:'MoonPay',r:'投资兴趣（~50亿估值）'},
-    {f:'Citadel Securities',t:'Kraken',r:'投资2亿（估值200亿）'},
-    {f:'BlackRock',t:'Digital Asset',r:'Canton Network投资方'},
-    {f:'Goldman Sachs',t:'Digital Asset',r:'Canton Network投资方'},
-    {f:'Citadel Securities',t:'Digital Asset',r:'Canton Network投资方'},
+  {cat:'投资关系', rows:[
+    {f:'Gnosis', t:'Backed', r:'2024-04 领投 $9.5M；xStocks 背后最关键一级线索'},
+    {f:'Hack VC', t:'Dinari', r:'2025-05 Series A 联合领投'},
+    {f:'Blockchange', t:'Dinari', r:'2025-05 Series A 联合领投'},
+    {f:'Bain Capital Crypto', t:'Superstate', r:'2026-01 Series B 联合领投'},
+    {f:'Distributed Global', t:'Superstate', r:'2026-01 Series B 联合领投'}
   ]},
-  {cat:'核心技术合作',rows:[
-    {f:'NYSE',t:'Securitize',r:'MoU → 首个数字转让代理，铸造链上证券'},
-    {f:'DTCC',t:'Canton / Digital Asset',r:'首条代币化底层链 + ComposerX'},
-    {f:'DTCC',t:'Euroclear',r:'Canton基金会联席主席'},
-    {f:'Nasdaq',t:'DTC',r:'代币化交易 → DTC清算结算'},
-    {f:'Robinhood',t:'Arbitrum',r:'代币化股票底层 + Robinhood Chain'},
-    {f:'Coinbase',t:'Base (Optimism)',r:'代币化股票潜在底层'},
-    {f:'Dinari',t:'Avalanche',r:'Dinari Financial Network底层'},
+  {cat:'产品与分发', rows:[
+    {f:'Backed', t:'xStocks', r:'发行方与品牌主线'},
+    {f:'Kraken', t:'xStocks', r:'零售分发入口 + FAQ 明确 points 规则'},
+    {f:'Monday Trade', t:'Anchored', r:'RWA 股票分发与交易协作'},
+    {f:'Dinari', t:'Gemini', r:'为其提供代币化股票后端'},
+    {f:'SynFutures Builder', t:'Monday Trade', r:'生态孵化与早期支持'}
   ]},
-  {cat:'业务合作 / 分发',rows:[
-    {f:'ICE / NYSE',t:'Circle',r:'MoU → USDC/USYC整合到清算所'},
-    {f:'ICE',t:'BNY Mellon',r:'代币化存款 → 7×24保证金调度'},
-    {f:'ICE',t:'Citi',r:'代币化存款 → 跨时区资金转移'},
-    {f:'Nasdaq',t:'Kraken',r:'代币化股票全球分发合作'},
-    {f:'Dinari',t:'Gemini',r:'提供代币化基础设施后端'},
-    {f:'OKX',t:'NYSE',r:'1.2亿用户获得代币化股票入口'},
+  {cat:'底层生态', rows:[
+    {f:'Dinari', t:'Avalanche', r:'Dinari Financial Network 所在生态'},
+    {f:'Monday Trade', t:'Monad', r:'任务机会与流动性迁移主阵地'},
+    {f:'Robinhood', t:'Arbitrum', r:'大流量券商版代币化股票技术路线'},
+    {f:'DTCC', t:'Canton', r:'机构级结算主线'}
   ]}
 ];
 
-const BN = {core:'核心',hot:'高热度',new:'新进展',wait:'待观察'};
+const ALPHA = [
+  {
+    name:'xStocks / Backed',
+    sub:'当前最强主线：链上美股 + 积分 + DeFi 组合性',
+    p:'p1',
+    site:'https://xstocks.fi/',
+    twitter:'https://x.com/xStocksFi',
+    app:'https://defi.xstocks.fi/',
+    status:'<strong>已进入可实操阶段。</strong> xPoints 于 2026-03-10 公布，2026-03-17 开始计分；Kraken FAQ 明确说明只有链上相关行为计分。',
+    investors:'Backed 于 2024-04-30 完成 <strong>$9.5M</strong> 融资，<strong>Gnosis</strong> 领投；参投包括 Exor Seeds、Cyber Fund、Mindset Ventures、Stake Capital、Blockchain Founders Fund、Blue Bay Capital、Nonce Classic。',
+    actions:'优先做 <strong>链上持有、DEX 交易、LP、借贷</strong>；不要把时间主要花在 Kraken 站内买卖上。更适合做成持续型低频任务，而不是短期冲量。',
+    airdrop:'<strong>高</strong>。已经有积分体系，且行为定义较清晰，是目前最像“有章法可刷”的链上美股项目。',
+    risk:'本质上更接近 <strong>包装或跟踪型证券结构</strong>，并非每个代币都等同于传统股票的完整股东权利；休市时段和周末可能出现价格偏离。'
+  },
+  {
+    name:'Monday Trade',
+    sub:'Monad 上最值得跟的早期链上股票任务线',
+    p:'p1',
+    site:'https://monday.trade/',
+    twitter:'https://x.com/MondayTrade_',
+    app:'https://app.monday.trade/',
+    status:'<strong>早期但已可做任务。</strong> 2026-04-16 上线 RWA / 美股交易，Voyage Points 文档仍在更新，说明项目还在继续定义激励范围。',
+    investors:'未见独立完整融资表公开披露；但官方明确其来自 <strong>SynFutures Builder Program</strong>。若沿孵化链看，SynFutures 背后资本包括 Pantera、Polychain、Dragonfly、Standard Crypto、Framework、SIG。',
+    actions:'优先做 <strong>现货/RWA 交易、maker 挂单、LP、连续活跃</strong>。比起大额交易，更值得做的是稳定、低成本、可持续的行为轨迹。',
+    airdrop:'<strong>中高</strong>。有积分、有生态位置、产品仍早；但没有公开承诺发币，不能把 points 直接等同于未来 token。',
+    risk:'流动性仍早，盘口容易薄；若为了刷量频繁交易，成本和滑点可能吃掉潜在收益。'
+  },
+  {
+    name:'Ostium',
+    sub:'更像 RWA perp 主线，不是现货股票，但很适合币圈视角跟踪',
+    p:'p1',
+    site:'https://www.ostium.com/',
+    twitter:'https://twitter.com/ostiumlabs',
+    app:'https://app.ostium.com/',
+    status:'<strong>成熟度高于很多早期项目。</strong> 官网披露累计交易量已超 <strong>$45B</strong>，Points Program 长期运行，适合作为补充型任务线。',
+    investors:'官网与官方材料披露的支持方包括 <strong>General Catalyst</strong>、LocalGlobe、SIG、GSR、Alliance DAO，以及 Balaji Srinivasan、Meltem Demirors、Nick van Eck 等天使。',
+    actions:'只建议 <strong>小仓位</strong> 做体验型交易与活跃度；把它当成“高风险高赔率补充位”，不要当作无风险刷分工具。',
+    airdrop:'<strong>中高</strong>。项目有清晰 points 传统，但由于已相对成熟，未来分配未必会像超早期项目那样宽松。',
+    risk:'这是 <strong>杠杆和合成敞口</strong> 赛道，不是真股权持有；爆仓、资金费率和价格波动风险远高于 xStocks 和 Monday。'
+  },
+  {
+    name:'Dinari',
+    sub:'一级投资最清晰的链上股票基础设施之一',
+    p:'p2',
+    site:'https://dinari.com/',
+    twitter:'https://twitter.com/DinariGlobal',
+    app:'',
+    status:'<strong>偏 B2B 基础设施。</strong> 面向 fintech、券商和 neobank 提供 tokenized equities 后端，比散户任务更适合拿来跟一级和合作扩张。',
+    investors:'2025-05-01 官方宣布 <strong>Series A $12.7M</strong>，Hack VC 与 Blockchange Ventures 领投；VanEck Ventures、F-Prime、Blizzard 参投。',
+    actions:'把它放进 <strong>一级跟踪清单</strong>，盯合作方、渠道扩张和零售分发落地；现阶段不建议投入大量时间等待散户任务。',
+    airdrop:'<strong>低到中</strong>。有叙事价值，但并未展现明显散户积分设计，更像卖铲子基础设施。',
+    risk:'合规/KYC 属性强，最终机会可能主要通过合作前端释放，而不是 Dinari 本体直接给散户激励。'
+  },
+  {
+    name:'Anchored',
+    sub:'很早期，适合观察，不适合重投入时间',
+    p:'p2',
+    site:'https://anchored.finance/',
+    twitter:'https://x.com/AnchoredFi',
+    app:'https://app.anchored.finance/',
+    status:'<strong>项目很新。</strong> 已推出 tokenized U.S. stocks，并通过 Monday Trade 扩展分发，但公开激励规则仍不充分。',
+    investors:'暂未看到项目方在官网或文档中披露完整一级融资名单；目前更清晰的是其 <strong>产品合作关系</strong>，而不是 cap table。',
+    actions:'建议 <strong>轻量观察</strong>，顺着 Monday Trade 这条线做生态交互即可，不必把主时间单独压在 Anchored 本体。',
+    airdrop:'<strong>中</strong>。足够早，但没有点数或 token 路线明牌。',
+    risk:'透明度有限，产品仍在早期磨合；一旦流动性、合作伙伴或合规路径变化，用户体验会迅速受影响。'
+  },
+  {
+    name:'Superstate',
+    sub:'最强一级阵容之一，但偏机构，不像零售空投场',
+    p:'p3',
+    site:'https://superstate.com/',
+    twitter:'https://x.com/SuperstateInc',
+    app:'',
+    status:'<strong>方向重要，任务属性弱。</strong> Opening Bell 代表真链上股权发行/转让路线，但当前更像机构产品基础设施。',
+    investors:'2026-01-22 完成 <strong>$82.5M Series B</strong>，Bain Capital Crypto 与 Distributed Global 领投；参投包括 Haun Ventures、Brevan Howard Digital、Galaxy、Bullish、ParaFi、1kx 等。',
+    actions:'优先作为 <strong>一级研究与赛道判断</strong> 对象，而不是去等待散户刷分入口。',
+    airdrop:'<strong>低</strong>。至少当前看不到明确的零售积分设计。',
+    risk:'产品门槛、合规门槛和机构属性都很高，很多潜在机会可能并不向普通链上用户开放。'
+  }
+];
 
-/* ═══════ RENDER ═══════ */
-function renderLayers(){
-  document.getElementById('layers-root').innerHTML = LAYERS.map((l,i)=>`
-    <div class="layer${i===0?' open':''}" id="ly-${l.id}">
-      <div class="lh" onclick="tglLayer('${l.id}')">
-        <div class="lh-num" style="background:${l.color}15;color:${l.color};border:1px solid ${l.color}30">${i+1}</div>
-        <div><div class="lh-title">${l.title}</div><div class="lh-sub">${l.sub}</div></div>
+const RISKS = [
+  {title:'积分不等于发币', lvl:'high', text:'大多数项目从未正式承诺 token。就算存在积分，也可能只用于排行榜、手续费减免、白名单或未来未明确的权益。'},
+  {title:'休市时段价格偏离', lvl:'high', text:'链上美股在夜盘、周末或美股休市时缺乏强锚定，token 价格可能和正股、NAV 或做市中位数明显背离。'},
+  {title:'合规与地域限制', lvl:'high', text:'链上股票涉及证券法、KYC、受限地区等问题。一个前端今天能用，不代表明天还能向同一地区开放。'},
+  {title:'合成敞口和真股权不同', lvl:'mid', text:'很多产品是包装凭证、跟踪证券或 perp，而不是传统意义上的股东登记权益。不要把“可以买某股票代币”误判成“拥有完整股东权利”。'},
+  {title:'薄流动性和高成本刷量', lvl:'mid', text:'早期项目盘口薄、滑点高、借贷费率和交易费不可忽略。为了 points 高频刷单，常常会把理论空投收益直接刷没。'},
+  {title:'智能合约与托管结构风险', lvl:'mid', text:'即便标的是美股，承载它的仍是链上合约、托管方、做市与清算结构。黑天鹅往往出在包装层，而不是出在股票本身。'}
+];
+
+const BN = {core:'核心', hot:'高热度', new:'新进展', wait:'待观察'};
+
+/* ═══════ TOKEN TRACKER DATA ═══════ */
+const PROJECTS = [
+  {name:'OKX / OKB',role:'分发层 · ICE战略投资方',status:'live',token:{ticker:'OKB',chain:'OKX Chain',note:'当前~$52 · ICE投资消息后曾飙涨50%'},x:'okx',layer:'分发',desc:'ICE战略投资（250亿估值），获董事会席位。OKX 1.2亿用户将获NYSE代币化股票分发入口。OKB为平台原生代币，受益于整个生态交易量增长。',opportunity:'关注ICE合作里程碑节点（2026H2上线），以及OKX Chain生态发展。'},
+  {name:'Circle / USDC',role:'资金层 · ICE首选稳定币',status:'live',token:{ticker:'CRCL',chain:'NYSE上市',note:'IPO $31 → ATH $299 · 当前~$94 · 市值$23.3B'},x:'circle',layer:'资金',desc:'USDC流通753亿+，ICE MoU首选稳定币。2025年6月NYSE上市。还推出USYC代币化货币基金和Circle Payment Network。',opportunity:'已上市股票（NYSE:CRCL），关注USDC在清算所整合进度。'},
+  {name:'Avalanche / AVAX',role:'底层链 · Dinari/Progmat生态',status:'live',token:{ticker:'AVAX',chain:'Avalanche C-Chain',note:'L1代币 · Dinari Financial Network底层'},x:'avax',layer:'底层链',desc:'日本Progmat迁移至Avalanche L1，Dinari基于Avalanche建链，复星FUSD等亚洲机构采用。代币化证券基础设施的重要底层选择。',opportunity:'关注Dinari Financial Network进展和更多机构选择Avalanche子网。'},
+  {name:'Arbitrum / ARB',role:'底层链 · Robinhood Chain基础',status:'live',token:{ticker:'ARB',chain:'Arbitrum One',note:'L2治理代币 · Robinhood/Dinari生态'},x:'arbitrum',layer:'底层链',desc:'Robinhood Chain和代币化股票的底层技术栈。Robinhood测试网首周处理400万笔交易。Dinari也基于Arbitrum构建。',opportunity:'Robinhood Chain主网2026H2上线是关键催化剂。关注ARB生态TVL和交易量。'},
+  {name:'Ethereum / ETH',role:'底层层 · L2安全层',status:'live',token:{ticker:'ETH',chain:'Ethereum',note:'L1代币 · 间接受益于L2生态'},x:'ethereum',layer:'底层链',desc:'作为Arbitrum/Base/Optimism等L2的安全层间接受益。JPMorgan代币化基金已部署在Ethereum主网。',opportunity:'间接受益，关注L2采用趋势和以太坊生态在机构端的渗透。'},
+  {name:'Ondo Finance / ONDO',role:'受益标的 · 代币化证券先行者',status:'live',token:{ticker:'ONDO',chain:'Ethereum',note:'治理代币 · 正在走SEC完整披露流程'},x:'OndoFinance',layer:'受益标的',desc:'通过Ondo Global Markets采用证券化包装路径。正在走SEC完整披露流程以面向美国零售用户。代币化国债产品TVL领先。',opportunity:'SEC披露流程进展是关键催化剂。ONDO已在主流交易所交易。'},
+  {name:'Optimism / OP',role:'底层链 · Coinbase Base基础',status:'live',token:{ticker:'OP',chain:'Optimism',note:'L2治理代币 · Base(Coinbase)底层技术'},x:'Optimism',layer:'底层链',desc:'Coinbase的Base链基于Optimism OP Stack构建。如果Coinbase通过Base进行代币化股票分发，OP生态间接受益。',opportunity:'关注Coinbase代币化股票的底层选择确认和Base链生态发展。'},
+  {name:'Robinhood Chain',role:'分发层 · 自建链',status:'plan',token:{ticker:'???',chain:'Arbitrum L3',note:'测试网2026.02上线 · 主网2026H2 · 可能发治理代币'},x:'RobinhoodApp',layer:'分发',desc:'Robinhood Chain测试网已上线（首周400万笔交易），基于Arbitrum。已在欧洲推出200+代币化股票。CEO称代币化是"无法阻挡的货运火车"。',opportunity:'⭐ 高优先级。主网2026H2上线，自建链大概率发代币。关注测试网活跃度、空投条件（链上交互、代币化股票交易量）。提前做链上交互。'},
+  {name:'Coinbase / Base',role:'分发层 · Base链生态',status:'plan',token:{ticker:'???',chain:'Base (OP Stack)',note:'Base目前无代币 · COIN已上市 · 代币化股票即将推出'},x:'coinbase',layer:'分发',desc:'拥有Base链（基于Optimism）。2025年底推出代币化股票（美国用户）。正探索通过独立实体绕开NMS法规 — 可能是Base + Aerodrome DEX结构。',opportunity:'⭐ 高优先级。Base链至今未发代币但有强烈预期。做Base链上交互（桥接、DEX交易、NFT）。同时关注COIN股票。'},
+  {name:'Kraken',role:'分发层 · Nasdaq全球分发伙伴',status:'rumor',token:{ticker:'???',chain:'未知',note:'已获Fed Master Account · Citadel投2亿 · IPO/发币均有可能'},x:'kraken',layer:'分发',desc:'Nasdaq全球分发合作伙伴。已获美联储Master Account（加密交易所罕见）。Citadel Securities投资2亿（估值200亿）。正在扩展欧洲证券业务。',opportunity:'⭐ 高优先级。IPO或发币都有可能。关注Kraken上新产品（代币化股票）、可能的链上积分/忠诚度计划。'},
+  {name:'Securitize',role:'交易层 · NYSE首个数字转让代理',status:'rumor',token:{ticker:'CEPT?',chain:'多链',note:'母公司CEPT · AUM $4B+ · 已有合规壳'},x:'Securitize',layer:'交易',desc:'2026.03.24与NYSE签署MoU，首个数字转让代理。AUM超40亿，与BlackRock（BUIDL）、Apollo、KKR合作。母公司Securitize Markets Holdings（CEPT）。',opportunity:'已有上市壳CEPT，可能走代币化路径或传统IPO。关注Q3 2026机构试点启动后的动向。'},
+  {name:'Canton Network',role:'结算层 · DTCC首选链',status:'rumor',token:{ticker:'???',chain:'Canton',note:'Digital Asset开发 · BlackRock/Goldman/Citadel投资 · 许可链'},x:'canton_network',layer:'结算',desc:'DTCC选定的首条底层链。许可制、隐私优先，专为机构金融设计。投资方包括BlackRock、Goldman Sachs、Citadel、Nasdaq。许可链通常不发公开代币，但可能有治理/质押代币。',opportunity:'许可链发公开代币概率较低，但如果发行将是重磅事件。关注Canton基金会治理结构演变。'},
+  {name:'Dinari',role:'受益标的 · 代币化股票"DTCC"',status:'rumor',token:{ticker:'???',chain:'Avalanche / Arbitrum',note:'FINRA注册 · BitGo/VanEck验证节点 · 非上市'},x:'dinari_io',layer:'受益标的',desc:'已获FINRA经纪商注册，为Gemini提供代币化基础设施后端。基于Avalanche构建Dinari Financial Network，定位为代币化股票的"DTCC"。',opportunity:'⭐ 高优先级。非上市但定位独特（代币化股票基础设施），发币概率高。关注Dinari Financial Network测试网和积分计划。做链上交互。'},
+  {name:'Digital Asset Holdings',role:'受益标的 · Canton技术提供方',status:'rumor',token:{ticker:'???',chain:'Canton',note:'非上市 · 华尔街巨头投资 · 可能IPO'},x:'DigitalAssetCom',layer:'受益标的',desc:'Canton Network技术提供方，DTCC代币化服务核心技术合作伙伴。获BlackRock、Goldman Sachs、Citadel Securities、Nasdaq等投资。',opportunity:'IPO可能性大于发币。关注DTCC Canton MVP上线（2026H1）后的融资动态。'},
+  {name:'Wells Fargo WFUSD',role:'资金层 · 代币化存款/稳定币',status:'rumor',token:{ticker:'WFUSD?',chain:'未知',note:'已向USPTO提交商标申请'},x:'WellsFargo',layer:'资金',desc:'Wells Fargo向USPTO提交WFUSD加密相关商标申请，暗示可能推出代币化存款或稳定币。跟随JPMorgan类似路径。',opportunity:'银行稳定币通常不可投资（非公开代币），但信号意义重大 — 表明传统银行加速入场。'},
+  {name:'ICE / NYSE',role:'全链条核心 · 交易所母公司',status:'none',token:{ticker:'ICE',chain:'NYSE上市',note:'传统股票 · 市值700-800亿 · 不会发代币'},x:'ICE_Markets',layer:'核心',desc:'最核心受益者。布局涵盖交易所、清算所、数据服务全链条。战略投资OKX、Polymarket、MoonPay。',opportunity:'纯股票标的（NYSE:ICE），不会发代币。作为整个生态的定价锚。'},
+  {name:'Nasdaq',role:'交易层 · 竞争对手',status:'none',token:{ticker:'NDAQ',chain:'Nasdaq上市',note:'传统股票 · 不会发代币'},x:'Nasdaq',layer:'交易',desc:'2026年3月获SEC批准代币化交易。"同一订单簿"模式。与Kraken合作全球分发。',opportunity:'纯股票标的（NDAQ），不会发代币。'},
+  {name:'DTCC / DTC',role:'结算层 · 美国证券结算中枢',status:'none',token:null,x:'The_DTCC',layer:'结算',desc:'美国证券结算绝对中枢。2025年12月获SEC No-Action Letter，2026H2启动代币化试点。非上市、不会发代币。',opportunity:'不可投资。作为基础设施判断整个赛道进度的信号源。'},
+  {name:'BlackRock',role:'受益标的 · Canton投资方',status:'none',token:{ticker:'BLK',chain:'NYSE上市',note:'传统股票 · BUIDL代币化基金'},x:'BlackRock',layer:'受益标的',desc:'Canton/Digital Asset投资方。CEO Larry Fink称代币化是"市场基础设施的下一次大进化"。已推出BUIDL链上代币化基金。',opportunity:'纯股票标的（NYSE:BLK）。BUIDL基金可参与但面向机构。'},
+  {name:'BNY Mellon',role:'资金层 · ICE代币化存款',status:'none',token:{ticker:'BK',chain:'NYSE上市',note:'传统股票'},x:'BNYMellon',layer:'资金',desc:'与ICE合作开发代币化存款，支持非银行营业时间的资金转移和保证金履约。',opportunity:'纯股票标的（NYSE:BK）。'},
+];
+
+const STATUS_MAP = {
+  live:  {label:'已发币', cls:'s-live', color:'var(--accent-2)'},
+  plan:  {label:'计划中', cls:'s-plan', color:'var(--hot)'},
+  rumor: {label:'有传闻', cls:'s-rumor', color:'var(--purple)'},
+  none:  {label:'无代币', cls:'s-none', color:'var(--text-2)'}
+};
+
+function renderLayers() {
+  document.getElementById('layers-root').innerHTML = LAYERS.map((layer, idx) => `
+    <div class="layer${idx === 0 ? ' open' : ''}" id="ly-${layer.id}">
+      <div class="lh" onclick="toggleLayer('${layer.id}')">
+        <div class="lh-num" style="background:${layer.color}15;color:${layer.color};border:1px solid ${layer.color}30">${idx + 1}</div>
+        <div>
+          <div class="lh-title">${layer.title}</div>
+          <div class="lh-sub">${layer.sub}</div>
+        </div>
         <div class="lh-arrow">▶</div>
       </div>
       <div class="lb">
-        <div>${l.players.map((p,j)=>`<button class="ptag" onclick="event.stopPropagation();showD('${l.id}',${j},this)"><span class="dot" style="background:${l.color}"></span>${p.n}${p.b?`<span class="badge b-${p.b}">${BN[p.b]}</span>`:''}</button>`).join('')}</div>
-        <div class="dcard" id="dc-${l.id}"></div>
+        <div>${layer.players.map((player, playerIdx) => `
+          <button class="ptag" onclick="event.stopPropagation();showDetail('${layer.id}', ${playerIdx}, this)">
+            <span class="dot" style="background:${layer.color}"></span>${player.n}
+            ${player.b ? `<span class="badge b-${player.b}">${BN[player.b]}</span>` : ''}
+          </button>`).join('')}</div>
+        <div class="dcard" id="dc-${layer.id}"></div>
       </div>
     </div>`).join('');
 }
 
-function tglLayer(id){ document.getElementById('ly-'+id).classList.toggle('open'); }
+function toggleLayer(id) {
+  document.getElementById('ly-' + id).classList.toggle('open');
+}
 
-function showD(lid,idx,el){
-  const p = LAYERS.find(l=>l.id===lid).players[idx];
-  const dc = document.getElementById('dc-'+lid);
-  dc.innerHTML = `<strong>${p.n}</strong> — ${p.d}`;
-  dc.classList.add('show');
-  el.closest('.lb').querySelectorAll('.ptag').forEach(t=>t.classList.remove('sel'));
+function showDetail(layerId, idx, el) {
+  const player = LAYERS.find(item => item.id === layerId).players[idx];
+  const card = document.getElementById('dc-' + layerId);
+  card.innerHTML = `<strong>${player.n}</strong> — ${player.d}`;
+  card.classList.add('show');
+  el.closest('.lb').querySelectorAll('.ptag').forEach(node => node.classList.remove('sel'));
   el.classList.add('sel');
 }
 
-function renderWL(){
-  document.getElementById('wl-root').innerHTML = WATCHLIST.map(cat=>`
+function renderWatchlist() {
+  document.getElementById('wl-root').innerHTML = WATCHLIST.map(group => `
     <div class="wl-group open">
       <div class="wl-gh" onclick="this.parentElement.classList.toggle('open')">
-        <span>${cat.cat}</span><span class="cnt">${cat.items.length}</span>
+        <span>${group.cat}</span><span class="cnt">${group.items.length}</span>
       </div>
-      <div class="wl-gb">${cat.items.map(it=>`
-        <div class="wl-row" data-s="${(it.tk+' '+it.nm+' '+it.nt).toLowerCase()}">
-          <span class="wl-ticker">${it.tk}</span>
-          <span class="wl-name">${it.nm}</span>
-          <span class="wl-note">${it.nt}</span>
-          ${it.b?`<span class="badge b-${it.b}">${BN[it.b]}</span>`:''}
+      <div class="wl-gb">${group.items.map(item => `
+        <div class="wl-row" data-s="${(item.tk + ' ' + item.nm + ' ' + item.nt).toLowerCase()}">
+          <span class="wl-ticker">${item.tk}</span>
+          <span class="wl-name">${item.nm}</span>
+          <span class="wl-note">${item.nt}</span>
+          ${item.b ? `<span class="badge b-${item.b}">${BN[item.b]}</span>` : ''}
         </div>`).join('')}
       </div>
     </div>`).join('');
 }
 
-function filterWL(){
+function filterWL() {
   const q = document.getElementById('si').value.toLowerCase();
-  document.querySelectorAll('.wl-row').forEach(r=>{
-    r.style.display = r.dataset.s.includes(q)?'flex':'none';
+  document.querySelectorAll('.wl-row').forEach(row => {
+    row.style.display = row.dataset.s.includes(q) ? 'flex' : 'none';
   });
 }
 
-function renderTL(){
-  document.getElementById('tl-root').innerHTML = TIMELINE.map(t=>`
-    <li class="tl-item${t.m?' major':''}"><span class="tl-date">${t.d}</span><div class="tl-text">${t.t}</div></li>`).join('');
+function renderTimeline() {
+  document.getElementById('tl-root').innerHTML = TIMELINE.map(item => `
+    <li class="tl-item${item.m ? ' major' : ''}">
+      <span class="tl-date">${item.d}</span>
+      <div class="tl-text">${item.t}</div>
+    </li>`).join('');
 }
 
-function renderConn(){
-  document.getElementById('conn-root').innerHTML = CONNECTIONS.map(g=>`
+function renderConnections() {
+  document.getElementById('conn-root').innerHTML = CONNECTIONS.map(group => `
     <div class="conn-group">
-      <div class="conn-label">${g.cat}</div>
-      ${g.rows.map(c=>`<div class="conn-row"><span class="conn-from">${c.f}</span><span class="conn-arr">→</span><span class="conn-to">${c.t}</span><span class="conn-rel">${c.r}</span></div>`).join('')}
+      <div class="conn-label">${group.cat}</div>
+      ${group.rows.map(row => `
+        <div class="conn-row">
+          <span class="conn-from">${row.f}</span>
+          <span class="conn-arr">→</span>
+          <span class="conn-to">${row.t}</span>
+          <span class="conn-rel">${row.r}</span>
+        </div>`).join('')}
     </div>`).join('');
 }
 
-/* ═══════ TABS ═══════ */
-document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById(t.dataset.p).classList.add('active');
+function linkChip(url, label) {
+  if (!url) return '';
+  return `<a class="link-chip" href="${url}" target="_blank" rel="noreferrer">${label}</a>`;
+}
+
+function alphaRow(label, value) {
+  return `
+    <div class="meta-row">
+      <div class="meta-key">${label}</div>
+      <div class="meta-val">${value}</div>
+    </div>`;
+}
+
+function renderAlpha() {
+  document.getElementById('alpha-root').innerHTML = `
+    <div class="alpha-grid">
+      ${ALPHA.map(item => `
+        <article class="alpha-card">
+          <div class="alpha-head">
+            <div>
+              <div class="alpha-title">${item.name}</div>
+              <div class="alpha-sub">${item.sub}</div>
+            </div>
+            <div class="priority ${item.p}">${item.p.toUpperCase()}</div>
+          </div>
+          <div class="alpha-links">
+            ${linkChip(item.site, '官网')}
+            ${linkChip(item.twitter, '推特')}
+            ${linkChip(item.app, '任务入口')}
+          </div>
+          <div class="alpha-meta">
+            ${alphaRow('最新状态', item.status)}
+            ${alphaRow('一级投资方', item.investors)}
+            ${alphaRow('现在能做什么', item.actions)}
+            ${alphaRow('发币 / 积分预期', item.airdrop)}
+            ${alphaRow('主要风险', item.risk)}
+          </div>
+        </article>`).join('')}
+    </div>`;
+}
+
+/* ═══════ TOKEN TRACKER ═══════ */
+let tkFilter = 'all';
+
+function renderTkStats() {
+  const c = {live:0, plan:0, rumor:0, none:0};
+  PROJECTS.forEach(p => c[p.status]++);
+  document.getElementById('tk-stats').innerHTML = Object.entries(STATUS_MAP).map(([k,v]) =>
+    `<span class="tk-stat"><span class="dot" style="background:${v.color}"></span>${v.label} <strong>${c[k]}</strong></span>`
+  ).join('');
+}
+
+function renderTkCards() {
+  const list = tkFilter === 'all' ? PROJECTS : PROJECTS.filter(p => p.status === tkFilter);
+  document.getElementById('tk-cards').innerHTML = list.map(p => {
+    const s = STATUS_MAP[p.status];
+    return `
+    <div class="tk-card">
+      <div class="tk-card-top">
+        <div><div class="tk-card-name">${p.name}</div><div class="tk-card-role">${p.role}</div></div>
+        <div class="tk-card-status ${s.cls}">${s.label}</div>
+      </div>
+      <div class="tk-card-body">${p.desc}</div>
+      ${p.token ? `<div class="tk-token-row"><span class="tk-token-ticker">${p.token.ticker}</span><span class="tk-token-info">${p.token.chain}</span><span class="tk-token-note">${p.token.note}</span></div>` : ''}
+      <div class="tk-opp" style="background:${p.status==='none'?'rgba(255,255,255,.02)':'var(--hot-dim)'};color:${p.status==='none'?'var(--text-2)':'var(--hot)'}">
+        <strong style="color:inherit">参与策略：</strong>${p.opportunity}
+      </div>
+      <div class="tk-card-foot">
+        <span class="tk-tag">${p.layer}</span>
+        ${p.x ? `<a class="tk-xlink" href="https://x.com/${p.x}" target="_blank" rel="noopener">@${p.x}</a>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function initTkFilters() {
+  document.querySelectorAll('.tk-fbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tk-fbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      tkFilter = btn.dataset.tf;
+      renderTkCards();
+    });
+  });
+}
+
+function renderRisks() {
+  document.getElementById('risk-root').innerHTML = `
+    <div class="risk-grid">
+      ${RISKS.map(item => `
+        <article class="risk-card">
+          <div class="risk-top">
+            <div class="risk-title">${item.title}</div>
+            <div class="risk-level ${item.lvl}">${item.lvl === 'high' ? '高' : item.lvl === 'mid' ? '中' : '低'}</div>
+          </div>
+          <div class="risk-text">${item.text}</div>
+        </article>`).join('')}
+    </div>`;
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(node => node.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(node => node.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.p).classList.add('active');
   });
 });
 
-/* ═══════ INIT ═══════ */
-renderLayers();
-renderWL();
-renderTL();
-renderConn();
+/*
+ * CHANGELOG
+ * ---------
+ * 2026.05.01 — 补充发币/任务机会、一级投资方、官网/推特、风险提示
+ * 2026.03.20 — 初版发布
+ */
 
-/* ═══════ LIVE PRICES ═══════ */
-fetch('../data/nyse-latest.json').then(r=>r.json()).then(d=>{
-  const box = document.getElementById('live-prices');
-  if(!d.prices) return;
-  const tks = Object.entries(d.prices);
-  box.innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <div style="font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent-2)">► 关键标的实时价格</div>
-      <div style="font-size:11px;color:var(--text-2);font-family:var(--mono)">${d.date} 更新</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px">
-      ${tks.map(([tk,v])=>{
-        const c = v.change_pct>0?'var(--accent-2)':v.change_pct<0?'var(--danger)':'var(--text-1)';
-        const sign = v.change_pct>0?'+':'';
-        return `<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-            <span style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text-0)">${tk}</span>
-            <span style="font-size:11px;color:${c};font-family:var(--mono)">${sign}${v.change_pct}%</span>
-          </div>
-          <div style="font-size:10px;color:var(--text-2)">${v.name}</div>
-          <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text-0);margin-top:4px">$${v.price}</div>
-        </div>`;
-      }).join('')}
-    </div>`;
-}).catch(()=>{});
+renderAlpha();
+renderTkStats();
+renderTkCards();
+initTkFilters();
+renderLayers();
+renderWatchlist();
+renderTimeline();
+renderConnections();
+renderRisks();
+
+// ── 实时行情 ──
+fetch('../data/nyse-latest.json')
+  .then(r => r.json())
+  .then(data => {
+    const el = document.getElementById('live-prices');
+    if (!data.prices) { el.style.display = 'none'; return; }
+    let html = `<span class="lp-date">${data.date} 行情</span>`;
+    for (const [tk, info] of Object.entries(data.prices)) {
+      const chg = info.change_pct;
+      const cls = chg > 0 ? 'lp-up' : chg < 0 ? 'lp-dn' : 'lp-flat';
+      const sign = chg > 0 ? '+' : '';
+      html += `<span class="lp-item"><span class="lp-tk">${tk}</span><span class="lp-pr">$${info.price}</span><span class="lp-chg ${cls}">${sign}${chg}%</span></span>`;
+    }
+    if (data.has_update) html += `<span style="color:var(--hot);margin-left:auto">● 有新动态</span>`;
+    el.innerHTML = html;
+  })
+  .catch(() => {
+    document.getElementById('live-prices').style.display = 'none';
+  });
 </script>
 </body>
 </html>

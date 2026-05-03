@@ -1,5 +1,5 @@
 {
-  "score": 10.3,
+  "score": 10.1,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 102.5,
+      "current": 101.94,
       "base": 75,
-      "deviation_pct": 36.7,
+      "deviation_pct": 35.9,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 269.4
+      "contribution": 257.8
     },
     {
       "variable": "usdjpy",
@@ -49,20 +49,20 @@
   "significant_deviations": [
     {
       "name": "WTI油价",
-      "current": 102.5,
+      "current": 101.94,
       "base": 75,
-      "deviation_pct": 36.7,
+      "deviation_pct": 35.9,
       "direction": "偏高",
       "level": "显著偏离"
     },
     {
       "name": "天然气TTF",
-      "current": 45.0,
+      "current": 45.77,
       "base": 35,
-      "deviation_pct": 28.6,
+      "deviation_pct": 30.8,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-05-02 09:03"
+  "timestamp": "2026-05-03 09:18"
 }

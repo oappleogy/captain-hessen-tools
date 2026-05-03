@@ -1,0 +1,88 @@
+{
+  "last_updated": "2026-04-30",
+  "next_update": "2026-05-08",
+  "data_window": "1950-01 ~ 2026-04",
+  "current_state": {
+    "label": "中性偏暖 · Warm Neutral",
+    "phase": "neutral_warm",
+    "intensity": "—",
+    "alert": "El Niño Watch",
+    "alert_note": "CPC 已发布厄尔尼诺观察预警，2026 NDJ 形成厄尔尼诺概率 67%",
+    "summary": "继 2024–25 弱拉尼娜结束后，赤道太平洋已回到 ENSO 中性区间；近三个月海表温度异常呈现稳定升温迹象，中模式动力模型一致指向 2026 下半年向厄尔尼诺方向演化。"
+  },
+  "indicators": [
+    {
+      "code": "ONI",
+      "name": "Oceanic Niño Index",
+      "name_zh": "海洋尼诺指数",
+      "value": 0.3,
+      "unit": "°C",
+      "window": "FMA 2026",
+      "trend": [-0.7, -0.6, -0.5, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.2, 0.3, 0.3],
+      "thresholds": { "el_nino": 0.5, "la_nina": -0.5 },
+      "source": "NOAA CPC · Niño 3.4 ERSSTv5 三月滑动均值"
+    },
+    {
+      "code": "N34_SST",
+      "name": "Niño 3.4 SST Anomaly",
+      "name_zh": "Niño 3.4 区海温异常",
+      "value": 0.5,
+      "unit": "°C",
+      "window": "Week of 2026-04-26",
+      "trend": [-0.9, -0.8, -0.7, -0.5, -0.4, -0.2, -0.1, 0.1, 0.2, 0.3, 0.4, 0.5],
+      "thresholds": { "el_nino": 0.5, "la_nina": -0.5 },
+      "source": "NOAA OISST v2.1 周度"
+    },
+    {
+      "code": "SOI",
+      "name": "Southern Oscillation Index",
+      "name_zh": "南方涛动指数",
+      "value": -3.2,
+      "unit": "",
+      "window": "30-day · 2026-04",
+      "trend": [4.1, 3.8, 2.5, 1.6, 0.4, -0.2, -1.1, -1.9, -2.3, -2.6, -3.0, -3.2],
+      "thresholds": { "el_nino": -7, "la_nina": 7 },
+      "note": "负值偏向厄尔尼诺，正值偏向拉尼娜",
+      "source": "BoM Australia 30-day SOI"
+    },
+    {
+      "code": "MEI_V2",
+      "name": "Multivariate ENSO Index v2",
+      "name_zh": "多变量 ENSO 指数 v2",
+      "value": 0.4,
+      "unit": "",
+      "window": "MA 2026 双月",
+      "trend": [-0.8, -0.7, -0.5, -0.4, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.3, 0.4],
+      "thresholds": { "el_nino": 0.5, "la_nina": -0.5 },
+      "source": "NOAA PSL · MEI.v2"
+    }
+  ],
+  "forecast": [
+    { "season": "AMJ 26", "la_nina": 10, "neutral": 60, "el_nino": 30 },
+    { "season": "MJJ 26", "la_nina": 10, "neutral": 55, "el_nino": 35 },
+    { "season": "JJA 26", "la_nina": 8,  "neutral": 50, "el_nino": 42 },
+    { "season": "JAS 26", "la_nina": 8,  "neutral": 45, "el_nino": 47 },
+    { "season": "ASO 26", "la_nina": 7,  "neutral": 40, "el_nino": 53 },
+    { "season": "SON 26", "la_nina": 5,  "neutral": 35, "el_nino": 60 },
+    { "season": "OND 26", "la_nina": 5,  "neutral": 30, "el_nino": 65 },
+    { "season": "NDJ 26-27", "la_nina": 5, "neutral": 28, "el_nino": 67 }
+  ],
+  "history": [
+    { "event": "1982-83", "type": "极强厄尔尼诺", "oni_peak": 2.2, "duration_mo": 16, "damage_usd_b": 13, "highlight": "澳洲千年大旱、秘鲁洪灾、全球饥荒压力" },
+    { "event": "1997-98", "type": "极强厄尔尼诺", "oni_peak": 2.4, "duration_mo": 13, "damage_usd_b": 35, "highlight": "印尼森林大火 · 美国冬季异常 · 大宗商品全面波动" },
+    { "event": "2009-10", "type": "中等厄尔尼诺", "oni_peak": 1.6, "duration_mo": 10, "damage_usd_b": 8,  "highlight": "印度季风偏弱、糖价两年新高" },
+    { "event": "2015-16", "type": "极强厄尔尼诺", "oni_peak": 2.6, "duration_mo": 19, "damage_usd_b": 42, "highlight": "全球均温创纪录、南亚高温干旱、中美洲旱灾迁徙潮" },
+    { "event": "2023-24", "type": "强厄尔尼诺",   "oni_peak": 2.0, "duration_mo": 12, "damage_usd_b": 28, "highlight": "巴拿马运河大幅减航 · 巴西大豆减产 · 全球均温首破 1.5°C" },
+    { "event": "2024-25", "type": "弱拉尼娜",     "oni_peak": -0.7, "duration_mo": 6,  "damage_usd_b": 4,  "highlight": "美洲大豆/玉米带湿润 · 西太平洋台风偏多" },
+    { "event": "2026-27", "type": "形成中(预测)", "oni_peak": null, "duration_mo": null, "damage_usd_b": null, "highlight": "动力模型多指向中等强度厄尔尼诺，巅峰可能落在 NDJ 2026" }
+  ],
+  "watch_windows": [
+    { "date": "2026-05-08", "tag": "数据", "label": "NOAA CPC ENSO Diagnostic Discussion (月度)" },
+    { "date": "2026-05-15", "tag": "数据", "label": "IRI/CPC ENSO Quick Look 多模型集合预测" },
+    { "date": "2026-06-12", "tag": "数据", "label": "CPC 月度更新 · 有概率正式升级为 El Niño Advisory" },
+    { "date": "2026-07-01", "tag": "季节", "label": "印度西南季风进入活跃期 · 关注降水偏离常年值 ±%" },
+    { "date": "2026-08-15", "tag": "季节", "label": "巴西中部进入开种窗口 · 厄尔尼诺往年此时降水偏多" },
+    { "date": "2026-09-30", "tag": "季节", "label": "印尼/马来 9-10 月旱季 · 棕榈油单产与森林火灾风险监测" },
+    { "date": "2026-11-15", "tag": "峰值", "label": "厄尔尼诺通常 NDJ 达峰 · 北美冬季气温/天然气需求观察" }
+  ]
+}

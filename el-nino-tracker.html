@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>厄尔尼诺现象追踪 · ENSO Tracker · 黑森船长</title>
+<meta name="theme-color" content="#061421">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050f1c;
+  --bg2: #08182a;
+  --card: #0c2237;
+  --card-hover: #102b46;
+  --border: rgba(140,190,235,0.10);
+  --border-strong: rgba(140,190,235,0.22);
+  --text: #e6f0f9;
+  --text2: #94aec8;
+  --text3: #5d7894;
+
+  --hot: #ff6b3d;
+  --hot2: #ff9f43;
+  --cool: #3da9fc;
+  --cool2: #5dc4ff;
+  --neutral: #8a9bae;
+  --gold: #f0c040;
+  --green: #34d058;
+  --red: #ef4d4d;
+  --amber: #f59e0b;
+  --purple: #a78bfa;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', 'Noto Serif SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 80% -10%, rgba(255,107,61,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 110%, rgba(61,169,252,0.08) 0%, transparent 55%);
+  background-attachment: fixed;
+}
+.back-link {
+  position: fixed; top: 12px; left: 16px; z-index: 100;
+  color: var(--text2); text-decoration: none; font-size: 13px;
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(8,24,42,0.75); backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  transition: color 0.2s, border-color 0.2s;
+}
+.back-link:hover { color: var(--text); border-color: var(--border-strong); }
+.watermark {
+  position: fixed; bottom: 16px; right: 18px; z-index: 0;
+  font-size: 11px; color: rgba(140,190,235,0.10); font-weight: 700;
+  letter-spacing: 2px; pointer-events: none;
+}
+
+.container { max-width: 1180px; margin: 0 auto; padding: 56px 22px 80px; position: relative; z-index: 1; }
+
+/* HEADER */
+header { margin-bottom: 28px; }
+.brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--gold); letter-spacing: 0.35em;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.brand::before { content: '✦ '; opacity: 0.7; }
+h1 {
+  font-family: 'Noto Serif SC', serif; font-weight: 700;
+  font-size: clamp(26px, 4.4vw, 40px); line-height: 1.2; margin-bottom: 8px;
+}
+h1 .sub {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.42em; color: var(--cool2); font-weight: 500;
+  letter-spacing: 0.18em; margin-left: 14px; vertical-align: middle;
+}
+.subtitle { color: var(--text2); font-size: 14.5px; max-width: 760px; line-height: 1.65; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: 10px 18px;
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text3); letter-spacing: 0.05em;
+}
+.meta b { color: var(--text2); font-weight: 500; margin-right: 4px; }
+
+/* SECTION */
+section { margin-bottom: 36px; }
+.sec-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.sec-head h2 {
+  font-family: 'Noto Serif SC', serif; font-size: 18px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-head h2 .icon { font-size: 18px; }
+.sec-head .tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 9px; border: 1px solid var(--border); border-radius: 999px;
+}
+
+/* HERO STATE */
+.hero-state {
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 18px;
+  background: linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 26px;
+  position: relative; overflow: hidden;
+}
+.hero-state::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--cool) 0%, var(--neutral) 50%, var(--hot) 100%);
+}
+@media (max-width: 760px) { .hero-state { grid-template-columns: 1fr; } }
+
+.hero-left .pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--hot2); letter-spacing: 0.12em;
+  padding: 4px 11px; border-radius: 999px;
+  border: 1px solid rgba(255,159,67,0.35); background: rgba(255,107,61,0.08);
+}
+.hero-left .pill .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--hot2); box-shadow: 0 0 10px var(--hot2);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse { 50% { opacity: 0.4; } }
+.state-title {
+  font-family: 'Noto Serif SC', serif; font-size: 30px; font-weight: 700;
+  margin: 14px 0 6px; line-height: 1.2;
+}
+.state-summary { font-size: 13.5px; color: var(--text2); line-height: 1.75; }
+.alert-note {
+  margin-top: 14px; padding: 10px 14px;
+  background: rgba(255,107,61,0.08);
+  border-left: 3px solid var(--hot2);
+  border-radius: 0 8px 8px 0;
+  font-size: 12.5px; color: var(--text); line-height: 1.6;
+}
+
+/* ENSO meter */
+.meter-wrap { display: flex; flex-direction: column; gap: 12px; }
+.meter-label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text3); letter-spacing: 0.06em;
+}
+.meter-label .val {
+  font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600;
+  color: var(--text);
+}
+.meter-bar {
+  position: relative; height: 14px;
+  background: linear-gradient(90deg,
+    var(--cool) 0%, var(--cool2) 28%, #2a3e55 44%, #2a3e55 56%, var(--hot2) 72%, var(--hot) 100%);
+  border-radius: 999px; overflow: visible;
+}
+.meter-bar::before, .meter-bar::after {
+  content: ''; position: absolute; top: -3px; bottom: -3px; width: 1px;
+  background: rgba(255,255,255,0.3);
+}
+.meter-bar::before { left: 44%; }
+.meter-bar::after { left: 56%; }
+.meter-pin {
+  position: absolute; top: -4px; bottom: -4px; width: 3px;
+  background: #fff; border-radius: 2px;
+  box-shadow: 0 0 12px rgba(255,255,255,0.7);
+}
+.meter-axis {
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text3); padding: 0 2px;
+}
+.meter-axis span:nth-child(2) { color: var(--cool2); }
+.meter-axis span:nth-child(4) { color: var(--hot2); }
+
+.spark-wrap {
+  background: rgba(0,0,0,0.18); border-radius: 10px; padding: 12px 14px;
+}
+.spark-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 11px; color: var(--text3); margin-bottom: 6px;
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+}
+.spark-head b { color: var(--text2); font-weight: 500; }
+.spark-svg { display: block; width: 100%; height: 64px; }
+
+/* INDICATORS */
+.ind-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+}
+@media (max-width: 880px) { .ind-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .ind-grid { grid-template-columns: 1fr; } }
+.ind-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.ind-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.ind-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.ind-code {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 0.12em; color: var(--cool2); font-weight: 600;
+}
+.ind-window {
+  font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+  color: var(--text3); letter-spacing: 0.05em;
+}
+.ind-name { font-size: 12.5px; color: var(--text2); margin-bottom: 12px; }
+.ind-value-row {
+  display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px;
+}
+.ind-value {
+  font-family: 'JetBrains Mono', monospace; font-size: 28px;
+  font-weight: 600; line-height: 1; letter-spacing: -0.02em;
+}
+.ind-unit { font-size: 12px; color: var(--text3); }
+.ind-state {
+  display: inline-block; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; padding: 2px 8px; border-radius: 4px;
+  letter-spacing: 0.06em; margin-left: auto;
+}
+.ind-state.warm { background: rgba(255,107,61,0.15); color: var(--hot2); }
+.ind-state.cool { background: rgba(61,169,252,0.15); color: var(--cool2); }
+.ind-state.neut { background: rgba(138,155,174,0.15); color: var(--text2); }
+.ind-spark { width: 100%; height: 32px; display: block; margin-bottom: 8px; }
+.ind-foot { font-size: 10.5px; color: var(--text3); line-height: 1.55; }
+
+/* FORECAST */
+.fc-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 22px;
+}
+.fc-legend {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text2); margin-bottom: 16px;
+}
+.fc-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.fc-legend i {
+  width: 10px; height: 10px; border-radius: 2px; display: inline-block;
+}
+.fc-bars { display: flex; gap: 10px; align-items: flex-end; min-height: 220px; }
+.fc-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+.fc-stack {
+  width: 100%; max-width: 50px;
+  display: flex; flex-direction: column; border-radius: 6px;
+  overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  height: 200px;
+}
+.fc-seg {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: rgba(255,255,255,0.92); font-weight: 600;
+  min-height: 0; transition: filter 0.2s;
+}
+.fc-seg:hover { filter: brightness(1.15); }
+.fc-seg.en { background: linear-gradient(180deg, var(--hot) 0%, var(--hot2) 100%); }
+.fc-seg.ne { background: linear-gradient(180deg, #6b7e96 0%, #4f6275 100%); }
+.fc-seg.la { background: linear-gradient(180deg, var(--cool2) 0%, var(--cool) 100%); }
+.fc-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  color: var(--text2); letter-spacing: 0.04em;
+}
+.fc-foot {
+  margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border);
+  font-size: 11.5px; color: var(--text3); line-height: 1.65;
+}
+
+/* HISTORY TABLE */
+.hist-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 6px 6px;
+  overflow-x: auto;
+}
+table.hist {
+  width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 720px;
+}
+table.hist th, table.hist td { padding: 11px 14px; text-align: left; }
+table.hist thead th {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.08em; color: var(--text3); font-weight: 500;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+table.hist tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+table.hist tbody tr:last-child { border-bottom: none; }
+table.hist tbody tr:hover { background: rgba(140,190,235,0.04); }
+table.hist tbody tr.current { background: rgba(255,107,61,0.06); }
+.hist-event {
+  font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--text);
+}
+.hist-type {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  padding: 3px 8px; border-radius: 4px; letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.hist-type.ev-strong { background: rgba(239,77,77,0.12); color: var(--red); }
+.hist-type.ev-mod { background: rgba(245,158,11,0.12); color: var(--amber); }
+.hist-type.ev-weak { background: rgba(167,139,250,0.12); color: var(--purple); }
+.hist-type.ev-cool { background: rgba(61,169,252,0.12); color: var(--cool2); }
+.hist-type.ev-fcst { background: rgba(255,107,61,0.12); color: var(--hot2); border: 1px dashed rgba(255,107,61,0.4); }
+.hist-num {
+  font-family: 'JetBrains Mono', monospace; font-weight: 500;
+  color: var(--text);
+}
+.hist-num.dim { color: var(--text3); }
+.hist-note { color: var(--text2); font-size: 12px; line-height: 1.55; }
+
+/* IMPACT GRID */
+.impact-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+}
+@media (max-width: 760px) { .impact-grid { grid-template-columns: 1fr; } }
+.imp-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.imp-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.imp-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--bar-color, var(--cool2));
+  opacity: 0.7;
+}
+.imp-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+}
+.imp-icon { font-size: 22px; }
+.imp-title {
+  font-family: 'Noto Serif SC', serif; font-size: 15.5px; font-weight: 600;
+}
+.imp-sub {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.imp-section {
+  display: grid; grid-template-columns: 60px 1fr; gap: 10px;
+  padding: 10px 0; border-top: 1px dashed var(--border);
+}
+.imp-section:first-of-type { border-top: none; padding-top: 4px; }
+.imp-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  font-weight: 600; padding: 4px 0; text-align: center;
+  border-radius: 4px; letter-spacing: 0.04em;
+  height: fit-content;
+}
+.imp-tag.en { background: rgba(255,107,61,0.13); color: var(--hot2); }
+.imp-tag.la { background: rgba(61,169,252,0.13); color: var(--cool2); }
+.imp-list { font-size: 12.5px; color: var(--text2); line-height: 1.7; }
+.imp-list b { color: var(--text); font-weight: 600; }
+.imp-list .arrow-up { color: var(--hot2); }
+.imp-list .arrow-down { color: var(--cool2); }
+
+/* WATCH WINDOWS */
+.watch-list {
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px;
+}
+.watch-item {
+  display: grid; grid-template-columns: 110px 64px 1fr;
+  align-items: center; gap: 14px;
+  padding: 10px 12px; border-radius: 8px;
+  transition: background 0.15s;
+}
+.watch-item:hover { background: rgba(140,190,235,0.04); }
+.watch-date {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  font-weight: 500; color: var(--text);
+}
+.watch-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+  letter-spacing: 0.08em; text-align: center;
+  padding: 3px 0; border-radius: 4px;
+}
+.watch-tag.t-data { background: rgba(61,169,252,0.13); color: var(--cool2); }
+.watch-tag.t-season { background: rgba(52,208,88,0.13); color: var(--green); }
+.watch-tag.t-peak { background: rgba(255,107,61,0.13); color: var(--hot2); }
+.watch-label { font-size: 12.5px; color: var(--text2); line-height: 1.55; }
+
+@media (max-width: 600px) {
+  .watch-item { grid-template-columns: 1fr; gap: 4px; padding: 12px; }
+  .watch-tag { justify-self: start; padding: 3px 9px; }
+}
+
+/* FOOTER */
+footer {
+  margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text3); line-height: 1.75;
+}
+footer .src-line { margin-bottom: 6px; }
+footer .src-line b { color: var(--text2); font-weight: 500; }
+footer .disc {
+  margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border);
+  font-style: italic;
+}
+
+/* LOADING */
+.loading {
+  text-align: center; padding: 32px;
+  font-family: 'JetBrains Mono', monospace; color: var(--text3); font-size: 12px;
+}
+</style>
+</head>
+<body>
+<a class="back-link" href="index.html">← 返回</a>
+<div class="watermark">黑森船长</div>
+
+<div class="container" id="container">
+  <div class="loading">加载 ENSO 数据…</div>
+</div>
+
+<script>
+(async function() {
+  const $ = (id) => document.getElementById(id);
+  const wrap = $('container');
+
+  function esc(s) {
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // ── Sparkline / trend renderer ──
+  function sparkline(values, opts = {}) {
+    const w = opts.width || 280, h = opts.height || 60;
+    const pad = 4;
+    if (!values || !values.length) return '';
+    const min = Math.min(...values, opts.min ?? Infinity);
+    const max = Math.max(...values, opts.max ?? -Infinity);
+    const range = (max - min) || 1;
+    const stepX = (w - pad * 2) / (values.length - 1 || 1);
+    const yOf = v => pad + (1 - (v - min) / range) * (h - pad * 2);
+    const pts = values.map((v, i) => [pad + i * stepX, yOf(v)]);
+    const path = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    const area = path + ' L' + pts[pts.length - 1][0].toFixed(1) + ' ' + (h - pad) + ' L' + pad + ' ' + (h - pad) + ' Z';
+    const last = pts[pts.length - 1];
+    const stroke = opts.stroke || '#5dc4ff';
+    const fill = opts.fill || 'rgba(93,196,255,0.14)';
+    let zeroLine = '';
+    if (min < 0 && max > 0) {
+      const zy = yOf(0);
+      zeroLine = `<line x1="${pad}" x2="${w - pad}" y1="${zy.toFixed(1)}" y2="${zy.toFixed(1)}" stroke="rgba(255,255,255,0.18)" stroke-dasharray="2 3"/>`;
+    }
+    const thr = opts.thresholds;
+    let thrLines = '';
+    if (thr) {
+      if (thr.el_nino !== undefined && thr.el_nino >= min && thr.el_nino <= max) {
+        const y = yOf(thr.el_nino);
+        thrLines += `<line x1="${pad}" x2="${w - pad}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,107,61,0.45)" stroke-dasharray="2 3"/>`;
+      }
+      if (thr.la_nina !== undefined && thr.la_nina >= min && thr.la_nina <= max) {
+        const y = yOf(thr.la_nina);
+        thrLines += `<line x1="${pad}" x2="${w - pad}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(61,169,252,0.45)" stroke-dasharray="2 3"/>`;
+      }
+    }
+    return `<svg class="${opts.cls || 'ind-spark'}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      ${zeroLine}${thrLines}
+      <path d="${area}" fill="${fill}" stroke="none"/>
+      <path d="${path}" fill="none" stroke="${stroke}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.6" fill="${stroke}"/>
+    </svg>`;
+  }
+
+  function indState(value, thr) {
+    if (!thr) return { cls: 'neut', label: '中性' };
+    if (value >= thr.el_nino) return { cls: 'warm', label: '厄尔尼诺' };
+    if (value <= thr.la_nina) return { cls: 'cool', label: '拉尼娜' };
+    return { cls: 'neut', label: '中性' };
+  }
+
+  // ENSO bar pin position based on Niño 3.4 SST anomaly. Map -3 .. +3°C to 0..100%
+  function pinPct(v) {
+    const clamped = Math.max(-3, Math.min(3, v));
+    return ((clamped + 3) / 6) * 100;
+  }
+
+  let data;
+  try {
+    const resp = await fetch('data/enso-tracker.json?t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    data = await resp.json();
+  } catch (e) {
+    wrap.innerHTML = '<div class="loading">数据加载失败：' + esc(e.message) + '</div>';
+    return;
+  }
+
+  const cs = data.current_state || {};
+  const inds = data.indicators || [];
+  const fc = data.forecast || [];
+  const hist = data.history || [];
+  const watch = data.watch_windows || [];
+  const sstInd = inds.find(i => i.code === 'N34_SST');
+  const sstVal = sstInd ? sstInd.value : 0;
+
+  // ── Header ──
+  let html = `
+    <header>
+      <div class="brand">BASEALPHA · 黑森船长</div>
+      <h1>厄尔尼诺现象追踪 <span class="sub">ENSO Tracker</span></h1>
+      <div class="subtitle">赤道太平洋海温异常 · 全球农业 / 能源 / 渔业 / 新兴市场传导地图。<br/>
+        每月跟踪 NOAA CPC、IRI、BoM 多源指标，并将信号映射到大宗与权益市场。</div>
+      <div class="meta">
+        <span><b>数据更新</b>${esc(data.last_updated || '—')}</span>
+        <span><b>下一节点</b>${esc(data.next_update || '—')}</span>
+        <span><b>样本窗口</b>${esc(data.data_window || '—')}</span>
+        <span><b>来源</b>NOAA CPC · NOAA PSL · BoM · IRI · ECMWF</span>
+      </div>
+    </header>
+  `;
+
+  // ── Hero state ──
+  html += `
+    <section>
+      <div class="hero-state">
+        <div class="hero-left">
+          <span class="pill"><span class="dot"></span>${esc(cs.alert || 'ENSO STATUS')}</span>
+          <div class="state-title">${esc(cs.label || '—')}</div>
+          <div class="state-summary">${esc(cs.summary || '')}</div>
+          ${cs.alert_note ? `<div class="alert-note"><b>${esc(cs.alert || '')}</b> · ${esc(cs.alert_note)}</div>` : ''}
+        </div>
+        <div class="meter-wrap">
+          <div>
+            <div class="meter-label">
+              <span>NIÑO 3.4 SST 异常 · 实时定位</span>
+              <span class="val">${sstVal >= 0 ? '+' : ''}${sstVal.toFixed(2)}°C</span>
+            </div>
+            <div class="meter-bar"><div class="meter-pin" style="left:${pinPct(sstVal).toFixed(1)}%"></div></div>
+            <div class="meter-axis"><span>−3°C</span><span>拉尼娜</span><span>中性</span><span>厄尔尼诺</span><span>+3°C</span></div>
+          </div>
+          ${sstInd ? `
+            <div class="spark-wrap">
+              <div class="spark-head"><span>过去 12 周 Niño 3.4 SST 异常</span><b>${esc(sstInd.window || '')}</b></div>
+              ${sparkline(sstInd.trend, { width: 320, height: 64, cls: 'spark-svg', stroke: '#ff9f43', fill: 'rgba(255,159,67,0.16)', thresholds: sstInd.thresholds })}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    </section>
+  `;
+
+  // ── Indicators ──
+  html += `
+    <section>
+      <div class="sec-head">
+        <h2><span class="icon">🌡️</span>核心指标 · Core Indicators</h2>
+        <span class="tag">5 阈值法</span>
+      </div>
+      <div class="ind-grid">
+        ${inds.map(ind => {
+          const st = indState(ind.value, ind.thresholds);
+          // SOI logic is reversed (negative = warm), patch it
+          let stUsed = st;
+          if (ind.code === 'SOI') {
+            if (ind.value <= -7) stUsed = { cls: 'warm', label: '厄尔尼诺' };
+            else if (ind.value >= 7) stUsed = { cls: 'cool', label: '拉尼娜' };
+            else stUsed = { cls: 'neut', label: '中性' };
+          }
+          const stroke = stUsed.cls === 'warm' ? '#ff9f43' : stUsed.cls === 'cool' ? '#5dc4ff' : '#94aec8';
+          const fill = stUsed.cls === 'warm' ? 'rgba(255,159,67,0.14)' : stUsed.cls === 'cool' ? 'rgba(93,196,255,0.14)' : 'rgba(148,174,200,0.10)';
+          const sign = ind.value >= 0 ? '+' : '';
+          return `
+          <div class="ind-card">
+            <div class="ind-top">
+              <span class="ind-code">${esc(ind.code)}</span>
+              <span class="ind-window">${esc(ind.window || '')}</span>
+            </div>
+            <div class="ind-name">${esc(ind.name_zh || ind.name)}</div>
+            <div class="ind-value-row">
+              <span class="ind-value">${sign}${ind.value.toFixed(2)}</span>
+              <span class="ind-unit">${esc(ind.unit || '')}</span>
+              <span class="ind-state ${stUsed.cls}">${esc(stUsed.label)}</span>
+            </div>
+            ${sparkline(ind.trend, { width: 240, height: 32, stroke: stroke, fill: fill, thresholds: ind.thresholds })}
+            <div class="ind-foot">${esc(ind.note || ind.source || '')}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </section>
+  `;
+
+  // ── Forecast ──
+  const fcMax = 100;
+  html += `
+    <section>
+      <div class="sec-head">
+        <h2><span class="icon">📈</span>季节概率预测 · CPC / IRI 集合</h2>
+        <span class="tag">${fc.length} 滑动窗口</span>
+      </div>
+      <div class="fc-card">
+        <div class="fc-legend">
+          <span><i style="background:linear-gradient(180deg,#ff6b3d,#ff9f43)"></i>厄尔尼诺 El Niño</span>
+          <span><i style="background:linear-gradient(180deg,#6b7e96,#4f6275)"></i>中性 Neutral</span>
+          <span><i style="background:linear-gradient(180deg,#5dc4ff,#3da9fc)"></i>拉尼娜 La Niña</span>
+        </div>
+        <div class="fc-bars">
+          ${fc.map(f => {
+            const en = f.el_nino || 0, ne = f.neutral || 0, la = f.la_nina || 0;
+            const enH = (en / fcMax) * 100;
+            const neH = (ne / fcMax) * 100;
+            const laH = (la / fcMax) * 100;
+            return `
+              <div class="fc-col">
+                <div class="fc-stack">
+                  <div class="fc-seg en" style="height:${enH.toFixed(1)}%" title="厄尔尼诺 ${en}%">${en >= 12 ? en + '%' : ''}</div>
+                  <div class="fc-seg ne" style="height:${neH.toFixed(1)}%" title="中性 ${ne}%">${ne >= 12 ? ne + '%' : ''}</div>
+                  <div class="fc-seg la" style="height:${laH.toFixed(1)}%" title="拉尼娜 ${la}%">${la >= 12 ? la + '%' : ''}</div>
+                </div>
+                <div class="fc-label">${esc(f.season)}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+        <div class="fc-foot">
+          <b style="color:var(--text2)">读图法 · </b>
+          每根柱代表三月滑动季 (e.g. ASO = Aug-Sep-Oct)；橙色段超过 50% 通常意味着 CPC 进入 <i>El Niño Watch / Advisory</i>。
+          阈值条件：Niño 3.4 区 SST 三月平均偏暖 ≥ 0.5°C 且大气耦合证据 (SOI / OLR / 信风减弱) 同步出现。
+        </div>
+      </div>
+    </section>
+  `;
+
+  // ── History ──
+  html += `
+    <section>
+      <div class="sec-head">
+        <h2><span class="icon">📜</span>历史强事件比对</h2>
+        <span class="tag">类比定位</span>
+      </div>
+      <div class="hist-card">
+        <table class="hist">
+          <thead>
+            <tr>
+              <th>事件</th>
+              <th>类型 / 强度</th>
+              <th>ONI 峰值</th>
+              <th>持续</th>
+              <th>损失估算</th>
+              <th>关键剧情</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${hist.map(h => {
+              const isFcst = (h.type || '').includes('预测');
+              const isCool = (h.type || '').includes('拉尼娜');
+              const isStrong = (h.oni_peak ?? 0) >= 1.5;
+              const isMod = (h.oni_peak ?? 0) >= 1 && (h.oni_peak ?? 0) < 1.5;
+              const cls = isFcst ? 'ev-fcst' : isCool ? 'ev-cool' : isStrong ? 'ev-strong' : isMod ? 'ev-mod' : 'ev-weak';
+              const oni = h.oni_peak == null ? '—' : (h.oni_peak >= 0 ? '+' : '') + h.oni_peak.toFixed(1);
+              const dur = h.duration_mo == null ? '—' : h.duration_mo + ' 月';
+              const dmg = h.damage_usd_b == null ? '—' : '$' + h.damage_usd_b + 'B';
+              return `
+                <tr class="${isFcst ? 'current' : ''}">
+                  <td class="hist-event">${esc(h.event)}</td>
+                  <td><span class="hist-type ${cls}">${esc(h.type)}</span></td>
+                  <td class="hist-num ${h.oni_peak == null ? 'dim' : ''}">${oni}${h.oni_peak == null ? '' : '°C'}</td>
+                  <td class="hist-num ${h.duration_mo == null ? 'dim' : ''}">${dur}</td>
+                  <td class="hist-num ${h.damage_usd_b == null ? 'dim' : ''}">${dmg}</td>
+                  <td class="hist-note">${esc(h.highlight || '')}</td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  `;
+
+  // ── Impact transmission grid ──
+  const impactCards = [
+    {
+      icon: '🌽', title: '农产品 · Agriculture',
+      sub: 'GRAINS · SOFTS · OILSEEDS',
+      color: '#f0c040',
+      en: [
+        '<b>棕榈油</b> 印尼/马来旱季缺水 → 单产 <span class="arrow-up">↑</span> 价格弹性 <span class="arrow-up">↑</span>',
+        '<b>糖</b> 印度/泰国甘蔗减产 → 国际糖价 <span class="arrow-up">↑</span>',
+        '<b>大豆/玉米</b> 阿根廷/南巴西雨水偏多 → 单产改善但收割物流受扰',
+        '<b>小麦</b> 澳洲东部干旱 → 出口配额收紧',
+        '<b>咖啡</b> 巴西米纳斯州干旱 → Arabica 价格 <span class="arrow-up">↑</span>',
+        '<b>大米</b> 东南亚/印度季风偏弱 → 出口禁令风险'
+      ],
+      la: [
+        '<b>玉米/大豆</b> 美国 Corn Belt 与南美干旱概率 <span class="arrow-up">↑</span>',
+        '<b>棕榈油</b> 东南亚降水偏多 → 单产恢复',
+        '<b>小麦</b> 澳洲产量回升、北美冬麦风险下降',
+        '<b>糖</b> 印度/巴西雨水改善 → 价格回落',
+      ]
+    },
+    {
+      icon: '⚡', title: '能源 · Energy',
+      sub: 'NATGAS · LNG · POWER · OIL',
+      color: '#ff9f43',
+      en: [
+        '<b>北美冬季气温</b> 偏暖 → 取暖天然气需求 <span class="arrow-down">↓</span> · HH 价格承压',
+        '<b>大西洋飓风</b> 风切变增强 → 形成偏少 → 墨湾原油/炼厂干扰风险 <span class="arrow-down">↓</span>',
+        '<b>东南亚 LNG</b> 高温抽湿 → 制冷电力 <span class="arrow-up">↑</span> JKM <span class="arrow-up">↑</span>',
+        '<b>水电</b> 巴西 / 哥伦比亚 / 委内瑞拉水库水位 <span class="arrow-down">↓</span> → 火电替代 → 区域电价',
+        '<b>巴拿马运河</b> Gatun 湖水位下降 → 通航船只数 <span class="arrow-down">↓</span> · LNG/LPG 绕航成本'
+      ],
+      la: [
+        '<b>北美冬季</b> 拉尼娜往年偏冷 → 取暖燃气需求 <span class="arrow-up">↑</span>',
+        '<b>大西洋飓风季</b> 偏强 → 墨湾油气供应中断概率 <span class="arrow-up">↑</span>',
+        '<b>水电</b> 拉美/北欧水库回补 → 区域电价回落',
+      ]
+    },
+    {
+      icon: '🐟', title: '渔业 / 海运 · Fisheries & Shipping',
+      sub: 'ANCHOVY · FISHMEAL · CANALS',
+      color: '#5dc4ff',
+      en: [
+        '<b>秘鲁鳀鱼配额</b> 上升流减弱 → 大幅削减 → 全球鱼粉价格 <span class="arrow-up">↑</span> · 水产/猪料替代成本 <span class="arrow-up">↑</span>',
+        '<b>南太平洋盐分</b> 异常 → 三文鱼养殖病害风险 <span class="arrow-up">↑</span> (智利)',
+        '<b>巴拿马运河通航</b> 干旱限制吃水 → 容量 <span class="arrow-down">↓</span> → 集装箱/能源运价 <span class="arrow-up">↑</span>',
+        '<b>加勒比/中美洲珊瑚白化</b> 渔业生态影响中长期延伸'
+      ],
+      la: [
+        '<b>秘鲁渔获量</b> 强上升流回归 → 鱼粉价格回落',
+        '<b>巴拿马运河</b> 雨季降水偏多 → 通航效率回升',
+        '<b>西太台风</b> 东亚航线偏多 → 短期物流扰动',
+      ]
+    },
+    {
+      icon: '💱', title: 'EM / 保险 · EM FX & Catastrophe',
+      sub: 'AUD · BRL · IDR · CAT BOND',
+      color: '#a78bfa',
+      en: [
+        '<b>AUD</b> 澳洲干旱 + 商品需求双向，传统弱势但需结合铁矿石',
+        '<b>BRL</b> 农产品出口短期受益，但水电不足 → 通胀回头风险',
+        '<b>IDR / MYR</b> 棕榈油价格利好出口，干旱赤字与森林火灾负面情绪并存',
+        '<b>巨灾再保</b> 大西洋飓风减弱 → CAT Bond 触发概率 <span class="arrow-down">↓</span>；东南亚火灾/水文险种保费 <span class="arrow-up">↑</span>',
+        '<b>美国玉米带保险</b> 干旱化解 → MPCI 赔付 <span class="arrow-down">↓</span>'
+      ],
+      la: [
+        '<b>AUD</b> 多雨 + 强商品 → 传统偏强',
+        '<b>大西洋飓风</b> 偏强 → 北美巨灾再保压力 <span class="arrow-up">↑</span>',
+        '<b>美国玉米带</b> 干旱概率 <span class="arrow-up">↑</span> → MPCI 赔付 <span class="arrow-up">↑</span>',
+      ]
+    }
+  ];
+
+  html += `
+    <section>
+      <div class="sec-head">
+        <h2><span class="icon">🌐</span>影响传导地图 · Transmission</h2>
+        <span class="tag">El Niño ↔ La Niña 双向</span>
+      </div>
+      <div class="impact-grid">
+        ${impactCards.map(c => `
+          <div class="imp-card" style="--bar-color:${c.color}">
+            <div class="imp-head"><span class="imp-icon">${c.icon}</span><span class="imp-title">${esc(c.title)}</span></div>
+            <div class="imp-sub">${esc(c.sub)}</div>
+            <div class="imp-section">
+              <span class="imp-tag en">El Niño</span>
+              <ul class="imp-list">${c.en.map(li => '<li>' + li + '</li>').join('')}</ul>
+            </div>
+            <div class="imp-section">
+              <span class="imp-tag la">La Niña</span>
+              <ul class="imp-list">${c.la.map(li => '<li>' + li + '</li>').join('')}</ul>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+
+  // ── Watch windows ──
+  html += `
+    <section>
+      <div class="sec-head">
+        <h2><span class="icon">🗓️</span>关键监测窗口 · Watch Calendar</h2>
+        <span class="tag">未来 9 个月</span>
+      </div>
+      <div class="watch-list">
+        ${watch.map(w => {
+          const tagCls = w.tag === '数据' ? 't-data' : w.tag === '峰值' ? 't-peak' : 't-season';
+          return `
+            <div class="watch-item">
+              <span class="watch-date">${esc(w.date)}</span>
+              <span class="watch-tag ${tagCls}">${esc(w.tag)}</span>
+              <span class="watch-label">${esc(w.label)}</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </section>
+  `;
+
+  // ── Footer ──
+  html += `
+    <footer>
+      <div class="src-line"><b>数据源</b>NOAA Climate Prediction Center (CPC) · NOAA PSL MEI.v2 · NOAA OISST v2.1 · BoM Australia ENSO Wrap-Up · IRI/CPC ENSO Quick Look · ECMWF SEAS5</div>
+      <div class="src-line"><b>方法</b>ONI 阈值法 (±0.5°C 且持续 5 个滑动季) · 多变量耦合验证 (SST + SOI + OLR + 信风) · 影响传导基于历史强事件回溯</div>
+      <div class="src-line"><b>更新节奏</b>NOAA CPC 每月第二个周四发布 ENSO Diagnostic Discussion · 本页随之刷新</div>
+      <div class="disc">本页为研究跟踪用，气候系统具备高度非线性和混沌特性；模型概率随月度更新；仅供分析参考，不构成任何投资或对冲建议。</div>
+    </footer>
+  `;
+
+  wrap.innerHTML = html;
+})();
+</script>
+</body>
+</html>

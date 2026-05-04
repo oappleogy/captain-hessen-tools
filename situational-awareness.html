@@ -97,9 +97,10 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
 
 <!-- Header -->
 <div class="header">
-  <div class="sub">SITUATIONAL AWARENESS · LEONARD BANEER</div>
+  <div class="sub">SITUATIONAL AWARENESS · LEOPOLD ASCHENBRENNER</div>
   <h1>阿申布伦纳的态势感知基金<br>押注AI"必经物理关卡"</h1>
-  <p>电力 × 算力租赁 × 矿工转型 × 光模块</p>
+  <p>电力 × 算力租赁 × 矿工转型 × 光模块 × 半导体上游</p>
+  <div style="margin-top:10px"><a href="aschenbrenner-paper.html" style="display:inline-block;padding:5px 12px;background:rgba(166,124,0,0.1);border:1px solid rgba(166,124,0,0.35);border-radius:14px;color:#a67c00;font-size:11px;font-weight:700;text-decoration:none">📜 论文逐章详解 →</a></div>
 </div>
 
 <!-- Tabs -->
@@ -331,45 +332,74 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
     </div>
   </div>
 
+  <div class="card" style="background:linear-gradient(135deg,rgba(166,124,0,0.06),rgba(37,99,235,0.04));border-left:3px solid #a67c00">
+    <div style="font-size:10px;color:#a67c00;font-weight:700;letter-spacing:1px;margin-bottom:5px">📜 论文校准 · 2026.05</div>
+    <div style="font-size:11px;line-height:1.7">
+      本次更新基于论文 PDF 原文(165 页)逐节复读, 新增 <strong>4 个分类</strong>: ⑨ 半导体上游 (TSMC 4x 产能 / p.80 Table 5) · ⑩ 国防+政府 AI ('The Project' / p.141) · ⑪ 网络与物理安全 ('Lock Down the Labs' / p.89) · ⑫ 天然气 + LNG ('最快可用电力' / p.77)。既有 8 类的来源说明也补上对应论文页码。详见 <a href="aschenbrenner-paper.html" style="color:#a67c00;text-decoration:underline;font-weight:700">📜 论文逐章详解</a>。
+    </div>
+  </div>
+
   <!-- Category 1: Nuclear / SMR -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>① 核电 & SMR · 5-10年解药</h2></div><div class="sh-sub">新建核电10年周期 → 现役核电稀缺 + SMR订单先行</div></div>
   <div class="card" id="cat-nuclear"></div>
-  <div class="src">逻辑: 单一GW级AI数据中心耗电相当于一座中型城市，电网+审批周期5年、新建核电10年。MSFT 2024.9 重启Three Mile Island、AWS 2024.3 收购Talen Susquehanna园区, 是"hyperscaler直接买核电"的先例。SMR燃料(HALEU)由Centrus独家供应，受地缘+技术双壁垒保护。风险: SMR部署延期、铀价波动、监管反复。</div>
+  <div class="src">论文锚点 (p.77 Table 4): 2030 年单集群 100GW &gt; 20% 美国电力。逻辑: 单一GW级AI数据中心耗电相当于一座中型城市，电网+审批周期5年、新建核电10年。MSFT 2024.9 重启Three Mile Island、AWS 2024.3 收购Talen Susquehanna园区, 是"hyperscaler直接买核电"的先例。SMR燃料(HALEU)由Centrus独家供应，受地缘+技术双壁垒保护。风险: SMR部署延期、铀价波动、监管反复。</div>
 
   <!-- Category 2: Merchant Power -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>② 商业发电 & 调峰 · 90天-3年填空</h2></div><div class="sh-sub">SOFC / 燃气轮机 / 储能 / 商业电力</div></div>
   <div class="card" id="cat-power"></div>
-  <div class="src">逻辑: 核电/电网到位前的"过渡电力"窗口。Bloom的SOFC可90天部署绕过电网审批; GE Vernova燃气轮机订单交付期已排至2028; 商业电力厂商（VST/NRG）在德州、PJM等"容量市场"拥有溢价定价能力。这是阿申布伦纳已经重仓的赛道, BE是基金第一大持仓。</div>
+  <div class="src">论文锚点 (p.77): "10GW 从哪来?" 是 SF 热门话题, 电力是唯一无法在 5 年内解决的物理瓶颈。逻辑: 核电/电网到位前的"过渡电力"窗口。Bloom的SOFC可90天部署绕过电网审批; GE Vernova燃气轮机订单交付期已排至2028; 商业电力厂商（VST/NRG）在德州、PJM等"容量市场"拥有溢价定价能力。这是阿申布伦纳已经重仓的赛道, BE是基金第一大持仓。</div>
 
   <!-- Category 3: Grid & EPC -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>③ 电网设备 & 工程 · capex传导</h2></div><div class="sh-sub">变压器 / 开关柜 / 工程总包</div></div>
   <div class="card" id="cat-grid"></div>
-  <div class="src">逻辑: 4大云厂商2026E capex $650B + 数据中心通电5年 → 中压变压器、开关柜、电缆、EPC全部供不应求。Eaton 2025积压订单创纪录、Vertiv订单出货比&gt;1、Powell Industries订单排至2027。"卖铲子"逻辑, 不依赖具体AI公司胜负。</div>
+  <div class="src">论文锚点 (p.80 Table 5): 2030 年累计算力投资 ~$8T, 全部需配套电网扩容。逻辑: 4大云厂商2026E capex $650B + 数据中心通电5年 → 中压变压器、开关柜、电缆、EPC全部供不应求。Eaton 2025积压订单创纪录、Vertiv订单出货比&gt;1、Powell Industries订单排至2027。"卖铲子"逻辑, 不依赖具体AI公司胜负。</div>
 
   <!-- Category 4: Data Center REITs -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>④ 数据中心REIT · 土地+电力额度持有人</h2></div><div class="sh-sub">Equinix / Digital Realty / Iron Mountain</div></div>
   <div class="card" id="cat-reit"></div>
-  <div class="src">逻辑: 在弗吉尼亚北部、达拉斯、圣克拉拉等核心市场, 数据中心REIT手握"已批电力额度+土地"的稀缺资产。新进入者通电要等5年, 存量物业租金重定价空间大。风险: 利率敏感、估值已较高。</div>
+  <div class="src">论文锚点 (p.77 Table 4): 单集群从 10MW → 100GW 的扩张路径需要现成"已批电力 + 土地" 的稀缺资产。逻辑: 在弗吉尼亚北部、达拉斯、圣克拉拉等核心市场, 数据中心REIT手握"已批电力额度+土地"的稀缺资产。新进入者通电要等5年, 存量物业租金重定价空间大。风险: 利率敏感、估值已较高。</div>
 
   <!-- Category 5: Cooling -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑤ 散热 & 机电 · GW级集群必装</h2></div><div class="sh-sub">液冷 / HVAC / 机电EPC</div></div>
   <div class="card" id="cat-cool"></div>
-  <div class="src">逻辑: H100→GB200机架功率从30kW飙到120kW+, 风冷天花板被撑破, 液冷成必选。Vertiv是英伟达reference design里的电源+液冷供应商, Comfort Systems/EMCOR等机电EPC订单簿创历史。FIX股价已上涨6倍, 但订单backlog仍在拉长。</div>
+  <div class="src">论文锚点 (p.77): 100GW 集群规模 = 巨型热源, 散热是物理瓶颈的次级问题。逻辑: H100→GB200机架功率从30kW飙到120kW+, 风冷天花板被撑破, 液冷成必选。Vertiv是英伟达reference design里的电源+液冷供应商, Comfort Systems/EMCOR等机电EPC订单簿创历史。FIX股价已上涨6倍, 但订单backlog仍在拉长。</div>
 
   <!-- Category 6: Miner Transition (already core) -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑥ 矿工转型 · 估值切换</h2></div><div class="sh-sub">PSR 4-5 → 10-15 重定价</div></div>
   <div class="card" id="cat-miner"></div>
-  <div class="src">逻辑: 阿申布伦纳已重仓Core Scientific。同质化标的: Hut8, TeraWulf(WULF Lake Mariner园区供给Fluidstack/Google), Cipher(CIFR与Google/Fluidstack 10年/$300亿合同), Iris Energy(IREN自有水电), Galaxy Digital(GLXY Helios园区800MW)。共同点: 长期低价电力合同+现成土地+已通电变电站, 改造为AI算力房东比新建快3-5年。风险: 比特币波动、AI客户验收、合同对手方信用。</div>
+  <div class="src">论文锚点 (p.77): "把整个国家变成工厂"——铝冶炼厂类比, 现存"长期低价电力合同 + 已通电厂房"是稀缺资产, 矿工是最直接的载体。逻辑: 阿申布伦纳已重仓Core Scientific。同质化标的: Hut8, TeraWulf(WULF Lake Mariner园区供给Fluidstack/Google), Cipher(CIFR与Google/Fluidstack 10年/$300亿合同), Iris Energy(IREN自有水电), Galaxy Digital(GLXY Helios园区800MW)。共同点: 长期低价电力合同+现成土地+已通电变电站, 改造为AI算力房东比新建快3-5年。风险: 比特币波动、AI客户验收、合同对手方信用。</div>
 
   <!-- Category 7: Optical (already core) -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑦ 光通信 & 网络芯片 · 卡脖子</h2></div><div class="sh-sub">800G / 1.6T / Co-packaged Optics</div></div>
   <div class="card" id="cat-optical"></div>
-  <div class="src">逻辑: AI集群scale-out网络成本占15-20%, 光模块从400G→800G→1.6T换代。Lumentum/Coherent是阿申布伦纳已持仓; Fabrinet做精密光器件组装; Innolight 在800G模块全球份额40%+; Marvell DSP/PAM4芯片几乎独家。Broadcom自研Tomahawk交换芯片+谷歌TPU合作, 是隐性的"AI光互联+定制ASIC"双押。</div>
+  <div class="src">论文锚点 (p.79): AMD 预测 2027 年 AI 加速器市场 $400B, 集群规模化后互联是次要瓶颈。逻辑: AI集群scale-out网络成本占15-20%, 光模块从400G→800G→1.6T换代。Lumentum/Coherent是阿申布伦纳已持仓; Fabrinet做精密光器件组装; Innolight 在800G模块全球份额40%+; Marvell DSP/PAM4芯片几乎独家。Broadcom自研Tomahawk交换芯片+谷歌TPU合作, 是隐性的"AI光互联+定制ASIC"双押。</div>
+
+  <!-- ====== PAPER-DRIVEN ADDITIONS (2026.05) ====== -->
+
+  <!-- Category 9: Semicap upstream -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑨ 半导体上游 · TSMC 4x 产能必经</h2></div><div class="sh-sub">📜 论文 p.79-80 Table 5 · TSMC / 设备 / HBM</div></div>
+  <div class="card" id="cat-semi"></div>
+  <div class="src">论文锚点 (p.80 Table 5): 2030 年 AI 占用 TSMC 全部产能的 4 倍, 即 TSMC 必须翻 4 倍产能。p.79 引用 AMD 预测 2027 年 AI 加速器市场 $400B → 隐含总 AI 支出 $700B+。逻辑: 任何 AI 模型最终都要在 TSMC 流片, 是真正的"必经关卡"——TSM 本身 + 其设备供应商 (ASML 全球独家 EUV / AMAT 沉积 / LRCX 刻蚀 / KLAC 检测) 4x 受益。HBM 内存(MU/SK Hynix)是 GPU 真正瓶颈, 每颗 GB200 都被 HBM3e 限速。AMD 是被论文亲自引用的"二供 GPU"。风险: 周期股波动, 中美脱钩政治变量。</div>
+
+  <!-- Category 10: Defense + Government AI -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑩ 国防 + 政府 AI · "The Project" 受益</h2></div><div class="sh-sub">📜 论文 Part IV p.141 · 国家级 AGI 项目</div></div>
+  <div class="card" id="cat-defense"></div>
+  <div class="src">论文锚点 (p.141): 2027/2028 政府接管 AGI 项目, 整合 OpenAI/Anthropic/DeepMind 进入类曼哈顿计划框架。"在某个 SCIF 里, 终局将会上演" (p.155)。逻辑: 一旦 The Project 启动, 已与国安体系深度集成的 AI/数据/工程承包商最直接受益。Palantir 早已是国防部 AI 接口, Booz Allen / Leidos 是政府云 + 情报体系工程总包, BAE / 洛马是国防 AI 集成。Anduril 私募, 但思路最匹配 The Project 模型。风险: 政治选举、合同周期、文官体系阻力。</div>
+
+  <!-- Category 11: Cyber + physical security -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑪ 网络与物理安全 · "锁死实验室"</h2></div><div class="sh-sub">📜 论文 Part IIIb p.89 · 模型权重 + 算法保护</div></div>
+  <div class="card" id="cat-security"></div>
+  <div class="src">论文锚点 (p.89): "美国顶级 AI 实验室把安全当事后想法。基本是把 AGI 核心秘密拱手送给 CCP。" 2023.4 黑客已入侵 OpenAI 内部通讯系统。论文呼吁 FBI/NSA 介入, 比照核武级别保护权重 + 算法。逻辑: 这是个独立赛道——模型权重保护 = 端点防护(CRWD) + 网络/防火墙(PANW/FTNT) + 政府认证云(BAH) + 物理 SCIF 建造(私募)。HSM 加密硬件 + Confidential Compute 也是延展方向。风险: 政府决心、私营实验室合规速度。</div>
+
+  <!-- Category 12: Natural Gas + LNG -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑫ 天然气 + LNG · 最快可用电力</h2></div><div class="sh-sub">📜 论文 p.77 · "10GW 从哪来" 唯一短期解</div></div>
+  <div class="card" id="cat-gas"></div>
+  <div class="src">论文锚点 (p.77): 电力是唯一物理瓶颈, 核电 10 年慢, 燃气最快(<3 年)。论文反复点名能源丰沛区(德州 / 北达科他 / 阿拉斯加) 与"把整个国家变成工厂"的产业总动员。逻辑: 美国本土天然气产能丰沛, 但需要管道把 Marcellus / 二叠纪 / Bakken 的气送到数据中心选址。WMB / OKE / KMI / ET 是干线管道核心。LNG (Cheniere) 间接受益于美国本土气价被全球需求拉稳。风险: 环保审批、长期看可再生替代、地缘需求。</div>
 
   <!-- Category 8: Reverse-consensus / Tail -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑧ 反共识 / 尾部头寸</h2></div><div class="sh-sub">期权 / 边缘标的 · 高赔率非对称</div></div>
   <div class="card" id="cat-tail"></div>
-  <div class="src">逻辑: 阿申布伦纳29仓位中预留<10%给非对称押注。Intel期权赌晶圆厂复兴+CHIPS补贴; 铀矿股赌SMR提前到货; 边缘核电/微堆赌"任何能GW级独立供电的方案"都会被hyperscaler收编。期权特征: 期望值正、方差极大, 必须做仓位限制。</div>
+  <div class="src">论文锚点 (p.77): 铝冶炼厂类比 → 搁置铝厂保留电力合同, 是"现成 GW 级电力 + 厂房"的反共识载体。逻辑: 阿申布伦纳29仓位中预留<10%给非对称押注。Intel期权赌晶圆厂复兴+CHIPS补贴; 铀矿股赌SMR提前到货; CENX/AA 赌"已批电力合同的搁置铝厂"被 Stargate 类项目改造收编。期权特征: 期望值正、方差极大, 必须做仓位限制。</div>
 
   <!-- Anti-targets -->
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⊖ 阿申布伦纳框架明确回避的</h2></div><div class="sh-sub">不在候选池</div></div>
@@ -571,7 +601,42 @@ var categories = {
     {tk:"INTC", n:"Intel (看涨期权)", why:"⭐ 阿申布伦纳实际仓位 · 期权赌18A达产+CHIPS补贴+晶圆厂复兴"},
     {tk:"UEC", n:"Uranium Energy Corp", why:"美国本土铀矿, 受地缘+SMR双驱动"},
     {tk:"NXE", n:"NexGen Energy", why:"加拿大Arrow矿床, 高品位铀储备"},
-    {tk:"BWXT", n:"BWX Technologies", why:"美国海军核反应堆+TRISO燃料, 微堆和HALEU双布局"}
+    {tk:"BWXT", n:"BWX Technologies", why:"美国海军核反应堆+TRISO燃料, 微堆和HALEU双布局"},
+    {tk:"CENX", n:"Century Aluminum", why:"📜 论文铝厂类比 (p.77) · 搁置冶炼厂带 GW 级电力合同, Stargate 类项目天然候选地"},
+    {tk:"AA", n:"Alcoa", why:"📜 全球铝业巨头, 部分关停冶炼厂可作 AI 数据中心选址 (能源丰沛 + 现成变电站)"}
+  ]},
+  semi: {color:"#0d9488", items:[
+    {tk:"TSM", n:"TSMC", why:"📜 论文 p.80 Table 5 直接锚点 · 2030 AI 占其总产能 4 倍 · 任何 AI 芯片必经"},
+    {tk:"AMD", n:"AMD", why:"📜 论文 p.79 直接引用其 $400B 加速器市场预测 · 二供 GPU 必经"},
+    {tk:"ASML", n:"ASML", why:"全球独家 EUV 光刻机, TSMC 4x 产能必买"},
+    {tk:"AMAT", n:"Applied Materials", why:"沉积设备龙头, 晶圆厂扩产直接受益"},
+    {tk:"LRCX", n:"Lam Research", why:"刻蚀设备龙头, 3nm/2nm 关键工艺"},
+    {tk:"KLAC", n:"KLA Corp", why:"工艺控制 + 检测设备, 良率提升必装"},
+    {tk:"MU", n:"Micron Technology", why:"美国 HBM 内存代表 · 每颗 GB200 都被 HBM3e 限速 · 真瓶颈"},
+    {tk:"AMKR", n:"Amkor Technology", why:"先进封装 (CoWoS) 代工, GPU 成本结构关键"}
+  ]},
+  defense: {color:"#5b3a8a", items:[
+    {tk:"PLTR", n:"Palantir Technologies", why:"📜 已是国防部 AI 接口 · The Project (p.141) 启动几乎必入"},
+    {tk:"BAH", n:"Booz Allen Hamilton", why:"政府云 + 情报体系工程总包, 已与 Anthropic 签政府服务协议"},
+    {tk:"LDOS", n:"Leidos", why:"美国情报 / 国防数字化承包商, AI 整合方"},
+    {tk:"BAESF", n:"BAE Systems (LON)", why:"国防 AI + 西方阵营协同 · 跨境布局"},
+    {tk:"LMT", n:"Lockheed Martin", why:"洛马 · 国防侧 AI 集成, 与 NVDA 已合作"},
+    {tk:"GD", n:"General Dynamics", why:"国防 IT 服务 (GDIT) · 政府云 + 安全合规"}
+  ]},
+  security: {color:"#ea580c", items:[
+    {tk:"CRWD", n:"CrowdStrike", why:"📜 端点防护龙头 · 实验室权重保护核心 (p.89)"},
+    {tk:"PANW", n:"Palo Alto Networks", why:"网络安全平台 · 企业级 AI 流量隔离"},
+    {tk:"FTNT", n:"Fortinet", why:"防火墙 + 零信任 · 数据中心边界防护"},
+    {tk:"S", n:"SentinelOne", why:"AI 驱动的端点防护, 估值更便宜"},
+    {tk:"NET", n:"Cloudflare", why:"AI 推理边缘网络 + 应用层 WAF"}
+  ]},
+  gas: {color:"#d97706", items:[
+    {tk:"WMB", n:"Williams Companies", why:"📜 美国最大天然气干线 · Marcellus → 数据中心电力的最快路径 (p.77)"},
+    {tk:"OKE", n:"ONEOK", why:"📜 北达科他 / 二叠纪管道 · 论文点名能源丰沛区"},
+    {tk:"KMI", n:"Kinder Morgan", why:"天然气干线 + LNG 联运, capex 周期受益"},
+    {tk:"ET", n:"Energy Transfer", why:"二叠纪 + Haynesville 一体化, 灵活气价捕获"},
+    {tk:"LNG", n:"Cheniere Energy", why:"美国 LNG 出口龙头 · 间接受益于本土气价稳定"},
+    {tk:"TRGP", n:"Targa Resources", why:"Permian 中游 NGL · AI 数据中心配套天然气链"}
   ]}
 };
 
@@ -615,6 +680,10 @@ renderCategory('cat-reit', 'reit');
 renderCategory('cat-cool', 'cool');
 renderCategory('cat-miner', 'miner');
 renderCategory('cat-optical', 'optical');
+renderCategory('cat-semi', 'semi');
+renderCategory('cat-defense', 'defense');
+renderCategory('cat-security', 'security');
+renderCategory('cat-gas', 'gas');
 renderCategory('cat-tail', 'tail');
 renderAntiList();
 </script>

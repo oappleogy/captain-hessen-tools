@@ -108,6 +108,7 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
   <button class="tab-btn" onclick="switchTab(1)">四大押注</button>
   <button class="tab-btn" onclick="switchTab(2)">底层逻辑</button>
   <button class="tab-btn" onclick="switchTab(3)">反共识 & 验证</button>
+  <button class="tab-btn" onclick="switchTab(4)">扩展选股池</button>
 </div>
 
 <!-- Panel 0: Profile -->
@@ -318,6 +319,72 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
   </div>
 </div>
 
+<!-- Panel 4: Extended Stock Universe -->
+<div class="panel" id="panel-4">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>用拜纳的镜片看市场</h2></div><div class="sh-sub">五条筛选标准 · 通过即入候选池</div></div>
+  <div class="card">
+    <div id="filter-list"></div>
+  </div>
+  <div class="card" style="background:rgba(124,60,237,0.04);border-color:rgba(124,60,237,0.1)">
+    <div style="font-size:11px;line-height:1.7">
+      <span style="color:var(--pr);font-weight:700">心法：</span>不押"哪个模型赢"，押"任何模型胜出都必经的物理通道"。再叠加一层"市场仍按旧行业给估值、但商业模式已切换"的预期差，构成非对称回报。下面的标的按"必经程度"和"估值切换空间"两个维度排列，并非全部应同时持有——拜纳本人也只持29个仓位。
+    </div>
+  </div>
+
+  <!-- Category 1: Nuclear / SMR -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>① 核电 & SMR · 5-10年解药</h2></div><div class="sh-sub">新建核电10年周期 → 现役核电稀缺 + SMR订单先行</div></div>
+  <div class="card" id="cat-nuclear"></div>
+  <div class="src">逻辑: 单一GW级AI数据中心耗电相当于一座中型城市，电网+审批周期5年、新建核电10年。MSFT 2024.9 重启Three Mile Island、AWS 2024.3 收购Talen Susquehanna园区, 是"hyperscaler直接买核电"的先例。SMR燃料(HALEU)由Centrus独家供应，受地缘+技术双壁垒保护。风险: SMR部署延期、铀价波动、监管反复。</div>
+
+  <!-- Category 2: Merchant Power -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>② 商业发电 & 调峰 · 90天-3年填空</h2></div><div class="sh-sub">SOFC / 燃气轮机 / 储能 / 商业电力</div></div>
+  <div class="card" id="cat-power"></div>
+  <div class="src">逻辑: 核电/电网到位前的"过渡电力"窗口。Bloom的SOFC可90天部署绕过电网审批; GE Vernova燃气轮机订单交付期已排至2028; 商业电力厂商（VST/NRG）在德州、PJM等"容量市场"拥有溢价定价能力。这是拜纳已经重仓的赛道, BE是基金第一大持仓。</div>
+
+  <!-- Category 3: Grid & EPC -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>③ 电网设备 & 工程 · capex传导</h2></div><div class="sh-sub">变压器 / 开关柜 / 工程总包</div></div>
+  <div class="card" id="cat-grid"></div>
+  <div class="src">逻辑: 4大云厂商2026E capex $650B + 数据中心通电5年 → 中压变压器、开关柜、电缆、EPC全部供不应求。Eaton 2025积压订单创纪录、Vertiv订单出货比&gt;1、Powell Industries订单排至2027。"卖铲子"逻辑, 不依赖具体AI公司胜负。</div>
+
+  <!-- Category 4: Data Center REITs -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>④ 数据中心REIT · 土地+电力额度持有人</h2></div><div class="sh-sub">Equinix / Digital Realty / Iron Mountain</div></div>
+  <div class="card" id="cat-reit"></div>
+  <div class="src">逻辑: 在弗吉尼亚北部、达拉斯、圣克拉拉等核心市场, 数据中心REIT手握"已批电力额度+土地"的稀缺资产。新进入者通电要等5年, 存量物业租金重定价空间大。风险: 利率敏感、估值已较高。</div>
+
+  <!-- Category 5: Cooling -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑤ 散热 & 机电 · GW级集群必装</h2></div><div class="sh-sub">液冷 / HVAC / 机电EPC</div></div>
+  <div class="card" id="cat-cool"></div>
+  <div class="src">逻辑: H100→GB200机架功率从30kW飙到120kW+, 风冷天花板被撑破, 液冷成必选。Vertiv是英伟达reference design里的电源+液冷供应商, Comfort Systems/EMCOR等机电EPC订单簿创历史。FIX股价已上涨6倍, 但订单backlog仍在拉长。</div>
+
+  <!-- Category 6: Miner Transition (already core) -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑥ 矿工转型 · 估值切换</h2></div><div class="sh-sub">PSR 4-5 → 10-15 重定价</div></div>
+  <div class="card" id="cat-miner"></div>
+  <div class="src">逻辑: 拜纳已重仓Core Scientific。同质化标的: Hut8, TeraWulf(WULF Lake Mariner园区供给Fluidstack/Google), Cipher(CIFR与Google/Fluidstack 10年/$300亿合同), Iris Energy(IREN自有水电), Galaxy Digital(GLXY Helios园区800MW)。共同点: 长期低价电力合同+现成土地+已通电变电站, 改造为AI算力房东比新建快3-5年。风险: 比特币波动、AI客户验收、合同对手方信用。</div>
+
+  <!-- Category 7: Optical (already core) -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑦ 光通信 & 网络芯片 · 卡脖子</h2></div><div class="sh-sub">800G / 1.6T / Co-packaged Optics</div></div>
+  <div class="card" id="cat-optical"></div>
+  <div class="src">逻辑: AI集群scale-out网络成本占15-20%, 光模块从400G→800G→1.6T换代。Lumentum/Coherent是拜纳已持仓; Fabrinet做精密光器件组装; Innolight 在800G模块全球份额40%+; Marvell DSP/PAM4芯片几乎独家。Broadcom自研Tomahawk交换芯片+谷歌TPU合作, 是隐性的"AI光互联+定制ASIC"双押。</div>
+
+  <!-- Category 8: Reverse-consensus / Tail -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⑧ 反共识 / 尾部头寸</h2></div><div class="sh-sub">期权 / 边缘标的 · 高赔率非对称</div></div>
+  <div class="card" id="cat-tail"></div>
+  <div class="src">逻辑: 拜纳29仓位中预留<10%给非对称押注。Intel期权赌晶圆厂复兴+CHIPS补贴; 铀矿股赌SMR提前到货; 边缘核电/微堆赌"任何能GW级独立供电的方案"都会被hyperscaler收编。期权特征: 期望值正、方差极大, 必须做仓位限制。</div>
+
+  <!-- Anti-targets -->
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>⊖ 拜纳框架明确回避的</h2></div><div class="sh-sub">不在候选池</div></div>
+  <div class="card" style="background:rgba(220,38,38,0.04);border-color:rgba(220,38,38,0.1)">
+    <div id="anti-list" style="font-size:11px;line-height:1.8"></div>
+  </div>
+  <div class="src">回避项推论自拜纳公开持仓与论文逻辑: 1)模型层公司估值依赖技术迭代速度, 受技术风险冲击; 2)纯GPU硬件商英伟达已大幅消化, 安全边际不足; 3)消费AI应用层用户粘性弱、付费转化未验证; 4)同质化云厂商重资本+折旧争议(参见 ai-capex.html)。</div>
+
+  <div class="card" style="background:rgba(217,119,6,0.06);border-color:rgba(217,119,6,0.15);margin-top:14px">
+    <div style="font-size:11px;line-height:1.7">
+      <span style="color:var(--am);font-weight:700">⚠ 本页为分析框架推演, 非投资建议。</span>所列标的仅基于"通过Baneer筛选条件"逻辑映射, 不代表拜纳本人实际持仓, 亦不代表本工具任何推荐。每只股票均需独立做基本面、估值、流动性、合规判断。任何投资决策由读者自行承担。
+    </div>
+  </div>
+</div>
+
 <!-- Footer -->
 <div class="footer">
   <strong>黑森船长 | Captain Hessen</strong><br>
@@ -426,10 +493,130 @@ function renderTimeChart() {
   document.getElementById('time-chart').innerHTML = html;
 }
 
+// ====== FILTER CRITERIA ======
+function renderFilters() {
+  var f = [
+    {n:"①", t:"必经关卡", d:"标的所在环节是 AI 爆发不可绕过的物理通道（电力 / 算力 / 互联 / 散热）"},
+    {n:"②", t:"长期合同 / 高 RPO", d:"已锁定 5-12 年长协, 收入可见度极高, 不依赖宏观或情绪"},
+    {n:"③", t:"物理资产稀缺", d:"持有发电许可、电力额度、土地、机房、矿权——稀缺性来自现实供给"},
+    {n:"④", t:"估值与现实错配", d:"市场仍按旧赛道定价（矿工/电力/工业），但商业模式已切换到 AI"},
+    {n:"⑤", t:"产能 / 订单瓶颈", d:"订单交付排到 2027-2028, 短期产能扩不出来 → 涨价权"}
+  ];
+  var html = '';
+  f.forEach(function(x) {
+    html += '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(0,40,100,0.06)">';
+    html += '<div style="font-size:14px;font-weight:800;color:#7c3aed;width:22px;flex-shrink:0">'+x.n+'</div>';
+    html += '<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#1a2332">'+x.t+'</div><div style="font-size:10.5px;color:#7a8ea0;line-height:1.5;margin-top:2px">'+x.d+'</div></div>';
+    html += '</div>';
+  });
+  document.getElementById('filter-list').innerHTML = html;
+}
+
+// ====== STOCK CATEGORIES ======
+var categories = {
+  nuclear: {color:"#dc2626", items:[
+    {tk:"CEG", n:"Constellation Energy", why:"美国最大现役核电运营商, 已与 MSFT 签 Three Mile Island 重启 20 年 PPA, 是hyperscaler核电直供模板"},
+    {tk:"VST", n:"Vistra", why:"商业核电(Comanche Peak) + 德州气电组合, 容量市场+核电PPA双轮"},
+    {tk:"TLN", n:"Talen Energy", why:"Susquehanna核电基地960MW卖给AWS, 一夜从公用事业切换为AI数据中心房东"},
+    {tk:"OKLO", n:"Oklo", why:"微堆方案, Sam Altman站台, 已签DOE/Equinix/数据中心LOI"},
+    {tk:"SMR", n:"NuScale Power", why:"NRC首批批准的SMR设计, 规模化部署最有成熟度"},
+    {tk:"CCJ", n:"Cameco", why:"全球第二大铀矿+西方阵营核燃料一体化(Westinghouse 49%)"},
+    {tk:"LEU", n:"Centrus Energy", why:"美国唯一HALEU高丰度燃料生产, SMR燃料独家瓶颈"}
+  ]},
+  power: {color:"#d97706", items:[
+    {tk:"BE", n:"Bloom Energy", why:"⭐ 拜纳主仓 · SOFC 90天部署 · Oracle 2.8GW合同"},
+    {tk:"GEV", n:"GE Vernova", why:"燃气轮机+电网+核电三合一, HA级燃机订单排至2028"},
+    {tk:"NRG", n:"NRG Energy", why:"商业电力, 德州容量市场最大份额"},
+    {tk:"PCG", n:"PG&E", why:"加州数据中心电力额度分配权(估值切换标的)"},
+    {tk:"AES", n:"AES Corp", why:"专注可再生+储能给hyperscaler供电"}
+  ]},
+  grid: {color:"#0d9488", items:[
+    {tk:"ETN", n:"Eaton", why:"中压配电+数据中心电力管理龙头, 订单backlog创纪录"},
+    {tk:"VRT", n:"Vertiv", why:"英伟达reference design的电源+液冷供应商, 订单出货比>1"},
+    {tk:"PWR", n:"Quanta Services", why:"美国最大电网EPC, 通电瓶颈直接受益"},
+    {tk:"MTZ", n:"MasTec", why:"电力+管道EPC, 订单结构正向AI数据中心倾斜"},
+    {tk:"HUBB", n:"Hubbell", why:"开关柜/接地/电网组件, 中压细分龙头"},
+    {tk:"POWL", n:"Powell Industries", why:"中压开关柜 · 订单已排至2027 · 估值仍偏低"}
+  ]},
+  reit: {color:"#7c3aed", items:[
+    {tk:"EQIX", n:"Equinix", why:"全球最大互联互通数据中心REIT, 流量+电力双稀缺"},
+    {tk:"DLR", n:"Digital Realty", why:"hyperscaler租约最大业主之一, 弗吉尼亚北部+达拉斯电力额度"},
+    {tk:"IRM", n:"Iron Mountain", why:"传统档案业务现金流支撑数据中心扩张, 估值未充分反映AI"}
+  ]},
+  cool: {color:"#2563eb", items:[
+    {tk:"VRT", n:"Vertiv", why:"液冷+精密空调+UPS一体化(同时入电网类)"},
+    {tk:"FIX", n:"Comfort Systems USA", why:"机电EPC, 数据中心订单占比快速攀升, 股价6倍但backlog仍拉长"},
+    {tk:"EME", n:"EMCOR Group", why:"机电+设施服务, 数据中心+半导体厂双下游"},
+    {tk:"MOD", n:"Modine Manufacturing", why:"数据中心冷却装置, 转型故事+订单加速"},
+    {tk:"TT", n:"Trane Technologies", why:"商用HVAC龙头, 数据中心冷水机组渗透"}
+  ]},
+  miner: {color:"#7c3aed", items:[
+    {tk:"CORZ", n:"Core Scientific", why:"⭐ 拜纳重仓逻辑标的 · CoreWeave 590MW/12年/$100亿合同"},
+    {tk:"WULF", n:"TeraWulf", why:"Lake Mariner园区签Fluidstack/Google长协, 核电邻近选址"},
+    {tk:"CIFR", n:"Cipher Mining", why:"Google/Fluidstack 10年/$300亿合同, 单笔规模最大"},
+    {tk:"IREN", n:"Iris Energy", why:"100%可再生水电自有, 加拿大BC省电力成本最低梯队"},
+    {tk:"HUT", n:"Hut 8", why:"加拿大+美国双布局, 与Coatue/BlackRock合资AI数据中心"},
+    {tk:"GLXY", n:"Galaxy Digital", why:"Helios园区800MW卖给CoreWeave, 加密+AI双引擎"},
+    {tk:"BITF", n:"Bitfarms", why:"较小市值, 估值切换弹性最大但流动性弱"}
+  ]},
+  optical: {color:"#0d9488", items:[
+    {tk:"LITE", n:"Lumentum", why:"⭐ 拜纳已持仓 · 800G/1.6T光器件"},
+    {tk:"COHR", n:"Coherent", why:"⭐ 拜纳已持仓 · 光模块+激光器, 英伟达战投$20亿"},
+    {tk:"FN", n:"Fabrinet", why:"光模块精密组装代工, 良率护城河"},
+    {tk:"MRVL", n:"Marvell Technology", why:"DSP/PAM4芯片近独家, AI网络silicon核心"},
+    {tk:"AVGO", n:"Broadcom", why:"Tomahawk交换芯片+谷歌TPU合作, 隐性AI网络霸主"},
+    {tk:"ANET", n:"Arista Networks", why:"白盒交换机AI集群霸主, 2026.04 Meta 25k cluster全采用"}
+  ]},
+  tail: {color:"#dc2626", items:[
+    {tk:"INTC", n:"Intel (看涨期权)", why:"⭐ 拜纳实际仓位 · 期权赌18A达产+CHIPS补贴+晶圆厂复兴"},
+    {tk:"UEC", n:"Uranium Energy Corp", why:"美国本土铀矿, 受地缘+SMR双驱动"},
+    {tk:"NXE", n:"NexGen Energy", why:"加拿大Arrow矿床, 高品位铀储备"},
+    {tk:"BWXT", n:"BWX Technologies", why:"美国海军核反应堆+TRISO燃料, 微堆和HALEU双布局"}
+  ]}
+};
+
+function renderCategory(elId, key) {
+  var c = categories[key];
+  var html = '';
+  c.items.forEach(function(s, i) {
+    var isLast = i === c.items.length - 1;
+    html += '<div style="display:flex;gap:10px;padding:8px 0;'+(isLast?'':'border-bottom:1px solid rgba(0,40,100,0.06)')+'">';
+    html += '<div style="flex-shrink:0;width:62px"><div style="font-family:JetBrains Mono,monospace;font-weight:800;font-size:12px;color:'+c.color+'">'+s.tk+'</div></div>';
+    html += '<div style="flex:1"><div style="font-size:11px;font-weight:700;color:#1a2332;margin-bottom:2px">'+s.n+'</div><div style="font-size:10.5px;color:#7a8ea0;line-height:1.55">'+s.why+'</div></div>';
+    html += '</div>';
+  });
+  document.getElementById(elId).innerHTML = html;
+}
+
+function renderAntiList() {
+  var anti = [
+    {t:"模型层公司", w:"OpenAI / Anthropic / Mistral 的私募估值依赖技术领先持续性, 一次模型迭代失利即可重创"},
+    {t:"消费AI应用", w:"Character.AI / Perplexity 类用户粘性弱、订阅模型未验证, 流量壁垒易被大模型挤压"},
+    {t:"GPU硬件本身", w:"英伟达涨幅已大量price-in, 替代方案(自研ASIC)持续蚕食边际"},
+    {t:"重资本云厂商", w:"AWS/Azure/GCP受GPU折旧争议拖累, 增量capex回报率压力大(详见 AI Capex 页)"},
+    {t:"纯AI软件SaaS", w:"无物理护城河, 大模型公司原生功能可降维替代"}
+  ];
+  var html = '';
+  anti.forEach(function(a) {
+    html += '<div style="margin-bottom:8px"><span style="color:#dc2626;font-weight:700">✕ '+a.t+'：</span><span style="color:#2c3e50">'+a.w+'</span></div>';
+  });
+  document.getElementById('anti-list').innerHTML = html;
+}
+
 // ====== INIT ======
 renderAumChart();
 renderBetsBar();
 renderTimeChart();
+renderFilters();
+renderCategory('cat-nuclear', 'nuclear');
+renderCategory('cat-power', 'power');
+renderCategory('cat-grid', 'grid');
+renderCategory('cat-reit', 'reit');
+renderCategory('cat-cool', 'cool');
+renderCategory('cat-miner', 'miner');
+renderCategory('cat-optical', 'optical');
+renderCategory('cat-tail', 'tail');
+renderAntiList();
 </script>
 </body>
 </html>

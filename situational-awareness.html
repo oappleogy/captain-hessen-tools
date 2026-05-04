@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>态势感知基金 · 拜纳的AI基建押注 | 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#edf3fa;--sf:#ffffff;--bd:rgba(0,40,100,0.08);--tx:#2c3e50;--mt:#7a8ea0;
+  --bl:#2563eb;--gn:#059669;--pr:#7c3aed;--rd:#dc2626;--am:#d97706;--gd:#92700c;
+  --pk:#db2777;--tl:#0d9488;--or:#ea580c;
+}
+body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding:24px 14px 50px}
+.wrap{max-width:640px;margin:0 auto}
+.mono{font-family:'JetBrains Mono',monospace}
+.watermark{position:fixed;bottom:8px;right:12px;font-size:9px;color:rgba(0,40,100,0.08);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:999}
+.back-link{display:inline-block;margin-bottom:16px;font-size:12px;color:var(--mt);text-decoration:none;transition:color .2s}
+.back-link:hover{color:var(--bl)}
+
+/* Header */
+.header{text-align:center;margin-bottom:24px}
+.header .sub{font-size:9px;letter-spacing:3px;color:var(--mt);margin-bottom:8px}
+.header h1{font-size:19px;font-weight:900;color:#1a2332;line-height:1.3;margin:0 0 6px}
+.header p{font-size:11px;color:var(--mt);margin:0}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
+.tab-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--bd);background:transparent;color:var(--mt);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Noto Sans SC',sans-serif;transition:all .2s}
+.tab-btn.active{border-color:rgba(37,99,235,0.33);background:rgba(37,99,235,0.07);color:var(--bl)}
+
+/* Section */
+.sh{margin-bottom:18px}
+.sh-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.sh-bar{width:3px;height:16px;background:linear-gradient(180deg,var(--bl),var(--pr));border-radius:2px}
+.sh h2{font-size:14px;font-weight:700;color:#1a2332;margin:0}
+.sh .sh-sub{font-size:11px;color:var(--mt);padding-left:13px}
+
+/* Card */
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:12px}
+.card-accent{border-color:rgba(0,0,0,0.06)}
+
+/* Source */
+.src{font-size:9px;color:var(--mt);line-height:1.6;padding:6px 10px;margin-bottom:12px;border-left:2px solid var(--bd);margin-left:4px;font-style:italic}
+
+/* Tab panels */
+.panel{display:none}
+.panel.active{display:block}
+
+/* Footer */
+.footer{text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid var(--bd);font-size:10px;color:var(--mt);line-height:1.8}
+.footer strong{color:#1a2332}
+
+/* Utility */
+.flex-between{display:flex;justify-content:space-between}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:400px){.grid-2{grid-template-columns:1fr}}
+.stat-row{margin-bottom:10px}
+.stat-row .bar-bg{height:8px;background:rgba(0,40,100,0.06);border-radius:4px;overflow:hidden}
+.stat-row .bar-fg{height:100%;border-radius:4px}
+
+/* Profile */
+.profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:8px}
+@media(max-width:400px){.profile-grid{grid-template-columns:1fr}}
+.profile-item{padding:10px 12px;background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.1);border-radius:8px}
+.profile-item .l{font-size:10px;color:var(--mt);margin-bottom:3px}
+.profile-item .v{font-size:14px;font-family:'JetBrains Mono',monospace;font-weight:800;color:#1a2332}
+
+/* Bet card */
+.bet{padding:14px;border-radius:10px;margin-bottom:12px;border:1px solid var(--bd)}
+.bet-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px}
+.bet-title{font-size:13px;font-weight:800;color:#1a2332}
+.bet-sub{font-size:10px;color:var(--mt);margin-top:2px}
+.bet-tag{font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;white-space:nowrap}
+.bet-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.bet-stat{text-align:center;padding:6px 4px;background:rgba(0,0,0,0.025);border-radius:6px}
+.bet-stat .l{font-size:9px;color:var(--mt)}
+.bet-stat .v{font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:800;color:#1a2332;margin-top:2px}
+
+/* Logic chain */
+.chain{position:relative;padding-left:18px}
+.chain::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--bl),var(--pr),var(--am))}
+.chain-step{position:relative;padding:6px 0 12px}
+.chain-step::before{content:"";position:absolute;left:-18px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--sf);border:2px solid var(--bl)}
+.chain-step.am::before{border-color:var(--am)}
+.chain-step.rd::before{border-color:var(--rd)}
+.chain-step.gn::before{border-color:var(--gn)}
+.chain-step h4{font-size:12px;font-weight:700;color:#1a2332;margin-bottom:3px}
+.chain-step p{font-size:11px;color:var(--mt);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="watermark">黑森船长</div>
+<a href="index.html" class="back-link">&larr; 返回工具箱</a>
+
+<!-- Header -->
+<div class="header">
+  <div class="sub">SITUATIONAL AWARENESS · LEONARD BANEER</div>
+  <h1>24岁管$5500亿<br>押注AI"必经物理关卡"</h1>
+  <p>电力 × 算力租赁 × 矿工转型 × 光模块</p>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab(0)">人物 & 基金</button>
+  <button class="tab-btn" onclick="switchTab(1)">四大押注</button>
+  <button class="tab-btn" onclick="switchTab(2)">底层逻辑</button>
+  <button class="tab-btn" onclick="switchTab(3)">反共识 & 验证</button>
+</div>
+
+<!-- Panel 0: Profile -->
+<div class="panel active" id="panel-0">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>莱奥纳德·拜纳 (Leonard Baneer)</h2></div><div class="sh-sub">前OpenAI超级对齐成员 / 哥大19岁毕业 / 165页论文《态势感知》作者</div></div>
+  <div class="card">
+    <div class="profile-grid">
+      <div class="profile-item"><div class="l">现年</div><div class="v">24 岁</div></div>
+      <div class="profile-item"><div class="l">毕业年龄</div><div class="v">19 岁 · 哥大</div></div>
+      <div class="profile-item"><div class="l">论文长度</div><div class="v">165 页</div></div>
+      <div class="profile-item"><div class="l">AGI预测</div><div class="v">2027</div></div>
+    </div>
+    <div style="font-size:11px;line-height:1.7;color:var(--tx);margin-top:6px">
+      <span style="color:var(--pr);font-weight:700">核心论点：</span>AI发展的瓶颈是<span style="font-weight:700;color:#1a2332">物理基础设施（电力、地皮）</span>，而非芯片或模型。论文《态势感知》(Situational Awareness) 系统论证此判断，并据此构建持仓。
+    </div>
+  </div>
+  <div class="src">人物背景: 公开履历 + 《态势感知》(Situational Awareness, 2024) 论文。OpenAI超级对齐团队为公司2023年成立的安全研究组（已于2024年解散）。AGI 2027预测出自论文核心章节。</div>
+
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>态势感知基金 · AUM增长曲线</h2></div><div class="sh-sub">2017起步$2.5M → 2023年$550亿 → 当前预计$5500亿</div></div>
+  <div class="card"><div id="aum-chart"></div></div>
+  <div class="src">AUM轨迹来自基金披露汇总: 2017年起步规模$2.5M, 2023年$550亿（年复合增长~20倍），2026年估算总规模$5500亿。基金类型为长仓集中策略。增速与规模数据存在公开估算口径差异，仅供分析参考。</div>
+
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>持仓集中度</h2></div></div>
+  <div class="card">
+    <div class="grid-2">
+      <div class="profile-item" style="background:rgba(124,60,237,0.04);border-color:rgba(124,60,237,0.12)"><div class="l">总仓位数</div><div class="v" style="color:var(--pr)">29</div></div>
+      <div class="profile-item" style="background:rgba(220,38,38,0.04);border-color:rgba(220,38,38,0.12)"><div class="l">前十大占比</div><div class="v" style="color:var(--rd)">86%</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--mt);line-height:1.7;margin-top:8px">
+      极致聚焦：仅29个仓位、前十占86%——这是近乎"私募风险投资"风格的二级市场打法。基金不分散到明星AI公司（OpenAI、Anthropic、英伟达），而是<span style="font-weight:700;color:#1a2332">押AI爆发的物理"必经关卡"</span>。
+    </div>
+  </div>
+  <div class="src">仓位结构: 公开持仓快照（13F等推算）。集中度作为风格画像。注: 私募基金的13F披露存在滞后期，实际持仓可能已发生变化。</div>
+</div>
+
+<!-- Panel 1: Four Bets -->
+<div class="panel" id="panel-1">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>四大主线 · 持仓占比</h2></div><div class="sh-sub">公开估算 / 美元金额 / 占比示意</div></div>
+  <div class="card"><div id="bets-bar"></div></div>
+  <div class="src">持仓金额: Bloom Energy $9亿（占15-20%）, CoreWeave $14亿, Lumentum & Coherent合计$5.7亿, 英特尔看涨期权$7.5亿。具体占比基于披露规模推算，存在估算误差。</div>
+
+  <!-- Bet 1: Bloom -->
+  <div class="bet" style="background:rgba(217,119,6,0.04);border-color:rgba(217,119,6,0.18)">
+    <div class="bet-head">
+      <div>
+        <div class="bet-title">⚡ Bloom Energy · 数据中心供电</div>
+        <div class="bet-sub">固体氧化物燃料电池 / 90天部署 / 绕过电网审批</div>
+      </div>
+      <span class="bet-tag" style="background:rgba(217,119,6,0.15);color:var(--am)">主仓</span>
+    </div>
+    <div style="font-size:11px;line-height:1.6;color:var(--tx)">
+      AI数据中心通电平均要等5年（电网容量+审批），Bloom的SOFC机组可即插即用，<span style="font-weight:700">90天上线</span>。甲骨文已签<span style="color:var(--am);font-weight:700">2.8GW</span>采购合同。
+    </div>
+    <div class="bet-stats">
+      <div class="bet-stat"><div class="l">持仓</div><div class="v">$9亿</div></div>
+      <div class="bet-stat"><div class="l">未交付订单</div><div class="v">$200亿</div></div>
+      <div class="bet-stat"><div class="l">股价涨幅</div><div class="v" style="color:var(--gn)">+1420%</div></div>
+    </div>
+  </div>
+
+  <!-- Bet 2: CoreWeave -->
+  <div class="bet" style="background:rgba(37,99,235,0.04);border-color:rgba(37,99,235,0.18)">
+    <div class="bet-head">
+      <div>
+        <div class="bet-title">🖥️ CoreWeave · GPU云租赁</div>
+        <div class="bet-sub">英伟达卡 → OpenAI/Meta / 长期合同 / 算力储备</div>
+      </div>
+      <span class="bet-tag" style="background:rgba(37,99,235,0.15);color:var(--bl)">主仓</span>
+    </div>
+    <div style="font-size:11px;line-height:1.6;color:var(--tx)">
+      GPU云服务商，已锁定<span style="font-weight:700">$660亿未完成订单</span>（含Meta $210亿合同至2032年）。算力<span style="color:var(--bl);font-weight:700">850MW → 2026年扩至1700MW</span>。单服务器月租$2.8万，年化回报率61%。
+    </div>
+    <div class="bet-stats">
+      <div class="bet-stat"><div class="l">持仓</div><div class="v">$14亿</div></div>
+      <div class="bet-stat"><div class="l">未完成订单</div><div class="v">$660亿</div></div>
+      <div class="bet-stat"><div class="l">年化回报</div><div class="v" style="color:var(--gn)">61%</div></div>
+    </div>
+  </div>
+
+  <!-- Bet 3: Crypto Miners -->
+  <div class="bet" style="background:rgba(124,60,237,0.04);border-color:rgba(124,60,237,0.18)">
+    <div class="bet-head">
+      <div>
+        <div class="bet-title">⛓️ 加密矿工转型AI数据中心</div>
+        <div class="bet-sub">Core Scientific / Hut8 等 · 廉价电力合同 + 现成厂房</div>
+      </div>
+      <span class="bet-tag" style="background:rgba(124,60,237,0.15);color:var(--pr)">高弹性</span>
+    </div>
+    <div style="font-size:11px;line-height:1.6;color:var(--tx)">
+      原比特币矿企持有<span style="font-weight:700">长期低价电力 + 现成机房</span>，正以"AI算力房东"身份与CoreWeave等签长期协议（如<span style="color:var(--pr);font-weight:700">590MW / $100亿 / 12年</span>）。当前市销率仅4-5倍，拜纳认为应给到10-15倍。
+    </div>
+    <div class="bet-stats">
+      <div class="bet-stat"><div class="l">代表合同</div><div class="v">590MW</div></div>
+      <div class="bet-stat"><div class="l">合同期限</div><div class="v">12 年</div></div>
+      <div class="bet-stat"><div class="l">潜在重估</div><div class="v" style="color:var(--gn)">2-3 倍</div></div>
+    </div>
+  </div>
+
+  <!-- Bet 4: Optical -->
+  <div class="bet" style="background:rgba(13,148,136,0.04);border-color:rgba(13,148,136,0.18)">
+    <div class="bet-head">
+      <div>
+        <div class="bet-title">🔆 Lumentum & Coherent · 光模块</div>
+        <div class="bet-sub">800G / 1.6T 光模块 · 占AI集群成本15-20%</div>
+      </div>
+      <span class="bet-tag" style="background:rgba(13,148,136,0.15);color:var(--tl)">卡脖子</span>
+    </div>
+    <div style="font-size:11px;line-height:1.6;color:var(--tx)">
+      AI集群内部互联的关键组件，<span style="font-weight:700">订单已排到2028年</span>。英伟达直接战略投资$20亿并签包销协议，定价权与产能锁定。
+    </div>
+    <div class="bet-stats">
+      <div class="bet-stat"><div class="l">合计持仓</div><div class="v">$5.7亿</div></div>
+      <div class="bet-stat"><div class="l">订单排至</div><div class="v">2028</div></div>
+      <div class="bet-stat"><div class="l">英伟达包销</div><div class="v">$20亿</div></div>
+    </div>
+  </div>
+
+  <div class="src">Bloom Energy: SOFC机组规格、Oracle 2.8GW合同公告、订单$200亿、股价涨幅来自公司披露与公开报道。CoreWeave: $660亿RPO、Meta $210亿合同至2032、算力扩展计划来自公司财报与公开新闻。矿工合同: Core Scientific × CoreWeave 590MW/12yr/$100亿框架协议。Lumentum/Coherent: 公司财报、英伟达投资公告、AI集群成本结构。所有数字基于公开口径，存在估算偏差。</div>
+</div>
+
+<!-- Panel 2: Logic -->
+<div class="panel" id="panel-2">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>核心论点：瓶颈不在芯片，在物理</h2></div></div>
+  <div class="card">
+    <div class="chain">
+      <div class="chain-step gn"><h4>① 算力需求爆发</h4><p>训练+推理对GPU需求3-5年内10倍，英伟达产能扩张速度匹配。</p></div>
+      <div class="chain-step am"><h4>② 电力 = 第一关卡</h4><p>美国新建核电站平均周期 <span class="mono" style="color:var(--am);font-weight:700">~10年</span>，新建数据中心通电（电网扩容+审批）<span class="mono" style="color:var(--am);font-weight:700">~5年</span>。GW级AI集群无电可用。</p></div>
+      <div class="chain-step rd"><h4>③ 地皮 + 散热 + 水</h4><p>巨型数据中心选址受电网容量、冷却水源、土地用途约束，可建用地稀缺。</p></div>
+      <div class="chain-step"><h4>④ 必经关卡 = 投资标的</h4><p>不押"哪个模型赢"——而押"任何模型胜出都必须经过的物理通道"：发电、机房、互联、租赁。</p></div>
+    </div>
+  </div>
+  <div class="src">瓶颈观点出自《态势感知》核心论证，与EIA电网扩容数据、NRC核电审批周期一致。"必经关卡"为投资术语，意指某行业链条上无法绕过的环节。</div>
+
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>电力 vs 芯片产能 · 时间错配</h2></div></div>
+  <div class="card"><div id="time-chart"></div></div>
+  <div class="src">芯片产能由TSMC/Samsung扩产周期主导(~2-3年)，电力扩产由电网+核电+天然气项目主导(5-10年)。两者错配是拜纳论点的核心数据支撑。</div>
+
+  <div class="card" style="background:rgba(37,99,235,0.04);border-color:rgba(37,99,235,0.1)">
+    <div style="font-size:11px;line-height:1.7">
+      <span style="color:var(--bl);font-weight:700">推论 · 范式转变：</span>过去10年AI竞争是<span style="font-weight:700">软件 + 算法</span>之战，下一个5年是<span style="font-weight:700;color:#1a2332">能源 + 物理资产</span>之战。"AI公司"的护城河越来越像电力公司、地产公司、租赁公司——这就是拜纳避开模型层、聚焦基础设施层的底层判断。
+    </div>
+  </div>
+</div>
+
+<!-- Panel 3: Contrarian -->
+<div class="panel" id="panel-3">
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>反共识押注</h2></div><div class="sh-sub">非主流仓位 · 高赔率 / 高争议</div></div>
+
+  <div class="card" style="background:rgba(37,99,235,0.04);border-color:rgba(37,99,235,0.12)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+      <div style="font-size:13px;font-weight:800;color:var(--bl)">英特尔看涨期权</div>
+      <div style="font-size:14px;font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--bl)">$7.5亿</div>
+    </div>
+    <div style="font-size:11px;line-height:1.6;color:var(--tx)">
+      赌美国本土晶圆厂复兴 + CHIPS法案补贴落地 + 18A工艺达产。市场普遍看空（份额持续被TSMC/AMD侵蚀），拜纳用<span style="font-weight:700">非线性的期权头寸</span>表达：要么归零，要么数倍。
+    </div>
+  </div>
+
+  <div class="card" style="background:rgba(124,60,237,0.04);border-color:rgba(124,60,237,0.12)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+      <div style="font-size:13px;font-weight:800;color:var(--pr)">加密矿工转型</div>
+      <div style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--pr)">PSR 4-5 → 10-15</div>
+    </div>
+    <div style="font-size:11px;line-height:1.6;color:var(--tx)">
+      市场仍按"加密矿企"给估值（市销率4-5倍），拜纳按"AI数据中心REIT"给估值（10-15倍）。差距即赔率。风险：电费上涨 / 合同对手违约 / 估值切换不发生。
+    </div>
+  </div>
+
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>业绩验证</h2></div><div class="sh-sub">基金副本 2026.03 上线</div></div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:11px;color:var(--mt)">两月累计回报</div>
+        <div style="font-size:24px;font-family:'JetBrains Mono',monospace;font-weight:900;color:var(--gn);margin-top:2px">+58.3%</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;color:var(--mt)">期间</div>
+        <div style="font-size:13px;font-weight:700;color:#1a2332;margin-top:2px">2026.03 - 2026.05</div>
+      </div>
+    </div>
+  </div>
+  <div class="src">基金副本 (replication portfolio) 数据来自跟踪披露持仓的策略组合。两个月+58.3%为短期表现，不构成长期收益预期。基金本体业绩通常滞后披露。</div>
+
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>关键争议点</h2></div></div>
+
+  <div class="card" style="background:rgba(220,38,38,0.04);border-color:rgba(220,38,38,0.1)">
+    <div style="font-size:11px;color:var(--rd);font-weight:700;margin-bottom:6px">看空方质疑</div>
+    <div style="font-size:11px;line-height:1.7">
+      <span style="font-weight:700">1. 估值已透支：</span>Bloom Energy +1420%、CoreWeave高溢价上市，已包含大量未来订单预期。<br>
+      <span style="font-weight:700">2. 合同集中度：</span>CoreWeave $660亿订单中Meta一家占$210亿——客户集中度极高。<br>
+      <span style="font-weight:700">3. 电力替代路径：</span>SMR小型模块化反应堆、地热、就地天然气都可能压低Bloom的SOFC溢价。<br>
+      <span style="font-weight:700">4. 矿工转型不确定：</span>AI算力合同执行力受机房改造、电力升级、客户验收多重变量影响。
+    </div>
+  </div>
+
+  <div class="card" style="background:rgba(5,150,105,0.04);border-color:rgba(5,150,105,0.1)">
+    <div style="font-size:11px;color:var(--gn);font-weight:700;margin-bottom:6px">看多方逻辑</div>
+    <div style="font-size:11px;line-height:1.7">
+      电力短缺已成<span style="font-weight:700">2026年AI行业的实际瓶颈</span>，超级云厂商均公开承认电力配额是capex落地的最大变量。拜纳的押注比市场共识早12-18个月，先发优势带来非对称回报。<br><br>
+      <span style="color:#1a2332;font-weight:700">核心赌注：</span>"任何模型赢出都必须用电、必须租算力、必须装光模块"——这条逻辑链不依赖押对具体模型公司。
+    </div>
+  </div>
+
+  <div class="card" style="background:rgba(217,119,6,0.04);border-color:rgba(217,119,6,0.1)">
+    <div style="font-size:11px;line-height:1.7">
+      <span style="color:var(--am);font-weight:700">提醒：</span>本页内容为分析框架与公开数据汇编。基金规模、AGI 2027预测、未来订单等数据存在估算与不确定性。<span style="color:#1a2332;font-weight:700">不构成投资建议</span>，亦不应视为对任一持仓的推荐。
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <strong>黑森船长 | Captain Hessen</strong><br>
+  数据来源: 基金披露 / 公司财报 / SEC文件 / 公开报道 / 《态势感知》论文<br>
+  数据截至 2026.05 | 不构成投资建议
+</div>
+</div>
+
+<script>
+// ====== TAB SWITCH ======
+function switchTab(idx) {
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.panel');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('active', i === idx);
+    panels[i].classList.toggle('active', i === idx);
+  }
+}
+
+// ====== AUM CHART (log-ish bars) ======
+function renderAumChart() {
+  var pts = [
+    {y:"2017", v:0.0025, label:"$2.5M"},
+    {y:"2020", v:0.5, label:"$5亿"},
+    {y:"2023", v:55, label:"$550亿"},
+    {y:"2025", v:300, label:"$3000亿"},
+    {y:"2026E", v:550, label:"$5500亿"}
+  ];
+  var w = 580, h = 200, px = 50, py = 18, pw = w-px-30, ph = h-py-30;
+  var maxLog = Math.log10(600), minLog = Math.log10(0.001);
+  function yOf(v) { var l = Math.log10(Math.max(v, 0.001)); return py + ph - (l-minLog)/(maxLog-minLog)*ph; }
+  function xOf(i) { return px + (i/(pts.length-1))*pw; }
+
+  var svg = '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;display:block">';
+  // grid
+  [0.001, 0.1, 1, 10, 100].forEach(function(g) {
+    var yy = yOf(g);
+    svg += '<line x1="'+px+'" y1="'+yy+'" x2="'+(w-30)+'" y2="'+yy+'" stroke="rgba(0,40,100,0.06)" stroke-width="0.5"/>';
+    var label = g>=1 ? '$'+g+'B' : ('$'+(g*1000)+'M');
+    svg += '<text x="'+(px-5)+'" y="'+(yy+3)+'" text-anchor="end" fill="#7a8ea0" font-size="8" font-family="JetBrains Mono,monospace">'+label+'</text>';
+  });
+  // line
+  var path = pts.map(function(p, i) { return (i===0?'M':'L') + xOf(i).toFixed(1) + ',' + yOf(p.v).toFixed(1); }).join(' ');
+  svg += '<path d="'+path+'" fill="none" stroke="#7c3aed" stroke-width="2.5"/>';
+  // area
+  var area = path + ' L'+xOf(pts.length-1).toFixed(1)+','+(py+ph).toFixed(1)+' L'+xOf(0).toFixed(1)+','+(py+ph).toFixed(1)+' Z';
+  svg += '<path d="'+area+'" fill="url(#g1)" opacity="0.25"/>';
+  svg += '<defs><linearGradient id="g1" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/></linearGradient></defs>';
+  // points + labels
+  pts.forEach(function(p, i) {
+    var x = xOf(i), y = yOf(p.v);
+    svg += '<circle cx="'+x+'" cy="'+y+'" r="3.5" fill="#7c3aed"/>';
+    svg += '<text x="'+x+'" y="'+(h-6)+'" text-anchor="middle" fill="#7a8ea0" font-size="8.5">'+p.y+'</text>';
+    var ly = i===pts.length-1 ? y-8 : y-8;
+    svg += '<text x="'+x+'" y="'+ly+'" text-anchor="middle" fill="#7c3aed" font-size="9" font-weight="700" font-family="JetBrains Mono,monospace">'+p.label+'</text>';
+  });
+  svg += '</svg>';
+  document.getElementById('aum-chart').innerHTML = svg;
+}
+
+// ====== BETS BAR ======
+function renderBetsBar() {
+  var items = [
+    {name:"Bloom Energy",val:9,color:"#d97706",note:"供电 · 主仓"},
+    {name:"CoreWeave",val:14,color:"#2563eb",note:"GPU云 · 主仓"},
+    {name:"英特尔看涨期权",val:7.5,color:"#7c3aed",note:"反共识"},
+    {name:"Lumentum + Coherent",val:5.7,color:"#0d9488",note:"光模块"}
+  ];
+  var max = 14;
+  var html = '';
+  items.forEach(function(it) {
+    var w = it.val/max*100;
+    html += '<div class="stat-row">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
+    html += '<span style="font-size:11px;color:#2c3e50;font-weight:600">'+it.name+'</span>';
+    html += '<span style="font-size:12px;font-family:JetBrains Mono,monospace;font-weight:800;color:'+it.color+'">$'+it.val+'亿</span>';
+    html += '</div>';
+    html += '<div class="bar-bg"><div class="bar-fg" style="width:'+w+'%;background:linear-gradient(90deg,'+it.color+'55,'+it.color+')"></div></div>';
+    html += '<div style="font-size:9px;color:#7a8ea0;margin-top:2px">'+it.note+'</div>';
+    html += '</div>';
+  });
+  document.getElementById('bets-bar').innerHTML = html;
+}
+
+// ====== TIME MISMATCH CHART ======
+function renderTimeChart() {
+  var rows = [
+    {label:"芯片产能扩张 (TSMC fab)", years:2.5, color:"#059669", text:"2.5 年"},
+    {label:"光模块产能 (Lumentum/Coherent)", years:1.5, color:"#0d9488", text:"1.5 年"},
+    {label:"数据中心通电 (电网+审批)", years:5, color:"#d97706", text:"5 年"},
+    {label:"天然气调峰电厂", years:4, color:"#ea580c", text:"4 年"},
+    {label:"新建核电站", years:10, color:"#dc2626", text:"10 年"}
+  ];
+  var max = 10;
+  var html = '';
+  rows.forEach(function(r) {
+    var w = r.years/max*100;
+    html += '<div class="stat-row">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
+    html += '<span style="font-size:11px;color:#2c3e50">'+r.label+'</span>';
+    html += '<span style="font-size:12px;font-family:JetBrains Mono,monospace;font-weight:700;color:'+r.color+'">'+r.text+'</span>';
+    html += '</div>';
+    html += '<div class="bar-bg"><div class="bar-fg" style="width:'+w+'%;background:linear-gradient(90deg,'+r.color+'55,'+r.color+')"></div></div>';
+    html += '</div>';
+  });
+  document.getElementById('time-chart').innerHTML = html;
+}
+
+// ====== INIT ======
+renderAumChart();
+renderBetsBar();
+renderTimeChart();
+</script>
+</body>
+</html>

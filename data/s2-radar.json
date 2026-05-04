@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-01T10:27:54",
+  "timestamp": "2026-05-04T08:27:35",
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
     "score": 0.333,
-    "action": "系统健康。建议仓位≤50%（趋势↑），增加对冲，缩短持仓周期。"
+    "action": "系统健康。建议仓位≤55%（趋势↑），增加对冲，缩短持仓周期。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -31,7 +31,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.27,
+      "score": 0.23,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -41,7 +41,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.11,
+      "score": -0.15,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -51,27 +51,27 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.13,
+      "score": 0.1,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.11,
+      "score": 0.07,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.42,
+      "score": 0.37,
       "state": "▲",
       "light": "green",
       "note": "技术进步与制度消化能力匹配",
@@ -91,21 +91,21 @@
         "name": "黄金吸引子",
         "emoji": "🟢",
         "color": "#22c55e",
-        "pct": 2.1
+        "pct": 2.0
       },
       {
         "key": "STABLE",
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 64.6
+        "pct": 65.3
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 33.3
+        "pct": 32.7
       },
       {
         "key": "TECH_DOM",
@@ -127,9 +127,9 @@
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=75.1 (历史95%分位)",
-    "地缘政治风险(GPR)=297 (历史100%分位)",
-    "地缘交叉验证(OVX)=75.1 (历史95%分位) [仅验证，不计分]"
+    "OVX原油波动率=75.4 (历史96%分位)",
+    "地缘政治风险(GPR)=231 (历史97%分位)",
+    "地缘交叉验证(OVX)=75.4 (历史96%分位) [仅验证，不计分]"
   ],
   "opportunities": [],
   "contradiction": {
@@ -146,12 +146,12 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 16.9,
-      "percentile": 58,
+      "value": 17.0,
+      "percentile": 60,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.82,
+      "value": 2.83,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

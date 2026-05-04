@@ -3,466 +3,518 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>态势感知 · Situational Awareness 论文解读 | 黑森船长</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<title>态势感知 · Situational Awareness 原文解构 | 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#e8eff7;            /* 浅蓝底 */
+  --bg:#e8eff7;
   --sf:#ffffff;
-  --bd:rgba(13,31,60,0.10);
-  --tx:#0d1f3c;            /* 深海军蓝 */
+  --bd:rgba(26,39,68,0.10);
+  --tx:#1a2744;
   --tx2:#324a6e;
   --mt:#6e7f96;
-  --gd:#a67c00;            /* 深金色 (主强调) */
-  --gd2:#7a5a00;
-  --gdl:#d4a843;
-  --bl:#1b3a8a;
-  --rd:#a02c2c;
-  --gn:#0d6b4a;
-  --pr:#5b3a8a;
+  --gd:#c8963e;
+  --gd2:#9a7330;
+  --bl:#3a6ea5;
+  --rd:#c0392b;
+  --gn:#27ae60;
+  --or:#e67e22;
+  --pr:#8e44ad;
 }
-body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding:24px 14px 50px}
-.wrap{max-width:680px;margin:0 auto}
+body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding:0 0 50px}
+.serif{font-family:'Noto Serif SC',Georgia,serif}
 .mono{font-family:'JetBrains Mono',monospace}
-.watermark{position:fixed;bottom:8px;right:12px;font-size:9px;color:rgba(13,31,60,0.10);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:999}
-.back-link{display:inline-block;margin-bottom:16px;font-size:12px;color:var(--mt);text-decoration:none;transition:color .2s}
+.wrap{max-width:680px;margin:0 auto;padding:0 12px}
+.watermark{position:fixed;bottom:10px;right:14px;font-size:10px;color:rgba(26,39,68,0.12);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:0}
+.back-link{display:inline-block;margin:14px 0 10px;font-size:12px;color:var(--mt);text-decoration:none}
 .back-link:hover{color:var(--gd)}
 
 /* Header */
-.header{text-align:center;margin-bottom:24px;padding-bottom:18px;border-bottom:2px solid var(--gd)}
-.header .sub{font-size:9px;letter-spacing:4px;color:var(--gd);margin-bottom:8px;font-weight:700}
-.header h1{font-size:22px;font-weight:900;color:var(--tx);line-height:1.3;margin:0 0 6px}
-.header .en{font-size:11px;font-style:italic;color:var(--mt);margin:0 0 8px;letter-spacing:0.5px}
-.header .meta{font-size:10px;color:var(--tx2);font-family:'JetBrains Mono',monospace}
+.hero{background:linear-gradient(135deg,var(--tx),#2a4060);padding:18px 16px 14px;color:#fff;border-radius:0 0 12px 12px;margin-bottom:10px}
+.hero .sub{color:var(--gd);font-size:9px;font-weight:700;letter-spacing:3px}
+.hero h1{font-size:22px;margin:6px 0 2px;font-weight:900;letter-spacing:0.5px}
+.hero .meta{color:rgba(255,255,255,0.6);font-size:11px}
+
+/* Key numbers strip */
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
+.kbox{background:var(--sf);border-radius:8px;padding:9px 8px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.kbox .n{font-size:16px;font-weight:800;color:var(--tx);font-family:'JetBrains Mono',monospace}
+.kbox .s{font-size:9px;color:var(--bl);line-height:1.3;margin-top:2px}
+.kbox .src{font-size:8px;color:var(--gd);margin-top:3px;font-weight:600}
 
 /* Tabs */
-.tabs{display:flex;gap:4px;margin-bottom:20px;overflow-x:auto;padding-bottom:6px}
-.tab-btn{padding:7px 14px;border-radius:20px;border:1px solid var(--bd);background:var(--sf);color:var(--mt);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Noto Sans SC',sans-serif;transition:all .2s}
+.tabs{display:flex;gap:4px;margin-bottom:12px;overflow-x:auto;padding:2px 0 6px}
+.tab-btn{padding:7px 12px;border-radius:18px;border:1px solid var(--bd);background:var(--sf);color:var(--mt);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'Noto Sans SC',sans-serif;transition:all .2s}
 .tab-btn.active{border-color:var(--gd);background:var(--gd);color:#fff}
-.tab-btn:hover{border-color:var(--gd)}
 
-/* Section */
-.sh{margin-bottom:14px}
-.sh-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+/* Section header */
+.sh{margin-bottom:10px}
+.sh-row{display:flex;align-items:center;gap:10px;margin-bottom:3px}
 .sh-bar{width:3px;height:18px;background:linear-gradient(180deg,var(--gd),var(--gd2));border-radius:2px}
 .sh h2{font-size:14px;font-weight:800;color:var(--tx);margin:0}
 .sh .sh-sub{font-size:11px;color:var(--mt);padding-left:13px}
 
 /* Card */
-.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:12px}
-.card-gold{border-left:3px solid var(--gd);background:rgba(166,124,0,0.04)}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card-gold{border-left:3px solid var(--gd);background:rgba(200,150,62,0.04)}
+.card-dark{background:var(--tx);color:#fff}
+.card-dark .l{color:var(--gd)}
 
 /* Source */
-.src{font-size:9.5px;color:var(--mt);line-height:1.6;padding:6px 10px;margin-bottom:12px;border-left:2px solid var(--bd);margin-left:4px;font-style:italic}
+.src{font-size:9.5px;color:var(--mt);line-height:1.6;padding:6px 10px;margin-bottom:10px;border-left:2px solid var(--bd);margin-left:4px;font-style:italic}
 
 /* Tab panels */
 .panel{display:none}
 .panel.active{display:block}
 
 /* Footer */
-.footer{text-align:center;padding-top:20px;margin-top:20px;border-top:1px solid var(--bd);font-size:10px;color:var(--mt);line-height:1.8}
+.footer{text-align:center;padding-top:14px;margin-top:14px;border-top:1px solid var(--bd);font-size:10px;color:var(--mt);line-height:1.8}
 .footer strong{color:var(--tx)}
 
-/* Utility */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(max-width:420px){.grid-2{grid-template-columns:1fr}}
-.bar-bg{height:8px;background:rgba(13,31,60,0.06);border-radius:4px;overflow:hidden}
-.bar-fg{height:100%;border-radius:4px}
-
-/* Author profile */
-.author-box{display:flex;gap:14px;align-items:flex-start;padding:14px;background:linear-gradient(135deg,rgba(166,124,0,0.08),rgba(27,58,138,0.04));border-radius:10px;border:1px solid var(--bd)}
-.author-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gd),var(--gd2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:900;flex-shrink:0;box-shadow:0 2px 8px rgba(166,124,0,0.3)}
-.author-info{flex:1}
+/* Author */
+.author-box{display:flex;gap:14px;align-items:flex-start;padding:14px;background:linear-gradient(135deg,rgba(200,150,62,0.10),rgba(58,110,165,0.04));border-radius:10px;border:1px solid var(--bd);margin-bottom:10px}
+.author-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gd),var(--gd2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:900;flex-shrink:0;box-shadow:0 2px 8px rgba(200,150,62,0.35)}
 .author-info h3{font-size:14px;font-weight:800;color:var(--tx);margin:0 0 2px}
 .author-info .en{font-size:10px;color:var(--mt);margin:0 0 6px}
-.author-info p{font-size:11px;line-height:1.6;color:var(--tx2);margin:0}
+.author-info p{font-size:11px;line-height:1.65;color:var(--tx2);margin:0}
 
 /* Timeline */
-.timeline{position:relative;padding-left:24px}
-.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--bl),var(--gd),var(--rd))}
-.tl-step{position:relative;padding:8px 0 14px}
-.tl-step::before{content:"";position:absolute;left:-23px;top:11px;width:14px;height:14px;border-radius:50%;background:var(--sf);border:2.5px solid var(--gd)}
+.timeline{position:relative;padding-left:22px}
+.timeline::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--bl),var(--gd),var(--rd))}
+.tl-step{position:relative;padding:7px 0 12px}
+.tl-step::before{content:"";position:absolute;left:-21px;top:10px;width:13px;height:13px;border-radius:50%;background:var(--sf);border:2.5px solid var(--gd)}
 .tl-step.done::before{background:var(--gd)}
 .tl-year{font-size:10px;font-weight:800;color:var(--gd);letter-spacing:1px;font-family:'JetBrains Mono',monospace}
 .tl-title{font-size:12.5px;font-weight:700;color:var(--tx);margin:1px 0 3px}
 .tl-desc{font-size:11px;color:var(--tx2);line-height:1.55}
 
 /* Chapter card */
-.chap{padding:14px;border-radius:10px;margin-bottom:10px;background:var(--sf);border:1px solid var(--bd);border-left:3px solid var(--gd)}
-.chap-head{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;flex-wrap:wrap}
-.chap-num{font-size:18px;font-weight:900;color:var(--gd);font-family:'JetBrains Mono',monospace;line-height:1}
-.chap-title-cn{font-size:13px;font-weight:800;color:var(--tx)}
-.chap-title-en{font-size:10px;color:var(--mt);font-style:italic}
-.chap-body{font-size:11px;line-height:1.7;color:var(--tx2)}
-.chap-body strong{color:var(--tx);font-weight:700}
-.chap-key{margin-top:8px;padding:8px 10px;background:rgba(166,124,0,0.06);border-radius:6px;font-size:10.5px;line-height:1.6;color:var(--tx)}
-.chap-key b{color:var(--gd)}
+.chap{padding:14px;border-radius:10px;margin-bottom:10px;background:var(--sf);border:1px solid var(--bd);box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.chap-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.chap-num{font-size:10px;font-weight:800;color:#fff;padding:2px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace}
+.chap-page{font-size:9.5px;color:var(--mt);font-family:'JetBrains Mono',monospace}
+.chap-titles{margin-bottom:8px}
+.chap-title-cn{font-size:13.5px;font-weight:800;color:var(--tx);line-height:1.3}
+.chap-title-en{font-size:10px;color:var(--mt);font-style:italic;margin-top:1px}
+.chap-quote{background:var(--bg);border-left:3px solid var(--gd);border-radius:6px;padding:9px 11px;margin-bottom:9px}
+.chap-quote .q{font-size:11px;color:var(--tx);line-height:1.55;font-style:italic;font-family:'Noto Serif SC',Georgia,serif}
+.chap-pt{display:flex;gap:7px;align-items:flex-start;margin-bottom:5px}
+.chap-pt .dot{width:5px;height:5px;border-radius:50%;margin-top:7px;flex-shrink:0}
+.chap-pt .text{font-size:11px;color:var(--tx);line-height:1.55;flex:1}
+.chap-pt .pg{font-size:9px;color:var(--gd);font-family:'JetBrains Mono',monospace;font-weight:700;margin-left:4px;white-space:nowrap}
 
-/* Stat */
-.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+/* Stat card */
 .stat-card{padding:12px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;text-align:center}
 .stat-card .l{font-size:10px;color:var(--mt);margin-bottom:4px}
 .stat-card .v{font-size:18px;font-family:'JetBrains Mono',monospace;font-weight:900;color:var(--gd)}
 .stat-card .u{font-size:9px;color:var(--mt);margin-top:2px}
 
+/* Bar */
+.bar-bg{height:18px;background:#dce6f0;border-radius:3px;overflow:hidden}
+.bar-fg{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:7px;color:#fff;font-size:9px;font-weight:700;font-family:'JetBrains Mono',monospace;text-shadow:0 1px 2px rgba(0,0,0,0.3)}
+
 /* Compare */
-.cmp-row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
+.cmp-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd)}
 .cmp-row:last-child{border-bottom:none}
 .cmp-side{padding:8px;border-radius:8px;font-size:11px;line-height:1.5}
-.cmp-us{background:rgba(27,58,138,0.06);border:1px solid rgba(27,58,138,0.15);text-align:right}
-.cmp-cn{background:rgba(160,44,44,0.06);border:1px solid rgba(160,44,44,0.15)}
+.cmp-us{background:rgba(58,110,165,0.06);border:1px solid rgba(58,110,165,0.18);text-align:right}
+.cmp-cn{background:rgba(192,57,43,0.06);border:1px solid rgba(192,57,43,0.18)}
 .cmp-label{font-size:10px;color:var(--mt);font-weight:700;text-align:center;padding:4px 6px;background:var(--bg);border-radius:6px;white-space:nowrap}
 .cmp-tag{font-size:14px;font-family:'JetBrains Mono',monospace;font-weight:800;display:block;margin-bottom:2px}
 .cmp-us .cmp-tag{color:var(--bl)}
 .cmp-cn .cmp-tag{color:var(--rd)}
+
+/* Explosion chain */
+.expl-step{display:flex;gap:10px;margin-bottom:9px;align-items:flex-start;position:relative}
+.expl-num{width:24px;height:24px;border-radius:50%;background:var(--gd);color:var(--tx);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.expl-body{flex:1}
+.expl-body .t{font-size:11.5px;color:#fff;font-weight:700}
+.expl-body .t .yr{color:var(--gd);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;margin-left:6px}
+.expl-body .d{font-size:10px;color:rgba(255,255,255,0.65);line-height:1.4;margin-top:1px}
+
+/* Tag */
+.tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;font-family:'JetBrains Mono',monospace}
+
+/* Source legend */
+.legend{font-size:9px;color:var(--mt);line-height:1.7;padding:6px 10px;background:rgba(255,255,255,0.5);border-radius:6px;margin-top:8px}
+.legend b{color:var(--tx)}
 </style>
 </head>
 <body>
-<div class="wrap">
 <div class="watermark">黑森船长</div>
-<a href="index.html" class="back-link">&larr; 返回工具箱</a>
 
-<!-- Header -->
-<div class="header">
-  <div class="sub">SITUATIONAL AWARENESS · THE DECADE AHEAD</div>
-  <h1>态势感知 · 未来十年</h1>
-  <div class="en">Leopold Aschenbrenner · June 2024 · 165 pages</div>
-  <div class="meta">GPT-4 → AGI 2027 · Superintelligence 2028+ · 万亿美元集群</div>
-</div>
+<div class="wrap">
+  <a href="index.html" class="back-link">&larr; 返回工具箱</a>
 
-<!-- Tabs -->
-<div class="tabs">
-  <button class="tab-btn active" onclick="switchTab(0)">论文概览</button>
-  <button class="tab-btn" onclick="switchTab(1)">五大章节</button>
-  <button class="tab-btn" onclick="switchTab(2)">OOM 增长</button>
-  <button class="tab-btn" onclick="switchTab(3)">万亿集群</button>
-  <button class="tab-btn" onclick="switchTab(4)">中美对比</button>
-</div>
-
-<!-- ============================================================ -->
-<!-- Panel 0: Overview -->
-<!-- ============================================================ -->
-<div class="panel active" id="panel-0">
-
-  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>作者 · Leopold Aschenbrenner</h2></div></div>
-  <div class="author-box">
-    <div class="author-avatar">L·A</div>
-    <div class="author-info">
-      <h3>莱奥波德·阿申布伦纳</h3>
-      <div class="en">Leopold Aschenbrenner · German-American · b. 2001</div>
-      <p>15岁进哥伦比亚大学，19岁以最高荣誉毕业；2023-2024 任 OpenAI 超级对齐团队（Jan Leike、Ilya Sutskever 麾下）研究员；2024 年 4 月被 OpenAI 解雇（官方称"泄密"，本人称因撰写国家安全备忘录给董事会）；同年 6 月发布 165 页论文《Situational Awareness》；随后创立专注 AGI 主题的对冲基金 <strong>Situational Awareness LP</strong>（首期约 $1B，由 Patrick Collison、Daniel Gross、Nat Friedman 等支持）。</p>
-    </div>
-  </div>
-  <div class="src">人物履历: Aschenbrenner公开访谈(Dwarkesh Patel Podcast 2024.6) + 论文官方网站 situational-awareness.ai。基金信息: Bloomberg/The Information 2024.9 公开报道。</div>
-
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>核心论点 · 一句话总结</h2></div></div>
-  <div class="card card-gold">
-    <div style="font-size:13px;line-height:1.8;color:var(--tx)">
-      "<strong>到 2027 年，我们将拥有比博士级研究员更智能的 AI</strong>；很少有人意识到这意味着什么——<strong>万亿美元规模的算力集群、整个国家电网的重塑、AGI 的国家化</strong>，以及一场决定 21 世纪秩序的中美超级智能竞赛。"
-    </div>
-    <div style="font-size:11px;color:var(--mt);margin-top:10px;font-style:italic">
-      — 论文摘要凝练，原文 165 页系统论证
-    </div>
+  <!-- Hero header -->
+  <div class="hero">
+    <div class="sub">LEOPOLD ASCHENBRENNER · JUNE 2024 · 165 PAGES</div>
+    <h1 class="serif">SITUATIONAL AWARENESS</h1>
+    <div class="meta">态势感知 · 未来十年 · 基于原文页码逐条重建</div>
   </div>
 
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>2024 → 2030 关键时间线</h2></div><div class="sh-sub">论文中明示与隐含的里程碑预测</div></div>
-  <div class="card">
-    <div class="timeline">
-      <div class="tl-step done">
-        <div class="tl-year">2024</div>
-        <div class="tl-title">起点 · GPT-4 已然存在</div>
-        <div class="tl-desc">主流芯片 H100, 单集群 ~10⁵ GPU, 训练算力 ~10²⁵ FLOP, 投资 ~$10B 级</div>
-      </div>
-      <div class="tl-step">
-        <div class="tl-year">2025-2026</div>
-        <div class="tl-title">"GPT-5/6" 级别 · 智能体爆发</div>
-        <div class="tl-desc">+1 OOM 算力, ChatGPT-4 → 类博士智能跨越; AI Agent 开始替代白领任务; 单集群 ~$100B 启动建设</div>
-      </div>
-      <div class="tl-step">
-        <div class="tl-year">2027</div>
-        <div class="tl-title">⚡ AGI · 自动化 AI 研究员</div>
-        <div class="tl-desc">从 GPT-4 起再 +4 OOM, 算法自我改进闭环启动; 美中算力差距决定结局; "项目"(The Project) 启动可能性陡增</div>
-      </div>
-      <div class="tl-step">
-        <div class="tl-year">2028-2030</div>
-        <div class="tl-title">智能爆炸 · 超级智能</div>
-        <div class="tl-desc">AGI 自身进行 AI 研究, 一年压缩十年进展; 100GW 集群 ($1T+) 上线; 超级智能体出现; 安全 / 对齐 / 战争控制成生死议题</div>
-      </div>
-      <div class="tl-step">
-        <div class="tl-year">2030+</div>
-        <div class="tl-title">国家级项目 · 自由世界博弈</div>
-        <div class="tl-desc">实验室国有化(类曼哈顿计划); 全球电力 / 芯片 / 数据中心成战略资产; 中美权力转移加速; 文中称之为"the wildest ride humanity has ever been on"</div>
+  <!-- Key numbers strip -->
+  <div class="kgrid">
+    <div class="kbox"><div class="n">~5 OOMs</div><div class="s">2027 有效算力增量</div><div class="src">🟢 p.38</div></div>
+    <div class="kbox"><div class="n">$1T+</div><div class="s">2030 单集群成本</div><div class="src">🟢 p.77 Table 4</div></div>
+    <div class="kbox"><div class="n">$8T</div><div class="s">2030 全球年投资</div><div class="src">🟢 p.80 Table 5</div></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(0)">论文概览</button>
+    <button class="tab-btn" onclick="switchTab(1)">七大章节</button>
+    <button class="tab-btn" onclick="switchTab(2)">OOM 增长</button>
+    <button class="tab-btn" onclick="switchTab(3)">万亿集群</button>
+    <button class="tab-btn" onclick="switchTab(4)">中美对比</button>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- Panel 0: Overview -->
+  <!-- ============================================== -->
+  <div class="panel active" id="panel-0">
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>作者 · Leopold Aschenbrenner</h2></div></div>
+    <div class="author-box">
+      <div class="author-avatar">L·A</div>
+      <div class="author-info">
+        <h3>莱奥波德·阿申布伦纳</h3>
+        <div class="en">Leopold Aschenbrenner · German-American · b. 2001</div>
+        <p>15 岁进哥伦比亚大学，19 岁以最高荣誉毕业；2023-2024 任 OpenAI 超级对齐团队（Jan Leike、Ilya Sutskever 麾下）研究员；2024 年 4 月被 OpenAI 解雇（官方称"泄密"，本人称因撰写国家安全备忘录给董事会）；同年 6 月发布 165 页论文《Situational Awareness》；随后创立 AGI 主题对冲基金 <strong>Situational Awareness LP</strong>（首期约 $1B，由 Patrick Collison、Daniel Gross、Nat Friedman 等支持）。</p>
       </div>
     </div>
+    <div class="src">人物履历: Aschenbrenner 公开访谈(Dwarkesh Patel Podcast 2024.6) + 论文官网 situational-awareness.ai。基金信息: Bloomberg/The Information 2024.9。</div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>核心论点 · 一句话</h2></div></div>
+    <div class="card card-gold">
+      <div class="serif" style="font-size:13px;line-height:1.85;color:var(--tx)">
+        "<strong>到 2027 年，我们将拥有比博士级研究员更智能的 AI</strong>。 不需要相信科幻，<strong>只需相信图上的直线</strong>——历史 OOM 趋势线 + 算法效率 + unhobbling 三股增长叠加，2024-2027 再 +5 OOMs，AGI 自然到来；之后<strong>万亿美元集群、整个国家电网重塑、AGI 国家化</strong>，以及一场决定 21 世纪秩序的中美超级智能竞赛接连展开。"
+      </div>
+      <div style="font-size:10px;color:var(--mt);margin-top:10px;font-style:italic">原文 165 页系统论证，本页凝练。</div>
+    </div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>2024 → 2030 关键时间线</h2><div class="sh-sub">论文中明示与隐含的里程碑（页码标注）</div></div></div>
+    <div class="card">
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>关键数字</h2></div></div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+      <div class="stat-card"><div class="l">论文页数</div><div class="v">165</div><div class="u">pages</div></div>
+      <div class="stat-card"><div class="l">AGI 预测</div><div class="v">2027</div><div class="u">年 (p.38)</div></div>
+      <div class="stat-card"><div class="l">2024→2027 OOM</div><div class="v">+~5</div><div class="u">orders of magnitude (p.38)</div></div>
+      <div class="stat-card"><div class="l">2030 单集群</div><div class="v">$1T+</div><div class="u">100GW (p.77)</div></div>
+      <div class="stat-card"><div class="l">2030 累计投资</div><div class="v">$8T</div><div class="u">全球年化 (p.80)</div></div>
+      <div class="stat-card"><div class="l">作者写作时年龄</div><div class="v">22</div><div class="u">岁</div></div>
+    </div>
   </div>
-  <div class="src">时间线节点对应论文 Part I-V 的预测。"博士级智能 2027" 来自 Part I 的 OOM 外推; "万亿美元集群" 来自 Part IIIa; "国有化项目" 来自 Part IV; "AI 研究自动化 → 智能爆炸" 来自 Part II。</div>
 
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>关键数字一览</h2></div></div>
-  <div class="stat-grid">
-    <div class="stat-card"><div class="l">论文页数</div><div class="v">165</div><div class="u">pages</div></div>
-    <div class="stat-card"><div class="l">AGI 预测年份</div><div class="v">2027</div><div class="u">年</div></div>
-    <div class="stat-card"><div class="l">2024→2027 OOM增量</div><div class="v">+4</div><div class="u">orders of magnitude</div></div>
-    <div class="stat-card"><div class="l">万亿美元集群</div><div class="v">2028</div><div class="u">$1T+ / 100GW</div></div>
-    <div class="stat-card"><div class="l">2030 总算力投资</div><div class="v">$8T</div><div class="u">累计</div></div>
-    <div class="stat-card"><div class="l">作者写作时年龄</div><div class="v">22</div><div class="u">岁</div></div>
+  <!-- ============================================== -->
+  <!-- Panel 1: 7 Chapters -->
+  <!-- ============================================== -->
+  <div class="panel" id="panel-1">
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>论文七部分 · 中英 + 原文 quote + 页码引用</h2><div class="sh-sub">Part I-IV · 每条要点对应原文页码</div></div></div>
+    <div id="chap-list"></div>
+    <div class="src">章节摘要基于论文公开版本(situational-awareness.ai)的 Part I-IV 结构。每条 bullet 后的 (p.X) 为原文页码引用。原文每章 20-40 页，本页提炼为核心论点 + 一句话 quote + 关键数据。</div>
   </div>
-</div>
 
-<!-- ============================================================ -->
-<!-- Panel 1: 5 Chapters -->
-<!-- ============================================================ -->
-<div class="panel" id="panel-1">
+  <!-- ============================================== -->
+  <!-- Panel 2: OOM Growth -->
+  <!-- ============================================== -->
+  <div class="panel" id="panel-2">
 
-  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>论文五大部分 · 中英对照摘要</h2></div><div class="sh-sub">Part I-V · Aschenbrenner 论文目录</div></div>
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>有效算力 OOM 增长曲线</h2><div class="sh-sub">2019-2027 · 对数刻度 · GPT-2 → AGI 趋势线</div></div></div>
+    <div class="card"><div id="oom-chart"></div></div>
 
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">I</div>
-      <div>
-        <div class="chap-title-cn">从 GPT-4 到 AGI · 数清 OOM</div>
-        <div class="chap-title-en">From GPT-4 to AGI: Counting the OOMs</div>
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>FLOP 实测数据 · p.20</h2></div></div>
+    <div class="card">
+      <div style="font-size:10px;color:var(--gd);font-weight:700;letter-spacing:1px;margin-bottom:8px">🟢 原文数据 · FLOP 增长 (p.20)</div>
+      <div id="flop-table"></div>
+      <div style="margin-top:10px;font-size:9.5px;color:var(--mt);line-height:1.55">
+        趋势线: 算力 ~0.5 OOM/年 + 算法效率 ~0.5 OOM/年 + unhobbling → 4 年内累计 ~5 OOM 有效算力。2027 年虚线为作者外推 (🟡)，非实测。
       </div>
     </div>
-    <div class="chap-body">
-      过去四年 GPT-2 到 GPT-4 的飞跃，本质是约 <strong>5 个数量级（OOM）的"有效算力"提升</strong>——由三股力量叠加：物理算力扩张、算法效率改进、"解放"模型潜能（CoT、RLHF、工具、Agent）。把同样的趋势线再延伸 4 年，2027 年就会看到一个能<strong>独立完成 AI 研究</strong>的系统。这不是科幻，而是<strong>简单趋势外推</strong>。
-    </div>
-    <div class="chap-key"><b>核心数字：</b>2024→2027 再 +4 OOM 有效算力 = 物理算力 +1.5 OOM × 算法效率 +1.5 OOM × 解放收益 +1 OOM</div>
-  </div>
 
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">II</div>
-      <div>
-        <div class="chap-title-cn">从 AGI 到超级智能 · 智能爆炸</div>
-        <div class="chap-title-en">From AGI to Superintelligence: The Intelligence Explosion</div>
-      </div>
-    </div>
-    <div class="chap-body">
-      AGI 的关键意义在于<strong>自动化 AI 研究本身</strong>。一旦 AI 能取代 OpenAI 的研究员，<strong>"一年内可压缩十年进展"</strong>——百万个 AGI 研究员并行迭代，几个月内就跨越到远超人类的"超级智能"。这不是渐进，而是相变。
-    </div>
-    <div class="chap-key"><b>核心论点：</b>AGI ≠ 终点, 而是触发"智能爆炸"的引信; 超级智能可能在 AGI 出现后 12-24 个月内到来</div>
-  </div>
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>三股力量分解 · 每年 OOM 提升</h2></div></div>
+    <div class="card"><div id="oom-stack"></div></div>
+    <div class="src">三力分解 (p.20-38): ① 物理算力 ~0.5 OOM/yr ② 算法效率 ~0.5 OOM/yr ③ "解放(unhobbling)" ~0.4 OOM/yr — 三者相加 ~1.4 OOM/yr 有效算力。</div>
 
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">IIIa</div>
-      <div>
-        <div class="chap-title-cn">竞速万亿美元集群</div>
-        <div class="chap-title-en">Racing to the Trillion-Dollar Cluster</div>
-      </div>
-    </div>
-    <div class="chap-body">
-      实现 AGI 需要史无前例的<strong>物理基础设施</strong>：到 2028 年，单一训练集群将达到 <strong>$1T、100GW、10M 颗 AI 芯片</strong>。这相当于一座中等国家的全部电力消耗。整个美国 2030 年 AI 算力投资累计将达 $8T 量级。"<strong>电力，不是芯片，将成为最终瓶颈。</strong>"
-    </div>
-    <div class="chap-key"><b>资源账：</b>2028 单集群 ~$1T / 100GW · 2030 累计 ~$8T · 电力将占美国总发电量 ~20%</div>
-  </div>
-
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">IIIb</div>
-      <div>
-        <div class="chap-title-cn">锁定实验室 · AGI 安全</div>
-        <div class="chap-title-en">Lock Down the Labs: Security for AGI</div>
-      </div>
-    </div>
-    <div class="chap-body">
-      作者亲历 OpenAI 内部安全状况后强烈警告：<strong>当前美国 AI 实验室的安全级别远低于核武级别</strong>，模型权重和关键算法可能已经或即将被中国国家行动者窃取。如果<strong>超级智能权重落入 CCP 手中</strong>，自由世界将丧失决定性优势。必须按"曼哈顿计划"标准锁定实验室。
-    </div>
-    <div class="chap-key"><b>呼吁：</b>美国情报体系介入 AGI 实验室物理 & 网络安全; 比照核武标准管控权重 & 算法</div>
-  </div>
-
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">IIIc</div>
-      <div>
-        <div class="chap-title-cn">超级对齐 · Superalignment</div>
-        <div class="chap-title-en">Superalignment</div>
-      </div>
-    </div>
-    <div class="chap-body">
-      当 AI 比人类更聪明时，<strong>"如何让它做人类想要的事"成为开放问题</strong>。RLHF 等当前方法在超人类系统上会失效——人类无法判断超人类输出的好坏。如果智能爆炸期间没有解决这一难题，<strong>失控风险是默认结果</strong>。这是作者在 OpenAI 超级对齐团队工作的核心问题，也是该团队 2024 年解散后他离职的导火索。
-    </div>
-    <div class="chap-key"><b>风险：</b>智能爆炸期对齐工作必须"提前完成", 而当前对齐研究投入远不足以匹配能力扩展速度</div>
-  </div>
-
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">IIId</div>
-      <div>
-        <div class="chap-title-cn">自由世界必须胜出</div>
-        <div class="chap-title-en">The Free World Must Prevail</div>
-      </div>
-    </div>
-    <div class="chap-body">
-      超级智能将带来<strong>"决定性军事优势"</strong>——比核武更彻底的权力转移。如果中国先于美国获得超级智能，自由世界与开放秩序将被压垮。因此<strong>美国必须保持 ~3 OOM 的算力领先</strong>，并防止权重 / 算法被窃。这不是技术问题，是<strong>地缘政治存亡问题</strong>。
-    </div>
-    <div class="chap-key"><b>底线：</b>美国对中国保持 3 OOM (1000倍) 算力优势; 否则 21 世纪秩序倒转</div>
-  </div>
-
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">IV</div>
-      <div>
-        <div class="chap-title-cn">"项目" · 国家级 AGI 计划</div>
-        <div class="chap-title-en">The Project</div>
-      </div>
-    </div>
-    <div class="chap-body">
-      到 2027-2028 年，<strong>美国政府不可能继续把 AGI 留在私营手中</strong>——技术力量、安全风险、地缘价值都将迫使美国启动一个<strong>类曼哈顿计划的国家级项目</strong>，整合 OpenAI、Anthropic、DeepMind 等核心团队，由情报体系全面安全化运营。这不是"会不会"，而是"什么时候"。
-    </div>
-    <div class="chap-key"><b>预测：</b>2027 前后启动"The Project"; AGI 实验室事实国有化; 现有股东/员工赔偿但权力上交</div>
-  </div>
-
-  <div class="chap">
-    <div class="chap-head">
-      <div class="chap-num">V</div>
-      <div>
-        <div class="chap-title-cn">临别思考</div>
-        <div class="chap-title-en">Parting Thoughts</div>
-      </div>
-    </div>
-    <div class="chap-body">
-      "<strong>这将是人类有史以来最疯狂的旅程。</strong>" 作者在结尾承认极少数人真正理解 AGI 临近的含义——"<strong>situational awareness</strong>"指的就是这种<strong>对当下技术-地缘-时间窗口的清醒认知</strong>。论文的真正目的不是预测，是<strong>呼吁更多决策者具备这种感知</strong>。
-    </div>
-    <div class="chap-key"><b>书名释义：</b>"Situational Awareness" = 在极少数人能看清时, 你看清了局势</div>
-  </div>
-
-  <div class="src">章节摘要基于论文公开版本(situational-awareness.ai)的 Part I-V 结构。原文每章 20-40 页，本页提炼为核心论点 + 一句话关键数字。完整阅读需访问论文官网或下载 165 页 PDF。</div>
-</div>
-
-<!-- ============================================================ -->
-<!-- Panel 2: OOM Growth -->
-<!-- ============================================================ -->
-<div class="panel" id="panel-2">
-
-  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>有效算力 OOM 增长曲线</h2></div><div class="sh-sub">2018-2027 · 对数刻度 · GPT-2 → GPT-4 → AGI 趋势线</div></div>
-  <div class="card"><div id="oom-chart"></div></div>
-  <div class="src">OOM 数据基于 Aschenbrenner 论文 Part I 的核心图表。GPT-2 2019 ≈ 4×10²¹ FLOP; GPT-3 2020 ≈ 3×10²³; GPT-4 2023 ≈ 2×10²⁵; 2027 推算 ≈ 10²⁹ 有效算力。轴为对数刻度，每格代表 ×10。</div>
-
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>三股力量分解</h2></div><div class="sh-sub">每年 OOM 提升来源</div></div>
-  <div class="card"><div id="oom-stack"></div></div>
-  <div class="src">三力分解: ① 物理算力扩张(芯片数+性能, ~0.5 OOM/yr) ② 算法效率(每 token 损失下降+架构创新, ~0.5 OOM/yr) ③ 解放(unhobbling: CoT、RLHF、Agent、长上下文、工具调用, ~0.4 OOM/yr) — 三者相加 ~1.4 OOM/yr 有效算力。</div>
-
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>"解放"(unhobbling) · 隐藏的杠杆</h2></div></div>
-  <div class="card">
-    <div style="font-size:11px;line-height:1.7;color:var(--tx2)">
-      作者强调，<strong style="color:var(--tx)">最被低估的就是 unhobbling</strong>：原始预训练模型像"被绑住的天才"，通过 CoT、RLHF、Agent 框架、工具使用等"解放"，能力会被激活几个 OOM。
-    </div>
-    <div id="unhobble-list" style="margin-top:10px"></div>
-  </div>
-  <div class="src">unhobbling 是论文最具原创性的概念之一。原文 Part I 详述: chain-of-thought (~3-10x), RLHF/instruction tuning (~3x), tool use & agents (未来 10-100x), long context & memory (未来 10x)。</div>
-
-  <div class="card card-gold">
-    <div style="font-size:11px;line-height:1.7">
-      <strong style="color:var(--gd)">关键论断：</strong>从 GPT-2 (2019) 到 GPT-4 (2023) 跨越了从"幼儿园智能"到"聪明高中生"的阶段，恰好对应约 5 OOM 有效算力提升。同样幅度再叠加一次，<strong>2024 → 2027 = +4 OOM ≈ "聪明高中生" → "顶尖博士研究员"</strong>。这就是 AGI 2027 的全部论证。
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================ -->
-<!-- Panel 3: Trillion-Dollar Cluster -->
-<!-- ============================================================ -->
-<div class="panel" id="panel-3">
-
-  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>单集群投资规模 · 2022-2030</h2></div><div class="sh-sub">从 GPT-4 集群到 100GW 万亿美元集群</div></div>
-  <div class="card"><div id="cluster-chart"></div></div>
-  <div class="src">论文 Part IIIa 给出的"Trillion-Dollar Cluster"路径: 2022 ($500M) → 2024 ($10B, 100k H100) → 2026 ($100B, 1M chips, 1GW) → 2028 ($1T, 10M chips, 10GW) → 2030 ($10T 累计). 每两年单集群规模 +1 OOM。</div>
-
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>四大约束 · 何为最紧瓶颈</h2></div></div>
-  <div class="card"><div id="constraint-bars"></div></div>
-  <div class="src">论文逐一分析: 芯片(TSMC可扩产, 2-3年响应) / 数据(合成数据+多模态可解) / 资金(美科技巨头FCF累计可达$2-3T) / 电力(美国电网增长 ~1%/yr 而 AI 需要数十 GW 新增) — 结论: <strong>电力是唯一无法在5年内解决的物理约束</strong>。</div>
-
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>电力账 · 美国能否撑起 AGI</h2></div></div>
-  <div class="card">
-    <div class="stat-grid">
-      <div class="stat-card"><div class="l">2024 全美 AI 用电</div><div class="v">~5</div><div class="u">GW</div></div>
-      <div class="stat-card"><div class="l">2030 论文需求</div><div class="v">~100</div><div class="u">GW</div></div>
-      <div class="stat-card"><div class="l">占全美发电</div><div class="v">~20%</div><div class="u">%</div></div>
-      <div class="stat-card"><div class="l">现有电网增速</div><div class="v">~1%</div><div class="u">/年</div></div>
-    </div>
-    <div style="margin-top:12px;padding:10px;background:rgba(160,44,44,0.06);border:1px solid rgba(160,44,44,0.15);border-radius:8px">
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>"解放"(unhobbling) · 隐藏杠杆</h2></div></div>
+    <div class="card">
       <div style="font-size:11px;line-height:1.7;color:var(--tx2)">
-        <strong style="color:var(--rd)">结论：</strong>仅靠现有电网根本不够。论文给出的解法是<strong>天然气（最快）</strong>+ <strong>核电（最干净）</strong>+ <strong>选址搬迁到能源丰沛区（德州、北达科他、阿拉斯加）</strong>。这正是 Aschenbrenner 基金重仓 Bloom Energy、CoreWeave、加密矿工转型的底层逻辑。
+        作者强调，<strong style="color:var(--tx)">最被低估的就是 unhobbling</strong>——原始预训练模型像"被绑住的天才"，通过 CoT、RLHF、Agent、工具使用等"解放"，能力会被激活几个 OOM。
+      </div>
+      <div id="unhobble-list" style="margin-top:10px"></div>
+    </div>
+    <div class="src">unhobbling 是论文最具原创性的概念之一 (p.31-38)。原文详述: chain-of-thought、RLHF、tool use、long context、agent frameworks 各自的能力放大倍数。</div>
+
+    <div class="card card-gold">
+      <div class="serif" style="font-size:11px;line-height:1.75">
+        <strong style="color:var(--gd)">关键论断 (p.38):</strong> GPT-2→GPT-4 = 4 年跨过 ~5 OOM 有效算力 = 从"幼儿园"到"聪明高中生"。同样幅度再叠加一次, <strong>2024→2027 = +5 OOMs ≈ "聪明高中生" → "顶尖博士研究员"</strong>。这就是 AGI 2027 的全部论证。
       </div>
     </div>
   </div>
 
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>资金来源 · $8T 怎么凑</h2></div></div>
-  <div class="card"><div id="funding-chart"></div></div>
-  <div class="src">论文估算 2024-2030 累计 AI 算力投资约 $8T。来源: 1) 美科技七巨头 OCF 累计 ~$2-3T; 2) 主权 / 中东资本 ~$1T; 3) 私募信贷 / 项目融资 ~$1-2T; 4) 政府补贴 / 国家项目 ~$1-2T (2027 后)。</div>
-</div>
+  <!-- ============================================== -->
+  <!-- Panel 3: Trillion-Dollar Cluster -->
+  <!-- ============================================== -->
+  <div class="panel" id="panel-3">
 
-<!-- ============================================================ -->
-<!-- Panel 4: US-China -->
-<!-- ============================================================ -->
-<div class="panel" id="panel-4">
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>Table 4 · 最大训练集群规模</h2><div class="sh-sub">🟢 原文 p.77 · 2022 GPT-4 → 2030 100GW 万亿集群</div></div></div>
+    <div class="card">
+      <div id="cluster-table"></div>
+    </div>
 
-  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>中美 AGI 竞速态势 · 论文视角</h2></div><div class="sh-sub">2024 当前态势 vs 论文呼吁的"必要差距"</div></div>
-  <div class="card">
-    <div class="cmp-row">
-      <div class="cmp-side cmp-us"><span class="cmp-tag">领先 ~2 OOM</span><div style="font-size:10px">先进芯片 / 算法 / 模型</div></div>
-      <div class="cmp-label">2024 当前</div>
-      <div class="cmp-side cmp-cn"><span class="cmp-tag">受限</span><div style="font-size:10px">出口管制下扩产受阻</div></div>
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>Table 5 · 全球 AI 年投资总额</h2><div class="sh-sub">🟢 原文 p.80 · 2024-2030 投资规模与资源占用</div></div></div>
+    <div class="card">
+      <div id="invest-bars"></div>
+      <div id="invest-detail" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px"></div>
     </div>
-    <div class="cmp-row">
-      <div class="cmp-side cmp-us"><span class="cmp-tag">必须 +3 OOM</span><div style="font-size:10px">论文呼吁的"决定性优势"</div></div>
-      <div class="cmp-label">论文目标</div>
-      <div class="cmp-side cmp-cn"><span class="cmp-tag">封堵</span><div style="font-size:10px">芯片 / 设备 / EDA / 人才</div></div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>四大约束 · 何为最紧瓶颈</h2></div></div>
+    <div class="card"><div id="constraint-bars"></div></div>
+    <div class="src">论文 p.77 逐一分析: 芯片(TSMC可扩产 2-3 年响应) / 数据(合成+多模态可解) / 资金(科技七巨头FCF累计可凑) / 电力(美国电网 ~1%/yr 增长 vs AI 需要 100GW) — 结论: <strong>电力是唯一无法在 5 年内解决的物理约束</strong>。</div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>电力账 · 美国能否撑起 AGI</h2></div></div>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+        <div class="stat-card"><div class="l">2024 全美 AI 用电</div><div class="v">~5</div><div class="u">GW</div></div>
+        <div class="stat-card"><div class="l">2030 论文需求</div><div class="v">~100</div><div class="u">GW (p.77)</div></div>
+        <div class="stat-card"><div class="l">占全美发电</div><div class="v">~20%</div><div class="u">% (p.77)</div></div>
+        <div class="stat-card"><div class="l">现有电网增速</div><div class="v">~1%</div><div class="u">/年</div></div>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:rgba(192,57,43,0.06);border:1px solid rgba(192,57,43,0.18);border-radius:8px">
+        <div style="font-size:11px;line-height:1.7;color:var(--tx2)">
+          <strong style="color:var(--rd)">结论 (p.77):</strong> 仅靠现有电网根本不够。论文给出的解法: <strong>天然气（最快）</strong> + <strong>核电（最干净）</strong> + <strong>选址搬迁到能源丰沛区（德州、北达科他、阿拉斯加）</strong>。这正是 Aschenbrenner 基金重仓 Bloom Energy、CoreWeave、加密矿工转型的底层逻辑。
+        </div>
+      </div>
     </div>
-    <div class="cmp-row">
-      <div class="cmp-side cmp-us"><span class="cmp-tag">~5 GW</span><div style="font-size:10px">2024 AI 数据中心电力</div></div>
-      <div class="cmp-label">电力</div>
-      <div class="cmp-side cmp-cn"><span class="cmp-tag">~3 GW</span><div style="font-size:10px">本土+东南亚分布</div></div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>智能爆炸链式反应 · Part II</h2><div class="sh-sub">🟡 论文推论 · AGI → Superintelligence 路径 (p.41-46)</div></div></div>
+    <div class="card card-dark">
+      <div id="explosion-chain"></div>
     </div>
-    <div class="cmp-row">
-      <div class="cmp-side cmp-us"><span class="cmp-tag">受限于增速</span><div style="font-size:10px">电网扩容慢, 审批难</div></div>
-      <div class="cmp-label">2030 电力潜力</div>
-      <div class="cmp-side cmp-cn"><span class="cmp-tag">巨量储备</span><div style="font-size:10px">长期电力规划 + 核电 + 煤电</div></div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>资金来源 · $8T 怎么凑</h2></div></div>
+    <div class="card"><div id="funding-chart"></div></div>
+    <div class="src">论文 (p.80-82) 估算 2024-2030 累计 AI 算力投资约 $8T。来源拆解为推论 (🟡): 1) 美科技七巨头 OCF 累计 ~$2-3T; 2) 主权 / 中东资本 ~$1T; 3) 私募信贷 / 项目融资 ~$1-2T; 4) 政府补贴 / 国家项目 ~$1-2T (2027 后)。</div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- Panel 4: US-China -->
+  <!-- ============================================== -->
+  <div class="panel" id="panel-4">
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>中美 AGI 竞速态势</h2><div class="sh-sub">🟡 论文 Part IIIb-IIId · 2024 当前 vs 论文呼吁</div></div></div>
+    <div class="card">
+      <div id="cmp-rows"></div>
     </div>
-    <div class="cmp-row">
-      <div class="cmp-side cmp-us"><span class="cmp-tag">尚未国家化</span><div style="font-size:10px">私营实验室, 安全等级低</div></div>
-      <div class="cmp-label">组织形态</div>
-      <div class="cmp-side cmp-cn"><span class="cmp-tag">国家主导</span><div style="font-size:10px">举国体制 / 国家队</div></div>
-    </div>
-    <div class="cmp-row">
-      <div class="cmp-side cmp-us"><span class="cmp-tag">高</span><div style="font-size:10px">权重 / 算法泄露风险</div></div>
-      <div class="cmp-label">间谍风险</div>
-      <div class="cmp-side cmp-cn"><span class="cmp-tag">主动获取</span><div style="font-size:10px">多渠道收集前沿研究</div></div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>论文政策建议</h2><div class="sh-sub">六条建议综合自 Part IIIb-IV (p.89-155)</div></div></div>
+    <div class="card"><div id="policy-list"></div></div>
+
+    <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>关键风险情景</h2><div class="sh-sub">🟡 论文末尾"如果失败"假设链 (p.118-138)</div></div></div>
+    <div class="card"><div id="risk-list"></div></div>
+
+    <div class="card card-gold">
+      <div style="font-size:11px;line-height:1.7">
+        <strong style="color:var(--gd)">论文的策略转化：</strong>Aschenbrenner 把这些宏观判断转成基金组合 — 电力 (Bloom Energy)、算力租赁 (CoreWeave)、矿工转型、光模块、英特尔晶圆厂复兴期权。详细持仓拆解参见
+        <a href="situational-awareness.html" style="color:var(--gd);text-decoration:underline;font-weight:700">「态势感知基金 · 阿申布伦纳的AI基建押注」</a>。
+      </div>
     </div>
   </div>
-  <div class="src">中美对比基于论文 Part IIIb-IIId 的核心论点。OOM 估算: 美国前沿芯片 H100/B200 vs 中国 H800/A800/910B 训练效率, 算法层面美国实验室仍领先约 1-2 OOM。电力数据: EIA + 论文估算。</div>
 
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>论文的政策建议</h2></div></div>
-  <div class="card">
-    <div id="policy-list"></div>
+  <!-- Source legend -->
+  <div class="legend">
+    <b>数据来源标注：</b>🟢 原文表格 / 明确数据　🟡 原文推论 / 趋势外推　🔴 作者估算 (非 SEC 实际值)　·　页码引用基于 PDF 原文 165 页版本
   </div>
-  <div class="src">六条建议综合自论文 Part IIIb-IV。这些建议在美国国安体系内部据报已引起重视(2024-2025 公开听证会 + 行政命令)。</div>
 
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>关键风险情景</h2></div></div>
-  <div class="card">
-    <div id="risk-list"></div>
+  <!-- Footer -->
+  <div class="footer">
+    <strong>黑森船长 | Captain Hessen</strong><br>
+    论文来源: situational-awareness.ai (Leopold Aschenbrenner, June 2024, 165 pp.)<br>
+    数据综合: 论文公开版本 / Dwarkesh Patel 访谈 / 公开评注<br>
+    仅用于研究分析 · 非投资建议
   </div>
-  <div class="src">风险情景源自论文末尾的"如果失败"假设链。作者明示: 若中国先达到超级智能或自由世界对齐失败, 后果不可逆。</div>
-
-  <div class="card card-gold" style="margin-top:14px">
-    <div style="font-size:11px;line-height:1.7">
-      <strong style="color:var(--gd)">论文的策略转化：</strong>Aschenbrenner 把这些宏观判断转成了基金组合——电力 (Bloom Energy)、算力租赁 (CoreWeave)、矿工转型、光模块、英特尔晶圆厂复兴期权。详细持仓拆解参见
-      <a href="situational-awareness.html" style="color:var(--gd);text-decoration:underline;font-weight:700">「态势感知基金 · 阿申布伦纳的AI基建押注」</a>。
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<div class="footer">
-  <strong>黑森船长 | Captain Hessen</strong><br>
-  论文来源: situational-awareness.ai (Leopold Aschenbrenner, June 2024, 165 pp.)<br>
-  数据综合: 论文公开版本 / Dwarkesh Patel 访谈 / 公开评注<br>
-  仅用于研究分析 · 非投资建议
-</div>
 </div>
 
 <script>
+// ============================================================
+// DATA
+// ============================================================
+var trainingClusters = [
+  {year:"2022",     oom:"GPT-4 基准", h100eq:"~10K",  cost:"~$500M",  power:"~10MW",  ref:"~1万户家庭",          src:"🟢 p.77"},
+  {year:"~2024",    oom:"+1 OOM",     h100eq:"~100K", cost:"$数十亿", power:"~100MW", ref:"~10万户家庭",         src:"🟢 p.77"},
+  {year:"~2026",    oom:"+2 OOMs",    h100eq:"~1M",   cost:"$百亿级", power:"~1GW",   ref:"胡佛大坝/大型核反应堆", src:"🟢 p.77"},
+  {year:"~2028",    oom:"+3 OOMs",    h100eq:"~10M",  cost:"$千亿级", power:"~10GW",  ref:"美国中小型州",        src:"🟢 p.77"},
+  {year:"~2030",    oom:"+4 OOMs",    h100eq:"~100M", cost:"$1T+",    power:"~100GW", ref:">20% 美国电力",       src:"🟢 p.77", target:true}
+];
+
+var totalInvestment = [
+  {year:"2024",   invest:150,  chips:"5-10M",     powerPct:"1-2%", tsmcPct:"5-10%"},
+  {year:"~2026",  invest:500,  chips:"数千万",    powerPct:"5%",   tsmcPct:"~25%"},
+  {year:"~2028",  invest:2000, chips:"~100M",    powerPct:"20%",  tsmcPct:"~100%"},
+  {year:"~2030",  invest:8000, chips:"数亿",      powerPct:"100%", tsmcPct:"4x 当前产能"}
+];
+
+var flopData = [
+  {model:"GPT-2",  year:2019, flop:"~4e21",      oomGap:null,            level:"学前班水平"},
+  {model:"GPT-3",  year:2020, flop:"~3e23",      oomGap:"+~2 OOMs",      level:"能拼凑句子"},
+  {model:"GPT-4",  year:2023, flop:"8e24-4e25", oomGap:"+~1.5-2 OOMs", level:"聪明高中生"},
+  {model:"→ AGI?", year:2027, flop:"趋势外推",   oomGap:"+~5 OOMs",      level:"AI 研究员水平", target:true}
+];
+
+var chapters = [
+  {
+    num:"I", color:"#3a6ea5", page:"p.7-45",
+    titleCn:"数 OOM · 从 GPT-4 到 AGI",
+    titleEn:"From GPT-4 to AGI: Counting the OOMs",
+    quote:"2027 年实现 AGI 是惊人地合理的。不需要相信科幻，只需要相信图上的直线。",
+    points:[
+      {t:"GPT-2→GPT-4: ~4.5-6 OOM 有效算力提升, 仅 4 年", pg:"p.38"},
+      {t:"三条增长线: 算力 ~0.5 OOM/年 + 算法效率 ~0.5 OOM/年 + unhobbling", pg:"p.20"},
+      {t:"到 2027 年底再叠加 ~3-6 OOM 基础有效算力 + unhobbling", pg:"p.38"},
+      {t:"GPT-4 训练耗时 3 个月 → 2027 年同等模型仅需 1 分钟", pg:"p.38"},
+      {t:"AMD 预测 2027 年 AI 加速器市场 $400B → 隐含总 AI 支出 $700B+", pg:"p.79"},
+      {t:"这十年是一次性 OOM 爆发期, 之后进入漫长慢速爬坡", pg:"p.43-45"}
+    ]
+  },
+  {
+    num:"II", color:"#c0392b", page:"p.46-73",
+    titleCn:"智能爆炸 · 从 AGI 到超级智能",
+    titleEn:"From AGI to Superintelligence: The Intelligence Explosion",
+    quote:"数亿 AGI 自动化 AI 研究, 将十年的算法进步(5+ OOMs)压缩到 ≤1 年。",
+    points:[
+      {t:"AI 进步不会停在人类水平 — AGI 只是超级智能的'小前菜'", pg:"p.41"},
+      {t:"数百万自动化研究员 → 十年算法进步压缩到一年以内", pg:"p.41"},
+      {t:"类比: 原子弹 → 氢弹, 7 年内威力放大 1000 倍", pg:"p.46"},
+      {t:"从 AGI 到超级智能可能不到一年", pg:"p.46"},
+      {t:"关键: 一旦模型能自动化 AI 研究本身, 反馈循环启动", pg:"p.41"},
+      {t:"类似'奔跑战争'而非'发布产品'", pg:"p.118"}
+    ]
+  },
+  {
+    num:"IIIa", color:"#27ae60", page:"p.75-88",
+    titleCn:"冲刺万亿美元集群",
+    titleEn:"Racing to the Trillion-Dollar Cluster",
+    quote:"把整个国家变成工厂。 — 玻尔对特勒论曼哈顿计划",
+    points:[
+      {t:"2024 年 AI 总投资已达 $150B-$200B", pg:"p.78"},
+      {t:"Nvidia 数据中心收入从 $14B → $90B 年化, 仅一年", pg:"p.76"},
+      {t:"~2026: 单一训练集群 $百亿级, 需 1GW 电力(=胡佛大坝)", pg:"p.77"},
+      {t:"~2028: $千亿集群, 需 10GW(=中小州电力), 堪比国际空间站造价", pg:"p.77"},
+      {t:"~2030: $1T+ 集群, 需 100GW(>20% 美国电力)", pg:"p.77-78"},
+      {t:"AI 投资 $1T/年约占 GDP 3%, 历史对标: 英国铁路累计达 GDP 40%", pg:"p.82"},
+      {t:"芯片非主要瓶颈, 电力才是 — '10GW 从哪来?' 是 SF 热门话题", pg:"p.77"}
+    ]
+  },
+  {
+    num:"IIIb", color:"#e67e22", page:"p.89-104",
+    titleCn:"锁死实验室",
+    titleEn:"Lock Down the Labs: Security for AGI",
+    quote:"美国顶级 AI 实验室把安全当事后想法。基本是把 AGI 核心秘密拱手送给 CCP。",
+    points:[
+      {t:"2023 年 4 月: 黑客入侵 OpenAI 内部通讯系统窃取信息", pg:"p.89"},
+      {t:"当前安全等级远不足以应对国家级威胁", pg:"p.89"},
+      {t:"保护目标: 模型权重 + 算法秘密", pg:"p.89"},
+      {t:"需要类似保护核机密的安全等级", pg:"p.89"},
+      {t:"领先几个月可能在军事冲突中具有决定性意义", pg:"p.126"}
+    ]
+  },
+  {
+    num:"IIIc", color:"#8e44ad", page:"p.105-125",
+    titleCn:"超级对齐",
+    titleEn:"Superalignment",
+    quote:"可靠控制远超人类智能的 AI 系统是未解决的技术问题。失败可能是灾难性的。",
+    points:[
+      {t:"对齐问题可解, 但在快速智能爆炸中极易失控", pg:"p.105"},
+      {t:"'默认计划'对'略超人类'系统可能基本 work", pg:"p.117"},
+      {t:"真正可怕的是智能爆炸阶段 — 远超人类的外星级超级智能", pg:"p.118"},
+      {t:"当前认真做这个问题的研究者仅几十人", pg:"p.118"},
+      {t:"智能爆炸更像打仗而非发产品", pg:"p.118"},
+      {t:"我们目前对运气的依赖太大了", pg:"p.118"}
+    ]
+  },
+  {
+    num:"IIId", color:"#1a2744", page:"p.126-140",
+    titleCn:"自由世界必须胜出",
+    titleEn:"The Free World Must Prevail",
+    quote:"超级智能是国家安全问题。美国必须赢。",
+    points:[
+      {t:"超级智能 = 自核武器以来最强大的武器", pg:"p.126-127"},
+      {t:"类比海湾战争: 20-30 年技术代差 → 压倒性军事优势", pg:"p.128"},
+      {t:"中国并未出局, 一旦 CCP 觉醒于 AGI 有清晰追赶路径", pg:"p.126"},
+      {t:"2 年领先 vs 2 个月领先 → 天壤之别", pg:"p.138"},
+      {t:"唯一希望: 民主联盟保持健康领先 + 用领先地位推行不扩散机制", pg:"p.137-138"},
+      {t:"出口管制是关键一步, 但远远不够", pg:"p.139"}
+    ]
+  },
+  {
+    num:"IV", color:"#c0392b", page:"p.141-155",
+    titleCn:"国家工程 · The Project",
+    titleEn:"The Project",
+    quote:"在某个 SCIF 里, 终局将会上演。没有任何创业公司能应对超级智能。",
+    points:[
+      {t:"AGI 竞赛加剧 → 27/28 年前后出现某种政府 AGI 项目", pg:"p.141"},
+      {t:"超级智能将成为美国最重要的国防项目", pg:"p.139"},
+      {t:"需要合理的指挥链来做极高风险的决策", pg:"p.118"},
+      {t:"可能需要在智能爆炸中途暂停 6 个月确保安全", pg:"p.137"},
+      {t:"可能需要将大部分算力用于对齐研究而非能力推进", pg:"p.137"},
+      {t:"目前没有任何实验室展示过愿意为安全做出代价高昂的权衡", pg:"p.118"}
+    ]
+  }
+];
+
+var timelineSteps = [
+  {y:"2024",       t:"起点 · GPT-4 已然存在",    d:"主流 H100, 单集群 ~10⁵ GPU, 训练算力 ~10²⁵ FLOP, 投资 ~$10B 级",                         done:true},
+  {y:"2025-2026",  t:"智能体爆发",              d:"+1-2 OOM, ChatGPT-4 → 类博士智能跨越; AI Agent 替代白领任务; 单集群 ~$100B 启动 (p.77)"},
+  {y:"2027",       t:"⚡ AGI · 自动化研究员",   d:"再 +5 OOM 累计; 算法自我改进闭环启动; 美中算力差距决定结局; 'The Project' 启动 (p.141)"},
+  {y:"2028-2030",  t:"智能爆炸 · 超级智能",     d:"AGI 自身做研究, 一年压缩十年; 100GW 集群 ($1T+) 上线; 安全 / 对齐 / 战争控制成生死议题 (p.46)"},
+  {y:"2030+",      t:"国家项目 · 自由世界博弈", d:"实验室国有化 (类曼哈顿); 全球电力 / 芯片 / 数据中心成战略资产; 中美权力转移加速 (p.155)"}
+];
+
+var unhobbleItems = [
+  {n:"Chain-of-Thought (思维链)",        g:"3-10x",   desc:"让模型先想再答, 解锁推理能力 (p.31)"},
+  {n:"RLHF / Instruction Tuning",        g:"~3x",     desc:"对齐到指令格式, 解锁可用性 (p.32)"},
+  {n:"Tool Use / 工具调用",              g:"~10x",    desc:"调用搜索/计算/代码执行, 突破知识边界 (p.34)"},
+  {n:"Long Context / 长上下文",          g:"~10x",    desc:"100k → 1M+ token, 解锁文档级任务 (p.35)"},
+  {n:"Agent Frameworks / 智能体",        g:"10-100x", desc:"长链规划 / 自我反思 / 多步执行 (p.36)"}
+];
+
+var explosionSteps = [
+  {n:"1", t:"AGI 达成",       yr:"~2027",     d:"模型能完成 AI 研究员/工程师的工作"},
+  {n:"2", t:"自动化研究启动", yr:"~2027-28",  d:"数百万 AGI 实例并行执行 AI 研究"},
+  {n:"3", t:"算法进步压缩",   yr:"<1 年",     d:"十年进步(5+ OOMs)压缩到 ≤1 年"},
+  {n:"4", t:"超级智能涌现",   yr:"~2028-30",  d:"远超人类的外星级智能系统"}
+];
+
+var cmpRows = [
+  {us:{tag:"领先 ~2 OOM",   d:"先进芯片 / 算法 / 模型"},      lab:"2024 当前",   cn:{tag:"受限",        d:"出口管制下扩产受阻"}},
+  {us:{tag:"必须 +3 OOM",   d:"论文呼吁的'决定性优势'"},      lab:"论文目标",     cn:{tag:"封堵",        d:"芯片 / 设备 / EDA / 人才"}},
+  {us:{tag:"~5 GW",         d:"2024 AI 数据中心电力"},        lab:"电力",         cn:{tag:"~3 GW",       d:"本土 + 东南亚分布"}},
+  {us:{tag:"受限于增速",     d:"电网扩容慢, 审批难"},         lab:"2030 电力潜力", cn:{tag:"巨量储备",     d:"长期电力规划 + 核电 + 煤电"}},
+  {us:{tag:"尚未国家化",     d:"私营实验室, 安全等级低"},     lab:"组织形态",     cn:{tag:"国家主导",     d:"举国体制 / 国家队"}},
+  {us:{tag:"高",            d:"权重 / 算法泄露风险"},         lab:"间谍风险",     cn:{tag:"主动获取",     d:"多渠道收集前沿研究"}}
+];
+
+var policyItems = [
+  {n:1, t:"芯片出口管制",         d:"对华全面禁运 H100/B200/EUV 设备, 切断算力扩张 (p.139)"},
+  {n:2, t:"AI 实验室国家级安全",  d:"FBI / NSA 介入物理 + 网络安全, 防止权重 / 算法泄露 (p.89)"},
+  {n:3, t:"启动 'The Project'",   d:"曼哈顿计划式国家级 AGI 项目, 整合顶尖实验室 (p.141)"},
+  {n:4, t:"电力 + 数据中心立法",  d:"快速审批通道, 联邦土地优先批给 AGI 集群 (p.77)"},
+  {n:5, t:"超级对齐研究投入",     d:"政府资助对齐研究, 与能力扩展同步推进 (p.105-118)"},
+  {n:6, t:"维持 +3 OOM 算力领先", d:"保证决定性优势, 否则失去自由世界主导权 (p.137)"}
+];
+
+var riskItems = [
+  {p:"高", t:"权重泄露给 CCP",          d:"2025-2027 间, 中国通过间谍 / 网络攻击拿到前沿模型权重 → 一夜抹平算力差距 (p.89)", color:"#c0392b"},
+  {p:"中", t:"对齐失败 + 智能爆炸",     d:"AGI 自我改进期间出现失控, 价值观偏离, 后果不可逆 (p.118)",                          color:"#c0392b"},
+  {p:"中", t:"美国电力扩张失败",        d:"环保 / 审批 / 电网瓶颈拖累, 无法支撑 100GW, 让出领先 (p.77)",                       color:"#c8963e"},
+  {p:"中", t:"国家化引发产业震荡",      d:"'The Project' 启动时强制接管私营实验室, 引发资本退出 / 人才外流 (p.141)",            color:"#c8963e"},
+  {p:"低", t:"中国先达到超级智能",      d:"自由世界丧失永久性优势; 21 世纪秩序倒转 (p.126)",                                   color:"#c0392b"}
+];
+
 // ============================================================
 // TAB SWITCH
 // ============================================================
@@ -476,79 +528,129 @@ function switchTab(idx) {
 }
 
 // ============================================================
-// OOM GROWTH CHART
+// TIMELINE
+// ============================================================
+function renderTimeline() {
+  var html = '';
+  timelineSteps.forEach(function(s) {
+    html += '<div class="tl-step'+(s.done?' done':'')+'">';
+    html += '<div class="tl-year">'+s.y+'</div>';
+    html += '<div class="tl-title">'+s.t+'</div>';
+    html += '<div class="tl-desc">'+s.d+'</div>';
+    html += '</div>';
+  });
+  document.getElementById('timeline').innerHTML = html;
+}
+
+// ============================================================
+// CHAPTERS
+// ============================================================
+function renderChapters() {
+  var html = '';
+  chapters.forEach(function(c) {
+    html += '<div class="chap" style="border-left:3px solid '+c.color+'">';
+    html += '<div class="chap-head">';
+    html += '<span class="chap-num" style="background:'+c.color+'">'+c.num+'</span>';
+    html += '<span class="chap-page">'+c.page+'</span>';
+    html += '</div>';
+    html += '<div class="chap-titles">';
+    html += '<div class="chap-title-cn">'+c.titleCn+'</div>';
+    html += '<div class="chap-title-en">'+c.titleEn+'</div>';
+    html += '</div>';
+    html += '<div class="chap-quote"><div class="q">"'+c.quote+'"</div></div>';
+    c.points.forEach(function(p) {
+      html += '<div class="chap-pt">';
+      html += '<div class="dot" style="background:'+c.color+'"></div>';
+      html += '<div class="text">'+p.t+'<span class="pg">('+p.pg+')</span></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('chap-list').innerHTML = html;
+}
+
+// ============================================================
+// OOM CHART
 // ============================================================
 function renderOOMChart() {
-  // y values are log10(FLOP)
   var pts = [
-    {y:"2019", v:21.6, label:"GPT-2", desc:"幼儿园"},
-    {y:"2020", v:23.5, label:"GPT-3", desc:"小学生"},
-    {y:"2022", v:24.5, label:"PaLM/GPT-3.5", desc:"中学生"},
-    {y:"2023", v:25.3, label:"GPT-4", desc:"聪明高中生"},
-    {y:"2025", v:26.5, label:"GPT-5?", desc:"本科生"},
-    {y:"2027", v:29, label:"AGI", desc:"博士级研究员", target:true}
+    {y:"2019", v:21.6, label:"GPT-2",    desc:"学前班"},
+    {y:"2020", v:23.5, label:"GPT-3",    desc:"小学生"},
+    {y:"2022", v:24.5, label:"GPT-3.5",  desc:"中学生"},
+    {y:"2023", v:25.3, label:"GPT-4",    desc:"聪明高中生"},
+    {y:"2025", v:26.5, label:"GPT-5?",   desc:"本科生"},
+    {y:"2027", v:29,   label:"AGI",      desc:"博士级研究员", target:true}
   ];
   var w=620, h=240, px=58, py=24, pw=w-px-30, ph=h-py-32;
   var minV=21, maxV=30;
-  function xOf(i) { return px + (i/(pts.length-1))*pw; }
-  function yOf(v) { return py + ph - (v-minV)/(maxV-minV)*ph; }
-
+  function xOf(i){return px+(i/(pts.length-1))*pw;}
+  function yOf(v){return py+ph-(v-minV)/(maxV-minV)*ph;}
   var svg = '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;display:block;max-width:100%">';
-  // grid
   for (var v=22; v<=30; v+=2) {
-    var yy = yOf(v);
-    svg += '<line x1="'+px+'" y1="'+yy+'" x2="'+(w-30)+'" y2="'+yy+'" stroke="rgba(13,31,60,0.06)" stroke-width="0.5"/>';
+    var yy=yOf(v);
+    svg += '<line x1="'+px+'" y1="'+yy+'" x2="'+(w-30)+'" y2="'+yy+'" stroke="rgba(26,39,68,0.06)" stroke-width="0.5"/>';
     svg += '<text x="'+(px-5)+'" y="'+(yy+3)+'" text-anchor="end" fill="#6e7f96" font-size="8.5" font-family="JetBrains Mono,monospace">10^'+v+'</text>';
   }
-  // labels
-  pts.forEach(function(p, i) {
-    svg += '<text x="'+xOf(i)+'" y="'+(h-10)+'" text-anchor="middle" fill="#6e7f96" font-size="9">'+p.y+'</text>';
-  });
-  // line (real → 2024)
+  pts.forEach(function(p,i){svg+='<text x="'+xOf(i)+'" y="'+(h-10)+'" text-anchor="middle" fill="#6e7f96" font-size="9">'+p.y+'</text>';});
   var realPts = pts.slice(0,4);
   var realPath = realPts.map(function(p,i){return (i===0?'M':'L')+xOf(i).toFixed(1)+','+yOf(p.v).toFixed(1);}).join(' ');
-  svg += '<path d="'+realPath+'" fill="none" stroke="#1b3a8a" stroke-width="2.5"/>';
-  // line (extrapolated)
+  svg += '<path d="'+realPath+'" fill="none" stroke="#3a6ea5" stroke-width="2.5"/>';
   var extPath = 'M'+xOf(3).toFixed(1)+','+yOf(pts[3].v).toFixed(1)+' L'+xOf(4).toFixed(1)+','+yOf(pts[4].v).toFixed(1)+' L'+xOf(5).toFixed(1)+','+yOf(pts[5].v).toFixed(1);
-  svg += '<path d="'+extPath+'" fill="none" stroke="#a67c00" stroke-width="2.5" stroke-dasharray="4,3"/>';
-  // points
-  pts.forEach(function(p, i) {
+  svg += '<path d="'+extPath+'" fill="none" stroke="#c8963e" stroke-width="2.5" stroke-dasharray="4,3"/>';
+  pts.forEach(function(p,i){
     var x=xOf(i), y=yOf(p.v);
-    var color = p.target ? '#a67c00' : (i<4 ? '#1b3a8a' : '#a67c00');
+    var color = p.target ? '#c8963e' : (i<4 ? '#3a6ea5' : '#c8963e');
     svg += '<circle cx="'+x+'" cy="'+y+'" r="'+(p.target?5:3.5)+'" fill="'+color+'"/>';
     if (p.target) svg += '<circle cx="'+x+'" cy="'+y+'" r="9" fill="none" stroke="'+color+'" stroke-width="1" opacity="0.4"/>';
-    var ly = y - 9;
-    svg += '<text x="'+x+'" y="'+ly+'" text-anchor="middle" fill="'+color+'" font-size="9" font-weight="700">'+p.label+'</text>';
-    svg += '<text x="'+x+'" y="'+(ly-10)+'" text-anchor="middle" fill="#6e7f96" font-size="8">'+p.desc+'</text>';
+    svg += '<text x="'+x+'" y="'+(y-9)+'" text-anchor="middle" fill="'+color+'" font-size="9" font-weight="700">'+p.label+'</text>';
+    svg += '<text x="'+x+'" y="'+(y-19)+'" text-anchor="middle" fill="#6e7f96" font-size="8">'+p.desc+'</text>';
   });
-  // legend
-  svg += '<line x1="'+(px+10)+'" y1="14" x2="'+(px+30)+'" y2="14" stroke="#1b3a8a" stroke-width="2.5"/>';
-  svg += '<text x="'+(px+34)+'" y="17" fill="#1b3a8a" font-size="9" font-weight="700">已发生</text>';
-  svg += '<line x1="'+(px+90)+'" y1="14" x2="'+(px+110)+'" y2="14" stroke="#a67c00" stroke-width="2.5" stroke-dasharray="4,3"/>';
-  svg += '<text x="'+(px+114)+'" y="17" fill="#a67c00" font-size="9" font-weight="700">论文外推</text>';
+  svg += '<line x1="'+(px+10)+'" y1="14" x2="'+(px+30)+'" y2="14" stroke="#3a6ea5" stroke-width="2.5"/>';
+  svg += '<text x="'+(px+34)+'" y="17" fill="#3a6ea5" font-size="9" font-weight="700">已发生</text>';
+  svg += '<line x1="'+(px+90)+'" y1="14" x2="'+(px+110)+'" y2="14" stroke="#c8963e" stroke-width="2.5" stroke-dasharray="4,3"/>';
+  svg += '<text x="'+(px+114)+'" y="17" fill="#c8963e" font-size="9" font-weight="700">论文外推 🟡</text>';
   svg += '</svg>';
   document.getElementById('oom-chart').innerHTML = svg;
 }
 
 // ============================================================
-// OOM STACK CHART (per year contribution)
+// FLOP TABLE
+// ============================================================
+function renderFlopTable() {
+  var html = '';
+  flopData.forEach(function(d, i) {
+    var isTarget = d.target;
+    var border = i < flopData.length - 1 ? 'border-bottom:1px solid #eef2f7' : '';
+    html += '<div style="display:flex;align-items:center;gap:8px;padding:7px 0;'+border+'">';
+    html += '<div style="width:60px;font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;color:'+(isTarget?'#c8963e':'#1a2744')+'">'+d.model+'</div>';
+    html += '<div style="width:34px;font-size:10px;color:#888">'+d.year+'</div>';
+    html += '<div style="flex:1;font-size:10px;font-family:JetBrains Mono,monospace;color:#3a6ea5">'+d.flop+'</div>';
+    html += '<div style="font-size:9.5px;color:'+(isTarget?'#c8963e':'#27ae60')+';font-weight:700">'+(d.oomGap||'')+'</div>';
+    html += '</div>';
+    html += '<div style="margin-left:60px;font-size:9.5px;color:#6e7f96;font-style:italic;margin-bottom:4px">→ '+d.level+'</div>';
+  });
+  document.getElementById('flop-table').innerHTML = html;
+}
+
+// ============================================================
+// OOM STACK
 // ============================================================
 function renderOOMStack() {
   var data = [
-    {label:"物理算力扩张", val:0.5, color:"#1b3a8a", desc:"芯片数 + 单芯片性能"},
-    {label:"算法效率", val:0.5, color:"#5b3a8a", desc:"架构 / 训练方法 / 数据"},
-    {label:"解放 (unhobbling)", val:0.4, color:"#a67c00", desc:"CoT / RLHF / Agent / 工具"}
+    {label:"物理算力扩张",       val:0.5, color:"#3a6ea5", desc:"芯片数 + 单芯片性能 (p.20)"},
+    {label:"算法效率",          val:0.5, color:"#8e44ad", desc:"架构 / 训练方法 / 数据 (p.27)"},
+    {label:"解放 (unhobbling)", val:0.4, color:"#c8963e", desc:"CoT / RLHF / Agent / 工具 (p.31-38)"}
   ];
   var total = 1.4;
-  var html = '<div style="margin-bottom:8px;font-size:11px;color:#6e7f96">每年总计 <span style="font-weight:800;color:#a67c00;font-family:JetBrains Mono,monospace">+'+total+' OOM</span> 有效算力</div>';
+  var html = '<div style="margin-bottom:8px;font-size:11px;color:#6e7f96">每年总计 <span style="font-weight:800;color:#c8963e;font-family:JetBrains Mono,monospace">+'+total+' OOM</span> 有效算力</div>';
   data.forEach(function(d) {
     var w = (d.val/total*100).toFixed(0);
-    html += '<div style="margin-bottom:10px">';
+    html += '<div style="margin-bottom:9px">';
     html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
-    html += '<span style="font-size:11px;color:#0d1f3c;font-weight:600">'+d.label+'</span>';
+    html += '<span style="font-size:11px;color:#1a2744;font-weight:600">'+d.label+'</span>';
     html += '<span style="font-size:11px;font-family:JetBrains Mono,monospace;font-weight:800;color:'+d.color+'">+'+d.val.toFixed(1)+' OOM/yr</span>';
     html += '</div>';
-    html += '<div class="bar-bg"><div class="bar-fg" style="width:'+w+'%;background:linear-gradient(90deg,'+d.color+'66,'+d.color+')"></div></div>';
+    html += '<div class="bar-bg"><div class="bar-fg" style="width:'+w+'%;background:linear-gradient(90deg,'+d.color+',#c8963e)"></div></div>';
     html += '<div style="font-size:9.5px;color:#6e7f96;margin-top:3px">'+d.desc+'</div>';
     html += '</div>';
   });
@@ -559,63 +661,66 @@ function renderOOMStack() {
 // UNHOBBLING LIST
 // ============================================================
 function renderUnhobble() {
-  var items = [
-    {n:"Chain-of-Thought (思维链)", g:"3-10x", desc:"让模型先想再答, 解锁推理能力"},
-    {n:"RLHF / Instruction Tuning", g:"3x", desc:"对齐到指令格式, 解锁可用性"},
-    {n:"Tool Use / 工具调用", g:"~10x", desc:"调用搜索/计算/代码执行, 突破知识边界"},
-    {n:"Long Context / 长上下文", g:"~10x", desc:"100k → 1M+ token, 解锁文档级任务"},
-    {n:"Agent Frameworks / 智能体", g:"10-100x", desc:"长链规划 / 自我反思 / 多步执行"}
-  ];
   var html = '';
-  items.forEach(function(it) {
-    html += '<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(13,31,60,0.06)">';
-    html += '<div style="flex-shrink:0;width:62px;font-family:JetBrains Mono,monospace;font-size:11px;font-weight:800;color:#a67c00">'+it.g+'</div>';
-    html += '<div style="flex:1"><div style="font-size:11px;font-weight:700;color:#0d1f3c">'+it.n+'</div><div style="font-size:10px;color:#6e7f96;margin-top:1px">'+it.desc+'</div></div>';
+  unhobbleItems.forEach(function(it) {
+    html += '<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(26,39,68,0.06)">';
+    html += '<div style="flex-shrink:0;width:62px;font-family:JetBrains Mono,monospace;font-size:11px;font-weight:800;color:#c8963e">'+it.g+'</div>';
+    html += '<div style="flex:1"><div style="font-size:11px;font-weight:700;color:#1a2744">'+it.n+'</div><div style="font-size:10px;color:#6e7f96;margin-top:1px">'+it.desc+'</div></div>';
     html += '</div>';
   });
   document.getElementById('unhobble-list').innerHTML = html;
 }
 
 // ============================================================
-// CLUSTER CHART (log scale capex)
+// CLUSTER TABLE (Table 4)
 // ============================================================
-function renderClusterChart() {
-  // y = log10($M)
-  var pts = [
-    {y:"2022", v:2.7, label:"$500M", note:"GPT-4 训练集群"},
-    {y:"2024", v:4.0, label:"$10B", note:"100k H100, Microsoft/OpenAI"},
-    {y:"2026", v:5.0, label:"$100B", note:"1M chips · 1GW · "},
-    {y:"2028", v:6.0, label:"$1T", note:"10M chips · 10GW · 万亿集群", target:true},
-    {y:"2030", v:6.5, label:"$3T+", note:"多集群并行, ~100GW 总"}
+function renderClusterTable() {
+  var html = '<div style="display:grid;grid-template-columns:50px 60px 60px 60px 1fr;gap:6px;padding:5px 0 4px;border-bottom:1.5px solid #c8963e;font-size:9px;color:#c8963e;font-weight:700;letter-spacing:0.5px;font-family:JetBrains Mono,monospace">';
+  html += '<div>YEAR</div><div>OOM</div><div>H100eq</div><div>COST</div><div>POWER (REF)</div>';
+  html += '</div>';
+  trainingClusters.forEach(function(d, i) {
+    var bg = d.target ? 'background:rgba(200,150,62,0.07)' : '';
+    html += '<div style="display:grid;grid-template-columns:50px 60px 60px 60px 1fr;gap:6px;padding:7px 0;border-bottom:1px solid #eef2f7;align-items:center;'+bg+'">';
+    html += '<div style="font-family:JetBrains Mono,monospace;font-size:10px;font-weight:700;color:#1a2744">'+d.year+'</div>';
+    html += '<div style="font-size:10px;font-family:JetBrains Mono,monospace;color:#3a6ea5">'+d.oom+'</div>';
+    html += '<div style="font-size:10px;font-family:JetBrains Mono,monospace;color:#1a2744">'+d.h100eq+'</div>';
+    html += '<div style="font-size:10px;font-family:JetBrains Mono,monospace;font-weight:700;color:'+(d.target?'#c8963e':'#27ae60')+'">'+d.cost+'</div>';
+    html += '<div style="font-size:9.5px;color:#324a6e"><span style="font-family:JetBrains Mono,monospace;font-weight:700">'+d.power+'</span> <span style="color:#6e7f96">('+d.ref+')</span></div>';
+    html += '</div>';
+  });
+  document.getElementById('cluster-table').innerHTML = html;
+}
+
+// ============================================================
+// INVEST BARS (Table 5)
+// ============================================================
+function renderInvestBars() {
+  var max = 8000;
+  var rows = [
+    {l:"2024",   v:150,  s:"$150B", c:"#3a6ea5"},
+    {l:"~2026", v:500,  s:"$500B", c:"#3a6ea5"},
+    {l:"~2028", v:2000, s:"$2T",   c:"#27ae60"},
+    {l:"~2030", v:8000, s:"$8T",   c:"#c8963e"}
   ];
-  var w=620, h=230, px=58, py=24, pw=w-px-30, ph=h-py-30;
-  var minV=2, maxV=7;
-  function xOf(i){return px+(i/(pts.length-1))*pw;}
-  function yOf(v){return py+ph-(v-minV)/(maxV-minV)*ph;}
-  var svg = '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;display:block;max-width:100%">';
-  // grid
-  for (var v=2;v<=7;v++) {
-    var yy=yOf(v);
-    svg += '<line x1="'+px+'" y1="'+yy+'" x2="'+(w-30)+'" y2="'+yy+'" stroke="rgba(13,31,60,0.06)" stroke-width="0.5"/>';
-    var lbl = v<=2 ? '$100M' : v===3?'$1B':v===4?'$10B':v===5?'$100B':v===6?'$1T':'$10T';
-    svg += '<text x="'+(px-5)+'" y="'+(yy+3)+'" text-anchor="end" fill="#6e7f96" font-size="8.5" font-family="JetBrains Mono,monospace">'+lbl+'</text>';
-  }
-  // x labels
-  pts.forEach(function(p,i){svg+='<text x="'+xOf(i)+'" y="'+(h-8)+'" text-anchor="middle" fill="#6e7f96" font-size="9">'+p.y+'</text>';});
-  // bars
-  pts.forEach(function(p,i){
-    var x=xOf(i), y=yOf(p.v), barW=44, barH=py+ph-y;
-    var color = p.target ? '#a67c00' : '#1b3a8a';
-    svg += '<rect x="'+(x-barW/2)+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="3" fill="'+color+'" opacity="0.85"/>';
-    if (p.target) svg += '<rect x="'+(x-barW/2)+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="3" fill="none" stroke="#a67c00" stroke-width="2" opacity="1"/>';
-    svg += '<text x="'+x+'" y="'+(y-5)+'" text-anchor="middle" fill="'+color+'" font-size="11" font-weight="800" font-family="JetBrains Mono,monospace">'+p.label+'</text>';
+  var html = '';
+  rows.forEach(function(r) {
+    var w = Math.min(r.v/max*100, 100);
+    html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">';
+    html += '<span style="font-size:10px;color:#1a2744;width:42px;font-family:JetBrains Mono,monospace;font-weight:600">'+r.l+'</span>';
+    html += '<div style="flex:1" class="bar-bg"><div class="bar-fg" style="width:'+w+'%;background:linear-gradient(90deg,'+r.c+',#c8963e)">'+r.s+'</div></div>';
+    html += '</div>';
   });
-  // notes below
-  pts.forEach(function(p,i){
-    svg += '<text x="'+xOf(i)+'" y="'+(h-22)+'" text-anchor="middle" fill="#324a6e" font-size="7.5">'+p.note+'</text>';
+  document.getElementById('invest-bars').innerHTML = html;
+
+  var detailHtml = '';
+  totalInvestment.forEach(function(d) {
+    detailHtml += '<div style="background:'+'#e8eff7'+';border-radius:6px;padding:7px 9px">';
+    detailHtml += '<div style="font-size:10px;font-weight:700;color:#1a2744;font-family:JetBrains Mono,monospace;margin-bottom:2px">'+d.year+'</div>';
+    detailHtml += '<div style="font-size:9px;color:#324a6e;line-height:1.5">';
+    detailHtml += '芯片: <b>'+d.chips+'</b>　·　电力: <b>'+d.powerPct+'</b>　·　TSMC: <b>'+d.tsmcPct+'</b>';
+    detailHtml += '</div></div>';
   });
-  svg += '</svg>';
-  document.getElementById('cluster-chart').innerHTML = svg;
+  document.getElementById('invest-detail').innerHTML = detailHtml;
 }
 
 // ============================================================
@@ -623,19 +728,19 @@ function renderClusterChart() {
 // ============================================================
 function renderConstraintBars() {
   var data = [
-    {label:"芯片 (TSMC 产能)", level:35, color:"#0d6b4a", note:"扩产周期 2-3 年, 可解"},
-    {label:"训练数据", level:45, color:"#0d6b4a", note:"合成数据 / 多模态 / Agent 数据"},
-    {label:"资金 ($8T)", level:60, color:"#a67c00", note:"科技七巨头 + 主权 + 政府可凑出"},
-    {label:"电力 (100GW)", level:95, color:"#a02c2c", note:"⚠ 唯一无法在 5 年内解决的物理瓶颈"}
+    {label:"芯片 (TSMC 产能)",   level:35, color:"#27ae60", note:"扩产周期 2-3 年, 可解 (p.77)"},
+    {label:"训练数据",           level:45, color:"#27ae60", note:"合成数据 / 多模态 / Agent 数据"},
+    {label:"资金 ($8T)",         level:60, color:"#c8963e", note:"科技七巨头 + 主权 + 政府可凑出 (p.80)"},
+    {label:"电力 (100GW)",       level:95, color:"#c0392b", note:"⚠ 唯一无法在 5 年内解决的物理瓶颈 (p.77)"}
   ];
   var html = '';
   data.forEach(function(d) {
-    html += '<div style="margin-bottom:10px">';
+    html += '<div style="margin-bottom:9px">';
     html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
-    html += '<span style="font-size:11px;color:#0d1f3c;font-weight:600">'+d.label+'</span>';
+    html += '<span style="font-size:11px;color:#1a2744;font-weight:600">'+d.label+'</span>';
     html += '<span style="font-size:10px;font-family:JetBrains Mono,monospace;font-weight:700;color:'+d.color+'">紧度 '+d.level+'/100</span>';
     html += '</div>';
-    html += '<div class="bar-bg"><div class="bar-fg" style="width:'+d.level+'%;background:linear-gradient(90deg,'+d.color+'66,'+d.color+')"></div></div>';
+    html += '<div class="bar-bg" style="height:10px"><div class="bar-fg" style="width:'+d.level+'%;background:linear-gradient(90deg,'+d.color+'66,'+d.color+');height:10px;padding:0"></div></div>';
     html += '<div style="font-size:9.5px;color:#6e7f96;margin-top:3px">'+d.note+'</div>';
     html += '</div>';
   });
@@ -643,69 +748,86 @@ function renderConstraintBars() {
 }
 
 // ============================================================
-// FUNDING CHART (donut-like proportion)
+// EXPLOSION CHAIN
+// ============================================================
+function renderExplosionChain() {
+  var html = '<div style="color:#c8963e;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:12px">智能爆炸链式反应 (p.41-46)</div>';
+  explosionSteps.forEach(function(s) {
+    html += '<div class="expl-step">';
+    html += '<div class="expl-num">'+s.n+'</div>';
+    html += '<div class="expl-body">';
+    html += '<div class="t">'+s.t+'<span class="yr">'+s.yr+'</span></div>';
+    html += '<div class="d">'+s.d+'</div>';
+    html += '</div>';
+    html += '</div>';
+  });
+  document.getElementById('explosion-chain').innerHTML = html;
+}
+
+// ============================================================
+// FUNDING
 // ============================================================
 function renderFundingChart() {
   var data = [
-    {label:"科技七巨头 OCF",    val:2.5, color:"#1b3a8a"},
-    {label:"主权 / 中东资本",   val:1.0, color:"#a67c00"},
-    {label:"私募信贷 / 项目融资", val:1.5, color:"#5b3a8a"},
-    {label:"政府 / 国家项目",    val:1.5, color:"#a02c2c"},
-    {label:"其他 (债 / 股权)",   val:1.5, color:"#0d6b4a"}
+    {label:"科技七巨头 OCF",       val:2.5, color:"#3a6ea5"},
+    {label:"主权 / 中东资本",      val:1.0, color:"#c8963e"},
+    {label:"私募信贷 / 项目融资",   val:1.5, color:"#8e44ad"},
+    {label:"政府 / 国家项目",      val:1.5, color:"#c0392b"},
+    {label:"其他 (债 / 股权)",     val:1.5, color:"#27ae60"}
   ];
   var total = data.reduce(function(a,b){return a+b.val;},0);
-  var html = '<div style="margin-bottom:8px;font-size:11px;color:#6e7f96">2024-2030 累计算力投资约 <span style="font-weight:800;color:#a67c00;font-family:JetBrains Mono,monospace">$'+total.toFixed(1)+'T</span></div>';
+  var html = '<div style="margin-bottom:8px;font-size:11px;color:#6e7f96">2024-2030 累计算力投资约 <span style="font-weight:800;color:#c8963e;font-family:JetBrains Mono,monospace">$'+total.toFixed(1)+'T</span> 🟡</div>';
   data.forEach(function(d) {
     var w = (d.val/total*100).toFixed(0);
     html += '<div style="margin-bottom:8px">';
     html += '<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
-    html += '<span style="font-size:11px;color:#0d1f3c">'+d.label+'</span>';
+    html += '<span style="font-size:11px;color:#1a2744">'+d.label+'</span>';
     html += '<span style="font-size:11px;font-family:JetBrains Mono,monospace;font-weight:800;color:'+d.color+'">$'+d.val.toFixed(1)+'T  ('+w+'%)</span>';
     html += '</div>';
-    html += '<div class="bar-bg"><div class="bar-fg" style="width:'+w+'%;background:linear-gradient(90deg,'+d.color+'66,'+d.color+')"></div></div>';
+    html += '<div class="bar-bg" style="height:8px"><div class="bar-fg" style="width:'+w+'%;background:linear-gradient(90deg,'+d.color+'66,'+d.color+');height:8px;padding:0"></div></div>';
     html += '</div>';
   });
   document.getElementById('funding-chart').innerHTML = html;
 }
 
 // ============================================================
-// POLICY LIST
+// COMPARE ROWS
+// ============================================================
+function renderCompare() {
+  var html = '';
+  cmpRows.forEach(function(r) {
+    html += '<div class="cmp-row">';
+    html += '<div class="cmp-side cmp-us"><span class="cmp-tag">'+r.us.tag+'</span><div style="font-size:10px">'+r.us.d+'</div></div>';
+    html += '<div class="cmp-label">'+r.lab+'</div>';
+    html += '<div class="cmp-side cmp-cn"><span class="cmp-tag">'+r.cn.tag+'</span><div style="font-size:10px">'+r.cn.d+'</div></div>';
+    html += '</div>';
+  });
+  document.getElementById('cmp-rows').innerHTML = html;
+}
+
+// ============================================================
+// POLICY
 // ============================================================
 function renderPolicy() {
-  var items = [
-    {n:1,t:"芯片出口管制",d:"对华全面禁运 H100/B200/EUV 设备, 切断算力扩张"},
-    {n:2,t:"AI 实验室国家级安全",d:"FBI / NSA 介入物理 + 网络安全, 防止权重 / 算法泄露"},
-    {n:3,t:"启动 'The Project'",d:"曼哈顿计划式国家级 AGI 项目, 整合顶尖实验室"},
-    {n:4,t:"电力 + 数据中心立法",d:"快速审批通道, 联邦土地优先批给 AGI 集群"},
-    {n:5,t:"超级对齐研究投入",d:"政府资助对齐研究, 与能力扩展同步推进"},
-    {n:6,t:"维持 +3 OOM 算力领先",d:"保证决定性优势, 否则失去自由世界主导权"}
-  ];
   var html = '';
-  items.forEach(function(it) {
-    html += '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(13,31,60,0.06)">';
-    html += '<div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#a67c00,#7a5a00);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-family:JetBrains Mono,monospace">'+it.n+'</div>';
-    html += '<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#0d1f3c">'+it.t+'</div><div style="font-size:10.5px;color:#324a6e;margin-top:1px;line-height:1.5">'+it.d+'</div></div>';
+  policyItems.forEach(function(it) {
+    html += '<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(26,39,68,0.06)">';
+    html += '<div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#c8963e,#9a7330);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-family:JetBrains Mono,monospace">'+it.n+'</div>';
+    html += '<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#1a2744">'+it.t+'</div><div style="font-size:10.5px;color:#324a6e;margin-top:1px;line-height:1.5">'+it.d+'</div></div>';
     html += '</div>';
   });
   document.getElementById('policy-list').innerHTML = html;
 }
 
 // ============================================================
-// RISK LIST
+// RISK
 // ============================================================
 function renderRisk() {
-  var items = [
-    {p:"高",t:"权重泄露给 CCP",d:"2025-2027 间, 中国通过间谍 / 网络攻击拿到前沿模型权重 → 一夜抹平算力差距", color:"#a02c2c"},
-    {p:"中",t:"对齐失败 + 智能爆炸",d:"AGI 自我改进期间出现失控, 价值观偏离, 后果不可逆", color:"#a02c2c"},
-    {p:"中",t:"美国电力扩张失败",d:"环保 / 审批 / 电网瓶颈拖累, 无法支撑 100GW, 让出领先", color:"#a67c00"},
-    {p:"中",t:"国家化引发产业震荡",d:"'The Project' 启动时强制接管私营实验室, 引发资本退出 / 人才外流", color:"#a67c00"},
-    {p:"低",t:"中国先达到超级智能",d:"自由世界丧失永久性优势; 21 世纪秩序倒转", color:"#a02c2c"}
-  ];
   var html = '';
-  items.forEach(function(it) {
-    html += '<div style="display:flex;gap:10px;padding:9px 0;border-bottom:1px solid rgba(13,31,60,0.06)">';
+  riskItems.forEach(function(it) {
+    html += '<div style="display:flex;gap:10px;padding:9px 0;border-bottom:1px solid rgba(26,39,68,0.06)">';
     html += '<div style="flex-shrink:0;width:34px;text-align:center"><div style="font-size:9px;color:#6e7f96">概率</div><div style="font-size:13px;font-weight:800;color:'+it.color+';font-family:JetBrains Mono,monospace">'+it.p+'</div></div>';
-    html += '<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#0d1f3c">'+it.t+'</div><div style="font-size:10.5px;color:#324a6e;margin-top:2px;line-height:1.55">'+it.d+'</div></div>';
+    html += '<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#1a2744">'+it.t+'</div><div style="font-size:10.5px;color:#324a6e;margin-top:2px;line-height:1.55">'+it.d+'</div></div>';
     html += '</div>';
   });
   document.getElementById('risk-list').innerHTML = html;
@@ -714,12 +836,18 @@ function renderRisk() {
 // ============================================================
 // INIT
 // ============================================================
+renderTimeline();
+renderChapters();
 renderOOMChart();
+renderFlopTable();
 renderOOMStack();
 renderUnhobble();
-renderClusterChart();
+renderClusterTable();
+renderInvestBars();
 renderConstraintBars();
+renderExplosionChain();
 renderFundingChart();
+renderCompare();
 renderPolicy();
 renderRisk();
 </script>

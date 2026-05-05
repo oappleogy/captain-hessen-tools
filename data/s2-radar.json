@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-04T08:27:35",
+  "timestamp": "2026-05-05T08:37:09",
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
-    "score": 0.333,
-    "action": "系统健康。建议仓位≤55%（趋势↑），增加对冲，缩短持仓周期。"
+    "score": 0.167,
+    "action": "系统健康。建议仓位≤50%（趋势↓），增加对冲，缩短持仓周期。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -16,7 +16,7 @@
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
-    "T": "green"
+    "T": "yellow"
   },
   "dimensions": {
     "R": {
@@ -31,7 +31,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.23,
+      "score": 0.29,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -41,27 +41,27 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.15,
+      "score": -0.03,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★★★",
+      "confidence": "★★",
       "name_cn": "情绪反馈",
       "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.1,
+      "score": -0.06,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "healthy"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.07,
+      "score": -0.04,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -71,10 +71,10 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.37,
-      "state": "▲",
-      "light": "green",
-      "note": "技术进步与制度消化能力匹配",
+      "score": 0.21,
+      "state": "►",
+      "light": "yellow",
+      "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
       "status": "healthy"
@@ -98,14 +98,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 65.3
+        "pct": 66.0
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 32.7
+        "pct": 32.0
       },
       {
         "key": "TECH_DOM",
@@ -122,14 +122,14 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
-    "safety_margin": 0.433,
+    "moving_toward": "黄金",
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=75.4 (历史96%分位)",
+    "OVX原油波动率=78.6 (历史96%分位)",
     "地缘政治风险(GPR)=231 (历史97%分位)",
-    "地缘交叉验证(OVX)=75.4 (历史96%分位) [仅验证，不计分]"
+    "地缘交叉验证(OVX)=78.6 (历史96%分位) [仅验证，不计分]"
   ],
   "opportunities": [],
   "contradiction": {
@@ -146,12 +146,12 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 17.0,
-      "percentile": 60,
-      "desc": "市场情绪正常"
+      "value": 18.3,
+      "percentile": 73,
+      "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {
-      "value": 2.83,
+      "value": 2.77,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

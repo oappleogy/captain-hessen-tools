@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公开私募VC基金溢价跟踪面板 · 黑森船长</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #eaf1f7;
+    --card: #ffffff;
+    --ink: #0d2440;
+    --ink-2: #1e3a5f;
+    --gold: #b8860b;
+    --gold-bright: #d4a73a;
+    --rule: #c8d4e3;
+    --green: #2d7d46;
+    --red: #c0392b;
+    --amber: #d68910;
+    --blue: #5b8def;
+  }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+  body { min-height: 100vh; position: relative; overflow-x: hidden; }
+
+  /* Watermark */
+  .watermark {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 180px;
+    font-weight: 700;
+    color: var(--ink);
+    opacity: 0.04;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+    letter-spacing: 0.1em;
+  }
+
+  /* Layout */
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--card);
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 1px 3px rgba(13,36,64,0.08);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: var(--ink-2);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 26px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .abstract {
+    font-size: 14px;
+    color: var(--ink-2);
+    max-width: 780px;
+    line-height: 1.7;
+    border-left: 2px solid var(--gold-bright);
+    padding-left: 14px;
+    margin-top: 12px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule);
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .meta-row b { color: var(--ink); font-weight: 600; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 1px 3px rgba(13,36,64,0.08);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .card-sub {
+    font-size: 12px;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+  }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: #f4f8fc;
+    color: var(--ink);
+    font-weight: 600;
+    text-align: right;
+    padding: 10px 8px;
+    border-bottom: 1.5px solid var(--rule);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: help;
+    position: relative;
+  }
+  thead th:first-child, thead th:nth-child(2) { text-align: left; }
+  thead th[title]:hover { background: #e8eef5; }
+  tbody td {
+    padding: 9px 8px;
+    border-bottom: 1px solid var(--rule);
+    text-align: right;
+    color: var(--ink-2);
+  }
+  tbody td:first-child, tbody td:nth-child(2) { text-align: left; }
+  tbody td:first-child { font-weight: 600; color: var(--ink); }
+  tbody tr.group-head td {
+    background: #eef4fa;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  tbody tr:hover:not(.group-head) td { background: #f7fafd; }
+
+  .tag { display: inline-block; font-size: 11px; margin-left: 4px; }
+
+  /* Premium gradient cells */
+  .prem-extreme { background: rgba(192,57,43,0.14); color: var(--red); font-weight: 600; }
+  .prem-high { background: rgba(214,137,16,0.14); color: var(--amber); font-weight: 600; }
+  .prem-mid { background: rgba(13,36,64,0.04); color: var(--ink-2); }
+  .prem-disc { background: rgba(45,125,70,0.14); color: var(--green); font-weight: 600; }
+  .num-na { color: #99a8b8; font-style: italic; }
+
+  /* Charts */
+  .chart-box {
+    position: relative;
+    height: 380px;
+  }
+  @media (max-width: 720px) { .chart-box { height: 300px; } }
+
+  /* Pair trade */
+  .pair-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 8px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .pair-col { padding: 18px 20px; }
+  .pair-col + .pair-col { border-left: 1px solid var(--rule); }
+  .pair-col h4 {
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .pair-col .ticker { font-size: 22px; font-weight: 700; color: var(--ink); }
+  .pair-col .name { font-size: 12px; color: var(--ink-2); margin-bottom: 14px; }
+  .pair-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+  }
+  .pair-row:last-child { border-bottom: 0; }
+  .pair-row span:first-child { color: var(--ink-2); }
+  .pair-row span:last-child { color: var(--ink); font-weight: 600; }
+  .spread-banner {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(90deg, rgba(184,134,11,0.10) 0%, rgba(184,134,11,0.04) 100%);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+  }
+  .spread-banner b { color: var(--gold); font-size: 22px; font-weight: 700; }
+  .spread-banner div:first-child { font-size: 11px; color: var(--ink-2); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .spread-banner div:last-child { font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+  .triggers {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .triggers ul { padding-left: 18px; margin-top: 6px; }
+  .triggers li { margin-bottom: 4px; }
+
+  /* Scenarios */
+  .scenarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .sc {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 16px 18px;
+    background: #fafcfe;
+  }
+  .sc-bear { border-left: 3px solid var(--red); }
+  .sc-base { border-left: 3px solid var(--amber); }
+  .sc-bull { border-left: 3px solid var(--green); }
+  .sc-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .sc-head .label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .sc-bear .label { color: var(--red); }
+  .sc-base .label { color: var(--amber); }
+  .sc-bull .label { color: var(--green); }
+  .sc-prob { font-size: 11px; color: var(--ink-2); }
+  .sc-price { font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .sc-trig { font-size: 12px; color: var(--ink-2); line-height: 1.55; }
+
+  /* Timeline */
+  .tl {
+    position: relative;
+    padding-left: 22px;
+  }
+  .tl::before {
+    content: '';
+    position: absolute;
+    left: 5px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--rule);
+  }
+  .tl-event {
+    position: relative;
+    padding: 8px 0 14px;
+  }
+  .tl-event::before {
+    content: '';
+    position: absolute;
+    left: -21px; top: 12px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--gold);
+  }
+  .tl-event.hot::before { background: var(--gold); }
+  .tl-date {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  .tl-desc { font-size: 13px; color: var(--ink); }
+  .tl-note { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+
+  /* Insights */
+  .insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .insight {
+    background: var(--card);
+    border-left: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 3px rgba(13,36,64,0.06);
+  }
+  .insight-num {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    margin-bottom: 6px;
+  }
+  .insight-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .insight-body { font-size: 12.5px; color: var(--ink-2); line-height: 1.6; }
+
+  /* Footer */
+  footer {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: var(--card);
+    border-radius: 8px;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 1px 3px rgba(13,36,64,0.08);
+    font-size: 12px;
+    color: var(--ink-2);
+    line-height: 1.7;
+  }
+  footer b { color: var(--ink); }
+  .legend-tags {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    padding-top: 10px; margin-top: 10px;
+    border-top: 1px dashed var(--rule);
+  }
+  .legend-tags span { font-size: 11.5px; }
+
+  /* Notes */
+  .notes-list {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule);
+    font-size: 12px;
+    color: var(--ink-2);
+    line-height: 1.7;
+  }
+  .notes-list b { color: var(--ink); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .scenarios, .insights { grid-template-columns: 1fr; }
+    .pair-grid { grid-template-columns: 1fr; }
+    .pair-col + .pair-col { border-left: 0; border-top: 1px solid var(--rule); }
+    h1 { font-size: 22px; }
+    .wrap { padding: 20px 14px 48px; }
+    .card { padding: 20px 18px; }
+    .watermark { font-size: 120px; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; }
+    .watermark { display: none; }
+    .card, .hero, footer, .insight {
+      box-shadow: none;
+      border: 1px solid #ddd;
+      page-break-inside: avoid;
+    }
+    .wrap { padding: 12px; max-width: 100%; }
+    @page { size: A4 landscape; margin: 12mm; }
+  }
+</style>
+</head>
+<body>
+<div class="watermark">黑森船长</div>
+
+<div class="wrap">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="eyebrow">CAPTAIN HESSEN · PUBLIC VC FUND PREMIUM TRACKER</div>
+    <h1>公开私募VC基金溢价跟踪面板</h1>
+    <div class="abstract">
+      9只标的，3种结构，1个真问题：retail对AI私募叙事的pricing power。<br>
+      VCX +626%、SSSS −0%。同标的不同船，跨基金spread本身才是可交易资产。
+    </div>
+    <div class="meta-row">
+      <div>数据截至 <b>2026-05-05</b></div>
+      <div>覆盖 <b>9只标的</b></div>
+      <div>结构 <b>CEF · BDC · Interval · Non-traded · ETF</b></div>
+      <div>下次催化 <b>2026-05-12 SSSS Q1 NAV</b></div>
+    </div>
+  </section>
+
+  <!-- 1. Master Table -->
+  <section class="card">
+    <div class="card-title">1. 主表格 · 9只标的核心数据</div>
+    <div class="card-sub">按结构分组。溢价梯度：&gt;200% 红 / 50–200% 琥珀 / -20%~50% 灰 / &lt;-20% 绿。</div>
+    <div class="table-wrap">
+      <table id="master-table">
+        <thead>
+          <tr>
+            <th title="Ticker / 代码">标的</th>
+            <th title="基金名称">名称</th>
+            <th title="当前现价 (USD)">现价</th>
+            <th title="末次披露NAV / share (USD)">末次NAV</th>
+            <th title="(price/NAV - 1) × 100，按现价与最近一次NAV计算">当前溢价</th>
+            <th title="Forward NAV 区间预测 (低 - 高)">Forward NAV</th>
+            <th title="Forward NAV下的溢价区间，用最高NAV算最低溢价、最低NAV算最高溢价">Forward溢价</th>
+            <th title="AUM 或 市值 (US$M)">AUM/市值</th>
+            <th title="数据可信度：🟢 SEC披露 / 🟡 fund官方或earnings call / 🔴 媒体或推算">数据等级</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="notes-list" id="notes-list"></div>
+  </section>
+
+  <!-- 2. Premium Comparison Chart -->
+  <section class="card">
+    <div class="card-title">2. 溢价对比：当前 vs Forward NAV</div>
+    <div class="card-sub">Y轴对数刻度（VCX 626% 量级）。当前溢价 vs forward中位数溢价。</div>
+    <div class="chart-box"><canvas id="chart-premium"></canvas></div>
+  </section>
+
+  <!-- 3. Big-3 Exposure -->
+  <section class="card">
+    <div class="card-title">3. 三巨头权重敞口</div>
+    <div class="card-sub">OpenAI · Anthropic · SpaceX · xAI 占基金NAV的%。</div>
+    <div class="chart-box"><canvas id="chart-exposure"></canvas></div>
+  </section>
+
+  <!-- 4. VCX-SSSS Pair Trade -->
+  <section class="card">
+    <div class="card-title">4. VCX–SSSS Pair Trade · 同OpenAI不同船</div>
+    <div class="card-sub">Textbook closed-end fund pair trade：相同底层资产，截然不同的P/NAV定价。</div>
+    <div class="pair-grid">
+      <div class="pair-col">
+        <h4>溢价异常端 / SHORT</h4>
+        <div class="ticker">VCX</div>
+        <div class="name">Fundrise Innovation Fund · CEF</div>
+        <div class="pair-row"><span>OpenAI 权重</span><span>10% 🔴</span></div>
+        <div class="pair-row"><span>当前溢价</span><span style="color:var(--red)">+626%</span></div>
+        <div class="pair-row"><span>Forward 溢价</span><span style="color:var(--red)">+330% ~ +390%</span></div>
+        <div class="pair-row"><span>关键风险</span><span>9月 lockup 解禁</span></div>
+        <div class="pair-row"><span>市值 (US$M)</span><span>3,260</span></div>
+      </div>
+      <div class="pair-col">
+        <h4>价值端 / LONG</h4>
+        <div class="ticker">SSSS</div>
+        <div class="name">SuRo Capital Corp · BDC</div>
+        <div class="pair-row"><span>OpenAI 权重</span><span>11% 🟢</span></div>
+        <div class="pair-row"><span>当前溢价</span><span style="color:var(--amber)">+63%</span></div>
+        <div class="pair-row"><span>Forward 溢价</span><span style="color:var(--green)">−12% ~ +2%</span></div>
+        <div class="pair-row"><span>关键催化</span><span>5/12 Q1 NAV (mark-up +$4)</span></div>
+        <div class="pair-row"><span>市值 (US$M)</span><span>298</span></div>
+      </div>
+    </div>
+    <div class="spread-banner">
+      <div>CROSS-FUND SPREAD (FORWARD)</div>
+      <b id="spread-value">~4.7×</b>
+      <div>同样以 OpenAI 为核心持仓，VCX 在 forward NAV 下仍隐含 ~4–5× 于 SSSS 的相对定价。</div>
+    </div>
+    <div class="triggers">
+      <b style="color:var(--ink)">收敛触发：</b>
+      <ul>
+        <li><b>① 2026-05-12</b> · SSSS Q1 NAV 报告（mgmt 指引 mark-up +$4/share，从 $8.09 → ~$12）</li>
+        <li><b>② 2026-09</b> · VCX 6mo lockup 到期，结构性供给冲击</li>
+        <li><b>③ 2026 H2</b> · OpenAI / SpaceX IPO 窗口，private mark的 catch-up 重估</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. VCX Scenarios -->
+  <section class="card">
+    <div class="card-title">5. VCX 12个月情景预测</div>
+    <div class="card-sub">三个情景 · 触发条件 · 概率加权。当前价 $137.79，after-hours $147.84。</div>
+    <div class="scenarios">
+      <div class="sc sc-bear">
+        <div class="sc-head"><div class="label">🔴 熊</div><div class="sc-prob">概率 35%</div></div>
+        <div class="sc-price">$25 – $40</div>
+        <div class="sc-trig">触发：lockup 供给冲击 + 后续 Citron 再加码 + AI IPO 破发 + retail 情绪退潮，溢价压缩到 0–30%</div>
+      </div>
+      <div class="sc sc-base">
+        <div class="sc-head"><div class="label">🟡 中性</div><div class="sc-prob">概率 50%</div></div>
+        <div class="sc-price">$50 – $80</div>
+        <div class="sc-trig">触发：NAV 提升至 $28–32 + retail 维持 ~150% 溢价 + lockup 部分释放，pre-IPO sleeve 估值正常化</div>
+      </div>
+      <div class="sc sc-bull">
+        <div class="sc-head"><div class="label">🟢 牛</div><div class="sc-prob">概率 15%</div></div>
+        <div class="sc-price">$120 – $200</div>
+        <div class="sc-trig">触发：OpenAI IPO 估值 &gt;$1T + Anthropic IPO 跟进 + retail 狂热再起 + 后续供给被吸收</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Catalyst Timeline -->
+  <section class="card">
+    <div class="card-title">6. 催化时间轴 · 2026 H2</div>
+    <div class="card-sub">未来 12 个月已知重大事件。</div>
+    <div class="tl">
+      <div class="tl-event hot">
+        <div class="tl-date">2026 / 05 / 12</div>
+        <div class="tl-desc">SSSS Q1 NAV 报告</div>
+        <div class="tl-note">mgmt earnings call 指引 mark-up +$4/share；NAV 从 $8.09 → ~$12 区间</div>
+      </div>
+      <div class="tl-event">
+        <div class="tl-date">2026 / 05（中旬）</div>
+        <div class="tl-desc">VCX / DXYZ Q1 NAV 更新</div>
+        <div class="tl-note">VCX 首份 Q1 NAV 报告，验证 forward NAV $28–32 的预测区间</div>
+      </div>
+      <div class="tl-event hot">
+        <div class="tl-date">2026 / 06</div>
+        <div class="tl-desc">SpaceX IPO 窗口</div>
+        <div class="tl-note">target $1.5–1.75T；XOVR / RONB / DXYZ / ARKVX 直接受益</div>
+      </div>
+      <div class="tl-event hot">
+        <div class="tl-date">2026 / 09</div>
+        <div class="tl-desc">VCX 6-month lockup 到期</div>
+        <div class="tl-note">结构性供给冲击；与 IPO 锁定期解禁同性质</div>
+      </div>
+      <div class="tl-event">
+        <div class="tl-date">2026 / Q4</div>
+        <div class="tl-desc">OpenAI / Anthropic IPO 窗口</div>
+        <div class="tl-note">所有 9 只基金的 NAV 重定价事件；retail premium 的最终定价回归</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights -->
+  <section style="margin-top: 6px;">
+    <div class="card-title" style="padding: 0 4px 14px;">核心 Insights</div>
+    <div class="insights">
+      <div class="insight">
+        <div class="insight-num">01</div>
+        <div class="insight-title">VCX 是异常值，不是基准</div>
+        <div class="insight-body">626% 溢价 + Citron 空头报告 + 9月 lockup = 数学上几乎确定的均值回归。同期 forward NAV 即便达到 $32，仍隐含 +330% 溢价——这不是基本面定价，是供需失衡。</div>
+      </div>
+      <div class="insight">
+        <div class="insight-num">02</div>
+        <div class="insight-title">SSSS 是隐藏价值</div>
+        <div class="insight-body">BDC 结构强制分配 90% 收益，机构定价扎实。CoreWeave 已 IPO mark-up，5/12 财报是 mgmt 已 telegraph 的 mark-up 催化。Forward 溢价进入折价区。</div>
+      </div>
+      <div class="insight">
+        <div class="insight-num">03</div>
+        <div class="insight-title">板块本质 = AI 私募叙事强度指数</div>
+        <div class="insight-body">P/NAV spread 不是噪音，是 retail 对 IPO 供给冲击预期的量化输出。9 只标的的横截面 spread 是观察 AI 私募叙事最干净的实时指标。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div><b>captain-hessen.com</b> · 公开私募VC基金溢价跟踪 · 数据截至 2026-05-05</div>
+    <div style="margin-top:6px;">数据来源：SEC EDGAR 申报、各基金官方网站与 IR 披露、earnings call 实录、Citron Research 报告、媒体报道（Bloomberg / FT / WSJ）。所有 forward NAV 估算均基于公开可验证信息推算。</div>
+    <div style="margin-top:6px;">本面板仅供个人投资跟踪与思路记录，不构成投资建议。</div>
+    <div class="legend-tags">
+      <span>🟢 SEC 实际披露</span>
+      <span>🟡 fund 官方或 earnings call</span>
+      <span>🔴 媒体或推算</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+const DATA = {
+  as_of: "2026-05-05",
+  funds: [
+    { ticker:"VCX", name:"Fundrise Innovation Fund", structure:"CEF", exchange:"NYSE",
+      price_current:137.79, price_tag:"🟢", price_after_hours:147.84,
+      nav_last_reported:18.97, nav_date:"2026-03-19 (IPO)", nav_tag:"🟡",
+      nav_forward_low:28, nav_forward_high:32, nav_forward_tag:"🔴",
+      premium_current_pct:626, premium_forward_low_pct:330, premium_forward_high_pct:390,
+      aum_or_mcap_musd:3260,
+      weight_openai_pct:10, weight_anthropic_pct:20, weight_spacex_pct:5, weight_xai_pct:0,
+      notes:"IPO首日NAV $18.97; Citron已发空头报告; 6mo lockup 9月到期; 4/1参与OpenAI $122B round at $852B" },
+    { ticker:"DXYZ", name:"Destiny Tech100", structure:"CEF", exchange:"NYSE",
+      price_current:37.65, price_tag:"🟢",
+      nav_last_reported:19.97, nav_date:"2025-12-31 (Q4)", nav_tag:"🟡",
+      nav_forward_low:25, nav_forward_high:30, nav_forward_tag:"🔴",
+      premium_current_pct:89, premium_forward_low_pct:25, premium_forward_high_pct:50,
+      aum_or_mcap_musd:641,
+      weight_openai_pct:5, weight_anthropic_pct:4, weight_spacex_pct:16.2, weight_xai_pct:3.5,
+      notes:"老牌2024上市; SpaceX权重最高; NAV从Q1'24 $5.07涨到Q4'25 $19.97" },
+    { ticker:"SSSS", name:"SuRo Capital Corp", structure:"BDC", exchange:"NASDAQ",
+      price_current:13.22, price_tag:"🟡", price_date:"2026-04-27",
+      nav_last_reported:8.09, nav_date:"2025-12-31 (Q4)", nav_tag:"🟢",
+      nav_forward_low:13, nav_forward_high:15, nav_forward_tag:"🟡",
+      premium_current_pct:63, premium_forward_low_pct:-12, premium_forward_high_pct:2,
+      aum_or_mcap_musd:298,
+      weight_openai_pct:11, weight_anthropic_pct:0, weight_spacex_pct:0, weight_xai_pct:0,
+      notes:"BDC必须分配90%+收益; CoreWeave(已IPO)/Plaid/WHOOP/VastData/TensorWave; mgmt指引Q1 mark-up +$4/share; 5/12 Q1 NAV报告" },
+    { ticker:"RVI", name:"Robinhood Ventures Fund I", structure:"CEF", exchange:"NYSE",
+      price_current:25.45, price_tag:"🟡", price_date:"2026-04-10",
+      nav_last_reported:24.70, nav_date:"2026-03-04", nav_tag:"🟡",
+      nav_forward_low:28, nav_forward_high:30, nav_forward_tag:"🔴",
+      premium_current_pct:3, premium_forward_low_pct:-15, premium_forward_high_pct:-10,
+      aum_or_mcap_musd:311,
+      weight_openai_pct:6, weight_anthropic_pct:0, weight_spacex_pct:0, weight_xai_pct:0,
+      notes:"Stripe/Databricks/ElevenLabs/Mercor/Ramp/Revolut/Oura/Airwallex/Boom; 4/22加OpenAI $75M; 大股东注册14.2M secondary待resale" },
+    { ticker:"ARKVX", name:"ARK Venture Fund", structure:"Interval", exchange:"OTC (mutual fund)",
+      price_current:null, price_note:"NAV pricing only",
+      premium_current_pct:0, aum_or_mcap_musd:378,
+      weight_openai_pct:11, weight_anthropic_pct:4, weight_spacex_pct:17, weight_xai_pct:3,
+      notes:"interval fund季度赎回; SoFi/Titan零售可购; 1Y return 67%; expense 3.49%" },
+    { ticker:"USVC", name:"AngelList USVC", structure:"Non-traded CEF", exchange:"Off-exchange",
+      price_current:null, price_note:"NAV pricing only",
+      premium_current_pct:0,
+      weight_openai_pct:0, weight_anthropic_pct:0, weight_spacex_pct:0, weight_xai_pct:null,
+      notes:"Naval Ravikant主席; xAI最大权重; Anthropic/OpenAI/Sierra/Vercel/Crusoe/Legora; 0% carry; 季度赎回≤5%; min $500" },
+    { ticker:"XOVR", name:"ERShares Private-Public Crossover ETF", structure:"ETF", exchange:"NASDAQ",
+      price_current:18.74, price_tag:"🟢",
+      premium_current_pct:0, aum_or_mcap_musd:1060,
+      weight_openai_pct:0, weight_anthropic_pct:0, weight_spacex_pct:22.3, weight_xai_pct:0,
+      notes:"SpaceX通过SPV; Nvidia 9.79%/Alphabet 6.30%/Meta 5.23%; 赎回潮被动放大私募权重; 已有2x杠杆版XOVL" },
+    { ticker:"RONB", name:"Baron First Principles ETF", structure:"ETF", exchange:"NYSE",
+      price_current:23.18, price_tag:"🟢",
+      premium_current_pct:0, aum_or_mcap_musd:384,
+      weight_openai_pct:0, weight_anthropic_pct:0, weight_spacex_pct:7.7, weight_xai_pct:5.4,
+      notes:"Ron Baron管理; SpaceX直接持股(非SPV); Tesla 14.4%; Musk生态合计~28%; SpaceX权重已从14-22%被inflows稀释到7.7%" },
+    { ticker:"AGIX", name:"KraneShares AI & Technology ETF", structure:"ETF", exchange:"NASDAQ",
+      price_current:null, price_note:"数据待补",
+      premium_current_pct:0,
+      weight_openai_pct:0, weight_anthropic_pct:null, weight_spacex_pct:0, weight_xai_pct:null,
+      notes:"公开AI股Nvidia/MSFT/Meta/Google + 私募sleeve(Anthropic+xAI直接持股); 数据需后续补全" }
+  ]
+};
+
+// ----- Helpers -----
+const fmt = (v, dec=2) => v == null ? '—' : Number(v).toLocaleString('en-US', {minimumFractionDigits:dec, maximumFractionDigits:dec});
+const fmtMoney = v => v == null ? '<span class="num-na">—</span>' : '$' + fmt(v, 2);
+const fmtPct = v => v == null ? '<span class="num-na">—</span>' : (v >= 0 ? '+' : '') + fmt(v, 0) + '%';
+const fmtAum = v => v == null ? '<span class="num-na">—</span>' : '$' + (v >= 1000 ? (v/1000).toFixed(2)+'B' : v.toFixed(0)+'M');
+
+function premClass(p) {
+  if (p == null) return 'prem-mid';
+  if (p > 200) return 'prem-extreme';
+  if (p > 50) return 'prem-high';
+  if (p < -20) return 'prem-disc';
+  return 'prem-mid';
+}
+
+function fwdRange(f) {
+  if (f.nav_forward_low == null || f.nav_forward_high == null) return '<span class="num-na">—</span>';
+  return '$' + f.nav_forward_low + '–$' + f.nav_forward_high;
+}
+function fwdPremRange(f) {
+  if (f.premium_forward_low_pct == null && f.premium_forward_high_pct == null) return '<span class="num-na">—</span>';
+  const lo = f.premium_forward_low_pct, hi = f.premium_forward_high_pct;
+  return (lo>=0?'+':'') + lo + '% ~ ' + (hi>=0?'+':'') + hi + '%';
+}
+
+// ----- Build table -----
+const groupOrder = ['CEF', 'BDC', 'Interval', 'Non-traded CEF', 'ETF'];
+const groupLabel = { 'CEF':'CLOSED-END FUND (CEF)', 'BDC':'BUSINESS DEVELOPMENT COMPANY (BDC)',
+                    'Interval':'INTERVAL FUND', 'Non-traded CEF':'NON-TRADED CEF', 'ETF':'EXCHANGE-TRADED FUND (ETF)' };
+
+const tbody = document.querySelector('#master-table tbody');
+groupOrder.forEach(group => {
+  const rows = DATA.funds.filter(f => f.structure === group);
+  if (!rows.length) return;
+  const head = document.createElement('tr');
+  head.className = 'group-head';
+  head.innerHTML = `<td colspan="9">${groupLabel[group]} · ${rows.length}只</td>`;
+  tbody.appendChild(head);
+  rows.forEach(f => {
+    const tr = document.createElement('tr');
+    const fwdMid = (f.premium_forward_low_pct != null && f.premium_forward_high_pct != null)
+                 ? (f.premium_forward_low_pct + f.premium_forward_high_pct)/2 : null;
+    tr.innerHTML = `
+      <td>${f.ticker}</td>
+      <td>${f.name}<br><span style="font-size:11px;color:#7a8da3">${f.exchange}</span></td>
+      <td>${f.price_current != null ? fmtMoney(f.price_current) + ' <span class="tag">'+(f.price_tag||'')+'</span>' : '<span class="num-na">'+(f.price_note||'—')+'</span>'}</td>
+      <td>${f.nav_last_reported != null ? fmtMoney(f.nav_last_reported) + ' <span class="tag">'+(f.nav_tag||'')+'</span>' : '<span class="num-na">—</span>'}</td>
+      <td class="${premClass(f.premium_current_pct)}">${f.price_current != null && f.nav_last_reported != null ? fmtPct(f.premium_current_pct) : '<span class="num-na">n/a</span>'}</td>
+      <td>${fwdRange(f)} <span class="tag">${f.nav_forward_tag||''}</span></td>
+      <td class="${premClass(fwdMid)}">${fwdPremRange(f)}</td>
+      <td>${fmtAum(f.aum_or_mcap_musd)}</td>
+      <td style="text-align:center;font-size:14px;">${[f.price_tag, f.nav_tag, f.nav_forward_tag].filter(Boolean).join(' ')}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+});
+
+// Notes list
+const notesList = document.getElementById('notes-list');
+notesList.innerHTML = DATA.funds.map(f =>
+  `<div style="margin-bottom:6px;"><b>${f.ticker}</b> · ${f.notes}</div>`
+).join('');
+
+// ----- Spread calculation -----
+const vcx = DATA.funds.find(f=>f.ticker==='VCX');
+const ssss = DATA.funds.find(f=>f.ticker==='SSSS');
+const vcxFwdMid = (vcx.premium_forward_low_pct + vcx.premium_forward_high_pct)/2 / 100;
+const ssssFwdMid = (ssss.premium_forward_low_pct + ssss.premium_forward_high_pct)/2 / 100;
+const spread = (1 + vcxFwdMid) / (1 + ssssFwdMid);
+document.getElementById('spread-value').textContent = '~' + spread.toFixed(1) + '×';
+
+// ----- Chart 1: Premium comparison (log scale) -----
+const PALETTE = { ink:'#0d2440', gold:'#b8860b', goldB:'#d4a73a', blue:'#5b8def', amber:'#d68910', red:'#c0392b', green:'#2d7d46' };
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif';
+Chart.defaults.color = '#1e3a5f';
+
+const tradedFunds = DATA.funds.filter(f => f.price_current != null && f.premium_current_pct !== 0);
+const premLabels = tradedFunds.map(f => f.ticker);
+const premCurrent = tradedFunds.map(f => f.premium_current_pct);
+const premForwardMid = tradedFunds.map(f => {
+  if (f.premium_forward_low_pct == null) return null;
+  return (f.premium_forward_low_pct + f.premium_forward_high_pct)/2;
+});
+
+// log scale needs positive values; offset negatives by mapping below baseline
+function toLogSafe(arr) { return arr.map(v => v == null ? null : (v <= 0 ? 0.5 : v)); }
+
+new Chart(document.getElementById('chart-premium').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: premLabels,
+    datasets: [
+      { label: '当前溢价 %', data: toLogSafe(premCurrent),
+        backgroundColor: PALETTE.gold, borderRadius: 4,
+        rawValues: premCurrent },
+      { label: 'Forward 溢价中位 %', data: toLogSafe(premForwardMid),
+        backgroundColor: PALETTE.ink, borderRadius: 4,
+        rawValues: premForwardMid }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      y: { type: 'logarithmic', min: 0.5,
+           grid: { color: 'rgba(13,36,64,0.06)' },
+           ticks: { callback: v => v + '%' },
+           title: { display: true, text: '溢价 % (log scale, ≤0 折回 0.5)', color: '#1e3a5f' } },
+      x: { grid: { display: false } }
+    },
+    plugins: {
+      legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const raw = ctx.dataset.rawValues[ctx.dataIndex];
+            return ctx.dataset.label + ': ' + (raw == null ? 'n/a' : (raw>=0?'+':'') + raw + '%');
+          }
+        }
+      }
+    }
+  }
+});
+
+// ----- Chart 2: Big-3 Exposure (stacked bar) -----
+const expFunds = ['VCX','DXYZ','ARKVX','XOVR','RONB','RVI','SSSS'];
+const expData = expFunds.map(t => DATA.funds.find(f=>f.ticker===t));
+
+new Chart(document.getElementById('chart-exposure').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: expFunds,
+    datasets: [
+      { label:'OpenAI',   data: expData.map(f=>f.weight_openai_pct||0),    backgroundColor: PALETTE.gold,  borderRadius: 2 },
+      { label:'Anthropic',data: expData.map(f=>f.weight_anthropic_pct||0), backgroundColor: PALETTE.blue,  borderRadius: 2 },
+      { label:'SpaceX',   data: expData.map(f=>f.weight_spacex_pct||0),    backgroundColor: PALETTE.ink,   borderRadius: 2 },
+      { label:'xAI',      data: expData.map(f=>typeof f.weight_xai_pct === 'number' ? f.weight_xai_pct : 0), backgroundColor: PALETTE.goldB, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, grid: { color: 'rgba(13,36,64,0.06)' },
+           ticks: { callback: v => v + '%' },
+           title: { display: true, text: '占基金 NAV %' } }
+    },
+    plugins: {
+      legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } },
+      tooltip: {
+        callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '%' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -128,9 +128,16 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
   </div>
   <div class="src">人物背景: 公开履历 + 《态势感知》(Situational Awareness, 2024) 论文。OpenAI超级对齐团队为公司2023年成立的安全研究组（已于2024年解散）。AGI 2027预测出自论文核心章节。</div>
 
-  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>态势感知基金 · AUM增长曲线</h2></div><div class="sh-sub">2017起步$2.5M → 2023年$550亿 → 当前预计$5500亿</div></div>
+  <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>态势感知基金 · 规模与时间线</h2></div><div class="sh-sub">2024 年中成立 · 首期 ~$1B · 当前估算 $1.5-2B</div></div>
   <div class="card"><div id="aum-chart"></div></div>
-  <div class="src">AUM轨迹来自基金披露汇总: 2017年起步规模$2.5M, 2023年$550亿（年复合增长~20倍），2026年估算总规模$5500亿。基金类型为长仓集中策略。增速与规模数据存在公开估算口径差异，仅供分析参考。</div>
+  <div class="src">基金成立于 2024 年中（Aschenbrenner 4 月离开 OpenAI、6 月发表论文后募资）。公开报道(Bloomberg/The Information 2024.9): 首期规模约 $1B, 由 Patrick Collison、Daniel Gross、Nat Friedman 等支持。当前规模为公开估算, 真实规模需以基金对 LP 披露为准。注: 网络流传"$5500亿"等夸大数字不属实——这一规模相当于 Bridgewater 全公司体量, 与一个 2024 年成立的单主题对冲基金不符。</div>
+
+  <div class="card" style="background:rgba(217,119,6,0.06);border-color:rgba(217,119,6,0.2)">
+    <div style="font-size:10px;color:var(--am);font-weight:700;letter-spacing:1px;margin-bottom:5px">⚠ 数据说明</div>
+    <div style="font-size:11px;line-height:1.7;color:var(--tx)">
+      本页"四大押注"中的具体持仓金额($9亿 Bloom / $14亿 CoreWeave 等)源自<strong>第三方公开估算 / 早期媒体推断</strong>, 数字间存在彼此不一致以及与基金实际 AUM 规模冲突的问题。<strong>真实持仓需以监管 13F 文件为准</strong>(如基金 AUM > $100M 须季度披露, 但当前 Aschenbrenner 基金可能因结构原因未在 SEC 系统出现)。下文持仓金额、未交付订单、年化回报等均为参考性估算, 重点在于<strong>看其投资逻辑与赛道布局</strong>, 而非追求金额精确。
+    </div>
+  </div>
 
   <div class="sh" style="margin-top:18px"><div class="sh-row"><div class="sh-bar"></div><h2>持仓集中度</h2></div></div>
   <div class="card">
@@ -142,7 +149,7 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
       极致聚焦：仅29个仓位、前十占86%——这是近乎"私募风险投资"风格的二级市场打法。基金不分散到明星AI公司（OpenAI、Anthropic、英伟达），而是<span style="font-weight:700;color:#1a2332">押AI爆发的物理"必经关卡"</span>。
     </div>
   </div>
-  <div class="src">仓位结构: 公开持仓快照（13F等推算）。集中度作为风格画像。注: 私募基金的13F披露存在滞后期，实际持仓可能已发生变化。</div>
+  <div class="src">仓位结构: 第三方公开估算 / 13F 推算口径; "29 仓位 / 前十 86%" 为风格画像而非精确披露。Aschenbrenner 基金可能因结构原因未在 SEC 13F 系统中出现, 仓位数与集中度仅供参考。</div>
 </div>
 
 <!-- Panel 1: Four Bets -->
@@ -434,43 +441,53 @@ function switchTab(idx) {
   }
 }
 
-// ====== AUM CHART (log-ish bars) ======
+// ====== AUM TIMELINE (factual, not exaggerated) ======
 function renderAumChart() {
   var pts = [
-    {y:"2017", v:0.0025, label:"$2.5M"},
-    {y:"2020", v:0.5, label:"$5亿"},
-    {y:"2023", v:55, label:"$550亿"},
-    {y:"2025", v:300, label:"$3000亿"},
-    {y:"2026E", v:550, label:"$5500亿"}
+    {y:"2024.04", v:0,    label:"OpenAI 离职",    note:"撰写国安备忘录被开"},
+    {y:"2024.06", v:0,    label:"论文发表",       note:"165 页 Situational Awareness"},
+    {y:"2024.09", v:1,    label:"~$1B",          note:"基金成立, 首期募资"},
+    {y:"2025E",   v:1.5,  label:"~$1.5B",        note:"运营首年估算"},
+    {y:"2026E",   v:2,    label:"~$2B",          note:"当前估算 (非披露)"}
   ];
-  var w = 580, h = 200, px = 50, py = 18, pw = w-px-30, ph = h-py-30;
-  var maxLog = Math.log10(600), minLog = Math.log10(0.001);
-  function yOf(v) { var l = Math.log10(Math.max(v, 0.001)); return py + ph - (l-minLog)/(maxLog-minLog)*ph; }
+  var w = 600, h = 220, px = 70, py = 18, pw = w-px-30, ph = h-py-50;
+  var maxV = 2.5;
+  function yOf(v) { return py + ph - (v/maxV)*ph; }
   function xOf(i) { return px + (i/(pts.length-1))*pw; }
 
-  var svg = '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;display:block">';
+  var svg = '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;display:block;max-width:100%">';
   // grid
-  [0.001, 0.1, 1, 10, 100].forEach(function(g) {
+  [0, 0.5, 1, 1.5, 2].forEach(function(g) {
     var yy = yOf(g);
     svg += '<line x1="'+px+'" y1="'+yy+'" x2="'+(w-30)+'" y2="'+yy+'" stroke="rgba(0,40,100,0.06)" stroke-width="0.5"/>';
-    var label = g>=1 ? '$'+g+'B' : ('$'+(g*1000)+'M');
-    svg += '<text x="'+(px-5)+'" y="'+(yy+3)+'" text-anchor="end" fill="#7a8ea0" font-size="8" font-family="JetBrains Mono,monospace">'+label+'</text>';
+    var label = g===0 ? '0' : '$'+g+'B';
+    svg += '<text x="'+(px-5)+'" y="'+(yy+3)+'" text-anchor="end" fill="#7a8ea0" font-size="8.5" font-family="JetBrains Mono,monospace">'+label+'</text>';
   });
   // line
-  var path = pts.map(function(p, i) { return (i===0?'M':'L') + xOf(i).toFixed(1) + ',' + yOf(p.v).toFixed(1); }).join(' ');
+  var realPts = pts.slice(2); // from $1B onwards
+  var path = realPts.map(function(p, i) { return (i===0?'M':'L') + xOf(i+2).toFixed(1) + ',' + yOf(p.v).toFixed(1); }).join(' ');
   svg += '<path d="'+path+'" fill="none" stroke="#7c3aed" stroke-width="2.5"/>';
   // area
-  var area = path + ' L'+xOf(pts.length-1).toFixed(1)+','+(py+ph).toFixed(1)+' L'+xOf(0).toFixed(1)+','+(py+ph).toFixed(1)+' Z';
-  svg += '<path d="'+area+'" fill="url(#g1)" opacity="0.25"/>';
+  var area = path + ' L'+xOf(pts.length-1).toFixed(1)+','+(py+ph).toFixed(1)+' L'+xOf(2).toFixed(1)+','+(py+ph).toFixed(1)+' Z';
+  svg += '<path d="'+area+'" fill="url(#g1)" opacity="0.22"/>';
   svg += '<defs><linearGradient id="g1" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/></linearGradient></defs>';
   // points + labels
   pts.forEach(function(p, i) {
     var x = xOf(i), y = yOf(p.v);
-    svg += '<circle cx="'+x+'" cy="'+y+'" r="3.5" fill="#7c3aed"/>';
-    svg += '<text x="'+x+'" y="'+(h-6)+'" text-anchor="middle" fill="#7a8ea0" font-size="8.5">'+p.y+'</text>';
-    var ly = i===pts.length-1 ? y-8 : y-8;
-    svg += '<text x="'+x+'" y="'+ly+'" text-anchor="middle" fill="#7c3aed" font-size="9" font-weight="700" font-family="JetBrains Mono,monospace">'+p.label+'</text>';
+    var isEvent = p.v === 0;
+    var color = isEvent ? '#d97706' : '#7c3aed';
+    svg += '<circle cx="'+x+'" cy="'+y+'" r="'+(isEvent?3:4)+'" fill="'+color+'"'+(isEvent?' opacity="0.7"':'')+'/>';
+    svg += '<text x="'+x+'" y="'+(h-22)+'" text-anchor="middle" fill="#7a8ea0" font-size="8.5">'+p.y+'</text>';
+    svg += '<text x="'+x+'" y="'+(h-10)+'" text-anchor="middle" fill="#7a8ea0" font-size="7.5" font-style="italic">'+p.note+'</text>';
+    if (!isEvent) {
+      svg += '<text x="'+x+'" y="'+(y-8)+'" text-anchor="middle" fill="'+color+'" font-size="10" font-weight="800" font-family="JetBrains Mono,monospace">'+p.label+'</text>';
+    } else {
+      svg += '<text x="'+x+'" y="'+(y-6)+'" text-anchor="middle" fill="'+color+'" font-size="9" font-weight="700">'+p.label+'</text>';
+    }
   });
+  // legend
+  svg += '<text x="'+(px+5)+'" y="14" fill="#d97706" font-size="9" font-weight="700">⬤ 事件</text>';
+  svg += '<text x="'+(px+60)+'" y="14" fill="#7c3aed" font-size="9" font-weight="700">⬤ AUM</text>';
   svg += '</svg>';
   document.getElementById('aum-chart').innerHTML = svg;
 }

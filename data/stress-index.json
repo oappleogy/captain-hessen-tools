@@ -1,5 +1,5 @@
 {
-  "score": 13.3,
+  "score": 10.7,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,62 +7,62 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 18.29,
+      "current": 17.38,
       "base": 16,
-      "deviation_pct": 14.3,
+      "deviation_pct": 8.6,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 61.3
+      "contribution": 22.2
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 104.93,
+      "current": 101.28,
       "base": 75,
-      "deviation_pct": 39.9,
+      "deviation_pct": 35.0,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 318.4
+      "contribution": 245.0
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 157.23,
+      "current": 157.6,
       "base": 145,
-      "deviation_pct": 8.4,
+      "deviation_pct": 8.7,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 7.1
+      "contribution": 7.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 98.45,
+      "current": 98.32,
       "base": 100,
-      "deviation_pct": 1.5,
+      "deviation_pct": 1.7,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": 0.3
+      "contribution": 0.4
     }
   ],
   "hard_alerts_count": 0,
   "significant_deviations": [
     {
-      "name": "天然气TTF",
-      "current": 49.02,
-      "base": 35,
-      "deviation_pct": 40.0,
+      "name": "WTI油价",
+      "current": 101.28,
+      "base": 75,
+      "deviation_pct": 35.0,
       "direction": "偏高",
       "level": "显著偏离"
     },
     {
-      "name": "WTI油价",
-      "current": 104.93,
-      "base": 75,
-      "deviation_pct": 39.9,
+      "name": "天然气TTF",
+      "current": 46.99,
+      "base": 35,
+      "deviation_pct": 34.3,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-05-05 08:36"
+  "timestamp": "2026-05-06 08:39"
 }

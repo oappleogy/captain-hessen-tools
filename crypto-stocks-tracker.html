@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代币股套利监控 · 黑森船长</title>
+<meta name="description" content="币安 / 欧意 / Bitget 代币股合约与杠杆现货监控 · 资金费率与结算时间实时更新">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0b1220;
+    --bg2: #0f1729;
+    --card: #131c33;
+    --card2: #182240;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #e6ecf5;
+    --text2: #94a3b8;
+    --text3: #64748b;
+    --accent: #5b8af5;
+    --accent2: #a78bfa;
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.12);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.12);
+    --amber: #f59e0b;
+    --amber-bg: rgba(245,158,11,0.12);
+    --blue: #3b82f6;
+    --blue-bg: rgba(59,130,246,0.12);
+    --binance: #f0b90b;
+    --okx: #ffffff;
+    --bitget: #00ceb6;
+  }
+  body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, #1a2545 0%, var(--bg) 50%);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', 'Noto Sans SC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .back-link {
+    position: fixed; top: 20px; left: 20px; z-index: 100;
+    font-size: 12px; color: var(--text2); text-decoration: none;
+    padding: 6px 14px; border-radius: 8px;
+    background: rgba(20,30,55,0.7); backdrop-filter: blur(8px);
+    border: 1px solid var(--border); transition: all 0.2s;
+  }
+  .back-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  .header {
+    padding: 70px 32px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner { max-width: 1300px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.22em;
+    color: var(--text2); text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 30px; font-weight: 700; margin: 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #7da4f8 60%, #a78bfa 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .tagline {
+    font-size: 14px; color: var(--text2);
+    margin-top: 8px; max-width: 720px; line-height: 1.6;
+  }
+
+  .ex-pills {
+    display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap;
+  }
+  .ex-pill {
+    font-size: 11px; padding: 4px 10px; border-radius: 12px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: var(--text2); font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+  .ex-pill .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
+  .tabs {
+    display: flex; gap: 4px; margin-top: 26px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .tab {
+    padding: 10px 16px; font-size: 13px; font-weight: 500;
+    background: transparent; border: none; color: var(--text2);
+    cursor: pointer; transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab .badge {
+    display: inline-block; margin-left: 6px;
+    font-size: 9px; padding: 2px 6px; border-radius: 10px;
+    background: var(--red); color: #fff; font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .content {
+    max-width: 1300px; margin: 0 auto;
+    padding: 24px 32px 100px;
+  }
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadein 0.3s ease; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  .section-title {
+    font-size: 12px; color: var(--text2);
+    margin-bottom: 14px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .section-title .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text3);
+    padding: 2px 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  /* Funding rate controls */
+  .fr-controls {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .fr-status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--text2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .fr-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--text3); transition: background 0.3s;
+  }
+  .fr-dot.live { background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+  .fr-dot.error { background: var(--red); }
+  .fr-dot.loading { background: var(--amber); animation: pulse 1s infinite; }
+  .btn {
+    padding: 6px 14px; font-size: 12px; font-weight: 500;
+    background: rgba(91,138,245,0.15); border: 1px solid rgba(91,138,245,0.3);
+    color: var(--accent); border-radius: 6px; cursor: pointer;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .btn:hover { background: rgba(91,138,245,0.25); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .filter-group {
+    display: flex; gap: 4px;
+    background: rgba(0,0,0,0.2); border-radius: 6px; padding: 3px;
+    border: 1px solid var(--border);
+  }
+  .filter-group button {
+    padding: 5px 10px; font-size: 11px;
+    background: transparent; border: none; color: var(--text2);
+    cursor: pointer; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.15s;
+  }
+  .filter-group button.active {
+    background: rgba(91,138,245,0.2); color: var(--accent);
+  }
+
+  /* Tables */
+  .table-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  thead { background: rgba(0,0,0,0.2); }
+  th {
+    text-align: left; padding: 10px 14px;
+    font-size: 11px; font-weight: 600;
+    color: var(--text2); letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+  }
+  th.sortable:hover { color: var(--text); }
+  th.num, td.num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+  th .sort-arrow { color: var(--text3); margin-left: 4px; font-size: 9px; }
+  th.sorted { color: var(--accent); }
+  th.sorted .sort-arrow { color: var(--accent); }
+
+  td {
+    padding: 11px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .ticker { font-weight: 600; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+  .ticker-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .ex-tag {
+    display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-weight: 600; letter-spacing: 0.05em;
+  }
+  .ex-binance { background: rgba(240,185,11,0.12); color: var(--binance); }
+  .ex-okx { background: rgba(255,255,255,0.08); color: #fff; }
+  .ex-bitget { background: rgba(0,206,182,0.12); color: var(--bitget); }
+
+  .rate { font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .rate.pos { color: var(--green); }
+  .rate.neg { color: var(--red); }
+  .rate.zero { color: var(--text3); }
+  .rate-sub { font-size: 10px; color: var(--text3); margin-top: 2px; font-weight: 400; }
+
+  .has-yes { color: var(--green); font-weight: 600; }
+  .has-no { color: var(--text3); }
+  .has-yes::before { content: '●'; margin-right: 4px; }
+  .has-no::before { content: '○'; margin-right: 4px; }
+
+  .countdown {
+    font-family: 'JetBrains Mono', monospace; font-weight: 600;
+    color: var(--accent); font-size: 12px;
+  }
+  .countdown.urgent { color: var(--amber); }
+  .countdown.soon { color: var(--red); animation: pulse 1.5s infinite; }
+  .settle-time {
+    font-size: 11px; color: var(--text3); margin-top: 2px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .empty-state {
+    padding: 60px 20px; text-align: center;
+    color: var(--text3); font-size: 13px;
+  }
+  .empty-state .icon { font-size: 32px; margin-bottom: 12px; opacity: 0.5; }
+
+  /* Mechanics / Risks panels */
+  .info-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px; margin-top: 10px;
+  }
+  .info-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+    transition: border-color 0.2s;
+  }
+  .info-card:hover { border-color: var(--border2); }
+  .info-card-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+  }
+  .info-card-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .info-card-title {
+    font-size: 14px; font-weight: 600; color: var(--text);
+  }
+  .info-card-body {
+    font-size: 13px; color: var(--text2); line-height: 1.65;
+  }
+  .info-card-body strong { color: var(--text); font-weight: 600; }
+  .info-card-body code {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    padding: 1px 5px; border-radius: 3px;
+    background: rgba(91,138,245,0.1); color: var(--accent);
+  }
+  .info-card-body ul { margin: 6px 0 0 0; padding-left: 18px; }
+  .info-card-body li { margin-bottom: 4px; }
+  .info-card-foot {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  /* Risk severity blocks */
+  .risk-list { display: flex; flex-direction: column; gap: 12px; }
+  .risk-item {
+    display: flex; gap: 14px; padding: 16px 18px;
+    background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid; border-radius: 8px;
+  }
+  .risk-item.sev-high { border-left-color: var(--red); }
+  .risk-item.sev-mid { border-left-color: var(--amber); }
+  .risk-item.sev-low { border-left-color: var(--blue); }
+  .risk-icon { font-size: 20px; flex-shrink: 0; }
+  .risk-body { flex: 1; }
+  .risk-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .risk-title { font-size: 14px; font-weight: 600; }
+  .risk-severity {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+  }
+  .sev-high .risk-severity { background: var(--red-bg); color: var(--red); }
+  .sev-mid .risk-severity { background: var(--amber-bg); color: var(--amber); }
+  .sev-low .risk-severity { background: var(--blue-bg); color: var(--blue); }
+  .risk-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .risk-trigger {
+    margin-top: 8px; font-size: 11px; color: var(--text3);
+    padding: 6px 10px; border-radius: 5px;
+    background: rgba(0,0,0,0.2);
+  }
+  .risk-trigger strong { color: var(--amber); font-weight: 600; }
+
+  /* Underlying mechanics highlights */
+  .mech-overview {
+    background: linear-gradient(135deg, rgba(91,138,245,0.08), rgba(167,139,250,0.05));
+    border: 1px solid rgba(91,138,245,0.2);
+    border-radius: 12px; padding: 20px 22px; margin-bottom: 18px;
+  }
+  .mech-overview-title {
+    font-size: 13px; color: var(--accent); font-weight: 600;
+    margin-bottom: 8px; letter-spacing: 0.05em;
+  }
+  .mech-overview-body {
+    font-size: 13px; color: var(--text); line-height: 1.7;
+  }
+  .mech-overview-body strong { color: var(--accent2); }
+
+  /* Stage badges */
+  .stage-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px; margin: 14px 0 4px;
+  }
+  .stage {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .stage-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--accent); letter-spacing: 0.1em; margin-bottom: 4px;
+  }
+  .stage-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .stage-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+  /* Arbitrage strategy cards */
+  .strat-list { display: flex; flex-direction: column; gap: 14px; }
+  .strat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .strat-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .strat-num {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .strat-title { font-size: 15px; font-weight: 600; }
+  .strat-tag {
+    font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600;
+    background: rgba(91,138,245,0.15); color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .strat-tag.high { background: var(--red-bg); color: var(--red); }
+  .strat-tag.mid { background: var(--amber-bg); color: var(--amber); }
+  .strat-tag.low { background: var(--green-bg); color: var(--green); }
+  .strat-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
+  .strat-body strong { color: var(--text); }
+  .strat-formula {
+    margin: 10px 0; padding: 10px 12px;
+    background: rgba(0,0,0,0.25); border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--accent);
+    overflow-x: auto;
+  }
+  .strat-checklist { margin-top: 10px; }
+  .strat-checklist li {
+    list-style: none;
+    font-size: 12px; color: var(--text2);
+    padding: 4px 0 4px 22px; position: relative; line-height: 1.5;
+  }
+  .strat-checklist li::before {
+    content: '✓'; position: absolute; left: 4px; top: 4px;
+    color: var(--green); font-weight: 700;
+  }
+
+  .footer-note {
+    margin-top: 30px; padding: 16px 20px;
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 8px;
+    font-size: 12px; color: var(--text2); line-height: 1.6;
+  }
+  .footer-note strong { color: var(--amber); }
+
+  .watermark {
+    position: fixed; bottom: 12px; right: 20px;
+    font-size: 10px; color: rgba(255,255,255,0.12);
+    letter-spacing: 0.15em;
+  }
+
+  @media (max-width: 720px) {
+    .header { padding: 64px 20px 20px; }
+    .content { padding: 20px 20px 100px; }
+    h1 { font-size: 22px; }
+    .tab { padding: 8px 12px; font-size: 12px; }
+    th, td { padding: 9px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">← 返回</a>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">黑森船长 · 加密代币股监控 · CRYPTO TOKENIZED EQUITY</div>
+    <h1>代币股套利监控</h1>
+    <p class="tagline">
+      币安 · 欧意 · Bitget 三家交易所代币股<strong>合约 + 杠杆现货</strong>统一面板 ·
+      资金费率 / 结算时间实时拉取 · 套利窗口监测
+    </p>
+    <div class="ex-pills">
+      <div class="ex-pill"><span class="dot" style="background:var(--binance)"></span>Binance USDT-M Futures</div>
+      <div class="ex-pill"><span class="dot" style="background:var(--okx)"></span>OKX Perpetual SWAP</div>
+      <div class="ex-pill"><span class="dot" style="background:var(--bitget)"></span>Bitget Mix Futures</div>
+      <div class="ex-pill">公开 REST API · 浏览器直连</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="listings">📊 上线清单</button>
+      <button class="tab" data-tab="funding">💰 资金费率 <span class="badge">LIVE</span></button>
+      <button class="tab" data-tab="mechanics">⚙️ 合约机制</button>
+      <button class="tab" data-tab="risks">⚠️ 风险提示</button>
+      <button class="tab" data-tab="arbitrage">🎯 套利策略</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══ 1. LISTINGS ═══ -->
+<div id="panel-listings" class="panel active">
+  <div class="section-title">
+    <span>代币股上线总表</span>
+    <span class="meta" id="listings-count">—</span>
+    <span class="meta">合约 = 永续期货 · 杠杆现货 = 全仓/逐仓保证金交易（可做空）</span>
+  </div>
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table id="listings-table">
+        <thead>
+          <tr>
+            <th>代币 / Ticker</th>
+            <th>对应美股</th>
+            <th>板块</th>
+            <th style="text-align:center"><span class="ex-tag ex-binance">币安</span><br><span style="font-weight:400;text-transform:none;font-size:9px;color:var(--text3)">合约 / 现货</span></th>
+            <th style="text-align:center"><span class="ex-tag ex-okx">欧意</span><br><span style="font-weight:400;text-transform:none;font-size:9px;color:var(--text3)">合约 / 现货</span></th>
+            <th style="text-align:center"><span class="ex-tag ex-bitget">Bitget</span><br><span style="font-weight:400;text-transform:none;font-size:9px;color:var(--text3)">合约 / 现货</span></th>
+            <th>底层结构</th>
+          </tr>
+        </thead>
+        <tbody id="listings-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footer-note">
+    <strong>说明：</strong> "合约" 列指 USDT 永续；"现货" 列指带杠杆/保证金的现货交易（可做空做多）。
+    Binance / OKX 大部分代币股以 USDT 永续形式提供（合成定价，无现货），少量以 xStocks 现货形式存在；
+    Bitget 同时提供合约 + xStocks 现货两条路径。具体上线状态以交易所公告为准，本表周更。
+  </div>
+</div>
+
+<!-- ═══ 2. FUNDING RATES (LIVE) ═══ -->
+<div id="panel-funding" class="panel">
+  <div class="section-title">
+    <span>资金费率 · 结算倒计时</span>
+    <span class="meta">REST API 直连 · 无中间层</span>
+  </div>
+
+  <div class="fr-controls">
+    <div class="fr-status">
+      <div class="fr-dot loading" id="fr-dot"></div>
+      <span id="fr-status-text">等待加载...</span>
+    </div>
+    <button class="btn" id="fr-refresh">↻ 立即刷新</button>
+    <div class="filter-group" id="fr-filter">
+      <button class="active" data-filter="all">全部</button>
+      <button data-filter="binance">Binance</button>
+      <button data-filter="okx">OKX</button>
+      <button data-filter="bitget">Bitget</button>
+    </div>
+    <div class="filter-group">
+      <button class="active" data-sort="abs" id="sort-abs">|费率|↓</button>
+      <button data-sort="rate" id="sort-rate">费率↑</button>
+      <button data-sort="time" id="sort-time">最快结算</button>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>合约</th>
+            <th>交易所</th>
+            <th class="num">资金费率</th>
+            <th class="num">年化（按当期）</th>
+            <th class="num">标记价 / 指数价</th>
+            <th>下次结算 (UTC+8)</th>
+            <th class="num">倒计时</th>
+          </tr>
+        </thead>
+        <tbody id="funding-tbody">
+          <tr><td colspan="7" class="empty-state"><div class="icon">⏳</div>正在加载...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>读法：</strong>
+    资金费率为正 = 多方支付空方（市场偏多）；为负 = 空方支付多方（市场偏空）。
+    年化按当期费率 × (一年内的结算次数) 估算 — 仅供瞬时参考，实际历史费率可能反向。
+    <strong>套利触发线（参考）：</strong> 单边 |8h 费率| > 0.1%（年化 ~110%）即可考虑反向对冲；
+    跨所同标的费率差 > 0.05% 可考虑跨所对锁。
+    数据每 60 秒自动刷新；CORS 失败的交易所会标灰，可手动复制 API URL 验证。
+  </div>
+</div>
+
+<!-- ═══ 3. MECHANICS ═══ -->
+<div id="panel-mechanics" class="panel">
+  <div class="section-title">
+    <span>合约基于什么交易？</span>
+    <span class="meta">合成定价 vs 实物代币 · 必读</span>
+  </div>
+
+  <div class="mech-overview">
+    <div class="mech-overview-title">⚙️ 一句话说清楚</div>
+    <div class="mech-overview-body">
+      币安 / 欧意 / Bitget 上的代币股<strong>永续合约</strong>，绝大多数 <strong>不是基于链上代币</strong>，
+      而是基于交易所自建的 <strong>"合成指数"（Synthetic Index）</strong>—— 由若干个传统券商 / 做市商
+      报价聚合而成的美股价格快照，乘以合约面值，按 USDT 现金交割。
+      只有 Bitget 与少数交易所的 <strong>xStocks 现货</strong> 才是 Backed Finance 在 Solana 链上发行的
+      <strong>1:1 实物背书代币</strong>（持牌托管商持有真股票）。这两条路径的风险与价格行为完全不同。
+    </div>
+  </div>
+
+  <div class="stage-row">
+    <div class="stage">
+      <div class="stage-num">PATH A · 永续合约</div>
+      <div class="stage-title">合成指数 + USDT 现金交割</div>
+      <div class="stage-desc">交易所自建价格指数（盘中：聚合多家券商；盘后：上一交易日收盘 + 隐含价/做市商报价）</div>
+    </div>
+    <div class="stage">
+      <div class="stage-num">PATH B · xStocks 现货</div>
+      <div class="stage-title">Backed Finance 链上代币</div>
+      <div class="stage-desc">Solana 上 1:1 背书代币，瑞士持牌托管商持有真股票，可链上转账，可申赎（机构）</div>
+    </div>
+    <div class="stage">
+      <div class="stage-num">PATH C · 杠杆现货（保证金）</div>
+      <div class="stage-title">借币做空 + 现货持仓</div>
+      <div class="stage-desc">基于 Path B 现货，加上交易所的借贷池。借币利率 ≠ 资金费率，需单独看</div>
+    </div>
+  </div>
+
+  <div class="info-grid" style="margin-top:18px">
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:var(--blue-bg);color:var(--blue)">📊</div>
+        <div class="info-card-title">指数计算（Path A）</div>
+      </div>
+      <div class="info-card-body">
+        <strong>美股交易时段（NYSE 21:30-04:00 UTC+8）：</strong>聚合多家做市商 / 数据源（如 Refinitiv、Polygon、Backed feed）取中位数。
+        <br><strong>盘后 / 周末：</strong>使用 last-print + 期权隐含价 + 链上 xStocks 报价拼接。指数实际上 <code>24/7 不停</code>，但盘后流动性差，价差可能 ±2% 跳动。
+      </div>
+      <div class="info-card-foot">PATH A · 决定了你合约的标记价</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:var(--amber-bg);color:var(--amber)">⏰</div>
+        <div class="info-card-title">结算频率</div>
+      </div>
+      <div class="info-card-body">
+        三家交易所代币股永续大都沿用 <strong>8 小时结算</strong>：
+        <ul>
+          <li><strong>币安 / Bitget：</strong>00:00 / 08:00 / 16:00 (UTC) = 北京 08:00 / 16:00 / 00:00</li>
+          <li><strong>欧意：</strong>00:00 / 08:00 / 16:00 (UTC)，部分品种为 <strong>4 小时</strong>（标 funding interval）</li>
+          <li>美股开盘前后（北京时间 21:30 / 04:00）经常出现费率剧烈波动，是套利入场窗口</li>
+        </ul>
+      </div>
+      <div class="info-card-foot">实时倒计时见 "💰 资金费率" 标签</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:var(--green-bg);color:var(--green)">🧮</div>
+        <div class="info-card-title">资金费率公式</div>
+      </div>
+      <div class="info-card-body">
+        <code>F = clamp(Premium + clamp(InterestRate − Premium, ±0.05%), ±cap)</code>
+        <br>其中 <code>Premium = (Mark − Index) / Index</code>（按 TWAP 平均）。
+        <br><strong>cap：</strong>币安 / Bitget 默认 ±0.75%/8h，欧意默认 ±1.5%/8h；股票类品种可能调高至 <strong>±3%/8h</strong>（财报前后）。
+      </div>
+      <div class="info-card-foot">超 cap 的费率会被截断，溢价持续无法对齐</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:var(--red-bg);color:var(--red)">🚫</div>
+        <div class="info-card-title">公司行动 (Corporate Action)</div>
+      </div>
+      <div class="info-card-body">
+        <strong>分红：</strong>合约通常 <strong>不分红</strong>，但会在除息日前调低指数（变相扣除）。
+        <br><strong>拆股 / 并股：</strong>按比例调整合约面值与持仓数量，相当于换股。
+        <br><strong>停牌 / 收购退市：</strong>交易所会强制下架并按最后指数 / 收购对价结算 — <strong>持仓被强平的风险极高</strong>，建议事件窗口前清仓。
+      </div>
+      <div class="info-card-foot">PATH A 与 PATH B 处理方式不同：xStocks 现货走链上 rebase</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:var(--blue-bg);color:var(--blue)">🏛️</div>
+        <div class="info-card-title">xStocks 实物代币（Path B）</div>
+      </div>
+      <div class="info-card-body">
+        发行方：<strong>Backed Finance AG</strong>（瑞士持牌）。
+        托管：<strong>Clearstream / InCore Bank</strong>，1:1 持有真股票。
+        <br>链：<strong>Solana 主网</strong>（部分桥接到 Base / BSC）。
+        <br>申赎：<strong>仅限 KYC 机构</strong>，零售只能在交易所二级市场交易；
+        当 xStock 链上价格偏离美股 > 0.5% 时，授权参与者会做无风险套利拉回。
+      </div>
+      <div class="info-card-foot">链上合约可在 Solscan 验证储备证明</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-head">
+        <div class="info-card-icon" style="background:rgba(167,139,250,0.12);color:var(--accent2)">📐</div>
+        <div class="info-card-title">杠杆现货 = 借币 + 现货</div>
+      </div>
+      <div class="info-card-body">
+        做空逻辑：<strong>从交易所借入 xStock → 卖出换 USDT → 等价格下跌后买回归还</strong>。
+        <br>成本：借币<strong>小时利率</strong>（年化 5-50%，看库存紧张度）+ 现货手续费 × 2。
+        <br>注意 <strong>借币利率 ≠ 永续资金费率</strong>，两者独立浮动 — 这正是跨工具套利的来源。
+      </div>
+      <div class="info-card-foot">Bitget 杠杆现货支持 NVDAX / TSLAX 等</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 4. RISKS ═══ -->
+<div id="panel-risks" class="panel">
+  <div class="section-title">
+    <span>什么情况下会有风险？</span>
+    <span class="meta">按严重度排序 · 持仓前必读</span>
+  </div>
+
+  <div class="risk-list" id="risk-list"></div>
+
+  <div class="footer-note" style="margin-top:24px">
+    <strong>核心原则：</strong>代币股是 <strong>"包了一层加密皮"的美股</strong>，
+    底层是 NYSE 时段定价，外层是 24/7 加密交易 —— <strong>错配（Mismatch）就是所有风险的根源</strong>。
+    永远不要在不知道下一次交易时段开始时间的情况下重仓。
+  </div>
+</div>
+
+<!-- ═══ 5. ARBITRAGE ═══ -->
+<div id="panel-arbitrage" class="panel">
+  <div class="section-title">
+    <span>套利策略 · 资金费率驱动</span>
+    <span class="meta">仅供研究参考 · 自负盈亏</span>
+  </div>
+
+  <div class="strat-list" id="strat-list"></div>
+
+  <div class="footer-note" style="margin-top:24px">
+    <strong>套利能否成立的前提：</strong>资金费率与结算时间数据 <strong>必须实时更新</strong>。
+    陈旧的费率 = 错误的入场点 = 套利失败。本页 "💰 资金费率" 标签每 60 秒自动刷新；
+    在大行情 / 财报前后建议手动 ↻ 刷新到秒级精度，再下单。
+  </div>
+</div>
+
+</div>
+
+<div class="watermark">黑森船长 · 锚定确定性</div>
+
+<script>
+"use strict";
+
+/* ═════════════════════════════════════════════════════════════════
+   1. SYMBOL CONFIG  ——  代币股清单（按需增删）
+   ═════════════════════════════════════════════════════════════════ */
+const TOKENS = [
+  // ticker, underlying, sector, listings (true / false)
+  // listings: [binance_perp, binance_spot, okx_perp, okx_spot, bitget_perp, bitget_spot]
+  // backing: 'synthetic' | 'xstocks'
+  { t: "NVDA",  u: "NVIDIA",         s: "半导体/AI", l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "TSLA",  u: "Tesla",          s: "电动车",    l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "MSTR",  u: "Strategy",       s: "BTC 代理",  l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "COIN",  u: "Coinbase",       s: "加密券商",  l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "AAPL",  u: "Apple",          s: "消费电子",  l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "MSFT",  u: "Microsoft",      s: "软件/AI",   l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "GOOGL", u: "Alphabet",       s: "搜索/AI",   l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "META",  u: "Meta",           s: "社交/AI",   l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "AMZN",  u: "Amazon",         s: "电商/云",   l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "HOOD",  u: "Robinhood",      s: "加密券商",  l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "CRCL",  u: "Circle",         s: "稳定币",    l:[1,0,1,0,1,0], b:"合成指数" },
+  { t: "PLTR",  u: "Palantir",       s: "AI 国防",   l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "AMD",   u: "AMD",            s: "半导体",    l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "AVGO",  u: "Broadcom",       s: "半导体",    l:[1,0,1,0,1,0], b:"合成指数" },
+  { t: "ORCL",  u: "Oracle",         s: "数据库/云", l:[0,0,1,0,1,0], b:"合成指数" },
+  { t: "SPY",   u: "S&P 500 ETF",    s: "宽基指数",  l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "QQQ",   u: "Nasdaq-100 ETF", s: "宽基指数",  l:[1,0,1,0,1,1], b:"两路并存" },
+  { t: "GLD",   u: "Gold ETF",       s: "贵金属",    l:[0,0,1,0,1,1], b:"两路并存" }
+];
+
+/* Binance / OKX / Bitget 合约符号映射（部分品种官方符号可能不同，不存在的会自动跳过） */
+const SYMBOL_MAP = {
+  binance: t => `${t}USDT`,             // GET https://fapi.binance.com/fapi/v1/premiumIndex?symbol=...
+  okx:     t => `${t}-USDT-SWAP`,       // GET https://www.okx.com/api/v5/public/funding-rate?instId=...
+  bitget:  t => `${t}USDT`              // GET https://api.bitget.com/api/v2/mix/market/current-fund-rate?productType=USDT-FUTURES&symbol=...
+};
+
+/* ═════════════════════════════════════════════════════════════════
+   2. RISK LIST DATA
+   ═════════════════════════════════════════════════════════════════ */
+const RISKS = [
+  {
+    sev: "high", icon: "🕒", title: "时段错配（Hours Mismatch）",
+    desc: "美股 NYSE 仅在 21:30-04:00 (UTC+8) 周一至周五交易；代币股合约 24/7 不停。" +
+          "美股闭市后，价格仅靠做市商盘后报价 + 期权隐含价拼接，可能被单边推动出现 ±2-5% 偏离。",
+    trigger: "周末、美股节假日、盘后突发新闻（财报、地缘事件）。开盘瞬间会把价差打回，盘后重仓单方向 = 等于赌缺口。"
+  },
+  {
+    sev: "high", icon: "📈", title: "资金费率失控（Funding Spike）",
+    desc: "财报、纳指开盘、关键宏观数据公布前后，多空失衡可使 8 小时费率冲到 ±1% 甚至 ±3% — " +
+          "年化 ±1000%+。单方向持仓被资金费吃穿后，强平连环触发。",
+    trigger: "费率 cap 被打到上限（多数交易所 ±0.75% / ±1.5%）；标记价偏离指数价 > 0.5% 持续 30 分钟。"
+  },
+  {
+    sev: "high", icon: "⚖️", title: "脱锚 / 价格背离（De-pegging）",
+    desc: "Path A（合成指数）受交易所自身定价模型影响，可能与真实美股价格偏离 1-3%；" +
+          "Path B（xStocks 现货）依赖授权参与者套利拉回，黑天鹅事件时 AP 暂停申赎 = 直接脱锚。",
+    trigger: "底层 Backed Finance / 托管行出问题；交易所定价源故障（如做市商集体下线）；监管突发限制。"
+  },
+  {
+    sev: "mid", icon: "🏛️", title: "监管风险（Regulatory）",
+    desc: "SEC、欧洲 ESMA、香港 SFC 仍在制定代币化证券规则。" +
+          "若被认定为未注册证券，交易所可能强制下架（已有先例：2021 年 Binance 关闭过股票代币交易）。",
+    trigger: "SEC / 司法部对发行方（如 Backed）启动诉讼；交易所所在司法管辖区禁令；KYC 收紧导致流动性骤降。"
+  },
+  {
+    sev: "mid", icon: "🎯", title: "公司行动（Corporate Actions）",
+    desc: "分红除息、拆股、并购退市的处理方式各家不同。合约通常不付分红但会调低指数；" +
+          "拆股按比例调持仓；收购退市交易所会单方面按某一时点强制结算，存在 1-2% 折让。",
+    trigger: "标的公司宣布分红 / 拆股 / 被收购；财报后 ATH（盘后异常）；标的被纳入 / 剔除指数。"
+  },
+  {
+    sev: "mid", icon: "💧", title: "流动性深度不足（Liquidity Gap）",
+    desc: "代币股合约日成交量远小于 BTC / ETH，盘口深度可能仅几万 USDT。" +
+          "大单冲击成本 1-3%。周末 / 假期更甚，slippage 把套利利润全部吃掉。",
+    trigger: "单笔下单 > 盘口 5 档累计深度；ADV < $100k 的小盘代币股；新上线 < 7 天的品种。"
+  },
+  {
+    sev: "mid", icon: "🔄", title: "借币利率波动（Margin Cost）",
+    desc: "Path C（杠杆现货做空）依赖借币池库存。库存紧张时小时利率从 0.005% 暴涨到 0.1% / 小时（年化 ~900%），" +
+          "套利空间瞬间消失，被动平仓。",
+    trigger: "市场强烈看空 → 借币需求激增；交易所手动提高利率上限；借贷池规模 < $1M 的小币种。"
+  },
+  {
+    sev: "low", icon: "🌐", title: "API / 网络风险（Operational）",
+    desc: "套利策略依赖低延迟报价。CORS 限制、API rate limit、节点异常都会让自动化策略瞬间脱手。" +
+          "本页用浏览器 REST 直拉，不适合做单笔 > $10k 的下单决策。",
+    trigger: "交易所 API 维护公告；区域性网络问题；浏览器扩展 / 防火墙拦截 fetch。"
+  },
+  {
+    sev: "low", icon: "💸", title: "结算与提现（Settlement & Withdrawal）",
+    desc: "合约盈亏走 USDT，xStocks 现货可链上转账但仅限部分链。" +
+          "极端市况下交易所可能临时关闭提现或延迟结算，资金被锁短则数小时长则数日。",
+    trigger: "极端波动触发 ADL（自动减仓）；交易所风控审查；链上拥堵（Solana 历史宕机）。"
+  }
+];
+
+/* ═════════════════════════════════════════════════════════════════
+   3. ARBITRAGE STRATEGIES
+   ═════════════════════════════════════════════════════════════════ */
+const STRATEGIES = [
+  {
+    n: "01", title: "单边费率收割（Funding Harvest）", risk: "low",
+    body: "当某交易所某代币 8 小时费率 |F| > 0.1%（年化 110%+），且持续 2 个结算周期未回归时，" +
+          "在 <strong>该所内部</strong> 用<strong>合约方向 vs 反向 spot/margin</strong> 对锁，吃费率不吃方向。",
+    formula: "净收益 = |8h 费率| × 3 × 365 − 借币利率 × 365 − 双向手续费 × N",
+    checks: [
+      "确认费率年化 > 借币利率年化 + 50%（安全垫）",
+      "持仓量监控：若交易所 OI 集中度 > 30% 单方，警惕反转",
+      "Path B 现货必须能借到（库存 > 持仓量 5 倍）"
+    ]
+  },
+  {
+    n: "02", title: "跨交易所对锁（Cross-Exchange Arb）", risk: "mid",
+    body: "三家交易所同一代币股的资金费率经常差 ±0.05% 以上。" +
+          "在<strong>费率高的所做空</strong>、<strong>费率低的所做多</strong>，方向中性，吃两端费率差。",
+    formula: "净收益 = (F_high − F_low) × 3 × 365 − 划转/手续费 × 2",
+    checks: [
+      "USDT 提现链路通畅（建议常驻 USDT 在三家）",
+      "标记价 ≈ 指数价（避免一端先被强平的风险）",
+      "费率差持续 > 1 个结算周期 才入场，避免单 tick 噪声"
+    ]
+  },
+  {
+    n: "03", title: "美股开盘缺口（Pre-Market Gap）", risk: "high",
+    body: "周一 21:30 (UTC+8) 美股开盘瞬间，盘后累积的价差被一次性消化。" +
+          "若周末出现重大利空 / 利好，可在开盘前 30 分钟挂限价单，等开盘成交。",
+    formula: "策略：盘后 mark vs 上周五 close 偏离 > 1.5% → 反向布局，开盘 30 分钟内平仓",
+    checks: [
+      "确认是 NYSE 真实开盘时间（夏令时 21:30，冬令时 22:30）",
+      "事件驱动 ≠ 盘后噪声 — 看 Bloomberg / Polymarket 验证",
+      "止损必须紧（< 0.5%），开盘缺口经常一字到位再反向"
+    ]
+  },
+  {
+    n: "04", title: "现货 - 合约基差（Cash & Carry）", risk: "low",
+    body: "Bitget xStocks 现货 vs 永续合约价差稳定为正（contango）时，" +
+          "<strong>买入现货 + 做空合约</strong>，到期 / 任意时点平仓即赚基差。" +
+          "无方向风险，年化 5-20% 视品种。",
+    formula: "年化 = (Perp − Spot) / Spot × (365 / 持仓天数) − 资金费率累计",
+    checks: [
+      "现货确认是 xStocks（链上可查），不是合成代币",
+      "持仓期间费率 sum 不能超过基差（避免被资金费吃光）",
+      "退出路径：到 ex-div 日前清仓，避免分红调整意外"
+    ]
+  },
+  {
+    n: "05", title: "财报前波动率压缩（Earnings IV Crush）", risk: "high",
+    body: "财报前 1-3 天合约持仓量大涨、隐含波动率高，资金费率剧烈摆动。" +
+          "若有期权对冲渠道（Deribit / OKX 期权），可做<strong>合约 + 反向期权</strong> straddle。",
+    formula: "策略：T-1 日做空跨式（卖 call + 卖 put），财报后 IV 暴跌即可平",
+    checks: [
+      "仅适合有期权工具的玩家，纯永续无法实现",
+      "持仓规模严格限制（财报跳空 > 10% 是常态）",
+      "美股交易所期权与代币股期权可能不互通，注意定价错配"
+    ]
+  }
+];
+
+/* ═════════════════════════════════════════════════════════════════
+   4. RENDER LISTINGS PANEL
+   ═════════════════════════════════════════════════════════════════ */
+function renderListings() {
+  const tbody = document.getElementById("listings-tbody");
+  const SECTOR_COLORS = {
+    "半导体/AI":"#5b8af5","半导体":"#5b8af5","电动车":"#22c55e","BTC 代理":"#f0b90b",
+    "加密券商":"#a78bfa","消费电子":"#94a3b8","软件/AI":"#3b82f6","搜索/AI":"#3b82f6",
+    "社交/AI":"#3b82f6","电商/云":"#22c55e","稳定币":"#22c55e","AI 国防":"#ef4444",
+    "数据库/云":"#3b82f6","宽基指数":"#94a3b8","贵金属":"#f0b90b"
+  };
+  function cell(perp, spot) {
+    return `<td style="text-align:center; font-family:'JetBrains Mono', monospace; font-size:12px">
+      <span class="${perp ? 'has-yes' : 'has-no'}">${perp ? '永续' : '—'}</span>
+      <span style="color:var(--text3); margin:0 4px">/</span>
+      <span class="${spot ? 'has-yes' : 'has-no'}">${spot ? '杠杆' : '—'}</span>
+    </td>`;
+  }
+  tbody.innerHTML = TOKENS.map(tok => {
+    const [bp, bs, op, os, gp, gs] = tok.l;
+    const sectorColor = SECTOR_COLORS[tok.s] || "#94a3b8";
+    const backingColor = tok.b === "两路并存" ? "var(--green)" : (tok.b === "合成指数" ? "var(--amber)" : "var(--text3)");
+    return `<tr>
+      <td>
+        <div class="ticker">${tok.t}</div>
+        <div class="ticker-sub">${tok.t.toLowerCase()}x · USDT-PERP</div>
+      </td>
+      <td>${tok.u}</td>
+      <td><span style="font-size:11px; padding:2px 8px; border-radius:4px; background:${sectorColor}22; color:${sectorColor}">${tok.s}</span></td>
+      ${cell(bp, bs)}
+      ${cell(op, os)}
+      ${cell(gp, gs)}
+      <td><span style="font-size:11px; color:${backingColor}; font-weight:600">${tok.b}</span></td>
+    </tr>`;
+  }).join("");
+  document.getElementById("listings-count").textContent =
+    `${TOKENS.length} 标的 · 合约 + 杠杆现货合并视图`;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   5. RENDER RISKS PANEL
+   ═════════════════════════════════════════════════════════════════ */
+function renderRisks() {
+  const list = document.getElementById("risk-list");
+  const SEV_LABEL = { high: "高风险", mid: "中风险", low: "低风险" };
+  list.innerHTML = RISKS.map(r => `
+    <div class="risk-item sev-${r.sev}">
+      <div class="risk-icon">${r.icon}</div>
+      <div class="risk-body">
+        <div class="risk-head">
+          <span class="risk-title">${r.title}</span>
+          <span class="risk-severity">${SEV_LABEL[r.sev]}</span>
+        </div>
+        <div class="risk-desc">${r.desc}</div>
+        <div class="risk-trigger"><strong>触发条件：</strong>${r.trigger}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   6. RENDER ARBITRAGE PANEL
+   ═════════════════════════════════════════════════════════════════ */
+function renderStrategies() {
+  const list = document.getElementById("strat-list");
+  const RISK_LABEL = { high: "高难度", mid: "中等难度", low: "易上手" };
+  list.innerHTML = STRATEGIES.map(s => `
+    <div class="strat-card">
+      <div class="strat-head">
+        <div class="strat-num">${s.n}</div>
+        <span class="strat-title">${s.title}</span>
+        <span class="strat-tag ${s.risk}">${RISK_LABEL[s.risk]}</span>
+      </div>
+      <div class="strat-body">${s.body}</div>
+      <div class="strat-formula">${s.formula}</div>
+      <ul class="strat-checklist">${s.checks.map(c => `<li>${c}</li>`).join("")}</ul>
+    </div>
+  `).join("");
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   7. LIVE FUNDING-RATE FETCH
+   ═════════════════════════════════════════════════════════════════ */
+const FETCH_TIMEOUT = 6000;
+async function withTimeout(p, ms) {
+  return Promise.race([
+    p,
+    new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))
+  ]);
+}
+async function fetchJSON(url) {
+  const r = await withTimeout(fetch(url, { mode: "cors" }), FETCH_TIMEOUT);
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return r.json();
+}
+
+/* Binance USDT-M Futures funding rate
+   Bulk fetch all symbols once, then filter — cheaper than per-symbol */
+async function fetchBinanceAll() {
+  const data = await fetchJSON("https://fapi.binance.com/fapi/v1/premiumIndex");
+  const map = {};
+  for (const row of data) map[row.symbol] = row;
+  const tokens = TOKENS.filter(t => t.l[0]);
+  return tokens.map(tok => {
+    const sym = SYMBOL_MAP.binance(tok.t);
+    const row = map[sym];
+    if (!row) return null;
+    return {
+      ex: "binance",
+      ticker: tok.t,
+      symbol: sym,
+      rate: parseFloat(row.lastFundingRate),
+      mark: parseFloat(row.markPrice),
+      index: parseFloat(row.indexPrice),
+      nextTime: parseInt(row.nextFundingTime),
+      interval: 8 // hours, default
+    };
+  }).filter(Boolean);
+}
+
+/* OKX SWAP funding rate — per-symbol */
+async function fetchOKXAll() {
+  const tokens = TOKENS.filter(t => t.l[2]);
+  const promises = tokens.map(async tok => {
+    try {
+      const sym = SYMBOL_MAP.okx(tok.t);
+      const [fund, ticker] = await Promise.all([
+        fetchJSON(`https://www.okx.com/api/v5/public/funding-rate?instId=${sym}`),
+        fetchJSON(`https://www.okx.com/api/v5/market/ticker?instId=${sym}`).catch(() => null)
+      ]);
+      if (!fund.data || !fund.data[0]) return null;
+      const f = fund.data[0];
+      const last = ticker?.data?.[0]?.last ? parseFloat(ticker.data[0].last) : null;
+      const idx = ticker?.data?.[0]?.idxPx ? parseFloat(ticker.data[0].idxPx) : null;
+      return {
+        ex: "okx",
+        ticker: tok.t,
+        symbol: sym,
+        rate: parseFloat(f.fundingRate),
+        mark: last,
+        index: idx,
+        nextTime: parseInt(f.nextFundingTime),
+        interval: f.fundingTime && f.nextFundingTime
+          ? Math.round((parseInt(f.nextFundingTime) - parseInt(f.fundingTime)) / 3600000) : 8
+      };
+    } catch (e) { return null; }
+  });
+  return (await Promise.all(promises)).filter(Boolean);
+}
+
+/* Bitget Mix Futures funding rate */
+async function fetchBitgetAll() {
+  const tokens = TOKENS.filter(t => t.l[4]);
+  const promises = tokens.map(async tok => {
+    try {
+      const sym = SYMBOL_MAP.bitget(tok.t);
+      const url = `https://api.bitget.com/api/v2/mix/market/current-fund-rate?productType=USDT-FUTURES&symbol=${sym}`;
+      const tickerUrl = `https://api.bitget.com/api/v2/mix/market/ticker?productType=USDT-FUTURES&symbol=${sym}`;
+      const [fund, ticker] = await Promise.all([
+        fetchJSON(url),
+        fetchJSON(tickerUrl).catch(() => null)
+      ]);
+      const f = fund?.data?.[0];
+      if (!f) return null;
+      const t = ticker?.data?.[0];
+      const next = f.nextUpdate ? parseInt(f.nextUpdate)
+                  : t?.nextFundingTime ? parseInt(t.nextFundingTime) : null;
+      return {
+        ex: "bitget",
+        ticker: tok.t,
+        symbol: sym,
+        rate: parseFloat(f.fundingRate),
+        mark: t?.markPrice ? parseFloat(t.markPrice) : null,
+        index: t?.indexPrice ? parseFloat(t.indexPrice) : null,
+        nextTime: next,
+        interval: 8
+      };
+    } catch (e) { return null; }
+  });
+  return (await Promise.all(promises)).filter(Boolean);
+}
+
+let CURRENT_DATA = [];
+let SOURCE_STATUS = { binance: null, okx: null, bitget: null };
+let CURRENT_FILTER = "all";
+let CURRENT_SORT = "abs";
+
+async function loadFunding() {
+  setStatus("loading", "正在拉取三家交易所...");
+  const refreshBtn = document.getElementById("fr-refresh");
+  refreshBtn.disabled = true;
+
+  const results = await Promise.allSettled([
+    fetchBinanceAll(),
+    fetchOKXAll(),
+    fetchBitgetAll()
+  ]);
+  const exs = ["binance", "okx", "bitget"];
+  const all = [];
+  results.forEach((r, i) => {
+    if (r.status === "fulfilled" && r.value.length) {
+      SOURCE_STATUS[exs[i]] = { ok: true, count: r.value.length };
+      all.push(...r.value);
+    } else {
+      SOURCE_STATUS[exs[i]] = { ok: false, error: r.status === "rejected" ? r.reason?.message : "无数据" };
+    }
+  });
+
+  CURRENT_DATA = all;
+  refreshBtn.disabled = false;
+  if (all.length === 0) {
+    setStatus("error", "全部交易所拉取失败 — 请检查网络 / CORS / VPN");
+  } else {
+    const okSrc = exs.filter(e => SOURCE_STATUS[e]?.ok);
+    const failSrc = exs.filter(e => SOURCE_STATUS[e] && !SOURCE_STATUS[e].ok);
+    const ts = new Date().toLocaleTimeString("zh-CN", { hour12: false });
+    setStatus("live",
+      `已加载 ${all.length} 条 · 成功: ${okSrc.join(",")}${failSrc.length ? ` · 失败: ${failSrc.join(",")}` : ""} · 更新于 ${ts}`);
+  }
+  renderFundingTable();
+}
+
+function setStatus(state, text) {
+  const dot = document.getElementById("fr-dot");
+  const txt = document.getElementById("fr-status-text");
+  dot.className = "fr-dot " + state;
+  txt.textContent = text;
+}
+
+function renderFundingTable() {
+  const tbody = document.getElementById("funding-tbody");
+  let data = CURRENT_DATA.slice();
+  if (CURRENT_FILTER !== "all") data = data.filter(d => d.ex === CURRENT_FILTER);
+
+  if (CURRENT_SORT === "abs") {
+    data.sort((a, b) => Math.abs(b.rate) - Math.abs(a.rate));
+  } else if (CURRENT_SORT === "rate") {
+    data.sort((a, b) => a.rate - b.rate);
+  } else if (CURRENT_SORT === "time") {
+    data.sort((a, b) => (a.nextTime || Infinity) - (b.nextTime || Infinity));
+  }
+
+  if (data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><div class="icon">📭</div>暂无数据 — 试试切换交易所或刷新</td></tr>`;
+    return;
+  }
+
+  const exTagCls = { binance: "ex-binance", okx: "ex-okx", bitget: "ex-bitget" };
+  const exName = { binance: "币安", okx: "欧意", bitget: "Bitget" };
+  const now = Date.now();
+  tbody.innerHTML = data.map(d => {
+    const ratePct = (d.rate * 100).toFixed(4);
+    const annualized = (d.rate * (24 / d.interval) * 365 * 100).toFixed(1);
+    const cls = d.rate > 0 ? "pos" : (d.rate < 0 ? "neg" : "zero");
+    const sign = d.rate > 0 ? "+" : "";
+    const markStr = d.mark != null ? d.mark.toFixed(d.mark > 100 ? 2 : 4) : "—";
+    const idxStr = d.index != null ? d.index.toFixed(d.index > 100 ? 2 : 4) : "—";
+    const settleDate = d.nextTime ? new Date(d.nextTime) : null;
+    const settleStr = settleDate
+      ? settleDate.toLocaleString("zh-CN", { hour12: false, month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
+      : "—";
+    const remainMs = d.nextTime ? d.nextTime - now : null;
+    let countdown = "—", countdownCls = "";
+    if (remainMs != null && remainMs > 0) {
+      const h = Math.floor(remainMs / 3600000);
+      const m = Math.floor((remainMs % 3600000) / 60000);
+      const s = Math.floor((remainMs % 60000) / 1000);
+      countdown = `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+      if (remainMs < 600000) countdownCls = "soon";
+      else if (remainMs < 1800000) countdownCls = "urgent";
+    }
+    return `<tr>
+      <td>
+        <div class="ticker">${d.ticker}USDT</div>
+        <div class="ticker-sub">${d.symbol}</div>
+      </td>
+      <td><span class="ex-tag ${exTagCls[d.ex]}">${exName[d.ex]}</span></td>
+      <td class="num"><span class="rate ${cls}">${sign}${ratePct}%</span><div class="rate-sub">每 ${d.interval}h</div></td>
+      <td class="num"><span class="rate ${cls}">${sign}${annualized}%</span></td>
+      <td class="num">$${markStr}<div class="rate-sub">idx $${idxStr}</div></td>
+      <td>${settleStr}</td>
+      <td class="num"><span class="countdown ${countdownCls}">${countdown}</span></td>
+    </tr>`;
+  }).join("");
+}
+
+/* Tick countdowns every second without re-fetching */
+setInterval(() => {
+  if (document.querySelector("#panel-funding.active") && CURRENT_DATA.length) {
+    renderFundingTable();
+  }
+}, 1000);
+
+/* Auto-refresh every 60s */
+let refreshTimer = null;
+function startAutoRefresh() {
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = setInterval(() => {
+    if (document.visibilityState === "visible") loadFunding();
+  }, 60000);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   8. TAB SWITCHING + WIRING
+   ═════════════════════════════════════════════════════════════════ */
+function setupTabs() {
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(t => t.addEventListener("click", () => {
+    tabs.forEach(x => x.classList.remove("active"));
+    t.classList.add("active");
+    const name = t.dataset.tab;
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    document.getElementById("panel-" + name).classList.add("active");
+    if (name === "funding" && CURRENT_DATA.length === 0) loadFunding();
+  }));
+}
+
+function setupFundingControls() {
+  document.getElementById("fr-refresh").addEventListener("click", loadFunding);
+  document.querySelectorAll("#fr-filter button").forEach(b => {
+    b.addEventListener("click", () => {
+      document.querySelectorAll("#fr-filter button").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      CURRENT_FILTER = b.dataset.filter;
+      renderFundingTable();
+    });
+  });
+  document.querySelectorAll("[data-sort]").forEach(b => {
+    b.addEventListener("click", () => {
+      document.querySelectorAll("[data-sort]").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      CURRENT_SORT = b.dataset.sort;
+      renderFundingTable();
+    });
+  });
+}
+
+/* Init */
+renderListings();
+renderRisks();
+renderStrategies();
+setupTabs();
+setupFundingControls();
+loadFunding();
+startAutoRefresh();
+</script>
+
+</body>
+</html>

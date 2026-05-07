@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-05-06T11:42:16",
+  "timestamp": "2026-05-07T11:28:14",
   "system_state": {
-    "state": "STABLE",
-    "label": "系统稳定",
-    "color": "#22c55e",
-    "level": 1,
-    "score": 0.5,
-    "action": "系统健康。建议仓位≤60%（趋势↑），可持有方向性仓位。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.167,
+    "action": "系统轻度承压。建议仓位≤55%（趋势↓），增加对冲，缩短持仓周期。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
   "dim_lights": {
     "R": "green",
-    "I": "green",
+    "I": "yellow",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
-    "T": "green"
+    "T": "yellow"
   },
   "dimensions": {
     "R": {
@@ -31,10 +31,10 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.3,
-      "state": "▲",
-      "light": "green",
-      "note": "政策路径清晰，制度运行稳定",
+      "score": 0.21,
+      "state": "►",
+      "light": "yellow",
+      "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
@@ -51,17 +51,17 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.04,
+      "score": -0.24,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "stressed"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.06,
+      "score": 0.07,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -71,41 +71,41 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.34,
-      "state": "▲",
-      "light": "green",
-      "note": "技术进步与制度消化能力匹配",
+      "score": 0.04,
+      "state": "►",
+      "light": "yellow",
+      "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "healthy"
+      "status": "neutral"
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
         "name": "黄金吸引子",
         "emoji": "🟢",
         "color": "#22c55e",
-        "pct": 2.0
+        "pct": 1.9
       },
       {
         "key": "STABLE",
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 64.7
+        "pct": 65.4
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 33.3
+        "pct": 32.7
       },
       {
         "key": "TECH_DOM",
@@ -122,14 +122,15 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
-    "safety_margin": 0.6,
+    "moving_toward": "TECH_DOM",
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": [
-    "OVX原油波动率=74.7 (历史95%分位)",
+    "OVX原油波动率=72.3 (历史94%分位)",
+    "政策不确定性(EPU)=662 (历史98%分位)",
     "地缘政治风险(GPR)=231 (历史97%分位)",
-    "地缘交叉验证(OVX)=74.7 (历史95%分位) [仅验证，不计分]"
+    "地缘交叉验证(OVX)=72.3 (历史94%分位) [仅验证，不计分]"
   ],
   "opportunities": [],
   "contradiction": {
@@ -144,14 +145,14 @@
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 3,
+    "extreme_count": 4,
     "vix": {
       "value": 17.4,
-      "percentile": 64,
+      "percentile": 65,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.78,
+      "value": 2.77,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

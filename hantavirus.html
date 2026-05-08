@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>汉坦病毒传播模型 · 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Serif+SC:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0f1a;--card:#111827;--cardHi:#1a2332;--accent:#e74c3c;--accentDim:#a93226;
+  --green:#27ae60;--blue:#3498db;--cyan:#1abc9c;--orange:#f39c12;--purple:#9b59b6;
+  --yellow:#f1c40f;--pink:#e84393;
+  --text:#e2e8f0;--dim:#94a3b8;--muted:#64748b;--border:#1e293b;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans','Noto Sans SC',sans-serif;padding:20px 16px;min-height:100vh}
+.mono{font-family:'Space Mono',monospace;font-weight:700}
+.tag{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;display:inline-block}
+.card{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.tab-bar{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.tab-btn{padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s}
+.tab-btn.active{border-color:var(--accent);background:rgba(231,76,60,.1);color:var(--accent)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:600px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.stat-box{padding:14px;border-radius:8px;text-align:center}
+.stat-val{font-size:22px;font-weight:700;font-family:'Space Mono',monospace}
+.stat-label{font-size:10px;color:var(--dim);margin-top:4px}
+.chart-area{position:relative;height:220px;margin:12px 0}
+.chart-bar-group{display:flex;align-items:flex-end;gap:2px;height:100%;padding-bottom:24px}
+.chart-bar{border-radius:3px 3px 0 0;min-width:8px;flex:1;position:relative;transition:height .4s}
+.chart-bar:hover{opacity:.8}
+.chart-bar .tip{display:none;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#1a2332;border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-size:10px;white-space:nowrap;z-index:10}
+.chart-bar:hover .tip{display:block}
+.chart-label{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted);white-space:nowrap}
+.slider-group{margin:10px 0}
+.slider-group label{font-size:11px;color:var(--dim);display:block;margin-bottom:4px}
+.slider-group input[type=range]{width:100%;accent-color:var(--accent)}
+.slider-val{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);float:right}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}
+.legend-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--dim)}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+canvas{width:100%;border-radius:8px}
+.watermark{position:fixed;bottom:10px;right:14px;font-size:10px;color:rgba(255,255,255,.08);font-family:'Noto Serif SC',serif;letter-spacing:2px;pointer-events:none;z-index:999}
+.flow-arrow{text-align:center;font-size:16px;color:var(--accent);padding:4px 0}
+.flow-box{padding:12px;border-radius:8px;border:1px solid}
+.province-bar{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.province-bar .bar-bg{flex:1;height:14px;background:var(--border);border-radius:3px;overflow:hidden}
+.province-bar .bar-fill{height:100%;border-radius:3px;transition:width .6s}
+.province-bar .name{width:70px;font-size:11px;font-weight:600;text-align:right;flex-shrink:0}
+.province-bar .val{width:50px;font-size:10px;color:var(--dim);text-align:right}
+</style>
+</head>
+<body>
+
+<div style="margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+    <div style="width:4px;height:24px;background:linear-gradient(180deg,var(--accent),var(--accentDim));border-radius:2px"></div>
+    <h1 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px">汉坦病毒传播模型</h1>
+  </div>
+  <p style="color:var(--dim);font-size:11px;margin:6px 0 0 12px;line-height:1.5">鼠传人溢出动力学 · SEIR + 鼠群储存宿主模型 · 科普可视化</p>
+</div>
+
+<div class="tab-bar" id="tabBar"></div>
+<div id="content"></div>
+<div class="watermark">黑森船长</div>
+
+<script>
+var C={accent:"#e74c3c",green:"#27ae60",blue:"#3498db",cyan:"#1abc9c",orange:"#f39c12",purple:"#9b59b6",yellow:"#f1c40f",pink:"#e84393",dim:"#94a3b8",muted:"#64748b",border:"#1e293b",card:"#111827",cardHi:"#1a2332"};
+
+var TABS=[
+  {key:"overview",label:"\uD83E\uDDA0 病毒概览",color:C.accent},
+  {key:"china",label:"\uD83C\uDDE8\uD83C\uDDF3 中国疫情",color:C.orange},
+  {key:"model",label:"\uD83D\uDCC8 传播模型",color:C.blue},
+  {key:"season",label:"\uD83C\uDF41 季节规律",color:C.green},
+  {key:"risk",label:"\u26A0\uFE0F 风险因子",color:C.purple}
+];
+
+var currentTab="overview";
+
+/* ===== 数据 ===== */
+// 中国HFRS年度报告病例数（万例，来源：中国CDC法定传染病月报汇总）
+var annualCases=[
+  {y:2004,cases:25897},{y:2005,cases:21455},{y:2006,cases:17718},
+  {y:2007,cases:13706},{y:2008,cases:11008},{y:2009,cases:8745},
+  {y:2010,cases:9528},{y:2011,cases:10762},{y:2012,cases:11937},
+  {y:2013,cases:10444},{y:2014,cases:10743},{y:2015,cases:9273},
+  {y:2016,cases:11632},{y:2017,cases:11894},{y:2018,cases:11966},
+  {y:2019,cases:9596},{y:2020,cases:7754},{y:2021,cases:8204},
+  {y:2022,cases:7400},{y:2023,cases:6950},{y:2024,cases:6500},
+  {y:2025,cases:6100}
+];
+
+// 月度分布（典型年份的月占比，双峰特征）
+var monthlyPct=[4.2,3.1,5.8,7.2,9.1,8.5,4.3,3.2,4.5,9.8,18.6,21.7];
+var monthNames=["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
+
+// 高发省份（近年平均年病例数）
+var provinces=[
+  {name:"陕西",cases:1850,color:C.accent},
+  {name:"黑龙江",cases:1420,color:C.orange},
+  {name:"吉林",cases:980,color:C.yellow},
+  {name:"山东",cases:870,color:C.blue},
+  {name:"辽宁",cases:750,color:C.cyan},
+  {name:"河北",cases:620,color:C.green},
+  {name:"湖北",cases:480,color:C.purple},
+  {name:"浙江",cases:350,color:C.pink},
+  {name:"湖南",cases:310,color:C.muted},
+  {name:"江西",cases:280,color:C.dim}
+];
+
+function tag(t,c){return '<span class="tag" style="background:'+c+'20;color:'+c+'">'+t+'</span>';}
+function mono(t,c,s){return '<span class="mono" style="color:'+(c||C.accent)+';font-size:'+(s||12)+'px">'+t+'</span>';}
+
+function renderTabs(){
+  var bar=document.getElementById("tabBar");
+  bar.innerHTML=TABS.map(function(t){
+    var active=currentTab===t.key;
+    return '<button class="tab-btn'+(active?' active':'')+'" data-tab="'+t.key+'">'+t.label+'</button>';
+  }).join('');
+  bar.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.onclick=function(){currentTab=btn.dataset.tab;renderTabs();render();};
+  });
+}
+
+function render(){
+  var el=document.getElementById("content");
+  if(currentTab==="overview") el.innerHTML=renderOverview();
+  else if(currentTab==="china") el.innerHTML=renderChina();
+  else if(currentTab==="model") el.innerHTML=renderModel();
+  else if(currentTab==="season") el.innerHTML=renderSeason();
+  else if(currentTab==="risk") el.innerHTML=renderRisk();
+  if(currentTab==="model") initModel();
+}
+
+/* ===== 概览 ===== */
+function renderOverview(){
+  var h='';
+  // 核心数据卡片
+  h+='<div class="grid-3">';
+  h+='<div class="stat-box" style="background:'+C.accent+'15;border:1px solid '+C.accent+'30"><div class="stat-val" style="color:'+C.accent+'">5</div><div class="stat-label">已知致病型别</div></div>';
+  h+='<div class="stat-box" style="background:'+C.orange+'15;border:1px solid '+C.orange+'30"><div class="stat-val" style="color:'+C.orange+'">1-5%</div><div class="stat-label">HFRS病死率(中国)</div></div>';
+  h+='<div class="stat-box" style="background:'+C.purple+'15;border:1px solid '+C.purple+'30"><div class="stat-val" style="color:'+C.purple+'">~40%</div><div class="stat-label">HPS病死率(美洲)</div></div>';
+  h+='</div>';
+
+  // 什么是汉坦病毒
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;color:'+C.accent+';margin-bottom:8px">什么是汉坦病毒？</div>';
+  h+='<div style="font-size:11px;color:'+C.dim+';line-height:1.8">';
+  h+='汉坦病毒（Hantavirus）属布尼亚病毒目（Bunyavirales），以1950年代朝鲜战争中汉滩江流域疫情命名。<br>';
+  h+='全球已发现 '+mono("50+型别",C.orange,11)+'，其中5种对人致病：<br>';
+  h+='<br>';
+  h+=mono("汉滩型(HTNV)",C.accent,11)+' \u2014 中国/韩国主流，致HFRS，宿主：黑线姬鼠<br>';
+  h+=mono("首尔型(SEOV)",C.orange,11)+' \u2014 全球城市分布，致HFRS(较轻)，宿主：褐家鼠<br>';
+  h+=mono("普马拉型(PUUV)",C.blue,11)+' \u2014 欧洲，致轻型HFRS，宿主：棕背鼠平<br>';
+  h+=mono("辛诺柏型(SNV)",C.purple,11)+' \u2014 北美，致HPS(高致死率)，宿主：鹿鼠<br>';
+  h+=mono("安第斯型(ANDV)",C.green,11)+' \u2014 南美，'+tag("唯一可人传人",C.accent)+'，致HPS<br>';
+  h+='</div></div>';
+
+  // 传播路径
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;color:'+C.blue+';margin-bottom:10px">传播路径：鼠 \u2192 人溢出模型</div>';
+  h+='<div style="font-size:11px;color:'+C.dim+';line-height:1.6;margin-bottom:12px">汉坦病毒的关键特征：'+mono("几乎不人传人",C.green,11)+'（安第斯型例外）。这意味着标准SIR/SEIR人际传播模型不适用，需要用鼠群储存宿主\u2192人类溢出的框架。</div>';
+
+  h+='<div class="flow-box" style="background:'+C.orange+'08;border-color:'+C.orange+'30"><div style="font-size:12px;font-weight:700;color:'+C.orange+';margin-bottom:6px">\uD83D\uDC00 鼠群（储存宿主）</div><div style="font-size:10px;color:'+C.dim+';line-height:1.7">鼠间持续传播 \u2192 鼠群感染率 10-50%<br>感染鼠终身排毒，无明显症状<br>鼠密度受季节、降雨、农作物影响</div></div>';
+  h+='<div class="flow-arrow">\u25BC 气溶胶 / 接触 / 咬伤</div>';
+
+  h+='<div class="grid-3" style="margin-bottom:8px">';
+  h+='<div class="flow-box" style="background:'+C.accent+'08;border-color:'+C.accent+'30;text-align:center"><div style="font-size:10px;font-weight:700;color:'+C.accent+'">气溶胶吸入</div><div style="font-size:9px;color:'+C.muted+';margin-top:4px">鼠尿/粪干燥后<br>颗粒悬浮在空气中<br>'+tag("主要途径",C.accent)+'</div></div>';
+  h+='<div class="flow-box" style="background:'+C.blue+'08;border-color:'+C.blue+'30;text-align:center"><div style="font-size:10px;font-weight:700;color:'+C.blue+'">直接接触</div><div style="font-size:9px;color:'+C.muted+';margin-top:4px">接触鼠排泄物<br>污染的食物/水<br>破损皮肤/黏膜</div></div>';
+  h+='<div class="flow-box" style="background:'+C.purple+'08;border-color:'+C.purple+'30;text-align:center"><div style="font-size:10px;font-weight:700;color:'+C.purple+'">鼠咬伤</div><div style="font-size:9px;color:'+C.muted+';margin-top:4px">较少见<br>野外作业时<br>实验室暴露</div></div>';
+  h+='</div>';
+
+  h+='<div class="flow-arrow">\u25BC</div>';
+  h+='<div class="flow-box" style="background:'+C.green+'08;border-color:'+C.green+'30"><div style="font-size:12px;font-weight:700;color:'+C.green+'">人类感染</div><div style="font-size:10px;color:'+C.dim+';line-height:1.7">潜伏期 '+mono("7-42天",C.orange,10)+'（平均14-21天）<br>HFRS五期：发热\u2192低血压\u2192少尿\u2192多尿\u2192恢复<br>'+mono("不形成人际传播链",C.green,10)+'（安第斯型除外）\u2192 每个病例都是独立溢出事件</div></div>';
+  h+='</div>';
+
+  // 关键认知
+  h+='<div class="card" style="border-color:'+C.accent+'30"><div style="font-size:12px;font-weight:700;color:'+C.accent+';margin-bottom:6px">为什么汉坦病毒不会大流行？</div><div style="font-size:10px;color:'+C.dim+';line-height:1.8">'+mono("R0 \u2248 0",C.green,10)+'（人际传播）\u2014 没有人传人能力就没有指数增长。每个病例都是鼠\u2192人的独立事件。<br>疫情规模完全由'+mono("鼠密度 \u00D7 人鼠接触率",C.orange,10)+'决定，不会出现COVID式的全球扩散。<br>但它是'+mono("持续性地方病",C.accent,10)+'：只要有鼠，就有病例。中国每年仍有6000-12000例，死亡率1-5%。<br>'+mono("气候变化是放大器",C.purple,10)+'：暖冬\u2192鼠群越冬存活率升高\u2192春季鼠密度高峰提前\u2192人类暴露增加。</div></div>';
+  return h;
+}
+
+/* ===== 中国疫情 ===== */
+function renderChina(){
+  var h='';
+  var maxCases=Math.max.apply(null,annualCases.map(function(d){return d.cases;}));
+
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:4px">中国HFRS年度报告病例数</div>';
+  h+='<div style="font-size:10px;color:'+C.muted+';margin-bottom:10px">来源：中国CDC法定传染病报告 | 2024-2025为估算值</div>';
+  h+='<div class="chart-area"><div class="chart-bar-group">';
+  annualCases.forEach(function(d){
+    var pct=(d.cases/maxCases*100).toFixed(1);
+    var color=d.cases>15000?C.accent:d.cases>10000?C.orange:C.green;
+    h+='<div class="chart-bar" style="height:'+pct+'%;background:'+color+'"><span class="tip">'+d.y+'年: '+d.cases.toLocaleString()+'例</span><span class="chart-label">'+String(d.y).slice(2)+'</span></div>';
+  });
+  h+='</div></div>';
+  h+='<div class="legend"><span class="legend-item"><span class="legend-dot" style="background:'+C.accent+'"></span>>15,000</span><span class="legend-item"><span class="legend-dot" style="background:'+C.orange+'"></span>10,000-15,000</span><span class="legend-item"><span class="legend-dot" style="background:'+C.green+'"></span><10,000</span></div>';
+  h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.7;margin-top:8px">趋势：2004年高峰（25,897例）后持续下降，近年稳定在6,000-8,000例/年。下降归因于：城镇化减少人鼠接触、灭鼠运动、疫苗推广（中国是全球唯一大规模使用汉坦疫苗的国家）。</div>';
+  h+='</div>';
+
+  // 高发省份
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:10px">高发省份（近年年均病例）</div>';
+  var maxProv=provinces[0].cases;
+  provinces.forEach(function(p){
+    h+='<div class="province-bar"><span class="name">'+p.name+'</span><div class="bar-bg"><div class="bar-fill" style="width:'+(p.cases/maxProv*100)+'%;background:'+p.color+'"></div></div><span class="val">'+p.cases+'</span></div>';
+  });
+  h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.7;margin-top:10px">'+mono("陕西",C.accent,10)+' 近年跃居第一（关中平原农业区）；东北三省（黑龙江/吉林/辽宁）是传统高发区，以黑线姬鼠为主要宿主。'+mono("山东",C.blue,10)+' 以褐家鼠（城市型）为主。地理分布与鼠种分布高度吻合。</div>';
+  h+='</div>';
+
+  // 死亡率
+  h+='<div class="grid-2">';
+  h+='<div class="card"><div style="font-size:12px;font-weight:700;color:'+C.accent+';margin-bottom:6px">HFRS（肾综合征出血热）</div><div style="font-size:10px;color:'+C.dim+';line-height:1.8">主要型别：汉滩型(HTNV)、首尔型(SEOV)<br>病死率：'+mono("1-5%",C.orange,11)+'（重型可达15%）<br>分布：中国、韩国、俄罗斯远东<br>中国占全球HFRS病例 '+mono("70-90%",C.accent,11)+'</div></div>';
+  h+='<div class="card"><div style="font-size:12px;font-weight:700;color:'+C.purple+';margin-bottom:6px">HPS（汉坦病毒肺综合征）</div><div style="font-size:10px;color:'+C.dim+';line-height:1.8">主要型别：辛诺柏型(SNV)、安第斯型(ANDV)<br>病死率：'+mono("36-40%",C.accent,11)+'（极高）<br>分布：美洲（美国、阿根廷、智利等）<br>年病例数少（美国累计~850例）但致命</div></div>';
+  h+='</div>';
+
+  h+='<div class="card" style="border-color:'+C.orange+'30"><div style="font-size:11px;font-weight:700;color:'+C.orange+';margin-bottom:6px">中国防控现状</div><div style="font-size:10px;color:'+C.dim+';line-height:1.8">'+mono("疫苗",C.green,10)+'：中国是全球唯一批准汉坦疫苗的国家。双价灭活疫苗（HTNV+SEOV），高发区纳入扩大免疫规划。<br>'+mono("灭鼠",C.blue,10)+'：春秋两季集中灭鼠，高发区鼠密度监测网络覆盖。<br>'+mono("监测",C.purple,10)+'：法定乙类传染病，24小时内网络直报。全国67个监测点持续监测鼠密度和带毒率。<br>'+mono("挑战",C.accent,10)+'：气候变暖导致鼠群分布北移/扩展；农村留守老人防护意识薄弱；实验室确诊率仍偏低。</div></div>';
+  return h;
+}
+
+/* ===== 传播模型 ===== */
+function renderModel(){
+  var h='';
+  h+='<div class="card" style="border-color:'+C.blue+'30"><div style="font-size:13px;font-weight:700;color:'+C.blue+';margin-bottom:6px">鼠群-人群溢出 SEIR 模型</div>';
+  h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.8;margin-bottom:10px">标准SEIR假设人传人，不适用于汉坦病毒。这里用两层模型：<br>';
+  h+=mono("第一层（鼠群SIR）",C.orange,10)+'：鼠间传播维持病毒库 \u2192 鼠群感染率随季节波动<br>';
+  h+=mono("第二层（溢出）",C.accent,10)+'：感染鼠密度 \u00D7 人鼠接触率 = 人类新增病例<br>';
+  h+='人类感染后不再传给其他人（R0=0），所以人群不形成传播链。</div>';
+
+  // 公式
+  h+='<div style="background:#0d1117;border-radius:8px;padding:12px;margin-bottom:12px;font-family:\'Space Mono\',monospace;font-size:11px;line-height:2;color:'+C.cyan+'">';
+  h+='<div style="color:'+C.orange+'">// 鼠群 SIR</div>';
+  h+='dS<sub>r</sub>/dt = \u03BC\u00B7N<sub>r</sub>(t) - \u03B2<sub>r</sub>\u00B7S<sub>r</sub>\u00B7I<sub>r</sub>/N<sub>r</sub> - \u03BC\u00B7S<sub>r</sub><br>';
+  h+='dI<sub>r</sub>/dt = \u03B2<sub>r</sub>\u00B7S<sub>r</sub>\u00B7I<sub>r</sub>/N<sub>r</sub> - \u03BC\u00B7I<sub>r</sub><br>';
+  h+='<div style="color:'+C.accent+';margin-top:6px">// 人类溢出</div>';
+  h+='\u0394H(t) = \u03B1 \u00D7 I<sub>r</sub>(t) \u00D7 contact(t)<br>';
+  h+='<span style="color:'+C.muted+'">contact(t) = c<sub>0</sub> \u00D7 (1 + A\u00B7sin(2\u03C0t/12 + \u03C6))</span>';
+  h+='</div>';
+
+  // 参数说明
+  h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.7;margin-bottom:10px">';
+  h+='N<sub>r</sub>(t) = 鼠群总量（季节性波动）| \u03B2<sub>r</sub> = 鼠间传播率 | \u03BC = 鼠出生/死亡率<br>';
+  h+='\u03B1 = 溢出系数 | contact(t) = 人鼠接触率（季节调制）| A = 季节振幅 | \u03C6 = 相位偏移';
+  h+='</div></div>';
+
+  // 模拟器
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:10px">交互模拟器</div>';
+  h+='<div class="grid-2">';
+  h+='<div><div class="slider-group"><label>鼠群基础规模 N<sub>r</sub> (万) <span class="slider-val" id="sv-nr">100</span></label><input type="range" id="sl-nr" min="20" max="300" value="100" step="10"></div>';
+  h+='<div class="slider-group"><label>鼠群感染率 I<sub>r</sub>/N<sub>r</sub> (%) <span class="slider-val" id="sv-ir">20</span></label><input type="range" id="sl-ir" min="5" max="60" value="20" step="1"></div>';
+  h+='<div class="slider-group"><label>溢出系数 \u03B1 (\u00D710<sup>-5</sup>) <span class="slider-val" id="sv-alpha">5</span></label><input type="range" id="sl-alpha" min="1" max="20" value="5" step="1"></div></div>';
+  h+='<div><div class="slider-group"><label>季节振幅 A <span class="slider-val" id="sv-amp">0.7</span></label><input type="range" id="sl-amp" min="0" max="1" value="0.7" step="0.05"></div>';
+  h+='<div class="slider-group"><label>灭鼠力度 (鼠群压制%) <span class="slider-val" id="sv-ctrl">0</span></label><input type="range" id="sl-ctrl" min="0" max="80" value="0" step="5"></div>';
+  h+='<div class="slider-group"><label>疫苗覆盖率 (%) <span class="slider-val" id="sv-vax">0</span></label><input type="range" id="sl-vax" min="0" max="90" value="0" step="5"></div></div>';
+  h+='</div>';
+
+  h+='<canvas id="simCanvas" height="260"></canvas>';
+  h+='<div class="legend" id="simLegend"></div>';
+  h+='<div id="simSummary" style="font-size:10px;color:'+C.dim+';margin-top:8px"></div>';
+  h+='</div>';
+
+  h+='<div class="card" style="border-color:'+C.green+'30"><div style="font-size:11px;font-weight:700;color:'+C.green+';margin-bottom:6px">模型局限性声明</div><div style="font-size:10px;color:'+C.dim+';line-height:1.7">本模型为简化的科普演示模型，参数基于文献典型值范围，'+mono("不用于流行病学预测",C.accent,10)+'。实际疫情受地形、鼠种、农业模式、降雨等复杂因素影响，远超本模型覆盖范围。专业预测应使用中国CDC的HFRS监测数据和专用时空模型。</div></div>';
+  return h;
+}
+
+function initModel(){
+  var canvas=document.getElementById("simCanvas");
+  if(!canvas)return;
+  var sliders=["nr","ir","alpha","amp","ctrl","vax"];
+  sliders.forEach(function(s){
+    var sl=document.getElementById("sl-"+s);
+    if(sl) sl.oninput=function(){
+      document.getElementById("sv-"+s).textContent=sl.value;
+      runSim();
+    };
+  });
+  runSim();
+}
+
+function runSim(){
+  var Nr=parseInt(document.getElementById("sl-nr").value)*10000;
+  var irPct=parseInt(document.getElementById("sl-ir").value)/100;
+  var alpha=parseInt(document.getElementById("sl-alpha").value)*1e-5;
+  var amp=parseFloat(document.getElementById("sl-amp").value);
+  var ctrl=parseInt(document.getElementById("sl-ctrl").value)/100;
+  var vax=parseInt(document.getElementById("sl-vax").value)/100;
+
+  // 模拟24个月
+  var months=24;
+  var cases=[];
+  var rodentPop=[];
+  var totalCases=0;
+
+  for(var m=0;m<months;m++){
+    // 鼠群季节性：秋冬高峰（相位偏移使11月为峰值）
+    var season=1+amp*Math.sin(2*Math.PI*(m-4)/12);
+    var Nt=Nr*season*(1-ctrl);
+    var Ir=Nt*irPct;
+    rodentPop.push(Math.round(Nt));
+
+    // 人鼠接触率也有季节性（秋收季高）
+    var contact=1+0.5*Math.sin(2*Math.PI*(m-3)/12);
+
+    // 月新增人类病例
+    var newCases=alpha*Ir*contact*(1-vax);
+    newCases=Math.max(0,Math.round(newCases));
+    cases.push(newCases);
+    totalCases+=newCases;
+  }
+
+  // 绘图
+  var canvas=document.getElementById("simCanvas");
+  var ctx=canvas.getContext("2d");
+  var W=canvas.width=canvas.offsetWidth*2;
+  var H=canvas.height=520;
+  ctx.scale(2,2);
+  var w=W/2,h=H/2;
+
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="#0d1117";
+  ctx.fillRect(0,0,w,h);
+
+  var padL=50,padR=20,padT=20,padB=40;
+  var cw=w-padL-padR,ch=h-padT-padB;
+
+  // Y轴（病例数）
+  var maxC=Math.max.apply(null,cases)||1;
+  var maxR=Math.max.apply(null,rodentPop)||1;
+
+  // 网格线
+  ctx.strokeStyle="#1e293b";
+  ctx.lineWidth=0.5;
+  for(var i=0;i<=4;i++){
+    var gy=padT+ch*(1-i/4);
+    ctx.beginPath();ctx.moveTo(padL,gy);ctx.lineTo(padL+cw,gy);ctx.stroke();
+    ctx.fillStyle=C.muted;ctx.font="9px Space Mono";ctx.textAlign="right";
+    ctx.fillText(Math.round(maxC*i/4),padL-6,gy+3);
+  }
+
+  // X轴标签
+  ctx.textAlign="center";
+  for(var i=0;i<months;i++){
+    var x=padL+i*(cw/(months-1));
+    if(i%3===0){
+      ctx.fillStyle=C.muted;ctx.font="9px Space Mono";
+      ctx.fillText((i%12+1)+"月",x,h-padB+16);
+    }
+  }
+
+  // 鼠群面积（半透明）
+  ctx.beginPath();
+  ctx.moveTo(padL,padT+ch);
+  for(var i=0;i<months;i++){
+    var x=padL+i*(cw/(months-1));
+    var y=padT+ch*(1-rodentPop[i]/maxR*0.6);
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.lineTo(padL+(months-1)*(cw/(months-1)),padT+ch);
+  ctx.lineTo(padL,padT+ch);
+  ctx.closePath();
+  ctx.fillStyle="rgba(243,156,18,0.1)";
+  ctx.fill();
+  ctx.strokeStyle=C.orange+"60";ctx.lineWidth=1;
+  ctx.beginPath();
+  for(var i=0;i<months;i++){
+    var x=padL+i*(cw/(months-1));
+    var y=padT+ch*(1-rodentPop[i]/maxR*0.6);
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // 病例柱状图
+  var barW=cw/months*0.6;
+  for(var i=0;i<months;i++){
+    var x=padL+i*(cw/(months-1))-barW/2;
+    var barH=cases[i]/maxC*ch;
+    var y=padT+ch-barH;
+    ctx.fillStyle=cases[i]>maxC*0.7?C.accent:cases[i]>maxC*0.4?C.orange:C.blue;
+    ctx.fillRect(x,y,barW,barH);
+  }
+
+  // 标签
+  ctx.fillStyle=C.dim;ctx.font="10px DM Sans";ctx.textAlign="left";
+  ctx.fillText("人类月新增病例(柱) / 鼠群规模(面积)",padL,padT-6);
+  ctx.textAlign="right";
+  ctx.fillText("第1年                    第2年",padL+cw,h-padB+28);
+
+  // 图例和摘要
+  document.getElementById("simLegend").innerHTML='<span class="legend-item"><span class="legend-dot" style="background:'+C.blue+'"></span>月新增病例</span><span class="legend-item"><span class="legend-dot" style="background:'+C.orange+'30"></span>鼠群规模</span>';
+
+  var peakMonth=0,peakVal=0;
+  cases.forEach(function(c,i){if(c>peakVal){peakVal=c;peakMonth=i;}});
+  document.getElementById("simSummary").innerHTML='24个月累计病例：'+mono(totalCases.toLocaleString(),C.accent,11)+' | 月峰值：'+mono(peakVal.toLocaleString()+"例",C.orange,11)+'（第'+(peakMonth+1)+'月）'+(ctrl>0?' | 灭鼠压制'+Math.round(ctrl*100)+'%后减少约'+mono(Math.round(ctrl*70)+'%',C.green,11)+'病例':'')+(vax>0?' | 疫苗覆盖'+Math.round(vax*100)+'%后减少约'+mono(Math.round(vax*100)+'%',C.green,11)+'暴露':'');
+}
+
+/* ===== 季节规律 ===== */
+function renderSeason(){
+  var h='';
+  var maxPct=Math.max.apply(null,monthlyPct);
+
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:4px">HFRS月度病例分布（中国典型年份）</div>';
+  h+='<div style="font-size:10px;color:'+C.muted+';margin-bottom:12px">双峰特征：秋冬主峰（10-12月）+ 春季次峰（4-6月）</div>';
+  h+='<div class="chart-area" style="height:180px"><div class="chart-bar-group">';
+  monthlyPct.forEach(function(p,i){
+    var pct=(p/maxPct*100).toFixed(1);
+    var color=p>15?C.accent:p>8?C.orange:p>5?C.yellow:C.blue;
+    h+='<div class="chart-bar" style="height:'+pct+'%;background:'+color+'"><span class="tip">'+monthNames[i]+': '+p+'%</span><span class="chart-label">'+monthNames[i]+'</span></div>';
+  });
+  h+='</div></div></div>';
+
+  // 双峰解释
+  h+='<div class="grid-2">';
+  h+='<div class="card" style="border-color:'+C.accent+'30"><div style="font-size:12px;font-weight:700;color:'+C.accent+';margin-bottom:6px">秋冬主峰（10-12月）~50%病例</div><div style="font-size:10px;color:'+C.dim+';line-height:1.8">'+mono("黑线姬鼠",C.orange,10)+' 驱动（野鼠型）<br>秋收季节农民进入田间 \u2192 接触鼠排泄物<br>鼠群秋季繁殖高峰后密度最大<br>收割后鼠失去田间遮蔽 \u2192 向村庄迁移<br>打谷/储粮过程中气溶胶暴露增加</div></div>';
+  h+='<div class="card" style="border-color:'+C.orange+'30"><div style="font-size:12px;font-weight:700;color:'+C.orange+';margin-bottom:6px">春季次峰（4-6月）~25%病例</div><div style="font-size:10px;color:'+C.dim+';line-height:1.8">'+mono("褐家鼠",C.blue,10)+' 驱动（家鼠型）<br>春季繁殖启动 \u2192 家鼠活动增加<br>室内/仓库接触为主<br>城市化区域此峰更显著<br>气温回升利于病毒在环境中存活</div></div>';
+  h+='</div>';
+
+  // 季节驱动链
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:10px">季节驱动链</div>';
+  h+='<div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:12px">';
+  var chain=["降雨/气温","\u2192","植被/作物","\u2192","鼠群食物","\u2192","鼠密度","\u2192","人鼠接触","\u2192","人类病例"];
+  chain.forEach(function(item){
+    var isArrow=item==="\u2192";
+    h+='<span style="font-size:'+(isArrow?'14':'11')+'px;color:'+(isArrow?C.accent:'#fff')+';font-weight:'+(isArrow?'400':'600')+';padding:'+(isArrow?'0':'4px 8px')+';background:'+(isArrow?'transparent':'rgba(255,255,255,.06)')+';border-radius:6px;white-space:nowrap">'+item+'</span>';
+  });
+  h+='</div>';
+  h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.8">'+mono("厄尔尼诺年",C.orange,10)+'：中国北方降水增多 \u2192 植被茂盛 \u2192 鼠群食物充足 \u2192 鼠密度上升 \u2192 次年HFRS病例增加（滞后6-12个月）<br>'+mono("暖冬",C.accent,10)+'：鼠群越冬存活率升高 \u2192 春季鼠密度基数大 \u2192 春峰提前且增强<br>这也是为什么HFRS疫情可以作为'+mono("生态系统健康的指示器",C.green,10)+'之一。</div></div>';
+
+  // 全球对比
+  h+='<div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:10px">全球季节性对比</div>';
+  h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.8">';
+  h+=mono("中国",C.accent,10)+' \u2014 双峰（秋冬主峰+春次峰），全年有病例<br>';
+  h+=mono("欧洲(PUUV)",C.blue,10)+' \u2014 与榉树/橡树丰年（mast year）高度相关。丰年后次年鼠群暴增\u21923-4年周期爆发<br>';
+  h+=mono("美国(SNV)",C.purple,10)+' \u2014 春夏为主。鹿鼠春季繁殖+人类户外活动增加。1993年四角区首次爆发（厄尔尼诺后）<br>';
+  h+=mono("南美(ANDV)",C.green,10)+' \u2014 春夏（南半球11-3月）。唯一有人传人报告的型别，偶有小规模聚集性疫情';
+  h+='</div></div>';
+  return h;
+}
+
+/* ===== 风险因子 ===== */
+function renderRisk(){
+  var h='';
+
+  h+='<div class="card" style="border-color:'+C.purple+'30"><div style="font-size:13px;font-weight:700;color:'+C.purple+';margin-bottom:6px">汉坦病毒感染风险矩阵</div><div style="font-size:10px;color:'+C.dim+';line-height:1.7">风险 = 鼠密度 \u00D7 接触机会 \u00D7 防护缺失 \u00D7 环境条件</div></div>';
+
+  var riskFactors=[
+    {cat:"职业暴露",color:C.accent,items:[
+      {factor:"农业劳动者",risk:"高",desc:"秋收季田间作业，接触鼠排泄物污染的作物/土壤"},
+      {factor:"粮食仓储工人",risk:"高",desc:"仓库密闭空间，鼠粪气溶胶浓度高"},
+      {factor:"林业/野外工作者",risk:"中",desc:"野外宿营，接触野鼠栖息环境"},
+      {factor:"实验室人员",risk:"中",desc:"实验用鼠操作，已有多起实验室感染报告"}
+    ]},
+    {cat:"环境因素",color:C.orange,items:[
+      {factor:"农村土坯房",risk:"高",desc:"鼠类容易入侵，缝隙多，粮食存放在室内"},
+      {factor:"洪涝后",risk:"高",desc:"鼠群被迫迁移至人类居住区，接触率骤升"},
+      {factor:"城中村/老旧小区",risk:"中",desc:"褐家鼠栖息，垃圾管理差，下水道连通"},
+      {factor:"新开发区域",risk:"中",desc:"施工破坏鼠栖息地，鼠群被迫外迁"}
+    ]},
+    {cat:"行为因素",color:C.blue,items:[
+      {factor:"户外露营/野炊",risk:"中",desc:"帐篷/sleeping bag可能被鼠排泄物污染"},
+      {factor:"清扫废弃建筑",risk:"高",desc:"扬尘中可能含高浓度鼠排泄物气溶胶"},
+      {factor:"徒手处理鼠类",risk:"高",desc:"直接接触感染鼠体液"},
+      {factor:"食用鼠污染食物",risk:"中",desc:"未煮熟的食物被鼠排泄物污染"}
+    ]},
+    {cat:"气候放大器",color:C.green,items:[
+      {factor:"厄尔尼诺后次年",risk:"升高",desc:"降水增多\u2192植被茂盛\u2192鼠群食物充足\u2192鼠密度升高"},
+      {factor:"暖冬",risk:"升高",desc:"鼠群越冬存活率上升，春季基数大"},
+      {factor:"极端干旱后降雨",risk:"升高",desc:"美洲经验：干旱压缩鼠群\u2192降雨后食物爆发\u2192鼠群反弹\u2192溢出"},
+      {factor:"城市热岛效应",risk:"待研究",desc:"可能延长褐家鼠繁殖季，理论上增加城市型HFRS风险"}
+    ]}
+  ];
+
+  riskFactors.forEach(function(cat){
+    h+='<div class="card"><div style="font-size:12px;font-weight:700;color:'+cat.color+';margin-bottom:10px">'+cat.cat+'</div>';
+    cat.items.forEach(function(item,i){
+      var riskColor=item.risk==="高"?C.accent:item.risk==="升高"?C.orange:item.risk==="中"?C.yellow:C.muted;
+      h+='<div style="padding:8px 0;'+(i<cat.items.length-1?'border-bottom:1px solid '+C.border:'')+'"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:11px;font-weight:600">'+item.factor+'</span>'+tag("风险: "+item.risk,riskColor)+'</div><div style="font-size:10px;color:'+C.dim+'">'+item.desc+'</div></div>';
+    });
+    h+='</div>';
+  });
+
+  // 防护建议
+  h+='<div class="card" style="border-color:'+C.green+'30"><div style="font-size:13px;font-weight:700;color:'+C.green+';margin-bottom:8px">个人防护要点</div><div style="font-size:10px;color:'+C.dim+';line-height:1.8">';
+  h+=mono("1. 灭鼠防鼠",C.accent,10)+' \u2014 封堵鼠洞，食物密封存放，清除鼠栖息环境<br>';
+  h+=mono("2. 湿式清洁",C.blue,10)+' \u2014 清扫鼠排泄物前先喷洒含氯消毒液湿润（避免扬尘气溶胶）<br>';
+  h+=mono("3. 佩戴防护",C.orange,10)+' \u2014 清理鼠污染区域时戴N95口罩+手套<br>';
+  h+=mono("4. 高发区疫苗",C.green,10)+' \u2014 陕西/东北等高发区居民建议接种双价灭活疫苗<br>';
+  h+=mono("5. 及时就医",C.purple,10)+' \u2014 有鼠接触史+发热+头痛+腰痛+出血点 \u2192 立即就医，告知接触史';
+  h+='</div></div>';
+
+  h+='<div class="card" style="background:'+C.accent+'08;border-color:'+C.accent+'30"><div style="font-size:10px;color:'+C.dim+';line-height:1.7;text-align:center">本页内容仅作科普用途，不构成医学建议。如有疑似暴露或症状，请立即就医。<br>数据来源：中国CDC法定传染病报告、WHO Fact Sheet、柳叶刀传染病分刊、MMWR。</div></div>';
+  return h;
+}
+
+renderTabs();
+render();
+window.addEventListener("resize",function(){if(currentTab==="model")runSim();});
+</script>
+</body>
+</html>

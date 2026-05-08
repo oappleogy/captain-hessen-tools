@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台积电产能全景 - 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #e8eff7;
+  --card: #ffffff;
+  --navy: #1a2744;
+  --gold: #c5962a;
+  --gold-light: #e8c56d;
+  --a1: #3a6fa0;
+  --a2: #5b8db8;
+  --a3: #8bb0cf;
+  --a4: #b4d0e5;
+  --red: #c0392b;
+  --green: #27ae60;
+  --orange: #e67e22;
+  --muted: #6b7c93;
+  --border: #c8d6e5;
+  --hl: rgba(197,150,42,0.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  font-family: 'Noto Serif SC', Georgia, serif;
+  color: var(--navy);
+  min-height: 100vh;
+  position: relative;
+}
+/* Watermark */
+body::after {
+  content: '黑森船长';
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 14px;
+  color: rgba(26,39,68,0.10);
+  font-weight: 700;
+  letter-spacing: 4px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--navy) 0%, #2c4a6e 100%);
+  padding: 28px 20px 20px;
+}
+.header-inner { max-width: 900px; margin: 0 auto; }
+.header-sub { color: var(--gold-light); font-size: 11px; letter-spacing: 3px; margin-bottom: 6px; font-family: monospace; }
+.header h1 { color: #fff; font-size: 20px; font-weight: 700; line-height: 1.4; }
+.header h1 span { color: var(--gold-light); }
+.header-meta { color: var(--a3); font-size: 12px; margin-top: 6px; }
+
+.tabs-wrap { max-width: 900px; margin: 0 auto; padding: 12px 16px 0; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.tab-btn {
+  padding: 6px 14px; border-radius: 20; border: 1px solid var(--border);
+  background: var(--card); color: var(--navy); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; border-radius: 20px;
+  font-family: 'Noto Serif SC', Georgia, serif;
+}
+.tab-btn.active {
+  border-color: var(--gold); background: var(--navy); color: var(--gold-light);
+}
+
+.content { max-width: 900px; margin: 0 auto; padding: 0 16px 40px; }
+
+.card {
+  background: var(--card); border-radius: 12px; padding: 20px;
+  margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.card-label { font-size: 11px; color: var(--gold); font-weight: 700; letter-spacing: 2px; margin-bottom: 4px; font-family: monospace; }
+.card h2 { font-size: 16px; margin: 0 0 4px; font-weight: 700; color: var(--navy); }
+.card-source { font-size: 11px; color: var(--muted); margin-bottom: 14px; }
+.card-note {
+  margin-top: 12px; padding: 8px 12px; background: var(--hl);
+  border-radius: 6px; font-size: 11px; color: var(--navy); line-height: 1.7;
+}
+
+/* HBar */
+.hbar { display: flex; flex-direction: column; gap: 10px; }
+.hbar-row { display: flex; align-items: center; gap: 8px; }
+.hbar-name { width: 120px; font-size: 12px; font-weight: 600; color: var(--navy); text-align: right; flex-shrink: 0; }
+.hbar-track { flex: 1; position: relative; height: 24px; }
+.hbar-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px; min-width: 4px; transition: width 0.6s; }
+.hbar-val { position: absolute; top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 600; color: var(--navy); white-space: nowrap; }
+.hbar-val .pct { color: var(--muted); font-weight: 400; }
+.hbar-note { margin-left: 128px; font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* WaferBar */
+.wbar { display: flex; flex-direction: column; gap: 12px; }
+.wbar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.wbar-name { width: 120px; font-size: 12px; font-weight: 600; color: var(--navy); text-align: right; flex-shrink: 0; }
+.wbar-track { flex: 1; position: relative; height: 20px; }
+.wbar-n3 { position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px 0 0 4px; opacity: 0.7; }
+.wbar-n2 { position: absolute; top: 0; height: 100%; border-radius: 0 4px 4px 0; }
+.wbar-labels { font-size: 11px; color: var(--navy); font-weight: 600; white-space: nowrap; width: 100px; }
+.wbar-labels .dim { opacity: 0.6; }
+.wbar-note { margin-left: 128px; font-size: 11px; color: var(--muted); }
+.wbar-legend { margin-left: 128px; display: flex; gap: 12px; font-size: 11px; margin-top: 4px; }
+.wbar-legend-box { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+
+/* Stat grid */
+.stat-grid { display: grid; gap: 12px; }
+.stat-grid-2 { grid-template-columns: 1fr 1fr; }
+.stat-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.stat-box { padding: 14px; border-radius: 8px; text-align: center; }
+.stat-big { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 12px; color: var(--muted); }
+.stat-sub { font-size: 11px; margin-top: 4px; }
+
+/* Flow diagram */
+.flow { display: flex; flex-direction: column; }
+.flow-step { text-align: center; padding: 10px; }
+.flow-arrow { text-align: center; font-size: 18px; color: var(--gold); }
+.flow-design { background: rgba(180,208,229,0.27); border-radius: 8px 8px 0 0; }
+.flow-final { background: rgba(180,208,229,0.27); border-radius: 0 0 8px 8px; }
+.flow-title { font-size: 13px; font-weight: 700; }
+.flow-sub { font-size: 11px; color: var(--muted); }
+.flow-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.flow-box { padding: 12px; border-radius: 8px; border-width: 2px; border-style: solid; }
+
+/* Opportunity cards */
+.opp-card {
+  border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  cursor: pointer; background: #fff; transition: all 0.2s;
+}
+.opp-card.open { border-color: var(--gold); background: var(--hl); }
+.opp-header { display: flex; justify-content: space-between; align-items: center; }
+.opp-left { display: flex; align-items: center; gap: 10px; }
+.opp-num {
+  width: 26px; height: 26px; border-radius: 50%; background: var(--navy);
+  color: var(--gold-light); display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.opp-title { font-size: 14px; font-weight: 700; }
+.opp-ticker { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.opp-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.opp-arrow { font-size: 14px; color: var(--muted); transition: transform 0.2s; display: inline-block; }
+.opp-arrow.open { transform: rotate(90deg); }
+.opp-body { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); display: none; }
+.opp-card.open .opp-body { display: block; }
+.opp-logic { font-size: 13px; line-height: 1.8; color: var(--navy); margin-bottom: 8px; }
+.opp-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.tag {
+  font-size: 10px; padding: 2px 8px; border-radius: 4px;
+  background: var(--bg); color: var(--a1); border: 1px solid var(--border);
+}
+.cert-badge {
+  font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 700;
+}
+.time-label { font-size: 10px; color: var(--muted); }
+
+/* Bar chart (capacity timeline) */
+.chart-wrap { padding: 10px 0; }
+.chart-container { display: flex; align-items: flex-end; gap: 0; height: 200px; padding-left: 50px; position: relative; }
+.chart-yaxis { position: absolute; left: 0; top: 0; height: 100%; display: flex; flex-direction: column-reverse; justify-content: space-between; width: 48px; }
+.chart-yaxis span { font-size: 10px; color: var(--muted); text-align: right; padding-right: 6px; }
+.chart-gridlines { position: absolute; left: 50px; right: 0; top: 0; height: 100%; display: flex; flex-direction: column-reverse; justify-content: space-between; pointer-events: none; }
+.chart-gridline { border-top: 1px dashed var(--border); width: 100%; }
+.chart-group { flex: 1; display: flex; justify-content: center; gap: 3px; align-items: flex-end; position: relative; z-index: 1; }
+.chart-bar { border-radius: 4px 4px 0 0; min-width: 16px; position: relative; transition: height 0.6s; cursor: default; }
+.chart-bar:hover::after {
+  content: attr(data-tip);
+  position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: #fff; padding: 4px 8px; border-radius: 4px;
+  font-size: 10px; white-space: nowrap; z-index: 10; border: 1px solid var(--gold);
+}
+.chart-xlabel { text-align: center; font-size: 12px; color: var(--navy); margin-top: 6px; font-weight: 600; }
+.chart-legend { display: flex; justify-content: center; gap: 16px; margin-top: 10px; font-size: 11px; }
+.chart-legend-item { display: flex; align-items: center; gap: 4px; }
+.chart-legend-box { width: 12px; height: 12px; border-radius: 2px; }
+.chart-note { text-align: center; font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* Transmission chain */
+.chain-wrap {
+  background: var(--navy); border-radius: 12px; padding: 24px 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+.chain-label { font-size: 11px; color: var(--gold-light); font-weight: 700; letter-spacing: 2px; margin-bottom: 12px; font-family: monospace; }
+.chain-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.chain-item { font-size: 11px; color: #fff; font-weight: 600; padding: 4px 8px; background: rgba(255,255,255,0.08); border-radius: 6px; white-space: nowrap; }
+.chain-arrow { font-size: 16px; color: var(--gold); }
+.chain-summary { text-align: center; font-size: 12px; color: var(--a3); line-height: 1.8; }
+.chain-footer { text-align: center; margin-top: 16px; font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
+/* InFO detail boxes */
+.info-box { padding: 14px; border-radius: 8px; }
+.info-box h3 { font-size: 14px; font-weight: 700; }
+.info-box p { font-size: 12px; color: var(--navy); margin-top: 6px; line-height: 1.8; }
+.qcom-note { margin-top: 12px; padding: 10px 14px; background: #fff3e0; border-radius: 6px; font-size: 12px; color: var(--navy); line-height: 1.7; }
+
+/* Tab panel */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+@media (max-width: 600px) {
+  .flow-split { grid-template-columns: 1fr; }
+  .stat-grid-2, .stat-grid-3 { grid-template-columns: 1fr; }
+  .hbar-name, .wbar-name { width: 80px; font-size: 11px; }
+  .hbar-note, .wbar-note { margin-left: 88px; }
+  .wbar-legend { margin-left: 88px; }
+  .opp-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .opp-right { align-self: flex-end; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-sub">黑森船长 · 确定性地图</div>
+    <h1>台积电产能全景：<span>两条生产线，两个瓶颈</span></h1>
+    <div class="header-meta">晶圆制造 x 先进封装（CoWoS / InFO）x 客户分配 | 2026E</div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs-wrap">
+  <div class="tabs" id="tabBar"></div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- Tab 0: 全景流程 -->
+  <div class="tab-panel" id="tab0">
+    <div class="card">
+      <div class="card-label">全景</div>
+      <h2>芯片从设计到交付的两条生产线</h2>
+      <div class="card-source">理解产能瓶颈的关键：晶圆制造和封装是两个独立环节，各有各的客户分配和产能约束</div>
+      <div class="flow" style="padding:16px 0">
+        <div class="flow-step flow-design">
+          <div class="flow-title">芯片设计</div>
+          <div class="flow-sub">NVIDIA / AMD / Apple / Qualcomm / Broadcom(代Google等) / Marvell(代AWS等)</div>
+        </div>
+        <div class="flow-arrow">&#9660;</div>
+        <div class="flow-box" style="border-color:var(--a1);background:rgba(58,111,160,0.09)">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--a1)">生产线① 晶圆制造（Wafer Fab）</div>
+              <div style="font-size:11px;color:var(--muted)">制程：2nm / 3nm / 5nm / 7nm... | 设备：ASML光刻机</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:13px;font-weight:700">3nm: ~18万片/月</div>
+              <div style="font-size:13px;font-weight:700">2nm: ~10万片/月</div>
+              <div style="font-size:10px;color:var(--muted)">2026年底目标</div>
+            </div>
+          </div>
+          <div style="margin-top:8px;font-size:12px;line-height:1.7">
+            <strong>瓶颈程度：紧但非最紧。</strong>3nm/2nm产能100%满载，苹果锁50%+ 2nm首发。高通在此线上拿C端→B端迁移的产能。
+          </div>
+        </div>
+        <div class="flow-arrow">&#9660; 晶圆切好之后分两路 &#9660;</div>
+        <div class="flow-split">
+          <div class="flow-box" style="border-color:var(--red);background:rgba(192,57,43,0.07)">
+            <div style="font-size:13px;font-weight:700;color:var(--red)">生产线② CoWoS封装</div>
+            <div style="font-size:11px;color:var(--muted)">2.5D/3D封装 + HBM堆叠</div>
+            <div style="font-size:13px;font-weight:700;margin-top:6px">~13万片/月</div>
+            <div style="font-size:11px;color:var(--red);font-weight:600">&#9888; 最紧瓶颈，全部售罄</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px">产出：AI GPU / AI ASIC / TPU</div>
+            <div style="font-size:11px;color:var(--navy);margin-top:4px">客户：NVDA 60% / AVGO 15% / AMD 11%</div>
+          </div>
+          <div class="flow-box" style="border-color:var(--green);background:rgba(39,174,96,0.07)">
+            <div style="font-size:13px;font-weight:700;color:var(--green)">生产线③ InFO/WMCM封装</div>
+            <div style="font-size:11px;color:var(--muted)">扇出型封装，正升级为WMCM</div>
+            <div style="font-size:13px;font-weight:700;margin-top:6px">InFO成熟 / WMCM ~6万片/月</div>
+            <div style="font-size:11px;color:var(--green);font-weight:600">相对宽松，非主要瓶颈</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px">产出：手机SoC / PC芯片 / 数据中心CPU</div>
+            <div style="font-size:11px;color:var(--navy);margin-top:4px">客户：Apple ~55% / QCOM ~18% / MTK ~15%</div>
+          </div>
+        </div>
+        <div class="flow-arrow" style="margin-top:8px">&#9660;</div>
+        <div class="flow-step flow-final">
+          <div class="flow-title">最终产品</div>
+          <div class="flow-sub">数据中心AI服务器 &#8592; CoWoS | InFO &#8594; 手机 / PC / 汽车 / IoT</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-note">
+        <strong style="color:var(--red)">核心结论：</strong>高通涨的逻辑走的是"晶圆制造 + InFO"这条线（绿色路径），绕开了CoWoS瓶颈。而"定制芯片颠覆英伟达"的叙事走的是CoWoS那条线（红色路径），恰恰卡在最紧的瓶颈上。两个故事在两条不同的生产线上，不能混为一谈。
+      </div>
+    </div>
+
+    <!-- Capacity Timeline Chart -->
+    <div class="card">
+      <div class="card-label">扩产节奏</div>
+      <h2>三条产能线的扩张路径</h2>
+      <div class="card-source">台积电 / Morgan Stanley / TrendForce 综合</div>
+      <div class="chart-wrap">
+        <div class="chart-container" id="capChart"></div>
+        <div id="capXLabels" style="display:flex;padding-left:50px"></div>
+        <div class="chart-legend">
+          <div class="chart-legend-item"><div class="chart-legend-box" style="background:var(--a1)"></div>3nm晶圆</div>
+          <div class="chart-legend-item"><div class="chart-legend-box" style="background:var(--a2)"></div>2nm晶圆</div>
+          <div class="chart-legend-item"><div class="chart-legend-box" style="background:var(--green)"></div>InFO/WMCM</div>
+          <div class="chart-legend-item"><div class="chart-legend-box" style="background:var(--red)"></div>CoWoS</div>
+        </div>
+        <div class="chart-note">单位：万片/月 | CoWoS始终是最矮的那根柱子</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 1: 晶圆制造 -->
+  <div class="tab-panel" id="tab1">
+    <div class="card">
+      <div class="card-label">生产线①</div>
+      <h2>晶圆制造：3nm + 2nm 客户营收/产能占比</h2>
+      <div class="card-source">分析师预测 / 台积电财报推算 | 3nm为2026营收占比, 2nm为首发产能占比</div>
+      <div class="wbar" id="waferBars"></div>
+    </div>
+    <div class="card">
+      <div class="card-label">产能</div>
+      <h2>先进制程产能规模（2026E年底）</h2>
+      <div class="stat-grid stat-grid-2" style="margin-top:14px">
+        <div class="stat-box" style="background:rgba(58,111,160,0.07)">
+          <div class="stat-big" style="color:var(--a1)">18万</div>
+          <div class="stat-label">3nm 片/月</div>
+          <div class="stat-sub" style="color:var(--navy)">利用率 100%</div>
+          <div class="stat-sub" style="color:var(--red)">已停止接受新3nm项目启动</div>
+        </div>
+        <div class="stat-box" style="background:rgba(91,141,184,0.07)">
+          <div class="stat-big" style="color:var(--a2)">10万</div>
+          <div class="stat-label">2nm 片/月</div>
+          <div class="stat-sub" style="color:var(--navy)">苹果锁定 >50% 首发</div>
+          <div class="stat-sub" style="color:var(--orange)">晶圆ASP ~$30,000 (vs 3nm ~$20,000)</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-note">
+        <strong>高通在这条线上的位置：</strong>占3nm营收约8%，排第五。C端需求下滑（手机-4%、PC-10%）释放边际产能，高通正将这部分产能从Snapdragon手机芯片转向数据中心CPU。CEO确认12月向一家hyperscaler首批出货。这是"InFO路径"的增长故事，不经过CoWoS。
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: CoWoS封装 -->
+  <div class="tab-panel" id="tab2">
+    <div class="card">
+      <div class="card-label">生产线② · 最紧瓶颈</div>
+      <h2>CoWoS先进封装：2026E客户分配</h2>
+      <div class="card-source">Morgan Stanley 预测 | 全球总需求 ~100万片/年</div>
+      <div class="hbar" id="cowosBars"></div>
+    </div>
+    <div class="card">
+      <div class="stat-grid stat-grid-3">
+        <div class="stat-box" style="background:rgba(192,57,43,0.07)">
+          <div class="stat-big" style="font-size:20px;color:var(--red)">~13万</div>
+          <div class="stat-label">片/月（2026E底）</div>
+          <div class="stat-sub" style="color:var(--red)">全部售罄</div>
+        </div>
+        <div class="stat-box" style="background:var(--hl)">
+          <div class="stat-big" style="font-size:20px;color:var(--gold)">~$10,000</div>
+          <div class="stat-label">单片ASP</div>
+          <div class="stat-sub" style="color:var(--navy)">接近7nm晶圆价格</div>
+        </div>
+        <div class="stat-box" style="background:rgba(26,39,68,0.07)">
+          <div class="stat-big" style="font-size:20px;color:var(--navy)">$96亿</div>
+          <div class="stat-label">2025年CoWoS收入</div>
+          <div class="stat-sub" style="color:var(--navy)">= InFO收入的2.5倍</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-note">
+        <strong style="color:var(--red)">关键细节：</strong>Broadcom 15万片中含 Google TPU 9万 + Meta 5万 + OpenAI 1万；MediaTek 2万片亦为Google TPU项目。Google TPU合计 ~11万片但全部经中间商分配。台积电另外委外OSAT合作伙伴（Amkor 18-19万 + SPIL 6-8万）约24-27万片/年。
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 3: InFO/WMCM封装 -->
+  <div class="tab-panel" id="tab3">
+    <div class="card">
+      <div class="card-label">生产线③</div>
+      <h2>InFO / WMCM封装：客户占比估算</h2>
+      <div class="card-source">分析师估算 + 产业链推导 | 精确度低于CoWoS数据（InFO非瓶颈，市场追踪较少）</div>
+      <div class="hbar" id="infoBars"></div>
+    </div>
+    <div class="card">
+      <div class="stat-grid stat-grid-2">
+        <div class="info-box" style="background:rgba(39,174,96,0.07)">
+          <h3 style="color:var(--green)">InFO（现行）</h3>
+          <p>成熟封装技术，AP3产线（龙潭厂）为苹果专属。去除传统基板，降低厚度和成本。用于手机SoC、PC芯片等消费级产品。产能相对宽松，不是当前瓶颈。</p>
+        </div>
+        <div class="info-box" style="background:rgba(197,150,42,0.09)">
+          <h3 style="color:var(--gold)">WMCM（升级版）</h3>
+          <p>InFO的下一代，支持多die集成（SoC+DRAM并排）。苹果A20/M6首发采用。2026E: ~6万片/月，2027E: ~12万片/月。AP3设备升级 + 嘉义AP7新产线。</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-note">
+        <strong>为什么InFO没有CoWoS那样的精确分配数据？</strong>因为InFO不是瓶颈。CoWoS产能售罄→客户抢产能→分析师追踪分配。InFO产能相对充裕→没有"座位票"的紧迫感→市场不追踪。但随着WMCM升级+苹果2nm需求暴增，2027年InFO/WMCM线可能也开始紧张。
+      </div>
+      <div class="qcom-note">
+        <strong style="color:var(--orange)">高通在这条线上的机会：</strong>高通的数据中心CPU如果不需要HBM堆叠，就走3nm晶圆+InFO/WMCM路径。这条路绕开了CoWoS最紧瓶颈，产能约束小得多。但同时意味着：性能天花板也更低（没有HBM高带宽），无法直接与英伟达GPU/Google TPU竞争大规模训练和高端推理。更适合做"够用级"推理和通用CPU负载。
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 4: 机会地图 -->
+  <div class="tab-panel" id="tab4">
+    <div class="card">
+      <div class="card-label">机会地图</div>
+      <h2>推理时代的六条结构性机会链</h2>
+      <div class="card-source">时间窗口 1-2 年 | 按确定性排序 | 点击展开</div>
+      <div style="display:flex;flex-direction:column;gap:10px" id="oppList"></div>
+    </div>
+
+    <!-- Transmission chain -->
+    <div class="chain-wrap">
+      <div class="chain-label">传导链</div>
+      <div class="chain-flow" id="chainFlow"></div>
+      <div class="chain-summary">
+        AI路线（CoWoS）：<span style="color:var(--red);font-weight:700">按产能定价，最窄齿轮</span>
+        <br>消费路线（InFO）：<span style="color:var(--green);font-weight:700">相对宽松，高通的迁移机会在此</span>
+      </div>
+      <div class="chain-footer">黑森船长 | 锚定确定性 | 2025.05</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// --- Data ---
+var waferFabData = [
+  { name: "苹果 Apple", n3: 25, n2: 50, color: "#1a2744", note: "iPhone/Mac/Vision Pro, 2nm首发客户" },
+  { name: "英伟达 NVDA", n3: 11, n2: 12, color: "#c5962a", note: "Rubin GPU, 3nm\u21922nm迁移中" },
+  { name: "Broadcom AVGO", n3: 13, n2: 8, color: "#3a6fa0", note: "定制ASIC(Google/Meta/OpenAI)" },
+  { name: "联发科 MediaTek", n3: 10, n2: 8, color: "#5b8db8", note: "天玑旗舰SoC + Google TPU协作" },
+  { name: "高通 QCOM", n3: 8, n2: 7, color: "#8bb0cf", note: "Snapdragon X2 + 数据中心CPU(新)" },
+  { name: "AMD", n3: 7, n2: 6, color: "#b4d0e5", note: "MI355/MI400 + Zen6 CPU" },
+  { name: "Intel", n3: 7, n2: 5, color: "#c8d6e5", note: "Lunar Lake/Panther Lake外包" },
+];
+
+var cowosData = [
+  { name: "英伟达 NVDA", value: 59.5, color: "#1a2744", note: "Blackwell/Rubin, 51万台积电+8.5万OSAT" },
+  { name: "Broadcom AVGO", value: 15, color: "#c5962a", note: "含Google TPU 9万 + Meta 5万 + OpenAI 1万" },
+  { name: "AMD", value: 10.5, color: "#3a6fa0", note: "MI355/MI400, 8万台积电+2.5万ASE/SPIL" },
+  { name: "Marvell MRVL", value: 5.5, color: "#5b8db8", note: "AWS Trainium + 微软定制芯片" },
+  { name: "Amazon (Alchip)", value: 5, color: "#8bb0cf", note: "Trainium3, Alchip为唯一设计服务商" },
+  { name: "MediaTek", value: 2, color: "#b4d0e5", note: "Google TPU项目" },
+  { name: "其他", value: 2.5, color: "#c8d6e5", note: "Tesla Dojo等" },
+];
+
+var infoData = [
+  { name: "苹果 Apple", value: 55, color: "#1a2744", note: "A系列/M系列SoC, AP3产线为苹果专属, 正向WMCM迁移" },
+  { name: "高通 QCOM", value: 18, color: "#8bb0cf", note: "Snapdragon 8 Gen4 / X2 Elite, 手机+PC芯片" },
+  { name: "联发科 MediaTek", value: 15, color: "#5b8db8", note: "天玑9400/9500旗舰SoC" },
+  { name: "Google", value: 4, color: "#3a6fa0", note: "Tensor G5手机芯片" },
+  { name: "其他", value: 8, color: "#c8d6e5", note: "三星Exynos、联咏等" },
+];
+
+var capacityTimeline = [
+  { year: "2025E底", cowos: 7.5, info: 50, n3: 130, n2: 50 },
+  { year: "2026E底", cowos: 13, info: 60, n3: 180, n2: 100 },
+  { year: "2027E底", cowos: 20, info: 120, n3: 200, n2: 150 },
+];
+
+var opportunities = [
+  { id: 1, title: "CoWoS封装定价权", ticker: "TSM / ASE / AMKR", cert: "高", certC: "#27ae60", time: "当下\u21922027",
+    logic: "所有AI芯片（GPU+ASIC）共享CoWoS瓶颈。英伟达锁60%产能，其余厂商争抢40%。ASP已接近7nm晶圆水平（~$10,000/片），毛利率正在追平先进制程。OSAT合作伙伴（Amkor/日月光）获得溢出订单。",
+    tags: ["CoWoS", "物理瓶颈", "OSAT溢出"] },
+  { id: 2, title: "英伟达产能护城河", ticker: "NVDA", cert: "高", certC: "#27ae60", time: "当下\u21922027",
+    logic: "60%的CoWoS产能 = 物理壁垒。推理份额从90%降到70%，但市场翻3倍，绝对量仍在涨。竞争对手不是技术追不上，是物理上拿不到封装产能。",
+    tags: ["产能霸权", "份额vs绝对量"] },
+  { id: 3, title: "ASIC设计中介订单潮", ticker: "AVGO / MRVL", cert: "中高", certC: "#c5962a", time: "2025H2\u21922027",
+    logic: "推理占比上升\u2192hyperscaler追求单位成本下降\u2192定制ASIC需求增长。Broadcom(Google/Meta/OpenAI)和Marvell(AWS/微软)是仅有两个规模化设计方。但交付节奏受CoWoS产能约束。",
+    tags: ["定制ASIC", "交付约束"] },
+  { id: 4, title: "C端\u2192B端产能迁移", ticker: "QCOM / 关注Intel代工", cert: "中", certC: "#e67e22", time: "2026\u21922027",
+    logic: "手机出货下滑4%+、PC下滑10%\u21923nm晶圆+InFO封装产能边际释放\u2192高通等厂商将空余产能转向数据中心CPU。注意：这条走的是晶圆+InFO线，绕开CoWoS瓶颈，但规模和性能天花板也更低。",
+    tags: ["产能迁移", "InFO线", "3nm晶圆"] },
+  { id: 5, title: "HBM供应链紧缺", ticker: "SK海力士 / 美光 MU", cert: "中高", certC: "#c5962a", time: "当下\u21922026",
+    logic: "CoWoS封装的另一个输入：HBM。SK海力士~50%份额，三星良率问题持续。HBM3E/HBM4供需缺口短期难弥合，形成与CoWoS的双重约束。",
+    tags: ["HBM", "双重约束"] },
+  { id: 6, title: "数据中心电力与液冷", ticker: "EATON / VRT / CRDO", cert: "高", certC: "#27ae60", time: "当下\u21922028+",
+    logic: "推理7\u00d724持续运行，功耗比训练更持续。TPU v7单芯片~1kW液冷，GB200机柜~120kW。芯片瓶颈后移\u2192电力瓶颈前移，长周期确定性最高。",
+    tags: ["电力", "液冷", "长周期"] },
+];
+
+var tabs = ["全景流程", "晶圆制造", "CoWoS封装", "InFO/WMCM封装", "机会地图"];
+
+// --- Tab switching ---
+var currentTab = 0;
+var tabBar = document.getElementById('tabBar');
+tabs.forEach(function(t, i) {
+  var btn = document.createElement('button');
+  btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+  btn.textContent = t;
+  btn.addEventListener('click', function() { switchTab(i); });
+  tabBar.appendChild(btn);
+});
+
+function switchTab(i) {
+  currentTab = i;
+  var btns = tabBar.querySelectorAll('.tab-btn');
+  for (var b = 0; b < btns.length; b++) btns[b].className = 'tab-btn' + (b === i ? ' active' : '');
+  var panels = document.querySelectorAll('.tab-panel');
+  for (var p = 0; p < panels.length; p++) panels[p].className = 'tab-panel' + (p === i ? ' active' : '');
+}
+switchTab(0);
+
+// --- Render HBar ---
+function renderHBar(containerId, data, total, unit, showPct, showNote) {
+  var el = document.getElementById(containerId);
+  var maxVal = data[0].value;
+  var html = '';
+  data.forEach(function(d) {
+    var pct = ((d.value / total) * 100).toFixed(1);
+    var w = (d.value / maxVal) * 100;
+    html += '<div class="hbar-row">';
+    html += '<div class="hbar-name">' + d.name + '</div>';
+    html += '<div class="hbar-track">';
+    html += '<div class="hbar-fill" style="width:' + w + '%;background:' + d.color + '"></div>';
+    html += '<div class="hbar-val" style="left:calc(' + w + '% + 8px)">';
+    html += d.value + unit;
+    if (showPct) html += ' <span class="pct">(' + pct + '%)</span>';
+    html += '</div></div></div>';
+    if (showNote && d.note) html += '<div class="hbar-note">' + d.note + '</div>';
+  });
+  el.innerHTML = html;
+}
+
+// --- Render WaferBar ---
+function renderWaferBar() {
+  var el = document.getElementById('waferBars');
+  var html = '';
+  waferFabData.forEach(function(d) {
+    html += '<div>';
+    html += '<div class="wbar-row">';
+    html += '<div class="wbar-name">' + d.name + '</div>';
+    html += '<div style="flex:1;display:flex;gap:3px;align-items:center">';
+    html += '<div class="wbar-track">';
+    html += '<div class="wbar-n3" style="width:' + d.n3 + '%;background:' + d.color + '"></div>';
+    html += '<div class="wbar-n2" style="left:' + d.n3 + '%;width:' + d.n2 + '%;background:' + d.color + '"></div>';
+    html += '</div>';
+    html += '<div class="wbar-labels">3nm <span class="dim">' + d.n3 + '%</span> \u00b7 2nm <span>' + d.n2 + '%</span></div>';
+    html += '</div></div>';
+    html += '<div class="wbar-note">' + d.note + '</div>';
+    html += '</div>';
+  });
+  html += '<div class="wbar-legend">';
+  html += '<span><span class="wbar-legend-box" style="background:#1a2744;opacity:0.7"></span>3nm营收占比</span>';
+  html += '<span><span class="wbar-legend-box" style="background:#1a2744"></span>2nm产能占比</span>';
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// --- Render Capacity Chart ---
+function renderCapChart() {
+  var container = document.getElementById('capChart');
+  var xLabels = document.getElementById('capXLabels');
+  var maxVal = 220;
+  var yTicks = [0, 50, 100, 150, 200];
+  var keys = [
+    { key: 'n3', color: 'var(--a1)', name: '3nm晶圆' },
+    { key: 'n2', color: 'var(--a2)', name: '2nm晶圆' },
+    { key: 'info', color: 'var(--green)', name: 'InFO/WMCM' },
+    { key: 'cowos', color: 'var(--red)', name: 'CoWoS' },
+  ];
+
+  // Y-axis
+  var yHtml = '<div class="chart-yaxis">';
+  yTicks.forEach(function(v) { yHtml += '<span>' + v + '万</span>'; });
+  yHtml += '</div>';
+
+  // Gridlines
+  var gHtml = '<div class="chart-gridlines">';
+  yTicks.forEach(function() { gHtml += '<div class="chart-gridline"></div>'; });
+  gHtml += '</div>';
+
+  // Bars
+  var bHtml = '';
+  var xlHtml = '';
+  capacityTimeline.forEach(function(row) {
+    bHtml += '<div class="chart-group">';
+    keys.forEach(function(k) {
+      var val = row[k.key];
+      var h = (val / maxVal) * 100;
+      bHtml += '<div class="chart-bar" style="height:' + h + '%;background:' + k.color + ';width:20px" data-tip="' + k.name + ': ' + val + '万/月"></div>';
+    });
+    bHtml += '</div>';
+    xlHtml += '<div style="flex:1" class="chart-xlabel">' + row.year + '</div>';
+  });
+
+  container.innerHTML = yHtml + gHtml + bHtml;
+  xLabels.innerHTML = xlHtml;
+}
+
+// --- Render Opportunities ---
+function renderOpportunities() {
+  var el = document.getElementById('oppList');
+  var html = '';
+  opportunities.forEach(function(o) {
+    html += '<div class="opp-card" data-id="' + o.id + '" onclick="toggleOpp(this)">';
+    html += '<div class="opp-header">';
+    html += '<div class="opp-left">';
+    html += '<div class="opp-num">' + o.id + '</div>';
+    html += '<div><div class="opp-title">' + o.title + '</div>';
+    html += '<div class="opp-ticker">' + o.ticker + '</div></div>';
+    html += '</div>';
+    html += '<div class="opp-right">';
+    html += '<span class="cert-badge" style="background:' + o.certC + '22;color:' + o.certC + '">确定性:' + o.cert + '</span>';
+    html += '<span class="time-label">' + o.time + '</span>';
+    html += '<span class="opp-arrow">\u25b8</span>';
+    html += '</div></div>';
+    html += '<div class="opp-body">';
+    html += '<div class="opp-logic">' + o.logic + '</div>';
+    html += '<div class="opp-tags">';
+    o.tags.forEach(function(t) { html += '<span class="tag">' + t + '</span>'; });
+    html += '</div></div></div>';
+  });
+  el.innerHTML = html;
+}
+
+function toggleOpp(el) {
+  var wasOpen = el.classList.contains('open');
+  // close all
+  var all = document.querySelectorAll('.opp-card');
+  for (var i = 0; i < all.length; i++) {
+    all[i].classList.remove('open');
+    all[i].querySelector('.opp-arrow').classList.remove('open');
+  }
+  if (!wasOpen) {
+    el.classList.add('open');
+    el.querySelector('.opp-arrow').classList.add('open');
+  }
+}
+
+// --- Render Chain ---
+function renderChain() {
+  var items = ["推理需求", "\u2192", "芯片设计分化", "\u2192", "晶圆制造(满载)", "\u2192", "封装分流", "\u2192", "CoWoS(AI) / InFO(消费)", "\u2192", "HBM+电力"];
+  var el = document.getElementById('chainFlow');
+  var html = '';
+  items.forEach(function(item) {
+    if (item === "\u2192") {
+      html += '<span class="chain-arrow">\u2192</span>';
+    } else {
+      html += '<span class="chain-item">' + item + '</span>';
+    }
+  });
+  el.innerHTML = html;
+}
+
+// --- Init ---
+var cowosTotal = cowosData.reduce(function(s, d) { return s + d.value; }, 0);
+var infoTotal = infoData.reduce(function(s, d) { return s + d.value; }, 0);
+
+renderHBar('cowosBars', cowosData, cowosTotal, '万片', true, true);
+renderHBar('infoBars', infoData, infoTotal, '%', false, true);
+renderWaferBar();
+renderCapChart();
+renderOpportunities();
+renderChain();
+</script>
+</body>
+</html>

@@ -1,6 +1,16 @@
 {
-  "date": "2026-05-09",
+  "date": "2026-05-10",
   "prices": {
+    "ICE": {
+      "name": "Intercontinental Exchange",
+      "price": 155.82,
+      "change_pct": -0.03
+    },
+    "CRCL": {
+      "name": "Circle",
+      "price": 113.67,
+      "change_pct": 1.08
+    },
     "HOOD": {
       "name": "Robinhood",
       "price": 77.03,
@@ -32,6 +42,6 @@
       "change_pct": 1.96
     }
   },
-  "news_count": 1,
-  "has_update": false
+  "news_count": 0,
+  "has_update": true
 }

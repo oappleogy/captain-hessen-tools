@@ -1,8 +1,8 @@
 {
-  "score": 8.6,
-  "level": "green",
-  "label": "正常",
-  "desc": "各变量在基准附近，系统压力可控",
+  "score": 30.3,
+  "level": "yellow",
+  "label": "组合风险",
+  "desc": "多变量同时偏离基准，注意组合风险敞口",
   "components": [
     {
       "variable": "vix",
@@ -17,12 +17,22 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 94.68,
+      "current": 95.42,
       "base": 75,
-      "deviation_pct": 26.2,
+      "deviation_pct": 27.2,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 137.3
+      "contribution": 148.0
+    },
+    {
+      "variable": "credit_spread",
+      "name": "信用利差",
+      "current": 2.79,
+      "base": 1.5,
+      "deviation_pct": 86.0,
+      "weight": 0.25,
+      "weight_pct": 25,
+      "contribution": 1849.0
     },
     {
       "variable": "usdjpy",
@@ -45,24 +55,32 @@
       "contribution": 0.7
     }
   ],
-  "hard_alerts_count": 0,
+  "hard_alerts_count": 1,
   "significant_deviations": [
     {
+      "name": "信用利差",
+      "current": 2.79,
+      "base": 1.5,
+      "deviation_pct": 86.0,
+      "direction": "偏高",
+      "level": "极端偏离"
+    },
+    {
       "name": "WTI油价",
-      "current": 94.68,
+      "current": 95.42,
       "base": 75,
-      "deviation_pct": 26.2,
+      "deviation_pct": 27.2,
       "direction": "偏高",
       "level": "显著偏离"
     },
     {
       "name": "天然气TTF",
-      "current": 43.7,
+      "current": 44.14,
       "base": 35,
-      "deviation_pct": 24.9,
+      "deviation_pct": 26.1,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-05-09 08:33"
+  "timestamp": "2026-05-10 13:08"
 }

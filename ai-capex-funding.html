@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI融资套娃结构 | 黑森船长</title>
+</head>
+<body>
+  <a href="ai-capex-hub.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08)">&larr; 返回专栏</a>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+const mono = "'JetBrains Mono', monospace";
+const sans = "'Noto Sans SC', 'DM Sans', sans-serif";
+
+const MODEL_COS = [
+  {
+    id: "openai", name: "OpenAI", color: "#10a37f",
+    valuation: "$852B (2025.10)", revenue: "$20B ARR (2025)",
+    burnRate: "-$5B/年", profitTarget: "2029年",
+    totalRaised: "$122B (最新轮)",
+    rounds: [
+      { investor: "SoftBank", amount: "$30B", type: "equity", note: "$19B为Stargate项目融资，SoftBank借$40B过桥贷款来投" },
+      { investor: "NVIDIA", amount: "$30B", type: "gpu-equity", note: "GPU信用额度转股权 — 本质是「赊芯片换股份」" },
+      { investor: "Amazon", amount: "$50B", type: "equity", note: "结合AWS算力合同绑定" },
+      { investor: "Microsoft", amount: "$13B", type: "equity", note: "早期投资+Azure算力信用额度" },
+      { investor: "阿布扎比/MGX", amount: "$10B", type: "equity", note: "主权基金入场" },
+    ],
+    contracts: "$1.15万亿+合同承诺",
+    riskLevel: 3,
+    keyRisk: "收入$20B vs 合同承诺$1.15万亿，比率57.5:1。2029年前累计预亏$44B。"
+  },
+  {
+    id: "anthropic", name: "Anthropic", color: "#d97706",
+    valuation: "$380B→谈$900B", revenue: "$4.6B ARR (2025.5预估)",
+    burnRate: "-$2.5B/年", profitTarget: "2028年(存疑)",
+    totalRaised: "$72.3B(含债务轮)",
+    rounds: [
+      { investor: "Amazon", amount: "$20B", type: "equity", note: "分批到位，绑定AWS基础设施" },
+      { investor: "Google", amount: "$10B+", type: "equity", note: "同时投资竞品，对冲策略" },
+      { investor: "Lightspeed/Menlo等VC", amount: "$30B Series G", type: "equity", note: "2026.2 $380B估值" },
+      { investor: "新轮谈判中", amount: "$30-50B", type: "equity", note: "2026.5 目标估值$900B，5个月翻倍" },
+    ],
+    contracts: "AWS/GCP双云部署",
+    riskLevel: 2,
+    keyRisk: "估值5个月从$380B→$900B(+137%)，收入增速能否支撑？双云策略=双重依赖。"
+  },
+  {
+    id: "xai", name: "xAI", color: "#1d9bf0",
+    valuation: "$230B", revenue: "<$1B(2025预估)",
+    burnRate: "未披露(极高)", profitTarget: "未知",
+    totalRaised: "$20B Series E + $5B债务",
+    rounds: [
+      { investor: "a16z/Sequoia/Fidelity等", amount: "$20B", type: "equity", note: "Series E, 2025年底" },
+      { investor: "Morgan Stanley", amount: "$5B", type: "debt", note: "债务融资工具 — 高息结构化贷款" },
+      { investor: "GPU租赁SPV", amount: "$20B", type: "spv", note: "$7.5B股权+$12.5B债务，GPU资产做抵押" },
+    ],
+    contracts: "Memphis超算集群10万张GPU",
+    riskLevel: 3,
+    keyRisk: "$20B SPV中$12.5B是债务，GPU做抵押。收入几乎为零，纯粹靠估值叙事融资。"
+  },
+];
+
+const INTERMEDIARIES = [
+  {
+    id: "coreweave", name: "CoreWeave", color: "#7c3aed",
+    role: "GPU租赁中间商",
+    funding: "$8.5B GPU担保债务 + IPO",
+    backlog: "$66B", revenue: "$3.9B(Q1-Q3 2025)",
+    debtRate: "9.25%", keyRisk: "70%+收入依赖OpenAI单一客户"
+  },
+  {
+    id: "softbank", name: "SoftBank", color: "#ff6b35",
+    role: "超级LP/过桥贷款",
+    funding: "$40B过桥贷款投OpenAI",
+    backlog: "—", revenue: "—",
+    debtRate: "过桥贷利率未披露", keyRisk: "S&P评级展望→负面，$50B再融资墙(2026底)"
+  },
+];
+
+const FUNDING_FLOWS = [
+  { from: "投资人/银行", to: "模型公司", amount: "$172B+(Q1 2026)", desc: "占全部VC融资81%", color: "#7c3aed" },
+  { from: "模型公司", to: "GPU采购", amount: "数百亿美元", desc: "训练+推理算力", color: "#16a34a" },
+  { from: "GPU采购", to: "NVIDIA", amount: "→$194B DC收入", desc: "芯片垄断者收割", color: "#76b900" },
+  { from: "NVIDIA", to: "模型公司", amount: "$30B+股权投资", desc: "GPU信用转股权，资金回流", color: "#d97706" },
+];
+
+const LEVERAGE_LAYERS = [
+  { layer: "纯股权", amount: "$150B+", examples: "VC/PE/主权基金直投", risk: 1, color: "#16a34a", desc: "传统风投模式，亏损由股东承担" },
+  { layer: "云信用额度转股", amount: "$50B+", examples: "MSFT→OpenAI Azure额度, AMZN→Anthropic AWS额度", risk: 2, color: "#d97706", desc: "不是真金白银，是算力承诺换股权。公司烧的是云厂商的GPU" },
+  { layer: "结构化债务", amount: "$10B+", examples: "xAI Morgan Stanley $5B, CoreWeave 9.25%债", risk: 3, color: "#dc2626", desc: "高息借贷给还没盈利的公司。利息支出进一步加剧烧钱" },
+  { layer: "GPU担保SPV/ABS", amount: "$30B+", examples: "xAI $20B SPV(GPU抵押), CoreWeave $8.5B", risk: 3, color: "#dc2626", desc: "用快速贬值的GPU做抵押借债。GPU每18个月贬值50%+，抵押品价值持续缩水" },
+  { layer: "过桥贷款/杠杆", amount: "$40B+", examples: "SoftBank $40B过桥贷→投OpenAI", risk: 3, color: "#dc2626", desc: "借短期高息贷款去做长期股权投资。期限错配+评级下调风险" },
+];
+
+const RISK_SIGNALS = [
+  { signal: "Q1 2026 AI融资占VC总量81%", status: "danger", detail: "集中度创历史新高。2000年电信+互联网占比最高也只有~60%" },
+  { signal: "SoftBank评级展望→负面", status: "danger", detail: "S&P已警告。$50B再融资墙在2026年底，如果AI叙事逆转将极难滚动" },
+  { signal: "Anthropic 5个月估值翻倍", status: "warning", detail: "$380B→$900B，年化增速远超收入增速。典型泡沫末期加速特征" },
+  { signal: "xAI收入近零但估值$230B", status: "danger", detail: "PS ratio几乎无穷大。$12.5B SPV债务用GPU抵押，贬值风险极高" },
+  { signal: "NVIDIA角色转变：卖家→投资人", status: "warning", detail: "$30B入股OpenAI=把GPU赊给你换股份。如果OpenAI估值下跌，NVIDIA同时损失客户+投资" },
+  { signal: "GPU抵押贷款=次贷逻辑", status: "danger", detail: "GPU每代贬值50%+，用贬值资产做抵押借高息贷款，结构性类似2008年MBS" },
+];
+
+function App() {
+  const [activeView, setActiveView] = useState("overview");
+  const [selectedCo, setSelectedCo] = useState(null);
+
+  return (
+    <>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+      <div style={{ fontFamily: sans, background: "#EFF6FF", minHeight: "100vh", color: "#0f172a", padding: "16px", maxWidth: "960px", margin: "0 auto" }}>
+        <div style={{ marginBottom: 16, marginTop: 20 }}>
+          <h1 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: "#d97706" }}>AI融资套娃结构</h1>
+          <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: 10 }}>模型公司融资全景 · 谁的钱→谁的GPU→谁的收入？杠杆层次拆解</p>
+          <p style={{ margin: "2px 0 0", color: "#94a3b8", fontSize: 9 }}>黑森船长 · 2026年5月 · 数据来源: SEC, Bloomberg, TechCrunch, The Information</p>
+        </div>
+
+        <div style={{ background: "rgba(217,119,6,0.04)", border: "1px solid rgba(217,119,6,0.12)", borderRadius: 10, padding: 14, marginBottom: 14 }}>
+          <div style={{ color: "#d97706", fontSize: 12, fontWeight: 800, marginBottom: 6 }}>核心发现：资本开支的「上游隐形层」</div>
+          <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
+            超算巨头2026年$760B资本开支只是表层。在它上面还有一层：<b style={{color:"#d97706"}}>$172B+ 私募融资</b>流入模型公司（OpenAI/Anthropic/xAI），
+            这些钱最终也变成GPU订单→NVIDIA收入。<br/>
+            <b style={{color:"#dc2626"}}>更危险的是</b>：融资结构从纯股权→结构化债务→GPU抵押SPV→过桥贷款，<b>杠杆层层叠加</b>。
+            Q1 2026 AI融资占全部VC融资的<b style={{color:"#dc2626"}}>81%</b>。
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 4, marginBottom: 14, flexWrap: "wrap" }}>
+          {[
+            { key: "overview", label: "资金循环" },
+            { key: "companies", label: "模型公司" },
+            { key: "leverage", label: "杠杆拆解" },
+            { key: "signals", label: "风险信号" },
+          ].map(t => (
+            <button key={t.key} onClick={() => { setActiveView(t.key); setSelectedCo(null); }} style={{
+              flex: 1, padding: "8px 4px", borderRadius: 6,
+              border: activeView === t.key ? "1px solid #d97706" : "1px solid rgba(59,130,246,0.1)",
+              background: activeView === t.key ? "rgba(217,119,6,0.06)" : "#fff",
+              color: activeView === t.key ? "#d97706" : "#64748b",
+              fontSize: 11, fontWeight: 700, cursor: "pointer", minWidth: 70,
+            }}>{t.label}</button>
+          ))}
+        </div>
+
+        {activeView === "overview" && (
+          <div>
+            <div style={{ background: "#fff", borderRadius: 10, border: "1px solid rgba(59,130,246,0.1)", padding: 16, marginBottom: 14 }}>
+              <div style={{ color: "#0f172a", fontSize: 13, fontWeight: 800, marginBottom: 12 }}>资金闭环：投资人 → 模型公司 → GPU → NVIDIA → 再投模型公司</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+                {FUNDING_FLOWS.map((f, i) => (
+                  <div key={i}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 0" }}>
+                      <div style={{ width: 36, height: 36, borderRadius: 8, background: `${f.color}12`, border: `1.5px solid ${f.color}44`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: f.color, flexShrink: 0 }}>{i+1}</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: "#0f172a" }}>{f.from} → {f.to}</div>
+                        <div style={{ fontSize: 10, color: "#64748b", marginTop: 2 }}>{f.desc}</div>
+                      </div>
+                      <div style={{ fontSize: 13, fontWeight: 800, fontFamily: mono, color: f.color, whiteSpace: "nowrap" }}>{f.amount}</div>
+                    </div>
+                    {i < FUNDING_FLOWS.length - 1 && (
+                      <div style={{ marginLeft: 18, width: 2, height: 12, background: `${FUNDING_FLOWS[i+1].color}33` }} />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 10, padding: "8px 12px", borderRadius: 6, background: "rgba(220,38,38,0.04)", border: "1px solid rgba(220,38,38,0.08)", textAlign: "center" }}>
+                <span style={{ color: "#dc2626", fontSize: 11, fontWeight: 700 }}>循环闭合 — NVIDIA用GPU收入的利润再投回模型公司，驱动下一轮采购</span>
+              </div>
+            </div>
+
+            <div style={{ background: "#fff", borderRadius: 10, border: "1px solid rgba(59,130,246,0.1)", padding: 14, marginBottom: 14 }}>
+              <div style={{ color: "#0f172a", fontSize: 12, fontWeight: 800, marginBottom: 10 }}>关键中间商</div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                {INTERMEDIARIES.map(m => (
+                  <div key={m.id} style={{ padding: 12, borderRadius: 8, background: `${m.color}06`, border: `1px solid ${m.color}22` }}>
+                    <div style={{ color: m.color, fontSize: 12, fontWeight: 800 }}>{m.name}</div>
+                    <div style={{ color: "#94a3b8", fontSize: 9, marginBottom: 6 }}>{m.role}</div>
+                    <div style={{ fontSize: 10, color: "#475569", lineHeight: 1.6 }}>
+                      <div>{m.funding}</div>
+                      {m.backlog !== "—" && <div>积压订单: <b style={{ fontFamily: mono }}>{m.backlog}</b></div>}
+                      <div style={{ color: "#dc2626", fontSize: 9, marginTop: 4 }}>{m.keyRisk}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ padding: 14, borderRadius: 10, background: "rgba(22,163,74,0.04)", border: "1px solid rgba(22,163,74,0.12)" }}>
+              <div style={{ color: "#16a34a", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>规模量化</div>
+              {[
+                { label: "Q1 2026 三大模型公司融资总额", value: "$172B+", note: "OpenAI $122B + Anthropic $30B + xAI $20B" },
+                { label: "AI占全部VC融资比例", value: "81%", note: "$297B VC总量中$240B+流入AI" },
+                { label: "模型公司总估值", value: "$1.98万亿", note: "OpenAI $852B + Anthropic $900B(目标) + xAI $230B" },
+                { label: "模型公司总收入", value: "<$26B/年", note: "估值/收入 > 76x — 超越2000年任何互联网公司" },
+                { label: "GPU担保/SPV债务", value: "$30B+", note: "xAI $20B SPV + CoreWeave $8.5B + 其他" },
+                { label: "SoftBank过桥贷款", value: "$40B", note: "借短投长，评级展望已转负面" },
+              ].map((item, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "8px 0", borderBottom: i < 5 ? "1px solid rgba(0,0,0,0.04)" : "none" }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ color: "#0f172a", fontSize: 11, fontWeight: 600 }}>{item.label}</div>
+                    <div style={{ color: "#94a3b8", fontSize: 9, marginTop: 2 }}>{item.note}</div>
+                  </div>
+                  <div style={{ color: "#d97706", fontSize: 14, fontWeight: 800, fontFamily: mono, marginLeft: 8, whiteSpace: "nowrap" }}>{item.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeView === "companies" && !selectedCo && (
+          <div>
+            <div style={{ display: "grid", gap: 12 }}>
+              {MODEL_COS.map(co => (
+                <div key={co.id} onClick={() => setSelectedCo(co.id)} style={{ padding: 16, borderRadius: 10, background: "#fff", border: `1px solid ${co.color}22`, cursor: "pointer", transition: "all .2s" }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+                    <div>
+                      <div style={{ color: co.color, fontSize: 16, fontWeight: 900 }}>{co.name}</div>
+                      <div style={{ color: "#94a3b8", fontSize: 10 }}>估值 {co.valuation}</div>
+                    </div>
+                    <div style={{ padding: "3px 10px", borderRadius: 6, fontSize: 11, fontWeight: 800, fontFamily: mono,
+                      background: co.riskLevel >= 3 ? "rgba(220,38,38,0.08)" : "rgba(217,119,6,0.08)",
+                      color: co.riskLevel >= 3 ? "#dc2626" : "#d97706" }}>
+                      风险 {co.riskLevel}/3
+                    </div>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 8 }}>
+                    <div style={{ background: "rgba(0,0,0,0.02)", padding: "6px 8px", borderRadius: 6 }}>
+                      <div style={{ color: "#94a3b8", fontSize: 9 }}>收入</div>
+                      <div style={{ color: "#0f172a", fontSize: 11, fontWeight: 700, fontFamily: mono }}>{co.revenue}</div>
+                    </div>
+                    <div style={{ background: "rgba(0,0,0,0.02)", padding: "6px 8px", borderRadius: 6 }}>
+                      <div style={{ color: "#94a3b8", fontSize: 9 }}>烧钱速度</div>
+                      <div style={{ color: "#dc2626", fontSize: 11, fontWeight: 700, fontFamily: mono }}>{co.burnRate}</div>
+                    </div>
+                    <div style={{ background: "rgba(0,0,0,0.02)", padding: "6px 8px", borderRadius: 6 }}>
+                      <div style={{ color: "#94a3b8", fontSize: 9 }}>融资总额</div>
+                      <div style={{ color: "#d97706", fontSize: 11, fontWeight: 700, fontFamily: mono }}>{co.totalRaised}</div>
+                    </div>
+                  </div>
+                  <div style={{ color: "#64748b", fontSize: 10, lineHeight: 1.6 }}>{co.keyRisk}</div>
+                  <div style={{ color: "#2563eb", fontSize: 10, marginTop: 6, fontWeight: 600 }}>点击查看融资明细 →</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeView === "companies" && selectedCo && (() => {
+          const co = MODEL_COS.find(c => c.id === selectedCo);
+          if (!co) return null;
+          return (
+            <div>
+              <button onClick={() => setSelectedCo(null)} style={{ background: "none", border: "none", color: "#64748b", fontSize: 11, cursor: "pointer", marginBottom: 10, padding: 0 }}>&larr; 返回列表</button>
+              <div style={{ padding: 16, borderRadius: 10, background: "#fff", border: `1.5px solid ${co.color}33`, marginBottom: 14 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                  <div>
+                    <div style={{ color: co.color, fontSize: 20, fontWeight: 900 }}>{co.name}</div>
+                    <div style={{ color: "#94a3b8", fontSize: 10 }}>估值 {co.valuation}</div>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ color: "#d97706", fontSize: 16, fontWeight: 800, fontFamily: mono }}>{co.totalRaised}</div>
+                    <div style={{ color: "#94a3b8", fontSize: 9 }}>融资总额</div>
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 8, marginBottom: 14 }}>
+                  {[
+                    { label: "收入", value: co.revenue, color: "#0f172a" },
+                    { label: "烧钱速度", value: co.burnRate, color: "#dc2626" },
+                    { label: "盈利目标", value: co.profitTarget, color: "#d97706" },
+                    { label: "合同/部署", value: co.contracts, color: "#2563eb" },
+                  ].map((m, i) => (
+                    <div key={i} style={{ background: "rgba(0,0,0,0.02)", padding: "8px", borderRadius: 6, textAlign: "center" }}>
+                      <div style={{ color: "#94a3b8", fontSize: 9, marginBottom: 2 }}>{m.label}</div>
+                      <div style={{ color: m.color, fontSize: 10, fontWeight: 700 }}>{m.value}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ color: "#0f172a", fontSize: 12, fontWeight: 800, marginBottom: 8 }}>融资轮次明细</div>
+                {co.rounds.map((r, i) => {
+                  const typeColors = { equity: "#7c3aed", debt: "#dc2626", "gpu-equity": "#76b900", spv: "#dc2626" };
+                  const typeLabels = { equity: "股权", debt: "债务", "gpu-equity": "GPU转股", spv: "SPV/表外" };
+                  return (
+                    <div key={i} style={{ display: "flex", gap: 10, padding: "10px 0", borderBottom: i < co.rounds.length - 1 ? "1px solid rgba(0,0,0,0.04)" : "none", alignItems: "flex-start" }}>
+                      <div style={{ width: 60, flexShrink: 0 }}>
+                        <span style={{ padding: "2px 6px", borderRadius: 4, fontSize: 9, fontWeight: 700,
+                          background: `${typeColors[r.type]}12`, color: typeColors[r.type] }}>{typeLabels[r.type]}</span>
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                          <span style={{ color: "#0f172a", fontSize: 11, fontWeight: 700 }}>{r.investor}</span>
+                          <span style={{ color: "#d97706", fontSize: 12, fontWeight: 800, fontFamily: mono }}>{r.amount}</span>
+                        </div>
+                        <div style={{ color: "#94a3b8", fontSize: 9, marginTop: 3, lineHeight: 1.5 }}>{r.note}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div style={{ padding: 12, borderRadius: 8, background: "rgba(220,38,38,0.04)", border: "1px solid rgba(220,38,38,0.08)" }}>
+                <div style={{ color: "#dc2626", fontSize: 11, fontWeight: 700, marginBottom: 4 }}>核心风险</div>
+                <div style={{ color: "#475569", fontSize: 10, lineHeight: 1.7 }}>{co.keyRisk}</div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {activeView === "leverage" && (
+          <div>
+            <div style={{ background: "#fff", borderRadius: 10, border: "1px solid rgba(59,130,246,0.1)", padding: 14, marginBottom: 14 }}>
+              <div style={{ color: "#0f172a", fontSize: 13, fontWeight: 800, marginBottom: 6 }}>杠杆金字塔：从安全到危险</div>
+              <div style={{ color: "#64748b", fontSize: 10, lineHeight: 1.6, marginBottom: 12 }}>
+                AI模型公司的融资结构已经从传统VC股权投资，演变为多层杠杆叠加。越往下风险越高。
+              </div>
+
+              {LEVERAGE_LAYERS.map((l, i) => (
+                <div key={i} style={{ marginBottom: 10, borderRadius: 8, border: `1px solid ${l.color}22`, overflow: "hidden" }}>
+                  <div style={{ display: "flex", alignItems: "center", padding: "10px 12px", background: `${l.color}06` }}>
+                    <div style={{ width: 28, height: 28, borderRadius: 6, background: `${l.color}15`, border: `1.5px solid ${l.color}`, display: "flex", alignItems: "center", justifyContent: "center", color: l.color, fontSize: 12, fontWeight: 800, marginRight: 10, flexShrink: 0 }}>
+                      {l.risk === 1 ? "L" : l.risk === 2 ? "M" : "H"}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ color: "#0f172a", fontSize: 12, fontWeight: 700 }}>{l.layer}</div>
+                      <div style={{ color: "#94a3b8", fontSize: 9 }}>{l.examples}</div>
+                    </div>
+                    <div style={{ color: l.color, fontSize: 14, fontWeight: 800, fontFamily: mono, marginLeft: 8 }}>{l.amount}</div>
+                  </div>
+                  <div style={{ padding: "8px 12px", background: "#fff" }}>
+                    <div style={{ color: "#475569", fontSize: 10, lineHeight: 1.6 }}>{l.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ padding: 14, borderRadius: 10, background: "rgba(220,38,38,0.04)", border: "1px solid rgba(220,38,38,0.12)" }}>
+              <div style={{ color: "#dc2626", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>GPU抵押 = AI版次贷？</div>
+              <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
+                <b style={{color:"#0f172a"}}>2008年MBS逻辑</b>：用房产做抵押发行证券。房价上涨→抵押品充足→更多贷款→更高房价。逆转：房价跌→抵押品不足→强制平仓→房价进一步跌。
+                <br/><br/>
+                <b style={{color:"#0f172a"}}>2026年GPU逻辑</b>：用GPU做抵押发行债务。GPU需求旺→抵押品「值钱」→更多借贷→更多GPU采购→需求更旺。
+                <br/><br/>
+                <b style={{color:"#dc2626"}}>关键区别使其更危险：</b>GPU每18个月贬值50%+（摩尔定律），而房产至少有居住价值。H100→B200→下一代的换代速度意味着抵押品<b>内在价值持续归零</b>。
+                <br/><br/>
+                <span style={{color:"#7c3aed"}}>xAI的$20B SPV和CoreWeave的$8.5B GPU债务</span>是目前最大的两个「AI次贷」结构。详细崩溃路径见<a href="ai-capex-reflexivity.html" style={{color:"#2563eb"}}>反身性风险地图</a>。
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeView === "signals" && (
+          <div>
+            <div style={{ marginBottom: 14 }}>
+              {RISK_SIGNALS.map((s, i) => (
+                <div key={i} style={{ display: "flex", gap: 10, padding: 12, marginBottom: 8, borderRadius: 8, background: "#fff", border: `1px solid ${s.status === "danger" ? "rgba(220,38,38,0.15)" : "rgba(217,119,6,0.15)"}`, alignItems: "flex-start" }}>
+                  <div style={{ width: 10, height: 10, borderRadius: 5, marginTop: 3, flexShrink: 0,
+                    background: s.status === "danger" ? "#dc2626" : "#d97706",
+                    boxShadow: `0 0 6px ${s.status === "danger" ? "rgba(220,38,38,0.4)" : "rgba(217,119,6,0.4)"}` }} />
+                  <div>
+                    <div style={{ color: "#0f172a", fontSize: 12, fontWeight: 700, marginBottom: 4 }}>{s.signal}</div>
+                    <div style={{ color: "#64748b", fontSize: 10, lineHeight: 1.6 }}>{s.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ padding: 14, borderRadius: 10, background: "#fff", border: "1px solid rgba(59,130,246,0.1)", marginBottom: 14 }}>
+              <div style={{ color: "#0f172a", fontSize: 12, fontWeight: 800, marginBottom: 8 }}>监控清单</div>
+              <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
+                <b style={{color:"#d97706"}}>月度跟踪：</b><br/>
+                1. OpenAI/Anthropic月度ARR变化（收入能否追上估值）<br/>
+                2. SoftBank信用评级变化及再融资进展<br/>
+                3. GPU二手市场价格（抵押品价值指标）<br/>
+                4. CoreWeave股价及客户集中度变化<br/><br/>
+                <b style={{color:"#dc2626"}}>逆转触发条件：</b><br/>
+                1. 任一模型公司融资轮估值<b>下修</b>（down round）<br/>
+                2. GPU抵押贷款出现margin call<br/>
+                3. SoftBank被迫折价处置AI持仓<br/>
+                4. AI VC融资占比从81%开始下降<br/><br/>
+                超算巨头的信用状况和融资能力详见<a href="ai-capex-stress-test.html" style={{color:"#2563eb"}}>融资压力测试</a>。<br/>
+                资金循环闭环和崩溃传导链详见<a href="ai-capex-reflexivity.html" style={{color:"#2563eb"}}>反身性风险地图</a>。
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div style={{ textAlign: "center", color: "#94a3b8", fontSize: 9, padding: "16px 0" }}>
+          黑森船长 · AI融资套娃结构分析 · 非投资建议
+        </div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

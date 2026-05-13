@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI资本开支专栏 | 黑森船长</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans SC',sans-serif;background:#EFF6FF;color:#0F172A;min-height:100vh;padding:24px 16px}
+.wrap{max-width:640px;margin:0 auto}
+.back{display:inline-block;margin-bottom:20px;font-size:12px;color:#94a3b8;text-decoration:none}
+.back:hover{color:#2563eb}
+.header{text-align:center;margin-bottom:32px}
+.header h1{font-size:22px;font-weight:900;color:#D97706;margin-bottom:6px}
+.header p{font-size:12px;color:#64748b;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+@media(max-width:500px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid rgba(59,130,246,0.1);border-radius:14px;padding:20px;text-decoration:none;color:inherit;display:block;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.08);border-color:rgba(59,130,246,0.2)}
+.card .icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.card h2{font-size:15px;font-weight:800;margin-bottom:6px}
+.card p{font-size:11px;color:#64748b;line-height:1.6}
+.card .tag{display:inline-block;font-size:9px;font-family:'JetBrains Mono',monospace;padding:2px 8px;border-radius:4px;margin-top:8px;font-weight:600}
+.also{margin-top:8px;padding:16px;background:#fff;border-radius:10px;border:1px solid rgba(59,130,246,0.1);text-align:center}
+.also a{color:#2563eb;text-decoration:none;font-size:12px;font-weight:600}
+.also a:hover{text-decoration:underline}
+.footer{text-align:center;margin-top:24px;font-size:9px;color:#94a3b8;font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; 返回工具箱</a>
+
+<div class="header">
+  <h1>AI资本开支研究专栏</h1>
+  <p>四巨头 $7000亿 资本开支的全景解剖<br>从数据拆解到风险传导，从融资结构到反身性崩溃路径</p>
+</div>
+
+<div class="grid">
+  <a href="ai-capex-collision.html" class="card">
+    <div class="icon" style="background:rgba(220,38,38,0.08)">&#9201;</div>
+    <h2>时间轴碰撞分析</h2>
+    <p>五条主线（供需/芯片/资本开支/能源/政策）2025-2030年碰撞推演。训练vs推理交叉点、投资矩阵。</p>
+    <span class="tag" style="background:rgba(220,38,38,0.08);color:#DC2626">宏观时间轴</span>
+  </a>
+
+  <a href="ai-capex-deep-dive.html" class="card">
+    <div class="icon" style="background:rgba(217,119,6,0.08)">&#128202;</div>
+    <h2>四巨头深度拆解</h2>
+    <p>MSFT/GOOGL/AMZN/META 8个季度数据表。收入增速vs开支增速剪刀差、2026E开支强度。</p>
+    <span class="tag" style="background:rgba(217,119,6,0.08);color:#D97706">季度数据</span>
+  </a>
+
+  <a href="ai-capex-stress-test.html" class="card">
+    <div class="icon" style="background:rgba(124,58,237,0.08)">&#128170;</div>
+    <h2>融资压力测试</h2>
+    <p>五大超算巨头融资来源x风险矩阵。四种情景压力测试：基准/温和/中度/严重(类2000)。</p>
+    <span class="tag" style="background:rgba(124,58,237,0.08);color:#7C3AED">压力测试</span>
+  </a>
+
+  <a href="ai-capex-reflexivity.html" class="card">
+    <div class="icon" style="background:rgba(220,38,38,0.08)">&#128260;</div>
+    <h2>反身性风险地图</h2>
+    <p>AI资金循环套娃结构：谁给谁的钱？崩溃传导链7步推演。Dotcom/2008影子银行历史对照。</p>
+    <span class="tag" style="background:rgba(220,38,38,0.08);color:#DC2626">反身性</span>
+  </a>
+</div>
+
+<div class="also">
+  <span style="font-size:11px;color:#94a3b8">已上线 &rarr;</span>&nbsp;
+  <a href="ai-capex.html">AI Capex vs Revenue 基础版</a>
+</div>
+
+<div class="footer">黑森船长 &copy; 2026 &middot; AI资本开支研究系列 &middot; 非投资建议</div>
+</div>
+</body>
+</html>

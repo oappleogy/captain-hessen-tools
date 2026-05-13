@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四巨头AI资本开支深度拆解 | 黑森船长</title>
+</head>
+<body>
+  <a href="ai-capex-hub.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08)">← 返回专栏</a>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+const Q_LABELS = ["24Q1","24Q2","24Q3","24Q4","25Q1","25Q2","25Q3","25Q4"];
+
+const RAW = {
+  MSFT: {
+    name: "Microsoft", color: "#0078D4",
+    revenue: [619,646,673,699,726,753,781,809],
+    capex: [116,158,179,204,165,180,238,214],
+    revGrowth: [17.5,18.0,15.7,14.9,15.6,15.1,12.7,18.6],
+    capexGrowth: [94,91,93,113,64,100,41.5,49],
+    guide2026Capex: 1400,
+    aiNote: "Azure AI 2026年收入指引约$250亿(高盛估算)",
+    src: "JPM, UBS, Nomura",
+  },
+  GOOGL: {
+    name: "Alphabet", color: "#EA4335",
+    revenue: [805,853,902,954,1008,1066,1127,1192],
+    capex: [98,127,125,130,157,165,240,292],
+    revGrowth: [13.0,13.0,13.8,16.0,15.2,10.2,17.5,10.3],
+    capexGrowth: [90,118,103,38,60,30,92,105],
+    guide2026Capex: 1750,
+    aiNote: "Cloud AI +33.5% YoY (25Q3)。2026指引$1390-1850亿(BofA/其他)",
+    src: "Citi, BofA, UBS",
+  },
+  AMZN: {
+    name: "Amazon", color: "#FF9900",
+    revenue: [1433,1491,1551,1614,1679,1746,1815,1891],
+    capex: [90,108,135,176,160,126,194,210],
+    revGrowth: [11.0,11.5,12.3,11.6,11.0,10.4,10.5,11.5],
+    capexGrowth: [26,84,92,108,78,52,82,41.5],
+    guide2026Capex: 2000,
+    aiNote: "AWS AI收入未拆分。AI是AWS增长核心驱动",
+    src: "Citi, JPM",
+  },
+  META: {
+    name: "Meta", color: "#0668E1",
+    revenue: [365,387,410,434,460,487,512,599],
+    capex: [63,83,78,125,126,180,193,214],
+    revGrowth: [21.9,21.3,21.4,16.8,23.8,25.6,26.0,23.8],
+    capexGrowth: [5,58,41,105,100,117,110.5,48.2],
+    guide2026Capex: 1250,
+    aiNote: "AI广告平台年化收入约$600亿(25Q3,I/O Fund)。25Q3 OCF=1076亿, FCF=106亿",
+    src: "UBS, JPM, Nomura, I/O Fund",
+  },
+};
+
+function computeMetrics(data) {
+  const capexIntensity = data.capex.map((c, i) => +(c / data.revenue[i] * 100).toFixed(1));
+  const scissorsGap = data.revGrowth.map((r, i) => +(data.capexGrowth[i] - r).toFixed(1));
+  const rev2025 = data.revenue.slice(4).reduce((a, b) => a + b, 0);
+  const capex2025 = data.capex.slice(4).reduce((a, b) => a + b, 0);
+  const capexIntensity2025 = +(capex2025 / rev2025 * 100).toFixed(1);
+  const rev2026E = rev2025 * 1.15;
+  const capexIntensity2026E = +(data.guide2026Capex / rev2026E * 100).toFixed(1);
+  return { capexIntensity, scissorsGap, rev2025, capex2025, capexIntensity2025, capexIntensity2026E };
+}
+
+const COMPUTED = {};
+Object.entries(RAW).forEach(([k, v]) => { COMPUTED[k] = computeMetrics(v); });
+
+const bg = "#EFF6FF";
+const surface = "#FFFFFF";
+const border = "rgba(59,130,246,0.12)";
+const text = "#0F172A";
+const textM = "#475569";
+const textD = "#94A3B8";
+const accent = "#D97706";
+const red = "#DC2626";
+const green = "#16A34A";
+const mono = "'JetBrains Mono', monospace";
+const sans = "'DM Sans', sans-serif";
+
+function MiniBar({ value, max, color, warn }) {
+  const w = Math.min(100, (Math.abs(value) / max) * 100);
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+      <div style={{ width: "60px", height: "8px", background: "rgba(0,0,0,0.04)", borderRadius: "4px", overflow: "hidden" }}>
+        <div style={{ width: `${w}%`, height: "100%", background: warn ? red : color, borderRadius: "4px", opacity: 0.7 }} />
+      </div>
+      <span style={{ fontSize: "11px", fontFamily: mono, color: warn ? red : text, fontWeight: 600, minWidth: "40px" }}>
+        {value}%
+      </span>
+    </div>
+  );
+}
+
+function CompanyTable({ ticker }) {
+  const d = RAW[ticker];
+  const m = COMPUTED[ticker];
+  return (
+    <div style={{ background: surface, borderRadius: "10px", padding: "16px", border: `1px solid ${border}`, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div style={{ width: "10px", height: "10px", borderRadius: "3px", background: d.color }} />
+          <span style={{ fontSize: "14px", fontWeight: 800, fontFamily: sans, color: text }}>{d.name}</span>
+        </div>
+        <span style={{ fontSize: "9px", fontFamily: mono, color: textD }}>来源: {d.src}</span>
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "11px", fontFamily: mono }}>
+          <thead>
+            <tr>
+              <th style={{ textAlign: "left", padding: "4px 6px", color: textD, fontWeight: 500, fontSize: "9px", borderBottom: `1px solid ${border}` }}></th>
+              {Q_LABELS.map(q => (
+                <th key={q} style={{ textAlign: "right", padding: "4px 6px", color: q.startsWith("25") ? text : textD, fontWeight: q.startsWith("25") ? 700 : 500, fontSize: "9px", borderBottom: `1px solid ${border}` }}>{q}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: "5px 6px", color: textM, fontSize: "10px" }}>收入(亿$)</td>
+              {d.revenue.map((v, i) => <td key={i} style={{ textAlign: "right", padding: "5px 6px", color: text }}>{v}</td>)}
+            </tr>
+            <tr>
+              <td style={{ padding: "5px 6px", color: textM, fontSize: "10px" }}>收入同比</td>
+              {d.revGrowth.map((v, i) => <td key={i} style={{ textAlign: "right", padding: "5px 6px", color: v > 20 ? green : text }}>{v}%</td>)}
+            </tr>
+            <tr style={{ background: "rgba(220,38,38,0.03)" }}>
+              <td style={{ padding: "5px 6px", color: textM, fontSize: "10px" }}>资本开支(亿$)</td>
+              {d.capex.map((v, i) => <td key={i} style={{ textAlign: "right", padding: "5px 6px", color: text, fontWeight: 700 }}>{v}</td>)}
+            </tr>
+            <tr style={{ background: "rgba(220,38,38,0.03)" }}>
+              <td style={{ padding: "5px 6px", color: textM, fontSize: "10px" }}>开支同比</td>
+              {d.capexGrowth.map((v, i) => <td key={i} style={{ textAlign: "right", padding: "5px 6px", color: v > 80 ? red : v > 50 ? accent : text }}>{v}%</td>)}
+            </tr>
+            <tr>
+              <td style={{ padding: "5px 6px", color: accent, fontSize: "10px", fontWeight: 700 }}>开支强度</td>
+              {m.capexIntensity.map((v, i) => (
+                <td key={i} style={{ textAlign: "right", padding: "5px 6px" }}>
+                  <MiniBar value={v} max={45} color={d.color} warn={v > 30} />
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td style={{ padding: "5px 6px", color: red, fontSize: "10px", fontWeight: 700 }}>剪刀差</td>
+              {m.scissorsGap.map((v, i) => (
+                <td key={i} style={{ textAlign: "right", padding: "5px 6px", color: v > 50 ? red : v > 20 ? accent : green, fontWeight: 600 }}>
+                  {v > 0 ? "+" : ""}{v}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style={{ display: "flex", gap: "12px", marginTop: "12px", flexWrap: "wrap" }}>
+        <div style={{ background: "rgba(0,0,0,0.02)", borderRadius: "6px", padding: "8px 10px", flex: 1, minWidth: "120px" }}>
+          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>2025年开支强度</div>
+          <div style={{ fontSize: "16px", fontWeight: 800, color: m.capexIntensity2025 > 25 ? red : text }}>{m.capexIntensity2025}%</div>
+        </div>
+        <div style={{ background: "rgba(0,0,0,0.02)", borderRadius: "6px", padding: "8px 10px", flex: 1, minWidth: "120px" }}>
+          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>2026E开支强度</div>
+          <div style={{ fontSize: "16px", fontWeight: 800, color: m.capexIntensity2026E > 30 ? red : accent }}>{m.capexIntensity2026E}%</div>
+        </div>
+        <div style={{ background: "rgba(0,0,0,0.02)", borderRadius: "6px", padding: "8px 10px", flex: 1, minWidth: "120px" }}>
+          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>2026E指引</div>
+          <div style={{ fontSize: "16px", fontWeight: 800, color: text }}>${d.guide2026Capex}亿</div>
+        </div>
+        <div style={{ background: "rgba(0,0,0,0.02)", borderRadius: "6px", padding: "8px 10px", flex: 2, minWidth: "200px" }}>
+          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>AI收入线索</div>
+          <div style={{ fontSize: "11px", fontFamily: sans, color: textM, marginTop: "2px" }}>{d.aiNote}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ScissorsChart() {
+  const tickers = ["MSFT", "GOOGL", "AMZN", "META"];
+  const barW = 7;
+  const chartW = 680;
+  const chartH = 200;
+  const maxVal = 120;
+  const padL = 40;
+  const padB = 24;
+
+  return (
+    <div style={{ background: surface, borderRadius: "10px", padding: "16px", border: `1px solid ${border}`, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+      <div style={{ fontSize: "13px", fontWeight: 700, color: text, fontFamily: sans, marginBottom: "4px" }}>
+        收入增速 vs 资本开支增速：剪刀差全景
+      </div>
+      <div style={{ fontSize: "10px", color: textM, fontFamily: sans, marginBottom: "12px" }}>
+        红色柱=资本开支同比增速，蓝色柱=收入同比增速。差距越大，自由现金流压力越大。
+      </div>
+      <svg viewBox={`0 0 ${chartW} ${chartH + padB}`} width="100%" style={{ display: "block" }}>
+        {[0, 30, 60, 90, 120].map(v => {
+          const y = chartH - (v / maxVal) * chartH;
+          return (
+            <g key={v}>
+              <line x1={padL} y1={y} x2={chartW} y2={y} stroke="rgba(0,0,0,0.05)" />
+              <text x={padL - 4} y={y + 3} textAnchor="end" fontSize="8" fontFamily={mono} fill={textD}>{v}%</text>
+            </g>
+          );
+        })}
+        {Q_LABELS.map((q, qi) => {
+          const groupX = padL + 10 + qi * ((chartW - padL - 10) / 8);
+          return (
+            <g key={q}>
+              <text x={groupX + 28} y={chartH + 14} textAnchor="middle" fontSize="8" fontFamily={mono} fill={qi >= 4 ? text : textD} fontWeight={qi >= 4 ? 700 : 400}>{q}</text>
+              {tickers.map((tk, ti) => {
+                const d = RAW[tk];
+                const revH = (d.revGrowth[qi] / maxVal) * chartH;
+                const capH = (Math.min(d.capexGrowth[qi], maxVal) / maxVal) * chartH;
+                const x = groupX + ti * 14;
+                return (
+                  <g key={tk}>
+                    <rect x={x} y={chartH - capH} width={barW} height={capH} fill={red} opacity={0.35} rx={1} />
+                    <rect x={x} y={chartH - revH} width={barW} height={revH} fill={d.color} opacity={0.8} rx={1} />
+                  </g>
+                );
+              })}
+            </g>
+          );
+        })}
+      </svg>
+      <div style={{ display: "flex", gap: "16px", marginTop: "8px", justifyContent: "center" }}>
+        {tickers.map(tk => (
+          <span key={tk} style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "10px", fontFamily: mono, color: textM }}>
+            <span style={{ width: "8px", height: "8px", borderRadius: "2px", background: RAW[tk].color }} />
+            {RAW[tk].name}
+          </span>
+        ))}
+        <span style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "10px", fontFamily: mono, color: textM }}>
+          <span style={{ width: "8px", height: "8px", borderRadius: "2px", background: red, opacity: 0.35 }} />
+          资本开支增速(浅红)
+        </span>
+      </div>
+    </div>
+  );
+}
+
+const findings = [
+  { title: "Meta的开支强度最危险", detail: "资本开支占收入比从2024Q1的17.3%飙升至2025Q2-Q3的37%以上。2026E指引$1150-1350亿，开支强度预计维持35%+。唯一的对冲：AI广告平台年化收入已达$600亿，是四家中AI收入最可量化的。", risk: "高" },
+  { title: "Google的加速度最陡", detail: "开支强度从2024年的12-15%跳升至2025Q4的24.5%，一年翻倍。2026E指引$1750-1850亿(高端)将使开支强度逼近35%。好消息：Cloud AI增速33.5%仍在加速，自研TPU提供成本优势。", risk: "中高" },
+  { title: "Amazon相对'克制'但绝对金额最大", detail: "开支强度维持在7-11%，四家中最低——因为零售业务提供了巨大的收入分母。但2026E指引$2000亿是绝对金额之王。AWS是唯一一个AI收入完全不透明的。", risk: "中" },
+  { title: "Microsoft的节奏最稳但指引激进", detail: "开支强度在23-30%区间波动，无明显恶化趋势。但FY26指引$1400亿（+59%）将推高强度至30%+。Azure AI $250亿收入指引(高盛估)是关键验证锚点。", risk: "中" },
+  { title: "四家合计2026E指引：$6000-6500亿+", detail: "以四家2025年收入~$13,100亿推算，假设2026收入增速15%→收入~$15,000亿。$6000-6500亿开支 / $15,000亿收入 = 40-43%的合计开支强度。这个水平在科技行业史上前所未有。", risk: "系统性" },
+];
+
+function App() {
+  const [expanded, setExpanded] = useState("MSFT");
+
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.15); border-radius: 3px; }
+      `}</style>
+      <div style={{ background: bg, fontFamily: sans, color: text, minHeight: "100vh", padding: "16px", maxWidth: "960px", margin: "0 auto" }}>
+        <div style={{ marginBottom: "16px", marginTop: "20px" }}>
+          <h1 style={{ fontSize: "17px", fontWeight: 800, color: accent, margin: 0 }}>
+            四巨头AI资本开支深度拆解
+          </h1>
+          <div style={{ fontSize: "10px", color: textD, fontFamily: mono, marginTop: "4px" }}>
+            黑森船长 · 基于IMA研报数据 · 来源: JPM / UBS / Citi / BofA / Nomura / GS / I/O Fund · 单位: 亿美元
+          </div>
+          <div style={{ fontSize: "11px", color: textM, marginTop: "6px", lineHeight: 1.6 }}>
+            核心发现：四家合计2026年资本开支指引<strong style={{ color: red }}>$6000-6500亿</strong>，对应合计开支强度约<strong style={{ color: red }}>40-43%</strong>——科技行业史上前所未有。但增速趋势出现分化：Meta最激进，Amazon相对克制，Google加速最快。
+          </div>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}><ScissorsChart /></div>
+
+        <div style={{ display: "flex", gap: "6px", marginBottom: "12px" }}>
+          {Object.entries(RAW).map(([tk, d]) => (
+            <button key={tk} onClick={() => setExpanded(tk)} style={{
+              background: expanded === tk ? d.color : surface,
+              color: expanded === tk ? "#fff" : textM,
+              border: `1px solid ${expanded === tk ? d.color : border}`,
+              borderRadius: "6px", padding: "6px 14px", fontSize: "12px",
+              fontFamily: sans, fontWeight: 700, cursor: "pointer",
+            }}>{d.name}</button>
+          ))}
+        </div>
+        <div style={{ marginBottom: "16px" }}><CompanyTable ticker={expanded} /></div>
+
+        <div style={{ fontSize: "13px", fontWeight: 700, color: text, fontFamily: sans, marginBottom: "8px" }}>
+          关键发现
+        </div>
+        <div style={{ display: "grid", gap: "10px", marginBottom: "16px" }}>
+          {findings.map((f, i) => (
+            <div key={i} style={{
+              background: surface, borderRadius: "8px", padding: "14px",
+              border: `1px solid ${f.risk === "系统性" ? "rgba(220,38,38,0.2)" : border}`,
+              ...(f.risk === "系统性" && { boxShadow: "inset 0 0 20px rgba(220,38,38,0.04)" }),
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                <span style={{ fontSize: "13px", fontWeight: 700, fontFamily: sans, color: text }}>{f.title}</span>
+                <span style={{
+                  fontSize: "9px", fontFamily: mono, fontWeight: 700, padding: "2px 8px", borderRadius: "4px",
+                  color: f.risk === "高" || f.risk === "系统性" ? red : f.risk === "中高" ? accent : green,
+                  background: f.risk === "高" || f.risk === "系统性" ? "rgba(220,38,38,0.08)" : f.risk === "中高" ? "rgba(217,119,6,0.08)" : "rgba(22,163,74,0.08)",
+                }}>风险: {f.risk}</span>
+              </div>
+              <div style={{ fontSize: "11px", color: textM, lineHeight: 1.7, fontFamily: sans }}>{f.detail}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{
+          background: surface, borderRadius: "10px", padding: "16px",
+          border: "1px solid rgba(217,119,6,0.2)",
+        }}>
+          <div style={{ fontSize: "12px", fontWeight: 700, color: accent, fontFamily: sans, marginBottom: "8px" }}>数据缺口与下一步</div>
+          <div style={{ fontSize: "11px", color: textM, lineHeight: 1.8, fontFamily: sans }}>
+            <strong>已获取：</strong>季度收入、资本开支、增速（8个季度x4家）。2026年资本开支指引。Meta的AI广告收入年化数和单季度OCF/FCF。<br/>
+            <strong>仍缺失（按价值排序）：</strong><br/>
+            1. 季度OCF/FCF时间序列（除Meta 25Q3外全部缺失）——需要直接查SEC财报。自由现金流是判断"还能撑多久"的核心指标。<br/>
+            2. AI收入精确拆分——IMA确认这是行业公认难题，除Meta外无官方数据。高盛对Azure AI的$250亿估算是目前最有价值的锚。<br/>
+            3. 折旧政策变化——研报未覆盖。这是一个隐性的利润表美化器，需查各家10-K/10-Q附注。<br/>
+            4. 云利用率——无数据。摩根士丹利或高盛的基础设施团队可能有，但不在IMA当前库中。<br/>
+            <strong style={{ color: text }}>结论：现有数据足以做"开支强度+剪刀差"分析（已完成）。FCF序列是升级分析的最高优先级缺口。</strong>
+          </div>
+        </div>
+
+        <div style={{ fontSize: "9px", color: textD, fontFamily: mono, marginTop: "12px", textAlign: "center" }}>
+          黑森船长 © 2026 · 数据均为卖方研报估算值，非投资建议 · 开支强度 = 资本开支 / 收入 · 剪刀差 = 资本开支增速 - 收入增速
+        </div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

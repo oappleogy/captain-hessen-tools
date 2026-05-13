@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI资本开支·时间轴碰撞分析 | 黑森船长</title>
+</head>
+<body>
+  <a href="ai-capex-hub.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08)">← 返回专栏</a>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState, useRef, useEffect } = React;
+
+const YEARS = [2025, 2026, 2027, 2028, 2029, 2030];
+const LANES = [
+  { id: "supply", label: "供需", color: "#2563EB" },
+  { id: "chip", label: "芯片", color: "#7C3AED" },
+  { id: "capex", label: "资本开支", color: "#D97706" },
+  { id: "energy", label: "能源", color: "#059669" },
+  { id: "policy", label: "政策", color: "#DC2626" },
+];
+
+const EVENTS = [
+  { year: 2025, q: 0.25, lane: "supply", text: "空置率1.6%\n历史最低", size: 14, severity: "hot" },
+  { year: 2025, q: 0.5, lane: "supply", text: "在建74%\n已预租", size: 12, severity: "hot" },
+  { year: 2025, q: 0.7, lane: "policy", text: "各州DC\n电价立法", size: 10, severity: "warn" },
+  { year: 2026, q: 0.2, lane: "supply", text: "充足率94%\n峰值紧缺", size: 15, severity: "hot" },
+  { year: 2026, q: 0.3, lane: "chip", text: "推理首超训练\n55:45", size: 14, severity: "shift" },
+  { year: 2026, q: 0.2, lane: "policy", text: "白宫承诺\n自发电", size: 11, severity: "warn" },
+  { year: 2026, q: 0.6, lane: "capex", text: "四巨头合计\n$6500亿", size: 14, severity: "warn" },
+  { year: 2026, q: 0.7, lane: "energy", text: "GEV产能\n扩至20GW", size: 10, severity: "ok" },
+  { year: 2027, q: 0.3, lane: "supply", text: "SemiAnalysis:\n供给>需求", size: 16, severity: "danger" },
+  { year: 2027, q: 0.3, lane: "chip", text: "推理主导\n70:30", size: 13, severity: "shift" },
+  { year: 2027, q: 0.25, lane: "capex", text: "FCF\n极限承压", size: 13, severity: "danger" },
+  { year: 2027, q: 0.7, lane: "energy", text: "Meta核电\n2321MW上线", size: 12, severity: "ok" },
+  { year: 2028, q: 0.3, lane: "chip", text: "训练见顶\n$2200亿", size: 16, severity: "danger" },
+  { year: 2028, q: 0.5, lane: "chip", text: "ASIC占\n出货75%", size: 12, severity: "shift" },
+  { year: 2028, q: 0.3, lane: "energy", text: "MSFT核电\n835MW上线", size: 10, severity: "ok" },
+  { year: 2028, q: 0.6, lane: "supply", text: "训练集群\n利用率风险", size: 13, severity: "danger" },
+  { year: 2029, q: 0.3, lane: "chip", text: "训练萎缩\n$1800亿↓", size: 14, severity: "danger" },
+  { year: 2029, q: 0.3, lane: "energy", text: "Google核电\n615MW上线", size: 10, severity: "ok" },
+  { year: 2030, q: 0.3, lane: "chip", text: "推理$4800亿\n训练$1200亿", size: 15, severity: "shift" },
+  { year: 2030, q: 0.5, lane: "supply", text: "充足率87%\n缓慢缓解", size: 10, severity: "ok" },
+  { year: 2030, q: 0.3, lane: "energy", text: "38%DC\n自发电", size: 10, severity: "ok" },
+];
+
+const COLLISIONS = [
+  { from: [2027, "supply"], to: [2027, "capex"], label: "供需翻转+FCF枯竭" },
+  { from: [2028, "chip"], to: [2028, "supply"], label: "训练见顶→集群闲置" },
+  { from: [2026, "capex"], to: [2027, "capex"], label: "开支惯性难刹车" },
+];
+
+const TRAIN_INF = [
+  { year: 2024, train: 750, infer: 500 },
+  { year: 2025, train: 1200, infer: 900 },
+  { year: 2026, train: 1700, infer: 1500 },
+  { year: 2027, train: 2000, infer: 2200 },
+  { year: 2028, train: 2200, infer: 2800 },
+  { year: 2029, train: 1800, infer: 3800 },
+  { year: 2030, train: 1200, infer: 4800 },
+];
+
+const MATRIX = [
+  { phase: "现在→2026", color: "#16A34A", action: "做多", theme: "紧缺交易",
+    tickers: "GEV · CEG · BE · DLR",
+    one: "空置率1.6%，GEV积压3.6x，PJM容量价9倍。供不应求是硬现实。",
+    exit: "2026年底前开始减仓" },
+  { phase: "现在→2026", color: "#16A34A", action: "做多", theme: "ROI已验证",
+    tickers: "META · MSFT · NOW",
+    one: "Meta AI广告$600亿年化，唯一可量化。有数据的在ROI拷问中获溢价。",
+    exit: "AI收入连续2Q环比放缓" },
+  { phase: "2027", color: "#D97706", action: "做空", theme: "供需拐点",
+    tickers: "CoreWeave · ORCL",
+    one: "SemiAnalysis: 规划供给>需求。高杠杆、无长约、客户集中的先倒。",
+    exit: "Agent部署超预期则平仓" },
+  { phase: "2027-28", color: "#7C3AED", action: "做多", theme: "推理基础设施",
+    tickers: "AMD · AVGO · NET · AKAM",
+    one: "推理70%主导+ASIC出货75%。分布式推理→CDN/边缘层受益。",
+    exit: "NVIDIA推理产品大幅降价" },
+  { phase: "2028+", color: "#DC2626", action: "减仓", theme: "训练下行",
+    tickers: "审视NVDA训练依赖度",
+    one: "大摩: 训练$2200亿见顶→2030年$1200亿(-45%)。",
+    exit: "NVIDIA推理收入占比超50%" },
+  { phase: "2028+", color: "#DC2626", action: "警惕", theme: "期限错配",
+    tickers: "重资产DC + 20年能源合约",
+    one: "偏远训练集群+20年核电PPA，上线时训练需求可能已转移。",
+    exit: "推理边缘化速度" },
+];
+
+const sn = "'DM Sans', sans-serif";
+const mn = "'JetBrains Mono', monospace";
+const SEV = {
+  hot: "#2563EB", shift: "#7C3AED", warn: "#D97706",
+  danger: "#DC2626", ok: "#64748B",
+};
+
+function TimelineChart() {
+  const W = 900, H = 520;
+  const padL = 70, padR = 30, padT = 30, padB = 40;
+  const chartW = W - padL - padR;
+  const laneH = (H - padT - padB) / LANES.length;
+
+  const xScale = (year, q = 0.5) => padL + ((year - 2025 + q) / 5) * chartW;
+  const yScale = (laneIdx) => padT + laneIdx * laneH + laneH / 2;
+
+  const dangerX1 = xScale(2027, 0);
+  const dangerX2 = xScale(2028, 1);
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ display: "block" }}>
+      <defs>
+        <linearGradient id="dangerZone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#DC2626" stopOpacity="0.06" />
+          <stop offset="50%" stopColor="#DC2626" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#DC2626" stopOpacity="0.06" />
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+      </defs>
+      <rect x={dangerX1} y={padT - 10} width={dangerX2 - dangerX1} height={H - padT - padB + 20}
+        fill="url(#dangerZone)" rx="8" />
+      <text x={(dangerX1 + dangerX2) / 2} y={padT - 2} textAnchor="middle"
+        fontSize="9" fontFamily={mn} fill="#DC2626" fontWeight="700" opacity="0.7">
+        ⚠ 风险碰撞窗口
+      </text>
+      {YEARS.map(yr => {
+        const x = xScale(yr, 0);
+        return (
+          <g key={yr}>
+            <line x1={x} y1={padT} x2={x} y2={H - padB} stroke="rgba(0,0,0,0.06)" strokeDasharray="4,4" />
+            <text x={x} y={H - padB + 16} textAnchor="middle" fontSize="13" fontFamily={sn}
+              fontWeight={yr === 2027 || yr === 2028 ? 800 : 600}
+              fill={yr === 2027 || yr === 2028 ? "#DC2626" : "#0F172A"}>
+              {yr}
+            </text>
+          </g>
+        );
+      })}
+      {LANES.map((lane, li) => {
+        const y = yScale(li);
+        return (
+          <g key={lane.id}>
+            <line x1={padL} y1={y} x2={W - padR} y2={y} stroke={lane.color} strokeWidth="1" opacity="0.12" />
+            <text x={padL - 8} y={y + 4} textAnchor="end" fontSize="10" fontFamily={mn}
+              fill={lane.color} fontWeight="700">{lane.label}</text>
+          </g>
+        );
+      })}
+      {COLLISIONS.map((c, i) => {
+        const fromLane = LANES.findIndex(l => l.id === c.from[1]);
+        const toLane = LANES.findIndex(l => l.id === c.to[1]);
+        const fromEvt = EVENTS.find(e => e.year === c.from[0] && e.lane === c.from[1]);
+        const toEvt = EVENTS.find(e => e.year === c.to[0] && e.lane === c.to[1]);
+        if (!fromEvt || !toEvt) return null;
+        const x1 = xScale(fromEvt.year, fromEvt.q);
+        const y1 = yScale(fromLane);
+        const x2 = xScale(toEvt.year, toEvt.q);
+        const y2 = yScale(toLane);
+        return (
+          <g key={i}>
+            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#DC2626" strokeWidth="1.5"
+              strokeDasharray="3,3" opacity="0.4" />
+            <text x={(x1 + x2) / 2 + 6} y={(y1 + y2) / 2 - 5} fontSize="8" fontFamily={mn}
+              fill="#DC2626" fontWeight="600" opacity="0.7">{c.label}</text>
+          </g>
+        );
+      })}
+      {EVENTS.map((evt, i) => {
+        const laneIdx = LANES.findIndex(l => l.id === evt.lane);
+        const x = xScale(evt.year, evt.q);
+        const y = yScale(laneIdx);
+        const color = SEV[evt.severity];
+        const isDanger = evt.severity === "danger";
+        const r = isDanger ? 8 : evt.severity === "shift" ? 7 : 5;
+        const lines = evt.text.split("\n");
+        return (
+          <g key={i}>
+            {isDanger && <circle cx={x} cy={y} r={r + 6} fill="none" stroke={color} strokeWidth="1" opacity="0.3">
+              <animate attributeName="r" from={r + 3} to={r + 14} dur="2s" repeatCount="indefinite" />
+              <animate attributeName="opacity" from="0.4" to="0" dur="2s" repeatCount="indefinite" />
+            </circle>}
+            <circle cx={x} cy={y} r={r} fill={color} opacity={isDanger ? 0.9 : 0.6}
+              filter={isDanger ? "url(#glow)" : undefined} />
+            {lines.map((line, li) => (
+              <text key={li} x={x} y={y + r + 10 + li * 11}
+                textAnchor="middle"
+                fontSize={isDanger ? "9" : "8"} fontFamily={mn}
+                fill={isDanger ? color : "#475569"} fontWeight={isDanger ? "700" : "500"}>
+                {line}
+              </text>
+            ))}
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function AreaChart() {
+  const W = 900, H = 280;
+  const padL = 60, padR = 30, padT = 30, padB = 40;
+  const maxVal = 5200;
+
+  const xScale = (year) => padL + ((year - 2024) / 6) * (W - padL - padR);
+  const yScale = (val) => padT + (1 - val / maxVal) * (H - padT - padB);
+
+  const trainPath = TRAIN_INF.map((d, i) => `${i === 0 ? "M" : "L"}${xScale(d.year)},${yScale(d.train)}`).join(" ");
+  const inferPath = TRAIN_INF.map((d, i) => `${i === 0 ? "M" : "L"}${xScale(d.year)},${yScale(d.infer)}`).join(" ");
+  const trainArea = trainPath + ` L${xScale(2030)},${yScale(0)} L${xScale(2024)},${yScale(0)} Z`;
+  const inferArea = inferPath + ` L${xScale(2030)},${yScale(0)} L${xScale(2024)},${yScale(0)} Z`;
+  const crossX = xScale(2027);
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ display: "block" }}>
+      <defs>
+        <linearGradient id="trainGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#DC2626" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#DC2626" stopOpacity="0.05" />
+        </linearGradient>
+        <linearGradient id="inferGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#16A34A" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#16A34A" stopOpacity="0.05" />
+        </linearGradient>
+      </defs>
+      {[0, 1000, 2000, 3000, 4000, 5000].map(v => (
+        <g key={v}>
+          <line x1={padL} y1={yScale(v)} x2={W - padR} y2={yScale(v)} stroke="rgba(0,0,0,0.06)" />
+          <text x={padL - 8} y={yScale(v) + 3} textAnchor="end" fontSize="9" fontFamily={mn} fill="#94A3B8">
+            ${v === 0 ? "0" : (v / 10) + "0亿"}
+          </text>
+        </g>
+      ))}
+      {TRAIN_INF.map(d => (
+        <text key={d.year} x={xScale(d.year)} y={H - padB + 18} textAnchor="middle"
+          fontSize="11" fontFamily={sn} fontWeight={d.year === 2027 || d.year === 2028 ? 800 : 500}
+          fill={d.year === 2028 ? "#DC2626" : "#0F172A"}>
+          {d.year}
+        </text>
+      ))}
+      <path d={inferArea} fill="url(#inferGrad)" />
+      <path d={trainArea} fill="url(#trainGrad)" />
+      <path d={trainPath} fill="none" stroke="#DC2626" strokeWidth="2.5" />
+      <path d={inferPath} fill="none" stroke="#16A34A" strokeWidth="2.5" />
+      <line x1={crossX} y1={padT} x2={crossX} y2={H - padB} stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="6,4" opacity="0.5" />
+      <text x={crossX + 4} y={padT + 12} fontSize="9" fontFamily={mn} fill="#7C3AED" fontWeight="700">2027 交叉</text>
+      <circle cx={xScale(2028)} cy={yScale(2200)} r="5" fill="#DC2626" />
+      <text x={xScale(2028) + 8} y={yScale(2200) - 6} fontSize="9" fontFamily={mn} fill="#DC2626" fontWeight="700">训练见顶 $2200亿</text>
+      <text x={xScale(2028) + 8} y={yScale(2200) + 6} fontSize="8" fontFamily={mn} fill="#DC2626" opacity="0.7">→ 2030年降至$1200亿(-45%)</text>
+      <text x={xScale(2030) + 4} y={yScale(4800) + 4} fontSize="9" fontFamily={mn} fill="#16A34A" fontWeight="700">推理 $4800亿</text>
+      <text x={xScale(2030) + 4} y={yScale(1200) + 4} fontSize="9" fontFamily={mn} fill="#DC2626" fontWeight="700">训练 $1200亿</text>
+      {TRAIN_INF.map(d => (
+        <g key={d.year}>
+          <circle cx={xScale(d.year)} cy={yScale(d.train)} r="3.5" fill="#DC2626" />
+          <circle cx={xScale(d.year)} cy={yScale(d.infer)} r="3.5" fill="#16A34A" />
+        </g>
+      ))}
+      <rect x={padL + 10} y={padT + 4} width="8" height="8" fill="#DC2626" rx="2" opacity="0.7" />
+      <text x={padL + 22} y={padT + 12} fontSize="10" fontFamily={sn} fill="#DC2626" fontWeight="600">训练</text>
+      <rect x={padL + 56} y={padT + 4} width="8" height="8" fill="#16A34A" rx="2" opacity="0.7" />
+      <text x={padL + 68} y={padT + 12} fontSize="10" fontFamily={sn} fill="#16A34A" fontWeight="600">推理</text>
+      <text x={padL + 104} y={padT + 12} fontSize="9" fontFamily={mn} fill="#94A3B8">亿美元 · Morgan Stanley</text>
+    </svg>
+  );
+}
+
+function MatrixCards() {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
+      {MATRIX.map((m, i) => (
+        <div key={i} style={{
+          background: "#fff", borderRadius: "10px", padding: "14px",
+          border: "1px solid rgba(59,130,246,0.1)",
+          borderTop: `3px solid ${m.color}`,
+          boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+            <span style={{
+              fontSize: "9px", fontFamily: mn, fontWeight: 700, color: m.color,
+              background: `${m.color}15`, padding: "2px 8px", borderRadius: "4px",
+            }}>{m.phase}</span>
+            <span style={{
+              fontSize: "9px", fontFamily: mn, fontWeight: 700,
+              color: m.action.includes("多") ? "#16A34A" : "#DC2626",
+            }}>{m.action}</span>
+          </div>
+          <div style={{ fontSize: "13px", fontWeight: 800, color: "#0F172A", fontFamily: sn, marginBottom: "6px" }}>
+            {m.theme}
+          </div>
+          <div style={{ fontSize: "11px", fontFamily: mn, color: "#D97706", fontWeight: 600, marginBottom: "8px" }}>
+            {m.tickers}
+          </div>
+          <div style={{ fontSize: "11px", color: "#475569", lineHeight: 1.6, fontFamily: sn, marginBottom: "6px" }}>
+            {m.one}
+          </div>
+          <div style={{ fontSize: "10px", color: "#2563EB", fontFamily: mn }}>
+            退出: {m.exit}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.15); border-radius: 3px; }
+      `}</style>
+      <div style={{
+        background: "#EFF6FF", fontFamily: sn, color: "#0F172A",
+        minHeight: "100vh", padding: "20px", maxWidth: "960px", margin: "0 auto",
+      }}>
+        <div style={{ marginBottom: "24px" }}>
+          <h1 style={{ fontSize: "22px", fontWeight: 800, color: "#D97706", margin: 0, letterSpacing: "-0.5px" }}>
+            AI资本开支周期：时间轴碰撞分析
+          </h1>
+          <div style={{ fontSize: "10px", fontFamily: mn, color: "#94A3B8", marginTop: "4px" }}>
+            黑森船长 · 基于IMA研报(JPM/UBS/Citi/BofA/Nomura/GS/Bernstein/SemiAnalysis) + 公开数据 · 2026.4
+          </div>
+          <div style={{ fontSize: "12px", color: "#475569", marginTop: "8px", lineHeight: 1.7 }}>
+            核心发现：短期紧缺是真实的，但2027-2028年五条线同时碰撞——供需翻转、训练见顶、FCF枯竭、ASIC替代、能源合约期限错配。<strong style={{ color: "#DC2626" }}>这是风险集中释放的窗口。</strong>
+          </div>
+        </div>
+
+        <div style={{
+          background: "#fff", borderRadius: "12px", padding: "16px",
+          border: "1px solid rgba(59,130,246,0.1)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+          marginBottom: "20px",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "8px" }}>
+            <h2 style={{ fontSize: "14px", fontWeight: 800, margin: 0 }}>五线碰撞：2025-2030</h2>
+            <span style={{ fontSize: "9px", fontFamily: mn, color: "#94A3B8" }}>红色脉冲=高危事件 · 紫色=结构性切换 · 虚线=事件关联</span>
+          </div>
+          <TimelineChart />
+          <div style={{
+            marginTop: "12px", padding: "12px", borderRadius: "8px",
+            background: "rgba(220,38,38,0.04)", border: "1px solid rgba(220,38,38,0.1)",
+            fontSize: "11px", color: "#475569", lineHeight: 1.7,
+          }}>
+            <strong style={{ color: "#DC2626" }}>碰撞核心：</strong>
+            2027年SemiAnalysis预测供给超过需求，同期四巨头FCF承压至极限（开支强度40%+）。2028年训练市场见顶后萎缩，但为训练建设的偏远集群+20年核电PPA刚好在这个时间窗口上线——需求已转移到分布式推理，供给锁定在错误的位置。
+          </div>
+        </div>
+
+        <div style={{
+          background: "#fff", borderRadius: "12px", padding: "16px",
+          border: "1px solid rgba(59,130,246,0.1)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+          marginBottom: "20px",
+        }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "8px" }}>
+            <h2 style={{ fontSize: "14px", fontWeight: 800, margin: 0 }}>训练 vs 推理芯片市场（亿美元）</h2>
+            <span style={{ fontSize: "9px", fontFamily: mn, color: "#94A3B8" }}>来源: Morgan Stanley · 推理芯片CAGR 68%(2023-2030)</span>
+          </div>
+          <AreaChart />
+          <div style={{
+            display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px", marginTop: "12px",
+          }}>
+            {[
+              ["2027", "推理超越训练", "推理$2200亿 > 训练$2000亿。结构性翻转。", "#7C3AED"],
+              ["2028", "训练见顶", "训练$2200亿达峰后掉头。NVIDIA训练GPU需求拐点。", "#DC2626"],
+              ["2030", "4倍差距", "推理$4800亿 vs 训练$1200亿。完全不同的市场结构。", "#16A34A"],
+            ].map(([yr, title, desc, color], i) => (
+              <div key={i} style={{ padding: "10px", borderRadius: "8px", background: `${color}08`, border: `1px solid ${color}20` }}>
+                <div style={{ fontSize: "9px", fontFamily: mn, color, fontWeight: 700 }}>{yr}</div>
+                <div style={{ fontSize: "12px", fontWeight: 700, color: "#0F172A", margin: "2px 0" }}>{title}</div>
+                <div style={{ fontSize: "10px", color: "#475569", lineHeight: 1.5 }}>{desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "10px",
+          marginBottom: "20px",
+        }}>
+          {[
+            ["1.6%", "空置率", "历史最低", "#DC2626"],
+            ["9.3x", "PJM容量价", "跳涨倍数", "#DC2626"],
+            ["3.6x", "GEV出货比", "供不应求", "#D97706"],
+            ["40-43%", "2026E开支强度", "四巨头合计", "#D97706"],
+            ["75%", "ASIC占比", "2028E出货", "#7C3AED"],
+          ].map(([val, label, sub, color], i) => (
+            <div key={i} style={{
+              background: "#fff", borderRadius: "10px", padding: "12px", textAlign: "center",
+              border: "1px solid rgba(59,130,246,0.1)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+            }}>
+              <div style={{ fontSize: "22px", fontWeight: 800, color, fontFamily: sn }}>{val}</div>
+              <div style={{ fontSize: "10px", fontFamily: mn, color: "#0F172A", fontWeight: 600 }}>{label}</div>
+              <div style={{ fontSize: "9px", fontFamily: mn, color: "#94A3B8" }}>{sub}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ marginBottom: "20px" }}>
+          <h2 style={{ fontSize: "14px", fontWeight: 800, marginBottom: "10px" }}>
+            投资矩阵：短期做紧缺，中期做分化，长期避训练
+          </h2>
+          <MatrixCards />
+        </div>
+
+        <div style={{
+          background: "#fff", borderRadius: "12px", padding: "16px",
+          border: "1px solid rgba(22,163,74,0.15)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+          marginBottom: "16px",
+        }}>
+          <div style={{ fontSize: "11px", fontFamily: mn, color: "#16A34A", fontWeight: 700, marginBottom: "8px" }}>终版判断</div>
+          <div style={{ fontSize: "12px", color: "#0F172A", lineHeight: 2 }}>
+            这轮AI资本开支周期的终结方式不是"电太贵"或"钱花完了"——而是<strong>推理成本暴降导致训练投入的边际价值归零</strong>。万亿级训练集群是这个时代的"海底光纤"——必要的基础设施，但建设者回报率远低于预期。<br />
+            真正的赢家不在供给侧，而在<strong>需求侧的卡位者</strong>——分发渠道(MSFT Copilot)、数据飞轮(META广告AI)、工作流锁定(NOW)。最大的alpha不在判断"开支天花板在哪"，而在判断<strong>"市场在price in哪个阶段"</strong>。当前仍是阶段一共识，阶段二分化的认知切换窗口=交易机会。
+          </div>
+        </div>
+
+        <div style={{ textAlign: "center", fontSize: "9px", fontFamily: mn, color: "#94A3B8", padding: "8px 0" }}>
+          黑森船长 © 2026 · IMA研报数据 + IEA/白宫/PJM公开数据 · 投资矩阵为分析观点，非投资建议
+        </div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Capex融资压力测试 | 黑森船长</title>
+</head>
+<body>
+  <a href="ai-capex-hub.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08)">← 返回专栏</a>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+const mono = "'JetBrains Mono', monospace";
+const sans = "'Noto Sans SC', 'DM Sans', sans-serif";
+
+const COMPANIES = [
+  {
+    name: "Microsoft", ticker: "MSFT", color: "#0078D4", creditRating: "AAA", ratingScore: 10,
+    revenue: 281.7, netIncome: 101.8, operatingCashFlow: 136, freeCashFlow: 71.6,
+    cashHoard: 95, totalDebt: 72, capex2025: 94, capex2026E: 148,
+    bondIssuance: "未直接大规模发债，主要通过SPV",
+    bonds: [{ label: "AIP SPV (BlackRock)", amount: 100, rate: "基金层面233%杠杆", maturity: "项目级", type: "SPV" }],
+    spvAmount: 100, equityIssuance: 0, buybackCut: "小幅削减，FY25回购约$36B",
+    fundingSources: { cashFlow: 55, cash: 15, debt: 5, spv: 20, equity: 0, buybackRedirect: 5 },
+    keyRisk: "OpenAI关联风险($300B承诺)，SPV隐性杠杆",
+    debtToOCF: 0.53, capexToOCF2026: 1.09, fcfAfterCapex2026: -12,
+  },
+  {
+    name: "Amazon", ticker: "AMZN", color: "#FF9900", creditRating: "AA-", ratingScore: 8,
+    revenue: 716.9, netIncome: 77.7, operatingCashFlow: 139, freeCashFlow: 7.7,
+    cashHoard: 126, totalDebt: 167, capex2025: 131, capex2026E: 200,
+    bondIssuance: "2025年11月发行$15B",
+    bonds: [
+      { label: "3yr Notes 2028", amount: 2.5, rate: "3.90%", maturity: "2028", type: "公募债" },
+      { label: "5yr Notes 2030", amount: 2.5, rate: "4.10%", maturity: "2030", type: "公募债" },
+      { label: "10yr Notes 2035", amount: 3.5, rate: "4.65%", maturity: "2035", type: "公募债" },
+      { label: "30yr Notes 2055", amount: 3.0, rate: "5.45%", maturity: "2055", type: "公募债" },
+      { label: "40yr Notes 2065", amount: 2.0, rate: "5.55%", maturity: "2065", type: "公募债" },
+    ],
+    spvAmount: 0, equityIssuance: 0, buybackCut: "2022Q2起已完全停止回购",
+    fundingSources: { cashFlow: 50, cash: 15, debt: 25, spv: 0, equity: 0, buybackRedirect: 10 },
+    keyRisk: "FCF已近零，2026年FCF预计为负$17-28B",
+    debtToOCF: 1.20, capexToOCF2026: 1.44, fcfAfterCapex2026: -28,
+  },
+  {
+    name: "Alphabet", ticker: "GOOGL", color: "#4285F4", creditRating: "AA+", ratingScore: 9,
+    revenue: 405, netIncome: 100.1, operatingCashFlow: 165, freeCashFlow: 73.3,
+    cashHoard: 127, totalDebt: 46.5, capex2025: 85, capex2026E: 180,
+    bondIssuance: "2025年11月$17.5B + 2026年2月$32B",
+    bonds: [
+      { label: "多期限USD (2025.11)", amount: 17.5, rate: "~4.3-5.25%", maturity: "5-50yr", type: "公募债" },
+      { label: "多期限USD+GBP+CHF (2026.2)", amount: 32, rate: "T+95bp(40yr)", maturity: "5-100yr", type: "公募债" },
+    ],
+    spvAmount: 0, equityIssuance: 0, buybackCut: "H2 2025回购降至$17B (vs $30B prior)",
+    fundingSources: { cashFlow: 50, cash: 10, debt: 20, spv: 0, equity: 0, buybackRedirect: 20 },
+    keyRisk: "长期债(100年期首发)久期风险，FCF预计暴跌90%至$8.2B",
+    debtToOCF: 0.28, capexToOCF2026: 1.09, fcfAfterCapex2026: 8.2,
+  },
+  {
+    name: "Meta", ticker: "META", color: "#0668E1", creditRating: "AA-", ratingScore: 8,
+    revenue: 201, netIncome: 60.5, operatingCashFlow: 115, freeCashFlow: 43,
+    cashHoard: 82, totalDebt: 85, capex2025: 72, capex2026E: 135,
+    bondIssuance: "$30B公募 + $27B表外SPV",
+    bonds: [
+      { label: "5yr Notes 2030", amount: 4.0, rate: "4.20%", maturity: "2030", type: "公募债" },
+      { label: "10yr Notes 2035", amount: 6.5, rate: "4.875%", maturity: "2035", type: "公募债" },
+      { label: "30yr Notes 2055", amount: 6.5, rate: "5.625%", maturity: "2055", type: "公募债" },
+      { label: "40yr Notes 2065", amount: 4.5, rate: "5.75%", maturity: "2065", type: "公募债" },
+      { label: "Beignet SPV (路易斯安那)", amount: 27, rate: "私募利率", maturity: "项目级", type: "SPV表外" },
+    ],
+    spvAmount: 27, equityIssuance: 0, buybackCut: "H2 2025回购降至$3.3B (vs $8.8B prior)",
+    fundingSources: { cashFlow: 45, cash: 10, debt: 25, spv: 15, equity: 0, buybackRedirect: 5 },
+    keyRisk: "表外SPV隐性担保=实质债务，总实际负债>$112B",
+    debtToOCF: 0.74, capexToOCF2026: 1.17, fcfAfterCapex2026: -5,
+  },
+  {
+    name: "Oracle", ticker: "ORCL", color: "#C74634", creditRating: "BBB", ratingScore: 5,
+    revenue: 57.4, netIncome: 12.4, operatingCashFlow: 20, freeCashFlow: -5,
+    cashHoard: 16, totalDebt: 131, capex2025: 25, capex2026E: 42,
+    bondIssuance: "$18B(2025.9) + $25B(2026.2) + SPV",
+    bonds: [
+      { label: "固定 2029", amount: 3.0, rate: "4.55%", maturity: "2029", type: "公募债" },
+      { label: "固定 2036", amount: 5.0, rate: "5.70%", maturity: "2036", type: "公募债" },
+      { label: "固定 2056", amount: 5.0, rate: "6.70%", maturity: "2056", type: "公募债" },
+      { label: "固定 2066", amount: 2.75, rate: "6.85%", maturity: "2066", type: "公募债" },
+      { label: "OpenAI合作SPV", amount: 38, rate: "项目融资", maturity: "项目级", type: "SPV表外" },
+    ],
+    spvAmount: 38, equityIssuance: 20, buybackCut: "已转为净增发股票，2025增发$2.1B + ATM $20B",
+    fundingSources: { cashFlow: 15, cash: 5, debt: 40, spv: 25, equity: 15, buybackRedirect: 0 },
+    keyRisk: "BBB评级距垃圾债仅2级，FCF已为负，股价暴跌58%",
+    debtToOCF: 6.55, capexToOCF2026: 2.10, fcfAfterCapex2026: -22,
+  },
+];
+
+const STRESS_SCENARIOS = [
+  { id: "base", name: "基准情景", description: "AI需求持续增长，收入增速15-25%，信用市场正常", revenueShock: 0, rateShock: 0, spreadShock: 0 },
+  { id: "mild", name: "温和压力", description: "AI变现延迟，收入增速放缓至5-10%，利差扩大50bp", revenueShock: -10, rateShock: 0.5, spreadShock: 0.5 },
+  { id: "moderate", name: "中度压力", description: "经济衰退+AI泡沫质疑，收入增速0%，利差扩大150bp", revenueShock: -20, rateShock: 1.0, spreadShock: 1.5 },
+  { id: "severe", name: "严重压力 (类2000)", description: "AI泡沫破裂，收入负增长，信用冻结，股市暴跌50%+", revenueShock: -35, rateShock: 2.0, spreadShock: 3.0 },
+];
+
+function RiskGauge({ value, max, label, color, unit = "x" }) {
+  const pct = Math.min(Math.abs(value) / max * 100, 100);
+  const danger = value > max * 0.7;
+  const warning = value > max * 0.5;
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#64748b", marginBottom: 3 }}>
+        <span>{label}</span>
+        <span style={{ color: danger ? "#dc2626" : warning ? "#d97706" : "#16a34a", fontWeight: 700 }}>
+          {typeof value === "number" ? (value >= 0 ? value.toFixed(2) : value.toFixed(1)) : value}{unit}
+        </span>
+      </div>
+      <div style={{ height: 6, background: "rgba(0,0,0,0.06)", borderRadius: 3, overflow: "hidden" }}>
+        <div style={{
+          width: `${pct}%`, height: "100%", borderRadius: 3,
+          background: danger ? "#dc2626" : warning ? "#d97706" : color,
+          transition: "width 0.6s ease", opacity: 0.7,
+        }} />
+      </div>
+    </div>
+  );
+}
+
+function FundingPie({ sources }) {
+  const items = [
+    { key: "cashFlow", label: "经营现金流", c: "#16a34a" },
+    { key: "cash", label: "现金储备", c: "#2563eb" },
+    { key: "debt", label: "发债", c: "#d97706" },
+    { key: "spv", label: "表外SPV", c: "#dc2626" },
+    { key: "equity", label: "增发股票", c: "#7c3aed" },
+    { key: "buybackRedirect", label: "回购削减", c: "#059669" },
+  ].filter(i => sources[i.key] > 0);
+  let cumAngle = 0;
+  const paths = items.map((item, idx) => {
+    const angle = (sources[item.key] / 100) * 360;
+    const startAngle = cumAngle; cumAngle += angle; const endAngle = cumAngle;
+    const startRad = (startAngle - 90) * Math.PI / 180;
+    const endRad = (endAngle - 90) * Math.PI / 180;
+    const largeArc = angle > 180 ? 1 : 0;
+    const x1 = 50 + 40 * Math.cos(startRad), y1 = 50 + 40 * Math.sin(startRad);
+    const x2 = 50 + 40 * Math.cos(endRad), y2 = 50 + 40 * Math.sin(endRad);
+    return <path key={idx} d={`M50,50 L${x1},${y1} A40,40 0 ${largeArc},1 ${x2},${y2} Z`} fill={item.c} opacity={0.7} />;
+  });
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 6 }}>
+      <svg viewBox="0 0 100 100" width="64" height="64">{paths}</svg>
+      <div style={{ fontSize: 10, lineHeight: 1.6 }}>
+        {items.map((item, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: item.c, display: "inline-block", flexShrink: 0 }} />
+            <span style={{ color: "#64748b" }}>{item.label} {sources[item.key]}%</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BondTable({ bonds }) {
+  if (!bonds || bonds.length === 0) return null;
+  return (
+    <div style={{ overflowX: "auto", marginTop: 8 }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10 }}>
+        <thead>
+          <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
+            {["品种","金额($B)","利率","到期","类型"].map(h => (
+              <th key={h} style={{ textAlign: h === "品种" ? "left" : "right", padding: "4px 6px", color: "#94a3b8", fontWeight: 500 }}>{h}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {bonds.map((b, i) => (
+            <tr key={i} style={{ borderBottom: "1px solid rgba(0,0,0,0.04)" }}>
+              <td style={{ padding: "4px 6px", color: "#334155" }}>{b.label}</td>
+              <td style={{ padding: "4px 6px", color: "#0f172a", textAlign: "right", fontFamily: mono }}>{b.amount}</td>
+              <td style={{ padding: "4px 6px", color: b.type.includes("SPV") ? "#dc2626" : "#d97706", textAlign: "right", fontFamily: mono }}>{b.rate}</td>
+              <td style={{ padding: "4px 6px", color: "#94a3b8", textAlign: "right" }}>{b.maturity}</td>
+              <td style={{ padding: "4px 6px", textAlign: "right" }}>
+                <span style={{ padding: "1px 6px", borderRadius: 3, fontSize: 9,
+                  background: b.type.includes("SPV") ? "rgba(220,38,38,0.08)" : "rgba(217,119,6,0.08)",
+                  color: b.type.includes("SPV") ? "#dc2626" : "#d97706" }}>{b.type}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function CompanyCard({ company, scenario, expanded, onToggle }) {
+  const c = company;
+  const ocfAdj = c.operatingCashFlow * (1 + scenario.revenueShock / 100 * 0.8);
+  const capexRatio = c.capex2026E / ocfAdj;
+  const interestCostStress = c.totalDebt * (0.045 + scenario.rateShock / 100);
+  const fcfStress = ocfAdj - c.capex2026E;
+  const debtServiceCoverage = ocfAdj / Math.max(interestCostStress, 1);
+  const isDanger = capexRatio > 1.5 || debtServiceCoverage < 3 || c.ratingScore <= 5;
+  const isWarning = capexRatio > 1.1 || debtServiceCoverage < 5;
+
+  return (
+    <div style={{
+      background: "#fff", border: `1px solid ${isDanger ? "rgba(220,38,38,0.2)" : isWarning ? "rgba(217,119,6,0.15)" : "rgba(59,130,246,0.1)"}`,
+      borderRadius: 12, padding: 16, marginBottom: 12,
+      boxShadow: isDanger ? "0 0 12px rgba(220,38,38,0.06)" : "0 1px 3px rgba(0,0,0,0.04)",
+    }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 8, background: `${c.color}15`, display: "flex", alignItems: "center", justifyContent: "center", border: `1px solid ${c.color}33` }}>
+            <span style={{ color: c.color, fontWeight: 800, fontSize: 12, fontFamily: mono }}>{c.ticker.substring(0, 3)}</span>
+          </div>
+          <div>
+            <div style={{ color: "#0f172a", fontWeight: 700, fontSize: 15 }}>{c.name}</div>
+            <div style={{ color: "#64748b", fontSize: 11 }}>{c.ticker} · 评级 <span style={{ color: c.ratingScore >= 9 ? "#16a34a" : c.ratingScore >= 7 ? "#2563eb" : c.ratingScore >= 5 ? "#d97706" : "#dc2626", fontWeight: 700 }}>{c.creditRating}</span></div>
+          </div>
+        </div>
+        <div style={{ display: "inline-block", padding: "3px 10px", borderRadius: 6, fontSize: 11, fontWeight: 700,
+          background: isDanger ? "rgba(220,38,38,0.08)" : isWarning ? "rgba(217,119,6,0.08)" : "rgba(22,163,74,0.08)",
+          color: isDanger ? "#dc2626" : isWarning ? "#d97706" : "#16a34a" }}>
+          {isDanger ? "高风险" : isWarning ? "关注" : "稳健"}
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 12 }}>
+        {[
+          { label: "营收", value: `$${c.revenue}B`, sub: `NI $${c.netIncome}B` },
+          { label: "经营现金流", value: `$${c.operatingCashFlow}B`, sub: `FCF $${c.freeCashFlow}B` },
+          { label: "2026E Capex", value: `$${c.capex2026E}B`, sub: `vs 2025 $${c.capex2025}B` },
+          { label: "总债务", value: `$${c.totalDebt}B`, sub: c.spvAmount > 0 ? `+SPV $${c.spvAmount}B` : `现金 $${c.cashHoard}B` },
+        ].map((m, i) => (
+          <div key={i} style={{ background: "rgba(0,0,0,0.02)", borderRadius: 8, padding: "8px 10px" }}>
+            <div style={{ color: "#94a3b8", fontSize: 9, marginBottom: 3 }}>{m.label}</div>
+            <div style={{ color: "#0f172a", fontWeight: 700, fontSize: 14, fontFamily: mono }}>{m.value}</div>
+            <div style={{ color: "#94a3b8", fontSize: 9, marginTop: 2 }}>{m.sub}</div>
+          </div>
+        ))}
+      </div>
+
+      <RiskGauge value={capexRatio} max={3} label="Capex/OCF (压力后)" color={c.color} />
+      <RiskGauge value={c.debtToOCF} max={8} label="债务/OCF" color={c.color} />
+      <RiskGauge value={debtServiceCoverage} max={25} label="利息覆盖率 (越高越安全)" color="#16a34a" />
+
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginTop: 8 }}>
+        <div>
+          <div style={{ color: "#94a3b8", fontSize: 10, marginBottom: 4 }}>融资来源构成 (估算)</div>
+          <FundingPie sources={c.fundingSources} />
+        </div>
+        <div style={{ textAlign: "right", maxWidth: 180 }}>
+          <div style={{ color: "#94a3b8", fontSize: 10, marginBottom: 4 }}>压力后FCF</div>
+          <div style={{ color: fcfStress < 0 ? "#dc2626" : "#16a34a", fontSize: 20, fontWeight: 800, fontFamily: mono }}>
+            {fcfStress > 0 ? "+" : ""}{fcfStress.toFixed(0)}B
+          </div>
+          <div style={{ color: "#94a3b8", fontSize: 9, marginTop: 2 }}>{c.buybackCut}</div>
+        </div>
+      </div>
+
+      <div style={{
+        marginTop: 10, padding: "8px 10px", borderRadius: 6,
+        background: isDanger ? "rgba(220,38,38,0.04)" : "rgba(37,99,235,0.04)",
+        borderLeft: `3px solid ${isDanger ? "#dc2626" : "#2563eb"}`,
+      }}>
+        <div style={{ color: isDanger ? "#dc2626" : "#2563eb", fontSize: 10, fontWeight: 600 }}>核心风险点</div>
+        <div style={{ color: "#475569", fontSize: 11, marginTop: 3 }}>{c.keyRisk}</div>
+      </div>
+
+      <button onClick={onToggle} style={{
+        marginTop: 10, width: "100%", padding: "8px", border: "1px solid rgba(0,0,0,0.08)",
+        borderRadius: 6, background: "transparent", color: "#94a3b8", fontSize: 11,
+        cursor: "pointer",
+      }}>
+        {expanded ? "收起债券明细" : "展开债券明细"}
+      </button>
+      {expanded && (
+        <div style={{ marginTop: 8 }}>
+          <div style={{ color: "#64748b", fontSize: 10, marginBottom: 4 }}>{c.bondIssuance}</div>
+          <BondTable bonds={c.bonds} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const [scenarioIdx, setScenarioIdx] = useState(0);
+  const [expandedCards, setExpandedCards] = useState({});
+  const scenario = STRESS_SCENARIOS[scenarioIdx];
+  const toggleCard = (name) => setExpandedCards(prev => ({ ...prev, [name]: !prev[name] }));
+
+  const totalCapex2026 = COMPANIES.reduce((s, c) => s + c.capex2026E, 0);
+  const totalOCF = COMPANIES.reduce((s, c) => s + c.operatingCashFlow, 0);
+  const totalDebt = COMPANIES.reduce((s, c) => s + c.totalDebt, 0);
+  const totalSPV = COMPANIES.reduce((s, c) => s + c.spvAmount, 0);
+  const totalCash = COMPANIES.reduce((s, c) => s + c.cashHoard, 0);
+
+  return (
+    <>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+      <div style={{ fontFamily: sans, background: "#EFF6FF", minHeight: "100vh", color: "#0f172a", padding: "20px 16px", maxWidth: "960px", margin: "0 auto" }}>
+        <div style={{ marginBottom: 20, marginTop: 20 }}>
+          <h1 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: "#d97706" }}>AI Capex 融资压力测试</h1>
+          <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: 11 }}>五大超算巨头 · 2026E $705B Capex · 融资来源 x 风险矩阵</p>
+          <p style={{ margin: "2px 0 0", color: "#94a3b8", fontSize: 9 }}>黑森船长 · 数据截至2026年2月 · 来源: SEC 10-K/8-K, Bloomberg, Wolf Street, CreditSights</p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 16 }}>
+          {[
+            { label: "合计Capex 2026E", value: `$${totalCapex2026}B`, color: "#dc2626" },
+            { label: "合计OCF", value: `$${totalOCF}B`, color: "#16a34a" },
+            { label: "Capex/OCF", value: `${(totalCapex2026 / totalOCF * 100).toFixed(0)}%`, color: "#d97706" },
+            { label: "合计表内债务", value: `$${totalDebt}B`, color: "#dc2626" },
+            { label: "表外SPV", value: `$${totalSPV}B`, color: "#7c3aed" },
+            { label: "合计现金储备", value: `$${totalCash}B`, color: "#2563eb" },
+          ].map((m, i) => (
+            <div key={i} style={{ background: "#fff", borderRadius: 8, padding: 10, border: "1px solid rgba(59,130,246,0.1)" }}>
+              <div style={{ color: "#94a3b8", fontSize: 9 }}>{m.label}</div>
+              <div style={{ color: m.color, fontSize: 16, fontWeight: 800, fontFamily: mono, marginTop: 2 }}>{m.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: "rgba(217,119,6,0.06)", border: "1px solid rgba(217,119,6,0.15)", borderRadius: 10, padding: 14, marginBottom: 16 }}>
+          <div style={{ color: "#d97706", fontSize: 11, fontWeight: 700, marginBottom: 6 }}>关键发现</div>
+          <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.7 }}>
+            1. 五巨头2025年发债$108B+，2026年预计$400B (MS预测)<br/>
+            2. Capex占OCF比率从2024年76%飙升至2026年约<b style={{color:"#dc2626"}}>94%</b><br/>
+            3. <b style={{color:"#7c3aed"}}>$120B+已通过SPV移至表外</b>——Meta Beignet、MSFT AIP、Oracle项目融资<br/>
+            4. Oracle距垃圾评级仅<b style={{color:"#dc2626"}}>2级</b>，FCF已为负，股价5个月暴跌58%<br/>
+            5. 触发条件：<b style={{color:"#d97706"}}>股市暴跌50%+</b>将终结整个投资狂潮
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ color: "#64748b", fontSize: 11, marginBottom: 8, fontWeight: 600 }}>选择压力情景</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 6 }}>
+            {STRESS_SCENARIOS.map((s, i) => (
+              <button key={s.id} onClick={() => setScenarioIdx(i)} style={{
+                padding: 10, borderRadius: 8, border: scenarioIdx === i ? "1px solid #d97706" : "1px solid rgba(59,130,246,0.1)",
+                background: scenarioIdx === i ? "rgba(217,119,6,0.06)" : "#fff",
+                cursor: "pointer", textAlign: "left",
+              }}>
+                <div style={{ color: scenarioIdx === i ? "#d97706" : "#64748b", fontSize: 12, fontWeight: 700 }}>{s.name}</div>
+                <div style={{ color: "#94a3b8", fontSize: 9, marginTop: 3, lineHeight: 1.4 }}>{s.description}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {scenarioIdx > 0 && (
+          <div style={{ display: "flex", gap: 8, marginBottom: 16, padding: 10, background: "#fff", borderRadius: 8, border: "1px solid rgba(59,130,246,0.1)" }}>
+            {[
+              { label: "收入冲击", value: `${scenario.revenueShock}%`, color: "#dc2626" },
+              { label: "利率上行", value: `+${scenario.rateShock}%`, color: "#d97706" },
+              { label: "利差扩大", value: `+${(scenario.spreadShock * 100).toFixed(0)}bp`, color: "#7c3aed" },
+            ].map((p, i) => (
+              <div key={i} style={{ flex: 1, textAlign: "center" }}>
+                <div style={{ color: "#94a3b8", fontSize: 9 }}>{p.label}</div>
+                <div style={{ color: p.color, fontSize: 16, fontWeight: 800, fontFamily: mono }}>{p.value}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {[...COMPANIES].sort((a, b) => {
+          const riskA = a.capex2026E / (a.operatingCashFlow * (1 + scenario.revenueShock / 100 * 0.8));
+          const riskB = b.capex2026E / (b.operatingCashFlow * (1 + scenario.revenueShock / 100 * 0.8));
+          return riskB - riskA;
+        }).map(c => (
+          <CompanyCard key={c.name} company={c} scenario={scenario}
+            expanded={!!expandedCards[c.name]} onToggle={() => toggleCard(c.name)} />
+        ))}
+
+        <div style={{ background: "rgba(220,38,38,0.04)", border: "1px solid rgba(220,38,38,0.12)", borderRadius: 10, padding: 14, marginBottom: 16 }}>
+          <div style={{ color: "#dc2626", fontSize: 12, fontWeight: 700, marginBottom: 10 }}>风险触发条件矩阵</div>
+          {[
+            { trigger: "股市暴跌 >50%", impact: "终结整个AI capex周期", prob: "低但非零" },
+            { trigger: "信用利差扩大 >300bp", impact: "Oracle首先丧失市场准入", prob: "中-低" },
+            { trigger: "AI变现严重不及预期", impact: "FCF进一步恶化，评级下调连锁", prob: "中" },
+            { trigger: "Oracle降至垃圾级 (BB+)", impact: "被迫出售资产，传染效应", prob: "中" },
+          ].map((r, i) => (
+            <div key={i} style={{ display: "flex", gap: 8, padding: "8px 0", borderBottom: i < 3 ? "1px solid rgba(0,0,0,0.04)" : "none" }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ color: "#0f172a", fontSize: 11, fontWeight: 600 }}>{r.trigger}</div>
+                <div style={{ color: "#94a3b8", fontSize: 10, marginTop: 2 }}>{r.impact}</div>
+              </div>
+              <div style={{ fontSize: 9, color: "#64748b", padding: "2px 6px", background: "rgba(0,0,0,0.03)", borderRadius: 4, whiteSpace: "nowrap", alignSelf: "flex-start" }}>{r.prob}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ background: "#fff", borderRadius: 10, padding: 14, border: "1px solid rgba(59,130,246,0.1)", marginBottom: 20 }}>
+          <div style={{ color: "#2563eb", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>结构性判断</div>
+          <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
+            四家巨头(MSFT/AMZN/GOOG/META)的<b style={{color:"#16a34a"}}>信用评级充足</b>，短中期内不构成系统性偿债风险。核心变量是<b style={{color:"#d97706"}}>AI收入变现速度</b>。
+            <br/><br/>
+            <b style={{color:"#dc2626"}}>Oracle是最脆弱环节</b>——BBB评级、负FCF、高杠杆(债务/OCF 6.5x)、股价暴跌。
+            <br/><br/>
+            <b style={{color:"#7c3aed"}}>表外SPV是隐性风险</b>——$120B+已移至表外。一旦底层资产价值下跌，担保将回到表内。
+          </div>
+        </div>
+
+        <div style={{ textAlign: "center", color: "#94a3b8", fontSize: 9, paddingBottom: 20 }}>
+          黑森船长 · AI Capex融资风险分析 · 非投资建议
+        </div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

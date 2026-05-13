@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI资金循环·反身性风险地图 | 黑森船长</title>
+</head>
+<body>
+  <a href="ai-capex-hub.html" style="position:fixed;top:20px;left:20px;z-index:100;font-size:12px;color:#64748b;text-decoration:none;padding:6px 14px;border-radius:8px;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,0.08)">← 返回专栏</a>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+const mono = "'JetBrains Mono', monospace";
+const sans = "'Noto Sans SC', 'DM Sans', sans-serif";
+
+const NODES = [
+  { id: "nvidia", label: "Nvidia", sub: "芯片垄断者", x: 50, y: 8, color: "#76b900", revenue: "$194B DC收入", metric: "占AI芯片86%份额" },
+  { id: "msft", label: "Microsoft", sub: "云+投资者", x: 15, y: 32, color: "#0078D4", revenue: "$282B总收入", metric: "Azure增长33-40%" },
+  { id: "openai", label: "OpenAI", sub: "需求发动机", x: 50, y: 35, color: "#10a37f", revenue: "$20B ARR(2025)", metric: "亏损$5B/年，2029年才盈利" },
+  { id: "oracle", label: "Oracle", sub: "基建承包商", x: 85, y: 32, color: "#C74634", revenue: "$57B总收入", metric: "BBB评级，FCF为负" },
+  { id: "coreweave", label: "CoreWeave", sub: "GPU租赁中间商", x: 50, y: 58, color: "#7c3aed", revenue: "$3.9B(Q1-Q3 2025)", metric: "9.25%高息债，$30B积压订单" },
+  { id: "meta", label: "Meta", sub: "自建算力+SPV", x: 15, y: 58, color: "#0668E1", revenue: "$201B总收入", metric: "$57B表外SPV" },
+  { id: "google", label: "Alphabet", sub: "全球发债", x: 85, y: 58, color: "#4285F4", revenue: "$405B总收入", metric: "100年期债券首发" },
+  { id: "spv", label: "SPV/私募信贷", sub: "影子银行层", x: 50, y: 82, color: "#dc2626", revenue: "$120B+已移表外", metric: "Pimco/BlackRock/Apollo" },
+];
+
+const FLOWS = [
+  { from: "nvidia", to: "openai", amount: "$100B投资", desc: "NVIDIA投资OpenAI以换取芯片订单锁定", type: "equity", risk: 3 },
+  { from: "openai", to: "nvidia", amount: "万亿级芯片采购", desc: "OpenAI承诺填充10GW数据中心=海量GPU", type: "purchase", risk: 3 },
+  { from: "msft", to: "openai", amount: "$13B+投资", desc: "微软投资并提供Azure算力信用额度", type: "equity", risk: 2 },
+  { from: "openai", to: "msft", amount: "Azure消费回流", desc: "OpenAI大部分算力支出→Azure收入", type: "purchase", risk: 2 },
+  { from: "openai", to: "oracle", amount: "$300B DC合同", desc: "Stargate项目数据中心建设长期合同", type: "contract", risk: 3 },
+  { from: "oracle", to: "nvidia", amount: "数百亿芯片采购", desc: "Oracle为OpenAI建DC→买Nvidia GPU", type: "purchase", risk: 2 },
+  { from: "openai", to: "coreweave", amount: "$22.4B合同", desc: "五年期GPU云服务合同（训练用）", type: "contract", risk: 2 },
+  { from: "nvidia", to: "coreweave", amount: "$6.3B+股权", desc: "NVIDIA持股7%+兜底未售出算力", type: "equity", risk: 3 },
+  { from: "coreweave", to: "nvidia", amount: "$7.5B+ GPU采购", desc: "25万+张GPU采购，资金实质回流NVIDIA", type: "purchase", risk: 2 },
+  { from: "meta", to: "spv", amount: "$27B Beignet SPV", desc: "路易斯安那DC项目，Meta提供全额担保", type: "spv", risk: 2 },
+  { from: "meta", to: "nvidia", amount: "GPU采购", desc: "自建DC采购NVIDIA/定制芯片", type: "purchase", risk: 1 },
+  { from: "google", to: "nvidia", amount: "GPU+网络采购", desc: "Spectrum-X网络+GPU采购", type: "purchase", risk: 1 },
+  { from: "oracle", to: "spv", amount: "$38B项目融资", desc: "OpenAI合作DC的结构化融资", type: "spv", risk: 3 },
+  { from: "msft", to: "spv", amount: "$100B AIP基金", desc: "BlackRock/GIP合作，基金层面233%杠杆", type: "spv", risk: 2 },
+  { from: "coreweave", to: "spv", amount: "$2B高息债+ABS", desc: "9.25%无担保债+资产证券化", type: "spv", risk: 2 },
+];
+
+const COLLAPSE_CHAIN = [
+  { step: 1, trigger: "OpenAI收入不及预期", desc: "2025年$20B ARR看似亮眼，但2029年前累计亏损预计$44B。若AI agent/企业变现不达预期，收入曲线将低于内部$100B(2028)目标", color: "#10a37f" },
+  { step: 2, trigger: "OpenAI削减算力合同", desc: "OpenAI是CoreWeave最大客户($22.4B)、Oracle最大DC合同方($300B)。订单缩减→CoreWeave/Oracle收入断崖", color: "#7c3aed" },
+  { step: 3, trigger: "CoreWeave/Oracle融资困难", desc: "CoreWeave靠9.25%高息债融资，Oracle BBB距垃圾仅2级。收入下降→评级下调→再融资成本飙升", color: "#C74634" },
+  { step: 4, trigger: "GPU订单取消→NVIDIA收入下跌", desc: "超算巨头贡献NVIDIA数据中心收入50%+。任何一家削减20-30%订单→NVIDIA收入缺口$20-40B", color: "#76b900" },
+  { step: 5, trigger: "NVIDIA股价/投资缩水", desc: "NVIDIA对OpenAI$100B投资、对CoreWeave$6.3B兜底协议贬值。市值缩水→削减投资→正反馈", color: "#dc2626" },
+  { step: 6, trigger: "SPV/表外融资触发回表", desc: "Meta Beignet担保被触发、MSFT AIP合同承诺回表、Oracle项目融资交叉违约。$120B+隐性债务集体暴露", color: "#dc2626" },
+  { step: 7, trigger: "信用市场收缩→Capex周期终结", desc: "类2000年dotcom：利差飙升→新债发行冻结→capex被迫削减→收入进一步下降→评级进一步下调", color: "#dc2626" },
+];
+
+const COMPARISON = [
+  { era: "2000年 Dotcom", parallel: "电信公司互相购买带宽容量，互计收入", similarity: "GPU/算力互购互卖，A买B的云，B买A的芯片" },
+  { era: "2008年 CDO/SIV", parallel: "银行将风险移至表外SIV，信用评级虚高", similarity: "SPV将$120B+DC融资移表外，实质担保未被市场定价" },
+  { era: "2015年 中国互保", parallel: "企业互相担保贷款，一家违约连锁反应", similarity: "Nvidia兜底CoreWeave、Meta担保Beignet、交叉持股" },
+];
+
+function FlowArrow({ from, to, flow, selected, onClick }) {
+  const fn = NODES.find(n => n.id === from);
+  const tn = NODES.find(n => n.id === to);
+  if (!fn || !tn) return null;
+  const x1 = fn.x, y1 = fn.y + 4, x2 = tn.x, y2 = tn.y + 4;
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const typeColor = { equity: "#7c3aed", purchase: "#16a34a", contract: "#d97706", spv: "#dc2626" };
+  return (
+    <g onClick={onClick} style={{ cursor: "pointer" }} opacity={selected === null ? 0.5 : selected ? 0.9 : 0.12}>
+      <line x1={`${x1}%`} y1={`${y1}%`} x2={`${x2}%`} y2={`${y2}%`}
+        stroke={typeColor[flow.type] || "#666"} strokeWidth={selected ? 2.5 : 1.5}
+        strokeDasharray={flow.type === "spv" ? "4,3" : "none"} />
+      <circle cx={`${mx}%`} cy={`${my}%`} r={selected ? 5 : 3.5} fill={typeColor[flow.type] || "#666"} />
+    </g>
+  );
+}
+
+function App() {
+  const [selectedFlow, setSelectedFlow] = useState(null);
+  const [activeView, setActiveView] = useState("map");
+  const sf = selectedFlow !== null ? FLOWS[selectedFlow] : null;
+
+  return (
+    <>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+      <div style={{ fontFamily: sans, background: "#EFF6FF", minHeight: "100vh", color: "#0f172a", padding: "16px", maxWidth: "960px", margin: "0 auto" }}>
+        <div style={{ marginBottom: 16, marginTop: 20 }}>
+          <h1 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: "#dc2626" }}>AI资金循环 · 反身性风险地图</h1>
+          <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: 10 }}>套娃结构解剖 · 谁给谁的钱？谁的收入是谁的支出？断裂点在哪？</p>
+          <p style={{ margin: "2px 0 0", color: "#94a3b8", fontSize: 9 }}>黑森船长 · 数据来源: SEC, Bloomberg, CNBC, Man Group, Wolf Street</p>
+        </div>
+
+        <div style={{ background: "rgba(220,38,38,0.04)", border: "1px solid rgba(220,38,38,0.12)", borderRadius: 10, padding: 14, marginBottom: 14 }}>
+          <div style={{ color: "#dc2626", fontSize: 12, fontWeight: 800, marginBottom: 6 }}>核心逻辑：闭环资金循环</div>
+          <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
+            <b style={{color:"#76b900"}}>NVIDIA</b>投资$100B给<b style={{color:"#10a37f"}}>OpenAI</b> → OpenAI用这笔钱买NVIDIA的GPU → NVIDIA的收入增长 → 股价上涨 → 投资能力更强 → 继续投资...
+            <br/>
+            <b style={{color:"#10a37f"}}>OpenAI</b>签$300B合同给<b style={{color:"#C74634"}}>Oracle</b>建DC → Oracle借债买NVIDIA GPU → OpenAI租用DC训练模型 → 但OpenAI自己还在亏$5B/年
+            <br/><br/>
+            <span style={{color:"#d97706", fontWeight: 700}}>问题：整条链的终端需求验证在哪里？</span> OpenAI 2025年收入$20B，但承诺的合同总额超过<b style={{color:"#dc2626"}}>$1.15万亿</b>。比率是<b style={{color:"#dc2626"}}>57.5:1</b>。
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 4, marginBottom: 14 }}>
+          {[{ key: "map", label: "资金流向图" }, { key: "chain", label: "崩溃传导链" }, { key: "compare", label: "历史对照" }].map(t => (
+            <button key={t.key} onClick={() => setActiveView(t.key)} style={{
+              flex: 1, padding: "8px 4px", borderRadius: 6, border: activeView === t.key ? "1px solid #dc2626" : "1px solid rgba(59,130,246,0.1)",
+              background: activeView === t.key ? "rgba(220,38,38,0.06)" : "#fff",
+              color: activeView === t.key ? "#dc2626" : "#64748b",
+              fontSize: 11, fontWeight: 700, cursor: "pointer",
+            }}>{t.label}</button>
+          ))}
+        </div>
+
+        {activeView === "map" && (
+          <div>
+            <div style={{ display: "flex", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
+              {[{ color: "#7c3aed", label: "股权投资" }, { color: "#16a34a", label: "采购/消费" }, { color: "#d97706", label: "长期合同" }, { color: "#dc2626", label: "SPV/表外" }].map((l, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                  <div style={{ width: 16, height: 2, background: l.color, borderRadius: 1 }} />
+                  <span style={{ color: "#64748b", fontSize: 9 }}>{l.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ position: "relative", width: "100%", height: 420, background: "#fff", borderRadius: 10, border: "1px solid rgba(59,130,246,0.1)", overflow: "hidden" }}>
+              <svg width="100%" height="100%" style={{ position: "absolute", top: 0, left: 0 }}>
+                {FLOWS.map((f, i) => (
+                  <FlowArrow key={i} from={f.from} to={f.to} flow={f}
+                    selected={selectedFlow === null ? null : selectedFlow === i}
+                    onClick={() => setSelectedFlow(selectedFlow === i ? null : i)} />
+                ))}
+              </svg>
+              {NODES.map(n => (
+                <div key={n.id} style={{ position: "absolute", left: `${n.x}%`, top: `${n.y}%`, transform: "translate(-50%, -50%)", textAlign: "center", zIndex: 10 }}>
+                  <div style={{ width: 52, height: 52, borderRadius: 12, margin: "0 auto 3px", background: `${n.color}12`, border: `1.5px solid ${n.color}44`, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+                    <div style={{ color: n.color, fontSize: 10, fontWeight: 800, lineHeight: 1.1 }}>{n.label}</div>
+                    <div style={{ color: "#94a3b8", fontSize: 7, marginTop: 1 }}>{n.sub}</div>
+                  </div>
+                  <div style={{ color: "#64748b", fontSize: 8, fontFamily: mono }}>{n.revenue}</div>
+                </div>
+              ))}
+            </div>
+
+            {sf && (
+              <div style={{ marginTop: 10, padding: 12, borderRadius: 8, background: "#fff", border: "1px solid rgba(59,130,246,0.1)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                  <span style={{ color: "#0f172a", fontSize: 13, fontWeight: 700 }}>
+                    {NODES.find(n=>n.id===sf.from)?.label} → {NODES.find(n=>n.id===sf.to)?.label}
+                  </span>
+                  <span style={{ padding: "2px 8px", borderRadius: 4, fontSize: 10, fontWeight: 700,
+                    background: sf.risk >= 3 ? "rgba(220,38,38,0.08)" : "rgba(217,119,6,0.08)",
+                    color: sf.risk >= 3 ? "#dc2626" : "#d97706" }}>风险 {sf.risk}/3</span>
+                </div>
+                <div style={{ color: "#d97706", fontSize: 14, fontWeight: 800, fontFamily: mono, marginBottom: 4 }}>{sf.amount}</div>
+                <div style={{ color: "#64748b", fontSize: 11, lineHeight: 1.6 }}>{sf.desc}</div>
+              </div>
+            )}
+            {!sf && <div style={{ marginTop: 8, textAlign: "center", color: "#94a3b8", fontSize: 10 }}>点击连线上的圆点查看资金流向详情</div>}
+
+            <div style={{ marginTop: 12, padding: 14, borderRadius: 10, background: "rgba(22,163,74,0.04)", border: "1px solid rgba(22,163,74,0.12)" }}>
+              <div style={{ color: "#16a34a", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>循环量化：钱真正去了哪里？</div>
+              {[
+                { label: "NVIDIA FY2026数据中心收入", value: "$194B", note: "50%+来自超算巨头" },
+                { label: "超算巨头2026E总Capex", value: "$705B", note: "其中~$450B为芯片/服务器采购" },
+                { label: "OpenAI总合同承诺", value: "$1.15万亿+", note: "vs 当前$20B ARR → 合同/收入比 = 57.5x" },
+                { label: "CoreWeave积压订单", value: "$30B", note: "OpenAI占70%+, NVIDIA兜底$6.3B" },
+                { label: "表外SPV总规模", value: "$120B+", note: "Meta $27B + MSFT $100B + Oracle $38B" },
+                { label: "OpenAI累计预期亏损(至2028)", value: "$44B", note: "整条链条的终端需求验证者，自己还在巨额烧钱" },
+              ].map((item, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "8px 0", borderBottom: i < 5 ? "1px solid rgba(0,0,0,0.04)" : "none" }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ color: "#0f172a", fontSize: 11, fontWeight: 600 }}>{item.label}</div>
+                    <div style={{ color: "#94a3b8", fontSize: 9, marginTop: 2 }}>{item.note}</div>
+                  </div>
+                  <div style={{ color: "#d97706", fontSize: 14, fontWeight: 800, fontFamily: mono, marginLeft: 8, whiteSpace: "nowrap" }}>{item.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeView === "chain" && (
+          <div>
+            <div style={{ padding: 12, borderRadius: 8, marginBottom: 12, background: "#fff", border: "1px solid rgba(59,130,246,0.1)" }}>
+              <div style={{ color: "#d97706", fontSize: 11, fontWeight: 700, marginBottom: 6 }}>索罗斯反身性框架</div>
+              <div style={{ color: "#64748b", fontSize: 11, lineHeight: 1.7 }}>
+                <b style={{color:"#0f172a"}}>正反馈上行期</b>：GPU短缺叙事 → 超算军备竞赛 → NVIDIA收入暴增 → 股价飙升 → 更多资本涌入<br/>
+                <b style={{color:"#dc2626"}}>反身性逆转</b>：任一节点削减20-30%订单 → 收入下跌 → 股价下跌 → 投资缩水 → 负反馈加速<br/><br/>
+                <span style={{color:"#7c3aed"}}>关键特征：个体理性 + 集体非理性。</span>每家公司单独看投资都"防御性合理"，但集体行为是<b style={{color:"#dc2626"}}>重复建设+循环计收</b>。
+              </div>
+            </div>
+
+            {COLLAPSE_CHAIN.map((c, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, marginBottom: 2, alignItems: "stretch" }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 30, flexShrink: 0 }}>
+                  <div style={{ width: 24, height: 24, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", background: `${c.color}15`, border: `1.5px solid ${c.color}`, color: c.color, fontSize: 11, fontWeight: 800 }}>{c.step}</div>
+                  {i < COLLAPSE_CHAIN.length - 1 && <div style={{ width: 2, flex: 1, background: `${c.color}33`, marginTop: 2 }} />}
+                </div>
+                <div style={{ flex: 1, padding: 12, borderRadius: 8, marginBottom: 8, background: "#fff", border: `1px solid ${c.color}22` }}>
+                  <div style={{ color: c.color, fontSize: 12, fontWeight: 700, marginBottom: 4 }}>{c.trigger}</div>
+                  <div style={{ color: "#64748b", fontSize: 10, lineHeight: 1.6 }}>{c.desc}</div>
+                </div>
+              </div>
+            ))}
+
+            <div style={{ marginTop: 12, padding: 14, borderRadius: 10, background: "rgba(220,38,38,0.04)", border: "1px solid rgba(220,38,38,0.12)" }}>
+              <div style={{ color: "#dc2626", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>最脆弱的三个节点</div>
+              {[
+                { name: "OpenAI", why: "整条链的「终端需求验证者」，但自己还在亏损。$20B收入 vs $1.15万亿合同承诺。", color: "#10a37f" },
+                { name: "CoreWeave", why: "纯中间商，收入70%+依赖OpenAI单一客户。9.25%高息债，负现金流。", color: "#7c3aed" },
+                { name: "Oracle", why: "BBB评级距垃圾仅2级，总债务$131B vs OCF仅$20B（杠杆6.5x）。股价5个月暴跌58%。", color: "#C74634" },
+              ].map((n, i) => (
+                <div key={i} style={{ padding: "10px 12px", borderRadius: 8, marginBottom: 8, background: "#fff", borderLeft: `3px solid ${n.color}` }}>
+                  <div style={{ color: n.color, fontSize: 12, fontWeight: 800, marginBottom: 4 }}>{n.name}</div>
+                  <div style={{ color: "#64748b", fontSize: 10, lineHeight: 1.7 }}>{n.why}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeView === "compare" && (
+          <div>
+            <div style={{ padding: 12, borderRadius: 8, marginBottom: 12, background: "#fff", border: "1px solid rgba(217,119,6,0.15)" }}>
+              <div style={{ color: "#d97706", fontSize: 11, fontWeight: 700, marginBottom: 6 }}>历史不会重复，但会押韵</div>
+              <div style={{ color: "#64748b", fontSize: 11, lineHeight: 1.6 }}>
+                Man Group研究报告明确指出：当前AI投资是一个<b style={{color:"#0f172a"}}>"封闭的递归融资循环"</b>。少数巨头同时扮演供应商、客户、投资者和验证者。
+              </div>
+            </div>
+
+            {COMPARISON.map((c, i) => (
+              <div key={i} style={{ padding: 14, borderRadius: 10, marginBottom: 10, background: "#fff", border: "1px solid rgba(59,130,246,0.1)" }}>
+                <div style={{ color: "#d97706", fontSize: 13, fontWeight: 800, marginBottom: 8 }}>{c.era}</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                  <div style={{ background: "rgba(0,0,0,0.02)", padding: "8px 10px", borderRadius: 6 }}>
+                    <div style={{ color: "#94a3b8", fontSize: 9, marginBottom: 3 }}>当时</div>
+                    <div style={{ color: "#475569", fontSize: 10, lineHeight: 1.5 }}>{c.parallel}</div>
+                  </div>
+                  <div style={{ background: "rgba(220,38,38,0.04)", padding: "8px 10px", borderRadius: 6, border: "1px solid rgba(220,38,38,0.08)" }}>
+                    <div style={{ color: "#dc2626", fontSize: 9, marginBottom: 3 }}>现在</div>
+                    <div style={{ color: "#475569", fontSize: 10, lineHeight: 1.5 }}>{c.similarity}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <div style={{ padding: 14, borderRadius: 10, marginBottom: 12, background: "rgba(124,58,237,0.04)", border: "1px solid rgba(124,58,237,0.12)" }}>
+              <div style={{ color: "#7c3aed", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>Dotcom深度对照</div>
+              <div style={{ color: "#64748b", fontSize: 11, lineHeight: 1.8 }}>
+                <b style={{color:"#0f172a"}}>2000年电信泡沫</b>：WorldCom、Global Crossing等互相购买网络容量，互计收入。实际净需求约$0。
+                <br/><br/>
+                <b style={{color:"#0f172a"}}>2025年AI循环</b>：NVIDIA投$100B给OpenAI → OpenAI买NVIDIA芯片 → 互相计为"收入"和"投资回报"。
+                <br/><br/>
+                <b style={{color:"#dc2626"}}>关键差异使其更危险：</b>规模大10-50倍、杠杆工具更复杂(SPV/ABS)、集中度更高(NVIDIA占86%)、交叉持股更深。
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div style={{ marginTop: 16, padding: 14, borderRadius: 10, background: "#fff", border: "1px solid rgba(59,130,246,0.1)" }}>
+          <div style={{ color: "#2563eb", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>结构性判断</div>
+          <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
+            <b style={{color:"#d97706"}}>反身性强度排序：</b><br/>
+            1. <b style={{color:"#dc2626"}}>NVIDIA - OpenAI 轴</b> — 反身性最强。$100B投资+芯片锁定构成完美闭环。<br/>
+            2. <b style={{color:"#C74634"}}>Oracle - OpenAI - CoreWeave</b> — 最脆弱。两家都高杠杆、弱评级。<br/>
+            3. <b style={{color:"#7c3aed"}}>SPV/私募信贷层</b> — 隐性风险最大。$120B+未被充分定价。<br/><br/>
+            <b style={{color:"#16a34a"}}>投资含义：</b>监控Oracle CDS利差、CoreWeave股价、OpenAI月度ARR增速、NVIDIA订单backlog变化。当这些同步恶化时，就是反身性逆转的信号。
+          </div>
+        </div>
+
+        <div style={{ textAlign: "center", color: "#94a3b8", fontSize: 9, padding: "16px 0" }}>
+          黑森船长 · AI资金循环反身性分析 · 非投资建议
+        </div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

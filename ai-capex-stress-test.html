@@ -20,50 +20,53 @@ const sans = "'Noto Sans SC', 'DM Sans', sans-serif";
 const COMPANIES = [
   {
     name: "Microsoft", ticker: "MSFT", color: "#0078D4", creditRating: "AAA", ratingScore: 10,
-    revenue: 281.7, netIncome: 101.8, operatingCashFlow: 136, freeCashFlow: 71.6,
-    cashHoard: 95, totalDebt: 72, capex2025: 94, capex2026E: 148,
-    bondIssuance: "未直接大规模发债，主要通过SPV",
-    bonds: [{ label: "AIP SPV (BlackRock)", amount: 100, rate: "基金层面233%杠杆", maturity: "项目级", type: "SPV" }],
+    revenue: 310, netIncome: 115, operatingCashFlow: 180, freeCashFlow: 45,
+    cashHoard: 80, totalDebt: 125, capex2025: 94, capex2026E: 190,
+    bondIssuance: "FY26总债务从$72B飙升至$125B + AIP SPV",
+    bonds: [
+      { label: "AIP SPV (BlackRock/GIP)", amount: 100, rate: "基金层面233%杠杆", maturity: "项目级", type: "SPV" },
+      { label: "新增表内债务", amount: 53, rate: "多期限", maturity: "2028-2065", type: "公募债" },
+    ],
     spvAmount: 100, equityIssuance: 0, buybackCut: "小幅削减，FY25回购约$36B",
-    fundingSources: { cashFlow: 55, cash: 15, debt: 5, spv: 20, equity: 0, buybackRedirect: 5 },
-    keyRisk: "OpenAI关联风险($300B承诺)，SPV隐性杠杆",
-    debtToOCF: 0.53, capexToOCF2026: 1.09, fcfAfterCapex2026: -12,
+    fundingSources: { cashFlow: 45, cash: 10, debt: 20, spv: 20, equity: 0, buybackRedirect: 5 },
+    keyRisk: "Capex指引从$148B暴涨至$190B(含$25B涨价)，总债务翻倍至$125B，OCF勉强覆盖",
+    debtToOCF: 0.69, capexToOCF2026: 1.06, fcfAfterCapex2026: -10,
   },
   {
     name: "Amazon", ticker: "AMZN", color: "#FF9900", creditRating: "AA-", ratingScore: 8,
-    revenue: 716.9, netIncome: 77.7, operatingCashFlow: 139, freeCashFlow: 7.7,
-    cashHoard: 126, totalDebt: 167, capex2025: 131, capex2026E: 200,
-    bondIssuance: "2025年11月发行$15B",
+    revenue: 726, netIncome: 85, operatingCashFlow: 148.5, freeCashFlow: 1.2,
+    cashHoard: 143, totalDebt: 119, capex2025: 131, capex2026E: 200,
+    bondIssuance: "2025年$15B + 2026年$37-42B新发",
     bonds: [
       { label: "3yr Notes 2028", amount: 2.5, rate: "3.90%", maturity: "2028", type: "公募债" },
       { label: "5yr Notes 2030", amount: 2.5, rate: "4.10%", maturity: "2030", type: "公募债" },
       { label: "10yr Notes 2035", amount: 3.5, rate: "4.65%", maturity: "2035", type: "公募债" },
       { label: "30yr Notes 2055", amount: 3.0, rate: "5.45%", maturity: "2055", type: "公募债" },
-      { label: "40yr Notes 2065", amount: 2.0, rate: "5.55%", maturity: "2065", type: "公募债" },
+      { label: "2026新发(Bloomberg)", amount: 40, rate: "多期限", maturity: "2029-2066", type: "公募债" },
     ],
     spvAmount: 0, equityIssuance: 0, buybackCut: "2022Q2起已完全停止回购",
-    fundingSources: { cashFlow: 50, cash: 15, debt: 25, spv: 0, equity: 0, buybackRedirect: 10 },
-    keyRisk: "FCF已近零，2026年FCF预计为负$17-28B",
-    debtToOCF: 1.20, capexToOCF2026: 1.44, fcfAfterCapex2026: -28,
+    fundingSources: { cashFlow: 45, cash: 15, debt: 30, spv: 0, equity: 0, buybackRedirect: 10 },
+    keyRisk: "TTM FCF暴跌95%至仅$1.2B！Q1单季capex $43.2B，AWS增长28%但capex吞噬全部现金",
+    debtToOCF: 0.80, capexToOCF2026: 1.35, fcfAfterCapex2026: -51.5,
   },
   {
     name: "Alphabet", ticker: "GOOGL", color: "#4285F4", creditRating: "AA+", ratingScore: 9,
-    revenue: 405, netIncome: 100.1, operatingCashFlow: 165, freeCashFlow: 73.3,
-    cashHoard: 127, totalDebt: 46.5, capex2025: 85, capex2026E: 180,
-    bondIssuance: "2025年11月$17.5B + 2026年2月$32B",
+    revenue: 440, netIncome: 130, operatingCashFlow: 183, freeCashFlow: 64.4,
+    cashHoard: 127, totalDebt: 46.5, capex2025: 91.4, capex2026E: 185,
+    bondIssuance: "2025年$17.5B + 2026年$32B，含100年期首发",
     bonds: [
       { label: "多期限USD (2025.11)", amount: 17.5, rate: "~4.3-5.25%", maturity: "5-50yr", type: "公募债" },
       { label: "多期限USD+GBP+CHF (2026.2)", amount: 32, rate: "T+95bp(40yr)", maturity: "5-100yr", type: "公募债" },
     ],
     spvAmount: 0, equityIssuance: 0, buybackCut: "H2 2025回购降至$17B (vs $30B prior)",
     fundingSources: { cashFlow: 50, cash: 10, debt: 20, spv: 0, equity: 0, buybackRedirect: 20 },
-    keyRisk: "长期债(100年期首发)久期风险，FCF预计暴跌90%至$8.2B",
-    debtToOCF: 0.28, capexToOCF2026: 1.09, fcfAfterCapex2026: 8.2,
+    keyRisk: "Capex指引上调至$180-190B，Q1单季$35.7B(+107%YoY)，2027将继续大幅增加。Cloud +63%是亮点",
+    debtToOCF: 0.25, capexToOCF2026: 1.01, fcfAfterCapex2026: -2,
   },
   {
     name: "Meta", ticker: "META", color: "#0668E1", creditRating: "AA-", ratingScore: 8,
-    revenue: 201, netIncome: 60.5, operatingCashFlow: 115, freeCashFlow: 43,
-    cashHoard: 82, totalDebt: 85, capex2025: 72, capex2026E: 135,
+    revenue: 225, netIncome: 107, operatingCashFlow: 129, freeCashFlow: 50,
+    cashHoard: 81, totalDebt: 59, capex2025: 72, capex2026E: 135,
     bondIssuance: "$30B公募 + $27B表外SPV",
     bonds: [
       { label: "5yr Notes 2030", amount: 4.0, rate: "4.20%", maturity: "2030", type: "公募债" },
@@ -74,14 +77,14 @@ const COMPANIES = [
     ],
     spvAmount: 27, equityIssuance: 0, buybackCut: "H2 2025回购降至$3.3B (vs $8.8B prior)",
     fundingSources: { cashFlow: 45, cash: 10, debt: 25, spv: 15, equity: 0, buybackRedirect: 5 },
-    keyRisk: "表外SPV隐性担保=实质债务，总实际负债>$112B",
-    debtToOCF: 0.74, capexToOCF2026: 1.17, fcfAfterCapex2026: -5,
+    keyRisk: "Capex指引上调至$125-145B(含涨价)，收入+33%表现最强，但表外SPV隐性担保仍在",
+    debtToOCF: 0.46, capexToOCF2026: 1.05, fcfAfterCapex2026: -6,
   },
   {
     name: "Oracle", ticker: "ORCL", color: "#C74634", creditRating: "BBB", ratingScore: 5,
-    revenue: 57.4, netIncome: 12.4, operatingCashFlow: 20, freeCashFlow: -5,
-    cashHoard: 16, totalDebt: 131, capex2025: 25, capex2026E: 42,
-    bondIssuance: "$18B(2025.9) + $25B(2026.2) + SPV",
+    revenue: 67, netIncome: 15, operatingCashFlow: 23.5, freeCashFlow: -24.7,
+    cashHoard: 12, totalDebt: 125, capex2025: 25, capex2026E: 50,
+    bondIssuance: "累计发债$43B新增，总长期债务$125B，拟再融$50B",
     bonds: [
       { label: "固定 2029", amount: 3.0, rate: "4.55%", maturity: "2029", type: "公募债" },
       { label: "固定 2036", amount: 5.0, rate: "5.70%", maturity: "2036", type: "公募债" },
@@ -89,10 +92,10 @@ const COMPANIES = [
       { label: "固定 2066", amount: 2.75, rate: "6.85%", maturity: "2066", type: "公募债" },
       { label: "OpenAI合作SPV", amount: 38, rate: "项目融资", maturity: "项目级", type: "SPV表外" },
     ],
-    spvAmount: 38, equityIssuance: 20, buybackCut: "已转为净增发股票，2025增发$2.1B + ATM $20B",
-    fundingSources: { cashFlow: 15, cash: 5, debt: 40, spv: 25, equity: 15, buybackRedirect: 0 },
-    keyRisk: "BBB评级距垃圾债仅2级，FCF已为负，股价暴跌58%",
-    debtToOCF: 6.55, capexToOCF2026: 2.10, fcfAfterCapex2026: -22,
+    spvAmount: 38, equityIssuance: 20, buybackCut: "已转为净增发股票，ATM $20B",
+    fundingSources: { cashFlow: 10, cash: 5, debt: 45, spv: 25, equity: 15, buybackRedirect: 0 },
+    keyRisk: "FCF恶化至-$24.7B(TTM)！Barclays警告现金可能11月耗尽，评级展望已转负面，股价自高点跌57%",
+    debtToOCF: 5.32, capexToOCF2026: 2.13, fcfAfterCapex2026: -26.5,
   },
 ];
 
@@ -303,8 +306,8 @@ function App() {
       <div style={{ fontFamily: sans, background: "#EFF6FF", minHeight: "100vh", color: "#0f172a", padding: "20px 16px", maxWidth: "960px", margin: "0 auto" }}>
         <div style={{ marginBottom: 20, marginTop: 20 }}>
           <h1 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: "#d97706" }}>AI Capex 融资压力测试</h1>
-          <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: 11 }}>五大超算巨头 · 2026E $705B Capex · 融资来源 x 风险矩阵</p>
-          <p style={{ margin: "2px 0 0", color: "#94a3b8", fontSize: 9 }}>黑森船长 · 数据截至2026年2月 · 来源: SEC 10-K/8-K, Bloomberg, Wolf Street, CreditSights</p>
+          <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: 11 }}>五大超算巨头 · 2026E $760B Capex · 融资来源 x 风险矩阵</p>
+          <p style={{ margin: "2px 0 0", color: "#94a3b8", fontSize: 9 }}>黑森船长 · 数据更新至2026年5月(Q1 2026财报) · 来源: SEC 10-Q, Bloomberg, CreditSights, CNBC</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 16 }}>
@@ -326,10 +329,10 @@ function App() {
         <div style={{ background: "rgba(217,119,6,0.06)", border: "1px solid rgba(217,119,6,0.15)", borderRadius: 10, padding: 14, marginBottom: 16 }}>
           <div style={{ color: "#d97706", fontSize: 11, fontWeight: 700, marginBottom: 6 }}>关键发现</div>
           <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.7 }}>
-            1. 五巨头2025年发债$108B+，2026年预计$400B (MS预测)，全部为固定利率无担保信用债<br/>
-            2. Capex占OCF比率从2024年76%飙升至2026年约<b style={{color:"#dc2626"}}>94%</b>，扣除分红回购后现金流缺口巨大<br/>
-            3. Oracle距垃圾评级仅<b style={{color:"#dc2626"}}>2级</b>，是五家中唯一FCF为负且高杠杆(6.5x)的<br/>
-            4. 触发条件：<b style={{color:"#d97706"}}>股市暴跌50%+</b>或信用利差飙升300bp+将终结整个投资狂潮
+            1. Q1单季五家合计capex <b style={{color:"#dc2626"}}>$112B</b>，全年指引上调至$760B(含涨价因素$25B+)<br/>
+            2. Amazon TTM FCF暴跌<b style={{color:"#dc2626"}}>95%</b>至仅$1.2B，Alphabet Q1 FCF下降47%<br/>
+            3. Oracle FCF恶化至<b style={{color:"#dc2626"}}>-$24.7B</b>(TTM)，Barclays警告现金可能11月耗尽<br/>
+            4. MSFT总债务从$72B翻倍至<b style={{color:"#dc2626"}}>$125B</b>，capex指引从$148B暴涨至$190B
           </div>
         </div>
 

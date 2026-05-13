@@ -326,11 +326,10 @@ function App() {
         <div style={{ background: "rgba(217,119,6,0.06)", border: "1px solid rgba(217,119,6,0.15)", borderRadius: 10, padding: 14, marginBottom: 16 }}>
           <div style={{ color: "#d97706", fontSize: 11, fontWeight: 700, marginBottom: 6 }}>关键发现</div>
           <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.7 }}>
-            1. 五巨头2025年发债$108B+，2026年预计$400B (MS预测)<br/>
-            2. Capex占OCF比率从2024年76%飙升至2026年约<b style={{color:"#dc2626"}}>94%</b><br/>
-            3. <b style={{color:"#7c3aed"}}>$120B+已通过SPV移至表外</b>——Meta Beignet、MSFT AIP、Oracle项目融资<br/>
-            4. Oracle距垃圾评级仅<b style={{color:"#dc2626"}}>2级</b>，FCF已为负，股价5个月暴跌58%<br/>
-            5. 触发条件：<b style={{color:"#d97706"}}>股市暴跌50%+</b>将终结整个投资狂潮
+            1. 五巨头2025年发债$108B+，2026年预计$400B (MS预测)，全部为固定利率无担保信用债<br/>
+            2. Capex占OCF比率从2024年76%飙升至2026年约<b style={{color:"#dc2626"}}>94%</b>，扣除分红回购后现金流缺口巨大<br/>
+            3. Oracle距垃圾评级仅<b style={{color:"#dc2626"}}>2级</b>，是五家中唯一FCF为负且高杠杆(6.5x)的<br/>
+            4. 触发条件：<b style={{color:"#d97706"}}>股市暴跌50%+</b>或信用利差飙升300bp+将终结整个投资狂潮
           </div>
         </div>
 
@@ -393,13 +392,11 @@ function App() {
         </div>
 
         <div style={{ background: "#fff", borderRadius: 10, padding: 14, border: "1px solid rgba(59,130,246,0.1)", marginBottom: 20 }}>
-          <div style={{ color: "#2563eb", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>结构性判断</div>
+          <div style={{ color: "#2563eb", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>信用风险判断</div>
           <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
-            四家巨头(MSFT/AMZN/GOOG/META)的<b style={{color:"#16a34a"}}>信用评级充足</b>，短中期内不构成系统性偿债风险。核心变量是<b style={{color:"#d97706"}}>AI收入变现速度</b>。
+            四家巨头(MSFT/AMZN/GOOG/META)的<b style={{color:"#16a34a"}}>信用评级充足</b>（AA-至AAA），短中期内不构成系统性偿债风险。真正的压力测试变量是<b style={{color:"#d97706"}}>AI收入变现速度</b>——当前Capex/OCF已达94%高位，若2027年前AI revenue不能显著起量，FCF将持续恶化，迫使发债规模进一步膨胀。
             <br/><br/>
-            <b style={{color:"#dc2626"}}>Oracle是最脆弱环节</b>——BBB评级、负FCF、高杠杆(债务/OCF 6.5x)、股价暴跌。
-            <br/><br/>
-            <b style={{color:"#7c3aed"}}>表外SPV是隐性风险</b>——$120B+已移至表外。一旦底层资产价值下跌，担保将回到表内。
+            关键监控指标：各家<b style={{color:"#dc2626"}}>信用利差变化</b>（尤其Oracle CDS）、季度FCF趋势、新债发行窗口是否收窄。资金循环与反身性风险详见<a href="ai-capex-reflexivity.html" style={{color:"#2563eb"}}>反身性风险地图</a>。
           </div>
         </div>
 

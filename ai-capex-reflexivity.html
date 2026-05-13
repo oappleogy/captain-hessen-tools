@@ -213,7 +213,7 @@ function App() {
               {[
                 { name: "OpenAI", why: "整条链的「终端需求验证者」，但自己还在亏损。$20B收入 vs $1.15万亿合同承诺。", color: "#10a37f" },
                 { name: "CoreWeave", why: "纯中间商，收入70%+依赖OpenAI单一客户。9.25%高息债，负现金流。", color: "#7c3aed" },
-                { name: "Oracle", why: "BBB评级距垃圾仅2级，总债务$131B vs OCF仅$20B（杠杆6.5x）。股价5个月暴跌58%。", color: "#C74634" },
+                { name: "Oracle", why: "整条链的「基建承包商」，自己不产生AI收入却承担了最大建设合同($300B)。一旦OpenAI缩减订单，Oracle无替代客户。", color: "#C74634" },
               ].map((n, i) => (
                 <div key={i} style={{ padding: "10px 12px", borderRadius: 8, marginBottom: 8, background: "#fff", borderLeft: `3px solid ${n.color}` }}>
                   <div style={{ color: n.color, fontSize: 12, fontWeight: 800, marginBottom: 4 }}>{n.name}</div>
@@ -263,13 +263,13 @@ function App() {
         )}
 
         <div style={{ marginTop: 16, padding: 14, borderRadius: 10, background: "#fff", border: "1px solid rgba(59,130,246,0.1)" }}>
-          <div style={{ color: "#2563eb", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>结构性判断</div>
+          <div style={{ color: "#2563eb", fontSize: 12, fontWeight: 700, marginBottom: 8 }}>反身性逆转信号</div>
           <div style={{ color: "#475569", fontSize: 11, lineHeight: 1.8 }}>
-            <b style={{color:"#d97706"}}>反身性强度排序：</b><br/>
-            1. <b style={{color:"#dc2626"}}>NVIDIA - OpenAI 轴</b> — 反身性最强。$100B投资+芯片锁定构成完美闭环。<br/>
-            2. <b style={{color:"#C74634"}}>Oracle - OpenAI - CoreWeave</b> — 最脆弱。两家都高杠杆、弱评级。<br/>
-            3. <b style={{color:"#7c3aed"}}>SPV/私募信贷层</b> — 隐性风险最大。$120B+未被充分定价。<br/><br/>
-            <b style={{color:"#16a34a"}}>投资含义：</b>监控Oracle CDS利差、CoreWeave股价、OpenAI月度ARR增速、NVIDIA订单backlog变化。当这些同步恶化时，就是反身性逆转的信号。
+            <b style={{color:"#d97706"}}>传导速度排序：</b><br/>
+            1. <b style={{color:"#dc2626"}}>NVIDIA - OpenAI 轴</b> — 闭环最紧密，一旦逆转传导最快（投资+采购双向锁定）<br/>
+            2. <b style={{color:"#C74634"}}>Oracle/CoreWeave 中间层</b> — 最先断裂的环节，因为缓冲最薄（无自有终端需求）<br/>
+            3. <b style={{color:"#7c3aed"}}>SPV → 表内回表</b> — 最滞后但冲击最大，类2008年SIV回表的延迟炸弹<br/><br/>
+            <b style={{color:"#16a34a"}}>四个领先指标：</b>OpenAI月度ARR增速拐点、CoreWeave股价破发深度、NVIDIA订单backlog环比变化、超算巨头季度capex指引下修。当这些同步恶化时=反身性逆转启动。各家信用评级与融资能力详见<a href="ai-capex-stress-test.html" style={{color:"#2563eb"}}>融资压力测试</a>。
           </div>
         </div>
 

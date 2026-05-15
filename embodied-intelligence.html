@@ -19,8 +19,11 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Di
 .tab-hint{position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:10;background:var(--accent);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(59,130,246,.4);animation:tab-hint-pulse 1.5s ease-in-out infinite;transition:opacity .3s}
 .tab-wrap.scrolled-end .tab-hint{opacity:0;pointer-events:none}
 @keyframes tab-hint-pulse{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(4px)}}
-.tab-bar{display:flex;gap:0;padding:0 32px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.tab-bar::-webkit-scrollbar{display:none}
+.tab-bar{display:flex;gap:0;padding:0 32px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--dim) rgba(255,255,255,.05)}
+.tab-bar::-webkit-scrollbar{height:6px}
+.tab-bar::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:3px}
+.tab-bar::-webkit-scrollbar-thumb{background:var(--dim);border-radius:3px}
+.tab-bar::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 .tab{padding:10px 18px;font-size:13px;cursor:pointer;color:var(--dim);border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}
 .tab:hover{color:var(--text)}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}

@@ -21,8 +21,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Di
 @keyframes tab-hint-pulse{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(4px)}}
 .tab-bar{display:flex;gap:0;padding:0 32px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tab-bar::-webkit-scrollbar{display:none}
-.sparkle{position:fixed;pointer-events:none;z-index:9999;font-size:10px;animation:sparkle-fly .7s ease-out forwards}
-@keyframes sparkle-fly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0)}}
+.sparkle{position:fixed;pointer-events:none;z-index:9999;animation:sparkle-fly 1.2s ease-out forwards;text-shadow:0 0 6px currentColor,0 0 12px currentColor}
+@keyframes sparkle-fly{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}40%{opacity:1}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0.2) rotate(var(--sr))}}
 .tab{padding:10px 18px;font-size:13px;cursor:pointer;color:var(--dim);border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}
 .tab:hover{color:var(--text)}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
@@ -141,15 +141,15 @@ tr:hover{background:var(--card2)}
 <div class="tab-wrap" id="tabWrap">
 <div class="tab-hint" id="tabHint" onclick="document.getElementById('tabBar').scrollBy({left:200,behavior:'smooth'})">&rsaquo;</div>
 <div class="tab-bar" id="tabBar">
-  <div class="tab active" onclick="showTab('overview')">产业概览</div>
-  <div class="tab" onclick="showTab('chain')">产业链地图</div>
-  <div class="tab" onclick="showTab('bom')">价值量拆解</div>
-  <div class="tab" onclick="showTab('competition')">竞争格局</div>
-  <div class="tab" onclick="showTab('space')">市场空间</div>
-  <div class="tab" onclick="showTab('beta')">多重贝塔</div>
-  <div class="tab" onclick="showTab('timeline')">时间轴</div>
-  <div class="tab" onclick="showTab('companies')">公司图谱</div>
-  <div class="tab" onclick="showTab('quality')">数据质量</div>
+  <div class="tab active" onclick="showTab('overview',event)">产业概览</div>
+  <div class="tab" onclick="showTab('chain',event)">产业链地图</div>
+  <div class="tab" onclick="showTab('bom',event)">价值量拆解</div>
+  <div class="tab" onclick="showTab('competition',event)">竞争格局</div>
+  <div class="tab" onclick="showTab('space',event)">市场空间</div>
+  <div class="tab" onclick="showTab('beta',event)">多重贝塔</div>
+  <div class="tab" onclick="showTab('timeline',event)">时间轴</div>
+  <div class="tab" onclick="showTab('companies',event)">公司图谱</div>
+  <div class="tab" onclick="showTab('quality',event)">数据质量</div>
 </div>
 </div>
 
@@ -754,29 +754,31 @@ function sparkle(el) {
   const rect = el.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
-  const chars = ['✦','✧','⭒','·','✶','✷'];
-  const colors = ['#f59e0b','#fbbf24','#fcd34d','#fef3c7','#fff7ed','#3b82f6'];
-  for (let i = 0; i < 14; i++) {
+  const chars = ['✦','✧','⭒','✶','✷','✸','⋆','∗'];
+  const colors = ['#f59e0b','#fbbf24','#fcd34d','#fef3c7','#fff7ed','#fb923c','#fde68a'];
+  for (let i = 0; i < 24; i++) {
     const s = document.createElement('span');
     s.className = 'sparkle';
     s.textContent = chars[Math.random() * chars.length | 0];
-    s.style.left = (cx + (Math.random() - 0.5) * rect.width) + 'px';
-    s.style.top = (cy + (Math.random() - 0.5) * rect.height) + 'px';
+    s.style.left = (cx + (Math.random() - 0.5) * rect.width * 1.5) + 'px';
+    s.style.top = (cy + (Math.random() - 0.5) * rect.height * 2) + 'px';
     s.style.color = colors[Math.random() * colors.length | 0];
-    s.style.setProperty('--sx', (Math.random() - 0.5) * 80 + 'px');
-    s.style.setProperty('--sy', -(Math.random() * 40 + 10) + 'px');
-    s.style.fontSize = (8 + Math.random() * 10) + 'px';
+    s.style.fontSize = (10 + Math.random() * 16) + 'px';
+    s.style.setProperty('--sx', (Math.random() - 0.5) * 140 + 'px');
+    s.style.setProperty('--sy', -(Math.random() * 70 + 15) + 'px');
+    s.style.setProperty('--sr', (Math.random() - 0.5) * 360 + 'deg');
+    s.style.animationDelay = (Math.random() * 0.2) + 's';
     document.body.appendChild(s);
     s.addEventListener('animationend', () => s.remove());
   }
 }
 
-function showTab(id) {
+function showTab(id, e) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
   document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + id).classList.remove('hidden');
-  event.target.classList.add('active');
-  sparkle(event.target);
+  var tab = e ? e.target : null;
+  if (tab) { tab.classList.add('active'); sparkle(tab); }
   if (id === 'companies' && !window._companiesLoaded) loadCompanies();
 }
 
@@ -940,8 +942,8 @@ function showBetaDetail(code) {
 
 // Auto-load beta chart when tab opens; also populate chain popups
 const origShowTab = showTab;
-showTab = function(id) {
-  origShowTab(id);
+showTab = function(id, e) {
+  origShowTab(id, e);
   if (id === 'beta') loadScores().then(renderBetaChart);
   if (id === 'chain') loadScores().then(populateChainPopups);
   if (id === 'quality') loadScores().then(renderQualityStats);

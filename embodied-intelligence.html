@@ -16,6 +16,9 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Di
 .tab-wrap{position:relative}
 .tab-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;transition:opacity .3s}
 .tab-wrap.scrolled-end::after{opacity:0}
+.tab-hint{position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:10;background:var(--accent);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(59,130,246,.4);animation:tab-hint-pulse 1.5s ease-in-out infinite;transition:opacity .3s}
+.tab-wrap.scrolled-end .tab-hint{opacity:0;pointer-events:none}
+@keyframes tab-hint-pulse{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(4px)}}
 .tab-bar{display:flex;gap:0;padding:0 32px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:auto;scrollbar-color:var(--dim) rgba(255,255,255,.05)}
 .tab-bar::-webkit-scrollbar{height:6px}
 .tab-bar::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:3px}
@@ -136,7 +139,8 @@ tr:hover{background:var(--card2)}
   <a href="index.html" class="back">&larr; 返回工具箱</a>
 </div>
 
-<div class="tab-wrap">
+<div class="tab-wrap" id="tabWrap">
+<div class="tab-hint" id="tabHint" onclick="document.getElementById('tabBar').scrollBy({left:200,behavior:'smooth'})">&rsaquo;</div>
 <div class="tab-bar" id="tabBar">
   <div class="tab active" onclick="showTab('overview')">产业概览</div>
   <div class="tab" onclick="showTab('chain')">产业链地图</div>

@@ -138,6 +138,7 @@ tr:hover{background:var(--card2)}
   <div class="tab" onclick="showTab('beta')">多重贝塔</div>
   <div class="tab" onclick="showTab('timeline')">时间轴</div>
   <div class="tab" onclick="showTab('companies')">公司图谱</div>
+  <div class="tab" onclick="showTab('quality')">数据质量</div>
 </div>
 
 <!-- ===== TAB: 产业概览 ===== -->
@@ -646,6 +647,75 @@ tr:hover{background:var(--card2)}
   </div>
 </div>
 
+<!-- ===== TAB: 数据质量 ===== -->
+<div class="content tab-content hidden" id="tab-quality">
+  <div class="section">
+    <h2>数据质量声明</h2>
+    <p style="font-size:12px;color:var(--dim);margin-bottom:16px">诚实披露数据来源、覆盖率与置信度，帮助读者判断信息可靠性</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px">
+        <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:8px">产业数据 (Tab 1-5, 7)</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.8">
+          <div><span style="color:var(--text)">来源:</span> 18份机构深度研报(中金/中信/国泰君安等)</div>
+          <div><span style="color:var(--text)">置信度:</span> <span class="tag tag-green">高</span> 机构一手研究，交叉验证</div>
+          <div><span style="color:var(--text)">局限:</span> 市场规模预测跨度大(2030/2035)，各机构口径不一，取中位数</div>
+          <div><span style="color:var(--text)">出货量:</span> 2025年数据为实际出货(宇树/智元已公布)，2026+为预测</div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px">
+        <div style="font-size:13px;font-weight:600;color:var(--yellow);margin-bottom:8px">&beta;评分 (Tab 6)</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.8">
+          <div><span style="color:var(--text)">来源:</span> 117家公司公告/互动问答/调研纪要 + 研报补充</div>
+          <div><span style="color:var(--text)">抽取方式:</span> MiniMax-Text-01 结构化抽取(AI)</div>
+          <div><span style="color:var(--text)">人工补充:</span> 12家公司已知供应关系(研报明确提及)</div>
+          <div><span style="color:var(--text)">置信度:</span> <span class="tag tag-yellow">中</span> AI抽取存在遗漏和误判</div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px">
+        <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:8px">已知数据缺口</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.8">
+          <div>&bull; 特斯拉供应链信息高度保密，多数为"疑似/认证"级别</div>
+          <div>&bull; 部分公司公告中未单独披露机器人业务收入</div>
+          <div>&bull; 国产化率数据来源不一，精确度有限</div>
+          <div>&bull; 2家公司(代码缺失)未完成数据抽取</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>&beta;评分各维度覆盖率</h2>
+    <p style="font-size:11px;color:var(--dim);margin-bottom:12px">覆盖率 = 该维度得分&gt;0的公司占比。覆盖率低意味着数据不足，评分参考价值有限。</p>
+    <div id="qualityStats" style="font-size:12px;color:var(--dim)">加载中...</div>
+  </div>
+
+  <div class="section">
+    <h2>评分方法论</h2>
+    <table>
+      <thead><tr><th>维度</th><th>满分</th><th>数据来源</th><th>评分逻辑</th><th>置信度</th></tr></thead>
+      <tbody>
+        <tr><td>&beta;1 赛道空间</td><td>3</td><td>产业链位置关键词匹配</td><td>丝杠/减速/传感/伺服=3, 整机/机器人=2, 材料=1</td><td><span class="tag tag-green">高</span></td></tr>
+        <tr><td>&beta;2 特斯拉</td><td>3</td><td>公告+研报+互动问答</td><td>已确认供应=3, 送样认证=2, 间接关联=1</td><td><span class="tag tag-red">低</span> 信息高度保密</td></tr>
+        <tr><td>&beta;3 国内客户</td><td>3</td><td>公告+研报</td><td>供货&ge;3家整机厂=3, 2家=2, 1家=1</td><td><span class="tag tag-yellow">中</span></td></tr>
+        <tr><td>&beta;4 海外客户</td><td>2</td><td>公告+互动问答</td><td>500强或&ge;2家=2, 有海外客户=1</td><td><span class="tag tag-yellow">中</span></td></tr>
+        <tr><td>&beta;5 基本盘</td><td>2</td><td>财报收入数据</td><td>已有机器人收入=2, 龙头地位=1, 弱相关=0</td><td><span class="tag tag-green">高</span></td></tr>
+        <tr><td>&beta;6 技术壁垒</td><td>3</td><td>研报+公告</td><td>市占率第一/唯一=3, 专利/自主=2, 有壁垒=1</td><td><span class="tag tag-green">高</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section" style="background:var(--card);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:16px">
+    <div style="font-size:13px;font-weight:600;color:var(--red);margin-bottom:8px">风险提示</div>
+    <div style="font-size:12px;color:var(--dim);line-height:1.8">
+      <div>&bull; &beta;评分是<b>信息覆盖的量化整理</b>，不是投资建议。高分不等于值得买，低分可能是数据缺失。</div>
+      <div>&bull; AI抽取存在幻觉风险，已知供应关系补充仅限研报明确提及的12家公司。</div>
+      <div>&bull; 产业处于早期阶段，市场规模预测不确定性极大，2030年数据仅供趋势参考。</div>
+      <div>&bull; 本页面所有数据截至2026年5月，不反映最新变化。</div>
+    </div>
+  </div>
+</div>
+
 <div style="text-align:center;padding:24px;font-size:10px;color:var(--dim);border-top:1px solid var(--border)">
   黑森船长 &copy; 2026 &middot; 具身智能产业链研究 &middot; 数据来源: 18份机构研报 + 117家公司公告 &middot; 非投资建议
 </div>
@@ -827,7 +897,58 @@ showTab = function(id) {
   origShowTab(id);
   if (id === 'beta') loadScores().then(renderBetaChart);
   if (id === 'chain') loadScores().then(populateChainPopups);
+  if (id === 'quality') loadScores().then(renderQualityStats);
 };
+
+// === Data quality stats ===
+function renderQualityStats() {
+  const el = document.getElementById('qualityStats');
+  if (!el || el.dataset.loaded) return;
+  el.dataset.loaded = '1';
+  const total = SCORES.length;
+  const dims = B_KEYS.map(k => {
+    const covered = SCORES.filter(d => d[k] > 0).length;
+    const pct = (covered / total * 100).toFixed(0);
+    const color = pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--yellow)' : 'var(--red)';
+    return {key: k, label: B_LABELS[k], covered, pct, color};
+  });
+  // Score distribution
+  const dist = {};
+  SCORES.forEach(d => { dist[d.total] = (dist[d.total] || 0) + 1; });
+  const distKeys = Object.keys(dist).map(Number).sort((a,b) => b - a);
+
+  let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px">';
+  // Coverage bars
+  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px">';
+  html += '<div style="font-size:13px;font-weight:600;margin-bottom:12px">各维度覆盖率 (得分&gt;0 / '+total+'家)</div>';
+  dims.forEach(d => {
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+    html += '<span style="width:60px;font-size:11px;color:var(--dim)">'+d.label+'</span>';
+    html += '<div style="flex:1;height:16px;background:var(--border);border-radius:3px;overflow:hidden">';
+    html += '<div style="width:'+d.pct+'%;height:100%;background:'+d.color+';border-radius:3px;transition:width .5s"></div></div>';
+    html += '<span style="width:70px;font-size:11px;text-align:right;color:'+d.color+'">'+d.covered+' ('+d.pct+'%)</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  // Score distribution
+  html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px">';
+  html += '<div style="font-size:13px;font-weight:600;margin-bottom:12px">总分分布</div>';
+  const maxCount = Math.max(...Object.values(dist));
+  distKeys.forEach(score => {
+    const cnt = dist[score];
+    const w = (cnt / maxCount * 100).toFixed(0);
+    const color = score >= 10 ? 'var(--green)' : score >= 7 ? 'var(--yellow)' : 'var(--dim)';
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">';
+    html += '<span style="width:30px;font-size:11px;text-align:right;color:'+color+'">'+score+'分</span>';
+    html += '<div style="flex:1;height:14px;background:var(--border);border-radius:3px;overflow:hidden">';
+    html += '<div style="width:'+w+'%;height:100%;background:'+color+';border-radius:3px"></div></div>';
+    html += '<span style="width:30px;font-size:11px;color:var(--dim)">'+cnt+'家</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  html += '</div>';
+  el.innerHTML = html;
+}
 
 // === Chain map hover popups ===
 function populateChainPopups() {

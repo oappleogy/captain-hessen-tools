@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>具身智能产业链事实图谱 | 黑森船长</title>
+<style>
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --card-hover: #1a2332;
+  --border: #1e293b;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --accent: #3b82f6;
+  --accent-dim: #1d4ed8;
+  --green: #10b981;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --purple: #8b5cf6;
+  --orange: #f97316;
+  --cyan: #06b6d4;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, 'SF Pro Display', 'PingFang SC', sans-serif; }
+.header { padding: 24px 32px; border-bottom: 1px solid var(--border); }
+.header h1 { font-size: 22px; font-weight: 600; }
+.header p { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+.stats-bar { display: flex; gap: 24px; padding: 16px 32px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+.controls { display: flex; gap: 12px; padding: 16px 32px; border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
+.controls input, .controls select {
+  background: var(--card); border: 1px solid var(--border); color: var(--text);
+  padding: 8px 12px; border-radius: 6px; font-size: 13px; outline: none;
+}
+.controls input { width: 240px; }
+.controls input:focus, .controls select:focus { border-color: var(--accent); }
+.controls select { cursor: pointer; }
+.tab-bar { display: flex; gap: 0; padding: 0 32px; border-bottom: 1px solid var(--border); }
+.tab { padding: 10px 20px; font-size: 13px; cursor: pointer; color: var(--text-dim); border-bottom: 2px solid transparent; transition: all .2s; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.content { padding: 16px 32px; }
+
+/* Table view */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { position: sticky; top: 0; background: var(--card); color: var(--text-dim); font-weight: 500;
+  padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; user-select: none; }
+th:hover { color: var(--accent); }
+th .sort-arrow { margin-left: 4px; font-size: 10px; }
+td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; max-width: 300px; }
+tr:hover { background: var(--card-hover); }
+.code-cell { font-family: 'SF Mono', monospace; color: var(--cyan); white-space: nowrap; }
+.name-cell { font-weight: 500; white-space: nowrap; }
+.chain-tag { display: inline-block; background: var(--accent-dim); color: #fff; padding: 1px 6px; border-radius: 3px; font-size: 10px; margin: 1px; }
+.chain-tag.upstream { background: #065f46; }
+.chain-tag.midstream { background: #92400e; }
+.chain-tag.downstream { background: #5b21b6; }
+.tesla-yes { color: var(--green); font-weight: 600; }
+.tesla-no { color: var(--text-dim); }
+.truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.truncate:hover { white-space: normal; overflow: visible; }
+.mv-cell { text-align: right; font-family: 'SF Mono', monospace; }
+
+/* Card view */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 16px; }
+.company-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; transition: border-color .2s; }
+.company-card:hover { border-color: var(--accent); }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.card-name { font-size: 15px; font-weight: 600; }
+.card-code { font-size: 12px; color: var(--text-dim); font-family: monospace; }
+.card-mv { font-size: 12px; color: var(--yellow); }
+.card-chains { margin-bottom: 8px; }
+.card-field { margin-bottom: 6px; font-size: 12px; line-height: 1.5; }
+.card-field .fl { color: var(--text-dim); font-size: 11px; }
+.card-field .fv { color: var(--text); }
+.card-field .fv.highlight { color: var(--green); }
+.evidence-badge { display: inline-block; background: var(--accent-dim); padding: 2px 8px; border-radius: 10px; font-size: 10px; }
+
+/* Quality view */
+.quality-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.q-item { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px; display: flex; align-items: center; gap: 8px; }
+.q-dots { display: flex; gap: 3px; }
+.q-dot { width: 8px; height: 8px; border-radius: 50%; }
+.q-dot.filled { background: var(--green); }
+.q-dot.empty { background: var(--border); }
+.q-name { font-size: 12px; flex: 1; }
+.q-score { font-size: 12px; color: var(--text-dim); font-family: monospace; }
+
+/* Chain map view */
+.chain-section { margin-bottom: 24px; }
+.chain-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.chain-title.upstream { color: var(--green); }
+.chain-title.midstream { color: var(--orange); }
+.chain-title.downstream { color: var(--purple); }
+.chain-sub { margin-left: 16px; margin-bottom: 12px; }
+.chain-sub-title { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+.chain-companies { display: flex; flex-wrap: wrap; gap: 6px; }
+.chain-chip { background: var(--card); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: all .2s; }
+.chain-chip:hover { border-color: var(--accent); background: var(--card-hover); }
+
+.no-data { color: var(--text-dim); font-style: italic; padding: 40px; text-align: center; }
+
+/* Modal */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.7); z-index: 100; }
+.modal-overlay.show { display: flex; align-items: center; justify-content: center; }
+.modal { background: var(--card); border: 1px solid var(--border); border-radius: 12px; max-width: 700px; width: 90%; max-height: 85vh; overflow-y: auto; padding: 24px; }
+.modal h2 { margin-bottom: 16px; font-size: 18px; }
+.modal .close { position: absolute; top: 16px; right: 20px; cursor: pointer; font-size: 20px; color: var(--text-dim); }
+.modal-field { margin-bottom: 12px; }
+.modal-field .mfl { font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 2px; }
+.modal-field .mfv { font-size: 13px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>具身智能产业链事实图谱</h1>
+  <p>黑森船长 · 锚定确定性 | 数据提取时间: <span id="extractTime"></span> | 共 <span id="totalCount"></span> 家公司</p>
+</div>
+
+<div class="stats-bar" id="statsBar"></div>
+
+<div class="tab-bar">
+  <div class="tab active" data-tab="table">表格视图</div>
+  <div class="tab" data-tab="cards">卡片视图</div>
+  <div class="tab" data-tab="chain">产业链地图</div>
+  <div class="tab" data-tab="quality">数据质量</div>
+</div>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="搜索公司名/代码/关键词...">
+  <select id="tierFilter">
+    <option value="">全部层级</option>
+    <option value="上游">上游</option>
+    <option value="中游">中游</option>
+    <option value="下游">下游</option>
+  </select>
+  <select id="teslaFilter">
+    <option value="">特斯拉关系</option>
+    <option value="yes">已提及</option>
+    <option value="no">未提及</option>
+  </select>
+  <select id="sortField">
+    <option value="total_mv">按市值排序</option>
+    <option value="evidence_count">按证据数排序</option>
+    <option value="name">按名称排序</option>
+    <option value="code">按代码排序</option>
+  </select>
+</div>
+
+<div class="content" id="content"></div>
+
+<!-- Detail modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+let DATA = [];
+let currentTab = 'table';
+let sortField = 'total_mv';
+let sortDir = -1;
+
+// Load data
+fetch('embodied_data.json')
+  .then(r => r.json())
+  .then(d => { DATA = d; init(); })
+  .catch(() => { document.getElementById('content').innerHTML = '<div class="no-data">数据加载失败，请确保 embodied_data.json 在同目录</div>'; });
+
+function init() {
+  document.getElementById('totalCount').textContent = DATA.length;
+  document.getElementById('extractTime').textContent = DATA[0]?.processed_at?.slice(0,10) || '未知';
+  renderStats();
+  render();
+
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    currentTab = t.dataset.tab;
+    render();
+  }));
+
+  document.getElementById('search').addEventListener('input', render);
+  document.getElementById('tierFilter').addEventListener('change', render);
+  document.getElementById('teslaFilter').addEventListener('change', render);
+  document.getElementById('sortField').addEventListener('change', e => { sortField = e.target.value; sortDir = -1; render(); });
+}
+
+function renderStats() {
+  const bar = document.getElementById('statsBar');
+  const hasRevenue = DATA.filter(d => d.robot_revenue_yi && d.robot_revenue_yi !== '' && d.robot_revenue_yi !== 0).length;
+  const hasTesla = DATA.filter(d => d.tesla_supply && !['未提及','未提取',''].includes(d.tesla_supply)).length;
+  const hasDomestic = DATA.filter(d => d.domestic_embodied_clients && !['未提取','未明确提及',''].includes(d.domestic_embodied_clients)).length;
+  const hasOrders = DATA.filter(d => d.recent_orders && !['未提及','未提取',''].includes(d.recent_orders)).length;
+  const avgEvidence = (DATA.reduce((s,d) => s + (d.evidence_count||0), 0) / DATA.length).toFixed(1);
+  const totalMV = DATA.reduce((s,d) => s + (parseFloat(d.total_mv)||0), 0);
+
+  bar.innerHTML = `
+    <div class="stat"><div class="num">${DATA.length}</div><div class="label">总公司数</div></div>
+    <div class="stat"><div class="num">${(totalMV/10000).toFixed(1)}万亿</div><div class="label">合计市值</div></div>
+    <div class="stat"><div class="num">${hasRevenue}</div><div class="label">披露机器人收入</div></div>
+    <div class="stat"><div class="num">${hasTesla}</div><div class="label">提及特斯拉</div></div>
+    <div class="stat"><div class="num">${hasDomestic}</div><div class="label">明确国内客户</div></div>
+    <div class="stat"><div class="num">${hasOrders}</div><div class="label">近期订单</div></div>
+    <div class="stat"><div class="num">${avgEvidence}</div><div class="label">平均证据数</div></div>
+  `;
+}
+
+function getFiltered() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const tier = document.getElementById('tierFilter').value;
+  const tesla = document.getElementById('teslaFilter').value;
+
+  let filtered = DATA.filter(d => {
+    if (q && !(d.name||'').toLowerCase().includes(q) && !(d.code||'').includes(q) &&
+        !(d.core_business||'').toLowerCase().includes(q) && !(d.tech_moat||'').toLowerCase().includes(q)) return false;
+    if (tier && !(d.chain_position||'').includes(tier)) return false;
+    if (tesla === 'yes' && ['未提及','未提取',''].includes(d.tesla_supply||'')) return false;
+    if (tesla === 'no' && !['未提及','未提取',''].includes(d.tesla_supply||'')) return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    let va = a[sortField], vb = b[sortField];
+    if (sortField === 'name' || sortField === 'code') {
+      return sortDir * (va||'').localeCompare(vb||'');
+    }
+    va = parseFloat(va) || 0; vb = parseFloat(vb) || 0;
+    return sortDir * (va - vb);
+  });
+  return filtered;
+}
+
+function render() {
+  const el = document.getElementById('content');
+  const data = getFiltered();
+  if (currentTab === 'table') renderTable(el, data);
+  else if (currentTab === 'cards') renderCards(el, data);
+  else if (currentTab === 'chain') renderChainMap(el, data);
+  else if (currentTab === 'quality') renderQuality(el, data);
+}
+
+function chainTags(pos) {
+  if (!pos) return '';
+  return pos.split(';').map(p => {
+    const t = p.trim();
+    const cls = t.startsWith('上游') ? 'upstream' : t.startsWith('中游') ? 'midstream' : 'downstream';
+    const short = t.split('/').slice(1).join('/');
+    return `<span class="chain-tag ${cls}" title="${t}">${short || t}</span>`;
+  }).join('');
+}
+
+function teslaLabel(v) {
+  if (!v || ['未提及','未提取',''].includes(v)) return '<span class="tesla-no">-</span>';
+  return `<span class="tesla-yes">${v}</span>`;
+}
+
+function fmtMV(v) {
+  const n = parseFloat(v);
+  if (!n) return '-';
+  return n >= 1000 ? (n/10000*10000/10000).toFixed(0) + '亿' : n.toFixed(0) + '亿';
+}
+
+// TABLE VIEW
+function renderTable(el, data) {
+  const cols = [
+    {key:'code', label:'代码', w:'60px'},
+    {key:'name', label:'公司', w:'80px'},
+    {key:'chain_position', label:'产业链位置', w:'180px'},
+    {key:'total_mv', label:'市值(亿)', w:'70px'},
+    {key:'core_business', label:'主营/战略地位', w:'200px'},
+    {key:'tesla_supply', label:'特斯拉', w:'80px'},
+    {key:'domestic_embodied_clients', label:'国内客户', w:'120px'},
+    {key:'tech_moat', label:'技术壁垒', w:'200px'},
+    {key:'evidence_count', label:'证据', w:'50px'},
+  ];
+
+  let html = '<div class="table-wrap"><table><thead><tr>';
+  cols.forEach(c => {
+    const arrow = sortField === c.key ? (sortDir > 0 ? '▲' : '▼') : '';
+    html += `<th onclick="toggleSort('${c.key}')" style="min-width:${c.w}">${c.label}<span class="sort-arrow">${arrow}</span></th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  data.forEach(d => {
+    html += `<tr onclick="showDetail('${d.code}')" style="cursor:pointer">`;
+    html += `<td class="code-cell">${d.code}</td>`;
+    html += `<td class="name-cell">${d.name}</td>`;
+    html += `<td>${chainTags(d.chain_position)}</td>`;
+    html += `<td class="mv-cell">${fmtMV(d.total_mv)}</td>`;
+    html += `<td class="truncate">${d.core_business||'-'}</td>`;
+    html += `<td>${teslaLabel(d.tesla_supply)}</td>`;
+    html += `<td class="truncate">${(!d.domestic_embodied_clients||d.domestic_embodied_clients==='未明确提及'||d.domestic_embodied_clients==='未提取')?'-':d.domestic_embodied_clients}</td>`;
+    html += `<td class="truncate">${d.tech_moat||'-'}</td>`;
+    html += `<td><span class="evidence-badge">${d.evidence_count||0}</span></td>`;
+    html += '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  html += `<p style="color:var(--text-dim);font-size:11px;margin-top:8px;">显示 ${data.length} / ${DATA.length} 家 · 点击行查看详情 · 点击表头排序</p>`;
+  el.innerHTML = html;
+}
+
+// CARD VIEW
+function renderCards(el, data) {
+  let html = '<div class="card-grid">';
+  data.forEach(d => {
+    const clients = (!d.domestic_embodied_clients||d.domestic_embodied_clients==='未明确提及'||d.domestic_embodied_clients==='未提取') ? '' :
+      `<div class="card-field"><span class="fl">国内客户: </span><span class="fv highlight">${d.domestic_embodied_clients}</span></div>`;
+    const tesla = (!d.tesla_supply||['未提及','未提取',''].includes(d.tesla_supply)) ? '' :
+      `<div class="card-field"><span class="fl">特斯拉: </span><span class="fv highlight">${d.tesla_supply}</span></div>`;
+    const orders = (!d.recent_orders||['未提及','未提取',''].includes(d.recent_orders)) ? '' :
+      `<div class="card-field"><span class="fl">近期订单: </span><span class="fv">${d.recent_orders}</span></div>`;
+
+    html += `<div class="company-card" onclick="showDetail('${d.code}')">
+      <div class="card-header">
+        <div><span class="card-name">${d.name}</span> <span class="card-code">${d.code}</span></div>
+        <span class="card-mv">${fmtMV(d.total_mv)}</span>
+      </div>
+      <div class="card-chains">${chainTags(d.chain_position)}</div>
+      <div class="card-field"><span class="fl">主营: </span><span class="fv">${d.core_business||'-'}</span></div>
+      ${tesla}${clients}${orders}
+      <div class="card-field"><span class="fl">技术壁垒: </span><span class="fv">${(d.tech_moat||'-').slice(0,120)}${(d.tech_moat||'').length>120?'...':''}</span></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        <span class="evidence-badge">证据 ${d.evidence_count||0}</span>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// CHAIN MAP VIEW
+function renderChainMap(el, data) {
+  const tiers = {'上游': {}, '中游': {}, '下游': {}};
+  data.forEach(d => {
+    (d.chain_position||'').split(';').forEach(p => {
+      const parts = p.trim().split('/');
+      if (parts.length < 2) return;
+      const tier = parts[0], l1 = parts[1];
+      if (!tiers[tier]) return;
+      if (!tiers[tier][l1]) tiers[tier][l1] = [];
+      if (!tiers[tier][l1].find(x => x.code === d.code)) {
+        tiers[tier][l1].push({code: d.code, name: d.name, mv: d.total_mv});
+      }
+    });
+  });
+
+  let html = '';
+  const tierColors = {'上游': 'upstream', '中游': 'midstream', '下游': 'downstream'};
+  for (const [tier, subs] of Object.entries(tiers)) {
+    const entries = Object.entries(subs).sort((a,b) => b[1].length - a[1].length);
+    if (entries.length === 0) continue;
+    html += `<div class="chain-section">`;
+    html += `<div class="chain-title ${tierColors[tier]}">${tier} (${entries.reduce((s,e)=>s+e[1].length,0)} 家)</div>`;
+    entries.forEach(([l1, companies]) => {
+      html += `<div class="chain-sub"><div class="chain-sub-title">${l1} (${companies.length})</div><div class="chain-companies">`;
+      companies.sort((a,b) => (parseFloat(b.mv)||0) - (parseFloat(a.mv)||0));
+      companies.forEach(c => {
+        html += `<div class="chain-chip" onclick="showDetail('${c.code}')">${c.name} <span style="color:var(--text-dim);font-size:10px">${fmtMV(c.mv)}</span></div>`;
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+// QUALITY VIEW
+function renderQuality(el, data) {
+  const fields = [
+    {key: 'core_business', label: '主营业务', check: v => v && v !== '未提取'},
+    {key: 'robot_revenue_yi', label: '机器人收入', check: v => v && v !== '' && v !== 0 && v !== '未提取'},
+    {key: 'robot_growth_trend', label: '增长趋势', check: v => v && !['未提取','未单独披露',''].includes(v)},
+    {key: 'tesla_supply', label: '特斯拉关系', check: v => v && !['未提及','未提取',''].includes(v)},
+    {key: 'domestic_embodied_clients', label: '国内客户', check: v => v && !['未提取','未明确提及',''].includes(v)},
+    {key: 'overseas_clients', label: '海外客户', check: v => v && !['未提及','未提取',''].includes(v)},
+    {key: 'recent_orders', label: '近期订单', check: v => v && !['未提及','未提取',''].includes(v)},
+    {key: 'mgmt_statement', label: '管理层表态', check: v => v && v !== '未提取'},
+    {key: 'tech_moat', label: '技术壁垒', check: v => v && v !== '未提取'},
+  ];
+
+  // Summary
+  let html = '<div style="margin-bottom:24px"><h3 style="margin-bottom:12px;font-size:15px;">字段覆盖率</h3>';
+  html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">';
+  fields.forEach(f => {
+    const count = data.filter(d => f.check(d[f.key])).length;
+    const pct = (count / data.length * 100).toFixed(0);
+    const color = pct > 50 ? 'var(--green)' : pct > 20 ? 'var(--yellow)' : 'var(--red)';
+    html += `<div style="background:var(--card);padding:10px;border-radius:6px;border:1px solid var(--border)">
+      <div style="font-size:12px;color:var(--text-dim)">${f.label}</div>
+      <div style="font-size:20px;font-weight:700;color:${color}">${count}<span style="font-size:12px;color:var(--text-dim)">/${data.length} (${pct}%)</span></div>
+      <div style="background:var(--border);height:4px;border-radius:2px;margin-top:4px"><div style="background:${color};height:4px;border-radius:2px;width:${pct}%"></div></div>
+    </div>`;
+  });
+  html += '</div></div>';
+
+  // Per-company quality
+  html += '<h3 style="margin-bottom:12px;font-size:15px;">各公司数据完整度</h3>';
+  html += '<div class="quality-grid">';
+  data.forEach(d => {
+    const score = fields.filter(f => f.check(d[f.key])).length;
+    let dots = '';
+    for (let i = 0; i < fields.length; i++) {
+      dots += `<div class="q-dot ${i < score ? 'filled' : 'empty'}"></div>`;
+    }
+    html += `<div class="q-item" onclick="showDetail('${d.code}')" style="cursor:pointer">
+      <div class="q-name">${d.name}</div>
+      <div class="q-dots">${dots}</div>
+      <div class="q-score">${score}/${fields.length}</div>
+    </div>`;
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+// DETAIL MODAL
+function showDetail(code) {
+  const d = DATA.find(x => x.code === code);
+  if (!d) return;
+  const modal = document.getElementById('modal');
+  const fields = [
+    ['产业链位置', d.chain_position],
+    ['主营/战略地位', d.core_business],
+    ['机器人收入', d.robot_revenue_yi ? `${d.robot_revenue_yi}亿 (占比${d.robot_revenue_ratio||'?'}%)` : '未单独披露'],
+    ['毛利率', d.robot_gross_margin ? d.robot_gross_margin+'%' : '未披露'],
+    ['增长趋势', d.robot_growth_trend],
+    ['特斯拉关系', d.tesla_supply],
+    ['国内具身客户', d.domestic_embodied_clients],
+    ['海外客户', d.overseas_clients],
+    ['传统大客户', d.traditional_clients],
+    ['近期订单', d.recent_orders],
+    ['管理层表态', d.mgmt_statement],
+    ['技术壁垒', d.tech_moat],
+    ['总市值', fmtMV(d.total_mv)],
+    ['PE(TTM)', d.pe_ttm || '-'],
+    ['股东户数', d.holders ? parseInt(d.holders).toLocaleString() : '-'],
+    ['证据文件数', d.evidence_count],
+  ];
+  let html = `<h2>${d.name} <span style="color:var(--text-dim);font-size:14px">${d.code}</span></h2>`;
+  fields.forEach(([label, value]) => {
+    html += `<div class="modal-field"><div class="mfl">${label}</div><div class="mfv">${value || '-'}</div></div>`;
+  });
+  modal.innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+function toggleSort(field) {
+  if (sortField === field) sortDir *= -1;
+  else { sortField = field; sortDir = -1; }
+  document.getElementById('sortField').value = sortField;
+  render();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

@@ -94,6 +94,29 @@ tr:hover{background:var(--card2)}
   .content{padding:16px}
 }
 .hidden{display:none}
+
+/* Chain popup */
+.chain-hover{position:relative}
+.chain-popup{display:none;position:absolute;left:100%;top:0;margin-left:8px;z-index:100;background:#1e293b;border:1px solid var(--accent);border-radius:8px;padding:10px 12px;min-width:220px;max-width:300px;box-shadow:0 8px 24px rgba(0,0,0,.5);pointer-events:auto}
+.chain-hover:hover .chain-popup.has-data{display:block}
+.chain-popup .cp-title{font-size:11px;color:var(--accent);margin-bottom:6px;font-weight:600}
+.chain-popup .cp-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;font-size:11px}
+.chain-popup .cp-row:hover{background:rgba(59,130,246,.1);border-radius:3px}
+.chain-popup .cp-name{font-weight:500}
+.chain-popup .cp-code{color:var(--cyan);font-family:monospace;font-size:10px;margin-left:4px}
+.chain-popup .cp-score{font-weight:700;font-size:12px}
+@media(max-width:900px){.chain-popup{left:0;top:100%;margin-left:0;margin-top:4px}}
+
+/* Modal overlay */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:1000;justify-content:center;align-items:center;padding:24px}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;position:relative}
+.modal-box h2{font-size:16px;margin-bottom:4px}
+.modal-field{display:flex;gap:8px;margin-top:8px;font-size:12px}
+.modal-field .mfl{width:90px;color:var(--dim);flex-shrink:0}
+.modal-field .mfv{color:var(--text);flex:1;word-break:break-all}
+.modal-close{position:absolute;top:12px;right:16px;font-size:20px;color:var(--dim);cursor:pointer;border:none;background:none}
+.modal-close:hover{color:var(--text)}
 </style>
 </head>
 <body>
@@ -180,51 +203,58 @@ tr:hover{background:var(--card2)}
 <!-- ===== TAB: 产业链地图 ===== -->
 <div class="content tab-content hidden" id="tab-chain">
   <div class="section">
-    <h2>人形机器人产业链全景</h2>
+    <h2>人形机器人产业链全景 <span style="font-size:12px;color:var(--dim);font-weight:400">hover查看A股标的 · 点击查看详情</span></h2>
     <div class="chain-flow">
       <!-- 上游 -->
       <div class="chain-col" style="border-color:rgba(16,185,129,.3)">
         <h3 style="color:var(--green)">上游 · 核心零部件</h3>
-        <div class="chain-item" style="border-color:rgba(239,68,68,.3)">
+        <div class="chain-item chain-hover" data-kw="丝杠,轴承" style="border-color:rgba(239,68,68,.3)">
           <div class="ci-name">行星滚柱丝杠</div>
           <div class="ci-space">单台4万 · 占BOM 19% · CAGR 61%</div>
           <div class="ci-players">舍弗勒(德) | 恒立液压 秦川机床 博特精工</div>
           <div style="margin-top:4px"><span class="tag tag-red">国产化率30% · 卡脖子最严重</span></div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item" style="border-color:rgba(245,158,11,.3)">
+        <div class="chain-item chain-hover" data-kw="减速,谐波,RV减速" style="border-color:rgba(245,158,11,.3)">
           <div class="ci-name">精密减速器(谐波+RV)</div>
           <div class="ci-space">单台4.5万 · 占BOM 21% · CAGR 58%</div>
           <div class="ci-players">哈默纳科(日) | 绿的谐波(60%) 双环传动 来福</div>
           <div style="margin-top:4px"><span class="tag tag-yellow">国产化率50% · 绿的谐波主导</span></div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item" style="border-color:rgba(245,158,11,.3)">
+        <div class="chain-item chain-hover" data-kw="电机,电驱" style="border-color:rgba(245,158,11,.3)">
           <div class="ci-name">无框力矩电机</div>
           <div class="ci-space">单台4万 · 占BOM 19% · CAGR 59%</div>
           <div class="ci-players">科尔摩根(美) | 步科 伟创电气 汇川 昊志</div>
           <div style="margin-top:4px"><span class="tag tag-yellow">国产化率50%</span></div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item" style="border-color:rgba(239,68,68,.3)">
+        <div class="chain-item chain-hover" data-kw="传感,力觉,感知" style="border-color:rgba(239,68,68,.3)">
           <div class="ci-name">六维力传感器</div>
           <div class="ci-space">单台3万 · 占BOM 14% · CAGR 65%</div>
           <div class="ci-players">ATI(美) Schunk(德) | 宇立 坤维 柯力传感</div>
           <div style="margin-top:4px"><span class="tag tag-red">国产化率35% · 精度差距大</span></div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="控制器,控制单元,伺服,PLC">
           <div class="ci-name">控制器/驱动器</div>
           <div class="ci-space">单台2.5万 · 占BOM 12%</div>
           <div class="ci-players">固高科技 华中数控 埃斯顿 信捷电气</div>
           <div style="margin-top:4px"><span class="tag tag-green">国产化率60%</span></div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="灵巧手,执行器">
           <div class="ci-name">灵巧手</div>
           <div class="ci-space">占整机成本17% · CAGR 70%</div>
           <div class="ci-players">整机自研为主 | 因时 灵巧智能 星动纪元</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="钕铁硼,碳纤维,钛合金,镁合金,轴承钢,材料">
           <div class="ci-name">结构材料</div>
           <div class="ci-space">铝合金/碳纤维/钕铁硼/钛合金</div>
           <div class="ci-players">中信特钢 光威复材 金力永磁 宝钛股份</div>
           <div style="margin-top:4px"><span class="tag tag-green">国产化率90%</span></div>
+          <div class="chain-popup"></div>
         </div>
       </div>
 
@@ -233,28 +263,33 @@ tr:hover{background:var(--card2)}
       <!-- 中游 -->
       <div class="chain-col" style="border-color:rgba(245,158,11,.3)">
         <h3 style="color:var(--orange)">中游 · 整机集成</h3>
-        <div class="chain-item" style="border-color:rgba(59,130,246,.3)">
+        <div class="chain-item chain-hover" data-kw="通用智能体,整机" style="border-color:rgba(59,130,246,.3)">
           <div class="ci-name">人形机器人整机</div>
           <div class="ci-space">2030年中国2400亿市场</div>
           <div class="ci-players" style="color:var(--text)">特斯拉Optimus | 宇树 智元 优必选</div>
           <div class="ci-players">小鹏Iron | 乐聚 傅利叶 开普勒</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="工业机器人">
           <div class="ci-name">工业机器人</div>
           <div class="ci-players">埃斯顿 埃夫特 新时达 拓斯达 凯尔达</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="巡检,协作">
           <div class="ci-name">协作/巡检机器人</div>
           <div class="ci-players">机器人(新松) 亿嘉和 申昊科技 中信重工</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="无人机">
           <div class="ci-name">无人机</div>
           <div class="ci-players">纵横股份 航天彩虹 观典防务 中无人机</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item" style="border-color:rgba(139,92,246,.3)">
+        <div class="chain-item chain-hover" data-kw="操作系统,中间件,仿真" style="border-color:rgba(139,92,246,.3)">
           <div class="ci-name">具身大模型/OS</div>
           <div class="ci-space">价值占比: 15%&rarr;40%(2030)</div>
           <div class="ci-players">智元启元 宇树 特斯拉FSD复用 | 中科创达 诚迈</div>
+          <div class="chain-popup"></div>
         </div>
       </div>
 
@@ -263,25 +298,29 @@ tr:hover{background:var(--card2)}
       <!-- 下游 -->
       <div class="chain-col" style="border-color:rgba(139,92,246,.3)">
         <h3 style="color:var(--purple)">下游 · 应用场景</h3>
-        <div class="chain-item" style="border-color:rgba(245,158,11,.3)">
+        <div class="chain-item chain-hover" data-kw="工业具身,装配,物流,制造服务" style="border-color:rgba(245,158,11,.3)">
           <div class="ci-name">工业制造(2030占50%)</div>
           <div class="ci-space">2030年 1200亿 · CAGR 129%</div>
           <div class="ci-players">汽车总装(600亿) | 3C电子 物流分拣</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="商用场景,餐饮,医疗">
           <div class="ci-name">商业服务(2030占30%)</div>
           <div class="ci-space">2030年 720亿 · CAGR 120%</div>
           <div class="ci-players">零售导购 | 餐饮 | 酒店 | 医疗</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="家庭,家用,康复,护理,教学">
           <div class="ci-name">家庭消费(2030占15%)</div>
           <div class="ci-space">2030年 360亿 · CAGR 168%</div>
           <div class="ci-players">家政清洁 | 养老护理 | 教育陪伴</div>
+          <div class="chain-popup"></div>
         </div>
-        <div class="chain-item">
+        <div class="chain-item chain-hover" data-kw="高危,军工,消防,航空航天,钻探">
           <div class="ci-name">特种领域(2030占5%)</div>
           <div class="ci-space">2030年 120亿</div>
           <div class="ci-players">军工 | 消防 | 深海 | 核电</div>
+          <div class="chain-popup"></div>
         </div>
       </div>
     </div>
@@ -611,6 +650,10 @@ tr:hover{background:var(--card2)}
   黑森船长 &copy; 2026 &middot; 具身智能产业链研究 &middot; 数据来源: 18份机构研报 + 117家公司公告 &middot; 非投资建议
 </div>
 
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal-box" id="modal"><button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">&times;</button></div>
+</div>
+
 <script>
 function showTab(id) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -778,12 +821,39 @@ function showBetaDetail(code) {
   document.getElementById('modalOverlay').classList.add('show');
 }
 
-// Auto-load beta chart when tab opens
+// Auto-load beta chart when tab opens; also populate chain popups
 const origShowTab = showTab;
 showTab = function(id) {
   origShowTab(id);
   if (id === 'beta') loadScores().then(renderBetaChart);
+  if (id === 'chain') loadScores().then(populateChainPopups);
 };
+
+// === Chain map hover popups ===
+function populateChainPopups() {
+  document.querySelectorAll('.chain-hover').forEach(el => {
+    const popup = el.querySelector('.chain-popup');
+    if (!popup || popup.classList.contains('has-data')) return;
+    const kws = (el.dataset.kw || '').split(',').map(s => s.trim()).filter(Boolean);
+    if (!kws.length) return;
+    // Find matching companies from SCORES
+    const matches = SCORES.filter(d => {
+      const pos = (d.chain_position || '') + ' ' + (d.core_business || '');
+      return kws.some(kw => pos.includes(kw));
+    }).sort((a, b) => b.total - a.total).slice(0, 12);
+    if (!matches.length) return;
+    popup.classList.add('has-data');
+    let html = '<div class="cp-title">A股标的 ('+matches.length+'家)</div>';
+    matches.forEach(d => {
+      const color = d.total >= 10 ? 'var(--green)' : d.total >= 7 ? 'var(--yellow)' : 'var(--dim)';
+      html += '<div class="cp-row" onclick="event.stopPropagation();showBetaDetail(\''+d.code+'\')">';
+      html += '<span><span class="cp-name">'+d.name+'</span><span class="cp-code">'+d.code+'</span></span>';
+      html += '<span class="cp-score" style="color:'+color+'">'+d.total+'/16</span>';
+      html += '</div>';
+    });
+    popup.innerHTML = html;
+  });
+}
 
 function loadCompanies() {
   fetch('embodied_data.json')

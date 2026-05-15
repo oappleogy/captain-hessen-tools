@@ -1,37 +1,37 @@
 {
-  "timestamp": "2026-05-14T10:29:44",
+  "timestamp": "2026-05-15T07:36:18",
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
-    "score": 0.333,
-    "action": "系统轻度承压。建议仓位≤50%（趋势↑），增加对冲，缩短持仓周期。"
+    "score": 0.0,
+    "action": "系统轻度承压。建议仓位≤45%（趋势↓），增加对冲，缩短持仓周期。"
   },
-  "regime_label": "STABLE",
-  "red_count": 0,
+  "regime_label": "WATCH",
+  "red_count": 1,
   "dim_lights": {
-    "R": "green",
+    "R": "yellow",
     "I": "green",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
-    "T": "yellow"
+    "T": "red"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.33,
-      "state": "▲",
-      "light": "green",
-      "note": "信用市场平稳，系统有足够缓冲",
+      "score": 0.27,
+      "state": "►",
+      "light": "yellow",
+      "note": "利差温和扩张，韧性开始消耗",
       "confidence": "★★",
       "name_cn": "信用韧性",
       "status": "healthy"
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.39,
+      "score": 0.32,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -41,17 +41,17 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.07,
+      "score": -0.27,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
-      "status": "neutral"
+      "status": "stressed"
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.04,
+      "score": -0.12,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -61,51 +61,51 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.11,
+      "score": 0.1,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.18,
-      "state": "►",
-      "light": "yellow",
-      "note": "技术-制度出现摩擦，部分行业承压",
+      "score": -0.38,
+      "state": "▼",
+      "light": "red",
+      "note": "技术加速度超过制度消化，结构性失配严重",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "neutral"
+      "status": "stressed"
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
         "name": "黄金吸引子",
         "emoji": "🟢",
         "color": "#22c55e",
-        "pct": 1.8
+        "pct": 1.7
       },
       {
         "key": "STABLE",
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 64.9
+        "pct": 65.5
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 33.3
+        "pct": 32.8
       },
       {
         "key": "TECH_DOM",
@@ -122,16 +122,16 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "停滞",
-    "safety_margin": 0.433,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.1,
     "early_warning": "无"
   },
   "extremes": {
     "count": 3,
     "categories": [
-      "OVX原油波动率=70.9 (历史93%分位)",
+      "OVX原油波动率=68.9 (历史93%分位)",
       "地缘政治风险(GPR)=231 (历史97%分位)",
-      "地缘交叉验证(OVX)=70.9 (历史93%分位) [仅验证，不计分]"
+      "地缘交叉验证(OVX)=68.9 (历史93%分位) [仅验证，不计分]"
     ]
   },
   "opportunities": [],
@@ -149,8 +149,8 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 17.9,
-      "percentile": 69,
+      "value": 17.3,
+      "percentile": 63,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

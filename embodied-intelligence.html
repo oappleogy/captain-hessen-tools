@@ -763,7 +763,7 @@ function setBetaView(v) {
   });
 }
 
-function fmtMV2(v){const n=parseFloat(v);if(!n)return'-';return n>=1000?(n/10000*10000/10000).toFixed(0)+'亿':n.toFixed(0)+'亿';}
+function fmtMV2(v){const n=parseFloat(v);if(!n)return'-';if(n>=10000)return(n/10000).toFixed(2)+'万亿';if(n>=100)return n.toFixed(0)+'亿';return n.toFixed(1)+'亿';}
 
 function renderBetaChart() {
   const el = document.getElementById('beta-chart-view');
@@ -998,7 +998,7 @@ function loadCompanies() {
         html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:8px">';
         companies.forEach(d => {
           const mv = parseFloat(d.total_mv);
-          const mvStr = mv ? (mv >= 1000 ? (mv/10000*10000/10000).toFixed(0) + '亿' : mv.toFixed(0) + '亿') : '-';
+          const mvStr = mv ? fmtMV2(mv) : '-';
           const tesla = d.tesla_supply && !['未提及','未提取',''].includes(d.tesla_supply) ? '<span style="color:var(--green);font-size:10px"> &middot; Tesla: ' + d.tesla_supply + '</span>' : '';
           const biz = (d.core_business || '').slice(0, 80);
           html += '<div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;font-size:12px">' +

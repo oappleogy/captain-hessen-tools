@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-16",
+  "last_updated": "2026-05-18",
   "timeline": [
     {
       "date": "2026-03-26",
@@ -553,6 +553,32 @@
         "Fortune"
       ],
       "new_members": []
+    },
+    {
+      "date": "2026-05-15",
+      "tag": "成员",
+      "title": "Verizon加入Project Glasswing",
+      "detail": "Verizon宣布加入Anthropic的Project Glasswing项目，成为其合作伙伴之一，将在其基础设施上测试Claude Mythos模型。这是电信行业首个加入该项目的成员。",
+      "impact": "信息",
+      "sources": [
+        "Verizon",
+        "Seeking Alpha",
+        "GSMArena.com"
+      ],
+      "new_members": [
+        "Verizon"
+      ]
+    },
+    {
+      "date": "2026-05-16",
+      "tag": "能力",
+      "title": "Mythos发现首个Apple M5内存漏洞",
+      "detail": "安全研究人员使用Anthropic的Claude Mythos模型发现了首个Apple M5芯片内存漏洞，可获取MacOS root权限。该漏洞 bypass 了苹果的Memory Integrity Enforcement安全机制。",
+      "impact": "重大",
+      "sources": [
+        "Tom's Hardware"
+      ],
+      "new_members": []
     }
   ],
   "tracking_lines": [
@@ -714,6 +740,7 @@
       "Novartis",
       "Nvidia",
       "Palo Alto Networks",
+      "Verizon",
       "三井住友金融集团",
       "三菱UFJ金融集团",
       "澳大利亚政府",
@@ -775,6 +802,12 @@
           "三井住友金融集团",
           "三菱UFJ金融集团",
           "瑞穗金融集团"
+        ]
+      },
+      {
+        "date": "2026-05-18",
+        "added": [
+          "Verizon"
         ]
       }
     ]

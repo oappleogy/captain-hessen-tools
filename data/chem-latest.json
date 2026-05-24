@@ -12,8 +12,6 @@
       "inventory": 0,
       "inv_change": 0,
       "inv_date": "2026-05-22",
-      "spot_price": 9900.0,
-      "basis_rate": -11.41,
       "long_top20": 270442,
       "short_top20": 275799,
       "net_position": -5357,
@@ -30,9 +28,7 @@
       "date": "2026-05-22",
       "inventory": 579,
       "inv_change": 0,
-      "inv_date": "2026-05-22",
-      "spot_price": 8386.67,
-      "basis_rate": -5.21
+      "inv_date": "2026-05-22"
     },
     "苯乙烯": {
       "price": 9284.0,
@@ -45,9 +41,7 @@
       "date": "2026-05-22",
       "inventory": 0,
       "inv_change": -3717,
-      "inv_date": "2026-04-30",
-      "spot_price": 9526.0,
-      "basis_rate": -2.54
+      "inv_date": "2026-04-30"
     },
     "乙二醇": {
       "price": 4550.0,
@@ -60,9 +54,7 @@
       "date": "2026-05-22",
       "inventory": 13174,
       "inv_change": -324,
-      "inv_date": "2026-05-22",
-      "spot_price": 4903.33,
-      "basis_rate": -7.21
+      "inv_date": "2026-05-22"
     },
     "PTA": {
       "price": 6136.0,
@@ -76,8 +68,6 @@
       "inventory": 169295,
       "inv_change": -9276,
       "inv_date": "2026-05-22",
-      "spot_price": 6345.91,
-      "basis_rate": -3.31,
       "long_top20": 1299601,
       "short_top20": 1289254,
       "net_position": 10347,
@@ -95,8 +85,6 @@
       "inventory": 310,
       "inv_change": -402,
       "inv_date": "2026-05-22",
-      "spot_price": 9074.33,
-      "basis_rate": -5.46,
       "long_top20": 28064,
       "short_top20": 27993,
       "net_position": 71,
@@ -113,9 +101,7 @@
       "date": "2026-05-22",
       "inventory": 1164,
       "inv_change": 0,
-      "inv_date": "2026-05-22",
-      "spot_price": 5950.0,
-      "basis_rate": -0.03
+      "inv_date": "2026-05-22"
     },
     "瓶片": {
       "price": 7906.0,
@@ -129,8 +115,6 @@
       "inventory": 300,
       "inv_change": -314,
       "inv_date": "2026-05-22",
-      "spot_price": 8750.0,
-      "basis_rate": -9.65,
       "long_top20": 67151,
       "short_top20": 66571,
       "net_position": 580,
@@ -148,8 +132,6 @@
       "inventory": 21120,
       "inv_change": 0,
       "inv_date": "2026-05-22",
-      "spot_price": 4406.67,
-      "basis_rate": -1.67,
       "long_top20": 809028,
       "short_top20": 766084,
       "net_position": 42944,
@@ -167,8 +149,6 @@
       "inventory": 2097,
       "inv_change": -200,
       "inv_date": "2026-05-22",
-      "spot_price": 8039.1,
-      "basis_rate": -4.09,
       "long_top20": 216126,
       "short_top20": 214652,
       "net_position": 1474,
@@ -185,9 +165,7 @@
       "date": "2026-05-22",
       "inventory": 16436,
       "inv_change": 500,
-      "inv_date": "2026-05-22",
-      "spot_price": 9823.33,
-      "basis_rate": -10.5
+      "inv_date": "2026-05-22"
     },
     "塑料(LLDPE)": {
       "price": 7927.0,
@@ -200,9 +178,7 @@
       "date": "2026-05-22",
       "inventory": 12369,
       "inv_change": -740,
-      "inv_date": "2026-05-22",
-      "spot_price": 8386.67,
-      "basis_rate": -5.48
+      "inv_date": "2026-05-22"
     },
     "甲醇": {
       "price": 2927.0,
@@ -216,8 +192,6 @@
       "inventory": 7027,
       "inv_change": -1839,
       "inv_date": "2026-05-22",
-      "spot_price": 3163.33,
-      "basis_rate": -7.47,
       "long_top20": 730996,
       "short_top20": 638958,
       "net_position": 92038,
@@ -235,8 +209,6 @@
       "inventory": 0,
       "inv_change": -12,
       "inv_date": "2026-05-22",
-      "spot_price": 620.0,
-      "basis_rate": 222.74,
       "long_top20": 235202,
       "short_top20": 265756,
       "net_position": -30554,
@@ -253,9 +225,7 @@
       "date": "2026-05-22",
       "inventory": 103685,
       "inv_change": 267,
-      "inv_date": "2026-05-22",
-      "spot_price": 4670.0,
-      "basis_rate": 3.77
+      "inv_date": "2026-05-22"
     },
     "尿素": {
       "price": 1826.0,
@@ -269,12 +239,27 @@
       "inventory": 13432,
       "inv_change": -24,
       "inv_date": "2026-05-22",
-      "spot_price": 1775.0,
-      "basis_rate": 2.87,
       "long_top20": 310121,
       "short_top20": 352976,
       "net_position": -42855,
       "net_change": -4441
+    },
+    "纯碱": {
+      "price": 1181.0,
+      "change_pct": -0.08,
+      "volume": 492465,
+      "open_interest": 1233211,
+      "oi_change_5d_pct": 4.94,
+      "high": 1187.0,
+      "low": 1175.0,
+      "date": "2026-05-22",
+      "inventory": 670,
+      "inv_change": -1848,
+      "inv_date": "2026-05-22",
+      "long_top20": 875198,
+      "short_top20": 1093751,
+      "net_position": -218553,
+      "net_change": -12786
     }
   },
   "oil": {
@@ -283,10 +268,10 @@
       "date": "2026-05-22"
     },
     "Brent": {
-      "price": 103.54,
+      "price": 100.21,
       "date": "2026-05-22"
     }
   },
-  "updated_at": "2026-05-23T14:17:04Z",
+  "updated_at": "2026-05-24T14:11:01Z",
   "watermark": "黑森船长"
 }

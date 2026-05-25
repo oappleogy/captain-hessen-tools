@@ -1,7 +1,7 @@
 {
-  "week_label": "2026-W21",
-  "generated_at": "2026-05-24 22:10",
-  "data_time": "2026-05-24T14:10:26Z",
+  "week_label": "2026-W22",
+  "generated_at": "2026-05-25 08:17",
+  "data_time": "2026-05-25T00:17:53Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -20,27 +20,19 @@
   },
   "variables": [
     {
-      "key": "fed_rate",
-      "name": "Fed利率",
-      "unit": "%",
-      "value": 3.62,
-      "date": "2026-05-21",
-      "freshness": "fresh"
-    },
-    {
       "key": "credit_spread",
       "name": "信用利差",
       "unit": "%",
       "value": 2.78,
       "date": "2026-05-21",
-      "freshness": "fresh"
+      "freshness": "stale"
     },
     {
       "key": "dxy",
       "name": "DXY",
       "unit": "",
-      "value": 99.32,
-      "date": "2026-05-22",
+      "value": 99.038,
+      "date": "2026-05-24",
       "freshness": "fresh"
     },
     {
@@ -56,7 +48,7 @@
       "name": "WTI油价",
       "unit": "$/b",
       "value": 96.6,
-      "date": "2026-05-22",
+      "date": "2026-05-24",
       "freshness": "fresh"
     },
     {
@@ -71,8 +63,8 @@
       "key": "usd_jpy",
       "name": "USD/JPY",
       "unit": "",
-      "value": 159.155,
-      "date": "2026-05-22",
+      "value": 158.9,
+      "date": "2026-05-25",
       "freshness": "fresh"
     },
     {
@@ -292,7 +284,7 @@
         "level": "显著偏离"
       }
     ],
-    "timestamp": "2026-05-23 22:16"
+    "timestamp": "2026-05-24 22:10"
   },
   "significant_deviations": [
     {
@@ -324,7 +316,7 @@
     {
       "regime": "避险冲击",
       "met": false,
-      "total_gap": 21.98,
+      "total_gap": 22.26,
       "triggers": [
         {
           "name": "VIX",
@@ -337,29 +329,29 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 99.32,
-          "gap": 8.68
+          "current": 99.04,
+          "gap": 8.96
         }
       ]
     },
     {
       "regime": "加息紧缩",
       "met": false,
-      "total_gap": 9.56,
+      "total_gap": 107.96,
       "triggers": [
         {
           "name": "Fed利率",
           "need": ">",
           "threshold": 4.5,
-          "current": 3.62,
-          "gap": 0.88
+          "current": "—",
+          "gap": 99
         },
         {
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 99.32,
-          "gap": 8.68
+          "current": 99.04,
+          "gap": 8.96
         },
         {
           "name": "VIX",
@@ -373,28 +365,28 @@
     {
       "regime": "宽松放水",
       "met": false,
-      "total_gap": 5.94,
+      "total_gap": 103.04,
       "triggers": [
         {
           "name": "Fed利率",
           "need": "<",
           "threshold": 2,
-          "current": 3.62,
-          "gap": 1.62
+          "current": "—",
+          "gap": 99
         },
         {
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 99.32,
-          "gap": 4.32
+          "current": 99.04,
+          "gap": 4.04
         }
       ]
     },
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 8.6,
+      "total_gap": 106.44,
       "triggers": [
         {
           "name": "油价",
@@ -407,15 +399,15 @@
           "name": "Fed利率",
           "need": ">",
           "threshold": 4.5,
-          "current": 3.62,
-          "gap": 0.88
+          "current": "—",
+          "gap": 99
         },
         {
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 99.32,
-          "gap": 4.32
+          "current": 99.04,
+          "gap": 4.04
         }
       ]
     }
@@ -434,7 +426,7 @@
     "futures": {
       "curve": {
         "2026-05": 3.6275,
-        "2026-06": 3.62,
+        "2026-06": 3.625,
         "2026-07": 3.64,
         "2026-08": 3.675,
         "2026-09": 3.71,
@@ -456,7 +448,7 @@
       "terminal_rate_12m": 4.015,
       "rate_gap": -0.3875,
       "cuts_priced_12m": -1.55,
-      "date": "2026-05-24"
+      "date": "2026-05-25"
     }
   },
   "watermark": "黑森船长"

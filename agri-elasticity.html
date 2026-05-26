@@ -1197,6 +1197,35 @@
     line-height: 1.45;
   }
 
+  /* ENSO score matrix cells */
+  #ensoScoreTable thead th {
+    font-size: 11px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  #ensoScoreTable thead th:first-child,
+  #ensoScoreTable thead th:last-child { text-align: left; }
+  #ensoScoreTable tbody td { text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+  #ensoScoreTable tbody td:first-child,
+  #ensoScoreTable tbody td:last-child { text-align: left; font-family: 'Inter', sans-serif; }
+  .es-dir { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; }
+  .es-dir.long { background: rgba(44,106,74,0.18); color: var(--jade); }
+  .es-dir.short { background: rgba(154,48,40,0.15); color: var(--crimson); }
+  .es-dir.dual { background: rgba(138,104,24,0.12); color: var(--gold); }
+  .es-dir.neutral { background: rgba(128,144,168,0.12); color: var(--slate); }
+  .es-dir.watch { background: rgba(199,142,79,0.12); color: var(--amber); }
+  .es-cell { display: inline-block; width: 28px; height: 22px; line-height: 22px; border-radius: 4px; font-weight: 600; font-size: 12px; }
+  .es-cell.s5 { background: var(--cell-5); color: #fff; }
+  .es-cell.s4 { background: var(--cell-4); color: #fff; }
+  .es-cell.s3 { background: var(--cell-3); color: #fff; }
+  .es-cell.s2 { background: var(--cell-2); color: var(--text-primary); }
+  .es-cell.s1 { background: var(--cell-1); color: var(--text-secondary); }
+  .es-total { display: inline-block; padding: 2px 10px; border-radius: 6px; font-weight: 700; font-size: 13px; }
+  .es-total.t-high { background: rgba(154,48,40,0.2); color: var(--crimson); border: 1px solid var(--crimson); }
+  .es-total.t-mid { background: rgba(199,142,79,0.15); color: var(--amber); border: 1px solid var(--amber); }
+  .es-total.t-low { background: rgba(128,144,168,0.12); color: var(--slate); border: 1px solid var(--slate); }
+  .es-advice { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+
   /* ENSO positioning cards */
   .enso-pos-grid {
     display: grid;
@@ -2485,6 +2514,31 @@
     </div>
   </div>
 
+  <!-- 06 · B+ 分市场 ENSO 评分矩阵 -->
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">06 · B+</span>
+    <span class="section-title">分市场 ENSO 评分矩阵</span>
+    <span class="section-desc">Market-by-Market El Niño Scoring · 2026 H2 Scenario</span>
+  </div>
+
+  <div class="enso-impact-wrap">
+    <table class="enso-impact" id="ensoScoreTable">
+      <thead>
+        <tr>
+          <th style="width:90px">品种</th>
+          <th style="width:70px">方向</th>
+          <th style="width:55px">确定性</th>
+          <th style="width:55px">弹性</th>
+          <th style="width:55px">时机</th>
+          <th style="width:55px">流动性</th>
+          <th style="width:55px">综合</th>
+          <th>操作建议</th>
+        </tr>
+      </thead>
+      <tbody id="ensoScoreBody"></tbody>
+    </table>
+  </div>
+
   <div class="enso-history-wrap">
     <div class="enso-history-title">ENSO 历史 × Niño 3.4 异常 (1972–2026)</div>
     <svg id="ensoHistoryChart" viewBox="0 0 1200 220" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -3579,6 +3633,71 @@ function drawEnsoHistory() {
 renderEnsoTiles();
 drawEnsoHistory();
 selectEnsoRegion('sea');
+
+// ============ ENSO MARKET-BY-MARKET SCORE MATRIX ============
+// 确定性: ENSO→该品种传导的历史一致性 (1-5)
+// 弹性: 价格对ENSO信号的响应幅度 (1-5)
+// 时机: 当前是否处于最佳窗口 (1-5, 5=正在窗口中)
+// 流动性: 合约流动性/可操作性 (1-5)
+const ensoMarketScores = [
+  { code:'P',  name:'棕榈油',    dir:'long',    dirLabel:'做多',
+    certainty:5, elasticity:5, timing:5, liquidity:4, total:19,
+    advice:'最清晰的 ENSO 做多品种。印尼/马来干旱窗口5-8月正在兑现,+0.9°C SST 已超阈值。BMD+DCE 共振,价外看涨期权为主。' },
+  { code:'SB', name:'原糖',      dir:'dual',    dirLabel:'双向',
+    certainty:4, elasticity:4, timing:4, liquidity:5, total:17,
+    advice:'印度季风减弱利多 vs 巴西南部多雨短期利空。跨期(H/K 2027)优于单边。等 6-7 月印度季风数据确认。' },
+  { code:'ZL', name:'豆油',      dir:'long',    dirLabel:'做多',
+    certainty:4, elasticity:3, timing:4, liquidity:5, total:16,
+    advice:'棕榈减产传导+45Z 生柴政策托底。三油共振板块性机会,跟随棕榈油方向但弹性更弱。' },
+  { code:'ZW', name:'小麦',      dir:'long',    dirLabel:'做多',
+    certainty:3, elasticity:3, timing:3, liquidity:5, total:14,
+    advice:'澳洲东部减产+印度禁运延续。但黑海战争主导 > ENSO 信号,信噪比低。观察 7-9 月澳洲冬麦生长。' },
+  { code:'RM', name:'罗布斯塔',  dir:'long',    dirLabel:'做多',
+    certainty:4, elasticity:4, timing:4, liquidity:3, total:15,
+    advice:'越南/印尼干旱窗口已开。但 ICE 合约薄,单边风险大。与阿咖价差交易更稳。' },
+  { code:'ZS', name:'大豆',      dir:'dual',    dirLabel:'双向',
+    certainty:3, elasticity:4, timing:2, liquidity:5, total:14,
+    advice:'7-8 月美豆温和授粉偏空 → 10 月南美播种期转多。当前非最佳窗口,跨期价差优先。关注强度是否达标(≥+1.5°C)。' },
+  { code:'ZC', name:'玉米',      dir:'short',   dirLabel:'轻空',
+    certainty:4, elasticity:3, timing:4, liquidity:5, total:16,
+    advice:'El Niño 年美中西授粉期温和 → 产量利好 → 轻利空。7-8 月授粉期前布局看跌。但乙醇托底限制下行空间。' },
+  { code:'CT', name:'棉花',      dir:'watch',   dirLabel:'观察',
+    certainty:2, elasticity:2, timing:2, liquidity:4, total:10,
+    advice:'El Niño 信号弱,印度季风减弱传导次要。框架评分低,不适合 ENSO 驱动持仓。' },
+  { code:'KC', name:'阿拉比卡',  dir:'neutral', dirLabel:'中性',
+    certainty:2, elasticity:3, timing:3, liquidity:4, total:12,
+    advice:'巴西咖啡带历史响应不一致。保留为霜冻季(6-8月)事件型机会,不适合 ENSO 单驱持仓。' },
+  { code:'CC', name:'可可',      dir:'neutral', dirLabel:'中性',
+    certainty:1, elasticity:1, timing:1, liquidity:3, total:6,
+    advice:'西非对 ENSO 遥相关极弱。价格主驱是病害+大西洋系统,非 ENSO 品种。' },
+  { code:'RS', name:'菜籽',      dir:'short',   dirLabel:'轻空',
+    certainty:2, elasticity:2, timing:2, liquidity:3, total:9,
+    advice:'加拿大对 ENSO 弱。中加关税是独立政策变量。不适合 ENSO 驱动持仓。' },
+  { code:'OJ', name:'橙汁',      dir:'watch',   dirLabel:'观察',
+    certainty:2, elasticity:3, timing:3, liquidity:1, total:9,
+    advice:'佛州飓风季(6-11月)叠加 El Niño 年飓风偏少 → 供给端可能喘息。但黄龙病结构破坏 > 气候周期。薄合约。' }
+];
+
+// Sort by total desc
+ensoMarketScores.sort((a,b) => b.total - a.total);
+
+const ensoScoreBody = document.getElementById('ensoScoreBody');
+if (ensoScoreBody) {
+  function cellClass(v) { return v >= 5 ? 's5' : v >= 4 ? 's4' : v >= 3 ? 's3' : v >= 2 ? 's2' : 's1'; }
+  function totalClass(t) { return t >= 16 ? 't-high' : t >= 12 ? 't-mid' : 't-low'; }
+  ensoScoreBody.innerHTML = ensoMarketScores.map(d => `
+    <tr>
+      <td><span class="ei-code">${d.code}</span> <span class="ei-name">${d.name}</span></td>
+      <td><span class="es-dir ${d.dir}">${d.dirLabel}</span></td>
+      <td><span class="es-cell ${cellClass(d.certainty)}">${d.certainty}</span></td>
+      <td><span class="es-cell ${cellClass(d.elasticity)}">${d.elasticity}</span></td>
+      <td><span class="es-cell ${cellClass(d.timing)}">${d.timing}</span></td>
+      <td><span class="es-cell ${cellClass(d.liquidity)}">${d.liquidity}</span></td>
+      <td><span class="es-total ${totalClass(d.total)}">${d.total}</span></td>
+      <td><span class="es-advice">${d.advice}</span></td>
+    </tr>
+  `).join('');
+}
 
 // ============ GLOBAL AGENCY FORECAST COMPARISON ============
 const agencies = [

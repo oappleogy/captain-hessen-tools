@@ -1,5 +1,5 @@
 {
-  "score": 28.8,
+  "score": 28.5,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,22 +7,22 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 17.09,
+      "current": 17.01,
       "base": 16,
-      "deviation_pct": 6.8,
+      "deviation_pct": 6.3,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 13.9
+      "contribution": 11.9
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 93.76,
+      "current": 93.24,
       "base": 75,
-      "deviation_pct": 25.0,
+      "deviation_pct": 24.3,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 125.0
+      "contribution": 118.1
     },
     {
       "variable": "credit_spread",
@@ -37,19 +37,19 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 159.38,
+      "current": 159.22,
       "base": 145,
-      "deviation_pct": 9.9,
+      "deviation_pct": 9.8,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 9.8
+      "contribution": 9.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.21,
+      "current": 99.09,
       "base": 100,
-      "deviation_pct": 0.8,
+      "deviation_pct": 0.9,
       "weight": 0.15,
       "weight_pct": 15,
       "contribution": 0.1
@@ -75,12 +75,12 @@
     },
     {
       "name": "WTI油价",
-      "current": 93.76,
+      "current": 93.24,
       "base": 75,
-      "deviation_pct": 25.0,
+      "deviation_pct": 24.3,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-05-27 01:58"
+  "timestamp": "2026-05-27 08:15"
 }

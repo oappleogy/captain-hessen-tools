@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-27T01:58:42",
+  "timestamp": "2026-05-27T20:07:56",
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
@@ -31,7 +31,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.21,
+      "score": 0.17,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -41,7 +41,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.29,
+      "score": -0.28,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -51,17 +51,17 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.12,
+      "score": 0.25,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.13,
+      "score": 0.16,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -98,14 +98,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 66.1
+        "pct": 66.7
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 32.3
+        "pct": 31.7
       },
       {
         "key": "TECH_DOM",
@@ -129,9 +129,9 @@
   "extremes": {
     "count": 3,
     "categories": [
-      "OVX原油波动率=67.3 (历史92%分位)",
+      "OVX原油波动率=65.1 (历史92%分位)",
       "地缘政治风险(GPR)=231 (历史97%分位)",
-      "地缘交叉验证(OVX)=67.2 (历史92%分位) [仅验证，不计分]"
+      "地缘交叉验证(OVX)=65.1 (历史92%分位) [仅验证，不计分]"
     ]
   },
   "opportunities": [],
@@ -149,8 +149,8 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 17.1,
-      "percentile": 60,
+      "value": 16.9,
+      "percentile": 58,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

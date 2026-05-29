@@ -604,6 +604,34 @@
       "new_members": []
     },
     {
+      "date": "2026-05-14",
+      "tag": "合作",
+      "title": "Anthropic与盖茨基金会达成$200M AI公益合作",
+      "detail": "Anthropic与盖茨基金会宣布2亿美元四年期合作，聚焦全球健康（脊髓灰质炎/HPV/子痫）、教育（K-12 AI辅导）和农业（实时农业决策工具）。基金会出资金+项目设计，Anthropic提供Claude API额度和技术支持。",
+      "impact": "重大",
+      "score": 3,
+      "sources": [
+        "Anthropic Official",
+        "Gates Foundation"
+      ],
+      "new_members": [
+        "盖茨基金会"
+      ]
+    },
+    {
+      "date": "2026-05-26",
+      "tag": "能力",
+      "title": "Mythos扫描1,000个OSS项目，发现23,000个潜在漏洞",
+      "detail": "Anthropic公布Mythos大规模扫描结果：1,000个开源项目中发现23,000+潜在漏洞，1,900个已由外部安全公司审查，1,726个确认（含1,000+高危/严重级别）。预估最终确认高危漏洞将达6,200个。Mozilla报告Firefox发现271个漏洞，Palo Alto Networks发现数十个缺陷。约50家Glasswing组织获得Mythos Preview访问权限。",
+      "impact": "重大",
+      "score": 5,
+      "sources": [
+        "SecurityWeek",
+        "Anthropic Glasswing"
+      ],
+      "new_members": []
+    },
+    {
       "date": "2026-05-26",
       "tag": "成员",
       "title": "Anthropic任命KiYoung Choi为韩国区代表",
@@ -617,15 +645,51 @@
       ]
     },
     {
+      "date": "2026-05-27",
+      "tag": "成员",
+      "title": "富士通与Anthropic签署战略合作",
+      "detail": "富士通与Anthropic签署战略合作协议，10万名富士通员工将使用Claude，并组建1,000人工程团队服务客户。聚焦政府、金融、医疗、国防等关键系统领域。Anthropic CCO称这是日本市场最重要的AI承诺之一。",
+      "impact": "重大",
+      "score": 4,
+      "sources": [
+        "Fujitsu Official",
+        "PRNewswire"
+      ],
+      "new_members": [
+        "富士通"
+      ]
+    },
+    {
+      "date": "2026-05-28",
+      "tag": "发布",
+      "title": "Claude Opus 4.8发布 + Mythos 1即将上线",
+      "detail": "Anthropic发布Opus 4.8，距Opus 4.7仅41天，包含'动态工作流'新功能，快速模式速度提升2.5倍、成本降低3倍。定价$5/M输入+$25/M输出。同时预告Mythos级模型（Mythos 1）将在数周内正式推出。",
+      "impact": "重大",
+      "score": 4,
+      "sources": [
+        "Anthropic Official",
+        "TechCrunch",
+        "GitHub Blog"
+      ],
+      "new_members": []
+    },
+    {
       "date": "2026-05-28",
       "tag": "发布",
       "title": "Anthropic完成$65B H轮融资，估值$965B逼近万亿",
-      "detail": "Anthropic完成650亿美元($65B)H轮融资，由Altimeter Capital、Dragoneer、Greenoaks和Sequoia Capital领投，融资后估值达9650亿美元($965B)，超越OpenAI成为最高估值AI公司。年化收入突破470亿美元，IPO预计2026Q4-2027H1。",
+      "detail": "Anthropic完成650亿美元($65B)H轮融资，由Altimeter Capital、Dragoneer、Greenoaks和Sequoia Capital领投，融资后估值达9650亿美元($965B)，超越OpenAI成为最高估值AI公司。年化收入突破470亿美元，IPO预计2026Q4-2027H1。Samsung、SK Hynix、Micron三大存储芯片巨头作为'战略基础设施合作伙伴'首次同时参投。",
       "impact": "重大",
+      "score": 5,
       "sources": [
-        "Anthropic Official"
+        "Anthropic Official",
+        "TechCrunch",
+        "Korea Herald"
       ],
-      "new_members": []
+      "new_members": [
+        "Samsung",
+        "SK Hynix",
+        "Micron"
+      ]
     },
     {
       "date": "2026-05-27",
@@ -646,8 +710,8 @@
       "icon": "🏦",
       "status": "active",
       "importance": 5,
-      "lastUpdate": "2026-04-08",
-      "desc": "财政部+美联储联合召集银行CEO，规格对标2023硅谷银行危机。AI网安能力已被视为金融基础设施级别威胁。",
+      "lastUpdate": "2026-05-28",
+      "desc": "H轮$965B估值中Goldman Sachs、Blackstone、Brookfield等金融巨头深度参投，AI金融化加速。三井住友/三菱UFJ/瑞穗三大日本银行此前已加入Glasswing。Mythos 23,000漏洞扫描结果强化了AI网安能力对金融基础设施的系统性影响。",
       "signals": [
         "银行是否公开披露 Mythos 相关防御措施",
         "FSOC 是否将 AI 网安列为系统性风险",
@@ -661,8 +725,8 @@
       "icon": "⏳",
       "status": "critical",
       "importance": 5,
-      "lastUpdate": "2026-04-10",
-      "desc": "Anthropic 自认窗口期有限。AISLE 测试显示 3.6B 小模型即可检测 Mythos 展示的 FreeBSD 漏洞（$0.11/M tokens），5.1B 模型完成 OpenBSD SACK 全链分析。但关键区别：小模型是'指哪打哪'，Mythos 是全代码库自主扫描。Wiz 估计开源追平需 12-18 个月。",
+      "lastUpdate": "2026-05-26",
+      "desc": "5月26日Mythos大规模扫描结果公布：1,000个OSS项目、23,000+潜在漏洞、1,726个已确认（含1,000+高危）。预估最终高危漏洞达6,200个。规模远超4月展示。开源小模型'指哪打哪'的能力差距进一步拉大——Mythos做到了全生态系统级自主扫描。Wiz此前估计开源追平需12-18个月，现在看可能更久。",
       "signals": [
         "Meta Llama 系列网安 benchmark 表现",
         "DeepSeek 后续版本 coding 能力",
@@ -675,10 +739,10 @@
       "id": "counter-narrative",
       "name": "能力夸大 / 营销质疑",
       "icon": "🎭",
-      "status": "active",
-      "importance": 4,
-      "lastUpdate": "2026-04-10",
-      "desc": "HuggingFace CEO Clem Delangue 转发 AISLE 测试：8/8 开源小模型检测出 Mythos 旗舰 FreeBSD 漏洞。中文自媒体标题'Anthropic 神话破灭'。IBM 发文呼吁开源才是安全基础设施正确路径。Interconnects 分析认为反开源恐慌被误导。但 HN 高赞评论指出：'Mythos 扫描整个大陆找金子，小模型是被人指着一亩地问有没有金子'。",
+      "status": "weakening",
+      "importance": 3,
+      "lastUpdate": "2026-05-26",
+      "desc": "4月质疑声音（AISLE小模型复现、HuggingFace CEO转发、IBM开源论）在5月26日大规模结果公布后明显减弱。23,000漏洞/1,726确认/1,000+高危的数据用规模说话，Mozilla和Palo Alto Networks等第三方独立验证增强可信度。反叙事从'能力夸大'转向'垄断担忧'——约50家Glasswing组织独享访问，开源社区无法受益。",
       "signals": [
         "AISLE 是否公布全代码库扫描（非指定片段）对比结果",
         "Anthropic 是否回应小模型复现质疑",
@@ -693,8 +757,8 @@
       "icon": "📉",
       "status": "active",
       "importance": 4,
-      "lastUpdate": "2026-04-11",
-      "desc": "双重打击：① Glasswing 排除 → Cloudflare -8.6%；② Managed Agents 替代恐慌 → Fastly -18%, Akamai -13%, NET 再跌 -11%。NET 累计从 $216→$167（-23%）。叙事确定性远高于技术确定性。",
+      "lastUpdate": "2026-05-26",
+      "desc": "5月26日23,000漏洞结果发布进一步强化Mythos对传统网安工具的替代叙事。Glasswing成员（CrowdStrike/PANW）vs非成员（Cloudflare/Fastly/Akamai）的分化持续。传统SAST/DAST厂商面临的替代风险从理论变为实证——Mythos单模型数周内完成1,000个项目扫描，效率远超传统工具。",
       "signals": [
         "Glasswing 成员 vs 非成员股价分化",
         "网安公司财报是否提及 AI 漏洞发现竞争",
@@ -707,9 +771,9 @@
       "name": "地缘博弈 / 中国维度",
       "icon": "🌏",
       "status": "watch",
-      "importance": 3,
-      "lastUpdate": "2026-04-09",
-      "desc": "Glasswing 全部美国企业+盟友体系，无中国实体。Anthropic 明确在美国国家安全框架下定位此项目。潘功胜同期会见达利欧。",
+      "importance": 4,
+      "lastUpdate": "2026-05-28",
+      "desc": "H轮投资者阵容进一步强化盟友体系：Samsung/SK Hynix（韩国）、Micron（美国）锁定存储供应链，富士通（日本）10万员工部署Claude，韩国设立办公室。Glasswing扩展至约50家组织，全部美国+盟友。Anthropic$965B估值使其成为地缘AI竞争的核心节点。",
       "signals": [
         "中国是否推出对标防御计划",
         "中国开源模型网安能力追赶速度",
@@ -721,10 +785,10 @@
       "id": "vendor-breach",
       "name": "承包商凭证泄露事件",
       "icon": "🔓",
-      "status": "critical",
-      "importance": 5,
-      "lastUpdate": "2026-04-22",
-      "desc": "Mythos发布仅两周即被未授权访问。攻击链：第三方承包商凭证 + Mercor数据泄露推断URL + Discord群组持续使用。Anthropic称'未影响系统'但严重动摇'太危险不能公开'的叙事根基。核心矛盾：模型安全等级最高但供应链安全最薄弱。",
+      "status": "monitoring",
+      "importance": 3,
+      "lastUpdate": "2026-05-28",
+      "desc": "4月泄露事件后Anthropic加速安全整改。5月Glasswing扩展至约50家组织，访问管控趋于成熟。$965B估值和Mythos 1即将正式发布表明Anthropic未因泄露事件放缓商业化。后续关注：Mythos 1正式版的访问架构是否解决供应链安全短板。",
       "signals": [
         "Anthropic 调查结论和整改措施",
         "受影响承包商身份和Mercor泄露范围",
@@ -738,9 +802,9 @@
       "name": "模型治理先例",
       "icon": "⚖️",
       "status": "active",
-      "importance": 4,
-      "lastUpdate": "2026-04-22",
-      "desc": "首次有前沿AI实验室宣布模型太危险不公开发售，但两周即被供应链攻击突破。白宫已与Amodei讨论，联邦机构计划部署。英国AISI发布独立评估。核心问题：限制发布策略在供应链安全面前是否可持续？",
+      "importance": 5,
+      "lastUpdate": "2026-05-28",
+      "desc": "Opus 4.8发布仅距4.7发布41天，迭代加速。同时预告Mythos 1将在数周内正式推出——从Preview到正式版的过渡。$965B估值+Samsung/SK Hynix/Micron战略投资使Anthropic成为最高估值AI公司，商业化压力与'太危险不公开'的安全叙事之间的张力升级。盖茨基金会$200M合作展示公益路线，但Mythos 1定价和访问策略仍是关键。",
       "signals": [
         "其他实验室（OpenAI/Google/Meta）是否跟进限制发布",
         "EU AI Act 对 Mythos 级模型的监管反应",
@@ -759,11 +823,13 @@
     "英国 AISI 独立评估报告详细结论 — 是否与 Anthropic 自称能力一致",
     "美国联邦机构部署 Mythos 的具体时间表和安全架构",
     "Q1 财报季：银行是否在财报中披露 AI 网安防御投入",
-    "Anthropic 后续 Opus 模型：safeguard 是否如期推出",
+    "Mythos 1 正式版发布时间表和访问/定价策略",
     "开源模型 coding benchmark 追赶情况（Meta Llama / DeepSeek 新版本）",
     "EU AI Act 8月2日执行：对 Mythos 级模型的监管定义",
     "Mythos 对加密生态（Ethereum/Solana 智能合约）的实际威胁验证",
-    "Glasswing 是否新增合作伙伴（当前 12 家创始 + 40 家扩展）"
+    "Glasswing 是否新增合作伙伴（当前约50家组织）",
+    "Anthropic IPO时间表（预计2026Q4-2027H1）",
+    "Samsung芯片代工合作是否落地（超越投资层面）"
   ],
   "members": {
     "founding": [
@@ -794,15 +860,20 @@
       "Hellman & Friedman",
       "JPMorgan",
       "Linux Foundation",
+      "Micron",
       "Microsoft",
       "NEC",
       "Novartis",
       "Nvidia",
       "Palo Alto Networks",
+      "SK Hynix",
+      "Samsung",
       "Verizon",
       "三井住友金融集团",
       "三菱UFJ金融集团",
+      "富士通",
       "澳大利亚政府",
+      "盖茨基金会",
       "瑞穗金融集团",
       "韩国科技部"
     ],
@@ -870,10 +941,28 @@
         ]
       },
       {
+        "date": "2026-05-14",
+        "added": [
+          "盖茨基金会"
+        ],
+        "note": "$200M四年期AI公益合作"
+      },
+      {
         "date": "2026-05-27",
         "added": [
-          "Anthropic韩国"
-        ]
+          "Anthropic韩国",
+          "富士通"
+        ],
+        "note": "富士通战略合作，10万员工部署Claude"
+      },
+      {
+        "date": "2026-05-28",
+        "added": [
+          "Samsung",
+          "SK Hynix",
+          "Micron"
+        ],
+        "note": "H轮战略基础设施合作伙伴"
       }
     ]
   },

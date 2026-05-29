@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-29T11:12:17",
+  "timestamp": "2026-05-29T11:32:15",
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
     "score": -0.183,
-    "action": "系统临界。建议仓位≤25%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "action": "系统临界。建议仓位≤20%（趋势↓），以保护资本为主，等待结构改善。"
   },
   "regime_label": "CRITICAL",
   "red_count": 3,
@@ -98,14 +98,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 67.7
+        "pct": 68.2
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 30.8
+        "pct": 30.3
       },
       {
         "key": "TECH_DOM",
@@ -122,7 +122,7 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
+    "moving_toward": "停滞",
     "safety_margin": -0.083,
     "early_warning": "无"
   },

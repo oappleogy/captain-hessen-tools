@@ -545,6 +545,184 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
     </div>
   </div>
+
+  <!-- AUX 辅助指标 (FRED 自动) -->
+  <div class="section" style="margin-top:28px">
+    <h2>辅助指标 · 每日自动更新</h2>
+    <h3>不纳入翻转计数 · 影响仓位调整判断</h3>
+  </div>
+  <div class="signal-grid" id="aux-grid">
+    <div class="signal-card" data-signal="AUX_VIX">
+      <div class="signal-num">AUX</div>
+      <div class="signal-name">CBOE VIX 恐慌指数</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
+      <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
+      <div class="signal-row"><span class="key">用途</span><span class="val">期权层加减仓依据</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · VIXCLS · 每日</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">--</span></div>
+    </div>
+    <div class="signal-card" data-signal="AUX_DXY">
+      <div class="signal-num">AUX</div>
+      <div class="signal-name">美元指数 (Broad Dollar)</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
+      <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
+      <div class="signal-row"><span class="key">用途</span><span class="val">跨市场对冲比例 · A股权重</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · DTWEXBGS · 每日</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">--</span></div>
+    </div>
+    <div class="signal-card" data-signal="AUX_DGS10">
+      <div class="signal-num">AUX</div>
+      <div class="signal-name">10Y 国债收益率</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
+      <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
+      <div class="signal-row"><span class="key">用途</span><span class="val">名义利率 · 与TIPS差=通胀预期</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · DGS10 · 每日</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">--</span></div>
+    </div>
+    <div class="signal-card" data-signal="AUX_BEI">
+      <div class="signal-num">AUX</div>
+      <div class="signal-name">10Y 盈亏平衡通胀率</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
+      <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
+      <div class="signal-row"><span class="key">用途</span><span class="val">实际 vs 名义利率分解</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · T10YIE · 每日</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">--</span></div>
+    </div>
+  </div>
+
+  <!-- 每周指标 -->
+  <div class="section" style="margin-top:28px">
+    <h2>每周指标 · WEEKLY</h2>
+    <h3>周日晚复核 · 约1小时</h3>
+  </div>
+  <div class="signal-grid" id="weekly-grid">
+    <div class="signal-card" data-signal="W_GPU">
+      <div class="signal-num">WEEKLY · S5</div>
+      <div class="signal-name">GPU 二手价 / 新机价</div>
+      <div class="signal-row"><span class="key">H100 80GB</span><span class="val" data-field="current">待接入</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">二手/新机 < 60%</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">Vast.ai API · eBay completed</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">抵押品螺旋启动 · GPU残值崩塌</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
+    </div>
+    <div class="signal-card" data-signal="W_FORM4">
+      <div class="signal-num">WEEKLY · S7</div>
+      <div class="signal-name">Hyperscaler 高管减持 Form 4</div>
+      <div class="signal-row"><span class="key">监控对象</span><span class="val">NVDA/MSFT/GOOGL/META/ORCL CFO/CEO</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">单月减持 > $50M / 单人</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">SEC EDGAR Form 4 · OpenInsider</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">内部人撤退 — 最终信号</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">WEEKLY · S4</div>
+      <div class="signal-name">Hyperscaler 新发债认购倍数</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val">超额认购</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">< 1.5x 或撤回发行</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">IFR Markets · LSEG (手动)</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常 · 手动</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">WEEKLY · S6</div>
+      <div class="signal-name">数据中心 SPV ABS 未售出 tranche</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val">无异常</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">任一 deal 出现未售出</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">SEC EDGAR · KBRA (手动)</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常 · 手动</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">WEEKLY</div>
+      <div class="signal-name">七信号翻转数复核</div>
+      <div class="signal-row"><span class="key">本周翻转</span><span class="val" id="weekly-flipped">--</span></div>
+      <div class="signal-row"><span class="key">趋势</span><span class="val">自动汇总 · 参照上方七信号</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">soros-data.js · FRED 自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">自动</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">WEEKLY</div>
+      <div class="signal-name">政策齿轮周输出</div>
+      <div class="signal-row"><span class="key">覆盖</span><span class="val">15机构传导卡 · 中美双向</span></div>
+      <div class="signal-row"><span class="key">本周</span><span class="val">见 policy-gear 输出</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">policy-gear · 每日跑批</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">自动</span></div>
+    </div>
+  </div>
+
+  <!-- 每月指标 -->
+  <div class="section" style="margin-top:28px">
+    <h2>每月指标 · MONTHLY</h2>
+    <h3>月底复核 · 约3小时</h3>
+  </div>
+  <div class="signal-grid" id="monthly-grid">
+    <div class="signal-card">
+      <div class="signal-num">MONTHLY</div>
+      <div class="signal-name">仓位结构审查 + 三层金字塔重配</div>
+      <div class="signal-row"><span class="key">L1</span><span class="val">单一节点收敛 · 30-40%</span></div>
+      <div class="signal-row"><span class="key">L2</span><span class="val">A股双反身性 · 20-30%</span></div>
+      <div class="signal-row"><span class="key">L3</span><span class="val">硬资产对冲 · 10-15%</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动 · 月底</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">MONTHLY</div>
+      <div class="signal-name">七信号阈值校准</div>
+      <div class="signal-row"><span class="key">方法</span><span class="val">回溯历史样本 · 检验阈值合理性</span></div>
+      <div class="signal-row"><span class="key">关注</span><span class="val">TIPS/HY OAS 阈值是否需调整</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动 · 月底</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">MONTHLY</div>
+      <div class="signal-name">HCT 六维框架重新打分</div>
+      <div class="signal-row"><span class="key">维度</span><span class="val">叙事/制度/技术/协调/资源/反馈</span></div>
+      <div class="signal-row"><span class="key">数据</span><span class="val">S2 每日跑批输出</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">s2-dev/output/ · 自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">半自动</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">MONTHLY</div>
+      <div class="signal-name">AI 债务到期墙地图刷新</div>
+      <div class="signal-row"><span class="key">关注</span><span class="val">CRWV $4.2B · Neocloud再融资窗口</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">Bloomberg / S&P Capital IQ</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动 · 月底</span></div>
+    </div>
+  </div>
+
+  <!-- 事件驱动 -->
+  <div class="section" style="margin-top:28px">
+    <h2>事件驱动 · EVENT TRIGGERED</h2>
+    <h3>当日响应 · 关键词自动监控 + 人工判断</h3>
+  </div>
+  <div class="signal-grid" id="event-grid">
+    <div class="signal-card" data-signal="E_CAPEX">
+      <div class="signal-num">EVENT · 自动监控</div>
+      <div class="signal-name">Hyperscaler Capex 指引变化</div>
+      <div class="signal-row"><span class="key">关键词</span><span class="val">capex + MSFT/META/GOOG/AMZN/ORCL</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">capex 上调/下调/暂停</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词搜索 · 每日</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
+    </div>
+    <div class="signal-card" data-signal="E_NEOCLOUD">
+      <div class="signal-num">EVENT · 自动监控</div>
+      <div class="signal-name">Neocloud 融资 / 发债 / 违约</div>
+      <div class="signal-row"><span class="key">关键词</span><span class="val">CoreWeave/NBIS/IREN + debt/financing/default</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">再融资失败 / 评级下调 / 违约</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词搜索 · 每日</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">EVENT</div>
+      <div class="signal-name">TIPS 日波动 > 8bp</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">单日大幅波动 = 触发当日全面复核</span></div>
+      <div class="signal-row"><span class="key">数据</span><span class="val">FRED DFII10 · 可自动检测</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">可自动</span></div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-num">EVENT</div>
+      <div class="signal-name">中美 AI 政策重大变化</div>
+      <div class="signal-row"><span class="key">类型</span><span class="val">出口管制 / 补贴 / 反垄断 / FERC裁决</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">policy-gear + 新闻 · 人工判断</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动</span></div>
+    </div>
+  </div>
 </div>
 
 <!-- ===== TAB 07: RULES ===== -->
@@ -849,6 +1027,17 @@ function applyLiveData() {
     if (data.pill === 'pill-red') card.className = baseClass + ' red';
     else if (data.pill === 'pill-warn') card.className = baseClass + ' warn';
     else card.className = baseClass;
+  }
+
+  // Weekly flipped count summary
+  var weeklyFlipped = document.getElementById('weekly-flipped');
+  if (weeklyFlipped) {
+    var f = FRED_DATA.flipped_count;
+    var t = FRED_DATA.flipped_total || 7;
+    weeklyFlipped.textContent = f + ' / ' + t + ' (as of ' + FRED_DATA.updated_at + ')';
+    if (f >= 3) weeklyFlipped.style.color = 'var(--red)';
+    else if (f >= 2) weeklyFlipped.style.color = 'var(--yellow)';
+    else weeklyFlipped.style.color = 'var(--green)';
   }
 }
 

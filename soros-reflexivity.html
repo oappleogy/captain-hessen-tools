@@ -1039,6 +1039,78 @@ function applyLiveData() {
     else if (f >= 2) weeklyFlipped.style.color = 'var(--yellow)';
     else weeklyFlipped.style.color = 'var(--green)';
   }
+
+  // GPU prices (weekly)
+  var gpuCard = document.querySelector('[data-signal="W_GPU"]');
+  if (gpuCard && FRED_DATA.weekly && FRED_DATA.weekly.gpu_prices) {
+    var gp = FRED_DATA.weekly.gpu_prices;
+    var gpuHtml = '';
+    var models = ['H100', 'H200', 'B200'];
+    for (var mi = 0; mi < models.length; mi++) {
+      var m = models[mi];
+      if (gp[m]) {
+        gpuHtml += '<div class="signal-row"><span class="key">' + m + '</span><span class="val">' +
+          gp[m].min_hr + ' ~ ' + gp[m].median_hr + ' (' + gp[m].offers + ' offers)</span></div>';
+      }
+    }
+    if (gpuHtml) {
+      var curEl = gpuCard.querySelector('[data-field="current"]');
+      if (curEl && gp.H100) curEl.textContent = gp.H100.min_hr + ' (H100 min)';
+      // Insert price rows before STATUS
+      var statusRow = gpuCard.querySelector('[data-field="status"]');
+      if (statusRow) {
+        statusRow.textContent = '自动';
+        statusRow.className = 'status-pill pill-green';
+      }
+    }
+  }
+
+  // Form 4 insider trading (weekly)
+  var f4Card = document.querySelector('[data-signal="W_FORM4"]');
+  if (f4Card && FRED_DATA.weekly && FRED_DATA.weekly.form4) {
+    var f4 = FRED_DATA.weekly.form4;
+    var f4Html = '';
+    var totalFilings = 0;
+    var anyWarn = false;
+    for (var tk in f4) {
+      totalFilings += (f4[tk].count_30d > 0 ? f4[tk].count_30d : 0);
+      if (f4[tk].pill !== 'pill-green') anyWarn = true;
+      f4Html += tk + ':' + f4[tk].count_30d + ' ';
+    }
+    var f4StatusEl = f4Card.querySelector('[data-field="status"]');
+    if (f4StatusEl) {
+      f4StatusEl.textContent = anyWarn ? '加速减持' : '正常 (' + totalFilings + ' filings/30d)';
+      f4StatusEl.className = 'status-pill ' + (anyWarn ? 'pill-warn' : 'pill-green');
+    }
+    // Update the monitoring target row with actual counts
+    var rows = f4Card.querySelectorAll('.signal-row');
+    if (rows.length >= 1) {
+      var valEl = rows[0].querySelector('.val');
+      if (valEl) valEl.textContent = f4Html.trim();
+    }
+  }
+
+  // TIPS daily change event
+  if (FRED_DATA.events && FRED_DATA.events.tips_daily) {
+    var td = FRED_DATA.events.tips_daily;
+    var tipsEventCards = document.querySelectorAll('[data-signal="E_CAPEX"]');
+    // Find the TIPS event card
+    var allEventCards = document.getElementById('event-grid');
+    if (allEventCards && td.triggered) {
+      var tipsCards = allEventCards.querySelectorAll('.signal-card');
+      for (var ci = 0; ci < tipsCards.length; ci++) {
+        var nameEl = tipsCards[ci].querySelector('.signal-name');
+        if (nameEl && nameEl.textContent.indexOf('TIPS') >= 0) {
+          tipsCards[ci].style.borderLeftColor = 'var(--red)';
+          var tipsStatus = tipsCards[ci].querySelector('.status-pill');
+          if (tipsStatus) {
+            tipsStatus.textContent = 'TRIGGERED ' + td.change_bp + 'bp on ' + td.date;
+            tipsStatus.className = 'status-pill pill-red';
+          }
+        }
+      }
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', applyLiveData);

@@ -132,20 +132,27 @@ function bindExpand(){
 function renderBeats(){
   var tiers=[
     {tier:"\u{1F7E2} 双重超预期",desc:"基本面大幅beat + 股价暴涨",items:[
-      {t:"TXN",epsBeat:"+32%",revBeat:"+7%",price:"+19%",why:"DC+90%，2000年来最佳单日"},
-      {t:"DOCN",epsBeat:"+69%",revBeat:"+3%",price:"+19%",why:"AI ARR+221%，2027指引rev+50%"},
-      {t:"BE",epsBeat:"+242%",revBeat:"+39%",price:"+23%",why:"产品营收+208%，Oracle 2.8GW"},
-      {t:"INTC",epsBeat:"+2800%",revBeat:"+9%",price:"+20%",why:"连续6季超预期，Foundry复活"}
+      {t:"DELL",cn:"戴尔",epsBeat:"+282%",revBeat:"+10%",price:"+39%",why:"AI服务器+757%YoY，订单$24.4B，FY27指引$167B"},
+      {t:"BE",cn:"Bloom Energy",epsBeat:"+242%",revBeat:"+39%",price:"+23%",why:"产品营收+208%，Oracle 2.8GW"},
+      {t:"INTC",cn:"英特尔",epsBeat:"+2800%",revBeat:"+9%",price:"+20%",why:"连续6季超预期，Foundry复活"},
+      {t:"SNOW",cn:"Snowflake",epsBeat:"—",revBeat:"+5%",price:"+37%",why:"产品收入+34%，RPO $9.21B(+38%)，$6B AWS协议"},
+      {t:"TXN",cn:"德州仪器",epsBeat:"+32%",revBeat:"+7%",price:"+19%",why:"DC+90%，2000年来最佳单日"},
+      {t:"DOCN",cn:"DigitalOcean",epsBeat:"+69%",revBeat:"+3%",price:"+19%",why:"AI ARR+221%，2027指引rev+50%"}
     ]},
     {tier:"\u{1F7E1} 基本面超预期",desc:"Beat consensus但市场反应温和/已定价",items:[
-      {t:"VRT",epsBeat:"+15%",revBeat:"~0%",price:"+6%\u2192震荡",why:"Q2指引=whisper，EMEA-29%"},
-      {t:"MPWR",epsBeat:"+4%",revBeat:"+3%",price:"+6%",why:"产能$4B\u2192$6B，通信+33%seq"},
-      {t:"LSCC",epsBeat:"+11%",revBeat:"+4%",price:"+4%",why:"收购AMI $1.65B+Q2指引+8.7%"},
-      {t:"STM",epsBeat:"Miss",revBeat:"+2%",price:"+6%",why:"DC>$500M指引，AWS合同。EPS miss因NXP收购"},
-      {t:"AMD",epsBeat:"+6%",revBeat:"+4%",price:"+5%",why:"DC+52%，Q2指引above"}
+      {t:"PLTR",cn:"Palantir",epsBeat:"+18%",revBeat:"+5%",price:"-6%",why:"收入+85%YoY，净利$870M(+4x)，估值争议致回调"},
+      {t:"VRT",cn:"维谛技术",epsBeat:"+15%",revBeat:"~0%",price:"+6%\u2192震荡",why:"Q2指引=whisper，EMEA-29%"},
+      {t:"AVGO",cn:"博通",epsBeat:"+2%",revBeat:"+2%",price:"+8%",why:"AI芯片+106%YoY达$8.4B，Q2 AI指引$10.7B(+140%)"},
+      {t:"VST",cn:"Vistra能源",epsBeat:"+2%",revBeat:"+5%",price:"+8%",why:"升投资级，EBITDA $1.5B，AWS+Meta核电协议"},
+      {t:"CEG",cn:"Constellation能源",epsBeat:"+7%",revBeat:"+8%",price:"+5%",why:"Calpine并表驱动营收翻倍，EPS从$0.38到$4.49"},
+      {t:"ANET",cn:"Arista Networks",epsBeat:"+7%",revBeat:"+3%",price:"-9%",why:"AI网络目标上调至$3.5B，指引不及最高预期回调"},
+      {t:"MPWR",cn:"芯源系统",epsBeat:"+4%",revBeat:"+3%",price:"+6%",why:"产能$4B\u2192$6B，通信+33%seq"},
+      {t:"LSCC",cn:"莱迪思半导体",epsBeat:"+11%",revBeat:"+4%",price:"+4%",why:"收购AMI $1.65B+Q2指引+8.7%"},
+      {t:"AMD",cn:"超微半导体",epsBeat:"+6%",revBeat:"+4%",price:"+5%",why:"DC+57%，Q2指引$11.2B(+46%YoY)"}
     ]},
     {tier:"\u26AA 勉强及格",desc:"Beat幅度小或部分miss",items:[
-      {t:"ON",epsBeat:"+3%",revBeat:"-1%",price:"-5%",why:"DC环比+30%但整体不够格。周期触底确认"}
+      {t:"STM",cn:"意法半导体",epsBeat:"Miss",revBeat:"+2%",price:"+6%",why:"DC>$500M指引，AWS合同。EPS miss因NXP收购"},
+      {t:"ON",cn:"安森美",epsBeat:"+3%",revBeat:"-1%",price:"-5%",why:"DC环比+30%但整体不够格。周期触底确认"}
     ]}
   ];
   var h='<div class="card" style="border-color:'+C.green+'30">';
@@ -157,7 +164,7 @@ function renderBeats(){
     h+='<div style="font-size:10px;color:'+C.muted+';margin-bottom:10px">'+tier.desc+'</div>';
     tier.items.forEach(function(item,j){
       var priceColor=item.price.indexOf("-")>=0?C.red:C.green;
-      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;'+(j<tier.items.length-1?'border-bottom:1px solid '+C.border:'')+'">'+mono(item.t,C.cyan,11)+tag("EPS "+item.epsBeat,C.green)+tag("Rev "+item.revBeat,C.blue)+tag(item.price,priceColor)+'<div style="font-size:9px;color:'+C.muted+';flex:1;text-align:right">'+item.why+'</div></div>';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;'+(j<tier.items.length-1?'border-bottom:1px solid '+C.border:'')+'">'+mono(item.t,C.cyan,11)+(item.cn?'<span style="font-size:10px;color:'+C.dim+'">'+item.cn+'</span>':'')+tag("EPS "+item.epsBeat,C.green)+tag("Rev "+item.revBeat,C.blue)+tag(item.price,priceColor)+'<div style="font-size:9px;color:'+C.muted+';flex:1;text-align:right">'+item.why+'</div></div>';
     });
     h+='</div>';
   });

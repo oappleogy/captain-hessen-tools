@@ -3,1676 +3,831 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Soros AI Reflexivity OS · 黑森船长</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Soros AI Reflexivity OS | 黑森船长</title>
 <script src="soros-data.js" onerror="console.warn('soros-data.js not loaded - run fetch_fred.py first')"></script>
 <style>
-  :root {
-    --bg: #e8eff7;
-    --bg-deep: #dde6f0;
-    --card: #f4f7fb;
-    --text: #1a2942;
-    --text-mute: #5a6a82;
-    --gold: #b8923a;
-    --gold-soft: #c9a558;
-    --divider: #c5d0de;
-    --green: #2d7a3e;
-    --warn: #c47a3a;
-    --red: #a83838;
-    --shadow: 0 1px 3px rgba(26, 41, 66, 0.08);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
-    font-weight: 400;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  /* ===== TOPBAR ===== */
-  .topbar {
-    background: var(--bg-deep);
-    border-bottom: 1px solid var(--divider);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  .topbar-brand {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 14px 24px;
-    border-bottom: 1px solid var(--divider);
-  }
-
-  .brand-left {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .brand-mark {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-  }
-
-  .brand-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .brand-cn {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .brand-tag {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 11px;
-    color: var(--text-mute);
-  }
-
-  .nav {
-    display: flex;
-    overflow-x: auto;
-    padding: 0 12px;
-    scrollbar-width: thin;
-  }
-
-  .nav::-webkit-scrollbar { height: 4px; }
-  .nav::-webkit-scrollbar-thumb { background: var(--gold-soft); border-radius: 2px; }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-bottom: 2px solid transparent;
-    user-select: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .nav-item:hover {
-    background: rgba(184, 146, 58, 0.06);
-  }
-
-  .nav-item.active {
-    background: var(--card);
-    border-bottom-color: var(--gold);
-  }
-
-  .nav-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .nav-label {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .nav-label .cn {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.2;
-  }
-
-  .nav-label .en {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 9px;
-    color: var(--text-mute);
-    line-height: 1;
-  }
-
-  .nav-item.active .nav-label .cn {
-    color: var(--gold);
-  }
-
-  /* ===== DATA STATUS (右上角) ===== */
-  .data-status {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 6px 14px;
-    background: var(--card);
-    border-left: 2px solid var(--gold);
-    border-radius: 0;
-  }
-
-  .data-status-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  .status-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-  }
-
-  .status-label {
-    color: var(--text-mute);
-    letter-spacing: 0.12em;
-  }
-
-  .status-val {
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  .status-val.alert { color: var(--warn); }
-  .status-val.danger { color: var(--red); font-weight: 600; }
-
-  .status-trigger {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 11px;
-    color: var(--green);
-    font-weight: 500;
-    padding-left: 12px;
-    border-left: 1px dashed var(--divider);
-  }
-
-  .status-trigger.warn { color: var(--warn); }
-  .status-trigger.danger { color: var(--red); }
-
-  /* ===== MAIN ===== */
-  .main {
-    padding: 32px 24px 64px;
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
-  .tab-content {
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .tab-content.active {
-    display: block;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ===== TAB HEADER ===== */
-  .tab-header {
-    border-top: 2px solid var(--gold);
-    padding: 28px 0 24px;
-    margin-bottom: 32px;
-    border-bottom: 1px solid var(--divider);
-  }
-
-  .tab-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .tab-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-
-  .tab-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: var(--text-mute);
-  }
-
-  /* ===== SHARED COMPONENTS ===== */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    background: var(--card);
-    box-shadow: var(--shadow);
-  }
-
-  th {
-    text-align: left;
-    padding: 12px 14px;
-    background: var(--bg-deep);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--text-mute);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--divider);
-  }
-
-  td {
-    padding: 14px;
-    border-bottom: 1px solid var(--divider);
-    vertical-align: top;
-    line-height: 1.6;
-  }
-
-  tr:last-child td { border-bottom: none; }
-
-  td.code-cell {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 500;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-
-  td.tight {
-    width: 1%;
-    white-space: nowrap;
-  }
-
-  .layer {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    border-left: 4px solid var(--gold);
-    padding: 24px 28px;
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
-  }
-
-  .layer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px dashed var(--divider);
-  }
-
-  .layer-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .layer-title .code {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--gold);
-    font-size: 13px;
-    margin-right: 12px;
-  }
-
-  .layer-weight {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-  }
-
-  .layer-thesis {
-    font-size: 13px;
-    color: var(--text-mute);
-    font-style: italic;
-    margin-bottom: 16px;
-    padding-left: 12px;
-    border-left: 2px solid var(--gold-soft);
-  }
-
-  .short-layer { border-left-color: var(--red); }
-  .short-layer .layer-title .code,
-  .short-layer .layer-weight { color: var(--red); }
-  .short-layer .layer-thesis { border-left-color: var(--red); }
-  .short-layer td.code-cell { color: var(--red); }
-
-  /* ===== PHASE TRACK ===== */
-  .phase-bar {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    padding: 24px;
-    box-shadow: var(--shadow);
-    margin-bottom: 24px;
-  }
-
-  .phase-intro {
-    font-size: 13px;
-    color: var(--text-mute);
-    margin-bottom: 16px;
-  }
-
-  .phase-track {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 4px;
-  }
-
-  .phase-step {
-    text-align: center;
-    padding: 12px 4px;
-    background: var(--bg-deep);
-    border-top: 3px solid transparent;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    color: var(--text-mute);
-    letter-spacing: 0.1em;
-  }
-
-  .phase-step.passed {
-    background: rgba(184, 146, 58, 0.08);
-    border-top-color: var(--gold-soft);
-  }
-
-  .phase-step.current {
-    background: var(--gold);
-    color: #fff;
-    border-top-color: var(--gold);
-    font-weight: 600;
-  }
-
-  .phase-step .num {
-    display: block;
-    font-size: 18px;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-
-  .evidence-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-
-  .evidence-card {
-    padding: 16px;
-    background: var(--card);
-    border: 1px solid var(--divider);
-    border-left: 2px solid var(--gold-soft);
-  }
-
-  .evidence-card .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    color: var(--text-mute);
-    letter-spacing: 0.15em;
-    margin-bottom: 6px;
-  }
-
-  .evidence-card .value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 4px;
-    line-height: 1;
-  }
-
-  .evidence-card .note {
-    font-size: 11px;
-    color: var(--text-mute);
-  }
-
-  /* ===== TRANSMISSION CHAIN ===== */
-  .transmission {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    padding: 28px;
-    box-shadow: var(--shadow);
-  }
-
-  .chain-intro {
-    font-size: 13px;
-    color: var(--text-mute);
-    margin-bottom: 20px;
-    padding-left: 12px;
-    border-left: 2px solid var(--gold);
-  }
-
-  .chain {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .chain-node {
-    display: grid;
-    grid-template-columns: 50px 1fr 90px;
-    gap: 14px;
-    align-items: center;
-    padding: 14px 18px;
-    background: var(--bg);
-    border-left: 3px solid var(--gold-soft);
-  }
-
-  .chain-node .step {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 500;
-    color: var(--gold);
-    text-align: center;
-    line-height: 1;
-  }
-
-  .chain-node .content {
-    font-size: 13px;
-    color: var(--text);
-  }
-
-  .chain-node .timing {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    color: var(--text-mute);
-    letter-spacing: 0.1em;
-    text-align: right;
-  }
-
-  .chain-arrow {
-    text-align: center;
-    color: var(--gold);
-    font-size: 14px;
-    line-height: 1;
-  }
-
-  .chain-conclusion {
-    margin-top: 20px;
-    padding: 16px 20px;
-    background: var(--bg-deep);
-    border-left: 3px solid var(--gold);
-    font-size: 13px;
-    line-height: 1.7;
-  }
-
-  /* ===== SIGNAL CARDS ===== */
-  .signal-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
-
-  .signal-card {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    padding: 18px 20px;
-    position: relative;
-  }
-
-  .signal-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--green);
-  }
-
-  .signal-card.warn::before { background: var(--warn); }
-  .signal-card.red::before { background: var(--red); }
-
-  .signal-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .signal-name {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
-
-  .signal-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    font-size: 12px;
-    border-bottom: 1px dashed var(--divider);
-  }
-
-  .signal-row:last-child { border-bottom: none; }
-
-  .signal-row .key {
-    color: var(--text-mute);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-  }
-
-  .signal-row .val {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .status-pill {
-    display: inline-block;
-    padding: 2px 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    border-radius: 2px;
-  }
-
-  .pill-green { background: rgba(45, 122, 62, 0.12); color: var(--green); }
-  .pill-warn { background: rgba(196, 122, 58, 0.12); color: var(--warn); }
-  .pill-red { background: rgba(168, 56, 56, 0.12); color: var(--red); }
-
-  /* ===== ACTION RULES ===== */
-  .action-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-
-  .action-card {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    padding: 22px 18px;
-    text-align: center;
-  }
-
-  .action-trigger {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 38px;
-    font-weight: 500;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .action-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    color: var(--text-mute);
-    letter-spacing: 0.15em;
-    margin-bottom: 14px;
-  }
-
-  .action-desc {
-    font-size: 12px;
-    color: var(--text);
-    line-height: 1.5;
-    padding-top: 14px;
-    border-top: 1px solid var(--divider);
-  }
-
-  /* ===== TODAY LIST ===== */
-  .today-list {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    border-left: 4px solid var(--gold);
-    padding: 24px 32px;
-    box-shadow: var(--shadow);
-  }
-
-  .today-item {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    gap: 16px;
-    padding: 14px 0;
-    border-bottom: 1px dashed var(--divider);
-  }
-
-  .today-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .today-item:first-child { padding-top: 0; }
-
-  .today-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    color: var(--gold);
-    font-weight: 500;
-    line-height: 1;
-  }
-
-  .today-content strong {
-    font-family: 'Noto Serif SC', serif;
-    font-weight: 600;
-    color: var(--text);
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .today-content .detail {
-    font-size: 12px;
-    color: var(--text-mute);
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  /* ===== QUOTE ===== */
-  .quote {
-    background: linear-gradient(180deg, var(--card) 0%, var(--bg-deep) 100%);
-    border: 1px solid var(--divider);
-    border-top: 3px solid var(--gold);
-    padding: 32px 36px;
-    text-align: center;
-    margin-top: 24px;
-  }
-
-  .quote-mark {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
-    color: var(--gold);
-    line-height: 0.5;
-    margin-bottom: 14px;
-  }
-
-  .quote-text {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--text);
-    max-width: 720px;
-    margin: 0 auto 14px;
-    font-weight: 500;
-  }
-
-  .quote-attr {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  /* ===== DISCIPLINE TAB ===== */
-  .cadence-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .cadence-card {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    border-top: 3px solid var(--gold);
-    padding: 22px 24px;
-    box-shadow: var(--shadow);
-  }
-
-  .cadence-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px dashed var(--divider);
-  }
-
-  .cadence-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .cadence-time {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 0.15em;
-  }
-
-  .cadence-list {
-    list-style: none;
-    padding: 0;
-  }
-
-  .cadence-list li {
-    padding: 7px 0 7px 18px;
-    font-size: 13px;
-    color: var(--text);
-    border-bottom: 1px dotted var(--divider);
-    position: relative;
-    line-height: 1.5;
-  }
-
-  .cadence-list li:last-child { border-bottom: none; }
-
-  .cadence-list li::before {
-    content: '◆';
-    position: absolute;
-    left: 0;
-    top: 7px;
-    color: var(--gold);
-    font-size: 8px;
-  }
-
-  .cadence-list li .meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-mute);
-    margin-left: 6px;
-  }
-
-  .sop-table {
-    margin-bottom: 24px;
-  }
-
-  .sop-table .level-1 td:first-child { color: var(--green); font-weight: 600; }
-  .sop-table .level-2 td:first-child { color: var(--warn); font-weight: 600; }
-  .sop-table .level-3 td:first-child { color: var(--red); font-weight: 600; }
-  .sop-table .level-4 td:first-child { color: var(--red); font-weight: 700; }
-
-  .source-table td.code-cell { font-size: 11px; }
-
-  .aux-section {
-    background: var(--card);
-    border: 1px solid var(--divider);
-    border-left: 3px solid var(--gold-soft);
-    padding: 20px 24px;
-    margin-bottom: 24px;
-  }
-
-  .aux-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
-
-  .aux-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .aux-item {
-    padding: 10px 14px;
-    background: var(--bg);
-    font-size: 12px;
-  }
-
-  .aux-item .name {
-    font-family: 'Noto Serif SC', serif;
-    font-weight: 600;
-    color: var(--text);
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .aux-item .src {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-mute);
-  }
-
-  /* Mobile */
-  @media (max-width: 900px) {
-    .cadence-grid { grid-template-columns: 1fr; }
-    .aux-grid { grid-template-columns: 1fr; }
-  }
-    body { flex-direction: column; }
-    .sidebar {
-      position: relative;
-      width: 100%;
-      height: auto;
-      border-right: none;
-      border-bottom: 1px solid var(--divider);
-      padding: 20px 0;
-    }
-    .main { margin-left: 0; padding: 24px; max-width: 100vw; }
-    .nav { display: flex; flex-wrap: wrap; gap: 4px; }
-    .nav-item { flex: 1 1 auto; min-width: 130px; }
-    .sidebar-footer { display: none; }
-    .evidence-grid { grid-template-columns: 1fr; }
-    .signal-grid { grid-template-columns: 1fr; }
-    .action-grid { grid-template-columns: repeat(2, 1fr); }
-    .phase-track { grid-template-columns: repeat(4, 1fr); }
-  }
+:root{--bg:#0a0e17;--card:#111827;--card2:#1a2332;--border:#1e293b;--text:#e2e8f0;--dim:#94a3b8;--accent:#3b82f6;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--orange:#f97316;--cyan:#06b6d4;--gold:#d4a854;--warn:#f59e0b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;line-height:1.6}
+
+/* Header */
+.header{padding:20px 32px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.header h1{font-size:20px;font-weight:700}
+.header .sub{font-size:11px;color:var(--dim)}
+.back{color:var(--dim);text-decoration:none;font-size:12px}
+.back:hover{color:var(--accent)}
+.header-right{display:flex;align-items:center;gap:16px}
+.live-status{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-family:monospace}
+.live-status .label{color:var(--dim)}
+.live-status .val{color:var(--text);font-weight:600}
+.live-status .val.alert{color:var(--yellow)}
+.live-status .val.danger{color:var(--red);font-weight:700}
+.live-trigger{font-size:11px;color:var(--green);font-weight:500}
+.live-trigger.warn{color:var(--yellow)}
+.live-trigger.danger{color:var(--red)}
+
+/* Tab bar */
+.tab-wrap{position:relative}
+.tab-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;transition:opacity .3s}
+.tab-wrap.scrolled-end::after{opacity:0}
+.tab-hint{position:absolute;right:8px;top:50%;transform:translateY(-50%);z-index:10;background:var(--accent);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;box-shadow:0 2px 8px rgba(59,130,246,.4);animation:pulse 1.5s ease-in-out infinite;transition:opacity .3s}
+.tab-wrap.scrolled-end .tab-hint{opacity:0;pointer-events:none}
+@keyframes pulse{0%,100%{transform:translateY(-50%) translateX(0)}50%{transform:translateY(-50%) translateX(4px)}}
+.tab-bar{display:flex;gap:0;padding:0 32px;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{padding:10px 18px;font-size:13px;cursor:pointer;color:var(--dim);border-bottom:2px solid transparent;white-space:nowrap;transition:.2s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* Content */
+.content{padding:24px 32px;max-width:1400px;margin:0 auto}
+.section{margin-bottom:28px}
+.section h2{font-size:16px;font-weight:600;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section h3{font-size:13px;color:var(--dim);margin:16px 0 8px}
+.hidden{display:none}
+
+/* Stats row */
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;flex:1;min-width:120px}
+.stat-card .num{font-size:24px;font-weight:700}
+.stat-card .label{font-size:10px;color:var(--dim);margin-top:2px}
+.stat-card .change{font-size:10px;margin-top:4px}
+
+/* Phase track */
+.phase-track{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-bottom:20px}
+.phase-step{text-align:center;padding:12px 4px;background:var(--card);border-top:3px solid transparent;font-size:10px;color:var(--dim)}
+.phase-step .num{display:block;font-size:20px;font-weight:700;margin-bottom:2px}
+.phase-step.passed{background:var(--card2);border-top-color:var(--gold);color:var(--text)}
+.phase-step.current{background:var(--gold);color:#000;border-top-color:var(--gold);font-weight:600}
+.phase-step.current .num{color:#000}
+
+/* Evidence grid */
+.evidence-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.evidence-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.evidence-card .label{font-size:10px;color:var(--dim);margin-bottom:4px}
+.evidence-card .value{font-size:22px;font-weight:700;margin-bottom:4px}
+.evidence-card .note{font-size:11px;color:var(--dim)}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}
+th{background:var(--card);color:var(--dim);font-weight:500;padding:10px 8px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;font-size:10px;letter-spacing:.05em}
+td{padding:8px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:hover{background:var(--card2)}
+.code-cell{font-family:monospace;color:var(--gold);white-space:nowrap;font-weight:500}
+
+/* Layer blocks */
+.layer{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:16px;border-left:3px solid var(--gold)}
+.layer-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.layer-title{font-size:15px;font-weight:600}
+.layer-title .code{color:var(--gold);font-family:monospace;font-size:12px;margin-right:8px}
+.layer-weight{font-family:monospace;font-size:11px;color:var(--gold)}
+.layer-thesis{font-size:12px;color:var(--dim);font-style:italic;margin-bottom:14px;padding-left:12px;border-left:2px solid rgba(212,168,84,.3)}
+
+/* Short layers */
+.short-layer{border-left-color:var(--red)}
+.short-layer .layer-title .code,.short-layer .layer-weight{color:var(--red)}
+.short-layer .layer-thesis{border-left-color:rgba(239,68,68,.3)}
+.short-layer .code-cell{color:var(--red)}
+
+/* Signal cards */
+.signal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.signal-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;position:relative;border-left:3px solid var(--green)}
+.signal-card.warn{border-left-color:var(--yellow)}
+.signal-card.red{border-left-color:var(--red)}
+.signal-num{font-family:monospace;font-size:10px;color:var(--gold);font-weight:600;margin-bottom:4px;letter-spacing:.1em}
+.signal-name{font-size:14px;font-weight:600;margin-bottom:10px}
+.signal-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:11px;border-bottom:1px solid rgba(255,255,255,.03)}
+.signal-row:last-child{border-bottom:none}
+.signal-row .key{color:var(--dim);font-family:monospace;font-size:9px;letter-spacing:.08em}
+.signal-row .val{font-family:monospace;font-size:11px;font-weight:500}
+.status-pill{display:inline-block;padding:2px 8px;font-family:monospace;font-size:9px;font-weight:600;letter-spacing:.1em;border-radius:3px}
+.pill-green{background:rgba(16,185,129,.15);color:var(--green)}
+.pill-warn{background:rgba(245,158,11,.15);color:var(--yellow)}
+.pill-red{background:rgba(239,68,68,.15);color:var(--red)}
+
+/* Action cards */
+.action-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.action-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 16px;text-align:center}
+.action-trigger{font-size:36px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.action-label{font-family:monospace;font-size:9px;color:var(--dim);letter-spacing:.12em;margin-bottom:12px}
+.action-desc{font-size:12px;color:var(--text);line-height:1.5;padding-top:12px;border-top:1px solid var(--border)}
+
+/* Quote */
+.quote{background:var(--card);border:1px solid var(--border);border-radius:10px;border-top:3px solid var(--gold);padding:28px 32px;text-align:center}
+.quote-mark{font-size:36px;color:var(--gold);line-height:.5;margin-bottom:12px}
+.quote-text{font-size:14px;line-height:1.8;max-width:720px;margin:0 auto 12px;color:var(--text)}
+.quote-attr{font-family:monospace;font-size:9px;letter-spacing:.2em;color:var(--gold)}
+
+/* Today list */
+.today-list{background:var(--card);border:1px solid var(--border);border-radius:10px;border-left:3px solid var(--gold);padding:20px 24px}
+.today-item{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+.today-item:last-child{border-bottom:none}
+.today-num{font-size:22px;color:var(--gold);font-weight:700;line-height:1}
+.today-content strong{font-weight:600;display:block;margin-bottom:4px}
+.today-content .detail{font-size:11px;color:var(--dim);font-family:monospace}
+
+/* Transmission chain */
+.chain{display:flex;flex-direction:column;gap:8px}
+.chain-node{display:grid;grid-template-columns:44px 1fr 80px;gap:12px;align-items:center;padding:12px 16px;background:var(--card2);border-radius:8px;border-left:3px solid var(--gold)}
+.chain-node .step{font-size:24px;font-weight:700;color:var(--gold);text-align:center}
+.chain-node .content{font-size:12px}
+.chain-node .timing{font-family:monospace;font-size:10px;color:var(--dim);text-align:right}
+.chain-arrow{text-align:center;color:var(--gold);font-size:14px}
+.chain-conclusion{margin-top:16px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;border-left:3px solid var(--gold);font-size:12px;line-height:1.7}
+.chain-intro{font-size:12px;color:var(--dim);margin-bottom:16px;padding-left:12px;border-left:2px solid var(--gold)}
+
+/* Cadence grid */
+.cadence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.cadence-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;border-top:2px solid var(--gold)}
+.cadence-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.cadence-title{font-size:14px;font-weight:600}
+.cadence-time{font-family:monospace;font-size:10px;color:var(--gold);letter-spacing:.1em}
+.cadence-list{list-style:none;padding:0}
+.cadence-list li{padding:6px 0 6px 16px;font-size:12px;border-bottom:1px solid rgba(255,255,255,.03);position:relative}
+.cadence-list li:last-child{border-bottom:none}
+.cadence-list li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.cadence-list li .meta{font-family:monospace;font-size:10px;color:var(--dim);margin-left:6px}
+
+/* SOP table */
+.sop-table .level-1 td:first-child{color:var(--green);font-weight:600}
+.sop-table .level-2 td:first-child{color:var(--yellow);font-weight:600}
+.sop-table .level-3 td:first-child{color:var(--red);font-weight:600}
+.sop-table .level-4 td:first-child{color:var(--red);font-weight:700}
+
+/* Aux sections */
+.aux-section{background:var(--card);border:1px solid var(--border);border-radius:10px;border-left:3px solid var(--gold);padding:18px 20px;margin-bottom:16px}
+.aux-title{font-size:14px;font-weight:600;margin-bottom:12px}
+.aux-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.aux-item{padding:10px 12px;background:var(--card2);border-radius:6px;font-size:12px}
+.aux-item .name{font-weight:600;display:block;margin-bottom:2px}
+.aux-item .src{font-family:monospace;font-size:10px;color:var(--dim)}
+
+/* Responsive */
+@media(max-width:900px){
+  .content{padding:16px}
+  .phase-track{grid-template-columns:repeat(4,1fr)}
+  .evidence-grid{grid-template-columns:1fr}
+  .signal-grid{grid-template-columns:1fr}
+  .action-grid{grid-template-columns:repeat(2,1fr)}
+  .cadence-grid{grid-template-columns:1fr}
+  .aux-grid{grid-template-columns:1fr}
+  .chain-node{grid-template-columns:36px 1fr}
+  .chain-node .timing{grid-column:span 2;text-align:left}
+}
 </style>
 </head>
 <body>
 
-  <!-- ===== TOPBAR ===== -->
-  <header class="topbar">
-    <div class="topbar-brand">
-      <div class="brand-left">
-        <span class="brand-mark">SOROS REFLEXIVITY OS · V1.2</span>
-        <span class="brand-name">Captain Hessen</span>
-        <span class="brand-cn">黑森船长</span>
-        <span class="brand-tag">锚定确定性</span>
-      </div>
-      <div class="data-status">
-        <span class="data-status-title">实时数据</span>
-        <div class="status-row">
-          <span class="status-label">更新</span>
-          <span class="status-val" id="last-update">未连接</span>
-        </div>
-        <div class="status-row">
-          <span class="status-label">翻转</span>
-          <span class="status-val" id="flipped-count">— / 7</span>
-        </div>
-        <div class="status-trigger" id="trigger-level">等待数据加载</div>
-      </div>
+<div class="header">
+  <div>
+    <h1>Soros AI Reflexivity OS</h1>
+    <div class="sub">黑森船长 · 锚定确定性 | V1.2 | 反身性周期定位 + 七信号仪表盘</div>
+  </div>
+  <div class="header-right">
+    <div class="live-status">
+      <span class="label">更新</span>
+      <span class="val" id="last-update">--</span>
+      <span class="label">翻转</span>
+      <span class="val" id="flipped-count">-- / 7</span>
+    </div>
+    <span class="live-trigger" id="trigger-level">等待数据</span>
+    <a href="index.html" class="back">&larr; 返回工具箱</a>
+  </div>
+</div>
+
+<div class="tab-wrap" id="tabWrap">
+<div class="tab-hint" id="tabHint" onclick="document.getElementById('tabBar').scrollBy({left:200,behavior:'smooth'})">&rsaquo;</div>
+<div class="tab-bar" id="tabBar">
+  <div class="tab active" onclick="showTab('phase',event)">01 当下定位</div>
+  <div class="tab" onclick="showTab('long',event)">02 做多核心</div>
+  <div class="tab" onclick="showTab('short',event)">03 做空核心</div>
+  <div class="tab" onclick="showTab('options',event)">04 期权层</div>
+  <div class="tab" onclick="showTab('chain',event)">05 传导链</div>
+  <div class="tab" onclick="showTab('signals',event)">06 七个信号</div>
+  <div class="tab" onclick="showTab('rules',event)">07 触发规则</div>
+  <div class="tab" onclick="showTab('today',event)">08 今日执行</div>
+  <div class="tab" onclick="showTab('discipline',event)">09 观察纪律</div>
+</div>
+</div>
+
+<!-- ===== TAB 01: PHASE ===== -->
+<div class="content tab-content" id="tab-phase">
+  <div class="section">
+    <h2>当下定位 · 反身性周期第六阶段</h2>
+    <h3>Phase Location — The Test Phase</h3>
+  </div>
+
+  <div class="section">
+    <div style="font-size:12px;color:var(--dim);margin-bottom:16px">Soros 反身性模型 8 阶段 · <strong style="color:var(--text)">产业链条仍在自我强化，金融链条已出现可观察裂缝</strong></div>
+    <div class="phase-track">
+      <div class="phase-step passed"><span class="num">1</span>未识别</div>
+      <div class="phase-step passed"><span class="num">2</span>自强化</div>
+      <div class="phase-step passed"><span class="num">3</span>验证</div>
+      <div class="phase-step passed"><span class="num">4</span>加速</div>
+      <div class="phase-step passed"><span class="num">5</span>Gap扩大</div>
+      <div class="phase-step current"><span class="num">6</span>测试期</div>
+      <div class="phase-step"><span class="num">7</span>谬误高潮</div>
+      <div class="phase-step"><span class="num">8</span>反转</div>
+    </div>
+  </div>
+
+  <div class="evidence-grid">
+    <div class="evidence-card">
+      <div class="label">META · Q1 CAPEX 上调后</div>
+      <div class="value" style="color:var(--red)">-6%</div>
+      <div class="note">信号翻转：上调 capex 从利好转为利空</div>
+    </div>
+    <div class="evidence-card">
+      <div class="label">MSFT · 年初至今</div>
+      <div class="value" style="color:var(--red)">-17%</div>
+      <div class="note">第一只被市场惩罚的 hyperscaler</div>
+    </div>
+    <div class="evidence-card">
+      <div class="label">ORACLE · CAPEX / SALES</div>
+      <div class="value" style="color:var(--yellow)">86%</div>
+      <div class="note">META 54% / MSFT 47% / GOOGL 46%</div>
+    </div>
+    <div class="evidence-card">
+      <div class="label">10Y TIPS 实际利率</div>
+      <div class="value" style="color:var(--cyan)">1.63%</div>
+      <div class="note">距 2.2% 触发线仅 57bp</div>
+    </div>
+    <div class="evidence-card">
+      <div class="label">COREWEAVE · 2026 再融资墙</div>
+      <div class="value" style="color:var(--orange)">$4.2B</div>
+      <div class="note">GPU 抵押 LTV 75% · 三季度内到期</div>
+    </div>
+    <div class="evidence-card">
+      <div class="label">HYPERSCALER 2026 CAPEX</div>
+      <div class="value" style="color:var(--accent)">$725B</div>
+      <div class="note">YoY +77% · 真实经济强度 ~$1.1T</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 02: LONG ===== -->
+<div class="content tab-content hidden" id="tab-long">
+  <div class="section">
+    <h2>做多核心 · 三层防御金字塔</h2>
+    <h3>Long Core — Three-Tier Defensive Pyramid</h3>
+  </div>
+
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-title"><span class="code">L1</span>单一节点收敛终点</div>
+      <div class="layer-weight">30-40% 净多头</div>
+    </div>
+    <div class="layer-thesis">分母分散，分子集中——不管资金从哪条套娃链流出，物理终点不可绕过。反身性即使反转 50%，产业地位无法证伪，最多估值压缩 30-40%。</div>
+    <table>
+      <thead><tr><th>类型</th><th>标的</th><th>不可证伪逻辑</th></tr></thead>
+      <tbody>
+        <tr><td class="code-cell">GPU 垄断</td><td>NVDA</td><td>训练市场 90% 份额 · CUDA 生态护城河 · 推理被 ASIC 分流但训练无替代</td></tr>
+        <tr><td class="code-cell">HBM</td><td>SK 海力士 · 三星</td><td>物理产能 2027 才扩出 · 占 hyperscaler 内存支出 30%</td></tr>
+        <tr><td class="code-cell">先进封装</td><td>TSMC · 2330.TW</td><td>CoWoS 产能锁死 2027 · 单一节点垄断</td></tr>
+        <tr><td class="code-cell">关键电力</td><td>VST · CEG</td><td>已签 PPA 不可撤销 · capex 放缓不影响存量合同现金流</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-title"><span class="code">L2</span>双重反身性叠加 · 中国 A 股核心</div>
+      <div class="layer-weight">20-30% 净多头</div>
+    </div>
+    <div class="layer-thesis">独特 alpha 来源。五大网络 + 第六张网框架——产业反身性 x 政策反身性。对美元实际利率敏感性远低于美股 AI 链，人民币贬值通道作为缓冲。美股反身性塌陷时为相对受益方。</div>
+    <table>
+      <thead><tr><th>网络</th><th>核心标的</th><th>双反身性逻辑</th></tr></thead>
+      <tbody>
+        <tr><td class="code-cell">N1 新型电网</td><td>特变电工 · 思源电气 · 国电南瑞</td><td>AI capex -> 电力刚需 + 十五五电网扩容</td></tr>
+        <tr><td class="code-cell">N2 算力网</td><td>中际旭创 · 寒武纪</td><td>全球 AI 需求 + 国产替代政策</td></tr>
+        <tr><td class="code-cell">N3 通信网</td><td>中兴通讯 · 烽火通信</td><td>6G + 卫星互联网政策</td></tr>
+        <tr><td class="code-cell">N4 海外需求</td><td>工业富联 · 立讯精密</td><td>海外 AI 硬件供应链</td></tr>
+        <tr><td class="code-cell">N5 具身智能</td><td>拓普集团 · 三花智控</td><td>特斯拉 Optimus 链 + 国内人形机器人政策</td></tr>
+        <tr><td class="code-cell">N6 量子</td><td>国盾量子 · 中国电信</td><td>抗反身性塌陷的"未来期权"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="layer">
+    <div class="layer-header">
+      <div class="layer-title"><span class="code">L3</span>跨周期硬资产 · 反身性塌陷对冲</div>
+      <div class="layer-weight">10-15% 净多头</div>
+    </div>
+    <div class="layer-thesis">实际利率突破 2.2% 触发 AI 反身性塌陷时，会同步催生滞胀 + 美元信用质疑。此层既对冲 AI 多头风险，又捕捉地缘风险的非线性 payoff。</div>
+    <table>
+      <thead><tr><th>类型</th><th>标的</th><th>触发场景</th></tr></thead>
+      <tbody>
+        <tr><td class="code-cell">物理能源</td><td>XLE · 能源选股</td><td>Hormuz 风险 + 滞胀定价</td></tr>
+        <tr><td class="code-cell">铀</td><td>CCJ</td><td>核电复兴 + AI 电力刚需</td></tr>
+        <tr><td class="code-cell">关键矿产</td><td>FCX · 稀土</td><td>定价权重置 + 供给约束</td></tr>
+        <tr><td class="code-cell">黄金</td><td>GLD · 实物</td><td>美元信用折价启动</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== TAB 03: SHORT ===== -->
+<div class="content tab-content hidden" id="tab-short">
+  <div class="section">
+    <h2>做空核心 · 精准打击融资套娃外端</h2>
+    <h3>Short Core — Surgical Strikes on the Outer Layers</h3>
+  </div>
+
+  <div class="layer short-layer">
+    <div class="layer-header">
+      <div class="layer-title"><span class="code">S1</span>纯杠杆 Neocloud · 最早断的环节</div>
+      <div class="layer-weight">2-3% 名义空头</div>
+    </div>
+    <div class="layer-thesis">融资期限 15-20 年 vs GPU 寿命 3-4 年 = 教科书级久期错配。GPU 抵押 LTV 75%，残值跌 25% 即破押。市场叙事仍在相信，是干净的做空窗口。</div>
+    <table>
+      <thead><tr><th>标的</th><th>做空逻辑</th><th>触发条件</th></tr></thead>
+      <tbody>
+        <tr><td class="code-cell">CRWV</td><td>$4.2B 2026 再融资墙 + 负 OCF + 客户高度集中</td><td>TIPS > 2.0% 或 HY 利差 +100bp</td></tr>
+        <tr><td class="code-cell">NBIS</td><td>同类久期错配 + 依赖客户合同抵押</td><td>同上 · 关联抛售</td></tr>
+        <tr><td class="code-cell">IREN</td><td>挖矿转型 · 微软合同集中度 · BTC 波动</td><td>BTC < $60k 或微软合同变更</td></tr>
+        <tr><td class="code-cell">WULF · CLSK</td><td>挖矿转型估值悬空 · 任一坏消息传染</td><td>group 任一标的暴雷</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="layer short-layer">
+    <div class="layer-header">
+      <div class="layer-title"><span class="code">S2</span>AI 主题 ETF + 私募信贷载体</div>
+      <div class="layer-weight">2-3% 名义空头</div>
+    </div>
+    <div class="layer-thesis">私募信贷对 AI 相关贷款已从近零飙至 $200B+，Morgan Stanley 预测未来两年再增 $800B。BDC 净值对底层资产高度敏感，是 neocloud 暴雷的传染载体。</div>
+    <table>
+      <thead><tr><th>标的</th><th>做空逻辑</th><th>触发场景</th></tr></thead>
+      <tbody>
+        <tr><td class="code-cell">AIQ · BOTZ · ARKK</td><td>持仓集中在反身性后段标的 · 赎回压力放大下跌</td><td>S1 标的开始暴雷</td></tr>
+        <tr><td class="code-cell">OBDC · ARCC</td><td>BlueOwl / Apollo 上市 BDC 载体 · 持有大量 AI 信贷</td><td>HY 利差 +150bp 或单一违约</td></tr>
+        <tr><td class="code-cell">数据中心 REITs</td><td>持有 AI 数据中心租约 · 租户违约风险</td><td>Neocloud 主要租户违约</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="layer short-layer">
+    <div class="layer-header">
+      <div class="layer-title"><span class="code">S3</span>二线 Hyperscaler + 估值悬浮 SaaS</div>
+      <div class="layer-weight">0-1% 备选</div>
+    </div>
+    <div class="layer-thesis">只在 3 个领先信号翻转后才开仓。绝对不空 NVDA / MSFT / GOOGL / TSMC——这是新手错误，会被 gamma 反向碾压。</div>
+    <table>
+      <thead><tr><th>标的</th><th>做空逻辑</th><th>开仓前提</th></tr></thead>
+      <tbody>
+        <tr><td class="code-cell">ORCL</td><td>capex/sales 86% · 自由现金流压力最大</td><td>3 个领先信号翻转</td></tr>
+        <tr><td class="code-cell">AI · BBAI · PLTR</td><td>高估值且 ROI 未兑现 · 反身性反转时被率先抛售</td><td>整体见顶信号确认</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== TAB 04: OPTIONS ===== -->
+<div class="content tab-content hidden" id="tab-options">
+  <div class="section">
+    <h2>期权层 · 不赚 Vega 赚 Gamma</h2>
+    <h3>Options Layer — Pay Vega, Capture Gamma</h3>
+  </div>
+
+  <div class="layer">
+    <div class="layer-thesis" style="font-size:13px;margin-bottom:16px">
+      市场对 vega 定价偏低 (IV 处于低位)，正是建立 gamma 仓位的窗口。控制权利金成本在组合 5-8%，捕捉反身性反转时的非线性 payoff。
+    </div>
+    <table>
+      <thead><tr><th>工具</th><th>作用</th><th>具体建议</th><th>成本</th></tr></thead>
+      <tbody>
+        <tr><td class="code-cell">SPY put spread</td><td>系统性下行保护</td><td>6-9 月 · 5% 虚值买 + 25% 虚值卖</td><td>2-3%</td></tr>
+        <tr><td class="code-cell">TLT put / TIPS yield call</td><td>押注实际利率突破 2.2%</td><td>真正的 reflexivity trigger · vega 便宜</td><td>1-2%</td></tr>
+        <tr><td class="code-cell">VIX call spread</td><td>波动率爆炸捕捉</td><td>25 / 40 strike · 反身性反转 VIX 非线性</td><td>0.5-1%</td></tr>
+        <tr><td class="code-cell">XLF put</td><td>金融板块对冲</td><td>私募信贷暴雷传染 · 不打草惊蛇</td><td>1%</td></tr>
+        <tr><td class="code-cell">CRWV / CEG put</td><td>单点 gamma</td><td>比直接空股票 gamma 收益更高</td><td>0.5%</td></tr>
+        <tr><td class="code-cell">沪深300 / 上证50 put</td><td>A 股 vega frozen 套利</td><td>IV 长期低估 · 低成本叠加 A 股下行保护</td><td>1%</td></tr>
+        <tr><td class="code-cell">碳酸锂 / 铜 期权</td><td>本行 gamma</td><td>碳酸锂上行 gamma + 铜双向</td><td>视行情</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== TAB 05: TRANSMISSION CHAIN ===== -->
+<div class="content tab-content hidden" id="tab-chain">
+  <div class="section">
+    <h2>实际利率传导链 · 反身性塌陷路径</h2>
+    <h3>The Real Rate Transmission Chain</h3>
+  </div>
+
+  <div class="chain-intro">
+    当需求降不下去，融资可以瞬间冰冻。<strong style="color:var(--text)">实际利率是真正的脆弱点</strong>——快变量、同时影响分子分母、几乎没有对冲工具。
+  </div>
+
+  <div class="chain">
+    <div class="chain-node">
+      <div class="step">1</div>
+      <div class="content"><strong>实际利率 r 上升 100bp</strong> · 当前 TIPS 1.63% -> 2.63% 触发线</div>
+      <div class="timing">T+0</div>
+    </div>
+    <div class="chain-arrow">|</div>
+    <div class="chain-node">
+      <div class="step">2</div>
+      <div class="content"><strong>估值压缩</strong> · 模型公司倍数 35x -> 20x · Anthropic / xAI down round 风险 · 融资能力下降</div>
+      <div class="timing">T+1-3 月</div>
+    </div>
+    <div class="chain-arrow">|</div>
+    <div class="chain-node">
+      <div class="step">3</div>
+      <div class="content"><strong>私募信贷紧缩</strong> · GPU SPV 浮动利率 11% -> 13%+ · Neocloud 再融资困难 · 部分 SPV 触发利息覆盖率契约违约</div>
+      <div class="timing">T+3-6 月</div>
+    </div>
+    <div class="chain-arrow">|</div>
+    <div class="chain-node">
+      <div class="step">4</div>
+      <div class="content"><strong>抵押品螺旋</strong> · GPU 二手市场流动性枯竭 · 残值下调 · LTV 触发追加保证金 · 被迫抛售或债务重组</div>
+      <div class="timing">T+6-9 月</div>
+    </div>
+    <div class="chain-arrow">|</div>
+    <div class="chain-node">
+      <div class="step">5</div>
+      <div class="content"><strong>回到 Hyperscaler</strong> · PPA 和租赁合同对手方违约 · 无法摊薄产能变存量损失 · capex 被迫"主动放缓"——<strong style="color:var(--red)">reflexivity 闭环完成</strong></div>
+      <div class="timing">T+9-12 月</div>
+    </div>
+  </div>
+
+  <div class="chain-conclusion">
+    <strong style="color:var(--text)">关键洞察</strong>：整个过程<em style="color:var(--dim)">需求侧可以毫发无损</em>。OpenAI 推理需求月增 30%，Claude 企业渗透，Gemini 用户翻倍——这些都不重要。<strong>融资侧一旦冰冻，几个月内就走完</strong>。这正是 2008 SIV 和 1998 LTCM 的共同点：基本面没崩，融资先崩。
+  </div>
+</div>
+
+<!-- ===== TAB 06: SIGNALS ===== -->
+<div class="content tab-content hidden" id="tab-signals">
+  <div class="section">
+    <h2>七个领先信号 · 每日盯盘</h2>
+    <h3>7 Leading Signals — Daily Monitoring</h3>
+  </div>
+
+  <div class="signal-grid">
+    <div class="signal-card" data-signal="S1">
+      <div class="signal-num">SIGNAL 01</div>
+      <div class="signal-name">10Y TIPS 实际利率</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">1.63%</span></div>
+      <div class="signal-row"><span class="key">YELLOW</span><span class="val">> 2.0%</span></div>
+      <div class="signal-row"><span class="key">RED</span><span class="val">> 2.2%</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · DFII10</span></div>
+      <div class="signal-row"><span class="key">FREQ</span><span class="val">每日 17:00 ET</span></div>
+      <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">正常</span></div>
     </div>
 
-    <nav class="nav">
-      <div class="nav-item active" data-tab="phase">
-        <div class="nav-num">01</div>
-        <div class="nav-label">
-          <span class="cn">当下定位</span>
-          <span class="en">Phase Location</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="long">
-        <div class="nav-num">02</div>
-        <div class="nav-label">
-          <span class="cn">做多核心</span>
-          <span class="en">Long Core</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="short">
-        <div class="nav-num">03</div>
-        <div class="nav-label">
-          <span class="cn">做空核心</span>
-          <span class="en">Short Core</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="options">
-        <div class="nav-num">04</div>
-        <div class="nav-label">
-          <span class="cn">期权层</span>
-          <span class="en">Options</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="chain">
-        <div class="nav-num">05</div>
-        <div class="nav-label">
-          <span class="cn">传导链</span>
-          <span class="en">Transmission</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="signals">
-        <div class="nav-num">06</div>
-        <div class="nav-label">
-          <span class="cn">七个信号</span>
-          <span class="en">7 Signals</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="rules">
-        <div class="nav-num">07</div>
-        <div class="nav-label">
-          <span class="cn">触发规则</span>
-          <span class="en">Trigger Rules</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="today">
-        <div class="nav-num">08</div>
-        <div class="nav-label">
-          <span class="cn">今日执行</span>
-          <span class="en">Execute Today</span>
-        </div>
-      </div>
-      <div class="nav-item" data-tab="discipline">
-        <div class="nav-num">09</div>
-        <div class="nav-label">
-          <span class="cn">观察纪律</span>
-          <span class="en">Discipline</span>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- ===== MAIN ===== -->
-  <main class="main">
-
-    <!-- TAB 01: PHASE -->
-    <div class="tab-content active" id="tab-phase">
-      <div class="tab-header">
-        <div class="tab-eyebrow">CALIBRATION · 01</div>
-        <div class="tab-title">当下定位 · 反身性周期第六阶段</div>
-        <div class="tab-subtitle">Phase Location — The Test Phase</div>
-      </div>
-
-      <div class="phase-bar">
-        <div class="phase-intro">
-          Soros 反身性模型 8 阶段 · <strong>产业链条仍在自我强化，金融链条已出现可观察裂缝</strong>
-        </div>
-        <div class="phase-track">
-          <div class="phase-step passed"><span class="num">1</span>未识别</div>
-          <div class="phase-step passed"><span class="num">2</span>自强化</div>
-          <div class="phase-step passed"><span class="num">3</span>验证</div>
-          <div class="phase-step passed"><span class="num">4</span>加速</div>
-          <div class="phase-step passed"><span class="num">5</span>Gap扩大</div>
-          <div class="phase-step current"><span class="num">6</span>测试期</div>
-          <div class="phase-step"><span class="num">7</span>谬误高潮</div>
-          <div class="phase-step"><span class="num">8</span>反转</div>
-        </div>
-      </div>
-
-      <div class="evidence-grid">
-        <div class="evidence-card">
-          <div class="label">META · Q1 CAPEX 上调后</div>
-          <div class="value">−6%</div>
-          <div class="note">信号翻转：上调 capex 从利好转为利空</div>
-        </div>
-        <div class="evidence-card">
-          <div class="label">MSFT · 年初至今</div>
-          <div class="value">−17%</div>
-          <div class="note">第一只被市场惩罚的 hyperscaler</div>
-        </div>
-        <div class="evidence-card">
-          <div class="label">ORACLE · CAPEX / SALES</div>
-          <div class="value">86%</div>
-          <div class="note">META 54% / MSFT 47% / GOOGL 46%</div>
-        </div>
-        <div class="evidence-card">
-          <div class="label">10Y TIPS 实际利率</div>
-          <div class="value">1.63%</div>
-          <div class="note">距 2.2% 触发线仅 57bp</div>
-        </div>
-        <div class="evidence-card">
-          <div class="label">COREWEAVE · 2026 再融资墙</div>
-          <div class="value">$4.2B</div>
-          <div class="note">GPU 抵押 LTV 75% · 三季度内到期</div>
-        </div>
-        <div class="evidence-card">
-          <div class="label">HYPERSCALER 2026 CAPEX</div>
-          <div class="value">$725B</div>
-          <div class="note">YoY +77% · 真实经济强度 ~$1.1T</div>
-        </div>
-      </div>
+    <div class="signal-card warn" data-signal="S2">
+      <div class="signal-num">SIGNAL 02</div>
+      <div class="signal-name">HY 能源 / 科技信用利差</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">~350bp</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">> 450bp</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">Neocloud 再融资窗口</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · BAMLH0A0HYM2</span></div>
+      <div class="signal-row"><span class="key">FREQ</span><span class="val">每日</span></div>
+      <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn" data-field="status">观察</span></div>
     </div>
 
-    <!-- TAB 02: LONG -->
-    <div class="tab-content" id="tab-long">
-      <div class="tab-header">
-        <div class="tab-eyebrow">BULL THESIS · 02</div>
-        <div class="tab-title">做多核心 · 三层防御金字塔</div>
-        <div class="tab-subtitle">Long Core — Three-Tier Defensive Pyramid</div>
-      </div>
-
-      <div class="layer">
-        <div class="layer-header">
-          <div class="layer-title"><span class="code">L1</span>单一节点收敛终点</div>
-          <div class="layer-weight">30–40% 净多头</div>
-        </div>
-        <div class="layer-thesis">
-          分母分散，分子集中——不管资金从哪条套娃链流出，物理终点不可绕过。反身性即使反转 50%，产业地位无法证伪，最多估值压缩 30-40%。
-        </div>
-        <table>
-          <thead><tr><th>类型</th><th>标的</th><th>不可证伪逻辑</th></tr></thead>
-          <tbody>
-            <tr><td class="code-cell">GPU 垄断</td><td>NVDA</td><td>训练市场 90% 份额 · CUDA 生态护城河 · 推理被 ASIC 分流但训练无替代</td></tr>
-            <tr><td class="code-cell">HBM</td><td>SK 海力士 · 三星</td><td>物理产能 2027 才扩出 · 占 hyperscaler 内存支出 30%</td></tr>
-            <tr><td class="code-cell">先进封装</td><td>TSMC · 2330.TW</td><td>CoWoS 产能锁死 2027 · 单一节点垄断</td></tr>
-            <tr><td class="code-cell">关键电力</td><td>VST · CEG</td><td>已签 PPA 不可撤销 · capex 放缓不影响存量合同现金流</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="layer">
-        <div class="layer-header">
-          <div class="layer-title"><span class="code">L2</span>双重反身性叠加 · 中国 A 股核心</div>
-          <div class="layer-weight">20–30% 净多头</div>
-        </div>
-        <div class="layer-thesis">
-          独特 α 来源。五大网络 + 第六张网框架——产业反身性 × 政策反身性。对美元实际利率敏感性远低于美股 AI 链，人民币贬值通道作为缓冲。美股反身性塌陷时为相对受益方。
-        </div>
-        <table>
-          <thead><tr><th>网络</th><th>核心标的</th><th>双反身性逻辑</th></tr></thead>
-          <tbody>
-            <tr><td class="code-cell">N1 新型电网</td><td>特变电工 · 思源电气 · 国电南瑞</td><td>AI capex → 电力刚需 + 十五五电网扩容</td></tr>
-            <tr><td class="code-cell">N2 算力网</td><td>中际旭创 · 寒武纪</td><td>全球 AI 需求 + 国产替代政策</td></tr>
-            <tr><td class="code-cell">N3 通信网</td><td>中兴通讯 · 烽火通信</td><td>6G + 卫星互联网政策</td></tr>
-            <tr><td class="code-cell">N4 海外需求</td><td>工业富联 · 立讯精密</td><td>海外 AI 硬件供应链</td></tr>
-            <tr><td class="code-cell">N5 具身智能</td><td>拓普集团 · 三花智控</td><td>特斯拉 Optimus 链 + 国内人形机器人政策</td></tr>
-            <tr><td class="code-cell">N6 量子</td><td>国盾量子 · 中国电信</td><td>抗反身性塌陷的"未来期权"</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="layer">
-        <div class="layer-header">
-          <div class="layer-title"><span class="code">L3</span>跨周期硬资产 · 反身性塌陷对冲</div>
-          <div class="layer-weight">10–15% 净多头</div>
-        </div>
-        <div class="layer-thesis">
-          实际利率突破 2.2% 触发 AI 反身性塌陷时，会同步催生滞胀 + 美元信用质疑。此层既对冲 AI 多头风险，又捕捉地缘风险的非线性 payoff。
-        </div>
-        <table>
-          <thead><tr><th>类型</th><th>标的</th><th>触发场景</th></tr></thead>
-          <tbody>
-            <tr><td class="code-cell">物理能源</td><td>XLE · 能源选股</td><td>Hormuz 风险 + 滞胀定价</td></tr>
-            <tr><td class="code-cell">铀</td><td>CCJ</td><td>核电复兴 + AI 电力刚需</td></tr>
-            <tr><td class="code-cell">关键矿产</td><td>FCX · 稀土</td><td>定价权重置 + 供给约束</td></tr>
-            <tr><td class="code-cell">黄金</td><td>GLD · 实物</td><td>美元信用折价启动</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="signal-card warn">
+      <div class="signal-num">SIGNAL 03</div>
+      <div class="signal-name">CoreWeave CDS / 个券利差</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val">~600bp</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">> 800bp</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">第一只暴雷雏鸡</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">FINRA TRACE · Bloomberg</span></div>
+      <div class="signal-row"><span class="key">FREQ</span><span class="val">每日 + 财报日特别盯盘</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">观察</span></div>
     </div>
 
-    <!-- TAB 03: SHORT -->
-    <div class="tab-content" id="tab-short">
-      <div class="tab-header">
-        <div class="tab-eyebrow">BEAR THESIS · 03</div>
-        <div class="tab-title">做空核心 · 精准打击融资套娃外端</div>
-        <div class="tab-subtitle">Short Core — Surgical Strikes on the Outer Layers</div>
-      </div>
-
-      <div class="layer short-layer">
-        <div class="layer-header">
-          <div class="layer-title"><span class="code">S1</span>纯杠杆 Neocloud · 最早断的环节</div>
-          <div class="layer-weight">2–3% 名义空头</div>
-        </div>
-        <div class="layer-thesis">
-          融资期限 15-20 年 vs GPU 寿命 3-4 年 = 教科书级久期错配。GPU 抵押 LTV 75%，残值跌 25% 即破押。市场叙事仍在相信，是干净的做空窗口。
-        </div>
-        <table>
-          <thead><tr><th>标的</th><th>做空逻辑</th><th>触发条件</th></tr></thead>
-          <tbody>
-            <tr><td class="code-cell">CRWV</td><td>$4.2B 2026 再融资墙 + 负 OCF + 客户高度集中</td><td>TIPS &gt; 2.0% 或 HY 利差 +100bp</td></tr>
-            <tr><td class="code-cell">NBIS</td><td>同类久期错配 + 依赖客户合同抵押</td><td>同上 · 关联抛售</td></tr>
-            <tr><td class="code-cell">IREN</td><td>挖矿转型 · 微软合同集中度 · BTC 波动</td><td>BTC &lt; $60k 或微软合同变更</td></tr>
-            <tr><td class="code-cell">WULF · CLSK</td><td>挖矿转型估值悬空 · 任一坏消息传染</td><td>group 任一标的暴雷</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="layer short-layer">
-        <div class="layer-header">
-          <div class="layer-title"><span class="code">S2</span>AI 主题 ETF + 私募信贷载体</div>
-          <div class="layer-weight">2–3% 名义空头</div>
-        </div>
-        <div class="layer-thesis">
-          私募信贷对 AI 相关贷款已从近零飙至 $200B+，Morgan Stanley 预测未来两年再增 $800B。BDC 净值对底层资产高度敏感，是 neocloud 暴雷的传染载体。
-        </div>
-        <table>
-          <thead><tr><th>标的</th><th>做空逻辑</th><th>触发场景</th></tr></thead>
-          <tbody>
-            <tr><td class="code-cell">AIQ · BOTZ · ARKK</td><td>持仓集中在反身性后段标的 · 赎回压力放大下跌</td><td>S1 标的开始暴雷</td></tr>
-            <tr><td class="code-cell">OBDC · ARCC</td><td>BlueOwl / Apollo 上市 BDC 载体 · 持有大量 AI 信贷</td><td>HY 利差 +150bp 或单一违约</td></tr>
-            <tr><td class="code-cell">数据中心 REITs</td><td>持有 AI 数据中心租约 · 租户违约风险</td><td>Neocloud 主要租户违约</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="layer short-layer">
-        <div class="layer-header">
-          <div class="layer-title"><span class="code">S3</span>二线 Hyperscaler + 估值悬浮 SaaS</div>
-          <div class="layer-weight">0–1% 备选</div>
-        </div>
-        <div class="layer-thesis">
-          只在 3 个领先信号翻转后才开仓。绝对不空 NVDA / MSFT / GOOGL / TSMC——这是新手错误，会被 gamma 反向碾压。
-        </div>
-        <table>
-          <thead><tr><th>标的</th><th>做空逻辑</th><th>开仓前提</th></tr></thead>
-          <tbody>
-            <tr><td class="code-cell">ORCL</td><td>capex/sales 86% · 自由现金流压力最大</td><td>3 个领先信号翻转</td></tr>
-            <tr><td class="code-cell">AI · BBAI · PLTR</td><td>高估值且 ROI 未兑现 · 反身性反转时被率先抛售</td><td>整体见顶信号确认</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="signal-card">
+      <div class="signal-num">SIGNAL 04</div>
+      <div class="signal-name">Hyperscaler 新发债认购倍数</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val">超额</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">< 1.5x 或撤回</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">机构端拒绝</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">IFR Markets · LSEG league tables</span></div>
+      <div class="signal-row"><span class="key">FREQ</span><span class="val">事件驱动 · 每月 2-4 笔</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
     </div>
 
-    <!-- TAB 04: OPTIONS -->
-    <div class="tab-content" id="tab-options">
-      <div class="tab-header">
-        <div class="tab-eyebrow">NON-LINEAR · 04</div>
-        <div class="tab-title">期权层 · 不赚 Vega 赚 Gamma</div>
-        <div class="tab-subtitle">Options Layer — Pay Vega, Capture Gamma</div>
-      </div>
-
-      <div class="layer">
-        <div class="layer-thesis" style="font-size: 14px; margin-bottom: 20px;">
-          市场对 vega 定价偏低 (IV 处于低位)，正是建立 gamma 仓位的窗口。控制权利金成本在组合 5-8%，捕捉反身性反转时的非线性 payoff。
-        </div>
-        <table>
-          <thead><tr><th>工具</th><th>作用</th><th>具体建议</th><th>成本</th></tr></thead>
-          <tbody>
-            <tr><td class="code-cell">SPY put spread</td><td>系统性下行保护</td><td>6-9 月 · 5% 虚值买 + 25% 虚值卖</td><td class="tight">2–3%</td></tr>
-            <tr><td class="code-cell">TLT put / TIPS yield call</td><td>押注实际利率突破 2.2%</td><td>真正的 reflexivity trigger · vega 便宜</td><td class="tight">1–2%</td></tr>
-            <tr><td class="code-cell">VIX call spread</td><td>波动率爆炸捕捉</td><td>25 / 40 strike · 反身性反转 VIX 非线性</td><td class="tight">0.5–1%</td></tr>
-            <tr><td class="code-cell">XLF put</td><td>金融板块对冲</td><td>私募信贷暴雷传染 · 不打草惊蛇</td><td class="tight">1%</td></tr>
-            <tr><td class="code-cell">CRWV / CEG put</td><td>单点 gamma</td><td>比直接空股票 gamma 收益更高</td><td class="tight">0.5%</td></tr>
-            <tr><td class="code-cell">沪深300 / 上证50 put</td><td>A 股 vega frozen 套利</td><td>IV 长期低估 · 低成本叠加 A 股下行保护</td><td class="tight">1%</td></tr>
-            <tr><td class="code-cell">碳酸锂 / 铜 期权</td><td>本行 gamma</td><td>碳酸锂上行 gamma + 铜双向</td><td class="tight">视行情</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="signal-card">
+      <div class="signal-num">SIGNAL 05</div>
+      <div class="signal-name">GPU 二手价 / 新机价</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val">~80%</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">< 60%</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">抵押品螺旋启动</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">TheBrokerSite · eBay completed</span></div>
+      <div class="signal-row"><span class="key">FREQ</span><span class="val">周度采样 · H100/H200/B200</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
     </div>
 
-    <!-- TAB 05: TRANSMISSION CHAIN -->
-    <div class="tab-content" id="tab-chain">
-      <div class="tab-header">
-        <div class="tab-eyebrow">TRIGGER MAP · 05</div>
-        <div class="tab-title">实际利率传导链 · 反身性塌陷路径</div>
-        <div class="tab-subtitle">The Real Rate Transmission Chain</div>
-      </div>
-
-      <div class="transmission">
-        <div class="chain-intro">
-          当需求降不下去，融资可以瞬间冰冻。<strong style="color: var(--text);">实际利率是真正的脆弱点</strong>——快变量、同时影响分子分母、几乎没有对冲工具。
-        </div>
-
-        <div class="chain">
-          <div class="chain-node">
-            <div class="step">1</div>
-            <div class="content"><strong>实际利率 r ↑ 100bp</strong> · 当前 TIPS 1.63% → 2.63% 触发线</div>
-            <div class="timing">T+0</div>
-          </div>
-          <div class="chain-arrow">↓</div>
-          <div class="chain-node">
-            <div class="step">2</div>
-            <div class="content"><strong>估值压缩</strong> · 模型公司倍数 35x → 20x · Anthropic / xAI down round 风险 · 融资能力 ↓</div>
-            <div class="timing">T+1–3 月</div>
-          </div>
-          <div class="chain-arrow">↓</div>
-          <div class="chain-node">
-            <div class="step">3</div>
-            <div class="content"><strong>私募信贷紧缩</strong> · GPU SPV 浮动利率 11% → 13%+ · Neocloud 再融资困难 · 部分 SPV 触发利息覆盖率契约违约</div>
-            <div class="timing">T+3–6 月</div>
-          </div>
-          <div class="chain-arrow">↓</div>
-          <div class="chain-node">
-            <div class="step">4</div>
-            <div class="content"><strong>抵押品螺旋</strong> · GPU 二手市场流动性枯竭 · 残值下调 · LTV 触发追加保证金 · 被迫抛售或债务重组</div>
-            <div class="timing">T+6–9 月</div>
-          </div>
-          <div class="chain-arrow">↓</div>
-          <div class="chain-node">
-            <div class="step">5</div>
-            <div class="content"><strong>回到 Hyperscaler</strong> · PPA 和租赁合同对手方违约 · 无法摊薄产能变存量损失 · capex 被迫"主动放缓"——<strong style="color: var(--red);">reflexivity 闭环完成</strong></div>
-            <div class="timing">T+9–12 月</div>
-          </div>
-        </div>
-
-        <div class="chain-conclusion">
-          <strong style="color: var(--text);">关键洞察</strong>：整个过程<em style="color: var(--text-mute);">需求侧可以毫发无损</em>。OpenAI 推理需求月增 30%，Claude 企业渗透，Gemini 用户翻倍——这些都不重要。<strong>融资侧一旦冰冻，几个月内就走完</strong>。这正是 2008 SIV 和 1998 LTCM 的共同点：基本面没崩，融资先崩。
-        </div>
-      </div>
+    <div class="signal-card">
+      <div class="signal-num">SIGNAL 06</div>
+      <div class="signal-name">数据中心 SPV ABS 未售出 tranche</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val">无</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">任一 deal 出现</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">套娃最外端断裂</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">SEC EDGAR · ABS-EE · KBRA</span></div>
+      <div class="signal-row"><span class="key">FREQ</span><span class="val">事件驱动 + 月度扫描</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
     </div>
 
-    <!-- TAB 06: SIGNALS -->
-    <div class="tab-content" id="tab-signals">
-      <div class="tab-header">
-        <div class="tab-eyebrow">DASHBOARD · 06</div>
-        <div class="tab-title">七个领先信号 · 每日盯盘</div>
-        <div class="tab-subtitle">7 Leading Signals — Daily Monitoring</div>
-      </div>
+    <div class="signal-card" style="grid-column:span 2">
+      <div class="signal-num">SIGNAL 07</div>
+      <div class="signal-name">Hyperscaler CFO / CEO 减持加速</div>
+      <div class="signal-row"><span class="key">CURRENT</span><span class="val">正常节奏 · NVDA 高管持续减持但属常规</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">单月减持 > $50M / 单人</span></div>
+      <div class="signal-row"><span class="key">MEANING</span><span class="val">内部人撤退 — 最终信号</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">SEC EDGAR Form 4 · OpenInsider</span></div>
+      <div class="signal-row"><span class="key">FREQ</span><span class="val">实时 (T+1) · 月度汇总</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
+    </div>
+  </div>
+</div>
 
-      <div class="signal-grid">
-        <div class="signal-card" data-signal="S1">
-          <div class="signal-num">SIGNAL 01</div>
-          <div class="signal-name">10Y TIPS 实际利率</div>
-          <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">1.63%</span></div>
-          <div class="signal-row"><span class="key">YELLOW</span><span class="val">&gt; 2.0%</span></div>
-          <div class="signal-row"><span class="key">RED</span><span class="val">&gt; 2.2%</span></div>
-          <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · DFII10</span></div>
-          <div class="signal-row"><span class="key">FREQ</span><span class="val">每日 17:00 ET</span></div>
-          <div class="signal-row"><span class="key">Δ 30D</span><span class="val" data-field="delta">—</span></div>
-          <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">正常</span></div>
-        </div>
+<!-- ===== TAB 07: RULES ===== -->
+<div class="content tab-content hidden" id="tab-rules">
+  <div class="section">
+    <h2>触发规则 · 信号翻转对应动作</h2>
+    <h3>Trigger Rules — Signal-to-Action Mapping</h3>
+  </div>
 
-        <div class="signal-card warn" data-signal="S2">
-          <div class="signal-num">SIGNAL 02</div>
-          <div class="signal-name">HY 能源 / 科技信用利差</div>
-          <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">~350bp</span></div>
-          <div class="signal-row"><span class="key">TRIGGER</span><span class="val">&gt; 450bp</span></div>
-          <div class="signal-row"><span class="key">MEANING</span><span class="val">Neocloud 再融资窗口</span></div>
-          <div class="signal-row"><span class="key">SOURCE</span><span class="val">FRED · BAMLH0A0HYM2</span></div>
-          <div class="signal-row"><span class="key">FREQ</span><span class="val">每日</span></div>
-          <div class="signal-row"><span class="key">Δ 30D</span><span class="val" data-field="delta">—</span></div>
-          <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn" data-field="status">观察</span></div>
-        </div>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-trigger">0-1</div>
+      <div class="action-label">SIGNALS FLIPPED</div>
+      <div class="action-desc">维持当前结构 · 不主动加仓 · 不主动减仓</div>
+    </div>
+    <div class="action-card">
+      <div class="action-trigger">2</div>
+      <div class="action-label">SIGNALS FLIPPED</div>
+      <div class="action-desc">L1 多头减仓 50% · 空头加倍 · 期权层加固</div>
+    </div>
+    <div class="action-card">
+      <div class="action-trigger">3</div>
+      <div class="action-label">SIGNALS FLIPPED</div>
+      <div class="action-desc">空头变主仓 · 多头仅保留 L1 核心 + L3 硬资产</div>
+    </div>
+    <div class="action-card">
+      <div class="action-trigger">5+</div>
+      <div class="action-label">SIGNALS FLIPPED</div>
+      <div class="action-desc">全面切换为净空头 + gamma · 反身性反转确认</div>
+    </div>
+  </div>
 
-        <div class="signal-card warn">
-          <div class="signal-num">SIGNAL 03</div>
-          <div class="signal-name">CoreWeave CDS / 个券利差</div>
-          <div class="signal-row"><span class="key">CURRENT</span><span class="val">~600bp</span></div>
-          <div class="signal-row"><span class="key">TRIGGER</span><span class="val">&gt; 800bp</span></div>
-          <div class="signal-row"><span class="key">MEANING</span><span class="val">第一只暴雷雏鸡</span></div>
-          <div class="signal-row"><span class="key">SOURCE</span><span class="val">FINRA TRACE · Bloomberg</span></div>
-          <div class="signal-row"><span class="key">FREQ</span><span class="val">每日 + 财报日特别盯盘</span></div>
-          <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">观察</span></div>
-        </div>
+  <div class="quote">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">
+      产业链条仍在自我强化，金融链条已经出现可观察裂缝——这是建立结构性对冲的最佳窗口。多头收敛到无法证伪的物理节点，空头打击套娃最外端，期权赌实际利率突破——三个仓位共同押注同一件事：反身性即将完成从"自我强化"到"自我证伪"的相变，但还没到。
+    </div>
+    <div class="quote-attr">— Soros OS · Captain Hessen Framework</div>
+  </div>
+</div>
 
-        <div class="signal-card">
-          <div class="signal-num">SIGNAL 04</div>
-          <div class="signal-name">Hyperscaler 新发债认购倍数</div>
-          <div class="signal-row"><span class="key">CURRENT</span><span class="val">超额</span></div>
-          <div class="signal-row"><span class="key">TRIGGER</span><span class="val">&lt; 1.5x 或撤回</span></div>
-          <div class="signal-row"><span class="key">MEANING</span><span class="val">机构端拒绝</span></div>
-          <div class="signal-row"><span class="key">SOURCE</span><span class="val">IFR Markets · LSEG league tables</span></div>
-          <div class="signal-row"><span class="key">FREQ</span><span class="val">事件驱动 · 每月 2–4 笔</span></div>
-          <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
-        </div>
+<!-- ===== TAB 08: TODAY ===== -->
+<div class="content tab-content hidden" id="tab-today">
+  <div class="section">
+    <h2>今日立即执行 · 五个动作</h2>
+    <h3>Five Actions to Execute Today — 2026.05.27</h3>
+  </div>
 
-        <div class="signal-card">
-          <div class="signal-num">SIGNAL 05</div>
-          <div class="signal-name">GPU 二手价 / 新机价</div>
-          <div class="signal-row"><span class="key">CURRENT</span><span class="val">~80%</span></div>
-          <div class="signal-row"><span class="key">TRIGGER</span><span class="val">&lt; 60%</span></div>
-          <div class="signal-row"><span class="key">MEANING</span><span class="val">抵押品螺旋启动</span></div>
-          <div class="signal-row"><span class="key">SOURCE</span><span class="val">TheBrokerSite · eBay completed</span></div>
-          <div class="signal-row"><span class="key">FREQ</span><span class="val">周度采样 · H100/H200/B200</span></div>
-          <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
-        </div>
-
-        <div class="signal-card">
-          <div class="signal-num">SIGNAL 06</div>
-          <div class="signal-name">数据中心 SPV ABS 未售出 tranche</div>
-          <div class="signal-row"><span class="key">CURRENT</span><span class="val">无</span></div>
-          <div class="signal-row"><span class="key">TRIGGER</span><span class="val">任一 deal 出现</span></div>
-          <div class="signal-row"><span class="key">MEANING</span><span class="val">套娃最外端断裂</span></div>
-          <div class="signal-row"><span class="key">SOURCE</span><span class="val">SEC EDGAR · ABS-EE · KBRA</span></div>
-          <div class="signal-row"><span class="key">FREQ</span><span class="val">事件驱动 + 月度扫描</span></div>
-          <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
-        </div>
-
-        <div class="signal-card" style="grid-column: span 2;">
-          <div class="signal-num">SIGNAL 07</div>
-          <div class="signal-name">Hyperscaler CFO / CEO 减持加速</div>
-          <div class="signal-row"><span class="key">CURRENT</span><span class="val">正常节奏 · NVDA 高管持续减持但属常规</span></div>
-          <div class="signal-row"><span class="key">TRIGGER</span><span class="val">单月减持 &gt; $50M / 单人</span></div>
-          <div class="signal-row"><span class="key">MEANING</span><span class="val">内部人撤退 — 最终信号</span></div>
-          <div class="signal-row"><span class="key">SOURCE</span><span class="val">SEC EDGAR Form 4 · OpenInsider</span></div>
-          <div class="signal-row"><span class="key">FREQ</span><span class="val">实时 (T+1) · 月度汇总</span></div>
-          <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常</span></div>
-        </div>
+  <div class="today-list">
+    <div class="today-item">
+      <div class="today-num">1</div>
+      <div class="today-content">
+        <strong>L1 多头减仓 20%</strong>
+        <div class="detail">FROM: NVDA / MSFT / GOOGL · TO: 现金 · 保留 L1 核心仓位</div>
       </div>
     </div>
-
-    <!-- TAB 07: RULES -->
-    <div class="tab-content" id="tab-rules">
-      <div class="tab-header">
-        <div class="tab-eyebrow">PROTOCOL · 07</div>
-        <div class="tab-title">触发规则 · 信号翻转对应动作</div>
-        <div class="tab-subtitle">Trigger Rules — Signal-to-Action Mapping</div>
-      </div>
-
-      <div class="action-grid">
-        <div class="action-card">
-          <div class="action-trigger">0–1</div>
-          <div class="action-label">SIGNALS FLIPPED</div>
-          <div class="action-desc">维持当前结构 · 不主动加仓 · 不主动减仓</div>
-        </div>
-        <div class="action-card">
-          <div class="action-trigger">2</div>
-          <div class="action-label">SIGNALS FLIPPED</div>
-          <div class="action-desc">L1 多头减仓 50% · 空头加倍 · 期权层加固</div>
-        </div>
-        <div class="action-card">
-          <div class="action-trigger">3</div>
-          <div class="action-label">SIGNALS FLIPPED</div>
-          <div class="action-desc">空头变主仓 · 多头仅保留 L1 核心 + L3 硬资产</div>
-        </div>
-        <div class="action-card">
-          <div class="action-trigger">5+</div>
-          <div class="action-label">SIGNALS FLIPPED</div>
-          <div class="action-desc">全面切换为净空头 + gamma · 反身性反转确认</div>
-        </div>
-      </div>
-
-      <div class="quote">
-        <div class="quote-mark">"</div>
-        <div class="quote-text">
-          产业链条仍在自我强化，金融链条已经出现可观察裂缝——这是建立结构性对冲的最佳窗口。多头收敛到无法证伪的物理节点，空头打击套娃最外端，期权赌实际利率突破——三个仓位共同押注同一件事：反身性即将完成从"自我强化"到"自我证伪"的相变，但还没到。
-        </div>
-        <div class="quote-attr">— Soros OS · Captain Hessen Framework</div>
+    <div class="today-item">
+      <div class="today-num">2</div>
+      <div class="today-content">
+        <strong>建立 CRWV 试仓空头</strong>
+        <div class="detail">0.5% 名义空头 · 或买入 CRWV 2026年12月 put spread</div>
       </div>
     </div>
-
-    <!-- TAB 08: TODAY -->
-    <div class="tab-content" id="tab-today">
-      <div class="tab-header">
-        <div class="tab-eyebrow">EXECUTE · 08</div>
-        <div class="tab-title">今日立即执行 · 五个动作</div>
-        <div class="tab-subtitle">Five Actions to Execute Today — 2026.05.27</div>
-      </div>
-
-      <div class="today-list">
-        <div class="today-item">
-          <div class="today-num">1</div>
-          <div class="today-content">
-            <strong>L1 多头减仓 20%</strong>
-            <div class="detail">FROM: NVDA / MSFT / GOOGL · TO: 现金 · 保留 L1 核心仓位</div>
-          </div>
-        </div>
-        <div class="today-item">
-          <div class="today-num">2</div>
-          <div class="today-content">
-            <strong>建立 CRWV 试仓空头</strong>
-            <div class="detail">0.5% 名义空头 · 或买入 CRWV 2026年12月 put spread</div>
-          </div>
-        </div>
-        <div class="today-item">
-          <div class="today-num">3</div>
-          <div class="today-content">
-            <strong>买入 SPY put 保护</strong>
-            <div class="detail">9月到期 · 15% 虚值 put · 覆盖 10% 下行风险</div>
-          </div>
-        </div>
-        <div class="today-item">
-          <div class="today-num">4</div>
-          <div class="today-content">
-            <strong>建立 TIPS yield gamma 仓位</strong>
-            <div class="detail">TLT put 或 TIPS yield call · 直接押注实际利率突破 2.0%</div>
-          </div>
-        </div>
-        <div class="today-item">
-          <div class="today-num">5</div>
-          <div class="today-content">
-            <strong>A 股核心仓位维持不动</strong>
-            <div class="detail">N1 电网 + N2 光模块作为对冲底仓 · 跨市场结构性对冲</div>
-          </div>
-        </div>
+    <div class="today-item">
+      <div class="today-num">3</div>
+      <div class="today-content">
+        <strong>买入 SPY put 保护</strong>
+        <div class="detail">9月到期 · 15% 虚值 put · 覆盖 10% 下行风险</div>
       </div>
     </div>
-
-    <!-- TAB 09: DISCIPLINE -->
-    <div class="tab-content" id="tab-discipline">
-      <div class="tab-header">
-        <div class="tab-eyebrow">SOP · 09</div>
-        <div class="tab-title">观察纪律 · 数据源 · 节律 · 响应协议</div>
-        <div class="tab-subtitle">Observation Discipline — Sources, Cadence, Response Protocol</div>
-      </div>
-
-      <!-- 9.1 节律清单 -->
-      <div class="cadence-grid">
-        <div class="cadence-card">
-          <div class="cadence-header">
-            <div class="cadence-title">每日清单</div>
-            <div class="cadence-time">DAILY · 10 MIN · 开盘前</div>
-          </div>
-          <ul class="cadence-list">
-            <li>TIPS 10Y 实际利率收盘<span class="meta">S1 · FRED</span></li>
-            <li>HY OAS 当日变化<span class="meta">S2 · FRED</span></li>
-            <li>CRWV 股价 + 9.25/27 个券价格<span class="meta">S3 · FINRA</span></li>
-            <li>VIX 水平 + 期限结构<span class="meta">辅助</span></li>
-            <li>DXY 美元指数 + 中美 10Y 利差<span class="meta">辅助</span></li>
-            <li>隔夜重大新闻扫描<span class="meta">FT / WSJ / Bloomberg AI</span></li>
-            <li>NVDA 30 天 IV 水位 (期权 vega 仓位调整依据)<span class="meta">CBOE</span></li>
-          </ul>
-        </div>
-
-        <div class="cadence-card">
-          <div class="cadence-header">
-            <div class="cadence-title">每周清单</div>
-            <div class="cadence-time">WEEKLY · 1 HR · 周日晚</div>
-          </div>
-          <ul class="cadence-list">
-            <li>GPU 二手价采样 (H100 / H200 / B200)<span class="meta">S5 · TheBrokerSite</span></li>
-            <li>本周 hyperscaler 新发债扫描<span class="meta">S4 · IFR</span></li>
-            <li>ABS 市场快讯 (新发 + 认购情况)<span class="meta">S6 · Asset-Backed Alert</span></li>
-            <li>内部人 Form 4 汇总 (5 大 CEO/CFO)<span class="meta">S7 · OpenInsider</span></li>
-            <li>七信号翻转数复核 + 趋势图更新<span class="meta">自建 dashboard</span></li>
-            <li>政策齿轮本周输出 (15 机构传导卡)<span class="meta">policy-gear</span></li>
-            <li>仓位 P&L + Greeks 复核<span class="meta">期权决策工具</span></li>
-          </ul>
-        </div>
-
-        <div class="cadence-card">
-          <div class="cadence-header">
-            <div class="cadence-title">每月清单</div>
-            <div class="cadence-time">MONTHLY · 3 HR · 月底</div>
-          </div>
-          <ul class="cadence-list">
-            <li>完整仓位结构审查 + 三层金字塔重配<span class="meta">L1 / L2 / L3</span></li>
-            <li>七信号深度分析 + 阈值校准<span class="meta">回溯历史样本</span></li>
-            <li>HCT 六维框架重新打分<span class="meta">叙事 / 制度 / 技术 / 协调 / 资源 / 反馈</span></li>
-            <li>模型对照实际市场偏差度<span class="meta">证伪检查</span></li>
-            <li>AI 债务到期墙地图刷新<span class="meta">Bloomberg / S&P Capital IQ</span></li>
-            <li>跨市场对冲比例审查 (美股 vs A 股)<span class="meta">CNH 汇率 + 美元周期</span></li>
-            <li>政策齿轮月度整合 (中美双向)<span class="meta">policy-gear 月报</span></li>
-          </ul>
-        </div>
-
-        <div class="cadence-card">
-          <div class="cadence-header">
-            <div class="cadence-title">事件驱动</div>
-            <div class="cadence-time">EVENT · 当日响应</div>
-          </div>
-          <ul class="cadence-list">
-            <li>任一 hyperscaler capex 指引变化<span class="meta">财报或盘后公告</span></li>
-            <li>主要 neocloud 融资 / 发债新闻<span class="meta">CRWV · NBIS · IREN</span></li>
-            <li>SEC 对 AI 企业执法或问询信<span class="meta">EDGAR 实时</span></li>
-            <li>中美 AI 政策重大变化<span class="meta">出口管制 / 补贴 / 反垄断</span></li>
-            <li>主权 AI 预算变动<span class="meta">国会预算办公室</span></li>
-            <li>电力 / FERC 关键裁决<span class="meta">数据中心审批</span></li>
-            <li>实际利率单日变化 &gt; 8bp<span class="meta">触发当日复核</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- 9.2 触发响应SOP -->
-      <table class="sop-table">
-        <thead>
-          <tr>
-            <th>触发等级</th>
-            <th>响应窗口</th>
-            <th>执行动作</th>
-            <th>决策门槛</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="level-1">
-            <td>单信号翻转</td>
-            <td>T+48h</td>
-            <td>复核数据 · 记录入观察笔记 · 评估是否进入预警等级</td>
-            <td>仅观察 · 不动仓</td>
-          </tr>
-          <tr class="level-2">
-            <td>2 信号翻转</td>
-            <td>T+24h</td>
-            <td>召开决策会 · 期权层加固 · 试仓加倍 · L1 减仓 20%</td>
-            <td>决策窗口开 · 允许执行</td>
-          </tr>
-          <tr class="level-3">
-            <td>3 信号翻转</td>
-            <td>T+0</td>
-            <td>L1 减仓 50% · 空头变主仓 · 加大 gamma 仓位</td>
-            <td>必须执行 · 当日完成</td>
-          </tr>
-          <tr class="level-4">
-            <td>5+ 信号翻转</td>
-            <td>立即</td>
-            <td>全面切换为净空头 · 反身性反转确认 · L1 仅留 30%</td>
-            <td>必须执行 · 不犹豫</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- 9.3 辅助监控指标 -->
-      <div class="aux-section">
-        <div class="aux-title">辅助监控指标 · 不纳入翻转计数但影响仓位调整</div>
-        <div class="aux-grid">
-          <div class="aux-item">
-            <span class="name">VIX 水平 + 期限结构</span>
-            <span class="src">CBOE · 每日 · 期权层加减仓依据</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">DXY 美元指数</span>
-            <span class="src">每日 · 跨市场对冲比例</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">中美 10Y 利差</span>
-            <span class="src">每日 · A 股权重调整</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">CNH / CNY 离岸汇率</span>
-            <span class="src">每日 · 缓冲效应监控</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">NVDA 30 天 IV</span>
-            <span class="src">CBOE · vega 仓位水位</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">BTC 价格</span>
-            <span class="src">每日 · IREN/WULF 触发器</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">HY 违约率 (Moody's)</span>
-            <span class="src">月度 · 周期定位</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">私募信贷新发利率</span>
-            <span class="src">LCD / Pitchbook · 月度</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">10Y BEI (盈亏平衡通胀)</span>
-            <span class="src">FRED · 每日 · 实际 vs 名义分解</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 9.4 工具栈 -->
-      <div class="aux-section" style="border-left-color: var(--gold);">
-        <div class="aux-title">工具栈 · Tech Stack</div>
-        <div class="aux-grid">
-          <div class="aux-item">
-            <span class="name">数据采集</span>
-            <span class="src">FRED API · SEC EDGAR API · TheBrokerSite scraping</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">政策追踪</span>
-            <span class="src">policy-gear (15 机构 · 已运行)</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">期权计算</span>
-            <span class="src">自建期权决策工具 + SVI 表面</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">仓位管理</span>
-            <span class="src">私人记账系统 · Greeks 实时</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">信号告警</span>
-            <span class="src">Telegram bot (待建) · 阈值触发</span>
-          </div>
-          <div class="aux-item">
-            <span class="name">复盘记录</span>
-            <span class="src">观察笔记 · 每周决策日志</span>
-          </div>
-        </div>
+    <div class="today-item">
+      <div class="today-num">4</div>
+      <div class="today-content">
+        <strong>建立 TIPS yield gamma 仓位</strong>
+        <div class="detail">TLT put 或 TIPS yield call · 直接押注实际利率突破 2.0%</div>
       </div>
     </div>
+    <div class="today-item">
+      <div class="today-num">5</div>
+      <div class="today-content">
+        <strong>A 股核心仓位维持不动</strong>
+        <div class="detail">N1 电网 + N2 光模块作为对冲底仓 · 跨市场结构性对冲</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  </main>
+<!-- ===== TAB 09: DISCIPLINE ===== -->
+<div class="content tab-content hidden" id="tab-discipline">
+  <div class="section">
+    <h2>观察纪律 · 数据源 · 节律 · 响应协议</h2>
+    <h3>Observation Discipline — Sources, Cadence, Response Protocol</h3>
+  </div>
+
+  <div class="cadence-grid">
+    <div class="cadence-card">
+      <div class="cadence-header">
+        <div class="cadence-title">每日清单</div>
+        <div class="cadence-time">DAILY · 10 MIN</div>
+      </div>
+      <ul class="cadence-list">
+        <li>TIPS 10Y 实际利率收盘<span class="meta">S1 · FRED</span></li>
+        <li>HY OAS 当日变化<span class="meta">S2 · FRED</span></li>
+        <li>CRWV 股价 + 9.25/27 个券价格<span class="meta">S3 · FINRA</span></li>
+        <li>VIX 水平 + 期限结构<span class="meta">辅助</span></li>
+        <li>DXY 美元指数 + 中美 10Y 利差<span class="meta">辅助</span></li>
+        <li>隔夜重大新闻扫描<span class="meta">FT / WSJ / Bloomberg AI</span></li>
+        <li>NVDA 30 天 IV 水位<span class="meta">CBOE</span></li>
+      </ul>
+    </div>
+
+    <div class="cadence-card">
+      <div class="cadence-header">
+        <div class="cadence-title">每周清单</div>
+        <div class="cadence-time">WEEKLY · 1 HR</div>
+      </div>
+      <ul class="cadence-list">
+        <li>GPU 二手价采样 (H100 / H200 / B200)<span class="meta">S5 · TheBrokerSite</span></li>
+        <li>本周 hyperscaler 新发债扫描<span class="meta">S4 · IFR</span></li>
+        <li>ABS 市场快讯 (新发 + 认购情况)<span class="meta">S6 · Asset-Backed Alert</span></li>
+        <li>内部人 Form 4 汇总 (5 大 CEO/CFO)<span class="meta">S7 · OpenInsider</span></li>
+        <li>七信号翻转数复核 + 趋势图更新<span class="meta">自建 dashboard</span></li>
+        <li>政策齿轮本周输出<span class="meta">policy-gear</span></li>
+        <li>仓位 P&L + Greeks 复核<span class="meta">期权决策工具</span></li>
+      </ul>
+    </div>
+
+    <div class="cadence-card">
+      <div class="cadence-header">
+        <div class="cadence-title">每月清单</div>
+        <div class="cadence-time">MONTHLY · 3 HR</div>
+      </div>
+      <ul class="cadence-list">
+        <li>完整仓位结构审查 + 三层金字塔重配<span class="meta">L1 / L2 / L3</span></li>
+        <li>七信号深度分析 + 阈值校准<span class="meta">回溯历史样本</span></li>
+        <li>HCT 六维框架重新打分<span class="meta">叙事 / 制度 / 技术 / 协调 / 资源 / 反馈</span></li>
+        <li>模型对照实际市场偏差度<span class="meta">证伪检查</span></li>
+        <li>AI 债务到期墙地图刷新<span class="meta">Bloomberg / S&P Capital IQ</span></li>
+        <li>跨市场对冲比例审查<span class="meta">CNH 汇率 + 美元周期</span></li>
+        <li>政策齿轮月度整合<span class="meta">policy-gear 月报</span></li>
+      </ul>
+    </div>
+
+    <div class="cadence-card">
+      <div class="cadence-header">
+        <div class="cadence-title">事件驱动</div>
+        <div class="cadence-time">EVENT · 当日响应</div>
+      </div>
+      <ul class="cadence-list">
+        <li>任一 hyperscaler capex 指引变化<span class="meta">财报或盘后公告</span></li>
+        <li>主要 neocloud 融资 / 发债新闻<span class="meta">CRWV · NBIS · IREN</span></li>
+        <li>SEC 对 AI 企业执法或问询信<span class="meta">EDGAR 实时</span></li>
+        <li>中美 AI 政策重大变化<span class="meta">出口管制 / 补贴 / 反垄断</span></li>
+        <li>主权 AI 预算变动<span class="meta">国会预算办公室</span></li>
+        <li>电力 / FERC 关键裁决<span class="meta">数据中心审批</span></li>
+        <li>实际利率单日变化 > 8bp<span class="meta">触发当日复核</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>触发响应 SOP</h2>
+  </div>
+
+  <table class="sop-table">
+    <thead>
+      <tr><th>触发等级</th><th>响应窗口</th><th>执行动作</th><th>决策门槛</th></tr>
+    </thead>
+    <tbody>
+      <tr class="level-1"><td>单信号翻转</td><td>T+48h</td><td>复核数据 · 记录入观察笔记 · 评估是否进入预警等级</td><td>仅观察 · 不动仓</td></tr>
+      <tr class="level-2"><td>2 信号翻转</td><td>T+24h</td><td>召开决策会 · 期权层加固 · 试仓加倍 · L1 减仓 20%</td><td>决策窗口开 · 允许执行</td></tr>
+      <tr class="level-3"><td>3 信号翻转</td><td>T+0</td><td>L1 减仓 50% · 空头变主仓 · 加大 gamma 仓位</td><td>必须执行 · 当日完成</td></tr>
+      <tr class="level-4"><td>5+ 信号翻转</td><td>立即</td><td>全面切换为净空头 · 反身性反转确认 · L1 仅留 30%</td><td>必须执行 · 不犹豫</td></tr>
+    </tbody>
+  </table>
+
+  <div class="aux-section">
+    <div class="aux-title">辅助监控指标 · 不纳入翻转计数但影响仓位调整</div>
+    <div class="aux-grid">
+      <div class="aux-item"><span class="name">VIX 水平 + 期限结构</span><span class="src">CBOE · 每日 · 期权层加减仓依据</span></div>
+      <div class="aux-item"><span class="name">DXY 美元指数</span><span class="src">每日 · 跨市场对冲比例</span></div>
+      <div class="aux-item"><span class="name">中美 10Y 利差</span><span class="src">每日 · A 股权重调整</span></div>
+      <div class="aux-item"><span class="name">CNH / CNY 离岸汇率</span><span class="src">每日 · 缓冲效应监控</span></div>
+      <div class="aux-item"><span class="name">NVDA 30 天 IV</span><span class="src">CBOE · vega 仓位水位</span></div>
+      <div class="aux-item"><span class="name">BTC 价格</span><span class="src">每日 · IREN/WULF 触发器</span></div>
+      <div class="aux-item"><span class="name">HY 违约率 (Moody's)</span><span class="src">月度 · 周期定位</span></div>
+      <div class="aux-item"><span class="name">私募信贷新发利率</span><span class="src">LCD / Pitchbook · 月度</span></div>
+      <div class="aux-item"><span class="name">10Y BEI (盈亏平衡通胀)</span><span class="src">FRED · 每日 · 实际 vs 名义分解</span></div>
+    </div>
+  </div>
+
+  <div class="aux-section">
+    <div class="aux-title">工具栈 · Tech Stack</div>
+    <div class="aux-grid">
+      <div class="aux-item"><span class="name">数据采集</span><span class="src">FRED API · SEC EDGAR API · TheBrokerSite scraping</span></div>
+      <div class="aux-item"><span class="name">政策追踪</span><span class="src">policy-gear (15 机构 · 已运行)</span></div>
+      <div class="aux-item"><span class="name">期权计算</span><span class="src">自建期权决策工具 + SVI 表面</span></div>
+      <div class="aux-item"><span class="name">仓位管理</span><span class="src">私人记账系统 · Greeks 实时</span></div>
+      <div class="aux-item"><span class="name">信号告警</span><span class="src">Telegram bot (待建) · 阈值触发</span></div>
+      <div class="aux-item"><span class="name">复盘记录</span><span class="src">观察笔记 · 每周决策日志</span></div>
+    </div>
+  </div>
+</div>
 
 <script>
-  // Tab switching
-  const navItems = document.querySelectorAll('.nav-item');
-  const tabContents = document.querySelectorAll('.tab-content');
+// Tab switching
+function showTab(id, e) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.remove('hidden');
+  if (e && e.target) e.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const tab = item.dataset.tab;
-      navItems.forEach(n => n.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-      item.classList.add('active');
-      document.getElementById('tab-' + tab).classList.add('active');
-      // Scroll main to top
-      document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-
-  // ===== Auto-update from FRED data =====
-  function applyLiveData() {
-    if (typeof FRED_DATA === 'undefined') {
-      console.log('FRED_DATA not loaded - HTML using default values');
-      return;
-    }
-
-    // Update sidebar status
-    const updateEl = document.getElementById('last-update');
-    if (updateEl) updateEl.textContent = FRED_DATA.updated_at.split(' ')[0] + ' ' + FRED_DATA.updated_at.split(' ')[1];
-
-    const countEl = document.getElementById('flipped-count');
-    if (countEl) {
-      const total = FRED_DATA.flipped_total || 7;
-      countEl.textContent = `${FRED_DATA.flipped_count} / ${total}`;
-      if (FRED_DATA.flipped_count >= 3) countEl.className = 'status-val danger';
-      else if (FRED_DATA.flipped_count >= 2) countEl.className = 'status-val alert';
-    }
-
-    // Update trigger level message
-    const triggerEl = document.getElementById('trigger-level');
-    if (triggerEl) {
-      const f = FRED_DATA.flipped_count;
-      if (f >= 5) {
-        triggerEl.textContent = '⚠ 全面切换净空头';
-        triggerEl.className = 'status-trigger danger';
-      } else if (f >= 3) {
-        triggerEl.textContent = '⚠ 空头变主仓';
-        triggerEl.className = 'status-trigger danger';
-      } else if (f >= 2) {
-        triggerEl.textContent = '决策窗口开';
-        triggerEl.className = 'status-trigger warn';
-      } else {
-        triggerEl.textContent = '维持当前结构';
-        triggerEl.className = 'status-trigger';
-      }
-    }
-
-    // Update each signal card
-    for (const [signalId, data] of Object.entries(FRED_DATA.signals || {})) {
-      const card = document.querySelector(`[data-signal="${signalId}"]`);
-      if (!card) continue;
-
-      // Update current value
-      const currentEl = card.querySelector('[data-field="current"]');
-      if (currentEl && data.current) currentEl.textContent = data.current;
-
-      // Update delta
-      const deltaEl = card.querySelector('[data-field="delta"]');
-      if (deltaEl && data.delta_30d) deltaEl.textContent = data.delta_30d;
-
-      // Update status pill
-      const statusEl = card.querySelector('[data-field="status"]');
-      if (statusEl && data.status) {
-        statusEl.textContent = data.status;
-        statusEl.className = `status-pill ${data.pill}`;
-      }
-
-      // Update card border color via class
-      const baseClass = 'signal-card';
-      if (data.pill === 'pill-red') card.className = baseClass + ' red';
-      else if (data.pill === 'pill-warn') card.className = baseClass + ' warn';
-      else card.className = baseClass;
+// Tab bar scroll hint
+(function(){
+  var bar = document.getElementById('tabBar');
+  var wrap = document.getElementById('tabWrap');
+  if (!bar || !wrap) return;
+  function checkScroll() {
+    if (bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 10) {
+      wrap.classList.add('scrolled-end');
+    } else {
+      wrap.classList.remove('scrolled-end');
     }
   }
+  bar.addEventListener('scroll', checkScroll);
+  checkScroll();
+})();
 
-  document.addEventListener('DOMContentLoaded', applyLiveData);
+// ===== Auto-update from FRED data =====
+function applyLiveData() {
+  if (typeof FRED_DATA === 'undefined') {
+    console.log('FRED_DATA not loaded - HTML using default values');
+    return;
+  }
+
+  // Update header status
+  var updateEl = document.getElementById('last-update');
+  if (updateEl) updateEl.textContent = FRED_DATA.updated_at.split(' ')[0] + ' ' + FRED_DATA.updated_at.split(' ')[1];
+
+  var countEl = document.getElementById('flipped-count');
+  if (countEl) {
+    var total = FRED_DATA.flipped_total || 7;
+    countEl.textContent = FRED_DATA.flipped_count + ' / ' + total;
+    if (FRED_DATA.flipped_count >= 3) countEl.className = 'val danger';
+    else if (FRED_DATA.flipped_count >= 2) countEl.className = 'val alert';
+  }
+
+  // Update trigger level
+  var triggerEl = document.getElementById('trigger-level');
+  if (triggerEl) {
+    var f = FRED_DATA.flipped_count;
+    if (f >= 5) { triggerEl.textContent = '全面切换净空头'; triggerEl.className = 'live-trigger danger'; }
+    else if (f >= 3) { triggerEl.textContent = '空头变主仓'; triggerEl.className = 'live-trigger danger'; }
+    else if (f >= 2) { triggerEl.textContent = '决策窗口开'; triggerEl.className = 'live-trigger warn'; }
+    else { triggerEl.textContent = '维持当前结构'; triggerEl.className = 'live-trigger'; }
+  }
+
+  // Update each signal card
+  for (var signalId in (FRED_DATA.signals || {})) {
+    var data = FRED_DATA.signals[signalId];
+    var card = document.querySelector('[data-signal="' + signalId + '"]');
+    if (!card) continue;
+
+    var currentEl = card.querySelector('[data-field="current"]');
+    if (currentEl && data.current) currentEl.textContent = data.current;
+
+    var deltaEl = card.querySelector('[data-field="delta"]');
+    if (deltaEl && data.delta_30d) deltaEl.textContent = data.delta_30d;
+
+    var statusEl = card.querySelector('[data-field="status"]');
+    if (statusEl && data.status) {
+      statusEl.textContent = data.status;
+      statusEl.className = 'status-pill ' + data.pill;
+    }
+
+    var baseClass = 'signal-card';
+    if (data.pill === 'pill-red') card.className = baseClass + ' red';
+    else if (data.pill === 'pill-warn') card.className = baseClass + ' warn';
+    else card.className = baseClass;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', applyLiveData);
 </script>
 </body>
 </html>

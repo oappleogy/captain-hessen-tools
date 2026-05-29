@@ -362,6 +362,10 @@
       <div class="members-subtitle">创始成员 · <span id="founding-count"></span> 家</div>
       <div class="members-grid" id="founding-members"></div>
     </div>
+    <div class="members-box">
+      <div class="members-subtitle">全部成员 · <span id="all-count"></span> 家</div>
+      <div class="members-grid" id="all-members"></div>
+    </div>
     <div class="members-box excluded">
       <div class="members-subtitle">值得关注的被排除方</div>
       <div class="members-grid" id="excluded-members"></div>
@@ -403,8 +407,8 @@ function renderMetrics(data) {
   const eventCount = data.timeline ? data.timeline.length : 0;
   const metrics = [
     { label: '事件总数', value: String(eventCount), sub: '已追踪事件' },
-    { label: 'Glasswing 成员', value: '12+40', sub: '家机构' },
-    { label: '零日漏洞', value: '数千', sub: '所有主流OS/浏览器' },
+    { label: 'Glasswing 成员', value: data.members ? String(data.members.all.length) : '~50', sub: '家机构' },
+    { label: '零日漏洞', value: '23,000+', sub: '1,000个OSS项目' },
     { label: '使用额度', value: '$100M', sub: 'Anthropic 承诺' },
     { label: '定价', value: '$25/$125', sub: 'per M input/output' },
     { label: '最后更新', value: data.last_updated || '—', sub: '自动跟踪' }
@@ -518,12 +522,16 @@ function renderImpact(impact) {
 function renderMembers(members) {
   const m = members || {};
   const founding = m.founding || [];
+  const all = m.all || [];
   const excluded = m.excluded_notable || [];
   const history = m.history || [];
 
   document.getElementById('founding-count').textContent = founding.length;
   document.getElementById('founding-members').innerHTML =
     founding.map(n => `<span class="member-chip">${escapeHtml(n)}</span>`).join('');
+  document.getElementById('all-count').textContent = all.length;
+  document.getElementById('all-members').innerHTML =
+    all.map(n => `<span class="member-chip">${escapeHtml(n)}</span>`).join('');
   document.getElementById('excluded-members').innerHTML =
     excluded.map(n => `<span class="member-chip">${escapeHtml(n)}</span>`).join('') || '<span style="font-size:12px;color:#94a3b8">无</span>';
   document.getElementById('members-history').innerHTML =

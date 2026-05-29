@@ -1,0 +1,2992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光通信入门 · AI 时代的高速公路</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e1a;
+    --bg-elev: #131829;
+    --bg-elev2: #1a2138;
+    --card: rgba(255,255,255,0.04);
+    --card-hover: rgba(255,255,255,0.08);
+    --border: rgba(255,255,255,0.1);
+    --border-strong: rgba(255,255,255,0.2);
+    --text: #e6e8ee;
+    --text-dim: #8b92a8;
+    --text-mute: #5a6178;
+    --accent: #00d4ff;
+    --accent2: #9333ea;
+    --accent3: #f59e0b;
+    --warn: #ef4444;
+    --ok: #10b981;
+    --grad1: linear-gradient(135deg, #00d4ff 0%, #9333ea 100%);
+    --grad2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+    --grad3: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(0,212,255,0.25), transparent),
+      radial-gradient(2px 2px at 60% 70%, rgba(147,51,234,0.25), transparent),
+      radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,0.15), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(0,212,255,0.15), transparent),
+      radial-gradient(1px 1px at 30% 80%, rgba(147,51,234,0.15), transparent);
+  }
+
+  /* 顶部标题 */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 16px 24px 0;
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .header-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .header-title .accent {
+    background: var(--grad1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-meta {
+    font-size: 12px;
+    color: var(--text-mute);
+  }
+
+  /* Tab nav */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 12px 20px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab .num {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    background: var(--card);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 8px;
+    color: var(--text-dim);
+  }
+  .tab.active .num {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* Main content area */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .panel {
+    display: none;
+    animation: fadeIn 0.4s ease-out;
+  }
+  .panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+  h2 {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .lead {
+    font-size: clamp(15px, 1.5vw, 17px);
+    color: var(--text-dim);
+    max-width: 720px;
+    margin-bottom: 32px;
+  }
+  .panel-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 12px;
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .gradient {
+    background: var(--grad1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .highlight {
+    background: linear-gradient(120deg, rgba(0,212,255,0.18), rgba(147,51,234,0.18));
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ===== Tab 1: 概览 ===== */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .stat-card:hover {
+    background: var(--card-hover);
+    border-color: rgba(0,212,255,0.3);
+    transform: translateY(-4px);
+  }
+  .stat-num {
+    font-size: 42px;
+    font-weight: 800;
+    background: var(--grad1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-unit {
+    font-size: 18px;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  .stat-label {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  .analogy {
+    background: linear-gradient(135deg, rgba(0,212,255,0.06) 0%, rgba(147,51,234,0.04) 100%);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .analogy-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    background: rgba(0,212,255,0.15);
+    color: var(--accent);
+    border-radius: 6px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .analogy-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .why-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .why-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .why-card:hover {
+    background: var(--card-hover);
+    border-color: rgba(0,212,255,0.3);
+  }
+  .why-card .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--grad1);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .why-card h3 { color: var(--text); }
+  .why-card p {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  /* ===== Tab 2: 三面墙 ===== */
+  .walls-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .wall {
+    background: linear-gradient(135deg, rgba(239,68,68,0.08) 0%, rgba(239,68,68,0.02) 100%);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .wall:hover {
+    border-color: rgba(239,68,68,0.5);
+    transform: translateY(-2px);
+  }
+  .wall.expanded {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(239,68,68,0.14) 0%, rgba(239,68,68,0.04) 100%);
+    border-color: rgba(239,68,68,0.4);
+  }
+  .wall-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .wall-num {
+    font-size: 56px;
+    font-weight: 800;
+    color: rgba(239,68,68,0.2);
+    line-height: 1;
+  }
+  .wall h3 {
+    color: #fca5a5;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .wall .summary {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .wall .key-num {
+    display: inline-block;
+    padding: 8px 14px;
+    background: rgba(239,68,68,0.15);
+    border-radius: 8px;
+    color: #fca5a5;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .wall .detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+  }
+  .wall.expanded .detail {
+    max-height: 600px;
+    margin-top: 20px;
+  }
+  .wall .detail-content {
+    padding-top: 20px;
+    border-top: 1px solid rgba(239,68,68,0.2);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .wall .detail-content strong { color: #fca5a5; }
+  .wall .click-hint {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    color: rgba(239,68,68,0.6);
+    letter-spacing: 1px;
+  }
+  .wall.expanded .click-hint { display: none; }
+
+  /* ===== Tab 3: 技术路线 ===== */
+  .tech-selector {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .tech-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 16px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: left;
+  }
+  .tech-btn:hover {
+    background: var(--card-hover);
+    border-color: rgba(0,212,255,0.4);
+  }
+  .tech-btn.active {
+    background: linear-gradient(135deg, rgba(0,212,255,0.15) 0%, rgba(147,51,234,0.1) 100%);
+    border-color: var(--accent);
+  }
+  .tech-btn .label {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .tech-btn .sub {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+  .tech-btn .status {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .status-terminal { background: rgba(16,185,129,0.15); color: #34d399; }
+  .status-transition { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .status-now { background: rgba(0,212,255,0.15); color: var(--accent); }
+
+  .tech-detail {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+  }
+  .tech-detail h3 {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .tech-detail .one-liner {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .tech-detail p {
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .tech-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .spec {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .spec .k {
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .spec .v {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  /* 时间轴 */
+  .evo-timeline {
+    margin-top: 40px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+  }
+  .evo-timeline h3 {
+    margin-bottom: 20px;
+  }
+  .slider-container {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .slider {
+    width: 100%;
+    height: 8px;
+    background: var(--card);
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .slider-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    background: var(--grad1);
+    border-radius: 4px;
+    transition: width 0.4s;
+  }
+  .slider-markers {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+  .marker {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    padding-top: 16px;
+  }
+  .marker::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s;
+  }
+  .marker.active::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 6px rgba(0,212,255,0.2);
+  }
+  .marker .year {
+    font-size: 13px;
+    color: var(--text-mute);
+    font-weight: 600;
+  }
+  .marker.active .year { color: var(--accent); }
+  .stage-info {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    min-height: 160px;
+  }
+  .stage-info .name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .stage-info .gpu-num {
+    background: var(--grad1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .stage-info .desc {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ===== Tab 4: 市场 ===== */
+  .big-nums {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .big-num-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .big-num-card:hover {
+    border-color: rgba(0,212,255,0.4);
+    transform: translateY(-4px);
+  }
+  .big-num-card .v {
+    font-size: 44px;
+    font-weight: 800;
+    background: var(--grad1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .big-num-card .u {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-left: 4px;
+  }
+  .big-num-card .l {
+    color: var(--text-dim);
+    font-size: 12px;
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+
+  .chart-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    height: 380px;
+    margin-bottom: 24px;
+  }
+
+  .needs-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .need-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .need-card h4 {
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+  .need-card ul {
+    list-style: none;
+  }
+  .need-card li {
+    padding: 6px 0;
+    padding-left: 16px;
+    color: var(--text-dim);
+    font-size: 13px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .need-card li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .need-card .footer-note {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--text-mute);
+    line-height: 1.5;
+  }
+
+  /* ===== Tab 5: 产业链 ===== */
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 8px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-dim);
+    transition: all 0.2s;
+  }
+  .filter-btn:hover {
+    color: var(--text);
+    background: var(--card-hover);
+  }
+  .filter-btn.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .chain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .tier-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s;
+  }
+  .tier-card:hover {
+    background: var(--card-hover);
+    border-color: rgba(0,212,255,0.3);
+  }
+  .tier-card h4 {
+    font-size: 15px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .tier-card .role {
+    font-size: 11px;
+    color: var(--text-mute);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .player {
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    border-left: 3px solid transparent;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .player.china { border-left-color: var(--accent); }
+  .player.intl { border-left-color: var(--accent3); }
+  .player.taiwan { border-left-color: var(--accent2); }
+  .player.hidden { display: none; }
+  .player .name {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .player .note {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .legend-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* ===== Tab 6: 风险 ===== */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .risk-card {
+    background: linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(245,158,11,0.04) 100%);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .risk-card:hover {
+    border-color: rgba(245,158,11,0.4);
+    background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(245,158,11,0.06) 100%);
+  }
+  .risk-card .severity {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .severity .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--card);
+  }
+  .severity .dot.on { background: #fbbf24; }
+  .risk-card h4 {
+    color: #fbbf24;
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .risk-card .trigger {
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .risk-card .body {
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .risk-card .body strong { color: var(--text); }
+
+  .summary-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .summary-card h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .summary-card p {
+    color: var(--text-dim);
+    max-width: 640px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+  .summary-quad {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .quad-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: left;
+  }
+  .quad-item .q-label {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .quad-item .q-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ===== 二次元 chibi 宝宝（趴在卡片右上角） ===== */
+  .baby-wrap {
+    position: absolute;
+    top: -36px;
+    right: 8px;
+    z-index: 4;
+    pointer-events: none;
+    width: 92px;
+    height: 108px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+  .baby-wrap.tiny {
+    width: 70px;
+    height: 82px;
+    top: -28px;
+    right: 12px;
+  }
+  .baby-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: babyBob 2.5s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+  .baby-svg.tilted-l { animation-name: babyBobL; }
+  .baby-svg.tilted-r { animation-name: babyBobR; }
+
+  @keyframes babyBob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-4px) rotate(3deg); }
+  }
+  @keyframes babyBobL {
+    0%, 100% { transform: translateY(0) rotate(-12deg); }
+    50% { transform: translateY(-3px) rotate(-7deg); }
+  }
+  @keyframes babyBobR {
+    0%, 100% { transform: translateY(0) rotate(12deg); }
+    50% { transform: translateY(-3px) rotate(7deg); }
+  }
+
+  /* 泪滴 */
+  .tear {
+    fill: #3b82f6;
+    animation: tearFall 1.6s ease-in infinite;
+    transform-origin: center;
+  }
+  .tear-l { animation-delay: 0s; }
+  .tear-r { animation-delay: 0.8s; }
+  .tear-c { animation-delay: 0.4s; }
+  @keyframes tearFall {
+    0% { opacity: 0; transform: translateY(-2px) scale(0.4); }
+    15% { opacity: 1; transform: translateY(0) scale(1); }
+    85% { opacity: 1; transform: translateY(35px) scale(0.9); }
+    100% { opacity: 0; transform: translateY(45px) scale(0.5); }
+  }
+
+  /* 汗滴 */
+  .sweat {
+    fill: #60a5fa;
+    animation: sweatDrip 2.2s ease-in infinite;
+  }
+  .sweat-1 { animation-delay: 0s; }
+  .sweat-2 { animation-delay: 1.1s; }
+  @keyframes sweatDrip {
+    0%, 100% { opacity: 0; transform: translateY(0); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(15px); }
+  }
+
+  /* 心心冒出 */
+  .heart {
+    fill: #ec4899;
+    animation: heartFloat 2.5s ease-out infinite;
+    transform-origin: center;
+  }
+  .heart-1 { animation-delay: 0s; }
+  .heart-2 { animation-delay: 0.8s; }
+  .heart-3 { animation-delay: 1.6s; }
+  @keyframes heartFloat {
+    0% { opacity: 0; transform: translateY(0) scale(0.3); }
+    20% { opacity: 1; }
+    80% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-40px) scale(1.5); }
+  }
+
+  /* 闪光（开心娃/受惊娃） */
+  .sparkle {
+    fill: #fbbf24;
+    animation: sparkleBlink 1.4s ease-in-out infinite;
+  }
+  .sparkle-1 { animation-delay: 0s; }
+  .sparkle-2 { animation-delay: 0.5s; }
+  .sparkle-3 { animation-delay: 1s; }
+  @keyframes sparkleBlink {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 二次元瀑布泪（path 流动效果） */
+  .anime-tear {
+    stroke-dasharray: 8 4;
+    animation: animeTearFlow 0.8s linear infinite;
+    transform-origin: center;
+  }
+  .anime-tear-l { animation-delay: 0s; }
+  .anime-tear-r { animation-delay: 0.4s; }
+  @keyframes animeTearFlow {
+    0% { stroke-dashoffset: 0; opacity: 0.9; }
+    100% { stroke-dashoffset: -12; opacity: 0.7; }
+  }
+
+  /* 怒气/震惊符号闪烁 */
+  .anger-mark {
+    animation: angerFlash 0.6s ease-in-out infinite;
+    transform-origin: 19px 31px;
+  }
+  @keyframes angerFlash {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.15); }
+  }
+
+  /* 受惊吓哆嗦 */
+  .baby-svg.shaking {
+    animation: babyShake 0.5s ease-in-out infinite;
+  }
+  @keyframes babyShake {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-2px) rotate(-2deg); }
+    75% { transform: translateX(2px) rotate(2deg); }
+  }
+
+  /* 抱头叹气 */
+  .baby-svg.sigh {
+    animation: babySigh 3s ease-in-out infinite;
+  }
+  @keyframes babySigh {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(4px) rotate(-8deg); }
+  }
+
+  /* 在卡片内的相对定位 */
+  .wall, .risk-card, .tech-detail, .summary-card { position: relative; }
+
+  /* 角落"漂浮娃娃" - 跟随滚动的迷你 */
+  .floating-baby {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 50;
+    width: 70px;
+    height: 80px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .floating-baby:hover {
+    transform: scale(1.15) rotate(-5deg);
+  }
+  .floating-baby .baby-svg {
+    animation: floatBabyBob 3s ease-in-out infinite;
+  }
+  @keyframes floatBabyBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .speech-bubble {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 24px;
+    width: 12px;
+    height: 12px;
+    background: var(--bg-elev);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transform: rotate(45deg);
+  }
+  .floating-baby:hover .speech-bubble {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .floating-baby.bouncing .baby-svg {
+    animation: floatBabyBounce 0.6s ease;
+  }
+  @keyframes floatBabyBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px) rotate(15deg); }
+  }
+
+  /* ===== Tab 7 非对称机会 ===== */
+  .traps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .trap-card {
+    background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(239,68,68,0.04) 100%);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .trap-card:hover {
+    border-color: rgba(245,158,11,0.5);
+    background: linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(239,68,68,0.06) 100%);
+  }
+  .trap-num {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 11px;
+    color: #fbbf24;
+    letter-spacing: 1px;
+    background: rgba(245,158,11,0.15);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .trap-card h3 {
+    color: #fbbf24;
+    font-size: 18px;
+    margin-bottom: 12px;
+    padding-right: 60px;
+  }
+  .trap-equation {
+    display: inline-block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-family: ui-monospace, "SF Mono", monospace;
+  }
+  .trap-equation .ne {
+    color: var(--warn);
+    font-weight: 700;
+    margin: 0 4px;
+  }
+  .trap-card p {
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .trap-card p strong { color: var(--text); }
+  .trap-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+  .trap-card li {
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 4px 0 4px 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .trap-card li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--accent3);
+    font-weight: 700;
+  }
+  .trap-card li strong { color: var(--accent); }
+  .trap-example {
+    margin-top: 14px;
+    padding: 12px;
+    background: rgba(0,212,255,0.05);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .trap-example strong { color: var(--accent); }
+
+  /* 半衰期时间轴 */
+  .halflife {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    margin: 24px 0 8px;
+    position: relative;
+  }
+  .halflife-stage {
+    padding: 20px 16px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .halflife-stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    z-index: 0;
+  }
+  .hl-1 { border: 1px solid rgba(147,51,234,0.3); }
+  .hl-1::before { background: linear-gradient(135deg, #9333ea 0%, transparent 100%); }
+  .hl-2 { border: 1px solid rgba(0,212,255,0.5); }
+  .hl-2::before { background: linear-gradient(135deg, #00d4ff 0%, #10b981 100%); }
+  .hl-3 { border: 1px solid rgba(245,158,11,0.3); }
+  .hl-3::before { background: linear-gradient(135deg, #f59e0b 0%, transparent 100%); }
+  .halflife-stage > * { position: relative; z-index: 1; }
+  .stage-label {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .hl-1 .stage-label { color: #c4b5fd; }
+  .hl-2 .stage-label { color: #00d4ff; }
+  .hl-3 .stage-label { color: #fbbf24; }
+  .stage-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .stage-warn {
+    font-size: 11px;
+    color: var(--text-mute);
+    font-style: italic;
+  }
+  .halflife-arrow {
+    text-align: center;
+    color: var(--accent);
+    font-size: 18px;
+    margin: -2px 0 16px;
+    letter-spacing: 16px;
+  }
+
+  /* 非对称机会卡片矩阵 */
+  .opp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .opp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .opp-card:hover {
+    background: var(--card-hover);
+    border-color: rgba(0,212,255,0.4);
+  }
+  .opp-card.expanded {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(0,212,255,0.05) 0%, rgba(147,51,234,0.03) 100%);
+  }
+  .opp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .opp-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .opp-badges {
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .opp-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
+  .badge-stage-1 { background: rgba(147,51,234,0.18); color: #c4b5fd; }
+  .badge-stage-2 { background: rgba(0,212,255,0.2); color: var(--accent); }
+  .badge-stage-3 { background: rgba(245,158,11,0.18); color: #fbbf24; }
+  .badge-hl-short { background: rgba(239,68,68,0.15); color: #fca5a5; }
+  .badge-hl-mid { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .badge-hl-long { background: rgba(16,185,129,0.15); color: #34d399; }
+
+  .opp-summary {
+    color: var(--text-dim);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .opp-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease-out;
+  }
+  .opp-card.expanded .opp-detail {
+    max-height: 1000px;
+    margin-top: 16px;
+  }
+  .opp-detail-inner {
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .opp-dim {
+    margin-bottom: 14px;
+  }
+  .opp-dim:last-child { margin-bottom: 0; }
+  .opp-dim-label {
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .opp-dim-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .opp-click-hint {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.5px;
+  }
+  .opp-card.expanded .opp-click-hint { display: none; }
+
+  /* 反向问题卡 */
+  .meta-card {
+    background: linear-gradient(135deg, rgba(147,51,234,0.08) 0%, rgba(0,212,255,0.04) 100%);
+    border: 1px solid rgba(147,51,234,0.25);
+    border-radius: 16px;
+    padding: 28px;
+    margin-top: 48px;
+  }
+  .meta-card h3 {
+    color: #c4b5fd;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .meta-card p {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .meta-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .meta-card li {
+    position: relative;
+    padding: 8px 0 8px 28px;
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .meta-card li::before {
+    content: '▸';
+    position: absolute;
+    left: 8px;
+    color: var(--accent2);
+  }
+  .meta-card li.deadly {
+    color: var(--text);
+    background: rgba(239,68,68,0.08);
+    border-radius: 8px;
+    margin: 4px -8px;
+    padding-left: 36px;
+    padding-right: 12px;
+  }
+  .meta-card li.deadly::before {
+    content: '⚠';
+    color: var(--warn);
+    left: 14px;
+  }
+  .meta-card li strong { color: var(--accent); }
+
+  /* 元洞察 / 护城河 */
+  .moat-card {
+    text-align: center;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .moat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,212,255,0.08) 0%, transparent 70%);
+    z-index: 0;
+  }
+  .moat-card > * { position: relative; z-index: 1; }
+  .moat-card .moat-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    background: rgba(0,212,255,0.15);
+    color: var(--accent);
+    border-radius: 12px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .moat-card h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .moat-card p {
+    color: var(--text-dim);
+    max-width: 640px;
+    margin: 0 auto 12px;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .moat-card p.emphasis {
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .lead-small {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  /* ===== 语音播报控件 ===== */
+  .voice-fab {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 200;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    backdrop-filter: blur(20px);
+    transition: all 0.3s;
+  }
+  .voice-fab:hover {
+    border-color: rgba(0,212,255,0.4);
+  }
+  .voice-fab.playing {
+    background: linear-gradient(135deg, rgba(0,212,255,0.2) 0%, rgba(147,51,234,0.15) 100%);
+    border-color: var(--accent);
+    box-shadow: 0 0 24px rgba(0,212,255,0.3);
+  }
+  .voice-btn {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+  }
+  .voice-btn:hover {
+    background: var(--card);
+    color: var(--accent);
+  }
+  .voice-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .voice-status {
+    font-size: 12px;
+    color: var(--text-dim);
+    min-width: 70px;
+    text-align: center;
+  }
+  .voice-fab.playing .voice-status {
+    color: var(--accent);
+  }
+  .voice-settings {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-mute);
+    padding: 4px;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .voice-settings:hover { color: var(--accent); }
+
+  .voice-popup {
+    position: fixed;
+    bottom: 86px;
+    left: 24px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    z-index: 199;
+    min-width: 220px;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: all 0.25s;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+  }
+  .voice-popup.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .voice-popup label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .voice-popup select,
+  .voice-popup input[type="range"] {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .voice-popup .rate-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .voice-popup .rate-val {
+    font-size: 11px;
+    color: var(--accent);
+    min-width: 28px;
+  }
+
+  /* 正在朗读的章节微高亮 */
+  .panel.reading h1 {
+    animation: readingPulse 2s ease-in-out infinite;
+  }
+  @keyframes readingPulse {
+    0%, 100% { text-shadow: 0 0 0 rgba(0,212,255,0); }
+    50% { text-shadow: 0 0 20px rgba(0,212,255,0.3); }
+  }
+
+  @media (max-width: 600px) {
+    .voice-fab { bottom: 16px; left: 16px; padding: 8px 12px; }
+    .voice-popup { left: 16px; bottom: 70px; }
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--text-mute);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+  }
+  footer .watermark {
+    background: var(--grad1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* 通用 */
+  .quote-box {
+    border-left: 3px solid var(--accent2);
+    padding: 14px 20px;
+    margin: 20px 0;
+    color: var(--text-dim);
+    font-style: italic;
+    background: rgba(147,51,234,0.04);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    main { padding: 24px 16px 60px; }
+    h1 { font-size: 28px; }
+    .tab { padding: 10px 14px; font-size: 13px; }
+    .tab .num { width: 18px; height: 18px; line-height: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<!-- ===== 二次元 chibi 宝宝定义 ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- 渐变 -->
+    <radialGradient id="skinGrad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#fff5e6"/>
+      <stop offset="100%" stop-color="#fde7c4"/>
+    </radialGradient>
+
+    <!-- ① 哭娃（嚎啕，瀑布泪，粉发） -->
+    <symbol id="cry-baby" viewBox="0 0 120 140">
+      <ellipse cx="60" cy="135" rx="26" ry="3" fill="#000" opacity="0.2"/>
+      <!-- 后发 -->
+      <path d="M22 70 Q14 32 32 16 Q47 4 60 8 Q73 4 88 16 Q106 32 98 70 L98 102 Q94 106 90 102 L30 102 Q26 106 22 102 Z" fill="#f9a8d4"/>
+      <!-- 脸 -->
+      <ellipse cx="60" cy="68" rx="30" ry="35" fill="url(#skinGrad)" stroke="#fbcfe8" stroke-width="0.5"/>
+      <!-- 侧发 -->
+      <path d="M28 50 Q22 65 30 88 L40 88 Q35 70 38 55 Z" fill="#f9a8d4"/>
+      <path d="M92 50 Q98 65 90 88 L80 88 Q85 70 82 55 Z" fill="#f9a8d4"/>
+      <!-- 刘海 -->
+      <path d="M28 38 Q40 52 48 42 Q54 56 60 42 Q66 56 72 42 Q80 52 92 38 Q90 60 78 58 Q70 52 64 60 Q60 56 56 60 Q50 52 42 58 Q30 60 28 38 Z" fill="#ec4899"/>
+      <!-- 呆毛 -->
+      <path d="M58 4 Q63 -3 66 4 Q63 12 60 14 Q56 11 58 4" fill="#ec4899"/>
+      <!-- 八字眉（伤心） -->
+      <path d="M34 60 Q40 55 50 62" stroke="#831843" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M70 62 Q80 55 86 60" stroke="#831843" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- 左眼（多层光泽） -->
+      <ellipse cx="44" cy="74" rx="10" ry="13" fill="#fff" stroke="#831843" stroke-width="1.2"/>
+      <ellipse cx="44" cy="75" rx="8" ry="11" fill="#a78bfa"/>
+      <ellipse cx="44" cy="77" rx="6" ry="9" fill="#7c3aed"/>
+      <ellipse cx="44" cy="80" rx="3.5" ry="6" fill="#1e1b4b"/>
+      <ellipse cx="41" cy="69" rx="3" ry="4" fill="#fff"/>
+      <circle cx="47" cy="77" r="1.6" fill="#fff"/>
+      <!-- 右眼 -->
+      <ellipse cx="76" cy="74" rx="10" ry="13" fill="#fff" stroke="#831843" stroke-width="1.2"/>
+      <ellipse cx="76" cy="75" rx="8" ry="11" fill="#a78bfa"/>
+      <ellipse cx="76" cy="77" rx="6" ry="9" fill="#7c3aed"/>
+      <ellipse cx="76" cy="80" rx="3.5" ry="6" fill="#1e1b4b"/>
+      <ellipse cx="73" cy="69" rx="3" ry="4" fill="#fff"/>
+      <circle cx="79" cy="77" r="1.6" fill="#fff"/>
+      <!-- 眼睛底下含泪 -->
+      <ellipse cx="44" cy="87" rx="5" ry="2.5" fill="#60a5fa" opacity="0.9"/>
+      <ellipse cx="76" cy="87" rx="5" ry="2.5" fill="#60a5fa" opacity="0.9"/>
+      <!-- 瀑布泪 -->
+      <path class="anime-tear anime-tear-l" d="M40 90 Q37 100 41 110 Q39 120 43 128" stroke="#60a5fa" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+      <path class="anime-tear anime-tear-r" d="M80 90 Q83 100 79 110 Q81 120 77 128" stroke="#60a5fa" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+      <!-- 樱花脸蛋 -->
+      <ellipse cx="28" cy="84" rx="7" ry="4" fill="#fb7185" opacity="0.55"/>
+      <ellipse cx="92" cy="84" rx="7" ry="4" fill="#fb7185" opacity="0.55"/>
+      <!-- 颤抖的小嘴 -->
+      <path d="M50 98 Q54 95 58 98 Q62 95 66 98 Q70 95 70 98" stroke="#831843" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- ② 累瘫娃（>_< 眼 + 吐舌 + 旋涡脸） -->
+    <symbol id="exhausted-baby" viewBox="0 0 120 140">
+      <ellipse cx="60" cy="135" rx="26" ry="3" fill="#000" opacity="0.2"/>
+      <!-- 蓝绿色头发 -->
+      <path d="M22 70 Q14 32 32 16 Q47 4 60 8 Q73 4 88 16 Q106 32 98 70 L98 102 Q94 106 90 102 L30 102 Q26 106 22 102 Z" fill="#67e8f9"/>
+      <ellipse cx="60" cy="68" rx="30" ry="35" fill="url(#skinGrad)" stroke="#a5f3fc" stroke-width="0.5"/>
+      <path d="M28 50 Q22 65 30 88 L40 88 Q35 70 38 55 Z" fill="#67e8f9"/>
+      <path d="M92 50 Q98 65 90 88 L80 88 Q85 70 82 55 Z" fill="#67e8f9"/>
+      <!-- 凌乱刘海（弯曲下垂） -->
+      <path d="M30 38 Q42 50 46 44 Q52 54 58 46 Q64 54 70 46 Q76 50 90 38 Q90 58 80 60 Q72 54 65 62 Q60 56 55 62 Q48 54 40 60 Q30 58 30 38 Z" fill="#0891b2"/>
+      <!-- 弯下来的呆毛 -->
+      <path d="M58 8 Q66 6 64 18 Q62 14 60 16 Q58 12 58 8" fill="#0891b2"/>
+      <!-- 八字眉 -->
+      <path d="M30 58 Q38 53 46 60" stroke="#0c4a6e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M74 60 Q82 53 90 58" stroke="#0c4a6e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- >_< 眼 -->
+      <path d="M32 70 L42 76 L32 82" stroke="#0c4a6e" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M88 70 L78 76 L88 82" stroke="#0c4a6e" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- 旋涡脸蛋（晕） -->
+      <g opacity="0.6">
+        <path d="M22 84 Q28 80 28 84 Q22 88 22 84" stroke="#fb7185" stroke-width="1.5" fill="none"/>
+        <path d="M22 84 Q25 82 27 84" stroke="#fb7185" stroke-width="1.5" fill="none"/>
+      </g>
+      <g opacity="0.6">
+        <path d="M98 84 Q92 80 92 84 Q98 88 98 84" stroke="#fb7185" stroke-width="1.5" fill="none"/>
+        <path d="M93 84 Q95 82 98 84" stroke="#fb7185" stroke-width="1.5" fill="none"/>
+      </g>
+      <!-- 张口吐舌 -->
+      <path d="M48 92 Q60 102 72 92" stroke="#7c2d12" stroke-width="2.5" fill="#fef3c7" stroke-linecap="round"/>
+      <ellipse cx="64" cy="100" rx="6" ry="5" fill="#fca5a5"/>
+      <path d="M62 99 L62 103" stroke="#dc2626" stroke-width="0.8"/>
+      <!-- 汗滴（动） -->
+      <path class="sweat sweat-1" d="M22 30 Q19 38 22 42 Q25 38 22 30 Z" fill="#60a5fa"/>
+      <path class="sweat sweat-2" d="M96 32 Q93 40 96 44 Q99 40 96 32 Z" fill="#60a5fa"/>
+    </symbol>
+
+    <!-- ③ 怒娃（挤压墙的抗议宝宝：包子脸 + 鼓气 + 怒气符号） -->
+    <symbol id="squished-baby" viewBox="0 0 120 140">
+      <ellipse cx="60" cy="135" rx="26" ry="3" fill="#000" opacity="0.2"/>
+      <!-- 橙色双马尾发型 -->
+      <path d="M22 70 Q14 30 32 14 Q47 4 60 8 Q73 4 88 14 Q106 30 98 70 L98 100 Q94 104 90 100 L30 100 Q26 104 22 100 Z" fill="#fdba74"/>
+      <!-- 双马尾 -->
+      <path d="M14 50 Q4 70 8 88 Q12 92 16 88 Q24 70 22 50 Z" fill="#fb923c"/>
+      <path d="M106 50 Q116 70 112 88 Q108 92 104 88 Q96 70 98 50 Z" fill="#fb923c"/>
+      <!-- 圆嘟嘟脸 -->
+      <ellipse cx="60" cy="68" rx="32" ry="34" fill="url(#skinGrad)" stroke="#fed7aa" stroke-width="0.5"/>
+      <!-- 刘海（蓬松） -->
+      <path d="M30 42 Q40 54 46 44 Q52 58 60 44 Q68 58 74 44 Q80 54 90 42 Q88 60 80 60 Q72 54 66 62 Q60 56 54 62 Q48 54 40 60 Q32 60 30 42 Z" fill="#f97316"/>
+      <!-- 呆毛 -->
+      <path d="M58 6 Q64 -2 66 6 Q63 12 60 14 Q57 11 58 6" fill="#f97316"/>
+      <!-- 怒气符号（# 形） -->
+      <g stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" class="anger-mark">
+        <path d="M16 26 L16 36"/>
+        <path d="M22 26 L22 36"/>
+        <path d="M12 30 L26 30"/>
+        <path d="M12 34 L26 34"/>
+      </g>
+      <!-- 锐角眉（生气） -->
+      <path d="M32 60 L46 55" stroke="#9a3412" stroke-width="3" stroke-linecap="round"/>
+      <path d="M88 60 L74 55" stroke="#9a3412" stroke-width="3" stroke-linecap="round"/>
+      <!-- 眯眼怒视 -->
+      <ellipse cx="42" cy="70" rx="7" ry="5" fill="#fff" stroke="#9a3412" stroke-width="1"/>
+      <ellipse cx="42" cy="70" rx="4" ry="4" fill="#7c2d12"/>
+      <circle cx="40" cy="68" r="1.5" fill="#fff"/>
+      <ellipse cx="78" cy="70" rx="7" ry="5" fill="#fff" stroke="#9a3412" stroke-width="1"/>
+      <ellipse cx="78" cy="70" rx="4" ry="4" fill="#7c2d12"/>
+      <circle cx="76" cy="68" r="1.5" fill="#fff"/>
+      <!-- 鼓气脸蛋（更粗） -->
+      <ellipse cx="24" cy="84" rx="9" ry="7" fill="#fb7185" opacity="0.7"/>
+      <ellipse cx="96" cy="84" rx="9" ry="7" fill="#fb7185" opacity="0.7"/>
+      <!-- 噘嘴 -->
+      <ellipse cx="60" cy="90" rx="6" ry="3.5" fill="#9a3412"/>
+      <ellipse cx="60" cy="89" rx="4" ry="2" fill="#fca5a5"/>
+    </symbol>
+
+    <!-- ④ 担忧娃（紫发，懊恼，一滴汗） -->
+    <symbol id="worried-baby" viewBox="0 0 120 140">
+      <ellipse cx="60" cy="135" rx="26" ry="3" fill="#000" opacity="0.2"/>
+      <path d="M22 70 Q14 32 32 16 Q47 4 60 8 Q73 4 88 16 Q106 32 98 70 L98 100 Q94 104 90 100 L30 100 Q26 104 22 100 Z" fill="#c4b5fd"/>
+      <ellipse cx="60" cy="68" rx="30" ry="35" fill="url(#skinGrad)" stroke="#ddd6fe" stroke-width="0.5"/>
+      <path d="M28 50 Q22 65 30 88 L40 88 Q35 70 38 55 Z" fill="#c4b5fd"/>
+      <path d="M92 50 Q98 65 90 88 L80 88 Q85 70 82 55 Z" fill="#c4b5fd"/>
+      <path d="M28 38 Q40 52 48 42 Q54 56 60 42 Q66 56 72 42 Q80 52 92 38 Q90 60 78 58 Q70 52 64 60 Q60 56 56 60 Q50 52 42 58 Q30 60 28 38 Z" fill="#8b5cf6"/>
+      <path d="M58 6 Q63 -2 66 4 Q63 11 60 14 Q57 10 58 6" fill="#8b5cf6"/>
+      <!-- 八字担忧眉 -->
+      <path d="M32 58 Q40 53 50 62" stroke="#5b21b6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M70 62 Q80 53 88 58" stroke="#5b21b6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- 眼睛（小，担忧） -->
+      <ellipse cx="44" cy="74" rx="7" ry="9" fill="#fff" stroke="#5b21b6" stroke-width="1"/>
+      <ellipse cx="44" cy="75" rx="5.5" ry="7.5" fill="#8b5cf6"/>
+      <ellipse cx="44" cy="77" rx="3.5" ry="5" fill="#4c1d95"/>
+      <circle cx="42" cy="71" r="1.8" fill="#fff"/>
+      <circle cx="46" cy="78" r="1" fill="#fff"/>
+      <ellipse cx="76" cy="74" rx="7" ry="9" fill="#fff" stroke="#5b21b6" stroke-width="1"/>
+      <ellipse cx="76" cy="75" rx="5.5" ry="7.5" fill="#8b5cf6"/>
+      <ellipse cx="76" cy="77" rx="3.5" ry="5" fill="#4c1d95"/>
+      <circle cx="74" cy="71" r="1.8" fill="#fff"/>
+      <circle cx="78" cy="78" r="1" fill="#fff"/>
+      <!-- 脸蛋 -->
+      <ellipse cx="26" cy="84" rx="6" ry="4" fill="#fb7185" opacity="0.45"/>
+      <ellipse cx="94" cy="84" rx="6" ry="4" fill="#fb7185" opacity="0.45"/>
+      <!-- 紧抿下垂嘴 -->
+      <path d="M48 92 Q54 88 60 92 Q66 88 72 92" stroke="#5b21b6" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- 单滴汗 -->
+      <path class="sweat sweat-1" d="M96 30 Q93 38 96 42 Q99 38 96 30 Z" fill="#60a5fa"/>
+    </symbol>
+
+    <!-- ⑤ 开心娃（金发，眯笑，心心 + 闪光） -->
+    <symbol id="happy-baby" viewBox="0 0 120 140">
+      <ellipse cx="60" cy="135" rx="26" ry="3" fill="#000" opacity="0.2"/>
+      <path d="M22 70 Q14 32 32 16 Q47 4 60 8 Q73 4 88 16 Q106 32 98 70 L98 102 Q94 106 90 102 L30 102 Q26 106 22 102 Z" fill="#fde68a"/>
+      <ellipse cx="60" cy="68" rx="30" ry="35" fill="url(#skinGrad)" stroke="#fef3c7" stroke-width="0.5"/>
+      <path d="M28 50 Q22 65 30 88 L40 88 Q35 70 38 55 Z" fill="#fde68a"/>
+      <path d="M92 50 Q98 65 90 88 L80 88 Q85 70 82 55 Z" fill="#fde68a"/>
+      <path d="M28 38 Q40 52 48 42 Q54 56 60 42 Q66 56 72 42 Q80 52 92 38 Q90 60 78 58 Q70 52 64 60 Q60 56 56 60 Q50 52 42 58 Q30 60 28 38 Z" fill="#f59e0b"/>
+      <path d="M58 4 Q66 -2 68 6 Q64 12 60 14 Q56 11 58 4" fill="#f59e0b"/>
+      <!-- 弯眉 -->
+      <path d="M32 60 Q40 56 50 60" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M70 60 Q80 56 88 60" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- 眯笑眼 ^_^ 加眼睫毛 -->
+      <path d="M34 76 Q42 68 52 76" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M68 76 Q76 68 86 76" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- 睫毛 -->
+      <path d="M32 76 L29 73 M52 76 L55 73" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M68 76 L65 73 M88 76 L91 73" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- 大红脸蛋 -->
+      <ellipse cx="26" cy="86" rx="7" ry="5" fill="#fb7185" opacity="0.7"/>
+      <ellipse cx="94" cy="86" rx="7" ry="5" fill="#fb7185" opacity="0.7"/>
+      <!-- 大笑嘴 -->
+      <path d="M44 90 Q60 108 76 90 Q70 100 60 100 Q50 100 44 90 Z" fill="#9a3412"/>
+      <path d="M50 94 Q60 104 70 94" fill="#fca5a5"/>
+      <!-- 心心冒出 -->
+      <path class="heart heart-1" d="M0 0 Q-4 -5 -8 -2 Q-10 -6 -14 -2 Q-14 6 0 12 Q14 6 14 -2 Q10 -6 8 -2 Q4 -5 0 0 Z" transform="translate(15 30) scale(0.7)" fill="#ec4899"/>
+      <path class="heart heart-2" d="M0 0 Q-4 -5 -8 -2 Q-10 -6 -14 -2 Q-14 6 0 12 Q14 6 14 -2 Q10 -6 8 -2 Q4 -5 0 0 Z" transform="translate(100 25) scale(0.5)" fill="#ec4899"/>
+      <path class="heart heart-3" d="M0 0 Q-4 -5 -8 -2 Q-10 -6 -14 -2 Q-14 6 0 12 Q14 6 14 -2 Q10 -6 8 -2 Q4 -5 0 0 Z" transform="translate(108 50) scale(0.4)" fill="#ec4899"/>
+      <!-- 闪光 -->
+      <path class="sparkle sparkle-1" d="M0 0 L1.5 4 L5 5.5 L1.5 7 L0 11 L-1.5 7 L-5 5.5 L-1.5 4 Z" transform="translate(10 60) scale(1.2)" fill="#fbbf24"/>
+      <path class="sparkle sparkle-2" d="M0 0 L1.5 4 L5 5.5 L1.5 7 L0 11 L-1.5 7 L-5 5.5 L-1.5 4 Z" transform="translate(110 75) scale(1)" fill="#fbbf24"/>
+    </symbol>
+
+    <!-- ⑥ 受惊娃（蓝发，dot 眼 + 闪光 + O 嘴） -->
+    <symbol id="shocked-baby" viewBox="0 0 120 140">
+      <ellipse cx="60" cy="135" rx="26" ry="3" fill="#000" opacity="0.2"/>
+      <path d="M22 70 Q14 32 32 16 Q47 4 60 8 Q73 4 88 16 Q106 32 98 70 L98 102 Q94 106 90 102 L30 102 Q26 106 22 102 Z" fill="#93c5fd"/>
+      <ellipse cx="60" cy="68" rx="30" ry="35" fill="url(#skinGrad)" stroke="#bfdbfe" stroke-width="0.5"/>
+      <path d="M28 50 Q22 65 30 88 L40 88 Q35 70 38 55 Z" fill="#93c5fd"/>
+      <path d="M92 50 Q98 65 90 88 L80 88 Q85 70 82 55 Z" fill="#93c5fd"/>
+      <path d="M28 38 Q40 52 48 42 Q54 56 60 42 Q66 56 72 42 Q80 52 92 38 Q90 60 78 58 Q70 52 64 60 Q60 56 56 60 Q50 52 42 58 Q30 60 28 38 Z" fill="#3b82f6"/>
+      <path d="M58 4 Q63 -3 66 4 Q63 11 60 14 Q57 10 58 4" fill="#3b82f6"/>
+      <!-- 上挑眉（震惊） -->
+      <path d="M32 56 L46 50" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M88 56 L74 50" stroke="#1e3a8a" stroke-width="3" stroke-linecap="round"/>
+      <!-- 大瞪眼（小 dot 黑眼珠） -->
+      <ellipse cx="44" cy="72" rx="10" ry="13" fill="#fff" stroke="#1e3a8a" stroke-width="1.5"/>
+      <circle cx="44" cy="74" r="2.5" fill="#1e1b4b"/>
+      <circle cx="43" cy="73" r="0.8" fill="#fff"/>
+      <ellipse cx="76" cy="72" rx="10" ry="13" fill="#fff" stroke="#1e3a8a" stroke-width="1.5"/>
+      <circle cx="76" cy="74" r="2.5" fill="#1e1b4b"/>
+      <circle cx="75" cy="73" r="0.8" fill="#fff"/>
+      <!-- 苍白脸 -->
+      <ellipse cx="28" cy="86" rx="5" ry="3" fill="#bfdbfe" opacity="0.6"/>
+      <ellipse cx="92" cy="86" rx="5" ry="3" fill="#bfdbfe" opacity="0.6"/>
+      <!-- O 嘴（震惊） -->
+      <ellipse cx="60" cy="94" rx="5" ry="7" fill="#7c2d12"/>
+      <ellipse cx="60" cy="95" rx="3" ry="5" fill="#1e1b4b"/>
+      <!-- 头顶竖纹（震惊符号） -->
+      <g stroke="#1e3a8a" stroke-width="1.5" stroke-linecap="round" class="anger-mark">
+        <path d="M48 12 L46 18"/>
+        <path d="M60 8 L60 14"/>
+        <path d="M72 12 L74 18"/>
+      </g>
+      <!-- 闪光 -->
+      <path class="sparkle sparkle-1" d="M0 0 L1.5 4 L5 5.5 L1.5 7 L0 11 L-1.5 7 L-5 5.5 L-1.5 4 Z" transform="translate(8 50) scale(1.2)" fill="#fbbf24"/>
+      <path class="sparkle sparkle-3" d="M0 0 L1.5 4 L5 5.5 L1.5 7 L0 11 L-1.5 7 L-5 5.5 L-1.5 4 Z" transform="translate(112 80) scale(0.8)" fill="#fbbf24"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="header-title">光通信入门 · <span class="accent">AI 时代的高速公路</span></div>
+      <div class="header-meta">交互式学习页面</div>
+    </div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="0"><span class="num">1</span>概览</div>
+      <div class="tab" data-tab="1"><span class="num">2</span>三面墙</div>
+      <div class="tab" data-tab="2"><span class="num">3</span>技术路线</div>
+      <div class="tab" data-tab="3"><span class="num">4</span>市场规模</div>
+      <div class="tab" data-tab="4"><span class="num">5</span>产业链</div>
+      <div class="tab" data-tab="5"><span class="num">6</span>风险展望</div>
+      <div class="tab" data-tab="6"><span class="num">7</span>非对称机会</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Tab 1: 概览 -->
+  <div class="panel active" data-panel="0">
+    <div class="panel-tag">第一章 · 为什么要懂光通信</div>
+    <h1>光通信：<span class="gradient">AI 时代的高速公路</span></h1>
+    <p class="lead">
+      当 ChatGPT 写一段代码、Sora 生成一段视频，背后是上万颗 GPU 协同工作。
+      这些芯片之间用什么来传数据？过去靠铜，今天必须靠光。
+      这就是为什么"光通信"已经从"配套"变成了"AI 系统能不能继续做大的关键"。
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num" data-count="85" data-suffix="%"><span>0</span><span class="stat-unit">%</span></div>
+        <div class="stat-label">InP 光通道未来年复合增长率</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-count="9" data-suffix="×"><span>0</span><span class="stat-unit">×</span></div>
+        <div class="stat-label">Scale-up 带宽是 Scale-out 的倍数</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-count="1000" data-suffix="kW"><span>0</span><span class="stat-unit">kW</span></div>
+        <div class="stat-label">未来单机柜峰值功耗</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-count="64" data-suffix="×"><span>0</span><span class="stat-unit">×</span></div>
+        <div class="stat-label">CPO 信号完整性的提升</div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-tag">类比 · 一栋大楼</div>
+      <div class="analogy-text">
+        想象 12.8 万人同时在一栋大楼里办公，他们每秒要互相递交几万份文件。
+        如果用"楼内对讲机"（传统铜缆），不仅累，还会卡。AI 数据中心遇到的就是这个问题——
+        芯片越来越多，每对芯片之间要传的数据越来越大，铜的物理极限已经到了。
+        <br><br>
+        光纤是什么？是楼里铺的<span class="highlight">"真空管道气送系统"</span>——一束光打过去，瞬间到达，无损耗。
+      </div>
+    </div>
+
+    <div class="why-cards">
+      <div class="why-card">
+        <div class="icon">①</div>
+        <h3>从"单卡"到"超节点"</h3>
+        <p>2026 年 Kyber 架构推出 NVL576/NVL1152 配置——把 1152 颗 GPU 当成一颗超级 GPU 来用。芯片之间的连接已经不是"网络"，而是"系统内部"。</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">②</div>
+        <h3>价值在重新洗牌</h3>
+        <p>过去最赚钱的是芯片本身。现在赚钱环节正在转移——光引擎、高多层 PCB、CW 激光器、晶圆级测试设备这些"原来的配套"正在变成"没有它系统就跑不起来"的关键。</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">③</div>
+        <h3>中国处于关键时点</h3>
+        <p>国内光模块龙头已通过英伟达认证，FAU 厂商已是英伟达官方合作伙伴。这是少数几个中国能在 AI 硬件供应链占核心地位的赛道。</p>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 32px;">
+      <div style="display: inline-block; padding: 12px 24px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; color: var(--text-dim); font-size: 13px; cursor: pointer;" onclick="switchTab(1)">
+        下一章：传统铜线撞上的三面墙 →
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: 三面墙 -->
+  <div class="panel" data-panel="1">
+    <div class="panel-tag">第二章 · 必须发展的原因</div>
+    <h1>传统铜线撞上了<span class="gradient">三面墙</span></h1>
+    <p class="lead">
+      为什么必须从铜换到光？因为铜在 1.6T 速率以上面临三个无法越过的物理极限。这是产业的"三面墙"，每一面都决定光通信"非走不可"。
+      <strong style="color: var(--accent);">点击下面任一卡片展开详情。</strong>
+    </p>
+
+    <div class="walls-container" id="walls">
+      <div class="wall" data-wall="1">
+        <div class="baby-wrap">
+          <svg class="baby-svg tilted-l"><use href="#cry-baby"/></svg>
+        </div>
+        <div class="wall-header">
+          <div>
+            <h3>信号损耗墙</h3>
+            <div class="summary">芯片和光模块之间相隔十几厘米到几十厘米的 PCB 铜线，高频电信号会指数级衰减。</div>
+            <div class="key-num">CPO 把距离缩到几毫米 → 插损 22dB → 4dB（64 倍改善）</div>
+            <div class="click-hint">▸ 点击查看详情</div>
+          </div>
+          <div class="wall-num">01</div>
+        </div>
+        <div class="detail">
+          <div class="detail-content">
+            <strong>问题本质：</strong>在传统可插拔架构下，交换芯片或计算芯片与光模块是独立的物理实体，光模块作为"独立外设"插入设备前面板，两者之间通过 PCB 铜线连接，距离通常长达<strong>十几厘米到几十厘米</strong>。
+            <br><br>
+            <strong>物理极限：</strong>高频电信号在 PCB 铜线上的衰减会呈<strong>指数级放大</strong>。速率越高，衰减越快。到了 1.6T 速率，铜线已经"传不动"了。
+            <br><br>
+            <strong>CPO 的解法：</strong>把光引擎通过先进封装直接做进交换芯片同一块基板上，电信号传输距离从<strong>十几厘米缩短到几毫米</strong>。根据测算，ASIC 端插损从可插拔方案的 22dB 降到约 4dB，<strong>信号完整性实现 64 倍提升</strong>。
+          </div>
+        </div>
+      </div>
+
+      <div class="wall" data-wall="2">
+        <div class="baby-wrap">
+          <svg class="baby-svg"><use href="#exhausted-baby"/></svg>
+        </div>
+        <div class="wall-header">
+          <div>
+            <h3>功耗墙</h3>
+            <div class="summary">传统光模块必须用 DSP 芯片做信号补偿，这颗芯片占了模块总功耗近一半。</div>
+            <div class="key-num">800G: DSP 6-7W ｜ 1.6T: DSP 12-14W</div>
+            <div class="click-hint">▸ 点击查看详情</div>
+          </div>
+          <div class="wall-num">02</div>
+        </div>
+        <div class="detail">
+          <div class="detail-content">
+            <strong>问题本质：</strong>为了"抢救"在铜线中严重衰减的信号，传统光模块被迫引入<strong>高功耗的 DSP（数字信号处理）芯片</strong>进行信号补偿与重定时。
+            <br><br>
+            <strong>具体数字：</strong>800G 光模块中的 DSP 功耗约 6-7W；1.6T 光模块中的 DSP 功耗约 12-14W。在高端可插拔方案里，<strong>DSP 甚至可能占到模块总功耗的近一半</strong>。
+            <br><br>
+            <strong>三种解法对比：</strong>
+            <br>• <strong>LPO</strong>：去掉 DSP，把信号补偿转移到主机 ASIC（已量产）
+            <br>• <strong>NPO</strong>：光引擎贴近 ASIC，缩短电信号路径以降低 DSP 需求
+            <br>• <strong>CPO</strong>：极短电路径，<strong>完全不需要 DSP</strong>，从根本上解决
+          </div>
+        </div>
+      </div>
+
+      <div class="wall" data-wall="3">
+        <div class="baby-wrap">
+          <svg class="baby-svg tilted-r"><use href="#squished-baby"/></svg>
+        </div>
+        <div class="wall-header">
+          <div>
+            <h3>物理空间墙</h3>
+            <div class="summary">可插拔光模块的尺寸是固定的，交换机前面板能塞下的光模块数量见底了。</div>
+            <div class="key-num">NVL72 单柜已用 5184 根铜缆，NVL576 需 2 万根 = 不可行</div>
+            <div class="click-hint">▸ 点击查看详情</div>
+          </div>
+          <div class="wall-num">03</div>
+        </div>
+        <div class="detail">
+          <div class="detail-content">
+            <strong>问题本质：</strong>可插拔模块的物理尺寸严格限制了交换机前面板的端口密度。随着数据传输率增加，前面板上可用于添加更多端口的<strong>物理空间正在耗尽</strong>。
+            <br><br>
+            <strong>3.2T 时代的极限：</strong>前面板已经没有足够的物理空间来容纳所需的光模块，无法满足万卡级超节点的高密度互连需求。
+            <br><br>
+            <strong>机柜内部铜缆数量举例：</strong>
+            <br>• 当前 Blackwell NVL72：72 颗 GPU 与 18 颗 NVSwitch 之间需要 <strong>5184 根高频铜缆</strong>
+            <br>• 未来 NVL576 若不无缆化：机柜内铜缆需要超过 <strong>20000 根</strong> = 物理空间根本塞不下
+            <br><br>
+            <strong>CPO 的解法：</strong>光引擎直接封装在芯片旁，释放前面板空间，<strong>带宽密度提升 5-10 倍</strong>，完美契合万卡集群的超高密度互连需求。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      一项技术的迭代，不是为了炫技，而是原有路线出现了无法解决的痛点。
+    </div>
+  </div>
+
+  <!-- Tab 3: 技术路线 -->
+  <div class="panel" data-panel="2">
+    <div class="panel-tag">第三章 · 三条技术路线在赛跑</div>
+    <h1>CPO、LPO、NPO ——<br>都想解决三面墙，<span class="gradient">解法不同</span></h1>
+    <p class="lead">
+      它们的关系不是"谁打败谁"，而是<span class="highlight">"谁先到、谁先用"</span>。下面三个按钮可以切换查看每条路线的细节。
+    </p>
+
+    <div class="tech-selector" id="techSelector">
+      <div class="tech-btn active" data-tech="cpo">
+        <div class="label">CPO</div>
+        <div class="sub">共封装光学</div>
+        <div class="status status-terminal">终局技术</div>
+      </div>
+      <div class="tech-btn" data-tech="lpo">
+        <div class="label">LPO</div>
+        <div class="sub">线性直驱光学</div>
+        <div class="status status-now">已经量产</div>
+      </div>
+      <div class="tech-btn" data-tech="npo">
+        <div class="label">NPO</div>
+        <div class="sub">近封装光学</div>
+        <div class="status status-transition">过渡方案</div>
+      </div>
+    </div>
+
+    <div class="tech-detail" id="techDetail"></div>
+
+    <!-- 时间轴 -->
+    <div class="evo-timeline">
+      <h3>NVIDIA NVLink 域演进 · 拖动查看每个阶段</h3>
+      <div class="slider-container">
+        <div class="slider">
+          <div class="slider-fill" id="sliderFill" style="width: 0%;"></div>
+        </div>
+        <div class="slider-markers" id="markers">
+          <div class="marker active" data-stage="0"><div class="year">2024</div></div>
+          <div class="marker" data-stage="1"><div class="year">2026</div></div>
+          <div class="marker" data-stage="2"><div class="year">2027</div></div>
+          <div class="marker" data-stage="3"><div class="year">2028</div></div>
+        </div>
+      </div>
+      <div class="stage-info" id="stageInfo"></div>
+    </div>
+  </div>
+
+  <!-- Tab 4: 市场 -->
+  <div class="panel" data-panel="3">
+    <div class="panel-tag">第四章 · 市场到底有多大</div>
+    <h1>单机柜功耗破<span class="gradient">百万瓦</span><br>光器件需求<span class="gradient">指数级</span>上升</h1>
+    <p class="lead">
+      AI 集群规模扩张的速度，已经把"光器件需求"推到了过去十年都没见过的曲线上。下面是关键数字。
+    </p>
+
+    <div class="big-nums">
+      <div class="big-num-card">
+        <div class="v">700<span class="u">kW</span></div>
+        <div class="l">Kyber NVL576 单机柜功耗（当前 Blackwell ≈ 120kW）</div>
+      </div>
+      <div class="big-num-card">
+        <div class="v">1<span class="u">MW</span></div>
+        <div class="l">满配 NVL1152 单机柜峰值功耗，散热必须全液冷</div>
+      </div>
+      <div class="big-num-card">
+        <div class="v">85<span class="u">%</span></div>
+        <div class="l">InP 光通道未来年复合增长率</div>
+      </div>
+      <div class="big-num-card">
+        <div class="v">70<span class="u">%</span></div>
+        <div class="l">某硅光晶圆代工厂至 2028 年产能已被客户预订</div>
+      </div>
+    </div>
+
+    <div class="chart-box">
+      <canvas id="powerChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <canvas id="bandwidthChart"></canvas>
+    </div>
+
+    <h3 style="margin-top: 32px; font-size: 20px;">单台 Quantum-X800 CPO 交换机的光器件需求</h3>
+    <div class="needs-cards">
+      <div class="need-card">
+        <h4>核心光器件</h4>
+        <ul>
+          <li>72 个 1.6T 光引擎</li>
+          <li>18 个外置光源 ELS 模块</li>
+          <li>72 个高精度 FAU 光纤阵列</li>
+          <li>数百个高密度 MPO 连接器</li>
+        </ul>
+        <div class="footer-note">NVL1152 一整套机柜群需要数以百万计的 FAU 和 MPO 连接器</div>
+      </div>
+      <div class="need-card">
+        <h4>价值分配重新洗牌</h4>
+        <ul>
+          <li><strong style="color:var(--text);">下沉</strong>：光电转换 → 共封装的光引擎</li>
+          <li><strong style="color:var(--text);">剥离</strong>：发光功能 → 独立 ELSFP 模块</li>
+          <li><strong style="color:var(--text);">简化</strong>：DSP 大幅简化甚至消失</li>
+          <li><strong style="color:var(--text);">抬升</strong>：高多层 PCB、CCL、CW 激光器、晶圆级测试</li>
+        </ul>
+        <div class="footer-note">过去的"配套"环节，正在变成"没有它系统就跑不起来"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 5: 产业链 -->
+  <div class="panel" data-panel="4">
+    <div class="panel-tag">第五章 · 谁在做这件事</div>
+    <h1>产业链<span class="gradient">三层地图</span></h1>
+    <p class="lead">
+      全球光通信产业链呈现出"海外巨头控底层生态、台湾绑台积电、中国大陆拼封装落地"的格局。下面可以按地区筛选。
+    </p>
+
+    <div class="legend-row">
+      <div><span class="legend-dot" style="background: var(--accent3);"></span>国际</div>
+      <div><span class="legend-dot" style="background: var(--accent2);"></span>台湾</div>
+      <div><span class="legend-dot" style="background: var(--accent);"></span>中国大陆</div>
+    </div>
+
+    <div class="filter-row" id="filters">
+      <div class="filter-btn active" data-filter="all">全部</div>
+      <div class="filter-btn" data-filter="intl">仅看国际</div>
+      <div class="filter-btn" data-filter="taiwan">仅看台湾</div>
+      <div class="filter-btn" data-filter="china">仅看中国大陆</div>
+    </div>
+
+    <div class="chain-grid">
+      <div class="tier-card">
+        <h4>① 硅光子集成</h4>
+        <div class="role">系统的"核心大脑"</div>
+        <div class="player intl"><div class="name">Intel / Cisco</div><div class="note">硅光技术先驱</div></div>
+        <div class="player intl"><div class="name">台积电 TSMC</div><div class="note">COUPE 平台 2026 量产</div></div>
+        <div class="player intl"><div class="name">Tower Semi</div><div class="note">至 2028 产能 70% 已被预订</div></div>
+        <div class="player china"><div class="name">中际旭创</div><div class="note">1.6T 已过英伟达认证</div></div>
+        <div class="player china"><div class="name">新易盛 / 光迅</div><div class="note">硅光模块封装</div></div>
+      </div>
+
+      <div class="tier-card">
+        <h4>② 外置光源（InP）</h4>
+        <div class="role">激光器寡头垄断</div>
+        <div class="player intl"><div class="name">住友电工 / AXT</div><div class="note">InP 衬底，全球极少数</div></div>
+        <div class="player intl"><div class="name">Lumentum / Coherent / 三菱</div><div class="note">大功率 CW 激光芯片</div></div>
+        <div class="player china"><div class="name">源杰科技</div><div class="note">CW 芯片量产</div></div>
+        <div class="player china"><div class="name">九峰山实验室</div><div class="note">6 英寸外延工艺突破</div></div>
+      </div>
+
+      <div class="tier-card">
+        <h4>③ FAU 光纤阵列</h4>
+        <div class="role">连接光芯片与外部光纤</div>
+        <div class="player intl"><div class="name">Senko / Corning</div><div class="note">高端 FAU + CPO 连接器</div></div>
+        <div class="player taiwan"><div class="name">FOCI 上诠</div><div class="note">深度绑定台积电 COUPE</div></div>
+        <div class="player china"><div class="name">天孚通信</div><div class="note">英伟达 CPO 官方技术合作伙伴</div></div>
+        <div class="player china"><div class="name">光库科技</div><div class="note">收购加华微捷 + 拟收购安捷讯</div></div>
+        <div class="player china"><div class="name">致尚 / 仕佳 / 杰普特</div><div class="note">FAU 细分突破</div></div>
+      </div>
+
+      <div class="tier-card">
+        <h4>④ 晶圆级测试与耦合</h4>
+        <div class="role">硅光良率的"守门人"</div>
+        <div class="player intl"><div class="name">ficonTEC</div><div class="note">已被罗博特科收购</div></div>
+        <div class="player intl"><div class="name">Teradyne / Keysight / FormFactor</div><div class="note">ATE + 探针卡集成</div></div>
+        <div class="player taiwan"><div class="name">Chroma / All Ring</div><div class="note">系统级测试 + FAU 对准</div></div>
+        <div class="player china"><div class="name">罗博特科</div><div class="note">收购 ficonTEC = 战略卡位</div></div>
+        <div class="player china"><div class="name">联讯仪器</div><div class="note">全球第二家 1.6T 全测试仪器</div></div>
+      </div>
+
+      <div class="tier-card">
+        <h4>⑤ 高多层 PCB</h4>
+        <div class="role">承接铜缆退场后的系统功能</div>
+        <div class="player china"><div class="name">胜宏科技 / 沪电股份</div><div class="note">78 层正交背板攻坚</div></div>
+        <div class="player intl"><div class="name">台光电子</div><div class="note">CCL 上游材料</div></div>
+        <div style="font-size: 11px; color: var(--text-mute); margin-top: 10px;">跟踪：M10 材料认证进度 + 78 层压合报废率</div>
+      </div>
+
+      <div class="tier-card">
+        <h4>⑥ 微光学配套</h4>
+        <div class="role">FAU 装配的精密结构件</div>
+        <div class="player china"><div class="name">炬光科技</div><div class="note">V 型槽 + 微透镜阵列</div></div>
+        <div class="player china"><div class="name">太辰光</div><div class="note">12 芯 MT 插芯已规模化</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 6: 风险 -->
+  <div class="panel" data-panel="5">
+    <div class="panel-tag">第六章 · 需要警惕什么</div>
+    <h1>这条赛道<span class="gradient">不是没有变数</span></h1>
+    <p class="lead">
+      四类系统性风险——任何一个触发，整条产业链的节奏都会被改写。
+    </p>
+
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="baby-wrap tiny">
+          <svg class="baby-svg tilted-l"><use href="#worried-baby"/></svg>
+        </div>
+        <div class="severity"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span style="font-size:11px; color:var(--text-dim); margin-left:6px;">严重度 中等</span></div>
+        <div class="trigger">触发条件</div>
+        <h4>① 良率风险</h4>
+        <div class="body">
+          FAU 测试与组装仍依赖熟练人工，单组测试耗时极长。<br><br>
+          <strong>若</strong>自动化测试设备的研发与导入进度滞后，<strong>则</strong>制造成本居高，直接拖累 CPO 商业化量产节奏。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="baby-wrap tiny">
+          <svg class="baby-svg"><use href="#worried-baby"/></svg>
+        </div>
+        <div class="severity"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="font-size:11px; color:var(--text-dim); margin-left:6px;">严重度 较低</span></div>
+        <div class="trigger">触发条件</div>
+        <h4>② 替代品风险</h4>
+        <div class="body">
+          海外 InP 外延片与 EML 产能正在扩张。<br><br>
+          <strong>若</strong>产能快速释放，传统可插拔模块供给压力缓解，<strong>则</strong>下游云厂商切换硅光方案的紧迫性下降。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="baby-wrap tiny">
+          <svg class="baby-svg tilted-r"><use href="#shocked-baby"/></svg>
+        </div>
+        <div class="severity"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span style="font-size:11px; color:var(--text-dim); margin-left:6px;">严重度 高</span></div>
+        <div class="trigger">触发条件</div>
+        <h4>③ 生态封闭风险</h4>
+        <div class="body">
+          台积电在 CoWoS/COUPE 先进封装上占绝对主导。<br><br>
+          <strong>若</strong>未来通过内部整合或扶持封闭供应链，<strong>则</strong>缺乏核心不可替代技术的厂商被挤出生态圈。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="baby-wrap tiny">
+          <svg class="baby-svg shaking"><use href="#shocked-baby"/></svg>
+        </div>
+        <div class="severity"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span style="font-size:11px; color:var(--text-dim); margin-left:6px;">严重度 极高（颠覆）</span></div>
+        <div class="trigger">触发条件</div>
+        <h4>④ 颠覆性技术风险</h4>
+        <div class="body">
+          <strong>薄膜铌酸锂</strong>是新型电光调制材料。<br><br>
+          <strong>若</strong>在异质集成工艺上取得突破，<strong>则</strong>对现有的纯硅光子集成产生结构性冲击，部分专用设备资产减值。
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="baby-wrap">
+        <svg class="baby-svg"><use href="#happy-baby"/></svg>
+      </div>
+      <h3 id="summaryH3">用一句话回答四个核心问题</h3>
+      <p>看完整个学习页面，门外汉应该能用一句话回答下面四个问题。</p>
+      <div class="summary-quad">
+        <div class="quad-item">
+          <div class="q-label">为什么重要</div>
+          <div class="q-text">AI 不是单台超级电脑而是"一座工厂"。芯片之间要传的数据已经超过铜的物理极限，光是唯一能继续往上跑的高速公路。</div>
+        </div>
+        <div class="quad-item">
+          <div class="q-label">必须发展</div>
+          <div class="q-text">铜撞上三面墙——信号损耗、功耗、物理空间。1.6T 速率以上已经传不动，不换光 AI 系统就没法继续做大。</div>
+        </div>
+        <div class="quad-item">
+          <div class="q-label">瓶颈在哪</div>
+          <div class="q-text">短期看 FAU 良率和先进封装产能；中期看薄膜铌酸锂会不会颠覆硅光；长期看云厂商愿不愿进 CPO 的封闭生态。</div>
+        </div>
+        <div class="quad-item">
+          <div class="q-label">市场多大</div>
+          <div class="q-text">单机柜从 120kW 飙到 1MW、单交换机 72 个 1.6T 光引擎、InP 光通道 CAGR 85%、NVL1152 整套需百万级 FAU。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 7: 非对称机会 -->
+  <div class="panel" data-panel="6">
+    <div class="panel-tag">第七章 · 非对称机会研究</div>
+    <h1>找非对称的<span class="gradient">三个陷阱</span><br>与如何避开</h1>
+    <p class="lead">
+      "找非对称机会"这件事，在投资圈早就不是非对称机会了——人人都在喊。
+      <span class="highlight">真正的非对称，是在共识里找出认知盲点，而不是反着喊。</span>
+      下面三个反模式是这条路上最容易踩的坑。
+    </p>
+
+    <h2 style="margin-top: 40px; font-size: 22px;">三个反模式</h2>
+    <p class="lead-small">先识别什么<strong style="color:var(--text);">不是</strong>非对称，再来找什么<strong style="color:var(--text);">是</strong>。</p>
+
+    <div class="traps-grid">
+      <div class="trap-card">
+        <div class="trap-num">陷阱 1</div>
+        <h3>把"冷门"当成"非对称"</h3>
+        <div class="trap-equation">冷门 <span class="ne">≠</span> 非对称</div>
+        <p>冷门可能只是<strong>没人关心</strong>，不是<strong>定价错了</strong>。</p>
+        <p>冷门赚的是<strong>流动性溢价</strong>；热门里的盲点赚的是<strong>认知溢价</strong>——后者空间大得多。</p>
+        <div class="trap-example">
+          <strong>光通信对应：</strong>
+          FAU 看起来是"小环节"，但全球只有几家能做亚微米级精度，单超节点需百万级。这不是冷门，是<strong>热门叙事下的认知盲点</strong>。
+        </div>
+      </div>
+
+      <div class="trap-card">
+        <div class="trap-num">陷阱 2</div>
+        <h3>把"逆共识"当成"非对称"</h3>
+        <div class="trap-equation">逆共识 <span class="ne">≠</span> 非对称</div>
+        <p>共识错的概率，往往低于"觉得共识错"的人估计的概率。</p>
+        <p>真正值得下注的非对称，必须能<strong>同时说清三件事</strong>：</p>
+        <ul>
+          <li>大家错在哪</li>
+          <li>错在<strong>什么机制</strong>上</li>
+          <li><strong>什么条件下会被证伪</strong></li>
+        </ul>
+        <div class="trap-example">
+          说不出第三条（证伪条件），就<strong>只是另一种信念</strong>，不是仓位逻辑。
+        </div>
+      </div>
+
+      <div class="trap-card">
+        <div class="trap-num">陷阱 3</div>
+        <h3>忽略非对称的"半衰期"</h3>
+        <div class="trap-equation">同一认知差 × 时间 = 不同价值</div>
+        <p>同一个判断在不同阶段价值完全不同。</p>
+        <p>真正的甜区是<strong>拐点期</strong>——信号刚出现但市场未定价。<br>
+        进入拐点期的最大跳板是<strong>结构性异常信号</strong>（如 OI 5× 扩张、库存科目跃迁、产能预订率突变）。</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top: 56px; font-size: 22px;">半衰期模型</h2>
+    <p class="lead-small">认知差在三个阶段的价值。看完后再看下面的光通信案例，判断它们各自落在哪一格。</p>
+
+    <div class="halflife">
+      <div class="halflife-stage hl-1">
+        <div class="stage-label">萌芽期</div>
+        <div class="stage-desc">信号弱·噪音大·无法证伪</div>
+        <div class="stage-warn">看似非对称，实为抽奖</div>
+      </div>
+      <div class="halflife-stage hl-2">
+        <div class="stage-label">拐点期 · 甜区</div>
+        <div class="stage-desc">信号出现·市场未定价</div>
+        <div class="stage-warn">真正甜区，窗口短</div>
+      </div>
+      <div class="halflife-stage hl-3">
+        <div class="stage-label">共识形成期</div>
+        <div class="stage-desc">故事漫天·涨声一片</div>
+        <div class="stage-warn">α 已消失，只剩 β</div>
+      </div>
+    </div>
+    <div class="halflife-arrow">→ → →</div>
+
+    <h2 style="margin-top: 56px; font-size: 22px;">光通信中的 6 个非对称切片</h2>
+    <p class="lead-small">点击任一卡片展开「共识 / 认知差 / 证伪条件 / 半衰期」四个维度。</p>
+
+    <div class="opp-grid" id="oppGrid">
+      <div class="opp-card" data-opp="1">
+        <div class="opp-header">
+          <div class="opp-title">① NPO 抵抗反向定义 CPO 渗透斜率</div>
+          <div class="opp-badges">
+            <span class="opp-badge badge-stage-2">拐点期初</span>
+            <span class="opp-badge badge-hl-short">半衰期 短</span>
+          </div>
+        </div>
+        <div class="opp-summary">市场把 CPO 当作"线性渗透"，但忽略云厂商对封闭生态的政治抵抗。NPO 上量速度 = CPO 渗透斜率的<strong style="color:var(--text);">倒数</strong>。</div>
+        <div class="opp-click-hint">▸ 点击展开四维分析</div>
+        <div class="opp-detail">
+          <div class="opp-detail-inner">
+            <div class="opp-dim">
+              <div class="opp-dim-label">共识在哪</div>
+              <div class="opp-dim-text">CPO 是终局技术，2027-2028 进入大规模商用，渗透曲线陡峭。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">认知差</div>
+              <div class="opp-dim-text">NPO 不是技术折中，是<strong>云厂商抵制 CPO 封闭生态的政治选择</strong>。AWS / Google / Meta 的 NPO 采购规模决定 CPO 渗透斜率。市场把这层博弈定价为 0。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">证伪条件</div>
+              <div class="opp-dim-text">2026 H2 — 2027 H1 北美云厂 NPO 实际采购规模公开后判断：若 NPO &lt; 预期 → CPO 加速；若 NPO 显著超预期 → CPO 推迟 1-2 年。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">半衰期</div>
+              <div class="opp-dim-text">短（产业链快速定价）。窗口大约在云厂 BOM 公布前 2-3 个季度。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-card" data-opp="2">
+        <div class="opp-header">
+          <div class="opp-title">② M10 PCB 材料认证 = 78 层正交背板良率拐点</div>
+          <div class="opp-badges">
+            <span class="opp-badge badge-stage-1">萌芽偏拐点</span>
+            <span class="opp-badge badge-hl-mid">半衰期 中</span>
+          </div>
+        </div>
+        <div class="opp-summary">M9+Q 布是当前妥协解（牺牲电性能换可加工性）。M10 一旦认证通过<strong style="color:var(--text);">不需要 Q 布</strong>，直接触发头部 PCB 厂业绩跃迁。</div>
+        <div class="opp-click-hint">▸ 点击展开四维分析</div>
+        <div class="opp-detail">
+          <div class="opp-detail-inner">
+            <div class="opp-dim">
+              <div class="opp-dim-label">共识在哪</div>
+              <div class="opp-dim-text">M9+Q 布是当前 78 层正交背板的工程妥协方案，CPX 模块甚至降级到 M8 保供。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">认知差</div>
+              <div class="opp-dim-text">M10 已在英伟达联合早期测试。<strong>它不需要昂贵且难加工的 Q 布、用二代布即可</strong>。一旦通过认证，正交背板良率拐点出现，头部 PCB 厂迎来量价齐升。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">证伪条件</div>
+              <div class="opp-dim-text">M10 认证延期 6 个月以上；或 78 层压合工艺报废率没有随 M10 渗透下降；或 Rubin Ultra 量产推迟到 2028。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">半衰期</div>
+              <div class="opp-dim-text">中（季度级催化）。窗口在 M10 认证披露到大规模采购订单确认之间。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-card" data-opp="3">
+        <div class="opp-header">
+          <div class="opp-title">③ 罗博特科收购 ficonTEC = 硅光全链战略卡位</div>
+          <div class="opp-badges">
+            <span class="opp-badge badge-stage-2">拐点期</span>
+            <span class="opp-badge badge-hl-mid">半衰期 中</span>
+          </div>
+        </div>
+        <div class="opp-summary">市场把测试设备当作"周边小环节"。但 ficonTEC 是英伟达 / 台积电 / 博通的核心供应商（1400+ 装机），国内并购等于<strong style="color:var(--text);">全链卡位</strong>。</div>
+        <div class="opp-click-hint">▸ 点击展开四维分析</div>
+        <div class="opp-detail">
+          <div class="opp-detail-inner">
+            <div class="opp-dim">
+              <div class="opp-dim-label">共识在哪</div>
+              <div class="opp-dim-text">测试设备是周边、附属环节，估值锚定在传统机床/自动化逻辑。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">认知差</div>
+              <div class="opp-dim-text">硅光测试已从"模块测"前移到"晶圆同步测"——越晚发现问题报废成本越高。ficonTEC 是<strong>全球极少数能为 800G/1.6T/CPO 同时提供研发到量产全流程的供应商</strong>，被罗博特科吃下意味着国内硅光全链的"守门人位置"被锁定。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">证伪条件</div>
+              <div class="opp-dim-text">英伟达 / 博通 / 台积电采购订单未持续；或国内整合失败、ficonTEC 关键工程师流失。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">半衰期</div>
+              <div class="opp-dim-text">中（1-2 年量产爬坡周期）。订单兑现节奏可由季报现金流跟踪。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-card" data-opp="4">
+        <div class="opp-header">
+          <div class="opp-title">④ 薄膜铌酸锂的尾部颠覆风险</div>
+          <div class="opp-badges">
+            <span class="opp-badge badge-stage-1">萌芽期</span>
+            <span class="opp-badge badge-hl-long">半衰期 长</span>
+          </div>
+        </div>
+        <div class="opp-summary">所有人都在押硅光。<strong style="color:var(--text);">反向非对称</strong>：薄膜铌酸锂调制器一旦在异质集成上突破，纯硅光路径上的专用设备面临减值。</div>
+        <div class="opp-click-hint">▸ 点击展开四维分析</div>
+        <div class="opp-detail">
+          <div class="opp-detail-inner">
+            <div class="opp-dim">
+              <div class="opp-dim-label">共识在哪</div>
+              <div class="opp-dim-text">硅光是不可撼动的主流技术路径，CMOS 工艺复用降本潜力巨大。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">认知差</div>
+              <div class="opp-dim-text">LNoI 在高速调制器场景的电光系数远高于硅，<strong>异质集成工艺一旦突破，可能跳过硅光直接到下一代</strong>。这是一个"5% 概率 × 50% 跌幅"的尾部对冲机会，不是主仓位。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">证伪条件</div>
+              <div class="opp-dim-text">未来 12-18 个月内 LNoI 没有出现工程化量产突破（无知名 fab 启动量产工艺），可标记为"暂时无威胁"。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">半衰期</div>
+              <div class="opp-dim-text">长（年级别，结构性）。但一旦触发，定价反应会非常快。适合作为对冲仓位，不适合主仓。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-card" data-opp="5">
+        <div class="opp-header">
+          <div class="opp-title">⑤ Tower Semi 至 2028 产能 70% 已预订</div>
+          <div class="opp-badges">
+            <span class="opp-badge badge-stage-2">拐点期</span>
+            <span class="opp-badge badge-hl-long">半衰期 长</span>
+          </div>
+        </div>
+        <div class="opp-summary">"产能 70% 已被预订"这种长尾结构性数据，意味着真实需求远超当前订单可见。<strong style="color:var(--text);">这是 OI 异动的硅光版本</strong>。</div>
+        <div class="opp-click-hint">▸ 点击展开四维分析</div>
+        <div class="opp-detail">
+          <div class="opp-detail-inner">
+            <div class="opp-dim">
+              <div class="opp-dim-label">共识在哪</div>
+              <div class="opp-dim-text">硅光晶圆代工有需求，但市场按当前订单簿定价。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">认知差</div>
+              <div class="opp-dim-text">Tower 公开披露至 2028 年产能 70% 已被预订 + 投资追加到 9.2 亿美元 + 月产能 5 倍扩张 —— 这是<strong>未来 3 年硅光真实需求的结构性证据</strong>，不是单季订单。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">证伪条件</div>
+              <div class="opp-dim-text">预订转化率 &lt; 60%；大客户取消预订；或硅光路径整体被新技术颠覆（关联陷阱 4）。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">半衰期</div>
+              <div class="opp-dim-text">长（基础设施级信号）。结构性数据的特征是定价缓慢，给认知差留出窗口。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-card" data-opp="6">
+        <div class="opp-header">
+          <div class="opp-title">⑥ 大客户依赖在 CPO 时代是壁垒，不是风险</div>
+          <div class="opp-badges">
+            <span class="opp-badge badge-stage-2">拐点期</span>
+            <span class="opp-badge badge-hl-mid">半衰期 中</span>
+          </div>
+        </div>
+        <div class="opp-summary">传统打假口径：单一客户 &gt; 30% = 风险。但在<strong style="color:var(--text);">封闭生态时代</strong>，深度绑定芯片巨头 = 不可替代位置 = 真壁垒。</div>
+        <div class="opp-click-hint">▸ 点击展开四维分析</div>
+        <div class="opp-detail">
+          <div class="opp-detail-inner">
+            <div class="opp-dim">
+              <div class="opp-dim-label">共识在哪</div>
+              <div class="opp-dim-text">大客户依赖度 &gt; 30% 自动归类为风险，给估值打折扣。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">认知差</div>
+              <div class="opp-dim-text">CPO 是芯片巨头主导的封闭生态。能在 CPO 时代成为<strong>英伟达官方技术合作伙伴 / 台积电 COUPE 配套商</strong>的公司，大客户依赖不是风险，是<strong>无法被新进入者复制的护城河</strong>。估值锚要从"打折"切换到"溢价"。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">证伪条件</div>
+              <div class="opp-dim-text">英伟达 / 台积电更换核心配套伙伴；或自身良率失守被挤出生态。</div>
+            </div>
+            <div class="opp-dim">
+              <div class="opp-dim-label">半衰期</div>
+              <div class="opp-dim-text">中（认知差需要市场重新理解封闭生态的价值，1-2 年定价过程）。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-card">
+      <h3>反向问题：观点不一致 ≠ 超额</h3>
+      <p>这是最隐蔽的陷阱。<strong style="color:var(--text);">观点不一致可能是因为</strong>：</p>
+      <ul>
+        <li>信息真的不对称（<strong>你的机会</strong>）</li>
+        <li>定价机制有摩擦（套利机会，通常被专业玩家吃掉）</li>
+        <li>这事本来就不可知（伪机会，所有人都在猜）</li>
+        <li class="deadly"><strong>时间维度不一致</strong>：你对，但你等不到 —— 最坑的一种</li>
+      </ul>
+      <p>第四种是最不显性的杀手。再对的判断，如果反馈周期超过你的资金/心理耐受，<strong style="color:var(--text);">等同于错</strong>。这也是为什么"半衰期"这个维度需要从一开始就显性化。</p>
+    </div>
+
+    <div class="moat-card">
+      <div class="moat-tag">META · 元洞察</div>
+      <h3>真正的护城河</h3>
+      <p>"找非对称"这件事本身，在投资圈早就不是非对称机会了——人人都在喊。</p>
+      <p class="emphasis">真正的非对称，是在"找非对称"这个共识里，<br>找出别人不做的<span class="gradient">具体方法论</span>。</p>
+      <p style="margin-top: 20px; font-size: 13px;">
+        三陷阱过滤器 + 半衰期模型 + 证伪条件显性化 —— 把这套元框架做成基础设施，<br>
+        比横向铺新领域更值钱。
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== 语音播报控件 ===== -->
+<div id="voiceFab" class="voice-fab" role="region" aria-label="语音播报">
+  <button class="voice-btn" id="voicePlay" title="朗读当前页">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+    朗读
+  </button>
+  <button class="voice-btn" id="voicePause" title="暂停 / 继续" disabled>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+  </button>
+  <button class="voice-btn" id="voiceStop" title="停止" disabled>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h12v12H6z"/></svg>
+  </button>
+  <span class="voice-status" id="voiceStatus">未播放</span>
+  <button class="voice-settings" id="voiceGear" title="语音设置">⚙</button>
+</div>
+
+<div class="voice-popup" id="voicePopup">
+  <label>语音</label>
+  <select id="voiceSelect"></select>
+  <label>语速</label>
+  <div class="rate-row">
+    <input type="range" id="voiceRate" min="0.7" max="1.4" step="0.1" value="1" style="margin-bottom:0;">
+    <span class="rate-val" id="rateVal">1.0×</span>
+  </div>
+  <div style="font-size:11px;color:var(--text-mute);margin-top:8px;line-height:1.5;">
+    使用浏览器内置语音合成，无需联网。<br>
+    macOS 推荐 "Ting-Ting" 或 "婷婷"。
+  </div>
+</div>
+
+<footer>
+  <div style="margin-bottom: 6px;">基于某产业研究人系列文章合成的学习材料，内容仅作产业研究学习用途，不构成投资建议</div>
+  <div><span class="watermark">水印：黑森船长</span> · 编译时间 2026-05-14</div>
+</footer>
+
+<script>
+// === Tab 切换 ===
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+
+function switchTab(index) {
+  tabs.forEach(t => t.classList.remove('active'));
+  panels.forEach(p => p.classList.remove('active'));
+  tabs[index].classList.add('active');
+  panels[index].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // 第一次进入概览：动画数字
+  if (index === 0) animateNumbers();
+  // 第一次进入市场：渲染图表
+  if (index === 3) renderCharts();
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => switchTab(parseInt(tab.dataset.tab)));
+});
+
+// === Tab 1: 数字动画 ===
+let animated = false;
+function animateNumbers() {
+  if (animated) return;
+  animated = true;
+  document.querySelectorAll('.stat-num').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix;
+    const span = el.querySelector('span:first-child');
+    let current = 0;
+    const duration = 1200;
+    const startTime = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      current = Math.floor(target * eased);
+      span.textContent = current;
+      if (progress < 1) requestAnimationFrame(tick);
+      else span.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  });
+}
+// 进入页面立即跑一次
+window.addEventListener('load', () => animateNumbers());
+
+// === Tab 2: 三面墙展开 ===
+document.querySelectorAll('.wall').forEach(w => {
+  w.addEventListener('click', () => {
+    w.classList.toggle('expanded');
+  });
+});
+
+// === Tab 3: 技术路线切换 ===
+const techData = {
+  cpo: {
+    name: 'CPO · 共封装光学',
+    oneLiner: '把光引擎和交换芯片"焊"在一起',
+    desc: 'CPO 把光引擎通过先进封装直接做进交换芯片的同一块基板上，电信号传输距离从十几厘米缩到几毫米。三面墙一次性全部突破——损耗降到 4dB（64 倍提升）、不需要 DSP 补偿、前面板空间释放。但代价是：光器件和芯片高度集成，一旦激光器坏了，整块昂贵的芯片可能就报废。',
+    specs: {
+      '商用节奏': '2027-2028',
+      '代表产品': 'Quantum-X / 博通 Davisson',
+      '最大挑战': '先进封装产能 + 系统可靠性',
+      '谁主导': '芯片巨头深度定制（封闭生态）'
+    }
+  },
+  lpo: {
+    name: 'LPO · 线性直驱光学',
+    oneLiner: '最务实的降功耗方案',
+    desc: 'LPO 的核心招数就一个：去掉 DSP。它把 DSP 原本干的信号补偿工作"转移"到主机 ASIC 芯片里，用高线性度的放大器（TIA）和驱动器（Driver）来配合。结果是功耗大幅下降、延迟降低、成本降低。但代价是传输距离严重受限——只能用在机架内部的短距离场景。',
+    specs: {
+      '商用节奏': '已量产 400G/800G',
+      '主要场景': '数据中心机架内部短距',
+      '最大短板': '传输距离 + 高速率衰减',
+      '观察信号': '云厂渗透率 = "去 DSP" 紧迫度'
+    }
+  },
+  npo: {
+    name: 'NPO · 近封装光学',
+    oneLiner: '介于 LPO 和 CPO 之间的折中',
+    desc: 'NPO 把光引擎放到很靠近 ASIC 的同一块 PCB 上（不超过 15 厘米），但不和 ASIC 共封装。既拿到了接近 CPO 的低功耗优势，又保留了"光引擎可以拔下来更换"的维护性。\n\n关键洞察：NPO 不是"技术折中"，而是云厂商抵制 CPO 封闭生态的政治选择。CPO 让光模块厂深度依附于芯片巨头，NPO 让云厂商可以多源采购、保留议价权。',
+    specs: {
+      '商用节奏': '2025 预研 → 2026 送样 → 2027 出货',
+      '优势': '可维护 + 多源 + 生态开放',
+      '支持者': '云厂商（AWS / Google / Meta）',
+      '市场含义': 'NPO 超预期 → 延缓 CPO 渗透斜率'
+    }
+  }
+};
+
+function renderTech(key) {
+  const d = techData[key];
+  const box = document.getElementById('techDetail');
+  // 不同技术配不同宝宝
+  const babyMap = {
+    cpo: { id: 'happy-baby', tilt: '' },        // 三面墙都解决 → 开心
+    lpo: { id: 'exhausted-baby', tilt: 'tilted-r' }, // 务实但勉强 → 累瘫
+    npo: { id: 'worried-baby', tilt: 'tilted-l' }    // 折中 → 担忧
+  };
+  const baby = babyMap[key];
+  let specsHtml = '';
+  for (const k in d.specs) {
+    specsHtml += `<div class="spec"><div class="k">${k}</div><div class="v">${d.specs[k]}</div></div>`;
+  }
+  box.innerHTML = `
+    <div class="baby-wrap">
+      <svg class="baby-svg ${baby.tilt}"><use href="#${baby.id}"/></svg>
+    </div>
+    <h3>${d.name}</h3>
+    <div class="one-liner">${d.oneLiner}</div>
+    <p>${d.desc.replace(/\n\n/g, '</p><p style="background: rgba(0,212,255,0.05); padding: 14px; border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;">')}</p>
+    <div class="tech-specs">${specsHtml}</div>
+  `;
+}
+renderTech('cpo');
+
+document.querySelectorAll('.tech-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tech-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTech(btn.dataset.tech);
+  });
+});
+
+// === Tab 3: 时间轴 ===
+const stages = [
+  { name: 'Blackwell · NVL72', gpu: '72', desc: '当前主力架构。柜内 72 颗 GPU 通过 5184 根高频铜缆全互连，机柜背部已被密集线束占满，散热与维护都是瓶颈。' },
+  { name: 'Vera Rubin · NVL576', gpu: '576', desc: '过渡阶段：单柜 72 颗 GPU，柜内仍用铜缆，但柜间 Scale-up 开始采用光学扩展，把 NVLink 域规模拉到 576 颗。' },
+  { name: 'Vera Rubin Ultra · Kyber NVL576', gpu: '144 / 柜', desc: '关键拐点：单柜密度翻倍到 144 颗 GPU，柜内介质切换为 PCB 正交背板（无缆化），柜间用 CPO 光互连 / 铜并行。' },
+  { name: 'Feynman + Kyber · NVL1152', gpu: '1152', desc: '终局形态：144 颗/柜，柜间升级为 NVLink 8 全光互连，最大 NVLink 域规模达 1152 颗 GPU，单柜功耗逼近 1MW。' }
+];
+
+function renderStage(i) {
+  const s = stages[i];
+  document.getElementById('stageInfo').innerHTML = `
+    <div class="name">${s.name}</div>
+    <div class="gpu-num">${s.gpu} GPU</div>
+    <div class="desc">${s.desc}</div>
+  `;
+  document.querySelectorAll('.marker').forEach((m, idx) => {
+    m.classList.toggle('active', idx === i);
+  });
+  document.getElementById('sliderFill').style.width = (i / (stages.length - 1) * 100) + '%';
+}
+renderStage(0);
+
+document.querySelectorAll('.marker').forEach(m => {
+  m.addEventListener('click', () => renderStage(parseInt(m.dataset.stage)));
+});
+
+// === Tab 4: 图表 ===
+let chartsRendered = false;
+function renderCharts() {
+  if (chartsRendered) return;
+
+  // Chart.js 还没从 CDN 加载完
+  if (typeof Chart === 'undefined') {
+    console.warn('Chart.js 未加载，200ms 后重试');
+    setTimeout(renderCharts, 200);
+    return;
+  }
+
+  // 等浏览器完成 panel 切换的布局，否则 Chart 拿到 0x0 容器
+  requestAnimationFrame(() => {
+    try {
+      _doRenderCharts();
+      chartsRendered = true;
+    } catch (e) {
+      console.error('图表渲染失败:', e);
+    }
+  });
+}
+
+function _doRenderCharts() {
+  Chart.defaults.color = '#8b92a8';
+  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, PingFang SC, Microsoft YaHei, sans-serif';
+
+  new Chart(document.getElementById('powerChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Hopper H100', 'Blackwell B100', 'Blackwell NVL72', 'Vera Rubin', 'Vera Rubin Ultra', 'Feynman + Kyber'],
+      datasets: [{
+        label: '单机柜功耗 (kW)',
+        data: [40, 80, 120, 250, 700, 1000],
+        backgroundColor: ['rgba(0,212,255,0.3)','rgba(0,212,255,0.4)','rgba(0,212,255,0.5)','rgba(147,51,234,0.6)','rgba(239,68,68,0.7)','rgba(239,68,68,0.9)'],
+        borderColor: ['#00d4ff','#00d4ff','#00d4ff','#9333ea','#ef4444','#ef4444'],
+        borderWidth: 2,
+        borderRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: { display: true, text: '单机柜功耗的爆炸式增长 → 必须切换到全液冷', font: { size: 15, weight: '600' }, color: '#e6e8ee', padding: { bottom: 16 } },
+        legend: { display: false }
+      },
+      scales: {
+        y: { title: { display: true, text: '功耗 (kW)' }, ticks: { callback: v => v + ' kW' } },
+        x: { ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('bandwidthChart'), {
+    type: 'line',
+    data: {
+      labels: ['2020 (100G)', '2022 (400G)', '2024 (800G)', '2026 (1.6T)', '2027 (3.2T)', '2028 (6.4T)'],
+      datasets: [
+        { label: 'Scale-out 网络', data: [100, 400, 800, 1600, 3200, 6400], borderColor: '#9333ea', backgroundColor: 'rgba(147,51,234,0.1)', tension: 0.4, fill: true, borderWidth: 3 },
+        { label: 'Scale-up 网络 (≈9× 倍数)', data: [900, 3600, 7200, 14400, 28800, 57600], borderColor: '#00d4ff', backgroundColor: 'rgba(0,212,255,0.1)', tension: 0.4, fill: true, borderWidth: 3 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: { display: true, text: 'Scale-up 网络带宽是 Scale-out 的 6-10 倍 → CPO 的真正价值', font: { size: 15, weight: '600' }, color: '#e6e8ee', padding: { bottom: 16 } },
+        legend: { position: 'bottom' }
+      },
+      scales: { y: { type: 'logarithmic', title: { display: true, text: '带宽 (Gbps, 对数刻度)' } } }
+    }
+  });
+}
+
+// ===== 语音播报 =====
+const narrations = {
+  0: '欢迎来到光通信入门页面。今天的人工智能已经不是一台超级电脑，而是一座工厂——上万颗 GPU 一起工作。这些芯片之间用什么来传数据？过去靠铜，今天必须靠光。这就是为什么光通信已经从配套变成了关键。看看这四个核心数字：磷化铟光通道每年增长百分之八十五，Scale-up 网络带宽是 Scale-out 的九倍，未来单机柜峰值功耗将达到一兆瓦，CPO 技术让信号完整性提升六十四倍。当前人工智能不再是单卡作战，而是构建超节点。价值正在重新洗牌，过去最赚钱的是芯片本身，现在光引擎、高多层 PCB、激光器、晶圆级测试这些原来的配套，正在变成没有它系统就跑不起来的关键环节。',
+
+  1: '传统铜线撞上了三面墙。第一面是信号损耗墙。芯片和光模块之间隔着十几厘米的 PCB 铜线，高频电信号会指数级衰减，到了 1.6T 速率，铜线已经传不动了。CPO 技术把这段距离缩到几毫米，插入损耗从 22 分贝降到 4 分贝，信号完整性提升 64 倍。第二面是功耗墙。为了抢救被衰减的信号，传统光模块必须用 DSP 芯片做补偿，但 DSP 自己就吃掉模块功耗的近一半。800G 模块的 DSP 功耗 6 到 7 瓦，1.6T 已经 12 到 14 瓦了。第三面是物理空间墙。可插拔光模块的尺寸是固定的，前面板插槽见底了。现在的机柜里已经塞了 5184 根铜缆，未来更大的超节点需要 2 万根，在物理上根本不可能。',
+
+  2: '解决三面墙有三条技术路线在赛跑。CPO 是终局技术，把光引擎和交换芯片直接焊在一起，电信号传输距离从十几厘米缩到几毫米，三面墙一次性全部突破。但代价是高度集成，一旦坏了整块昂贵芯片可能就报废，而且封闭生态让芯片巨头主导。LPO 是已经量产的过渡方案，核心招数就一个：去掉 DSP。它把信号补偿转移到主机芯片，功耗大幅下降，但传输距离严重受限，只能用在机架内部。NPO 是介于两者之间的折中，光引擎贴近 ASIC 但不共封装，关键洞察是：NPO 不是技术折中，而是云厂商抵制 CPO 封闭生态的政治选择。',
+
+  3: '市场到底有多大？看这几个数字：单机柜功耗从现在的 120 千瓦飙到 1 兆瓦，散热必须切换到全液冷。一台 CPO 交换机就需要 72 个 1.6T 光引擎、18 个外置光源模块、72 个高精度光纤阵列。完整的 NVL1152 集群整套需要数以百万计的光纤阵列和高密度连接器。磷化铟光通道未来年复合增长率达到 85%。这是过去十年都没见过的需求曲线。价值分配也在重新洗牌——光电转换下沉到共封装光引擎，发光功能剥离到独立模块，DSP 大幅简化甚至消失。',
+
+  4: '产业链分三层。海外巨头掌握底层生态：Intel 和 Cisco 是硅光技术先驱，台积电的 COUPE 平台 2026 年量产，Tower Semi 至 2028 年的产能已经被预订了 70%。台湾深度绑定台积电封装平台，FOCI 上诠是代表。中国大陆在光模块封装环节实现全球领跑——某国内龙头 1.6T 光模块已经通过英伟达认证，硅光芯片自研良率超过 90%。另一家公司是英伟达 CPO 交换机的官方技术合作伙伴。在晶圆级测试这种长期被海外垄断的环节，国内企业通过并购精准卡位，比如收购了德国 ficonTEC，那是全球关键测试设备供应商，装机量超过 1400 套。',
+
+  5: '这条赛道不是没有变数。四类系统性风险需要持续跟踪。第一是良率风险，光纤阵列的测试和组装还依赖熟练人工，自动化设备如果跟不上，CPO 量产节奏就会被拖累。第二是替代品风险，海外磷化铟产能如果快速释放，会削弱国产硅光切换的紧迫性。第三是生态封闭风险，台积电如果通过内部整合扶持封闭供应链，缺乏核心技术的厂商会被挤出生态圈。第四是颠覆性技术风险，薄膜铌酸锂这种新型电光调制材料如果在异质集成上取得突破，可能对纯硅光子集成产生结构性冲击。任何一个风险触发，整条产业链的节奏都会被改写。',
+
+  6: '"找非对称机会"这件事本身，在投资圈早就不是非对称机会了。真正的非对称，是在共识里找出认知盲点。这一章拆解三个最容易踩的反模式。第一个陷阱：把冷门当成非对称。冷门可能只是没人关心，不是定价错了。冷门赚的是流动性溢价，热门里的盲点赚的是认知溢价。第二个陷阱：把逆共识当成非对称。共识错的概率，往往低于"觉得共识错"的人估计的概率。真正值得下注的非对称，必须能同时说清三件事：大家错在哪、错在什么机制、什么条件下会被证伪。说不出第三条就只是另一种信念，不是仓位逻辑。第三个陷阱：忽略半衰期。同一个认知差在萌芽期是抽奖，在拐点期是甜区，在共识形成期就只剩 β 了。把这套元框架做成基础设施，比横向铺新领域更值钱。'
+};
+
+const synth = window.speechSynthesis;
+let utterance = null;
+let isPlaying = false;
+let isPaused = false;
+let availableVoices = [];
+
+const fab = document.getElementById('voiceFab');
+const playBtn = document.getElementById('voicePlay');
+const pauseBtn = document.getElementById('voicePause');
+const stopBtn = document.getElementById('voiceStop');
+const statusEl = document.getElementById('voiceStatus');
+const voiceSelect = document.getElementById('voiceSelect');
+const rateInput = document.getElementById('voiceRate');
+const rateVal = document.getElementById('rateVal');
+const gearBtn = document.getElementById('voiceGear');
+const popup = document.getElementById('voicePopup');
+
+function loadVoices() {
+  availableVoices = synth.getVoices();
+  // 中文语音优先排在前面
+  const zhVoices = availableVoices.filter(v => /zh|cmn|Mandarin|Chinese/i.test(v.lang + v.name));
+  const otherVoices = availableVoices.filter(v => !zhVoices.includes(v));
+  const ordered = [...zhVoices, ...otherVoices];
+
+  if (ordered.length === 0) {
+    voiceSelect.innerHTML = '<option>(系统暂无可用语音)</option>';
+    return;
+  }
+  voiceSelect.innerHTML = ordered.map((v, i) =>
+    `<option value="${v.name}" ${i === 0 ? 'selected' : ''}>${v.name} (${v.lang})</option>`
+  ).join('');
+}
+loadVoices();
+if (synth.onvoiceschanged !== undefined) {
+  synth.onvoiceschanged = loadVoices;
+}
+
+function setStatus(text) { statusEl.textContent = text; }
+function setPlaying(playing) {
+  isPlaying = playing;
+  fab.classList.toggle('playing', playing);
+  pauseBtn.disabled = !playing;
+  stopBtn.disabled = !playing;
+  if (playing) {
+    document.querySelector('.panel.active')?.classList.add('reading');
+  } else {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('reading'));
+  }
+}
+
+playBtn.addEventListener('click', () => {
+  if (isPlaying && isPaused) {
+    synth.resume();
+    isPaused = false;
+    setStatus('正在朗读');
+    return;
+  }
+  synth.cancel();
+  const currentTab = parseInt(document.querySelector('.tab.active').dataset.tab);
+  const text = narrations[currentTab];
+  if (!text) return;
+
+  utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'zh-CN';
+  utterance.rate = parseFloat(rateInput.value);
+  utterance.pitch = 1;
+
+  const selectedName = voiceSelect.value;
+  const voice = availableVoices.find(v => v.name === selectedName);
+  if (voice) utterance.voice = voice;
+
+  utterance.onstart = () => { setPlaying(true); setStatus('正在朗读'); };
+  utterance.onend = () => { setPlaying(false); setStatus('已完成'); };
+  utterance.onpause = () => { setStatus('已暂停'); };
+  utterance.onresume = () => { setStatus('正在朗读'); };
+  utterance.onerror = (e) => { setPlaying(false); setStatus('出错'); console.warn(e); };
+
+  synth.speak(utterance);
+  setStatus('准备中…');
+});
+
+pauseBtn.addEventListener('click', () => {
+  if (!isPlaying) return;
+  if (synth.paused) {
+    synth.resume();
+    isPaused = false;
+  } else {
+    synth.pause();
+    isPaused = true;
+  }
+});
+
+stopBtn.addEventListener('click', () => {
+  synth.cancel();
+  setPlaying(false);
+  isPaused = false;
+  setStatus('已停止');
+});
+
+gearBtn.addEventListener('click', () => {
+  popup.classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  if (!popup.contains(e.target) && e.target !== gearBtn) {
+    popup.classList.remove('open');
+  }
+});
+
+rateInput.addEventListener('input', () => {
+  rateVal.textContent = parseFloat(rateInput.value).toFixed(1) + '×';
+});
+
+// 切换 tab 时自动停止
+const origSwitch = switchTab;
+window.switchTab = function(i) {
+  if (isPlaying) { synth.cancel(); setPlaying(false); setStatus('未播放'); }
+  origSwitch(i);
+};
+tabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => {
+    if (isPlaying) { synth.cancel(); setPlaying(false); setStatus('未播放'); }
+  });
+});
+
+// === Tab 7: 非对称机会卡片展开 ===
+document.querySelectorAll('.opp-card').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('expanded');
+  });
+});
+
+// === Tab 5: 产业链筛选 ===
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.player').forEach(p => {
+      if (f === 'all' || p.classList.contains(f)) {
+        p.classList.remove('hidden');
+      } else {
+        p.classList.add('hidden');
+      }
+    });
+  });
+});
+
+</script>
+
+</body>
+</html>

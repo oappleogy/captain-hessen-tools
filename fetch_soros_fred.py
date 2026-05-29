@@ -26,6 +26,18 @@ from pathlib import Path
 # 配置区
 # ============================================================
 
+# 从 s2-dev/.env 加载 FRED_API_KEY（launchd 环境无 shell profile）
+for _env_path in [
+    Path(__file__).resolve().parent.parent.parent / "s2-dev" / ".env",  # basealpha-core/s2-dev/.env
+    Path.home() / "s2" / ".env",  # ~/s2/.env
+]:
+    if _env_path.exists():
+        for _line in _env_path.read_text().splitlines():
+            if "=" in _line and not _line.strip().startswith("#"):
+                _k, _, _v = _line.partition("=")
+                os.environ.setdefault(_k.strip(), _v.strip().strip('"').strip("'"))
+        break
+
 FRED_API_KEY = os.environ.get("FRED_API_KEY", "")
 FRED_BASE = "https://api.stlouisfed.org/fred/series/observations"
 OUTPUT_FILE = Path(__file__).parent / "soros-data.js"

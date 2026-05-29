@@ -41,7 +41,7 @@ a{color:inherit;text-decoration:none}
     <div style="width:4px;height:24px;background:linear-gradient(180deg,var(--accent),var(--accentDim));border-radius:2px"></div>
     <h1 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px">Q1 2026 · 超预期面板</h1>
   </div>
-  <p style="color:var(--dim);font-size:11px;margin:6px 0 0 12px;line-height:1.5">10家公司的业绩暴增，共同指向了什么？</p>
+  <p style="color:var(--dim);font-size:11px;margin:6px 0 0 12px;line-height:1.5">20+家公司的业绩暴增，共同指向了什么？</p>
 </div>
 
 <div class="tab-bar" id="tabBar"></div>
@@ -53,19 +53,22 @@ var C={bg:"#06090f",card:"#0d1117",cardHi:"#151d2b",accent:"#c9a227",accentDim:"
 
 var CHAIN=[
 {layer:"L0",label:"Hyperscaler Capex",desc:"$602B (2026E), YoY+36%",color:C.purple,companies:[{t:"AMZN/MSFT/GOOG/META",rev:"$602B合计",yoy:"+36%",note:"75%指向AI基础设施"}],saNote:"SA预测2026达$500B → 实际$602B，比预言更快"},
-{layer:"L1",label:"GPU/算力芯片",desc:"算力本体",color:C.pink,companies:[{t:"AMD",rev:"$10.3B",yoy:"+32%",beat:"EPS+6%",dc:"DC+52%",price:"+5%",note:"EPYC CPU因Agentic AI复兴"},{t:"INTC",rev:"$13.6B",yoy:"+7%",beat:"EPS+2800%",dc:"DC+22%,Fab+16%",price:"+20%",note:"SA基金重仓+看涨期权，制造回流旗舰"}],saNote:"SA做空NVDA/AVGO/TSM看跌期权，重仓INTC看涨期权——赌代工价值回归美国"},
+{layer:"L1",label:"GPU/算力芯片",desc:"算力本体",color:C.pink,companies:[{t:"AMD",rev:"$10.3B",yoy:"+38%",beat:"EPS+8%",dc:"DC+57%→$5.8B",price:"+16%",note:"EPYC CPU因Agentic AI复兴。Q2指引$11.2B(+46%YoY)"},{t:"AVGO",rev:"$19.3B",yoy:"+29%",beat:"Rev+2%",dc:"AI芯片$8.4B(+106%YoY)",price:"+8%",note:"Custom XPU为Meta/Google定制。Q2指引$22B(AI $10.7B,+140%YoY)。2027 AI芯片目标>$100B"},{t:"INTC",rev:"$13.6B",yoy:"+7%",beat:"EPS+2800%",dc:"DCAI+22%→$5.1B,Fab+16%",price:"+24%",note:"SA基金重仓+看涨期权，制造回流旗舰。Q2指引$13.8-14.8B大超预期"}],saNote:"SA做空NVDA/AVGO/TSM看跌期权，重仓INTC看涨期权——赌代工价值回归美国"},
+{layer:"L1.5",label:"AI服务器+网络",desc:"从芯片到机柜的集成层",color:"#f97316",companies:[{t:"DELL",rev:"$43.8B",yoy:"+88%",beat:"EPS+282%",dc:"AI服务器$16.1B(+757%YoY)",price:"+39%",note:"AI订单$24.4B，积压$51.3B。五角大楼$9.7B合同。FY27营收指引$167B(+50%YoY)"},{t:"ANET",rev:"$2.71B",yoy:"+35%",beat:"EPS+7%",dc:"AI网络目标$3.5B(翻倍+)",price:"-9%",note:"AI网络从$3.25B上调至$3.5B。全年$11.5B(+27.7%)。因指引不及最高预期回调"}],saNote:"DELL AI服务器+757%是全链最炸裂增速。ANET指引miss说明网络层供需正在追赶算力层"},
 {layer:"L2",label:"VRM/板级电源",desc:"离GPU最近的电源",color:C.orange,companies:[{t:"MPWR",rev:"$804M",yoy:"+26%",beat:"EPS+4%",dc:"通信+33%seq",price:"+6%",note:"产能目标$4B→$6B，DDR5电源放量"}],saNote:"每代GPU功耗翻倍→VRM含量线性增长"},
 {layer:"L3",label:"Rack级模拟电源",desc:"每台服务器几百颗",color:C.accent,companies:[{t:"TXN",rev:"$4.83B",yoy:"+19%",beat:"EPS+32%",dc:"DC+90% YoY",price:"+19%",note:"2000年来最佳单日。Sherman fab投产，CHIPS $1.6B+$6-8B税抵"}],saNote:"DC+90%是全链最高增速——验证瓶颈已到供电层"},
 {layer:"L4",label:"功率半导体",desc:"SiC/GaN/Si MOSFET",color:C.green,companies:[{t:"STM",rev:"$3.1B",yoy:"+23%",beat:"Rev+2%",dc:">$500M指引",price:"+6%",note:"NVIDIA 800V HVDC合作，AWS多年期数十亿合同。YTD+76%"},{t:"ON",rev:"$1.51B",yoy:"+5%",beat:"EPS+3%",dc:"DC环比+30%",price:"-5%",note:"2026全年DC翻倍预期。唯一broad-based美国功率半导体"}],saNote:"STM验证了'SiC在DC落地'的条件，但估值P/E 258x已透支"},
 {layer:"L5",label:"散热+配电系统",desc:"Rack到Building层",color:C.cyan,companies:[{t:"VRT",rev:"$2.65B",yoy:"+30%",beat:"EPS+15%",dc:"美洲有机+44%",price:"+6%",note:"Backlog>$15B翻倍。OP margin+430bps。NVIDIA参考设计合作"}],saNote:"散热TAM 2026→2030 CAGR 30%达$1729亿"},
+{layer:"L5.5",label:"AI数据/企业软件",desc:"AI应用层的数据底座",color:"#818cf8",companies:[{t:"SNOW",rev:"$1.39B",yoy:"+33%",beat:"Rev+5%",dc:"产品收入$1.33B(+34%YoY)",price:"+37%",note:"$6B AWS基础设施协议+收购Natoma。RPO $9.21B(+38%)。Cortex AI+Intelligence产品放量"},{t:"PLTR",rev:"$1.63B",yoy:"+85%",beat:"EPS+18%",dc:"美国收入+104%YoY",price:"-6%",note:"净利$870M(+4x)。全年指引$7.65B。AIP平台驱动企业AI部署。估值争议致回调"}],saNote:"SNOW+PLTR代表AI从训练到部署的拐点——企业真正开始为AI数据能力付费，而非只买算力"},
 {layer:"L6",label:"推理云平台",desc:"面向中小企业的AI云",color:C.blue,companies:[{t:"DOCN",rev:"$258M",yoy:"+22%",beat:"EPS+69%",dc:"AI ARR+221%",price:"+19%",note:"募$888M扩60MW，2027指引rev+50%"},{t:"LSCC",rev:"$171M",yoy:"+42%",beat:"EPS+11%",dc:"Compute创纪录",price:"+4%",note:"$1.65B收购AMI(BIOS/BMC)。FPGA做AI服务器管控层"}],saNote:"推理用电>训练，且更分散——长期电力需求的真正大头"},
-{layer:"L7",label:"发电/电网",desc:"电力的电力",color:C.red,companies:[{t:"BE",rev:"$751M",yoy:"+130%",beat:"EPS+242%",dc:"产品营收+208%",price:"+23%",note:"Oracle 2.8GW燃料电池。全年上调至$3.4-3.8B。90天部署。YTD+223%"},{t:"VST",rev:"Q1待发(5/7)",yoy:"+37%E",beat:"\u2014",dc:"核电PPA 3.8GW",price:"\u2014",note:"AWS 1.2GW+Meta 2.6GW核电协议。2026 EBITDA指引$6.8-7.6B"},{t:"CEG",rev:"\u2014",yoy:"\u2014",beat:"\u2014",dc:"美国最大核电舰队",price:"\u2014",note:"Microsoft三哩岛重启协议。$26.6B收购Calpine(天然气)"}],saNote:"SA基金最大持仓=Bloom Energy(8.75亿+40.8万份看涨期权)。电力是终极瓶颈"}
+{layer:"L7",label:"发电/电网",desc:"电力的电力",color:C.red,companies:[{t:"BE",rev:"$751M",yoy:"+130%",beat:"EPS+242%",dc:"产品营收+208%",price:"+23%",note:"Oracle 2.8GW燃料电池。全年上调至$3.4-3.8B。EBITDA指引$650-800M。YTD+223%"},{t:"VST",rev:"$5.64B",yoy:"+43%",beat:"EPS+2%",dc:"EBITDA $1,494M",price:"+8%",note:"升至投资级评级。2026 EBITDA指引$6.8-7.6B维持。AWS 1.2GW+Meta 2.6GW核电协议"},{t:"CEG",rev:"$11.1B",yoy:"+64%",beat:"EPS+7%",dc:"Calpine并表驱动",price:"+5%",note:"Calpine收购驱动营收翻倍。EPS $4.49(去年$0.38)。美国最大核电+天然气组合"}],saNote:"SA基金最大持仓=Bloom Energy(8.75亿+40.8万份看涨期权)。电力是终极瓶颈。VST/CEG均已发布Q1，全面超预期"}
 ];
 
 var SA_PREDICTIONS=[
 {pred:"AI投资2026达~$500B",actual:"Hyperscaler仅2026就$602B",status:"超预期",icon:"\u{1F7E2}"},
 {pred:"1GW单集群2026出现",actual:"xAI 200K H100\u21921M路线图，Stargate multi-GW",status:"兑现",icon:"\u{1F7E2}"},
-{pred:"电力是真正瓶颈",actual:"TXN DC+90%，BE+130%，VRT backlog翻倍",status:"全面验证",icon:"\u{1F7E2}"},
+{pred:"电力是真正瓶颈",actual:"TXN DC+90%，BE+130%，VRT backlog翻倍，DELL AI服务器+757%",status:"全面验证",icon:"\u{1F7E2}"},
+{pred:"AI从训练转向企业部署",actual:"SNOW产品收入+34%，PLTR收入+85%，企业AI付费加速",status:"兑现中",icon:"\u{1F7E1}"},
 {pred:"Intel代工复兴",actual:"Foundry+16%，DCAI+22%，EPS beat 2800%",status:"兑现中",icon:"\u{1F7E1}"},
 {pred:"AGI 2027年到来",actual:"PhD级benchmark饱和，但drop-in worker晚2-4年",status:"部分验证",icon:"\u{1F7E1}"},
 {pred:"中国落后18-24个月",actual:"DeepSeek以1/18成本达GPT-4级\u2192预测失准",status:"被颠覆",icon:"\u{1F534}"}
@@ -74,6 +77,7 @@ var SA_PREDICTIONS=[
 var CN_COMPARE=[
 {us:"TXN",usGrowth:19,usLabel:"模拟芯片",cn:"北方华创",cnGrowth:26,cnLabel:"设备",usProfit:"+31% EPS",cnProfit:"+3.4% 净利",insight:"美方利润增速远快于营收"},
 {us:"MPWR",usGrowth:26,usLabel:"电源IC",cn:"中芯国际",cnGrowth:10,cnLabel:"代工",usProfit:"+40% EPS",cnProfit:"+43% 净利",insight:"SMIC利润恢复但基数极低"},
+{us:"DELL",usGrowth:88,usLabel:"AI服务器",cn:"浪潮信息",cnGrowth:25,cnLabel:"服务器",usProfit:"+282% EPS",cnProfit:"~+20% 净利",insight:"DELL AI服务器+757%，中国AI服务器受芯片管制增速受限"},
 {us:"LSCC",usGrowth:42,usLabel:"FPGA",cn:"A股半导体均值",cnGrowth:16,cnLabel:"行业",usProfit:"+86% EPS",cnProfit:"~30% 行业净利",insight:"美方多引擎vs中方单引擎"}
 ];
 

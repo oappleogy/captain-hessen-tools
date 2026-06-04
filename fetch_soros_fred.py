@@ -413,34 +413,69 @@ def _classify_event(items, trigger_terms, warn_pill="pill-warn"):
 
 
 def fetch_news_events():
-    """返回 capex / neocloud 两个事件驱动信号的最新状态。"""
+    """返回各事件/周度信号的最新状态（Google News 关键词监控）。
+
+    capex / neocloud：事件驱动
+    bond（S4）：Hyperscaler 新发债认购 —— 撤回/认购不足=看空
+    abs（S6）：数据中心 ABS 未售出 tranche
+    policy：中美 AI 政策重大变化
+    """
     print("\n→ 新闻事件监控 (Google News)...")
 
-    capex_items = _fetch_gnews(
-        "(Microsoft OR Meta OR Google OR Amazon OR Oracle) capex")
-    # 下调/暂停才是反身性看空触发；上调=扩张延续
     capex = _classify_event(
-        capex_items,
+        _fetch_gnews("(Microsoft OR Meta OR Google OR Amazon OR Oracle) capex"),
+        # 下调/暂停才是反身性看空触发；上调=扩张延续
         trigger_terms=["cut", "slash", "reduce", "lower", "pause", "halt",
                        "scale back", "pull back", "delay", "下调", "暂停", "削减"],
         warn_pill="pill-warn",
     )
 
-    neo_items = _fetch_gnews(
-        "CoreWeave OR Nebius OR IREN OR Crusoe debt OR financing OR default OR downgrade")
     neo = _classify_event(
-        neo_items,
+        _fetch_gnews("CoreWeave OR Nebius OR IREN OR Crusoe debt OR financing OR default OR downgrade"),
         trigger_terms=["default", "bankrupt", "downgrade", "distress",
                        "restructur", "refinancing fail", "missed payment",
                        "covenant breach", "违约", "评级下调", "重组"],
         warn_pill="pill-red",
     )
 
-    for label, ev in [("CAPEX", capex), ("NEOCLOUD", neo)]:
-        flag = "⚠" if ev["triggered"] else "✓"
-        print(f"   {flag} {label:9s} {ev['status']}  | {ev['headline'][:60]}")
+    # S4 — Hyperscaler 新发债认购：发行被撤回/认购不足/需求疲软 = 看空触发
+    bond = _classify_event(
+        _fetch_gnews("(Microsoft OR Meta OR Alphabet OR Amazon OR Oracle) "
+                     "bond OR notes OR debt offering OR issuance"),
+        trigger_terms=["undersubscribed", "pulled", "withdrawn", "postponed",
+                       "shelved", "scaled back", "weak demand", "soft demand",
+                       "widened spread", "撤回", "推迟", "认购不足", "需求疲软"],
+        warn_pill="pill-warn",
+    )
 
-    return {"capex": capex, "neocloud": neo}
+    # S6 — 数据中心 ABS 未售出 tranche / 评级问题
+    abs_ev = _classify_event(
+        _fetch_gnews("data center OR datacenter ABS OR securitization OR "
+                     "asset-backed (CoreWeave OR digital infrastructure OR AI)"),
+        trigger_terms=["unsold", "undersubscribed", "pulled", "downgrade",
+                       "junior tranche", "unplaced", "retained", "distress",
+                       "未售出", "降级", "撤回"],
+        warn_pill="pill-warn",
+    )
+
+    # 中美 AI 政策重大变化：出口管制/补贴/反垄断/FERC 裁决
+    policy = _classify_event(
+        _fetch_gnews("AI OR semiconductor OR chip (export control OR "
+                     "subsidy OR antitrust OR FERC) China OR US"),
+        trigger_terms=["ban", "restrict", "block", "new rule", "ruling",
+                       "sanction", "tariff", "investigation", "antitrust",
+                       "禁令", "管制", "制裁", "裁决", "反垄断", "补贴"],
+        warn_pill="pill-warn",
+    )
+
+    out = {"capex": capex, "neocloud": neo, "bond": bond,
+           "abs": abs_ev, "policy": policy}
+    for label, ev in [("CAPEX", capex), ("NEOCLOUD", neo), ("BOND", bond),
+                      ("ABS", abs_ev), ("POLICY", policy)]:
+        flag = "⚠" if ev["triggered"] else "✓"
+        print(f"   {flag} {label:9s} {ev['status']}  | {ev['headline'][:55]}")
+
+    return out
 
 
 # ============================================================
@@ -537,6 +572,9 @@ def main():
             "tips_daily": tips_event,
             "capex": news_events["capex"],
             "neocloud": news_events["neocloud"],
+            "bond": news_events["bond"],
+            "abs": news_events["abs"],
+            "policy": news_events["policy"],
         },
         "fetch_failures": fetch_failures,
     }

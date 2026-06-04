@@ -614,21 +614,19 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">MEANING</span><span class="val">内部人撤退 — 最终信号</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
     </div>
-    <div class="signal-card">
+    <div class="signal-card" data-signal="W_BOND">
       <div class="signal-num">WEEKLY · S4</div>
       <div class="signal-name">Hyperscaler 新发债认购倍数</div>
-      <div class="signal-row"><span class="key">CURRENT</span><span class="val">超额认购</span></div>
-      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">< 1.5x 或撤回发行</span></div>
-      <div class="signal-row"><span class="key">SOURCE</span><span class="val">IFR Markets · LSEG (手动)</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常 · 手动</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">认购不足 / 撤回发行 / 需求疲软</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
-    <div class="signal-card">
+    <div class="signal-card" data-signal="W_ABS">
       <div class="signal-num">WEEKLY · S6</div>
       <div class="signal-name">数据中心 SPV ABS 未售出 tranche</div>
-      <div class="signal-row"><span class="key">CURRENT</span><span class="val">无异常</span></div>
-      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">任一 deal 出现未售出</span></div>
-      <div class="signal-row"><span class="key">SOURCE</span><span class="val">SEC EDGAR · KBRA (手动)</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">正常 · 手动</span></div>
+      <div class="signal-row"><span class="key">TRIGGER</span><span class="val">未售出 / 降级 / junior tranche 滞销</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
     <div class="signal-card">
       <div class="signal-num">WEEKLY</div>
@@ -708,19 +706,19 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词搜索 · 每日</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
     </div>
-    <div class="signal-card">
-      <div class="signal-num">EVENT</div>
+    <div class="signal-card" data-signal="E_TIPS">
+      <div class="signal-num">EVENT · 自动监控</div>
       <div class="signal-name">TIPS 日波动 > 8bp</div>
       <div class="signal-row"><span class="key">逻辑</span><span class="val">单日大幅波动 = 触发当日全面复核</span></div>
-      <div class="signal-row"><span class="key">数据</span><span class="val">FRED DFII10 · 可自动检测</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">可自动</span></div>
+      <div class="signal-row"><span class="key">数据</span><span class="val">FRED DFII10 · 每日自动检测</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
-    <div class="signal-card">
-      <div class="signal-num">EVENT</div>
+    <div class="signal-card" data-signal="E_POLICY">
+      <div class="signal-num">EVENT · 自动监控</div>
       <div class="signal-name">中美 AI 政策重大变化</div>
       <div class="signal-row"><span class="key">类型</span><span class="val">出口管制 / 补贴 / 反垄断 / FERC裁决</span></div>
-      <div class="signal-row"><span class="key">SOURCE</span><span class="val">policy-gear + 新闻 · 人工判断</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
   </div>
 </div>
@@ -1090,29 +1088,26 @@ function applyLiveData() {
     }
   }
 
-  // TIPS daily change event
+  // TIPS 日波动事件（FRED DFII10 自动检测，数据形态与新闻事件不同，单独渲染）
   if (FRED_DATA.events && FRED_DATA.events.tips_daily) {
     var td = FRED_DATA.events.tips_daily;
-    var tipsEventCards = document.querySelectorAll('[data-signal="E_CAPEX"]');
-    // Find the TIPS event card
-    var allEventCards = document.getElementById('event-grid');
-    if (allEventCards && td.triggered) {
-      var tipsCards = allEventCards.querySelectorAll('.signal-card');
-      for (var ci = 0; ci < tipsCards.length; ci++) {
-        var nameEl = tipsCards[ci].querySelector('.signal-name');
-        if (nameEl && nameEl.textContent.indexOf('TIPS') >= 0) {
-          tipsCards[ci].style.borderLeftColor = 'var(--red)';
-          var tipsStatus = tipsCards[ci].querySelector('.status-pill');
-          if (tipsStatus) {
-            tipsStatus.textContent = 'TRIGGERED ' + td.change_bp + 'bp on ' + td.date;
-            tipsStatus.className = 'status-pill pill-red';
-          }
+    var tipsCard = document.querySelector('[data-signal="E_TIPS"]');
+    if (tipsCard) {
+      var tipsStatus = tipsCard.querySelector('[data-field="status"]');
+      if (tipsStatus) {
+        if (td.triggered) {
+          tipsStatus.textContent = '⚠ 触发 ' + (td.change_bp > 0 ? '+' : '') + td.change_bp + 'bp · ' + td.date;
+          tipsStatus.className = 'status-pill pill-red';
+          tipsCard.style.borderLeftColor = 'var(--red)';
+        } else {
+          tipsStatus.textContent = '正常 · ' + (td.change_bp > 0 ? '+' : '') + td.change_bp + 'bp (' + (td.level || '') + ')';
+          tipsStatus.className = 'status-pill pill-green';
         }
       }
     }
   }
 
-  // News-driven event cards: E_CAPEX / E_NEOCLOUD (Google News 关键词监控)
+  // News-driven event cards (Google News 关键词监控)
   function renderEventCard(signalId, ev) {
     var card = document.querySelector('[data-signal="' + signalId + '"]');
     if (!card || !ev) return;
@@ -1122,7 +1117,7 @@ function applyLiveData() {
       statusEl.className = 'status-pill ' + (ev.pill || 'pill-green');
     }
     if (ev.triggered) card.style.borderLeftColor = 'var(--red)';
-    // 把最新命中的标题塞到 SOURCE 行下方（无则附在最后一行）
+    // 把最新命中的标题塞到 STATUS 行上方（无则不加）
     if (ev.headline) {
       var existing = card.querySelector('.event-latest');
       if (!existing) {
@@ -1136,8 +1131,12 @@ function applyLiveData() {
     }
   }
   if (FRED_DATA.events) {
-    renderEventCard('E_CAPEX', FRED_DATA.events.capex);
-    renderEventCard('E_NEOCLOUD', FRED_DATA.events.neocloud);
+    var ev = FRED_DATA.events;
+    renderEventCard('E_CAPEX', ev.capex);
+    renderEventCard('E_NEOCLOUD', ev.neocloud);
+    renderEventCard('W_BOND', ev.bond);
+    renderEventCard('W_ABS', ev.abs);
+    renderEventCard('E_POLICY', ev.policy);
   }
 }
 

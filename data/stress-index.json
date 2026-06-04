@@ -1,86 +1,31 @@
 {
-  "score": 27.2,
+  "score": 1.1,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
   "components": [
     {
-      "variable": "vix",
-      "name": "VIX",
-      "current": 15.77,
-      "base": 16,
-      "deviation_pct": 1.4,
-      "weight": 0.3,
-      "weight_pct": 30,
-      "contribution": 0.6
-    },
-    {
-      "variable": "oil",
-      "name": "WTI油价",
-      "current": 94.84,
-      "base": 75,
-      "deviation_pct": 26.5,
-      "weight": 0.2,
-      "weight_pct": 20,
-      "contribution": 140.5
-    },
-    {
-      "variable": "credit_spread",
-      "name": "信用利差",
-      "current": 2.72,
-      "base": 1.5,
-      "deviation_pct": 81.3,
-      "weight": 0.25,
-      "weight_pct": 25,
-      "contribution": 1652.4
-    },
-    {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 159.84,
+      "current": 159.96,
       "base": 145,
-      "deviation_pct": 10.2,
+      "deviation_pct": 10.3,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 10.4
+      "contribution": 10.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.21,
+      "current": 99.5,
       "base": 100,
-      "deviation_pct": 0.8,
+      "deviation_pct": 0.5,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": 0.1
+      "contribution": 0.0
     }
   ],
-  "hard_alerts_count": 1,
-  "significant_deviations": [
-    {
-      "name": "信用利差",
-      "current": 2.72,
-      "base": 1.5,
-      "deviation_pct": 81.3,
-      "direction": "偏高",
-      "level": "极端偏离"
-    },
-    {
-      "name": "天然气TTF",
-      "current": 47.55,
-      "base": 35,
-      "deviation_pct": 35.9,
-      "direction": "偏高",
-      "level": "显著偏离"
-    },
-    {
-      "name": "WTI油价",
-      "current": 94.84,
-      "base": 75,
-      "deviation_pct": 26.5,
-      "direction": "偏高",
-      "level": "显著偏离"
-    }
-  ],
-  "timestamp": "2026-06-03 10:14"
+  "hard_alerts_count": 0,
+  "significant_deviations": [],
+  "timestamp": "2026-06-04 13:59"
 }

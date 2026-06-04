@@ -43,6 +43,10 @@ FRED_API_KEY = os.environ.get("FRED_API_KEY", "")
 FRED_BASE = "https://api.stlouisfed.org/fred/series/observations"
 OUTPUT_FILE = Path(__file__).parent / "soros-data.js"
 
+# 复用连接 + 绕过环境代理，FRED 直连
+_FRED_SESSION = requests.Session()
+_FRED_SESSION.trust_env = False
+
 # 信号映射: FRED series ID → 信号元数据
 # multiplier: FRED返回值 × multiplier = 显示值 (HY OAS 用百分比，需 ×100 转 bp)
 # thresholds: 翻转阈值
@@ -117,7 +121,8 @@ def fetch_series(series_id, limit=60):
     }
 
     try:
-        r = requests.get(FRED_BASE, params=params, timeout=15)
+        # trust_env=False 绕过 Clash 代理直连 FRED（早高峰代理抖动时更稳，与 s2_agent.py 一致）
+        r = _FRED_SESSION.get(FRED_BASE, params=params, timeout=15)
         r.raise_for_status()
         return r.json().get("observations", [])
     except requests.RequestException as e:

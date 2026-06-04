@@ -1111,6 +1111,34 @@ function applyLiveData() {
       }
     }
   }
+
+  // News-driven event cards: E_CAPEX / E_NEOCLOUD (Google News 关键词监控)
+  function renderEventCard(signalId, ev) {
+    var card = document.querySelector('[data-signal="' + signalId + '"]');
+    if (!card || !ev) return;
+    var statusEl = card.querySelector('[data-field="status"]');
+    if (statusEl) {
+      statusEl.textContent = ev.status || '监控中';
+      statusEl.className = 'status-pill ' + (ev.pill || 'pill-green');
+    }
+    if (ev.triggered) card.style.borderLeftColor = 'var(--red)';
+    // 把最新命中的标题塞到 SOURCE 行下方（无则附在最后一行）
+    if (ev.headline) {
+      var existing = card.querySelector('.event-latest');
+      if (!existing) {
+        existing = document.createElement('div');
+        existing.className = 'signal-row event-latest';
+        existing.innerHTML = '<span class="key">最新</span><span class="val"></span>';
+        card.insertBefore(existing, statusEl ? statusEl.closest('.signal-row') : null);
+      }
+      var v = existing.querySelector('.val');
+      if (v) v.textContent = (ev.date ? '[' + ev.date + '] ' : '') + ev.headline;
+    }
+  }
+  if (FRED_DATA.events) {
+    renderEventCard('E_CAPEX', FRED_DATA.events.capex);
+    renderEventCard('E_NEOCLOUD', FRED_DATA.events.neocloud);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', applyLiveData);

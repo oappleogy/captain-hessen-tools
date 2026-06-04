@@ -15,10 +15,12 @@ fetch_soros_fred.py — Soros AI Reflexivity OS · 全信号数据抓取
 """
 
 import os
+import re
 import sys
 import json
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 # ============================================================
@@ -338,6 +340,105 @@ def check_tips_daily_change(observations):
 
 
 # ============================================================
+# 事件驱动: 新闻关键词监控 (Google News RSS)
+# E_CAPEX  — Hyperscaler capex 指引变化
+# E_NEOCLOUD — Neocloud 融资 / 发债 / 违约
+# ============================================================
+
+GNEWS_RSS = "https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en"
+
+
+def _fetch_gnews(query, lookback_days=7, cap=40):
+    """抓 Google News 搜索 RSS，返回最近 lookback_days 天的 [(title, date_str, ts)]。"""
+    url = GNEWS_RSS.format(q=requests.utils.quote(query))
+    try:
+        r = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
+        r.raise_for_status()
+        raw = r.text
+    except Exception as e:
+        print(f"   ⚠ Google News 抓取失败: {e}")
+        return []
+    cutoff = datetime.now(timezone.utc) - timedelta(days=lookback_days)
+    out = []
+    for block in re.findall(r"<item>(.*?)</item>", raw, re.DOTALL)[:cap]:
+        tm = re.search(r"<title>(.*?)</title>", block, re.DOTALL)
+        pm = re.search(r"<pubDate>(.*?)</pubDate>", block, re.DOTALL)
+        if not tm:
+            continue
+        title = tm.group(1).replace("<![CDATA[", "").replace("]]>", "").strip()
+        dt = None
+        if pm:
+            try:
+                dt = parsedate_to_datetime(pm.group(1).strip())
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+            except Exception:
+                dt = None
+        if dt and dt < cutoff:
+            continue
+        out.append((title, dt.strftime("%Y-%m-%d") if dt else "", dt))
+    return out
+
+
+def _classify_event(items, trigger_terms, warn_pill="pill-warn"):
+    """在标题里匹配触发词，命中则返回触发态，否则正常监控态。"""
+    for title, date_str, _ in items:
+        low = title.lower()
+        for term in trigger_terms:
+            if term in low:
+                return {
+                    "triggered": True,
+                    "status": "触发复核",
+                    "pill": warn_pill,
+                    "headline": title[:140],
+                    "date": date_str,
+                    "match": term,
+                    "count_7d": len(items),
+                }
+    head = items[0] if items else None
+    return {
+        "triggered": False,
+        "status": f"监控中 · 近7日{len(items)}条" if items else "监控中 · 无近期新闻",
+        "pill": "pill-green",
+        "headline": (head[0][:140] if head else ""),
+        "date": (head[1] if head else ""),
+        "match": "",
+        "count_7d": len(items),
+    }
+
+
+def fetch_news_events():
+    """返回 capex / neocloud 两个事件驱动信号的最新状态。"""
+    print("\n→ 新闻事件监控 (Google News)...")
+
+    capex_items = _fetch_gnews(
+        "(Microsoft OR Meta OR Google OR Amazon OR Oracle) capex")
+    # 下调/暂停才是反身性看空触发；上调=扩张延续
+    capex = _classify_event(
+        capex_items,
+        trigger_terms=["cut", "slash", "reduce", "lower", "pause", "halt",
+                       "scale back", "pull back", "delay", "下调", "暂停", "削减"],
+        warn_pill="pill-warn",
+    )
+
+    neo_items = _fetch_gnews(
+        "CoreWeave OR Nebius OR IREN OR Crusoe debt OR financing OR default OR downgrade")
+    neo = _classify_event(
+        neo_items,
+        trigger_terms=["default", "bankrupt", "downgrade", "distress",
+                       "restructur", "refinancing fail", "missed payment",
+                       "covenant breach", "违约", "评级下调", "重组"],
+        warn_pill="pill-red",
+    )
+
+    for label, ev in [("CAPEX", capex), ("NEOCLOUD", neo)]:
+        flag = "⚠" if ev["triggered"] else "✓"
+        print(f"   {flag} {label:9s} {ev['status']}  | {ev['headline'][:60]}")
+
+    return {"capex": capex, "neocloud": neo}
+
+
+# ============================================================
 # 主流程
 # ============================================================
 
@@ -414,6 +515,9 @@ def main():
     # ── Form 4 内部人交易 ──
     form4_data = fetch_form4()
 
+    # ── 新闻事件监控 (capex / neocloud) ──
+    news_events = fetch_news_events()
+
     # 构建 payload
     payload = {
         "updated_at": now.strftime("%Y-%m-%d %H:%M UTC"),
@@ -426,6 +530,8 @@ def main():
         },
         "events": {
             "tips_daily": tips_event,
+            "capex": news_events["capex"],
+            "neocloud": news_events["neocloud"],
         },
         "fetch_failures": fetch_failures,
     }

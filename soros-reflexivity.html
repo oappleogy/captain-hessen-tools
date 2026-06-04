@@ -1144,7 +1144,7 @@ function applyLiveData() {
 // 同一小时内可命中浏览器/SW 缓存（含离线），跨小时自动取新数据，
 // 彻底绕开 Cloudflare 对 .js 的 4h 浏览器缓存导致的"旧数据/新指标不显示"问题。
 function loadSorosData() {
-  var bucket = Math.floor(Date.now() / 3600000); // 每小时变一次
+  var bucket = Math.floor(Date.now() / 300000); // 每5分钟变一次：跑批更新后≤5min可见，同窗口内仍命中缓存
   var s = document.createElement('script');
   s.src = 'soros-data.js?v=' + bucket;
   s.onload = applyLiveData;

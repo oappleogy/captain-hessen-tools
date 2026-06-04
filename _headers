@@ -1,0 +1,12 @@
+# Cloudflare Pages 缓存规则
+# 数据文件每日跑批更新，必须短缓存，否则浏览器缓存旧数据导致页面显示陈旧/缺新功能
+# （2026-06-04：soros-data.js 默认 4h 缓存导致 capex/neocloud 事件不显示）
+
+/soros-data.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/*.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+/data/*
+  Cache-Control: public, max-age=300, must-revalidate

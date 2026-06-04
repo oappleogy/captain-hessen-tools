@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Soros AI Reflexivity OS | 黑森船长</title>
-<script src="soros-data.js" onerror="console.warn('soros-data.js not loaded - run fetch_fred.py first')"></script>
+<!-- soros-data.js 改为运行时带缓存破坏参数动态加载（见页尾），避免 CDN/浏览器缓存旧数据导致新指标不显示 -->
 <style>
 :root{--bg:#0a0e17;--card:#111827;--card2:#1a2332;--border:#1e293b;--text:#e2e8f0;--dim:#94a3b8;--accent:#3b82f6;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--orange:#f97316;--cyan:#06b6d4;--gold:#d4a854;--warn:#f59e0b}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -1141,7 +1141,20 @@ function applyLiveData() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', applyLiveData);
+// 动态加载 soros-data.js，按小时分桶做缓存破坏：
+// 同一小时内可命中浏览器/SW 缓存（含离线），跨小时自动取新数据，
+// 彻底绕开 Cloudflare 对 .js 的 4h 浏览器缓存导致的"旧数据/新指标不显示"问题。
+function loadSorosData() {
+  var bucket = Math.floor(Date.now() / 3600000); // 每小时变一次
+  var s = document.createElement('script');
+  s.src = 'soros-data.js?v=' + bucket;
+  s.onload = applyLiveData;
+  s.onerror = function () {
+    console.warn('soros-data.js not loaded - run fetch_soros_fred.py first');
+  };
+  document.head.appendChild(s);
+}
+document.addEventListener('DOMContentLoaded', loadSorosData);
 </script>
 </body>
 </html>

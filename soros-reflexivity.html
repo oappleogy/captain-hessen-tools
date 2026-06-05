@@ -460,14 +460,45 @@ tr:hover{background:var(--card2)}
 
 <!-- ===== TAB 06: SIGNALS ===== -->
 <div class="content tab-content hidden" id="tab-signals">
+
+  <style>
+    #review-panel { margin-bottom: 30px; }
+    .review-card { background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.35);
+      border-left: 3px solid var(--red, #ef4444); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+    .review-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .review-name { font-weight: 600; color: #e2e0dc; }
+    .review-note { width: 100%; min-height: 56px; box-sizing: border-box; background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.15); border-radius: 6px; color: #e2e0dc; padding: 8px;
+      font-family: inherit; font-size: 13px; resize: vertical; }
+    .review-save { margin-top: 8px; background: var(--red, #ef4444); color: #fff; border: none;
+      border-radius: 6px; padding: 6px 14px; font-size: 13px; cursor: pointer; }
+    .review-save:hover { opacity: .85; }
+    .review-empty { color: #8a8782; font-size: 13px; padding: 10px 0; }
+    .review-hist-title { color: #a78bfa; font-size: 13px; font-weight: 600; margin: 16px 0 8px; }
+    .review-hist-item { border-left: 2px solid rgba(167,139,250,.4); padding: 6px 0 6px 12px; margin-bottom: 10px; position: relative; }
+    .review-hist-meta { font-size: 12px; color: #9b988f; }
+    .review-hist-meta em { color: #d4a854; font-style: normal; }
+    .review-hist-note { font-size: 13px; color: #d8d6d2; margin-top: 3px; white-space: pre-wrap; }
+    .review-del { position: absolute; right: 0; top: 6px; background: none; border: 1px solid rgba(255,255,255,.2);
+      color: #8a8782; border-radius: 4px; font-size: 11px; padding: 1px 7px; cursor: pointer; }
+  </style>
+
+  <div class="section">
+    <h2>触发审核 · 复盘留痕</h2>
+    <h3>当前触发信号汇总 + 人工审核记录（保存在本地浏览器，仅本机可见）</h3>
+  </div>
+  <div id="review-panel">
+    <div id="review-pending"></div>
+    <div id="review-history"></div>
+  </div>
+
   <div class="section">
     <h2>七个领先信号 · 每日核心盯盘</h2>
-    <h3>7 Leading Signals — Core Daily Monitoring</h3>
   </div>
 
   <div class="signal-grid">
     <div class="signal-card" data-signal="S1">
-      <div class="signal-num">SIGNAL 01</div>
+      <div class="signal-num">领先信号01</div>
       <div class="signal-name">10Y TIPS 实际利率</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">1.63%</span></div>
       <div class="signal-row"><span class="key">YELLOW</span><span class="val">> 2.0%</span></div>
@@ -479,7 +510,7 @@ tr:hover{background:var(--card2)}
     </div>
 
     <div class="signal-card warn" data-signal="S2">
-      <div class="signal-num">SIGNAL 02</div>
+      <div class="signal-num">领先信号02</div>
       <div class="signal-name">HY 能源 / 科技信用利差</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">~350bp</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">> 450bp</span></div>
@@ -491,7 +522,7 @@ tr:hover{background:var(--card2)}
     </div>
 
     <div class="signal-card warn">
-      <div class="signal-num">SIGNAL 03</div>
+      <div class="signal-num">领先信号03</div>
       <div class="signal-name">CoreWeave CDS / 个券利差</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val">~600bp</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">> 800bp</span></div>
@@ -502,7 +533,7 @@ tr:hover{background:var(--card2)}
     </div>
 
     <div class="signal-card">
-      <div class="signal-num">SIGNAL 04</div>
+      <div class="signal-num">领先信号04</div>
       <div class="signal-name">Hyperscaler 新发债认购倍数</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val">超额</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">< 1.5x 或撤回</span></div>
@@ -513,7 +544,7 @@ tr:hover{background:var(--card2)}
     </div>
 
     <div class="signal-card">
-      <div class="signal-num">SIGNAL 05</div>
+      <div class="signal-num">领先信号05</div>
       <div class="signal-name">GPU 二手价 / 新机价</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val">~80%</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">< 60%</span></div>
@@ -524,7 +555,7 @@ tr:hover{background:var(--card2)}
     </div>
 
     <div class="signal-card">
-      <div class="signal-num">SIGNAL 06</div>
+      <div class="signal-num">领先信号06</div>
       <div class="signal-name">数据中心 SPV ABS 未售出 tranche</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val">无</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">任一 deal 出现</span></div>
@@ -535,7 +566,7 @@ tr:hover{background:var(--card2)}
     </div>
 
     <div class="signal-card" style="grid-column:span 2">
-      <div class="signal-num">SIGNAL 07</div>
+      <div class="signal-num">领先信号07</div>
       <div class="signal-name">Hyperscaler CFO / CEO 减持加速</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val">正常节奏 · NVDA 高管持续减持但属常规</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">单月减持 > $50M / 单人</span></div>
@@ -553,7 +584,7 @@ tr:hover{background:var(--card2)}
   </div>
   <div class="signal-grid" id="aux-grid">
     <div class="signal-card" data-signal="AUX_VIX">
-      <div class="signal-num">AUX</div>
+      <div class="signal-num">辅助</div>
       <div class="signal-name">CBOE VIX 恐慌指数</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
       <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
@@ -562,7 +593,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">--</span></div>
     </div>
     <div class="signal-card" data-signal="AUX_DXY">
-      <div class="signal-num">AUX</div>
+      <div class="signal-num">辅助</div>
       <div class="signal-name">美元指数 (Broad Dollar)</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
       <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
@@ -571,7 +602,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">--</span></div>
     </div>
     <div class="signal-card" data-signal="AUX_DGS10">
-      <div class="signal-num">AUX</div>
+      <div class="signal-num">辅助</div>
       <div class="signal-name">10Y 国债收益率</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
       <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
@@ -580,7 +611,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">--</span></div>
     </div>
     <div class="signal-card" data-signal="AUX_BEI">
-      <div class="signal-num">AUX</div>
+      <div class="signal-num">辅助</div>
       <div class="signal-name">10Y 盈亏平衡通胀率</div>
       <div class="signal-row"><span class="key">CURRENT</span><span class="val" data-field="current">--</span></div>
       <div class="signal-row"><span class="key">D 30D</span><span class="val" data-field="delta">--</span></div>
@@ -592,12 +623,12 @@ tr:hover{background:var(--card2)}
 
   <!-- 每周指标 -->
   <div class="section" style="margin-top:28px">
-    <h2>每周指标 · WEEKLY</h2>
-    <h3>周日晚复核 · 约1小时</h3>
+    <h2>每周指标</h2>
+    <h3>周度 · 周日晚复核约 1 小时</h3>
   </div>
   <div class="signal-grid" id="weekly-grid">
     <div class="signal-card" data-signal="W_GPU">
-      <div class="signal-num">WEEKLY · S5</div>
+      <div class="signal-num">每周 · S5</div>
       <div class="signal-name">GPU 二手价 / 新机价</div>
       <div class="signal-row"><span class="key">H100 80GB</span><span class="val" data-field="current">待接入</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">二手/新机 < 60%</span></div>
@@ -606,7 +637,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
     </div>
     <div class="signal-card" data-signal="W_FORM4">
-      <div class="signal-num">WEEKLY · S7</div>
+      <div class="signal-num">每周 · S7</div>
       <div class="signal-name">Hyperscaler 高管减持 Form 4</div>
       <div class="signal-row"><span class="key">监控对象</span><span class="val">NVDA/MSFT/GOOGL/META/ORCL CFO/CEO</span></div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">单月减持 > $50M / 单人</span></div>
@@ -615,21 +646,21 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
     </div>
     <div class="signal-card" data-signal="W_BOND">
-      <div class="signal-num">WEEKLY · S4</div>
+      <div class="signal-num">每周 · S4</div>
       <div class="signal-name">Hyperscaler 新发债认购倍数</div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">认购不足 / 撤回发行 / 需求疲软</span></div>
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
     <div class="signal-card" data-signal="W_ABS">
-      <div class="signal-num">WEEKLY · S6</div>
+      <div class="signal-num">每周 · S6</div>
       <div class="signal-name">数据中心 SPV ABS 未售出 tranche</div>
       <div class="signal-row"><span class="key">TRIGGER</span><span class="val">未售出 / 降级 / junior tranche 滞销</span></div>
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
     <div class="signal-card">
-      <div class="signal-num">WEEKLY</div>
+      <div class="signal-num">每周</div>
       <div class="signal-name">七信号翻转数复核</div>
       <div class="signal-row"><span class="key">本周翻转</span><span class="val" id="weekly-flipped">--</span></div>
       <div class="signal-row"><span class="key">趋势</span><span class="val">自动汇总 · 参照上方七信号</span></div>
@@ -637,7 +668,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">自动</span></div>
     </div>
     <div class="signal-card">
-      <div class="signal-num">WEEKLY</div>
+      <div class="signal-num">每周</div>
       <div class="signal-name">政策齿轮周输出</div>
       <div class="signal-row"><span class="key">覆盖</span><span class="val">15机构传导卡 · 中美双向</span></div>
       <div class="signal-row"><span class="key">本周</span><span class="val">见 policy-gear 输出</span></div>
@@ -648,12 +679,12 @@ tr:hover{background:var(--card2)}
 
   <!-- 每月指标 -->
   <div class="section" style="margin-top:28px">
-    <h2>每月指标 · MONTHLY</h2>
-    <h3>月底复核 · 约3小时</h3>
+    <h2>每月指标</h2>
+    <h3>月度 · 月底复核约 3 小时</h3>
   </div>
   <div class="signal-grid" id="monthly-grid">
     <div class="signal-card" data-signal="M_ALLOC">
-      <div class="signal-num">MONTHLY · 自动建议</div>
+      <div class="signal-num">每月 · 自动建议</div>
       <div class="signal-name">仓位结构审查 + 三层金字塔重配</div>
       <div class="signal-row"><span class="key">建议仓位上限</span><span class="val" data-field="cap">--</span></div>
       <div class="signal-row"><span class="key">依据</span><span class="val" data-field="basis">按翻转数自动测算</span></div>
@@ -661,7 +692,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">自动建议 · 人工确认</span></div>
     </div>
     <div class="signal-card" data-signal="M_CALIB">
-      <div class="signal-num">MONTHLY · 数据自动</div>
+      <div class="signal-num">每月 · 数据自动</div>
       <div class="signal-name">七信号阈值校准</div>
       <div class="signal-row"><span class="key">当前翻转</span><span class="val" data-field="flip">--</span></div>
       <div class="signal-row"><span class="key">最近翻转</span><span class="val" data-field="recent">--</span></div>
@@ -669,7 +700,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">数据自动</span></div>
     </div>
     <div class="signal-card">
-      <div class="signal-num">MONTHLY</div>
+      <div class="signal-num">每月</div>
       <div class="signal-name">HCT 六维框架重新打分</div>
       <div class="signal-row"><span class="key">维度</span><span class="val">叙事/制度/技术/协调/资源/反馈</span></div>
       <div class="signal-row"><span class="key">数据</span><span class="val">S2 每日跑批输出</span></div>
@@ -677,7 +708,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">半自动</span></div>
     </div>
     <div class="signal-card" data-signal="W_DEBTWALL">
-      <div class="signal-num">MONTHLY · 自动监控</div>
+      <div class="signal-num">每月 · 自动监控</div>
       <div class="signal-name">AI 债务到期墙地图刷新</div>
       <div class="signal-row"><span class="key">关注</span><span class="val">Neocloud / 数据中心 再融资窗口 · 到期压力</span></div>
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
@@ -687,12 +718,12 @@ tr:hover{background:var(--card2)}
 
   <!-- 事件驱动 -->
   <div class="section" style="margin-top:28px">
-    <h2>事件驱动 · EVENT TRIGGERED</h2>
+    <h2>事件驱动</h2>
     <h3>当日响应 · 关键词自动监控 + 人工判断</h3>
   </div>
   <div class="signal-grid" id="event-grid">
     <div class="signal-card" data-signal="E_CAPEX">
-      <div class="signal-num">EVENT · 自动监控</div>
+      <div class="signal-num">事件 · 自动监控</div>
       <div class="signal-name">Hyperscaler Capex 指引变化</div>
       <div class="signal-row"><span class="key">关键词</span><span class="val">capex + MSFT/META/GOOG/AMZN/ORCL</span></div>
       <div class="signal-row"><span class="key">触发</span><span class="val">capex 上调/下调/暂停</span></div>
@@ -700,7 +731,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
     </div>
     <div class="signal-card" data-signal="E_NEOCLOUD">
-      <div class="signal-num">EVENT · 自动监控</div>
+      <div class="signal-num">事件 · 自动监控</div>
       <div class="signal-name">Neocloud 融资 / 发债 / 违约</div>
       <div class="signal-row"><span class="key">关键词</span><span class="val">CoreWeave/NBIS/IREN + debt/financing/default</span></div>
       <div class="signal-row"><span class="key">触发</span><span class="val">再融资失败 / 评级下调 / 违约</span></div>
@@ -708,14 +739,14 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">待接入</span></div>
     </div>
     <div class="signal-card" data-signal="E_TIPS">
-      <div class="signal-num">EVENT · 自动监控</div>
+      <div class="signal-num">事件 · 自动监控</div>
       <div class="signal-name">TIPS 日波动 > 8bp</div>
       <div class="signal-row"><span class="key">逻辑</span><span class="val">单日大幅波动 = 触发当日全面复核</span></div>
       <div class="signal-row"><span class="key">数据</span><span class="val">FRED DFII10 · 每日自动检测</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
     <div class="signal-card" data-signal="E_POLICY">
-      <div class="signal-num">EVENT · 自动监控</div>
+      <div class="signal-num">事件 · 自动监控</div>
       <div class="signal-name">中美 AI 政策重大变化</div>
       <div class="signal-row"><span class="key">类型</span><span class="val">出口管制 / 补贴 / 反垄断 / FERC裁决</span></div>
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
@@ -725,12 +756,12 @@ tr:hover{background:var(--card2)}
 
   <!-- 外部触发器 -->
   <div class="section" style="margin-top:28px">
-    <h2>外部触发器 · EXOGENOUS TRIGGERS</h2>
+    <h2>外部触发器</h2>
     <h3>反身性循环的"断路器" — 泡沫多死于外生冲击而非内部 · 每日自动监控</h3>
   </div>
   <div class="signal-grid" id="exo-grid">
     <div class="signal-card" data-signal="X_LEVERAGE">
-      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-num">外部 · 自动监控</div>
       <div class="signal-name">去杠杆 / 保证金监管</div>
       <div class="signal-row"><span class="key">逻辑</span><span class="val">监管严控杠杆炒股=最经典外部触发（2015中国/韩国现行）</span></div>
       <div class="signal-row"><span class="key">触发</span><span class="val">收紧/严控/提保证金/限融资融券</span></div>
@@ -738,7 +769,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
     <div class="signal-card" data-signal="X_CARRY">
-      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-num">外部 · 自动监控</div>
       <div class="signal-name">日元套息 / BOJ 加息</div>
       <div class="signal-row"><span class="key">逻辑</span><span class="val">日银加息→日元急升→套息平仓→资本回流（2024-08闪崩）</span></div>
       <div class="signal-row"><span class="key">触发</span><span class="val">BOJ加息/转鹰/日元急升/carry unwind</span></div>
@@ -746,7 +777,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
     <div class="signal-card" data-signal="X_ANTITRUST">
-      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-num">外部 · 自动监控</div>
       <div class="signal-name">AI 巨头反垄断 / 拆分</div>
       <div class="signal-row"><span class="key">逻辑</span><span class="val">监管强行打断 capex 自我强化循环</span></div>
       <div class="signal-row"><span class="key">触发</span><span class="val">反垄断诉讼/调查/拆分/巨额罚款</span></div>
@@ -754,7 +785,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
     <div class="signal-card" data-signal="X_POWER">
-      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-num">外部 · 自动监控</div>
       <div class="signal-name">数据中心电力 / 许可受阻</div>
       <div class="signal-row"><span class="key">逻辑</span><span class="val">AI 扩张的物理+监管天花板（电网/许可/社区反对）</span></div>
       <div class="signal-row"><span class="key">触发</span><span class="val">许可被拒/暂停/电力短缺/叫停</span></div>
@@ -955,14 +986,16 @@ tr:hover{background:var(--card2)}
   </div>
 
   <div class="aux-section">
-    <div class="aux-title">工具栈 · Tech Stack</div>
+    <div class="aux-title">工具栈 · 当前实际运行</div>
     <div class="aux-grid">
-      <div class="aux-item"><span class="name">数据采集</span><span class="src">FRED API · SEC EDGAR API · TheBrokerSite scraping</span></div>
-      <div class="aux-item"><span class="name">政策追踪</span><span class="src">policy-gear (15 机构 · 已运行)</span></div>
+      <div class="aux-item"><span class="name">数据采集</span><span class="src">FRED API · SEC EDGAR · Vast.ai GPU价 · 每日自动</span></div>
+      <div class="aux-item"><span class="name">信号生成</span><span class="src">fetch_soros_fred.py 每日跑批 → 本页全自动更新</span></div>
+      <div class="aux-item"><span class="name">事件/外部触发</span><span class="src">Google News 关键词监控 · 17 信号每日扫描</span></div>
+      <div class="aux-item"><span class="name">政策追踪</span><span class="src">policy-gear (15 机构 · 每日跑批)</span></div>
+      <div class="aux-item"><span class="name">指标发现 Agent</span><span class="src">Claude 提议 + 校验/接线/修剪 · 每周一自动</span></div>
+      <div class="aux-item"><span class="name">触发审核记录</span><span class="src">本页「触发审核·复盘留痕」· 本地保存</span></div>
       <div class="aux-item"><span class="name">期权计算</span><span class="src">自建期权决策工具 + SVI 表面</span></div>
       <div class="aux-item"><span class="name">仓位管理</span><span class="src">私人记账系统 · Greeks 实时</span></div>
-      <div class="aux-item"><span class="name">信号告警</span><span class="src">Telegram bot (待建) · 阈值触发</span></div>
-      <div class="aux-item"><span class="name">复盘记录</span><span class="src">观察笔记 · 每周决策日志</span></div>
     </div>
   </div>
 </div>
@@ -1197,7 +1230,7 @@ function applyLiveData() {
         card.className = 'signal-card';
         card.setAttribute('data-signal', sig);
         card.innerHTML =
-          '<div class="signal-num">EXO · Agent托管</div>' +
+          '<div class="signal-num">外部 · Agent托管</div>' +
           '<div class="signal-name">' + m.name + '</div>' +
           '<div class="signal-row"><span class="key">逻辑</span><span class="val">' + (m.logic || '') + '</span></div>' +
           '<div class="signal-row"><span class="key">触发</span><span class="val">' + (m.trigger_desc || '') + '</span></div>' +
@@ -1239,6 +1272,93 @@ function applyLiveData() {
     var recentEl = calibCard.querySelector('[data-field="recent"]');
     if (recentEl) recentEl.textContent = flipped.length ? flipped.join(', ') : '无信号翻转';
   }
+
+  // 触发审核面板（所有卡片渲染完后扫描触发态）
+  buildReviewPanel();
+}
+
+// ===== 触发审核 · 复盘留痕（localStorage 本地保存）=====
+function _escHtml(s) {
+  return (s || '').replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+  });
+}
+function _loadReviews() { try { return JSON.parse(localStorage.getItem('soros_reviews') || '[]'); } catch (e) { return []; } }
+function _saveReviews(r) { localStorage.setItem('soros_reviews', JSON.stringify(r)); }
+
+function buildReviewPanel() {
+  var pending = document.getElementById('review-pending');
+  var hist = document.getElementById('review-history');
+  if (!pending || !hist) return;
+
+  // 扫描所有处于触发态(warn/red)的信号卡
+  var triggered = [];
+  document.querySelectorAll('.signal-card[data-signal]').forEach(function (card) {
+    var pill = card.querySelector('.status-pill');
+    if (pill && (/pill-warn|pill-red/.test(pill.className))) {
+      var nameEl = card.querySelector('.signal-name');
+      triggered.push({
+        sig: card.getAttribute('data-signal'),
+        name: nameEl ? nameEl.textContent.trim() : card.getAttribute('data-signal'),
+        status: pill.textContent.trim()
+      });
+    }
+  });
+
+  var reviews = _loadReviews();
+  var today = new Date().toISOString().slice(0, 10);
+  var doneToday = {};
+  reviews.forEach(function (r) { if (r.date === today) doneToday[r.sig] = true; });
+  var pend = triggered.filter(function (t) { return !doneToday[t.sig]; });
+
+  if (!pend.length) {
+    pending.innerHTML = '<div class="review-empty">✓ 当前无待审触发信号' +
+      (triggered.length ? '（今日 ' + triggered.length + ' 个触发已全部留痕）' : '') + '</div>';
+  } else {
+    pending.innerHTML = pend.map(function (t) {
+      return '<div class="review-card" data-sig="' + _escHtml(t.sig) + '" data-name="' + _escHtml(t.name) +
+        '" data-status="' + _escHtml(t.status) + '">' +
+        '<div class="review-head"><span class="review-name">⚠ ' + _escHtml(t.name) + '</span>' +
+        '<span class="status-pill pill-warn">' + _escHtml(t.status) + '</span></div>' +
+        '<textarea class="review-note" placeholder="审核判断：是真信号还是噪音？传导机制成立吗？要不要动仓 / 进入哪个响应等级？"></textarea>' +
+        '<button class="review-save" onclick="saveReview(this)">保存审核留痕</button></div>';
+    }).join('');
+  }
+
+  if (!reviews.length) {
+    hist.innerHTML = '';
+  } else {
+    hist.innerHTML = '<div class="review-hist-title">审核历史（' + reviews.length + '）</div>' +
+      reviews.slice().reverse().map(function (r, i) {
+        var realIdx = reviews.length - 1 - i;
+        return '<div class="review-hist-item"><div class="review-hist-meta">' +
+          _escHtml(r.ts || r.date) + ' · ' + _escHtml(r.name) + ' · <em>' + _escHtml(r.status) + '</em></div>' +
+          '<div class="review-hist-note">' + _escHtml(r.note) + '</div>' +
+          '<button class="review-del" onclick="delReview(' + realIdx + ')">删除</button></div>';
+      }).join('');
+  }
+}
+
+function saveReview(btn) {
+  var card = btn.closest('.review-card');
+  var note = card.querySelector('.review-note').value.trim();
+  if (!note) { alert('请先写下审核判断再保存'); return; }
+  var reviews = _loadReviews();
+  reviews.push({
+    date: new Date().toISOString().slice(0, 10),
+    ts: new Date().toLocaleString('zh-CN'),
+    sig: card.getAttribute('data-sig'),
+    name: card.getAttribute('data-name'),
+    status: card.getAttribute('data-status'),
+    note: note
+  });
+  _saveReviews(reviews);
+  buildReviewPanel();
+}
+
+function delReview(idx) {
+  var reviews = _loadReviews();
+  if (idx >= 0 && idx < reviews.length) { reviews.splice(idx, 1); _saveReviews(reviews); buildReviewPanel(); }
 }
 
 // 动态加载 soros-data.js，按小时分桶做缓存破坏：

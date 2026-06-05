@@ -652,20 +652,21 @@ tr:hover{background:var(--card2)}
     <h3>月底复核 · 约3小时</h3>
   </div>
   <div class="signal-grid" id="monthly-grid">
-    <div class="signal-card">
-      <div class="signal-num">MONTHLY</div>
+    <div class="signal-card" data-signal="M_ALLOC">
+      <div class="signal-num">MONTHLY · 自动建议</div>
       <div class="signal-name">仓位结构审查 + 三层金字塔重配</div>
-      <div class="signal-row"><span class="key">L1</span><span class="val">单一节点收敛 · 30-40%</span></div>
-      <div class="signal-row"><span class="key">L2</span><span class="val">A股双反身性 · 20-30%</span></div>
-      <div class="signal-row"><span class="key">L3</span><span class="val">硬资产对冲 · 10-15%</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动 · 月底</span></div>
+      <div class="signal-row"><span class="key">建议仓位上限</span><span class="val" data-field="cap">--</span></div>
+      <div class="signal-row"><span class="key">依据</span><span class="val" data-field="basis">按翻转数自动测算</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">flip_count → 触发规则 · 自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">自动建议 · 人工确认</span></div>
     </div>
-    <div class="signal-card">
-      <div class="signal-num">MONTHLY</div>
+    <div class="signal-card" data-signal="M_CALIB">
+      <div class="signal-num">MONTHLY · 数据自动</div>
       <div class="signal-name">七信号阈值校准</div>
-      <div class="signal-row"><span class="key">方法</span><span class="val">回溯历史样本 · 检验阈值合理性</span></div>
-      <div class="signal-row"><span class="key">关注</span><span class="val">TIPS/HY OAS 阈值是否需调整</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动 · 月底</span></div>
+      <div class="signal-row"><span class="key">当前翻转</span><span class="val" data-field="flip">--</span></div>
+      <div class="signal-row"><span class="key">最近翻转</span><span class="val" data-field="recent">--</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">soros-data.js 自动汇总 · 季度复核判断</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">数据自动</span></div>
     </div>
     <div class="signal-card">
       <div class="signal-num">MONTHLY</div>
@@ -675,12 +676,12 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">s2-dev/output/ · 自动</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green">半自动</span></div>
     </div>
-    <div class="signal-card">
-      <div class="signal-num">MONTHLY</div>
+    <div class="signal-card" data-signal="W_DEBTWALL">
+      <div class="signal-num">MONTHLY · 自动监控</div>
       <div class="signal-name">AI 债务到期墙地图刷新</div>
-      <div class="signal-row"><span class="key">关注</span><span class="val">CRWV $4.2B · Neocloud再融资窗口</span></div>
-      <div class="signal-row"><span class="key">SOURCE</span><span class="val">Bloomberg / S&P Capital IQ</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-warn">手动 · 月底</span></div>
+      <div class="signal-row"><span class="key">关注</span><span class="val">Neocloud / 数据中心 再融资窗口 · 到期压力</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
   </div>
 
@@ -717,6 +718,46 @@ tr:hover{background:var(--card2)}
       <div class="signal-num">EVENT · 自动监控</div>
       <div class="signal-name">中美 AI 政策重大变化</div>
       <div class="signal-row"><span class="key">类型</span><span class="val">出口管制 / 补贴 / 反垄断 / FERC裁决</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
+    </div>
+  </div>
+
+  <!-- 外部触发器 -->
+  <div class="section" style="margin-top:28px">
+    <h2>外部触发器 · EXOGENOUS TRIGGERS</h2>
+    <h3>反身性循环的"断路器" — 泡沫多死于外生冲击而非内部 · 每日自动监控</h3>
+  </div>
+  <div class="signal-grid" id="exo-grid">
+    <div class="signal-card" data-signal="X_LEVERAGE">
+      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-name">去杠杆 / 保证金监管</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">监管严控杠杆炒股=最经典外部触发（2015中国/韩国现行）</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">收紧/严控/提保证金/限融资融券</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
+    </div>
+    <div class="signal-card" data-signal="X_CARRY">
+      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-name">日元套息 / BOJ 加息</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">日银加息→日元急升→套息平仓→资本回流（2024-08闪崩）</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">BOJ加息/转鹰/日元急升/carry unwind</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
+    </div>
+    <div class="signal-card" data-signal="X_ANTITRUST">
+      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-name">AI 巨头反垄断 / 拆分</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">监管强行打断 capex 自我强化循环</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">反垄断诉讼/调查/拆分/巨额罚款</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
+    </div>
+    <div class="signal-card" data-signal="X_POWER">
+      <div class="signal-num">EXO · 自动监控</div>
+      <div class="signal-name">数据中心电力 / 许可受阻</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">AI 扩张的物理+监管天花板（电网/许可/社区反对）</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">许可被拒/暂停/电力短缺/叫停</span></div>
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
@@ -1137,6 +1178,44 @@ function applyLiveData() {
     renderEventCard('W_BOND', ev.bond);
     renderEventCard('W_ABS', ev.abs);
     renderEventCard('E_POLICY', ev.policy);
+    // 外部触发器
+    renderEventCard('X_LEVERAGE', ev.leverage);
+    renderEventCard('X_CARRY', ev.carry);
+    renderEventCard('X_ANTITRUST', ev.antitrust);
+    renderEventCard('X_POWER', ev.power);
+    // 月度自动化
+    renderEventCard('W_DEBTWALL', ev.debtwall);
+  }
+
+  // M_ALLOC — 仓位结构审查：按 flip_count 自动测算建议仓位上限（人工确认）
+  var allocCard = document.querySelector('[data-signal="M_ALLOC"]');
+  if (allocCard && typeof FRED_DATA.flipped_count === 'number') {
+    var fc = FRED_DATA.flipped_count;
+    // 与 RULES tab 的翻转→动作映射一致
+    var cap, note;
+    if (fc >= 5)      { cap = '净空头';   note = '全面切换净空头'; }
+    else if (fc >= 3) { cap = '≤20%';    note = '空头变主仓 · 保护资本'; }
+    else if (fc >= 2) { cap = '≤30%';    note = '决策窗口开 · 加大对冲'; }
+    else if (fc >= 1) { cap = '≤50%';    note = '观察 · 缩短持仓周期'; }
+    else              { cap = '≤80%';    note = '系统健康 · 可持方向性仓位'; }
+    var capEl = allocCard.querySelector('[data-field="cap"]');
+    if (capEl) capEl.textContent = cap;
+    var basisEl = allocCard.querySelector('[data-field="basis"]');
+    if (basisEl) basisEl.textContent = fc + '/' + (FRED_DATA.flipped_total || 7) + ' 翻转 · ' + note;
+  }
+
+  // M_CALIB — 阈值校准：自动汇总翻转状态 + 最近翻转的信号（季度复核判断仍人工）
+  var calibCard = document.querySelector('[data-signal="M_CALIB"]');
+  if (calibCard && FRED_DATA.signals) {
+    var flipped = [];
+    for (var sid in FRED_DATA.signals) {
+      var sd = FRED_DATA.signals[sid];
+      if (sd.pill === 'pill-warn' || sd.pill === 'pill-red') flipped.push(sid);
+    }
+    var flipEl = calibCard.querySelector('[data-field="flip"]');
+    if (flipEl) flipEl.textContent = (FRED_DATA.flipped_count || 0) + '/' + (FRED_DATA.flipped_total || 7) + ' 核心信号';
+    var recentEl = calibCard.querySelector('[data-field="recent"]');
+    if (recentEl) recentEl.textContent = flipped.length ? flipped.join(', ') : '无信号翻转';
   }
 }
 

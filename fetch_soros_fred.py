@@ -468,12 +468,71 @@ def fetch_news_events():
         warn_pill="pill-warn",
     )
 
+    # ───────── 外部触发器 EXOGENOUS TRIGGERS（反身性循环的"断路器"）─────────
+    # 现有信号多测循环内部状态；这一类盯"从循环外把它掐断"的外生冲击，
+    # 是历史上戳破泡沫的真正凶手（2015中国去杠杆、韩国严控杠杆炒股等）。
+
+    # X_LEVERAGE — 全球去杠杆 / 保证金 / 融资融券 / 限制杠杆炒股（最像 2015 中国的外部触发）
+    leverage = _classify_event(
+        _fetch_gnews("stock market leverage OR margin OR speculation "
+                     "curb OR crackdown OR tighten OR restrict regulator "
+                     "Korea OR China OR US"),
+        trigger_terms=["curb", "crackdown", "tighten", "restrict", "rein in",
+                       "raise margin", "ban", "clamp", "cool", "limit",
+                       "去杠杆", "收紧", "严控", "限制", "融资融券", "杠杆"],
+        warn_pill="pill-red",
+    )
+
+    # X_ANTITRUST — AI 巨头反垄断 / 拆分 / 调查（监管强行打断 capex 循环）
+    antitrust = _classify_event(
+        _fetch_gnews("(Nvidia OR Microsoft OR Google OR OpenAI OR Broadcom) "
+                     "antitrust OR monopoly OR breakup OR probe"),
+        trigger_terms=["antitrust", "monopoly", "breakup", "break up", "lawsuit",
+                       "sue", "probe", "investigation", "fine", "charged",
+                       "反垄断", "拆分", "调查", "起诉", "罚"],
+        warn_pill="pill-warn",
+    )
+
+    # X_POWER — 数据中心电力 / 电网 / 许可受阻（AI 扩张的物理 + 监管天花板）
+    power = _classify_event(
+        _fetch_gnews("data center power OR grid OR electricity OR permit "
+                     "denied OR rejected OR moratorium OR blocked OR shortage"),
+        trigger_terms=["denied", "reject", "moratorium", "blocked", "halt",
+                       "shortage", "oppose", "paused", "curb", "ban",
+                       "拒绝", "暂停", "受阻", "叫停", "短缺"],
+        warn_pill="pill-warn",
+    )
+
+    # X_CARRY — 日元套息交易 / BOJ 加息（低息→carry trade 撑全球风险资产；
+    # 一旦 BOJ 加息或避险，日元急升、套息平仓、资本回流，2024-08 全球闪崩即此因）
+    carry = _classify_event(
+        _fetch_gnews("Bank of Japan OR BOJ rate hike OR yen carry trade "
+                     "unwind OR surge OR tighten"),
+        trigger_terms=["rate hike", "hike", "raise rates", "unwind", "surge",
+                       "tighten", "tapering", "intervention", "soar",
+                       "加息", "套息", "平仓", "升值", "回流"],
+        warn_pill="pill-red",
+    )
+
+    # AI 债务到期墙（替代原"手动·月底"，新闻自动追踪再融资窗口/到期压力）
+    debtwall = _classify_event(
+        _fetch_gnews("(CoreWeave OR Nebius OR Oracle OR data center OR AI) "
+                     "debt maturity OR refinance OR maturity wall OR due"),
+        trigger_terms=["maturity wall", "struggle to refinance", "refinancing risk",
+                       "looming", "due", "repay", "wall of debt", "到期", "再融资压力"],
+        warn_pill="pill-warn",
+    )
+
     out = {"capex": capex, "neocloud": neo, "bond": bond,
-           "abs": abs_ev, "policy": policy}
+           "abs": abs_ev, "policy": policy,
+           "leverage": leverage, "antitrust": antitrust, "power": power,
+           "carry": carry, "debtwall": debtwall}
     for label, ev in [("CAPEX", capex), ("NEOCLOUD", neo), ("BOND", bond),
-                      ("ABS", abs_ev), ("POLICY", policy)]:
+                      ("ABS", abs_ev), ("POLICY", policy), ("LEVERAGE", leverage),
+                      ("ANTITRUST", antitrust), ("POWER", power), ("CARRY", carry),
+                      ("DEBTWALL", debtwall)]:
         flag = "⚠" if ev["triggered"] else "✓"
-        print(f"   {flag} {label:9s} {ev['status']}  | {ev['headline'][:55]}")
+        print(f"   {flag} {label:10s} {ev['status']}  | {ev['headline'][:50]}")
 
     return out
 
@@ -575,6 +634,11 @@ def main():
             "bond": news_events["bond"],
             "abs": news_events["abs"],
             "policy": news_events["policy"],
+            "leverage": news_events["leverage"],
+            "antitrust": news_events["antitrust"],
+            "power": news_events["power"],
+            "carry": news_events["carry"],
+            "debtwall": news_events["debtwall"],
         },
         "fetch_failures": fetch_failures,
     }

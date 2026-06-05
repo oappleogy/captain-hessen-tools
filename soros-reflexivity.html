@@ -462,6 +462,9 @@ tr:hover{background:var(--card2)}
 <div class="content tab-content hidden" id="tab-signals">
 
   <style>
+    /* 降熵：安静的监控卡淡出，触发的自然醒目 */
+    .signal-card.quiet { opacity: .5; transition: opacity .2s; }
+    .signal-card.quiet:hover { opacity: 1; }
     #review-panel { margin-bottom: 30px; }
     .review-card { background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.35);
       border-left: 3px solid var(--red, #ef4444); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
@@ -1291,16 +1294,23 @@ function buildReviewPanel() {
   var hist = document.getElementById('review-history');
   if (!pending || !hist) return;
 
-  // 扫描所有处于触发态(warn/red)的信号卡
+  // 降熵：只收"真正触发"的——红灯 或 状态含"触发"的离散事件；
+  // 核心信号的持续"观察/承压"等常态不计入（那不是离散的待审事件）
   var triggered = [];
   document.querySelectorAll('.signal-card[data-signal]').forEach(function (card) {
     var pill = card.querySelector('.status-pill');
-    if (pill && (/pill-warn|pill-red/.test(pill.className))) {
+    if (!pill) return;
+    var st = pill.textContent.trim();
+    var isTrigger = /pill-red/.test(pill.className) || st.indexOf('触发') >= 0;
+    // 同时给安静的新闻监控卡打 quiet 标记（视觉降噪，触发的反而醒目）
+    var quiet = /pill-green/.test(pill.className) && (st.indexOf('监控中') >= 0 || st.indexOf('无近期') >= 0);
+    card.classList.toggle('quiet', quiet);
+    if (isTrigger) {
       var nameEl = card.querySelector('.signal-name');
       triggered.push({
         sig: card.getAttribute('data-signal'),
         name: nameEl ? nameEl.textContent.trim() : card.getAttribute('data-signal'),
-        status: pill.textContent.trim()
+        status: st
       });
     }
   });

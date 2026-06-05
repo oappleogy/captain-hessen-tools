@@ -1,31 +1,50 @@
 {
-  "score": 1.1,
+  "score": 22.0,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
   "components": [
     {
-      "variable": "usdjpy",
-      "name": "USD/JPY",
-      "current": 159.96,
-      "base": 145,
-      "deviation_pct": 10.3,
-      "weight": 0.1,
-      "weight_pct": 10,
-      "contribution": 10.6
+      "variable": "vix",
+      "name": "VIX",
+      "current": 15.4,
+      "base": 16,
+      "deviation_pct": 3.7,
+      "weight": 0.3,
+      "weight_pct": 30,
+      "contribution": 4.1
+    },
+    {
+      "variable": "credit_spread",
+      "name": "信用利差",
+      "current": 2.75,
+      "base": 1.5,
+      "deviation_pct": 83.3,
+      "weight": 0.25,
+      "weight_pct": 25,
+      "contribution": 1734.7
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.5,
+      "current": 99.42,
       "base": 100,
-      "deviation_pct": 0.5,
+      "deviation_pct": 0.6,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": 0.0
+      "contribution": 0.1
     }
   ],
-  "hard_alerts_count": 0,
-  "significant_deviations": [],
-  "timestamp": "2026-06-04 13:59"
+  "hard_alerts_count": 1,
+  "significant_deviations": [
+    {
+      "name": "信用利差",
+      "current": 2.75,
+      "base": 1.5,
+      "deviation_pct": 83.3,
+      "direction": "偏高",
+      "level": "极端偏离"
+    }
+  ],
+  "timestamp": "2026-06-05 11:38"
 }

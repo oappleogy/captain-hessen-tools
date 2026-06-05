@@ -1,6 +1,6 @@
 {
-  "fetched_at": "2026-06-04T05:59:56Z",
-  "cleaned_at": "2026-06-04T05:59:56Z",
+  "fetched_at": "2026-06-05T03:38:07Z",
+  "cleaned_at": "2026-06-05T03:38:07Z",
   "sliders": {
     "us_rate": {
       "value": 0,
@@ -10,24 +10,24 @@
       "source": "FRED/DFF"
     },
     "us_dxy": {
-      "value": 99.497,
+      "value": 99.419,
       "name": "美元指数DXY",
-      "date": "2026-06-03",
+      "date": "2026-06-04",
       "freshness": "fresh",
       "source": "Yahoo/DX-Y.NYB"
     },
     "us_vix": {
-      "value": 0,
+      "value": 15.4,
       "name": "VIX恐慌指数",
-      "date": "",
-      "freshness": "stale",
+      "date": "2026-06-04",
+      "freshness": "fresh",
       "source": "Yahoo/^VIX"
     },
     "cn_yuan": {
-      "value": 6.7765,
+      "value": 0,
       "name": "USD/CNY汇率",
-      "date": "2026-06-04",
-      "freshness": "fresh",
+      "date": "",
+      "freshness": "stale",
       "source": "Yahoo/CNY=X"
     },
     "eu_gas": {
@@ -38,10 +38,10 @@
       "source": "Yahoo/TTF=F"
     },
     "jp_yen": {
-      "value": 159.961,
+      "value": 0,
       "name": "USD/JPY汇率",
-      "date": "2026-06-04",
-      "freshness": "fresh",
+      "date": "",
+      "freshness": "stale",
       "source": "Yahoo/JPY=X"
     },
     "geo_oil": {

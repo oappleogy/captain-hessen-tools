@@ -340,7 +340,7 @@ tr:hover{background:var(--card2)}
       <div class="layer-title"><span class="code">S1</span>纯杠杆 Neocloud · 最早断的环节</div>
       <div class="layer-weight">2-3% 名义空头</div>
     </div>
-    <div class="layer-thesis">融资期限 15-20 年 vs GPU 寿命 3-4 年 = 教科书级久期错配。GPU 抵押 LTV 75%，残值跌 25% 即破押。市场叙事仍在相信，是干净的做空窗口。</div>
+    <div class="layer-thesis">融资期限 ~5-6 年（CoreWeave DDTL 5.0 到期 2031、DDTL 4.0 到期 2032）vs GPU 经济寿命 3-4 年 = 久期错配：债比 GPU 产出期长，叠加近端再融资墙（CRWV $4.2B 2026）。GPU 抵押 LTV 75%，残值跌 25% 即破押。市场叙事仍在相信，是干净的做空窗口。</div>
     <table>
       <thead><tr><th>标的</th><th>做空逻辑</th><th>触发条件</th></tr></thead>
       <tbody>
@@ -758,6 +758,30 @@ tr:hover{background:var(--card2)}
       <div class="signal-name">数据中心电力 / 许可受阻</div>
       <div class="signal-row"><span class="key">逻辑</span><span class="val">AI 扩张的物理+监管天花板（电网/许可/社区反对）</span></div>
       <div class="signal-row"><span class="key">触发</span><span class="val">许可被拒/暂停/电力短缺/叫停</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
+    </div>
+    <div class="signal-card" data-signal="X_NBFI">
+      <div class="signal-num">EXO · Agent提议</div>
+      <div class="signal-name">非银金融杠杆出清</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">对冲基金/资管强平→火烧连营，局部压力变系统性踩踏</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">强平/margin call/fire sale/basis平仓</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
+    </div>
+    <div class="signal-card" data-signal="X_USDFUNDING">
+      <div class="signal-num">EXO · Agent提议</div>
+      <div class="signal-name">美元融资 / 跨币种基差</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">离岸美元荒→基差扩大→高杠杆头寸被迫平仓（08/20危机前兆）</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">美元荒/基差扩大/repo紧张</span></div>
+      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
+      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
+    </div>
+    <div class="signal-card" data-signal="X_CNFLOW">
+      <div class="signal-num">EXO · Agent提议</div>
+      <div class="signal-name">中国资金面 / 资本管制</div>
+      <div class="signal-row"><span class="key">逻辑</span><span class="val">资本外流管制 或 房地产危机引发回流→AI相关中概/港股资金骤减</span></div>
+      <div class="signal-row"><span class="key">触发</span><span class="val">外汇管制/QDII收紧/LGFV/地产违约/回流</span></div>
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
@@ -1183,6 +1207,9 @@ function applyLiveData() {
     renderEventCard('X_CARRY', ev.carry);
     renderEventCard('X_ANTITRUST', ev.antitrust);
     renderEventCard('X_POWER', ev.power);
+    renderEventCard('X_NBFI', ev.nbfi);
+    renderEventCard('X_USDFUNDING', ev.usdfunding);
+    renderEventCard('X_CNFLOW', ev.cnflow);
     // 月度自动化
     renderEventCard('W_DEBTWALL', ev.debtwall);
   }

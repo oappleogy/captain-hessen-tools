@@ -523,14 +523,46 @@ def fetch_news_events():
         warn_pill="pill-warn",
     )
 
+    # ── 2026-06-05 经人工审核采纳的新外部触发器（指标发现 Agent 提议）──
+    # X_NBFI — 非银金融中介杠杆出清（对冲基金/资管强平→火烧连营，系统性传导链）
+    # 注：Google News 搜索偏 AND 匹配，长 OR 串会返空 → 用精确自然短语；
+    # 这几个是尾部风险，平时安静(无近期新闻)=正常，出现压力时触发词命中
+    nbfi = _classify_event(
+        _fetch_gnews("basis trade unwind hedge fund"),
+        trigger_terms=["deleverage", "margin call", "fire sale", "forced selling",
+                       "liquidity crunch", "unwind", "blowup", "blow up",
+                       "强平", "去杠杆", "爆仓"],
+        warn_pill="pill-red",
+    )
+
+    # X_USDFUNDING — 美元融资/跨币种基差收紧（危机前兆；FRED 无干净基差序列，用新闻）
+    usdfunding = _classify_event(
+        _fetch_gnews("cross-currency basis dollar funding"),
+        trigger_terms=["funding stress", "blowout", "dollar shortage",
+                       "swap spread", "repo stress", "widen", "squeeze", "spike",
+                       "美元荒", "基差扩大", "流动性紧"],
+        warn_pill="pill-warn",
+    )
+
+    # X_CNFLOW — 中国资金面/资本管制（合并：外流管制 + 房地产危机引发的资金回流）
+    cnflow = _classify_event(
+        _fetch_gnews("China capital flight crackdown"),
+        trigger_terms=["capital control", "outflow", "crackdown", "QDII", "flight",
+                       "repatriation", "LGFV", "property default", "clampdown",
+                       "资本外流", "外汇管制", "回流", "打击"],
+        warn_pill="pill-warn",
+    )
+
     out = {"capex": capex, "neocloud": neo, "bond": bond,
            "abs": abs_ev, "policy": policy,
            "leverage": leverage, "antitrust": antitrust, "power": power,
-           "carry": carry, "debtwall": debtwall}
+           "carry": carry, "debtwall": debtwall,
+           "nbfi": nbfi, "usdfunding": usdfunding, "cnflow": cnflow}
     for label, ev in [("CAPEX", capex), ("NEOCLOUD", neo), ("BOND", bond),
                       ("ABS", abs_ev), ("POLICY", policy), ("LEVERAGE", leverage),
                       ("ANTITRUST", antitrust), ("POWER", power), ("CARRY", carry),
-                      ("DEBTWALL", debtwall)]:
+                      ("DEBTWALL", debtwall), ("NBFI", nbfi),
+                      ("USDFUNDING", usdfunding), ("CNFLOW", cnflow)]:
         flag = "⚠" if ev["triggered"] else "✓"
         print(f"   {flag} {label:10s} {ev['status']}  | {ev['headline'][:50]}")
 
@@ -639,6 +671,9 @@ def main():
             "power": news_events["power"],
             "carry": news_events["carry"],
             "debtwall": news_events["debtwall"],
+            "nbfi": news_events["nbfi"],
+            "usdfunding": news_events["usdfunding"],
+            "cnflow": news_events["cnflow"],
         },
         "fetch_failures": fetch_failures,
     }

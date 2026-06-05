@@ -1,0 +1,88 @@
+{
+  "_comment": "Agent 托管的外部触发器监控注册表。批准的提议追加到 monitors[]；fetch_soros_fred.py 读取运行并回写 trigger_count/last_triggered；indicator_prune.py 据此修剪。硬编码的'创始集'(leverage/carry/antitrust/power 及事件信号)不在此表。",
+  "monitors": [
+    {
+      "key": "nbfi",
+      "name": "非银金融杠杆出清",
+      "logic": "对冲基金/资管强平→火烧连营，局部压力变系统性踩踏",
+      "trigger_desc": "强平/margin call/fire sale/basis平仓",
+      "query": "basis trade unwind hedge fund",
+      "trigger_terms": [
+        "deleverage",
+        "margin call",
+        "fire sale",
+        "forced selling",
+        "liquidity crunch",
+        "unwind",
+        "blowup",
+        "blow up",
+        "强平",
+        "去杠杆",
+        "爆仓"
+      ],
+      "pill": "pill-red",
+      "status": "active",
+      "added": "2026-06-05",
+      "trigger_count": 0,
+      "last_triggered": null,
+      "last_status": "监控中 · 近7日3条",
+      "last_run": "2026-06-05"
+    },
+    {
+      "key": "usdfunding",
+      "name": "美元融资 / 跨币种基差",
+      "logic": "离岸美元荒→基差扩大→高杠杆头寸被迫平仓（08/20危机前兆）",
+      "trigger_desc": "美元荒/基差扩大/repo紧张",
+      "query": "cross-currency basis dollar funding",
+      "trigger_terms": [
+        "funding stress",
+        "blowout",
+        "dollar shortage",
+        "swap spread",
+        "repo stress",
+        "widen",
+        "squeeze",
+        "spike",
+        "美元荒",
+        "基差扩大",
+        "流动性紧"
+      ],
+      "pill": "pill-warn",
+      "status": "active",
+      "added": "2026-06-05",
+      "trigger_count": 0,
+      "last_triggered": null,
+      "last_status": "监控中 · 无近期新闻",
+      "last_run": "2026-06-05"
+    },
+    {
+      "key": "cnflow",
+      "name": "中国资金面 / 资本管制",
+      "logic": "资本外流管制 或 房地产危机引发回流→AI相关中概/港股资金骤减",
+      "trigger_desc": "外汇管制/QDII收紧/LGFV/地产违约/回流",
+      "query": "China capital flight crackdown",
+      "trigger_terms": [
+        "capital control",
+        "outflow",
+        "crackdown",
+        "QDII",
+        "flight",
+        "repatriation",
+        "LGFV",
+        "property default",
+        "clampdown",
+        "资本外流",
+        "外汇管制",
+        "回流",
+        "打击"
+      ],
+      "pill": "pill-warn",
+      "status": "active",
+      "added": "2026-06-05",
+      "trigger_count": 1,
+      "last_triggered": "2026-06-05",
+      "last_status": "触发复核",
+      "last_run": "2026-06-05"
+    }
+  ]
+}

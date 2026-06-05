@@ -523,50 +523,63 @@ def fetch_news_events():
         warn_pill="pill-warn",
     )
 
-    # ── 2026-06-05 经人工审核采纳的新外部触发器（指标发现 Agent 提议）──
-    # X_NBFI — 非银金融中介杠杆出清（对冲基金/资管强平→火烧连营，系统性传导链）
-    # 注：Google News 搜索偏 AND 匹配，长 OR 串会返空 → 用精确自然短语；
-    # 这几个是尾部风险，平时安静(无近期新闻)=正常，出现压力时触发词命中
-    nbfi = _classify_event(
-        _fetch_gnews("basis trade unwind hedge fund"),
-        trigger_terms=["deleverage", "margin call", "fire sale", "forced selling",
-                       "liquidity crunch", "unwind", "blowup", "blow up",
-                       "强平", "去杠杆", "爆仓"],
-        warn_pill="pill-red",
-    )
-
-    # X_USDFUNDING — 美元融资/跨币种基差收紧（危机前兆；FRED 无干净基差序列，用新闻）
-    usdfunding = _classify_event(
-        _fetch_gnews("cross-currency basis dollar funding"),
-        trigger_terms=["funding stress", "blowout", "dollar shortage",
-                       "swap spread", "repo stress", "widen", "squeeze", "spike",
-                       "美元荒", "基差扩大", "流动性紧"],
-        warn_pill="pill-warn",
-    )
-
-    # X_CNFLOW — 中国资金面/资本管制（合并：外流管制 + 房地产危机引发的资金回流）
-    cnflow = _classify_event(
-        _fetch_gnews("China capital flight crackdown"),
-        trigger_terms=["capital control", "outflow", "crackdown", "QDII", "flight",
-                       "repatriation", "LGFV", "property default", "clampdown",
-                       "资本外流", "外汇管制", "回流", "打击"],
-        warn_pill="pill-warn",
-    )
-
     out = {"capex": capex, "neocloud": neo, "bond": bond,
            "abs": abs_ev, "policy": policy,
            "leverage": leverage, "antitrust": antitrust, "power": power,
-           "carry": carry, "debtwall": debtwall,
-           "nbfi": nbfi, "usdfunding": usdfunding, "cnflow": cnflow}
+           "carry": carry, "debtwall": debtwall}
     for label, ev in [("CAPEX", capex), ("NEOCLOUD", neo), ("BOND", bond),
                       ("ABS", abs_ev), ("POLICY", policy), ("LEVERAGE", leverage),
                       ("ANTITRUST", antitrust), ("POWER", power), ("CARRY", carry),
-                      ("DEBTWALL", debtwall), ("NBFI", nbfi),
-                      ("USDFUNDING", usdfunding), ("CNFLOW", cnflow)]:
+                      ("DEBTWALL", debtwall)]:
         flag = "⚠" if ev["triggered"] else "✓"
         print(f"   {flag} {label:10s} {ev['status']}  | {ev['headline'][:50]}")
 
     return out
+
+
+# ============================================================
+# Agent 托管监控注册表（Phase 2：批准的提议追加到此，自动运行+统计+修剪）
+# ============================================================
+
+REGISTRY_FILE = Path(__file__).parent / "indicator_registry.json"
+
+
+def run_registry_monitors():
+    """读注册表运行 active 监控，回写触发统计，返回 ({key: ev}, [display_meta])"""
+    if not REGISTRY_FILE.exists():
+        return {}, []
+    try:
+        reg = json.loads(REGISTRY_FILE.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"  ⚠ 注册表读取失败: {e}")
+        return {}, []
+
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    events, meta = {}, []
+    print("\n→ Agent 托管监控 (注册表)...")
+    for mon in reg.get("monitors", []):
+        if mon.get("status") != "active":
+            continue
+        key = mon["key"]
+        ev = _classify_event(_fetch_gnews(mon["query"]),
+                             trigger_terms=mon.get("trigger_terms", []),
+                             warn_pill=mon.get("pill", "pill-warn"))
+        events[key] = ev
+        if ev["triggered"]:
+            mon["trigger_count"] = mon.get("trigger_count", 0) + 1
+            mon["last_triggered"] = today
+        mon["last_status"] = ev["status"]
+        mon["last_run"] = today
+        meta.append({"key": key, "name": mon["name"], "logic": mon.get("logic", ""),
+                     "trigger_desc": mon.get("trigger_desc", "")})
+        flag = "⚠" if ev["triggered"] else "✓"
+        print(f"   {flag} {key:10s} {ev['status']}  | {ev['headline'][:50]}")
+
+    try:
+        REGISTRY_FILE.write_text(json.dumps(reg, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as e:
+        print(f"  ⚠ 注册表回写失败: {e}")
+    return events, meta
 
 
 # ============================================================
@@ -646,8 +659,15 @@ def main():
     # ── Form 4 内部人交易 ──
     form4_data = fetch_form4()
 
-    # ── 新闻事件监控 (capex / neocloud) ──
+    # ── 新闻事件监控（创始集，硬编码）──
     news_events = fetch_news_events()
+
+    # ── Agent 托管监控（注册表，批准的提议自动接入）──
+    registry_events, registry_meta = run_registry_monitors()
+
+    events = {"tips_daily": tips_event}
+    events.update(news_events)       # 创始集
+    events.update(registry_events)   # 注册表托管集
 
     # 构建 payload
     payload = {
@@ -659,22 +679,8 @@ def main():
             "gpu_prices": gpu_prices,
             "form4": form4_data,
         },
-        "events": {
-            "tips_daily": tips_event,
-            "capex": news_events["capex"],
-            "neocloud": news_events["neocloud"],
-            "bond": news_events["bond"],
-            "abs": news_events["abs"],
-            "policy": news_events["policy"],
-            "leverage": news_events["leverage"],
-            "antitrust": news_events["antitrust"],
-            "power": news_events["power"],
-            "carry": news_events["carry"],
-            "debtwall": news_events["debtwall"],
-            "nbfi": news_events["nbfi"],
-            "usdfunding": news_events["usdfunding"],
-            "cnflow": news_events["cnflow"],
-        },
+        "events": events,
+        "registry": registry_meta,   # 前端据此动态建卡
         "fetch_failures": fetch_failures,
     }
 

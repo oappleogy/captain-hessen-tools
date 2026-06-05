@@ -761,30 +761,7 @@ tr:hover{background:var(--card2)}
       <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
       <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
     </div>
-    <div class="signal-card" data-signal="X_NBFI">
-      <div class="signal-num">EXO · Agent提议</div>
-      <div class="signal-name">非银金融杠杆出清</div>
-      <div class="signal-row"><span class="key">逻辑</span><span class="val">对冲基金/资管强平→火烧连营，局部压力变系统性踩踏</span></div>
-      <div class="signal-row"><span class="key">触发</span><span class="val">强平/margin call/fire sale/basis平仓</span></div>
-      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
-    </div>
-    <div class="signal-card" data-signal="X_USDFUNDING">
-      <div class="signal-num">EXO · Agent提议</div>
-      <div class="signal-name">美元融资 / 跨币种基差</div>
-      <div class="signal-row"><span class="key">逻辑</span><span class="val">离岸美元荒→基差扩大→高杠杆头寸被迫平仓（08/20危机前兆）</span></div>
-      <div class="signal-row"><span class="key">触发</span><span class="val">美元荒/基差扩大/repo紧张</span></div>
-      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
-    </div>
-    <div class="signal-card" data-signal="X_CNFLOW">
-      <div class="signal-num">EXO · Agent提议</div>
-      <div class="signal-name">中国资金面 / 资本管制</div>
-      <div class="signal-row"><span class="key">逻辑</span><span class="val">资本外流管制 或 房地产危机引发回流→AI相关中概/港股资金骤减</span></div>
-      <div class="signal-row"><span class="key">触发</span><span class="val">外汇管制/QDII收紧/LGFV/地产违约/回流</span></div>
-      <div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>
-      <div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>
-    </div>
+    <!-- Agent 托管的外部触发器卡片由 JS 从 FRED_DATA.registry 动态插入到这里 -->
   </div>
 </div>
 
@@ -1207,11 +1184,29 @@ function applyLiveData() {
     renderEventCard('X_CARRY', ev.carry);
     renderEventCard('X_ANTITRUST', ev.antitrust);
     renderEventCard('X_POWER', ev.power);
-    renderEventCard('X_NBFI', ev.nbfi);
-    renderEventCard('X_USDFUNDING', ev.usdfunding);
-    renderEventCard('X_CNFLOW', ev.cnflow);
-    // 月度自动化
     renderEventCard('W_DEBTWALL', ev.debtwall);
+  }
+
+  // Agent 托管监控（注册表）：从 FRED_DATA.registry 动态建卡 + 填充
+  if (FRED_DATA.registry && FRED_DATA.registry.length) {
+    var exoGrid = document.getElementById('exo-grid');
+    FRED_DATA.registry.forEach(function (m) {
+      var sig = 'X_' + m.key.toUpperCase();
+      if (exoGrid && !document.querySelector('[data-signal="' + sig + '"]')) {
+        var card = document.createElement('div');
+        card.className = 'signal-card';
+        card.setAttribute('data-signal', sig);
+        card.innerHTML =
+          '<div class="signal-num">EXO · Agent托管</div>' +
+          '<div class="signal-name">' + m.name + '</div>' +
+          '<div class="signal-row"><span class="key">逻辑</span><span class="val">' + (m.logic || '') + '</span></div>' +
+          '<div class="signal-row"><span class="key">触发</span><span class="val">' + (m.trigger_desc || '') + '</span></div>' +
+          '<div class="signal-row"><span class="key">SOURCE</span><span class="val">新闻关键词监控 · 每日自动</span></div>' +
+          '<div class="signal-row"><span class="key">STATUS</span><span class="status-pill pill-green" data-field="status">监控中</span></div>';
+        exoGrid.appendChild(card);
+      }
+      renderEventCard(sig, FRED_DATA.events ? FRED_DATA.events[m.key] : null);
+    });
   }
 
   // M_ALLOC — 仓位结构审查：按 flip_count 自动测算建议仓位上限（人工确认）

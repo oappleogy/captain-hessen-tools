@@ -1,14 +1,14 @@
 {
- "last_updated": "2026-06-05",
- "next_update": "2026-06-12",
+ "last_updated": "2026-06-08",
+ "next_update": "2026-06-15",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
-  "label": "厄尔尼诺酝酿中 · El Niño Emerging",
+  "label": "厄尔尼诺形成中 · El Niño Emerging",
   "phase": "el_nino_emerging",
-  "intensity": "临界偏暖，向弱厄尔尼诺过渡（ONI 接近 +0.5 阈值，周度已破 +1.0）",
+  "intensity": "临界至弱（ONI 升至阈值，周度已破 +0.5°C）",
   "alert": "El Niño Watch",
-  "alert_note": "CPC 厄尔尼诺观察：5–7 月生成概率 82%，2026-27 冬季(DJF)维持概率 96%。",
-  "summary": "ONI(MAM 26)=+0.48°C，已连续 6 季单调上升（OND25 −0.55 → MAM26 +0.48），暖位相趋势确立；Niño3.4 周度(27MAY2026)已升至 +1.00°C，次表层暖水连续 6 个月增强。CPC 维持「厄尔尼诺观察」，判断厄尔尼诺将很快生成并持续至冬季，但峰值强度仍高度不确定（无任一强度档超 37%）。"
+  "alert_note": "CPC 维持厄尔尼诺观察：5–7月形成概率 82%，2026-27 冬季（DJF）持续概率 96%。",
+  "summary": "最新 ONI（MAM 26）升至 +0.48°C，已贴近 +0.5°C 阈值，且为连续六季单边回暖（OND -0.55 → MAM +0.48）。最新周度 Niño3.4（27MAY2026）已达 +1.00°C，明显越过阈值。CPC 5月14日诊断仍判定为 ENSO 中性（彼时周度 +0.4°C），但次表层温度连续六个月升高、西风异常出现，配合 NMME 集合预报，维持「厄尔尼诺观察」并判断很快形成；最新数据相较该讨论已进一步转暖，事件正在成形。"
  },
  "indicators": [
   {
@@ -128,38 +128,38 @@
  "forecast": [
   {
    "season": "MJJ 26",
-   "la_nina": 0,
-   "neutral": 18,
+   "la_nina": 1,
+   "neutral": 17,
    "el_nino": 82
   },
   {
    "season": "JJA 26",
-   "la_nina": 0,
-   "neutral": 14,
-   "el_nino": 86
+   "la_nina": 1,
+   "neutral": 12,
+   "el_nino": 87
   },
   {
    "season": "JAS 26",
-   "la_nina": 0,
-   "neutral": 11,
-   "el_nino": 89
+   "la_nina": 1,
+   "neutral": 9,
+   "el_nino": 90
   },
   {
    "season": "ASO 26",
-   "la_nina": 0,
-   "neutral": 9,
-   "el_nino": 91
+   "la_nina": 1,
+   "neutral": 7,
+   "el_nino": 92
   },
   {
    "season": "SON 26",
-   "la_nina": 0,
-   "neutral": 7,
-   "el_nino": 93
+   "la_nina": 1,
+   "neutral": 5,
+   "el_nino": 94
   },
   {
    "season": "OND 26",
-   "la_nina": 0,
-   "neutral": 5,
+   "la_nina": 1,
+   "neutral": 4,
    "el_nino": 95
   },
   {

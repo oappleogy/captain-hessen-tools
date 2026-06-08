@@ -465,35 +465,21 @@ tr:hover{background:var(--card2)}
     /* 降熵：安静的监控卡淡出，触发的自然醒目 */
     .signal-card.quiet { opacity: .5; transition: opacity .2s; }
     .signal-card.quiet:hover { opacity: 1; }
-    #review-panel { margin-bottom: 30px; }
-    .review-card { background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.35);
-      border-left: 3px solid var(--red, #ef4444); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
-    .review-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .review-name { font-weight: 600; color: #e2e0dc; }
-    .review-note { width: 100%; min-height: 56px; box-sizing: border-box; background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.15); border-radius: 6px; color: #e2e0dc; padding: 8px;
-      font-family: inherit; font-size: 13px; resize: vertical; }
-    .review-save { margin-top: 8px; background: var(--red, #ef4444); color: #fff; border: none;
-      border-radius: 6px; padding: 6px 14px; font-size: 13px; cursor: pointer; }
+    /* 卡片内联审核：只在触发的卡片底部长出，审核留痕直接在卡上 */
+    .card-review { margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(239,68,68,.45); }
+    .card-review .rv-label { font-size: 11px; color: #ef9a9a; margin-bottom: 5px; }
+    .review-note { width: 100%; min-height: 44px; box-sizing: border-box; background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.15); border-radius: 6px; color: #e2e0dc; padding: 7px;
+      font-family: inherit; font-size: 12px; resize: vertical; }
+    .review-save { margin-top: 6px; background: var(--red, #ef4444); color: #fff; border: none;
+      border-radius: 5px; padding: 4px 12px; font-size: 12px; cursor: pointer; }
     .review-save:hover { opacity: .85; }
-    .review-empty { color: #8a8782; font-size: 13px; padding: 10px 0; }
-    .review-hist-title { color: #a78bfa; font-size: 13px; font-weight: 600; margin: 16px 0 8px; }
-    .review-hist-item { border-left: 2px solid rgba(167,139,250,.4); padding: 6px 0 6px 12px; margin-bottom: 10px; position: relative; }
-    .review-hist-meta { font-size: 12px; color: #9b988f; }
-    .review-hist-meta em { color: #d4a854; font-style: normal; }
-    .review-hist-note { font-size: 13px; color: #d8d6d2; margin-top: 3px; white-space: pre-wrap; }
-    .review-del { position: absolute; right: 0; top: 6px; background: none; border: 1px solid rgba(255,255,255,.2);
-      color: #8a8782; border-radius: 4px; font-size: 11px; padding: 1px 7px; cursor: pointer; }
+    .review-hist-item { border-left: 2px solid rgba(167,139,250,.45); padding: 3px 0 3px 9px; margin-top: 6px; position: relative; }
+    .review-hist-meta { font-size: 11px; color: #9b988f; }
+    .review-hist-note { font-size: 12px; color: #d8d6d2; margin-top: 2px; white-space: pre-wrap; padding-right: 38px; }
+    .review-del { position: absolute; right: 0; top: 2px; background: none; border: 1px solid rgba(255,255,255,.2);
+      color: #8a8782; border-radius: 4px; font-size: 10px; padding: 0 6px; cursor: pointer; }
   </style>
-
-  <div class="section">
-    <h2>触发审核 · 复盘留痕</h2>
-    <h3>当前触发信号汇总 + 人工审核记录（保存在本地浏览器，仅本机可见）</h3>
-  </div>
-  <div id="review-panel">
-    <div id="review-pending"></div>
-    <div id="review-history"></div>
-  </div>
 
   <div class="section">
     <h2>七个领先信号 · 每日核心盯盘</h2>
@@ -1276,8 +1262,8 @@ function applyLiveData() {
     if (recentEl) recentEl.textContent = flipped.length ? flipped.join(', ') : '无信号翻转';
   }
 
-  // 触发审核面板（所有卡片渲染完后扫描触发态）
-  buildReviewPanel();
+  // 给触发的卡片内联注入审核控件（所有卡片渲染完后）
+  attachCardReviews();
 }
 
 // ===== 触发审核 · 复盘留痕（localStorage 本地保存）=====
@@ -1289,86 +1275,64 @@ function _escHtml(s) {
 function _loadReviews() { try { return JSON.parse(localStorage.getItem('soros_reviews') || '[]'); } catch (e) { return []; } }
 function _saveReviews(r) { localStorage.setItem('soros_reviews', JSON.stringify(r)); }
 
-function buildReviewPanel() {
-  var pending = document.getElementById('review-pending');
-  var hist = document.getElementById('review-history');
-  if (!pending || !hist) return;
-
-  // 降熵：只收"真正触发"的——红灯 或 状态含"触发"的离散事件；
-  // 核心信号的持续"观察/承压"等常态不计入（那不是离散的待审事件）
-  var triggered = [];
+function attachCardReviews() {
+  var reviews = _loadReviews();
   document.querySelectorAll('.signal-card[data-signal]').forEach(function (card) {
+    var old = card.querySelector('.card-review');
+    if (old) old.remove();  // 重建
     var pill = card.querySelector('.status-pill');
     if (!pill) return;
     var st = pill.textContent.trim();
     var isTrigger = /pill-red/.test(pill.className) || st.indexOf('触发') >= 0;
-    // 同时给安静的新闻监控卡打 quiet 标记（视觉降噪，触发的反而醒目）
+    // 降熵：安静的监控卡淡出
     var quiet = /pill-green/.test(pill.className) && (st.indexOf('监控中') >= 0 || st.indexOf('无近期') >= 0);
     card.classList.toggle('quiet', quiet);
-    if (isTrigger) {
-      var nameEl = card.querySelector('.signal-name');
-      triggered.push({
-        sig: card.getAttribute('data-signal'),
-        name: nameEl ? nameEl.textContent.trim() : card.getAttribute('data-signal'),
-        status: st
-      });
-    }
-  });
+    if (!isTrigger) return;  // 只在触发的卡片上长出审核控件
 
-  var reviews = _loadReviews();
-  var today = new Date().toISOString().slice(0, 10);
-  var doneToday = {};
-  reviews.forEach(function (r) { if (r.date === today) doneToday[r.sig] = true; });
-  var pend = triggered.filter(function (t) { return !doneToday[t.sig]; });
-
-  if (!pend.length) {
-    pending.innerHTML = '<div class="review-empty">✓ 当前无待审触发信号' +
-      (triggered.length ? '（今日 ' + triggered.length + ' 个触发已全部留痕）' : '') + '</div>';
-  } else {
-    pending.innerHTML = pend.map(function (t) {
-      return '<div class="review-card" data-sig="' + _escHtml(t.sig) + '" data-name="' + _escHtml(t.name) +
-        '" data-status="' + _escHtml(t.status) + '">' +
-        '<div class="review-head"><span class="review-name">⚠ ' + _escHtml(t.name) + '</span>' +
-        '<span class="status-pill pill-warn">' + _escHtml(t.status) + '</span></div>' +
-        '<textarea class="review-note" placeholder="审核判断：是真信号还是噪音？传导机制成立吗？要不要动仓 / 进入哪个响应等级？"></textarea>' +
-        '<button class="review-save" onclick="saveReview(this)">保存审核留痕</button></div>';
+    var sig = card.getAttribute('data-signal');
+    var mine = reviews.map(function (r, i) { return { r: r, i: i }; })
+                      .filter(function (x) { return x.r.sig === sig; });
+    var histHtml = mine.slice().reverse().map(function (x) {
+      return '<div class="review-hist-item"><div class="review-hist-meta">' + _escHtml(x.r.ts || x.r.date) + '</div>' +
+        '<div class="review-hist-note">' + _escHtml(x.r.note) + '</div>' +
+        '<button class="review-del" onclick="delReview(' + x.i + ')">删</button></div>';
     }).join('');
-  }
 
-  if (!reviews.length) {
-    hist.innerHTML = '';
-  } else {
-    hist.innerHTML = '<div class="review-hist-title">审核历史（' + reviews.length + '）</div>' +
-      reviews.slice().reverse().map(function (r, i) {
-        var realIdx = reviews.length - 1 - i;
-        return '<div class="review-hist-item"><div class="review-hist-meta">' +
-          _escHtml(r.ts || r.date) + ' · ' + _escHtml(r.name) + ' · <em>' + _escHtml(r.status) + '</em></div>' +
-          '<div class="review-hist-note">' + _escHtml(r.note) + '</div>' +
-          '<button class="review-del" onclick="delReview(' + realIdx + ')">删除</button></div>';
-      }).join('');
-  }
+    var box = document.createElement('div');
+    box.className = 'card-review';
+    box.innerHTML =
+      '<div class="rv-label">⚠ 触发 · 审核留痕' + (mine.length ? '（已记 ' + mine.length + '）' : '') + '</div>' +
+      '<textarea class="review-note" placeholder="真信号还是噪音？传导机制成立吗？要不要动仓/进入哪个响应等级？"></textarea>' +
+      '<button class="review-save" onclick="saveReview(this)">保存审核</button>' +
+      (histHtml ? '<div class="card-review-hist">' + histHtml + '</div>' : '');
+    card.appendChild(box);
+  });
 }
 
 function saveReview(btn) {
-  var card = btn.closest('.review-card');
-  var note = card.querySelector('.review-note').value.trim();
+  var card = btn.closest('.signal-card');
+  if (!card) return;
+  var ta = card.querySelector('.review-note');
+  var note = ta ? ta.value.trim() : '';
   if (!note) { alert('请先写下审核判断再保存'); return; }
+  var nameEl = card.querySelector('.signal-name');
+  var pill = card.querySelector('.status-pill');
   var reviews = _loadReviews();
   reviews.push({
     date: new Date().toISOString().slice(0, 10),
     ts: new Date().toLocaleString('zh-CN'),
-    sig: card.getAttribute('data-sig'),
-    name: card.getAttribute('data-name'),
-    status: card.getAttribute('data-status'),
+    sig: card.getAttribute('data-signal'),
+    name: nameEl ? nameEl.textContent.trim() : '',
+    status: pill ? pill.textContent.trim() : '',
     note: note
   });
   _saveReviews(reviews);
-  buildReviewPanel();
+  attachCardReviews();
 }
 
 function delReview(idx) {
   var reviews = _loadReviews();
-  if (idx >= 0 && idx < reviews.length) { reviews.splice(idx, 1); _saveReviews(reviews); buildReviewPanel(); }
+  if (idx >= 0 && idx < reviews.length) { reviews.splice(idx, 1); _saveReviews(reviews); attachCardReviews(); }
 }
 
 // 动态加载 soros-data.js，按小时分桶做缓存破坏：

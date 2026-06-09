@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-08",
+  "last_updated": "2026-06-09",
   "timeline": [
     {
       "date": "2026-03-26",
@@ -789,6 +789,33 @@
         "CyberSecurityNews"
       ],
       "new_members": []
+    },
+    {
+      "date": "2026-06-05",
+      "tag": "能力",
+      "title": "NSA被曝使用Claude Mythos进行进攻性网络行动",
+      "detail": "Tom's Hardware报道称 NSA正在使用Claude Mythos进行'进攻性网络行动'。报道援引知情人士称，约有'半打'Anthropic工程师被派驻在NSA内部。此举引发关于AI模型军事化应用的担忧。",
+      "impact": "重大",
+      "sources": [
+        "Tom's Hardware"
+      ],
+      "new_members": []
+    },
+    {
+      "date": "2026-06-06",
+      "tag": "成员",
+      "title": "印度政府机构和 企业获得Mythos访问权",
+      "detail": "The Indian Express和NDTV Profit报道，印度关键网络安全机构和部分印度企业即将获得Anthropic的Claude Mythos访问权，用于网络防御。此举正值印度政府加强网络安全能力建设之际。",
+      "impact": "信息",
+      "sources": [
+        "The Indian Express",
+        "NDTV Profit",
+        "Fathom Journal"
+      ],
+      "new_members": [
+        "印度政府网络安全机构",
+        "印度企业"
+      ]
     }
   ],
   "tracking_lines": [
@@ -960,6 +987,8 @@
       "Verizon",
       "三井住友金融集团",
       "三菱UFJ金融集团",
+      "印度企业",
+      "印度政府网络安全机构",
       "富士通",
       "澳大利亚政府",
       "瑞穗金融集团",
@@ -1057,6 +1086,13 @@
         "date": "2026-06-04",
         "added": [
           "TrendAI"
+        ]
+      },
+      {
+        "date": "2026-06-09",
+        "added": [
+          "印度企业",
+          "印度政府网络安全机构"
         ]
       }
     ]

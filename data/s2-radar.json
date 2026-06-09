@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-06-08T11:32:43",
+  "timestamp": "2026-06-09T18:04:22",
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
     "color": "#f97316",
     "level": 3,
     "score": 0.167,
-    "action": "系统显著承压。建议仓位≤30%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
+    "action": "系统显著承压。建议仓位≤35%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -21,7 +21,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.49,
+      "score": 0.53,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -61,17 +61,17 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.12,
+      "score": 0.2,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.56,
+      "score": -0.41,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -98,14 +98,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 68.5
+        "pct": 67.6
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 30.1
+        "pct": 31.1
       },
       {
         "key": "TECH_DOM",
@@ -122,16 +122,16 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "黄金",
+    "moving_toward": "停滞",
     "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
     "count": 3,
     "categories": [
-      "OVX原油波动率=57.8 (历史90%分位)",
-      "地缘交叉验证(OVX)=57.8 (历史90%分位) [仅验证，不计分]",
-      "Nasdaq波动率(VXN)=30.5 (历史97%分位)"
+      "OVX原油波动率=58.4 (历史90%分位)",
+      "地缘交叉验证(OVX)=58.4 (历史90%分位) [仅验证，不计分]",
+      "Nasdaq波动率(VXN)=27.1 (历史93%分位)"
     ]
   },
   "opportunities": [],
@@ -149,12 +149,12 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 21.5,
-      "percentile": 89,
+      "value": 18.0,
+      "percentile": 71,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {
-      "value": 2.74,
+      "value": 2.76,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

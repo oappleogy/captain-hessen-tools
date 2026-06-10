@@ -1,5 +1,5 @@
 {
-  "score": 31.9,
+  "score": 32.9,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -7,47 +7,47 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 18.92,
+      "current": 19.87,
       "base": 16,
-      "deviation_pct": 18.3,
+      "deviation_pct": 24.2,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 100.5
+      "contribution": 175.7
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 91.43,
+      "current": 88.95,
       "base": 75,
-      "deviation_pct": 21.9,
+      "deviation_pct": 18.6,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 95.9
+      "contribution": 69.2
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 2.76,
+      "current": 2.75,
       "base": 1.5,
-      "deviation_pct": 84.0,
+      "deviation_pct": 83.3,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 1764.0
+      "contribution": 1734.7
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 160.15,
+      "current": 160.36,
       "base": 145,
-      "deviation_pct": 10.4,
+      "deviation_pct": 10.6,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 10.8
+      "contribution": 11.2
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 100.05,
+      "current": 99.99,
       "base": 100,
       "deviation_pct": 0.0,
       "weight": 0.15,
@@ -59,28 +59,28 @@
   "significant_deviations": [
     {
       "name": "信用利差",
-      "current": 2.76,
+      "current": 2.75,
       "base": 1.5,
-      "deviation_pct": 84.0,
+      "deviation_pct": 83.3,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
       "name": "天然气TTF",
-      "current": 48.4,
+      "current": 48.62,
       "base": 35,
-      "deviation_pct": 38.3,
+      "deviation_pct": 38.9,
       "direction": "偏高",
       "level": "显著偏离"
     },
     {
-      "name": "WTI油价",
-      "current": 91.43,
-      "base": 75,
-      "deviation_pct": 21.9,
+      "name": "VIX",
+      "current": 19.87,
+      "base": 16,
+      "deviation_pct": 24.2,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-06-09 08:15"
+  "timestamp": "2026-06-10 08:15"
 }

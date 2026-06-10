@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-06-10T07:36:58",
+  "timestamp": "2026-06-10T23:48:59",
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
     "color": "#f97316",
     "level": 3,
-    "score": 0.0,
-    "action": "系统显著承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "score": 0.167,
+    "action": "系统显著承压。建议仓位≤40%（趋势↑），增加对冲，缩短持仓周期。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
   "dim_lights": {
     "R": "green",
-    "I": "yellow",
+    "I": "green",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
@@ -31,17 +31,17 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.25,
-      "state": "►",
-      "light": "yellow",
-      "note": "政策不确定性上升，规则可预测性下降",
+      "score": 0.3,
+      "state": "▲",
+      "light": "green",
+      "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.04,
+      "score": 0.03,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -51,17 +51,17 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.22,
+      "score": 0.09,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "healthy"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.02,
+      "score": -0.07,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -71,7 +71,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.51,
+      "score": -0.64,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -81,31 +81,31 @@
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
         "name": "黄金吸引子",
         "emoji": "🟢",
         "color": "#22c55e",
-        "pct": 1.3
+        "pct": 0.0
       },
       {
         "key": "STABLE",
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 68.0
+        "pct": 66.7
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 30.7
+        "pct": 33.3
       },
       {
         "key": "TECH_DOM",
@@ -122,16 +122,16 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "TECH_DOM",
-    "safety_margin": 0.1,
+    "moving_toward": "黄金",
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
     "count": 3,
     "categories": [
-      "OVX原油波动率=57.6 (历史90%分位)",
-      "地缘交叉验证(OVX)=57.6 (历史90%分位) [仅验证，不计分]",
-      "Nasdaq波动率(VXN)=29.8 (历史97%分位)"
+      "OVX原油波动率=57.7 (历史90%分位)",
+      "地缘交叉验证(OVX)=57.7 (历史90%分位) [仅验证，不计分]",
+      "Nasdaq波动率(VXN)=32.1 (历史98%分位)"
     ]
   },
   "opportunities": [],
@@ -149,12 +149,12 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 19.9,
-      "percentile": 83,
+      "value": 21.7,
+      "percentile": 89,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {
-      "value": 2.75,
+      "value": 2.78,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

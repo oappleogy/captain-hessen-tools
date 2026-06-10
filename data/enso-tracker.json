@@ -1,14 +1,14 @@
 {
- "last_updated": "2026-06-09",
- "next_update": "2026-06-16",
+ "last_updated": "2026-06-10",
+ "next_update": "2026-06-17",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
-  "label": "厄尔尼诺成形中 · El Niño Emerging",
+  "label": "厄尔尼诺酝酿中 · El Niño Emerging",
   "phase": "el_nino_emerging",
-  "intensity": "中性偏暖，快速升温（弱厄尔尼诺正在形成）",
+  "intensity": "临界偏暖（ONI +0.48°C 逼近阈值，周度已达 +1.30°C，预计夏季成型）",
   "alert": "El Niño Watch",
-  "alert_note": "CPC 维持厄尔尼诺观察：5-7月成形概率82%，2026-27年冬季(DJF)持续概率96%。",
-  "summary": "ONI(MAM 26)=+0.48°C，已逼近+0.5°C阈值，且近六季持续单向升温（-0.55→+0.48）。最新周度Niño3.4(03JUN2026)=+1.30°C，远高于CPC 5月14日诊断时的+0.4°C，显示赤道中东太平洋升温显著加速、次表层暖水持续堆积。CPC官方判断厄尔尼诺即将形成并延续至冬季，但峰值强度仍不确定（无任一强度档位超过37%）。"
+  "alert_note": "CPC 预警：5–7月成型概率 82%，2026-27冬季(DJF)维持概率 96%。",
+  "summary": "最新 MAM 26 季度 ONI 为 +0.48°C，仅一步之遥未触及 +0.5°C 厄尔尼诺阈值，但 ONI 连续6季单调爬升（-0.55→+0.48），且 03JUN2026 周度 Niño3.4 已飙至 +1.30°C，赤道次表层暖水连续第六个月增厚。CPC 维持「El Niño Watch」，判断厄尔尼诺即将在初夏成型并延续至冬季，惟峰值强度仍高度不确定（各强度档位概率均不超 37%）。"
  },
  "indicators": [
   {
@@ -128,45 +128,45 @@
  "forecast": [
   {
    "season": "MJJ 26",
-   "la_nina": 1,
-   "neutral": 17,
+   "la_nina": 0,
+   "neutral": 18,
    "el_nino": 82
   },
   {
    "season": "JJA 26",
-   "la_nina": 1,
-   "neutral": 14,
-   "el_nino": 85
-  },
-  {
-   "season": "JAS 26",
-   "la_nina": 1,
-   "neutral": 11,
+   "la_nina": 0,
+   "neutral": 12,
    "el_nino": 88
   },
   {
-   "season": "ASO 26",
-   "la_nina": 1,
+   "season": "JAS 26",
+   "la_nina": 0,
    "neutral": 9,
-   "el_nino": 90
+   "el_nino": 91
+  },
+  {
+   "season": "ASO 26",
+   "la_nina": 0,
+   "neutral": 7,
+   "el_nino": 93
   },
   {
    "season": "SON 26",
-   "la_nina": 1,
-   "neutral": 7,
-   "el_nino": 92
-  },
-  {
-   "season": "OND 26",
    "la_nina": 0,
    "neutral": 6,
    "el_nino": 94
   },
   {
-   "season": "NDJ 26",
+   "season": "OND 26",
    "la_nina": 0,
    "neutral": 5,
    "el_nino": 95
+  },
+  {
+   "season": "NDJ 26",
+   "la_nina": 0,
+   "neutral": 4,
+   "el_nino": 96
   },
   {
    "season": "DJF 27",

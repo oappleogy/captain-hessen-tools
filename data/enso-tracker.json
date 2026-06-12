@@ -1,14 +1,14 @@
 {
- "last_updated": "2026-06-11",
- "next_update": "2026-06-18",
+ "last_updated": "2026-06-12",
+ "next_update": "2026-06-19",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
-  "label": "厄尔尼诺酝酿中 · El Niño Emerging",
-  "phase": "el_nino_emerging",
-  "intensity": "临界偏暖（ONI +0.48°C 逼近阈值，周度已达 +1.30°C，预计夏季成型）",
-  "alert": "El Niño Watch",
-  "alert_note": "CPC 预警：5–7月成型概率 82%，2026-27冬季(DJF)维持概率 96%。",
-  "summary": "最新 MAM 26 季度 ONI 为 +0.48°C，仅一步之遥未触及 +0.5°C 厄尔尼诺阈值，但 ONI 连续6季单调爬升（-0.55→+0.48），且 03JUN2026 周度 Niño3.4 已飙至 +1.30°C，赤道次表层暖水连续第六个月增厚。CPC 维持「El Niño Watch」，判断厄尔尼诺即将在初夏成型并延续至冬季，惟峰值强度仍高度不确定（各强度档位概率均不超 37%）。"
+  "label": "厄尔尼诺形成 · El Niño",
+  "phase": "el_nino",
+  "intensity": "弱（快速增强中，预计2026-27冬季达到强至极强）",
+  "alert": "El Niño Advisory",
+  "alert_note": "CPC 已发布厄尔尼诺警报：厄尔尼诺条件已经出现并将持续增强，2026年11月-2027年1月出现极强厄尔尼诺的概率为63%，或将跻身1950年以来最强事件之列",
+  "summary": "CPC 于2026年6月11日确认厄尔尼诺条件已经形成，预警级别升至 El Niño Advisory。ONI(MAM 26)升至+0.48°C，近六季从-0.55°C一路快速回暖转正，Niño3.4周度指数(2026年6月3日)已达+1.30°C，Niño1+2区高达+2.1°C，海洋次表层暖水显著、西风异常扩展，海气系统已完成耦合。NMME 多模式集合预报厄尔尼诺将在2026-27北半球冬季持续增强，CPC 评估11月-1月有63%概率发展为极强厄尔尼诺事件。"
  },
  "indicators": [
   {
@@ -129,50 +129,50 @@
   {
    "season": "MJJ 26",
    "la_nina": 0,
-   "neutral": 18,
-   "el_nino": 82
+   "neutral": 4,
+   "el_nino": 96
   },
   {
    "season": "JJA 26",
    "la_nina": 0,
-   "neutral": 12,
-   "el_nino": 88
+   "neutral": 3,
+   "el_nino": 97
   },
   {
    "season": "JAS 26",
    "la_nina": 0,
-   "neutral": 9,
-   "el_nino": 91
+   "neutral": 2,
+   "el_nino": 98
   },
   {
    "season": "ASO 26",
    "la_nina": 0,
-   "neutral": 7,
-   "el_nino": 93
+   "neutral": 2,
+   "el_nino": 98
   },
   {
    "season": "SON 26",
    "la_nina": 0,
-   "neutral": 6,
-   "el_nino": 94
+   "neutral": 2,
+   "el_nino": 98
   },
   {
    "season": "OND 26",
    "la_nina": 0,
-   "neutral": 5,
-   "el_nino": 95
+   "neutral": 2,
+   "el_nino": 98
   },
   {
    "season": "NDJ 26",
    "la_nina": 0,
-   "neutral": 4,
-   "el_nino": 96
+   "neutral": 2,
+   "el_nino": 98
   },
   {
    "season": "DJF 27",
    "la_nina": 0,
-   "neutral": 4,
-   "el_nino": 96
+   "neutral": 3,
+   "el_nino": 97
   }
  ],
  "history": [

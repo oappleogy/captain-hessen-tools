@@ -561,7 +561,7 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
           ${st.score != null ? `<div class="s2-score">综合得分 ${st.score > 0 ? '+' : ''}${st.score}${s2.attractor.safety_margin ? ' · 安全边际 ' + s2.attractor.safety_margin : ''}</div>` : ''}
         </div>
         ${st.action ? `<div class="s2-action">${st.action}</div>` : ''}
-        <div class="s2-meta">S₂ 宏观监控 · 数据 ${s2.timestamp}</div>
+        <div class="s2-meta">S₂ 宏观监控 · ${s2.data_as_of ? `数据截至 ${s2.data_as_of} · 计算 ${s2.timestamp}` : `数据 ${s2.timestamp}`}</div>
       </div>`;
 
       // ── 核心矛盾（用人话说清楚） ──

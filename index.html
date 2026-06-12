@@ -950,6 +950,9 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     var dims = d.dimensions || {};
     var extremes = d.extremes || {};
     var ts = (d.timestamp || '').replace('T', ' ').slice(0, 16);
+    // 2026-06-12: data_as_of=数据实际截至日（早晨跑批是前一交易日收盘+FRED T+N
+    // 发布的混合体），与计算时间区分显示，避免把昨日数据误读为当日
+    var asOf = d.data_as_of || '';
 
     var html = '<div class="s2-card-top">'
       + '<span class="s2-state" style="color:' + (ss.color || 'var(--text)') + '">' + (ss.label || '未知') + '</span>'
@@ -965,7 +968,7 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     html += '<div class="s2-meta-row">';
     if (att.moving_toward) html += '<span>运动方向 → ' + att.moving_toward + '</span>';
     if (att.early_warning && att.early_warning !== '无') html += '<span style="color:var(--red)">⚠ ' + att.early_warning + '</span>';
-    html += '<span>数据 ' + ts + '</span></div>';
+    html += '<span>' + (asOf ? '数据截至 ' + asOf + ' · 计算 ' + ts : '数据 ' + ts) + '</span></div>';
 
     html += '<div class="s2-dims">';
     ['R','I','F','C','N','T'].forEach(function(k) {

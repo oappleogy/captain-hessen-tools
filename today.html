@@ -269,7 +269,10 @@ body {
 
   // Title
   html += '<div class="briefing-title">📡 独立资本 · 每日宏观雷达</div>';
-  html += '<div class="briefing-date">' + esc(dateStr) + '</div>';
+  // 2026-06-12: 标注数据实际截至日（≠计算日），避免把昨日收盘数据误读为当日
+  var dataAsOf = data.data_as_of || '';
+  html += '<div class="briefing-date">' + esc(dateStr) +
+          (dataAsOf && dataAsOf !== dateStr ? ' <span style="opacity:.65;font-size:.85em">（数据截至 ' + esc(dataAsOf) + '）</span>' : '') + '</div>';
 
   // System state
   html += '<div class="section">';
@@ -377,7 +380,7 @@ body {
   function generateText() {
     var lines = [];
     lines.push('📡 独立资本 · 每日宏观雷达');
-    lines.push('日期：' + dateStr);
+    lines.push('日期：' + dateStr + (dataAsOf && dataAsOf !== dateStr ? '（数据截至 ' + dataAsOf + '）' : ''));
     lines.push('');
     lines.push('【系统状态】' + (ss.label || '未知') + ' ' + stateEmoji);
     if (stateExplain) lines.push(stateExplain);

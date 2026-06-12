@@ -528,6 +528,8 @@ body {
   const ts = data.timestamp || '';
 
   // Format timestamp
+  // 2026-06-12: data_as_of=数据实际截至日（≠计算时间），区分显示避免误导
+  const dataAsOf = data.data_as_of || '';
   const tsDisplay = ts ? ts.replace('T', ' ').slice(0, 16) : '—';
 
   // Early warning
@@ -550,7 +552,10 @@ body {
   if (att.secondary) {
     html += '<span class="status-meta-item"><span class="label">次要吸引子</span>' + esc(att.secondary) + '</span>';
   }
-  html += '<span class="status-meta-item"><span class="label">数据时间</span>' + esc(tsDisplay) + '</span>';
+  html += dataAsOf
+    ? '<span class="status-meta-item"><span class="label">数据截至</span>' + esc(dataAsOf) + '</span>'
+      + '<span class="status-meta-item"><span class="label">计算时间</span>' + esc(tsDisplay) + '</span>'
+    : '<span class="status-meta-item"><span class="label">数据时间</span>' + esc(tsDisplay) + '</span>';
 
   if (hasWarning) {
     html += '<span class="warning-badge">⚠ ' + esc(ew) + '</span>';

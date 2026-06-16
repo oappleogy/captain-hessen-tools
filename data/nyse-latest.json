@@ -1,6 +1,47 @@
 {
-  "date": "2026-06-14",
-  "prices": {},
-  "news_count": 2,
-  "has_update": true
+  "date": "2026-06-16",
+  "prices": {
+    "ICE": {
+      "name": "Intercontinental Exchange",
+      "price": 140.1,
+      "change_pct": -1.14
+    },
+    "CRCL": {
+      "name": "Circle",
+      "price": 83.37,
+      "change_pct": 6.37
+    },
+    "HOOD": {
+      "name": "Robinhood",
+      "price": 98.12,
+      "change_pct": 5.4
+    },
+    "COIN": {
+      "name": "Coinbase",
+      "price": 169.62,
+      "change_pct": 6.01
+    },
+    "NDAQ": {
+      "name": "Nasdaq",
+      "price": 91.04,
+      "change_pct": 2.82
+    },
+    "BK": {
+      "name": "BNY Mellon",
+      "price": 137.16,
+      "change_pct": null
+    },
+    "FFIV": {
+      "name": "F5 Networks",
+      "price": 396.81,
+      "change_pct": -0.05
+    },
+    "BLK": {
+      "name": "BlackRock",
+      "price": 1042.87,
+      "change_pct": 0.88
+    }
+  },
+  "news_count": 0,
+  "has_update": false
 }

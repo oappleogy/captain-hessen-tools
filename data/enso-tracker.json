@@ -1,14 +1,14 @@
 {
- "last_updated": "2026-06-16",
- "next_update": "2026-06-23",
+ "last_updated": "2026-06-17",
+ "next_update": "2026-06-24",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
-  "label": "厄尔尼诺已确立 · El Niño Advisory",
-  "phase": "el_nino",
-  "intensity": "当前弱（边界），预计冬季增强至强/超强",
+  "label": "厄尔尼诺发展中（CPC 预警生效）· El Niño Advisory",
+  "phase": "el_nino_emerging",
+  "intensity": "弱→趋强（ONI 接近阈值，预计冬季显著增强）",
   "alert": "El Niño Advisory",
-  "alert_note": "CPC 维持厄尔尼诺预警，预计强度持续增强；2026 年 11 月–1 月有 63% 概率达到「超强」级别，或跻身 1950 年以来最强事件之列。",
-  "summary": "CPC 于 2026 年 6 月 11 日确认厄尔尼诺条件已出现并维持「El Niño Advisory」。最新 ONI（MAM 26）= +0.48°C，已连续 6 季由 -0.55 快速翻正至接近阈值，趋势明确上行；Niño3.4 周度（10JUN2026）读数偏暖，赤道中东太平洋次表层暖水充沛、西风异常扩张。海气耦合系统反映厄尔尼诺起步，NMME/CFSv2 一致预测其将在 2026-27 北半球冬季显著增强。"
+  "alert_note": "CPC：厄尔尼诺条件已出现并将持续增强；11—1月出现『极强厄尔尼诺』概率约 63%。",
+  "summary": "最新 ONI（MAM 26）=+0.48°C，仍略低于 +0.5 阈值，但近四季由 +(-0.14)→+0.13→+0.48 快速抬升，趋势明确转暖；周度 Niño3.4（10JUN2026）已飙至 +1.50°C，东太（Niño1+2 +2.1°C）暖异常显著。CPC 于 2026-06-11 维持『El Niño Advisory』，判定厄尔尼诺条件已经形成，并预计将向 2026-27 北半球冬季持续增强，NMME/CFSv2 一致看强，11—1月录得『极强厄尔尼诺』概率达 63%。"
  },
  "indicators": [
   {
@@ -129,38 +129,38 @@
   {
    "season": "MJJ 26",
    "la_nina": 0,
+   "neutral": 12,
+   "el_nino": 88
+  },
+  {
+   "season": "JJA 26",
+   "la_nina": 0,
    "neutral": 8,
    "el_nino": 92
   },
   {
-   "season": "JJA 26",
+   "season": "JAS 26",
    "la_nina": 0,
    "neutral": 5,
    "el_nino": 95
   },
   {
-   "season": "JAS 26",
+   "season": "ASO 26",
    "la_nina": 0,
    "neutral": 4,
    "el_nino": 96
   },
   {
-   "season": "ASO 26",
+   "season": "SON 26",
    "la_nina": 0,
    "neutral": 3,
    "el_nino": 97
   },
   {
-   "season": "SON 26",
-   "la_nina": 0,
-   "neutral": 2,
-   "el_nino": 98
-  },
-  {
    "season": "OND 26",
    "la_nina": 0,
-   "neutral": 2,
-   "el_nino": 98
+   "neutral": 3,
+   "el_nino": 97
   },
   {
    "season": "NDJ 26-27",

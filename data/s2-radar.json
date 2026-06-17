@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-06-17T22:04:40",
+  "timestamp": "2026-06-18T07:37:04",
   "data_as_of": "2026-06-17",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
     "color": "#f97316",
     "level": 3,
     "score": 0.0,
-    "action": "系统显著承压。建议仓位≤45%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统显著承压。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.33,
+      "score": 0.39,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.11,
+      "score": 0.06,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -63,17 +63,17 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.12,
+      "score": 0.02,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.67,
+      "score": -0.63,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -83,10 +83,10 @@
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -124,7 +124,7 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
+    "moving_toward": "TECH_DOM",
     "safety_margin": 0.1,
     "early_warning": "无"
   },
@@ -132,7 +132,7 @@
     "count": 2,
     "categories": [
       "政策不确定性(EPU)=633 (历史97%分位)",
-      "Nasdaq波动率(VXN)=26.7 (历史91%分位)"
+      "Nasdaq波动率(VXN)=28.6 (历史95%分位)"
     ]
   },
   "opportunities": [],
@@ -150,9 +150,14 @@
   "key_metrics": {
     "extreme_count": 2,
     "vix": {
-      "value": 16.3,
+      "value": 18.4,
+      "percentile": 74,
+      "desc": "市场恐惧情绪偏高"
+    },
+    "credit_spread": {
+      "value": 2.71,
       "percentile": 50,
-      "desc": "市场情绪正常"
+      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 49.8,

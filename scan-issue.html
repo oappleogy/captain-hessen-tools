@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme:light)">
+<title>产业机会扫描 · 每日一期 | BaseAlpha</title>
+<meta property="og:title" content="产业机会扫描 · 每日一期">
+<meta property="og:description" content="解读唐主任(王一平)观点 × 知识星球纪要 → 产业链线索">
+<meta property="og:image" content="https://tools.basealpha.ai/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8f7f4;--bg2:#f0efe9;--card-bg:#fff;--text:#1a1a1f;--text2:#6b6b76;--text3:#9b9ba5;--accent:#2d5af0;--accent2:#7c5cfc;--accent-glow:rgba(45,90,240,0.12);--border:rgba(0,0,0,0.06);--border2:rgba(0,0,0,0.1);--shadow-sm:0 1px 3px rgba(0,0,0,0.04);--shadow:0 4px 24px rgba(0,0,0,0.06);--tag-bg:rgba(45,90,240,0.08);--tag-text:#2d5af0;--radius:20px;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6}
+@media (prefers-color-scheme:dark){:root{--bg:#0a0e17;--bg2:#111827;--card-bg:#151c2c;--text:#e8e8ed;--text2:#8b8b9a;--text3:#55556a;--accent:#5b8af5;--accent2:#9b7ffc;--accent-glow:rgba(91,138,245,0.15);--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow:0 4px 24px rgba(0,0,0,0.2);--tag-bg:rgba(91,138,245,0.12);--tag-text:#7da4f8}}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.7}
+.bg-glow{position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,var(--accent-glow) 0%,transparent 70%);pointer-events:none;z-index:0;opacity:.6}
+.container{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 24px}
+.backlink{display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:13px;color:var(--text2);text-decoration:none;font-family:'JetBrains Mono',monospace}
+.backlink:hover{color:var(--accent)}
+.kicker{display:inline-flex;align-items:center;gap:8px;margin:30px 0 14px;padding:6px 14px;background:var(--tag-bg);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--tag-text)}
+h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4.2vw,34px);font-weight:700;line-height:1.3;margin-bottom:8px}
+h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.5px;margin-bottom:22px}
+.sec-head{margin:32px 0 12px;font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+.digest{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:10px 0;box-shadow:var(--shadow-sm)}
+.digest .who{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.5px;margin-bottom:6px}
+.digest .s{font-size:14px;color:var(--text)}
+.theme{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:14px 0;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:all .3s}
+.theme:hover{box-shadow:var(--shadow);border-color:var(--border2)}
+.theme::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:.7}
+.theme-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.theme-name{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700}
+.stage{font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;font-family:'JetBrains Mono',monospace}
+.stage.fact{background:rgba(34,197,94,.12);color:var(--green)}
+.stage.intro{background:rgba(245,158,11,.12);color:var(--amber)}
+.stage.theme{background:rgba(124,92,252,.14);color:var(--accent2)}
+.heatbar{margin-left:auto;display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3)}
+.heatbar .hb{width:60px;height:6px;border-radius:4px;background:var(--bg2);overflow:hidden}
+.heatbar .hb>i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--amber),var(--red))}
+.lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.8px;color:var(--text3);text-transform:uppercase;margin:12px 0 4px}
+.said{font-size:13.5px;color:var(--text2);font-style:italic;border-left:2px solid var(--border2);padding-left:12px}
+.interp{font-size:14px;color:var(--text);margin-top:4px}
+.chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0}
+.chain .step{font-size:12px;padding:4px 10px;border-radius:8px;background:var(--bg2);color:var(--text)}
+.chain .arr{color:var(--text3);font-size:12px}
+.tickers{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tk{font-size:12px;padding:4px 11px;border-radius:8px;background:var(--tag-bg);color:var(--tag-text);font-weight:500}
+.tk .code{font-family:'JetBrains Mono',monospace;font-size:10px;opacity:.7;margin-left:4px}
+.xref{font-size:12.5px;color:var(--text2);margin-top:10px;padding:8px 12px;background:var(--bg2);border-radius:8px}
+.xref b{color:var(--green)}
+.ev-toggle{font-size:11px;color:var(--accent);cursor:pointer;font-family:'JetBrains Mono',monospace;margin-top:10px;display:inline-block;user-select:none}
+.ev-list{display:none;margin-top:8px}
+.ev-list.open{display:block}
+.ev{font-size:12px;color:var(--text2);padding:8px 10px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;margin:6px 0;line-height:1.55}
+.ev .src{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:.4px;display:block;margin-bottom:4px}
+.ev.zsxq{border-left-color:var(--green)}.ev.zsxq .src{color:var(--green)}
+.risk{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-radius:14px;padding:14px 18px;margin:18px 0;font-size:13.5px}
+.risk b{color:var(--red);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px}
+.loading,.errbox{text-align:center;padding:50px 20px;color:var(--text3);font-size:14px}
+.disclaimer-box{background:var(--bg2);border-radius:12px;padding:14px 18px;margin:24px 0;font-size:12px;color:var(--text2);line-height:1.7}
+footer{text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:30px}
+.footer-brand{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text2);letter-spacing:1px;margin-bottom:12px}
+.footer-disclaimer{font-size:11px;color:var(--text3);line-height:1.7;max-width:520px;margin:0 auto}
+body::after{content:'黑森船长';position:fixed;bottom:50%;left:50%;transform:translate(-50%,50%) rotate(-30deg);font-size:80px;font-weight:700;color:var(--text);opacity:.02;pointer-events:none;z-index:0;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="container">
+  <a href="industry-scan.html" class="backlink">← 产业机会扫描日报</a>
+  <div class="kicker">🏭 每日一期 · INDUSTRY SCAN</div>
+  <h1 id="headline"><span class="hl">加载中…</span></h1>
+  <p class="meta" id="meta"></p>
+  <div id="body"><div class="loading">📡 正在加载当期数据…</div></div>
+
+  <div class="disclaimer-box">
+    ⚠ 本期由管线自动生成：读取大V（唐主任为主、王一平为辅）当日微博 + 知识星球券商纪要，经 MiniMax 解读还原。<b>仅供分析参考，不构成投资建议</b>；机器解读可能存在偏差，标的提及不代表推荐。
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-brand">BASEALPHA · 黑森船长</div>
+    <p class="footer-disclaimer">产业机会扫描日报 · 解读大V × 券商纪要 × 产业链 · Not investment advice</p>
+  </div>
+</footer>
+
+<script>
+function qs(n){return new URLSearchParams(location.search).get(n)}
+function esc(s){return (s||'').replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+var STAGE={'事实兑现':'fact','导入送样':'intro','题材预期':'theme'};
+
+async function load(){
+  var date=qs('date');
+  // 无参数时取 index.json 最新一期
+  if(!date){
+    try{var ix=await (await fetch('data/industry-scan/index.json?t='+Date.now())).json();if(ix.length)date=ix[0].date;}catch(e){}
+  }
+  if(!date){document.getElementById('body').innerHTML='<div class="errbox">暂无当期数据</div>';document.getElementById('headline').innerHTML='<span class="hl">暂无数据</span>';return;}
+  var d;
+  try{d=await (await fetch('data/industry-scan/'+date+'.json?t='+Date.now())).json();}
+  catch(e){document.getElementById('body').innerHTML='<div class="errbox">该期数据加载失败：'+esc(date)+'</div>';return;}
+
+  document.getElementById('headline').innerHTML='<span class="hl">'+esc(d.headline||'产业机会扫描')+'</span>';
+  var sc=d.source_counts||{};
+  document.getElementById('meta').textContent=date+' · 大V微博 '+(sc.kol||0)+' 条 · 知识星球纪要 '+(sc.zsxq||0)+' 条 · 生成于 '+(d.generated_at||'')+' · MiniMax 解读';
+
+  var h='';
+  // 大V速读
+  if((d.kol_digest||[]).length){
+    h+='<div class="sec-head">🛰️ 大V今日速读</div>';
+    d.kol_digest.forEach(function(g){
+      h+='<div class="digest"><div class="who">'+esc(g.kol||'')+'</div><div class="s">'+esc(g.summary||'')+'</div>'+evBlock(g.evidence)+'</div>';
+    });
+  }
+  // 主题
+  if((d.themes||[]).length){
+    h+='<div class="sec-head">🧩 产业链主题</div>';
+    d.themes.forEach(function(t){
+      var sc2=STAGE[t.stage]||'theme';var heat=Math.max(0,Math.min(100,parseInt(t.heat)||0));
+      h+='<div class="theme"><div class="theme-top"><span class="theme-name">'+esc(t.title||'')+'</span>'
+        +'<span class="stage '+sc2+'">'+esc(t.stage||'')+'</span>'
+        +'<span class="heatbar">热度<span class="hb"><i style="width:'+heat+'%"></i></span>'+heat+'</span></div>';
+      if(t.what_said){h+='<div class="lbl">大V指向</div><div class="said">'+esc(t.what_said)+'</div>';}
+      if(t.interpretation){h+='<div class="lbl">解读</div><div class="interp">'+esc(t.interpretation)+'</div>';}
+      if((t.chain||[]).length){h+='<div class="chain">'+t.chain.map(function(c,i){return (i?'<span class="arr">→</span>':'')+'<span class="step">'+esc(c)+'</span>';}).join('')+'</div>';}
+      if((t.tickers||[]).length){h+='<div class="tickers">'+t.tickers.map(function(k){return '<span class="tk">'+esc(k.name||'')+(k.code?'<span class="code">'+esc(k.code)+'</span>':'')+(k.role?' · '+esc(k.role):'')+'</span>';}).join('')+'</div>';}
+      if(t.cross_ref){h+='<div class="xref"><b>纪要佐证：</b>'+esc(t.cross_ref)+'</div>';}
+      h+=evBlock(t.evidence);
+      h+='</div>';
+    });
+  }
+  if(d.risk_note){h+='<div class="risk"><b>⚠ 风险/证伪点</b><br>'+esc(d.risk_note)+'</div>';}
+  document.getElementById('body').innerHTML=h||'<div class="errbox">本期无内容</div>';
+}
+
+function evBlock(ev){
+  if(!ev||!ev.length)return '';
+  var id='ev'+Math.random().toString(36).slice(2,8);
+  var items=ev.map(function(e){return '<div class="ev '+(e.type==='zsxq'?'zsxq':'')+'"><span class="src">'+esc(e.label||'')+'</span>'+esc(e.text||'')+'</div>';}).join('');
+  return '<span class="ev-toggle" onclick="var l=document.getElementById(\''+id+'\');l.classList.toggle(\'open\');this.textContent=l.classList.contains(\'open\')?\'▲ 收起溯源\':\'▼ 查看溯源 ('+ev.length+')\';">▼ 查看溯源 ('+ev.length+')</span><div class="ev-list" id="'+id+'">'+items+'</div>';
+}
+load();
+</script>
+</body>
+</html>

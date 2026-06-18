@@ -1,5 +1,5 @@
 {
-  "score": 22.3,
+  "score": 21.5,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,22 +7,22 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 16.97,
+      "current": 16.65,
       "base": 16,
-      "deviation_pct": 6.1,
+      "deviation_pct": 4.1,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 11.2
+      "contribution": 5.0
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 73.36,
+      "current": 74.32,
       "base": 75,
-      "deviation_pct": 2.2,
+      "deviation_pct": 0.9,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 1.0
+      "contribution": 0.2
     },
     {
       "variable": "credit_spread",
@@ -37,19 +37,19 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 160.88,
+      "current": 161.43,
       "base": 145,
-      "deviation_pct": 11.0,
+      "deviation_pct": 11.3,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 12.1
+      "contribution": 12.8
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 100.6,
+      "current": 100.79,
       "base": 100,
-      "deviation_pct": 0.6,
+      "deviation_pct": 0.8,
       "weight": 0.15,
       "weight_pct": 15,
       "contribution": 0.1
@@ -66,5 +66,5 @@
       "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-06-18 23:15"
+  "timestamp": "2026-06-19 01:05"
 }

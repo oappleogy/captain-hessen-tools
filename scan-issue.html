@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme:light)">
 <title>产业机会扫描 · 每日一期 | BaseAlpha</title>
 <meta property="og:title" content="产业机会扫描 · 每日一期">
-<meta property="og:description" content="解读唐主任(王一平)观点 × 知识星球纪要 → 产业链线索">
+<meta property="og:description" content="解读资深投资人公开观点 × 投研纪要 → 产业链线索">
 <meta property="og:image" content="https://tools.basealpha.ai/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -78,14 +78,14 @@ body::after{content:'黑森船长';position:fixed;bottom:50%;left:50%;transform:
   <div id="body"><div class="loading">📡 正在加载当期数据…</div></div>
 
   <div class="disclaimer-box">
-    ⚠ 本期由管线自动生成：读取大V（唐主任为主、王一平为辅）当日微博 + 知识星球券商纪要，经 MiniMax 解读还原。<b>仅供分析参考，不构成投资建议</b>；机器解读可能存在偏差，标的提及不代表推荐。
+    ⚠ 本期由管线自动生成：读取资深投资人当日公开观点 + 券商投研纪要，经 MiniMax 解读还原。<b>仅供分析参考，不构成投资建议</b>；机器解读可能存在偏差，标的提及不代表推荐。
   </div>
 </div>
 
 <footer>
   <div class="container">
     <div class="footer-brand">BASEALPHA · 黑森船长</div>
-    <p class="footer-disclaimer">产业机会扫描日报 · 解读大V × 券商纪要 × 产业链 · Not investment advice</p>
+    <p class="footer-disclaimer">产业机会扫描日报 · 资深投资人观点 × 券商纪要 × 产业链 · Not investment advice</p>
   </div>
 </footer>
 
@@ -107,14 +107,14 @@ async function load(){
 
   document.getElementById('headline').innerHTML='<span class="hl">'+esc(d.headline||'产业机会扫描')+'</span>';
   var sc=d.source_counts||{};
-  document.getElementById('meta').textContent=date+' · 大V微博 '+(sc.kol||0)+' 条 · 知识星球纪要 '+(sc.zsxq||0)+' 条 · 生成于 '+(d.generated_at||'')+' · MiniMax 解读';
+  document.getElementById('meta').textContent=date+' · 资深投资人观点 '+(sc.kol||0)+' 条 · 投研纪要 '+(sc.zsxq||0)+' 条 · 生成于 '+(d.generated_at||'')+' · MiniMax 解读';
 
   var h='';
-  // 大V速读
+  // 观点速读
   if((d.kol_digest||[]).length){
-    h+='<div class="sec-head">🛰️ 大V今日速读</div>';
+    h+='<div class="sec-head">🛰️ 今日观点速读</div>';
     d.kol_digest.forEach(function(g){
-      h+='<div class="digest"><div class="who">'+esc(g.kol||'')+'</div><div class="s">'+esc(g.summary||'')+'</div>'+evBlock(g.evidence)+'</div>';
+      h+='<div class="digest">'+(g.who?'<div class="who">'+esc(g.who)+'</div>':'')+'<div class="s">'+esc(g.summary||'')+'</div>'+evBlock(g.evidence)+'</div>';
     });
   }
   // 主题
@@ -125,7 +125,7 @@ async function load(){
       h+='<div class="theme"><div class="theme-top"><span class="theme-name">'+esc(t.title||'')+'</span>'
         +'<span class="stage '+sc2+'">'+esc(t.stage||'')+'</span>'
         +'<span class="heatbar">热度<span class="hb"><i style="width:'+heat+'%"></i></span>'+heat+'</span></div>';
-      if(t.what_said){h+='<div class="lbl">大V指向</div><div class="said">'+esc(t.what_said)+'</div>';}
+      if(t.what_said){h+='<div class="lbl">核心指向</div><div class="said">'+esc(t.what_said)+'</div>';}
       if(t.interpretation){h+='<div class="lbl">解读</div><div class="interp">'+esc(t.interpretation)+'</div>';}
       if((t.chain||[]).length){h+='<div class="chain">'+t.chain.map(function(c,i){return (i?'<span class="arr">→</span>':'')+'<span class="step">'+esc(c)+'</span>';}).join('')+'</div>';}
       if((t.tickers||[]).length){h+='<div class="tickers">'+t.tickers.map(function(k){return '<span class="tk">'+esc(k.name||'')+(k.code?'<span class="code">'+esc(k.code)+'</span>':'')+(k.role?' · '+esc(k.role):'')+'</span>';}).join('')+'</div>';}

@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-06-18T07:37:04",
-  "data_as_of": "2026-06-17",
-  "data_lag_days": 1,
+  "timestamp": "2026-06-18T18:55:29",
+  "data_as_of": "2026-06-18",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
     "color": "#f97316",
     "level": 3,
     "score": 0.0,
-    "action": "系统显著承压。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统显著承压。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.06,
+      "score": -0.11,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.02,
+      "score": 0.09,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -83,10 +83,10 @@
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 75.0
+        "pct": 100.0
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 25.0
+        "pct": 0.0
       },
       {
         "key": "TECH_DOM",
@@ -124,7 +124,7 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "TECH_DOM",
+    "moving_toward": "数据积累中",
     "safety_margin": 0.1,
     "early_warning": "无"
   },
@@ -137,22 +137,22 @@
   },
   "opportunities": [],
   "contradiction": {
-    "type": "dimension_shift",
-    "title": "「叙事共识」本周剧烈改善",
-    "thesis": "叙事共识维度从-0.28变为-0.08，单周变化0.20，超过异动阈值。需要判断这是噪音还是趋势的开始。",
-    "metaphor": "共识在修复"
+    "type": "quiet_day",
+    "title": "系统今天没有新信息",
+    "thesis": "维持昨天的判断不变。波动率低位运行本身也是一种信号——市场在等待新的催化剂。",
+    "metaphor": "暴风眼里的平静"
   },
   "allocation": {
-    "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",
-    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2018年Q4），从最恐慌的点算起三个月内完全收复，但中间又多跌了8%才见底。耐心比行动更重要。",
-    "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
+    "short_term": "可以小幅试探性加仓，但不要一次性打满。情绪还在波动，留足应对空间。",
+    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
+    "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
     "extreme_count": 2,
     "vix": {
-      "value": 18.4,
-      "percentile": 74,
-      "desc": "市场恐惧情绪偏高"
+      "value": 17.1,
+      "percentile": 60,
+      "desc": "市场情绪正常"
     },
     "credit_spread": {
       "value": 2.71,

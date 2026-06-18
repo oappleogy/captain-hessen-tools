@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme:light)">
+<title>玻璃基板 · 上游材料替代地图 | BaseAlpha 产业机会扫描</title>
+<meta property="og:title" content="玻璃基板·上游材料替代地图">
+<meta property="og:description" content="对标味之素ABF的材料国产替代 · 原片/PSPI/电镀药水/CCL · 卡脖子地图与标的">
+<meta property="og:image" content="https://tools.basealpha.ai/og-image.png">
+<meta property="og:url" content="https://tools.basealpha.ai/glass-substrate-materials.html">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f7f4;--bg2:#f0efe9;--card-bg:#fff;--card-hover:#fafaf8;
+  --text:#1a1a1f;--text2:#6b6b76;--text3:#9b9ba5;
+  --accent:#2d5af0;--accent2:#7c5cfc;--accent-glow:rgba(45,90,240,0.12);
+  --border:rgba(0,0,0,0.06);--border2:rgba(0,0,0,0.1);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.04);--shadow:0 4px 24px rgba(0,0,0,0.06);--shadow-lg:0 12px 48px rgba(0,0,0,0.1);
+  --tag-bg:rgba(45,90,240,0.08);--tag-text:#2d5af0;--radius:20px;
+  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#3b82f6;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0a0e17;--bg2:#111827;--card-bg:#151c2c;--card-hover:#1a2238;
+  --text:#e8e8ed;--text2:#8b8b9a;--text3:#55556a;
+  --accent:#5b8af5;--accent2:#9b7ffc;--accent-glow:rgba(91,138,245,0.15);
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow:0 4px 24px rgba(0,0,0,0.2);--shadow-lg:0 12px 48px rgba(0,0,0,0.3);
+  --tag-bg:rgba(91,138,245,0.12);--tag-text:#7da4f8;
+}}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.7}
+.bg-glow{position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,var(--accent-glow) 0%,transparent 70%);pointer-events:none;z-index:0;opacity:.6}
+.container{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:0 24px}
+.backlink{display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:13px;color:var(--text2);text-decoration:none;font-family:'JetBrains Mono',monospace}
+.backlink:hover{color:var(--accent)}
+.kicker{display:inline-flex;align-items:center;gap:8px;margin:32px 0 14px;padding:6px 14px;background:var(--tag-bg);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--tag-text)}
+h1{font-family:'Noto Serif SC',serif;font-size:clamp(26px,4.4vw,38px);font-weight:700;line-height:1.3;letter-spacing:-.5px;margin-bottom:14px}
+h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:15px;color:var(--text2);max-width:640px;margin-bottom:8px}
+.meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.5px;margin-bottom:24px}
+.tabs{display:flex;gap:8px;margin:18px 0 28px;border-bottom:1px solid var(--border)}
+.tab{padding:10px 18px;font-size:14px;font-weight:600;color:var(--text2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;transition:all .2s}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab:hover{color:var(--text)}
+section.pane{display:none;animation:fade .4s ease}
+section.pane.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+h2{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;margin:36px 0 16px;display:flex;align-items:center;gap:10px}
+h2 .n{font-family:'JetBrains Mono',monospace;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+h3{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;margin:22px 0 10px}
+p{margin-bottom:12px;color:var(--text)}
+.quote{border-left:3px solid var(--accent);background:var(--card-bg);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0;font-size:14.5px;color:var(--text);box-shadow:var(--shadow-sm)}
+.quote .who{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.5px;margin-bottom:8px;display:block}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow-sm);margin:14px 0;transition:all .3s}
+.card:hover{box-shadow:var(--shadow);border-color:var(--border2)}
+.mat-card{position:relative;overflow:hidden}
+.mat-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.mat-rank{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.mat-name{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700}
+.mat-en{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3)}
+.sev{margin-left:auto;font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;font-family:'JetBrains Mono',monospace}
+.sev.s5{background:rgba(239,68,68,.12);color:var(--red)}
+.sev.s4{background:rgba(245,158,11,.12);color:var(--amber)}
+.sev.s3{background:rgba(59,130,246,.12);color:var(--blue)}
+.barwrap{margin:12px 0 6px}
+.barlabel{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:5px}
+.bar{height:8px;border-radius:6px;background:var(--bg2);overflow:hidden;position:relative}
+.bar>i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--red),var(--amber));display:block}
+.mat-desc{font-size:13.5px;color:var(--text2);margin:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-size:12px;font-weight:500;padding:4px 11px;border-radius:8px;background:var(--tag-bg);color:var(--tag-text)}
+.chip.star{background:linear-gradient(135deg,rgba(34,197,94,.15),rgba(34,197,94,.08));color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.chip-label{font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-right:4px;align-self:center}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:18px 0;background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow-sm)}
+.flow-step{flex:1;min-width:120px;text-align:center;padding:8px 6px;position:relative}
+.flow-step .ic{font-size:24px}
+.flow-step .t{font-size:13px;font-weight:600;margin-top:6px}
+.flow-step .d{font-size:11px;color:var(--text3);margin-top:3px}
+.flow-step:not(:last-child)::after{content:'→';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px}
+@media(max-width:560px){.flow-step:not(:last-child)::after{display:none}}
+.timeline{border-left:2px solid var(--border);padding-left:20px;margin:16px 0}
+.tl-item{position:relative;padding-bottom:16px}
+.tl-item::before{content:'';position:absolute;left:-26px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600}
+.tl-text{font-size:13.5px;color:var(--text);margin-top:2px}
+.tl-src{font-size:11px;color:var(--text3)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{background:var(--bg2);font-weight:600;font-size:12px;color:var(--text2)}
+td{color:var(--text)}
+tr:last-child td{border-bottom:none}
+.callout{background:linear-gradient(135deg,var(--accent-glow),transparent);border:1px solid var(--border2);border-radius:14px;padding:16px 20px;margin:18px 0}
+.callout .lab{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--accent);margin-bottom:6px}
+.risk{background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.18);border-radius:14px;padding:16px 20px;margin:18px 0}
+.risk li{margin:6px 0 6px 18px;font-size:13.5px}
+ul.txt{margin:8px 0 14px 20px}
+ul.txt li{margin:6px 0;font-size:14px}
+.src{font-size:12px;color:var(--text3);margin:5px 0;line-height:1.6}
+.src a{color:var(--accent);text-decoration:none}
+.src a:hover{text-decoration:underline}
+.disclaimer-box{background:var(--bg2);border-radius:12px;padding:14px 18px;margin:24px 0;font-size:12px;color:var(--text2);line-height:1.7}
+footer{text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:40px}
+.footer-brand{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text2);letter-spacing:1px;margin-bottom:12px}
+.footer-disclaimer{font-size:11px;color:var(--text3);line-height:1.7;max-width:520px;margin:0 auto}
+body::after{content:'黑森船长';position:fixed;bottom:50%;left:50%;transform:translate(-50%,50%) rotate(-30deg);font-size:80px;font-weight:700;color:var(--text);opacity:.02;pointer-events:none;z-index:0;white-space:nowrap}
+.txtbody p,.txtbody li{font-size:14.5px}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="container">
+  <a href="industry-scan.html" class="backlink">← 产业机会扫描日报</a>
+  <div class="kicker">🏭 产业机会扫描 · 玻璃基板专题 ②</div>
+  <h1>玻璃基板 · <span class="hl">上游材料替代地图</span></h1>
+  <p class="sub">解码唐主任 6/17 微博"材料替代"那段——对标味之素 ABF 的国产替代，是这条产业链里弹性最大、兑现最晚的环节。</p>
+  <p class="meta">数据时间 2026-06-17 · 来源 唐史主任司马迁(微博) + 知识星球券商纪要 + 公开资料 · 非投资建议</p>
+
+  <div class="tabs">
+    <button class="tab active" data-pane="viz">📊 可视化</button>
+    <button class="tab" data-pane="txt">📄 完整文字</button>
+  </div>
+
+  <!-- ════════ 可视化 ════════ -->
+  <section class="pane viz active">
+
+    <div class="quote">
+      <span class="who">唐主任 · 2026/06/17</span>
+      "这里面<b>有很多材料要替代，那是早晚的事，尤其是对标味之素（Ajinomoto）的这种，不只在玻璃基板上，其他领域也要替代</b>。设备方向的国产化相对容易一点，但这良率第一的试验线关系不大，是<b>量产阶段</b>的事情。"
+    </div>
+
+    <h2><span class="n">①</span>这段话拆成 4 句判断</h2>
+    <div class="card">
+      <p><b>① 材料 &gt; 设备。</b>"设备国产化相对容易"——设备按招标节奏走、弹性有限；材料才是真卡脖子+高弹性环节（与 5/15 帖"材料往往比设备涨得好"一致）。</p>
+      <p><b>② 第一替代目标 = 味之素 ABF 膜。</b>"对标味之素的这种"——ABF 绝缘膜是先进封装载板的"隐形地基"。</p>
+      <p><b>③ 范围 ≠ 只在玻璃基板。</b>ABF 同时用于<b>传统有机载板（FCBGA）</b>，存量战场更大。</p>
+      <p><b>④ 真假看量产良率。</b>"试验线关系不大，是量产阶段的事情"——送样人人会吹，量产良率才是护城河。对应他的警告："27 年真交货时手里拿的会 A 杀。"</p>
+    </div>
+
+    <h2><span class="n">②</span>玻璃基载板工艺 → 材料环节</h2>
+    <div class="flow">
+      <div class="flow-step"><div class="ic">🪟</div><div class="t">玻璃原片</div><div class="d">康宁/肖特/旭硝子<br>垄断 90%+</div></div>
+      <div class="flow-step"><div class="ic">🔩</div><div class="t">TGV 通孔</div><div class="d">激光钻孔 → 金属化<br>电镀药水</div></div>
+      <div class="flow-step"><div class="ic">🧬</div><div class="t">RDL 布线</div><div class="d">介电/绝缘层<br>PSPI 光敏材料</div></div>
+      <div class="flow-step"><div class="ic">📦</div><div class="t">压合/封装</div><div class="d">ABF / 味之素膜<br>金属化·切割</div></div>
+    </div>
+
+    <h2><span class="n">③</span>材料替代地图（按卡脖子程度排序）</h2>
+
+    <div class="card mat-card">
+      <div class="mat-head"><span class="mat-rank" style="background:var(--red)">A</span><span class="mat-name">ABF 膜 / 味之素绝缘膜</span><span class="mat-en">Ajinomoto Build-up Film</span><span class="sev s5">唐主任正主</span></div>
+      <div class="barwrap"><div class="barlabel"><span>味之素全球垄断度</span><span>95–98%</span></div><div class="bar"><i style="width:97%"></i></div></div>
+      <div class="mat-desc">CPU/GPU 高端封装关键绝缘材料，AI 芯片产能隐形瓶颈。2026/5 味之素官宣涨价 30%（Q3 生效），高端 AI/HBM 最高 50%。国产化率 2024 仅 ~4%、2025 ~5%。"不只玻璃基板"——主战场是传统 FCBGA 有机载板。</div>
+      <div class="chips"><span class="chip-label">国产标的</span><span class="chip star">华正新材 603186 · 唯一量产供华为昇腾</span><span class="chip">生益科技 600183</span><span class="chip">天和防务</span></div>
+    </div>
+
+    <div class="card mat-card">
+      <div class="mat-head"><span class="mat-rank" style="background:var(--red)">B</span><span class="mat-name">玻璃原片</span><span class="mat-en">Low-CTE Electronic Glass</span><span class="sev s5">最硬卡脖子</span></div>
+      <div class="barwrap"><div class="barlabel"><span>康宁/肖特/旭硝子/电气硝子垄断度</span><span>90%+</span></div><div class="bar"><i style="width:90%"></i></div></div>
+      <div class="mat-desc">低热膨胀电子级玻璃，熔炉建设周期 12–18 个月。国产原片目前仅支撑 ~5 层铜布线，距 7 层起步、下一代 11 层以上差距明显，高端高度依赖康宁——产业链最核心卡脖子环节。核心是无碱/低碱硼硅特种电子玻璃，与药用玻璃同源。</div>
+      <div class="chips"><span class="chip-label">国产标的</span><span class="chip star">力诺药包 · 卡位独特</span><span class="chip">旗滨集团</span><span class="chip">凯盛科技</span><span class="chip">戈碧迦</span></div>
+    </div>
+
+    <div class="card mat-card">
+      <div class="mat-head"><span class="mat-rank" style="background:var(--amber)">C</span><span class="mat-name">PSPI 光敏聚酰亚胺</span><span class="mat-en">Photosensitive Polyimide</span><span class="sev s4">玻璃基核心辅材</span></div>
+      <div class="barwrap"><div class="barlabel"><span>日本（东丽/旭化成）依赖度</span><span>~90%</span></div><div class="bar"><i style="width:90%"></i></div></div>
+      <div class="mat-desc">RDL 层介电/绝缘 + 图形化 + 缓冲/钝化。310×310 玻璃基板 RDL 用量 ~10–50g/层。2025/4 旭化成曾优先保台积电、削减中国封测订单。国内市场 ~20 亿，2030 看翻倍。</div>
+      <div class="chips"><span class="chip-label">国产标的</span><span class="chip star">奥来德 688378 · 已批量供京东方</span><span class="chip">艾森股份 688720</span><span class="chip">鼎龙股份 300054</span></div>
+    </div>
+
+    <div class="card mat-card">
+      <div class="mat-head"><span class="mat-rank" style="background:var(--amber)">D</span><span class="mat-name">电镀药水 / 药液</span><span class="mat-en">Plating Chemicals</span><span class="sev s4">TGV 金属化</span></div>
+      <div class="barwrap"><div class="barlabel"><span>海外主导度</span><span>高</span></div><div class="bar"><i style="width:78%"></i></div></div>
+      <div class="mat-desc">化学沉铜、填孔电镀、线路镀铜，决定 TGV 通孔金属化可靠性。</div>
+      <div class="chips"><span class="chip-label">国产标的</span><span class="chip">天承科技</span><span class="chip">艾森股份 · 电镀液龙头</span></div>
+    </div>
+
+    <div class="card mat-card">
+      <div class="mat-head"><span class="mat-rank" style="background:var(--blue)">E</span><span class="mat-name">电子级 PI / CPI 膜</span><span class="mat-en">Electronic PI / CPI</span><span class="sev s3">外延替代</span></div>
+      <div class="barwrap"><div class="barlabel"><span>日系（钟渊/宇部/东丽/三井）主导度</span><span>高</span></div><div class="bar"><i style="width:82%"></i></div></div>
+      <div class="mat-desc">电子级 PI 薄膜、CPI（透明 PI）、PSPI 日系主导。钟渊化学 2026/5 PI 全面涨价。</div>
+      <div class="chips"><span class="chip-label">国产标的</span><span class="chip">瑞华泰</span><span class="chip">沃格光电 603773 · CPI+防护镀膜</span><span class="chip">鼎龙股份</span><span class="chip">国风新材</span></div>
+    </div>
+
+    <h2><span class="n">④</span>催化时间线</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">2025-11/12</div><div class="tl-text">中日关系紧张，"减少对日技术/材料依赖"紧迫性上升</div><div class="tl-src">申万宏源化工 / 西部化工（zsxq）</div></div>
+      <div class="tl-item"><div class="tl-date">2026-05</div><div class="tl-text">味之素官宣 ABF 膜全面涨价 30%（Q3 生效），高端最高 50%</div><div class="tl-src">雪球 / 东方财富</div></div>
+      <div class="tl-item"><div class="tl-date">2026-05-20</div><div class="tl-text">京东方 A 与康宁签署玻璃基封装载板合作备忘录</div><div class="tl-src">国盛/华创/中信电子（zsxq）</div></div>
+      <div class="tl-item"><div class="tl-date">2026-06-04</div><div class="tl-text">台积电股东会宣布玻璃基板 CoPoS 先进封装，试产线已建好在跑</div><div class="tl-src">国金电新（zsxq）</div></div>
+      <div class="tl-item"><div class="tl-date">2026-06-16</div><div class="tl-text">台积电向供应链发布 CoWoS 玻璃基板开发计划，携手 ABF 载板厂 + 群创验证</div><div class="tl-src">zsxq 0616 辅材帖</div></div>
+    </div>
+
+    <h2><span class="n">⑤</span>投资框架</h2>
+    <div class="callout">
+      <div class="lab">价值量 / 弹性排序（唐主任："材料 &gt; 设备"）</div>
+      <p style="margin:0">玻璃原片（卡脖子最硬）≈ ABF 膜（味之素正主）&gt; PSPI / 电镀药水（玻璃基核心辅材）&gt; 设备</p>
+    </div>
+    <div class="callout">
+      <div class="lab">时间节奏（zsxq 0616 + 唐主任）</div>
+      <p style="margin:0"><b>2026 = 商业化元年</b>，买"故事的赔率"（催化密集、绝对值袖珍）；<b>2027–2028 = 买"兑现的胜率"</b>（量产放量、良率定胜负）。</p>
+    </div>
+
+    <div class="risk">
+      <div class="lab" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--red);margin-bottom:6px">⚠ 风险提示</div>
+      <ul style="list-style:none;padding:0;margin:0">
+        <li>兑现时点靠后：玻璃基板 27 年小批量、28 年出量，材料放量更晚。</li>
+        <li>真假难辨：概念化/蹭概念者多，量产良率未过关前估值已高。</li>
+        <li>原片仍受制于人：高端原片依赖康宁，国产仅 ~5 层。</li>
+        <li>题材波动大：催化驱动、情绪化交易，回调幅度大。</li>
+      </ul>
+    </div>
+
+    <div class="callout" style="background:linear-gradient(135deg,rgba(34,197,94,.1),transparent);border-color:rgba(34,197,94,.25)">
+      <div class="lab" style="color:var(--green)">一句话结论</div>
+      <p style="margin:0">唐主任这段的"正主"是<b>对标味之素的 ABF 膜替代（华正新材唯一量产供华为）</b>；玻璃基专属两大辅材是 <b>PSPI（奥来德已供京东方）</b> 和 <b>电镀药水（天承科技）</b>；最硬卡脖子是<b>玻璃原片（力诺药包/旗滨/凯盛/戈碧迦）</b>。但真正胜负在 2027–2028 量产良率。</p>
+    </div>
+  </section>
+
+  <!-- ════════ 文字版 ════════ -->
+  <section class="pane txt txtbody">
+    <h2><span class="n">一</span>缘起：唐主任那段话指什么</h2>
+    <p>唐主任 6 月 17 日微博，主帖讲完"既懂玻璃又懂半导体才能做玻璃基封装载板"（指向京东方）后，结尾补了一段上游材料判断："至于说这里面有很多材料要替代，那是早晚的事，尤其是对标味之素的这种，不只在玻璃基板上，其他领域也要替代。设备方向的国产化相对容易一点，但这良率第一的试验线关系不大，是量产阶段的事情。"</p>
+    <p>四层意思：① 核心矛盾是材料不是设备；② 第一替代目标是味之素 ABF 膜；③ 替代范围不只玻璃基板，传统有机载板（FCBGA）存量更大；④ 真假分水岭在量产良率，"27 年真交货时手里拿的会 A 杀"。</p>
+
+    <h2><span class="n">二</span>产业背景</h2>
+    <p>催化密集：2026/5 味之素 ABF 膜涨价 30%（Q3，高端 50%）；5/20 京东方与康宁签 MOU；6/4 台积电 CoPoS 试产线在跑；6/16 台积电 CoWoS 玻璃基板开发计划；叠加中日关系紧张推动对日材料去依赖。</p>
+    <p>节奏判断（zsxq 0616 帖，与唐主任互相印证）："今年参与是买'故事的赔率'、明年之后参与是买'兑现的胜率'……26 年有望成为商业化元年，增速性感但绝对值袖珍，27–28 年后商业化进度有望提速。"</p>
+
+    <h2><span class="n">三</span>材料替代地图</h2>
+    <h3>① ABF 膜 / 味之素绝缘膜——唐主任"对标味之素"的正主</h3>
+    <ul class="txt"><li>格局：味之素全球垄断 95–98%，AI 芯片产能隐形瓶颈，2024 国产化率仅 ~4%。</li><li>催化：2026/5 涨价 30%（Q3），高端最高 50%，全球急需第二供应商。</li><li>"不只玻璃基板"：主战场是传统 FCBGA 有机载板，玻璃基板抢超高端（1000W+），ABF 守性价比主流（大摩预计 ABF 载板 2025–2030 CAGR 16.1%）。</li><li>标的：华正新材（603186，唯一量产 CBF 替代膜供华为昇腾，2025 营收 43.69 亿、净利 2.77 亿 +384%）、生益科技（600183）、天和防务。</li></ul>
+
+    <h3>② 玻璃原片——最硬卡脖子</h3>
+    <ul class="txt"><li>康宁/肖特/旭硝子/电气硝子垄断 90%+，熔炉周期 12–18 个月。</li><li>国产仅支撑 ~5 层布线，距 7 层起步、11 层以上差距明显，高端依赖康宁。</li><li>类比 2020–2022 ABF 短缺：定价权在供给最受限环节。Q3–Q4 看康宁/肖特 capex。</li><li>标的：力诺药包（卡位独特）、旗滨集团、凯盛科技、戈碧迦（中信建材重点推荐：旗滨/沃格/力诺药包/戈碧迦）。</li></ul>
+
+    <h3>③ PSPI 光敏聚酰亚胺——玻璃基板工艺核心辅材</h3>
+    <ul class="txt"><li>RDL 层介电/绝缘 + 图形化 + 缓冲/钝化，310×310 玻璃基板 RDL 用量 ~10–50g/层。</li><li>全球 90% 依赖日本（东丽、旭化成），2025/4 旭化成削减中国封测订单（2019 曾对韩限制）。</li><li>标的：奥来德（688378，已批量供京东方、通过产线适配验证）、艾森股份（688720，先进封装光刻胶+电镀液龙头）、鼎龙股份（300054）。</li></ul>
+
+    <h3>④ 电镀药水/药液——TGV 金属化</h3>
+    <ul class="txt"><li>化学沉铜、填孔电镀、线路镀铜。标的：天承科技、艾森股份。</li></ul>
+
+    <h3>⑤ 电子级 PI / CPI 膜——外延替代</h3>
+    <ul class="txt"><li>电子级 PI 薄膜（钟渊、宇部）、CPI（宇部、钟渊、三井）、PSPI（东丽、旭化成）日系主导，钟渊 2026/5 PI 涨价。标的：瑞华泰、沃格光电、鼎龙、国风新材、时代新材。</li></ul>
+
+    <h3>⑥ 广义对日材料替代（"其他领域也要替代"）</h3>
+    <ul class="txt"><li>半导体光刻胶（JSR/TOK/信越）→ 彤程新材、鼎龙、晶瑞电材、恒坤新材、南大光电、上海新阳</li><li>环氧塑封料（住友电木/力森诺科）→ 华海诚科、飞凯材料；TMAH（TOK）→ 格林达</li><li>高性能陶瓷（京瓷/TDK）→ 国瓷材料；OLED 发光材料（出光）→ 莱特光电、万润股份</li><li>TAC 膜（富士）→ 天禄科技；LCP（住友）→ 普利特、沃特股份</li></ul>
+
+    <h2><span class="n">四</span>投资框架</h2>
+    <p>价值量/弹性排序（材料 &gt; 设备）：原片 ≈ ABF 膜 &gt; PSPI/电镀药水 &gt; 设备。时间节奏：2026 买"故事赔率"，2027–2028 买"兑现胜率"。真假分水岭：送样/试验线 ≠ 护城河，量产阶段良率才是。</p>
+
+    <h2><span class="n">五</span>引用来源</h2>
+    <p class="src"><b>知识星球纪要：</b>《玻璃基催化再现，关注原片/辅材环节材料机会 0616》《玻璃基板产业进展迅速，玻璃原片卡位核心》《艾森股份：PSPI——对日替代弹性巨大》《国金电新·奥来德：PSPI 是玻璃基板工艺核心辅材》《中信建材：玻璃基板星辰大海，玻璃企业深度受益》《申万宏源化工/西部化工：减少对日依赖，关注材料端国产替代》</p>
+    <p class="src"><b>公开来源：</b><a href="https://xueqiu.com/1048969405/390646545" target="_blank">雪球-味之素涨价</a> · <a href="https://caifuhao.eastmoney.com/news/20260430211611502411770" target="_blank">东方财富-ABF 国产替代</a> · <a href="https://caifuhao.eastmoney.com/news/20260525082420419793290" target="_blank">东方财富-华正新材 CBF 量产</a> · <a href="https://finance.sina.com.cn/stock/relnews/cn/2025-04-08/doc-ineskyez7259092.shtml" target="_blank">新浪-ABF 95% 垄断</a></p>
+  </section>
+
+  <div class="disclaimer-box">
+    ⚠ 本页基于付费知识星球券商纪要（多为卖方观点，自带立场）+ 个人微博 + 公开资料整理，<b>仅供分析参考，不构成投资建议</b>。唐主任本人反复强调"现在买故事赔率、2027–2028 才见兑现胜率"，落地节奏偏后；标的提及不代表推荐。
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-brand">BASEALPHA · 黑森船长</div>
+    <p class="footer-disclaimer">产业机会扫描日报 · 信息整理非投资建议 · Not investment advice</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    var p=t.dataset.pane;
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('active',x===t)});
+    document.querySelectorAll('section.pane').forEach(function(s){s.classList.toggle('active',s.classList.contains(p))});
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>

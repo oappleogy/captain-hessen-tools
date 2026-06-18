@@ -1,14 +1,14 @@
 {
- "last_updated": "2026-06-17",
- "next_update": "2026-06-24",
+ "last_updated": "2026-06-18",
+ "next_update": "2026-06-25",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
-  "label": "厄尔尼诺发展中（CPC 预警生效）· El Niño Advisory",
-  "phase": "el_nino_emerging",
-  "intensity": "弱→趋强（ONI 接近阈值，预计冬季显著增强）",
+  "label": "厄尔尼诺已形成 · El Niño Advisory",
+  "phase": "el_nino",
+  "intensity": "弱（临界）但快速增强 / Weak (borderline) but rapidly strengthening",
   "alert": "El Niño Advisory",
-  "alert_note": "CPC：厄尔尼诺条件已出现并将持续增强；11—1月出现『极强厄尔尼诺』概率约 63%。",
-  "summary": "最新 ONI（MAM 26）=+0.48°C，仍略低于 +0.5 阈值，但近四季由 +(-0.14)→+0.13→+0.48 快速抬升，趋势明确转暖；周度 Niño3.4（10JUN2026）已飙至 +1.50°C，东太（Niño1+2 +2.1°C）暖异常显著。CPC 于 2026-06-11 维持『El Niño Advisory』，判定厄尔尼诺条件已经形成，并预计将向 2026-27 北半球冬季持续增强，NMME/CFSv2 一致看强，11—1月录得『极强厄尔尼诺』概率达 63%。"
+  "alert_note": "CPC 判定厄尔尼诺条件已现并将增强，NDJ 期间有 63% 概率达到 1950 年以来名列前茅的『超强』厄尔尼诺。",
+  "summary": "CPC（11 June 2026）正式发布 El Niño Advisory：中至东赤道太平洋海温偏暖、低层西风异常、SOI 为负，海气耦合显示厄尔尼诺已形成，最新周度 Niño-3.4 为 +0.7°C（Niño-1+2 高达 +2.1°C）。ONI（MAM 26）=+0.48°C，仍略低于 +0.5°C 阈值，但近六季由 -0.55 持续抬升至 +0.48，趋势明确转暖。NMME/CFSv2 与高海洋热含量支撑厄尔尼诺在 2026-27 北半球冬季显著增强，高信心。"
  },
  "indicators": [
   {
@@ -128,45 +128,45 @@
  "forecast": [
   {
    "season": "MJJ 26",
-   "la_nina": 0,
-   "neutral": 12,
-   "el_nino": 88
+   "la_nina": 1,
+   "neutral": 14,
+   "el_nino": 85
   },
   {
    "season": "JJA 26",
+   "la_nina": 1,
+   "neutral": 11,
+   "el_nino": 88
+  },
+  {
+   "season": "JAS 26",
+   "la_nina": 1,
+   "neutral": 9,
+   "el_nino": 90
+  },
+  {
+   "season": "ASO 26",
    "la_nina": 0,
    "neutral": 8,
    "el_nino": 92
   },
   {
-   "season": "JAS 26",
+   "season": "SON 26",
+   "la_nina": 0,
+   "neutral": 7,
+   "el_nino": 93
+  },
+  {
+   "season": "OND 26",
    "la_nina": 0,
    "neutral": 5,
    "el_nino": 95
   },
   {
-   "season": "ASO 26",
+   "season": "NDJ 26",
    "la_nina": 0,
-   "neutral": 4,
-   "el_nino": 96
-  },
-  {
-   "season": "SON 26",
-   "la_nina": 0,
-   "neutral": 3,
-   "el_nino": 97
-  },
-  {
-   "season": "OND 26",
-   "la_nina": 0,
-   "neutral": 3,
-   "el_nino": 97
-  },
-  {
-   "season": "NDJ 26-27",
-   "la_nina": 0,
-   "neutral": 2,
-   "el_nino": 98
+   "neutral": 5,
+   "el_nino": 95
   }
  ],
  "history": [

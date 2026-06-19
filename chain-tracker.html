@@ -42,6 +42,10 @@ h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-b
 .seg{font-size:11.5px;padding:3px 9px;border-radius:8px;background:var(--bg2);color:var(--text)}
 .latest{font-size:12px;color:var(--text3);font-family:'JetBrains Mono',monospace;border-top:1px dashed var(--border);padding-top:9px}
 .latest b{color:var(--accent);font-weight:600}
+.certrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+.certk{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px;color:var(--text3);text-transform:uppercase}
+.certrow b{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)}
+.dchip{font-size:11px;padding:2px 8px;border-radius:8px;background:rgba(34,197,94,.1);color:var(--green);font-weight:600;margin-left:4px}
 .placeholder{color:var(--text3);text-align:center;padding:40px;font-family:'JetBrains Mono',monospace;font-size:13px}
 footer{border-top:1px solid var(--border);margin-top:50px}
 .footer-brand{font-family:'Noto Serif SC',serif;font-weight:600;font-size:14px;margin-bottom:4px}
@@ -82,11 +86,15 @@ async function load(){
       var heat=Math.max(0,Math.min(100,parseInt(c.latest_heat)||0));
       var segs=(c.segments||[]).slice(0,7).map(function(s){return '<span class="seg">'+esc(s)+'</span>';}).join('');
       var latest=c.latest_status?('<div class="latest">最新 <b>'+esc(c.latest_status)+'</b>'+(c.last_tracked?' · '+esc(c.last_tracked):'')+'</div>'):'';
+      var cert=(c.scores&&c.scores['确定性'])||0;
+      var dchips=(c.certainty_drivers||[]).map(function(d){return '<span class="dchip">'+esc(d)+'</span>';}).join('');
+      var certrow=(cert||dchips)?('<div class="certrow">'+(cert?'<span class="certk">确定性</span><b>'+cert+'/5</b>':'')+(dchips?'<span>'+dchips+'</span>':'')+'</div>'):'';
       return '<a class="ccard" href="chain.html?id='+encodeURIComponent(c.id)+'">'
         +'<div class="ctop"><span class="cname">'+esc(c.name)+'</span>'
         +'<span class="stage st-'+esc(c.stage||'发酵')+'">'+esc(c.stage||'')+'</span>'
         +'<span class="heatbar">热度<span class="hb"><i style="width:'+heat+'%"></i></span>'+heat+'</span></div>'
         +'<div class="thesis">'+esc((c.thesis||'').slice(0,110))+((c.thesis||'').length>110?'…':'')+'</div>'
+        +certrow
         +'<div class="segs">'+segs+'</div>'+latest+'</a>';
     }).join('');
   }catch(e){grid.innerHTML='<div class="placeholder">暂无数据，管线就绪后自动生成</div>';}

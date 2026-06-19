@@ -39,6 +39,17 @@ h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-b
 .signals{list-style:none}
 .signals li{font-size:13px;color:var(--text2);padding:5px 0 5px 18px;position:relative}
 .signals li::before{content:'◆';position:absolute;left:0;color:var(--accent);font-size:9px;top:9px}
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 18px;margin-bottom:2px}
+.score-item{display:flex;align-items:center;gap:8px;font-size:13px}
+.score-item .sname{width:56px;color:var(--text2)}
+.dots{display:inline-flex;gap:3px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--bg2);border:1px solid var(--border2)}
+.dot.on{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent}
+.score-item .sval{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3)}
+.drivers{display:flex;flex-wrap:wrap;gap:6px}
+.driver{font-size:12px;padding:4px 11px;border-radius:10px;background:rgba(34,197,94,.12);color:var(--green);font-weight:600}
+.cnote{font-size:12.5px;color:var(--text2);margin-top:8px;line-height:1.65}
+.cnote.dim{color:var(--text3);font-size:12px}
 .timeline{position:relative;margin-left:6px;padding-left:22px;border-left:2px solid var(--border)}
 .tl-entry{position:relative;margin:0 0 20px}
 .tl-entry::before{content:'';position:absolute;left:-29px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
@@ -103,6 +114,20 @@ async function load(){
   // 框架
   h+='<div class="sec-head">🧭 一级框架</div><div class="framework">';
   if(c.thesis)h+='<div class="thesis">'+esc(c.thesis)+'</div>';
+  // 多维评分
+  var sc=c.scores||{};var dims=[['空间',sc['空间']],['竞争力',sc['竞争力']],['寡头垄断',sc['寡头垄断']],['确定性',sc['确定性']]];
+  if(dims.some(function(d){return d[1];})){
+    h+='<div class="lbl">多维评分</div><div class="scores">';
+    dims.forEach(function(d){
+      var n=Math.max(0,Math.min(5,parseInt(d[1])||0));var dots='';
+      for(var i=1;i<=5;i++)dots+='<span class="dot'+(i<=n?' on':'')+'"></span>';
+      h+='<div class="score-item"><span class="sname">'+d[0]+'</span><span class="dots">'+dots+'</span><span class="sval">'+n+'/5</span></div>';
+    });
+    h+='</div>';
+  }
+  if((c.certainty_drivers||[]).length){h+='<div class="lbl">确定性来源 · 系统吸引子</div><div class="drivers">'+c.certainty_drivers.map(function(d){return '<span class="driver">'+esc(d)+'</span>';}).join('')+'</div>';}
+  if(c.certainty_note)h+='<div class="cnote">'+esc(c.certainty_note)+'</div>';
+  if(c.score_notes)h+='<div class="cnote dim">'+esc(c.score_notes)+'</div>';
   if((c.segments||[]).length){h+='<div class="lbl">关键环节</div><div class="chain">'+c.segments.map(function(s,i){return (i?'<span class="arr">→</span>':'')+'<span class="step">'+esc(s)+'</span>';}).join('')+'</div>';}
   if((c.tickers||[]).length){h+='<div class="lbl">相关标的</div><div class="tickers">'+c.tickers.map(function(k){return '<span class="tk">'+esc(k.name||'')+(k.code?'<span class="code">'+esc(k.code)+'</span>':'')+(k.role?' · '+esc(k.role):'')+'</span>';}).join('')+'</div>';}
   if((c.tracking_signals||[]).length){h+='<div class="lbl">后续跟踪信号</div><ul class="signals">'+c.tracking_signals.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>';}

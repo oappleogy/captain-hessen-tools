@@ -71,6 +71,24 @@
   .advice-summary.opportunity + .advice-content .advice-item { border-left-color: #E65100; }
   .advice-summary.structural .advice-title { color: #6A1B9A; }
   .advice-summary.currency .advice-title { color: #00695C; }
+  /* ── 手机适配 ── */
+  @media (max-width: 640px) {
+    .container { padding: 14px; }
+    .header { padding: 18px 0 14px; }
+    .header h1 { font-size: 21px; letter-spacing: 0.03em; }
+    .system-banner { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 18px; }
+    .system-state { font-size: 26px; }
+    .system-hint, .system-score { max-width: 100%; }
+    .dim-row { gap: 10px; }
+    .section-title { margin: 22px 0 10px; font-size: 15px; }
+    .advice-summary { padding: 14px; gap: 8px; }
+    .advice-content { padding: 0 14px 14px 18px; }
+    .s2-grid2 { grid-template-columns: 1fr !important; }
+    [style*="min-width:280px"], [style*="min-width:260px"],
+    [style*="min-width:220px"] { min-width: 100% !important; }
+    .hist-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .hist-table table { min-width: 460px; }
+  }
 </style>
 </head>
 <body>
@@ -598,7 +616,7 @@
                          padding:2px 10px;border-radius:10px">不对称性: 高</span>
           </div>
           <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• OVX极端(86%分位)=能源市场定价地缘冲击</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• I维=+0.16：制度不确定性高→各国加速能源自主</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• 地缘指标亮灯：全球安全格局重构中</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• R维=+0.40：经济未崩→能源需求有底</div></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+          <div class="s2-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
             <div style="background:#FFEBEE;border-radius:6px;padding:10px;font-size:12px;line-height:1.6">
               <div style="font-size:12px;color:#C62828;font-weight:700;margin-bottom:4px">旧叙事（市场当前定价逻辑）</div>
               <div style="color:#555">市场用「油价周期股」框架定价能源公司——油价涨就买、跌就卖。能源股估值被绑定在WTI价格上，PE长期被压在个位数。</div>
@@ -622,7 +640,7 @@
                          padding:2px 10px;border-radius:10px">不对称性: 中高</span>
           </div>
           <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• T维=-0.58：科技板块跑输大盘，但AI算力需求刚性→电力基础设施是瓶颈</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• R维=+0.40：经济韧性支撑资本开支</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• I维=+0.16：政策不确定→电力审批是硬约束，在建项目有护城河</div></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+          <div class="s2-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
             <div style="background:#FFEBEE;border-radius:6px;padding:10px;font-size:12px;line-height:1.6">
               <div style="font-size:12px;color:#C62828;font-weight:700;margin-bottom:4px">旧叙事（市场当前定价逻辑）</div>
               <div style="color:#555">市场用「公用事业」框架定价电力公司——低增长、高股息、防御性配置。PE给15-18倍，当债券替代品交易。</div>
@@ -646,7 +664,7 @@
                          padding:2px 10px;border-radius:10px">不对称性: 中高</span>
           </div>
           <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• 地缘政治风险(GPR)=184（89%分位）：地缘冲突密度历史高位</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• T维=-0.58：技术-制度失配→网络战/AI武器化风险上升</div></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+          <div class="s2-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
             <div style="background:#FFEBEE;border-radius:6px;padding:10px;font-size:12px;line-height:1.6">
               <div style="font-size:12px;color:#C62828;font-weight:700;margin-bottom:4px">旧叙事（市场当前定价逻辑）</div>
               <div style="color:#555">市场用「和平红利」框架——冷战结束后国防支出持续下降，军工股是夕阳行业。网络安全被当成IT支出的子项，跟着企业IT预算周期走。</div>

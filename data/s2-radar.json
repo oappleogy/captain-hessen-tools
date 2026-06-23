@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-06-19T00:04:05",
-  "data_as_of": "2026-06-18",
+  "timestamp": "2026-06-23T12:03:52",
+  "data_as_of": "2026-06-22",
   "data_lag_days": 1,
   "system_state": {
-    "state": "STRESSED_MILD",
-    "label": "轻度承压",
-    "color": "#eab308",
-    "level": 2,
+    "state": "STRESSED_SEVERE",
+    "label": "严重承压",
+    "color": "#f97316",
+    "level": 3,
     "score": 0.0,
-    "action": "系统轻度承压。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。"
+    "action": "系统显著承压。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.4,
+      "score": 0.37,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.16,
+      "score": 0.11,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -63,17 +63,17 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.23,
+      "score": 0.03,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.58,
+      "score": -0.57,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -129,15 +129,18 @@
     "early_warning": "无"
   },
   "extremes": {
-    "count": 0,
-    "categories": []
+    "count": 2,
+    "categories": [
+      "政策不确定性(EPU)=542 (历史93%分位)",
+      "Nasdaq波动率(VXN)=27.7 (历史93%分位)"
+    ]
   },
   "opportunities": [],
   "contradiction": {
     "type": "state_change",
-    "title": "系统状态改善：从STRESSED_SEVERE进入轻度承压",
-    "thesis": "系统从STRESSED_SEVERE变为轻度承压。主要拖累来自技术动能（-0.58），支撑来自信用韧性（+0.40）。",
-    "metaphor": "雨过天晴"
+    "title": "系统状态恶化：从轻度承压进入STRESSED_SEVERE",
+    "thesis": "系统从轻度承压变为STRESSED_SEVERE。主要拖累来自技术动能（-0.57），支撑来自信用韧性（+0.37）。",
+    "metaphor": "天气突变"
   },
   "allocation": {
     "short_term": "情绪面相对平稳，正常操作即可。",
@@ -145,14 +148,14 @@
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 0,
+    "extreme_count": 2,
     "vix": {
-      "value": 17.1,
-      "percentile": 60,
+      "value": 17.3,
+      "percentile": 63,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.63,
+      "value": 2.66,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>S₂ 宏观监控 | 2026-06-19</title>
+<title>S₂ 宏观监控 | 2026-06-23</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, "PingFang SC", Arial, sans-serif;
@@ -13,10 +13,10 @@
   .header h1 { font-size: 28px; font-weight: 800; color: #FFD700;
                 letter-spacing: 0.05em; margin-bottom: 6px; }
   .header .ts { font-size: 13px; color: #8b949e; }
-  .system-banner { background: #FFF8E1; border: 2px solid #FF8F00;
+  .system-banner { background: #FFF3E0; border: 2px solid #E65100;
                     border-radius: 16px; padding: 20px 28px; margin: 20px 0;
                     display: flex; justify-content: space-between; align-items: center; }
-  .system-state { font-size: 32px; font-weight: 900; color: #FF8F00; }
+  .system-state { font-size: 32px; font-weight: 900; color: #E65100; }
   .system-hint { font-size: 14px; color: #222; max-width: 600px; }
   .system-score { font-size: 13px; color: #333; margin-top: 6px; }
   .change-banner { background: #1c2333; border-left: 4px solid #FFD700;
@@ -84,8 +84,10 @@
     .advice-summary { padding: 14px; gap: 8px; }
     .advice-content { padding: 0 14px 14px 18px; }
     .s2-grid2 { grid-template-columns: 1fr !important; }
+    /* 内联固定宽度卡片窄屏整行堆叠，避免横向溢出 */
     [style*="min-width:280px"], [style*="min-width:260px"],
     [style*="min-width:220px"] { min-width: 100% !important; }
+    /* 宽表格横向滚动，不挤压版面 */
     .hist-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .hist-table table { min-width: 460px; }
   }
@@ -96,16 +98,16 @@
 
   <div class="header">
     <h1>S₂ 宏观监控系统</h1>
-    <div class="ts">更新时间：2026-06-19T00:04:05　|　数据源：FRED · CFTC COT · CNN</div>
+    <div class="ts">更新时间：2026-06-23T12:03:52　|　数据源：FRED · CFTC COT · CNN</div>
   </div>
 
   <div class="system-banner">
     <div>
       <div style="font-size:12px;color:#333;margin-bottom:4px">系统当前状态</div>
-      <div class="system-state">轻度压力区</div>
-      <div class="system-score">综合得分：+0.00　EMA：+0.000　|　R +0.40　I +0.16　F -0.09　C +0.22　N +0.23　T -0.58</div>
+      <div class="system-state">显著压力区 <span style="font-size:13px;color:#C62828;font-weight:700">⚠️ 极端指标强制降级（6个极端指标）</span></div>
+      <div class="system-score">综合得分：+0.00　EMA：+0.000　|　R +0.37　I +0.11　F -0.09　C +0.22　N +0.03　T -0.57</div>
     </div>
-    <div class="system-hint">系统轻度承压。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。</div>
+    <div class="system-hint">系统显著承压。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。</div>
   </div>
 
   <div class="change-banner">📊 各维度状态与上次相同</div>
@@ -119,7 +121,7 @@
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div style="font-size:16px;font-weight:700;color:#1a1a2e">R｜韧性<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:13px;padding:2px 8px;border-radius:10px;border:1px solid #E65100;margin-left:6px" title="12/11指标 | 含月度滞后数据">★★ 12/11指标 | 含月度滞后数据</span></div>
             <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-weight:700;font-size:14px;color:#333">+0.40</span>
+              <span style="font-weight:700;font-size:14px;color:#333">+0.37</span>
               <div style="background:#E8F5E9;color:#2ECC71;font-size:22px;font-weight:900;
                           padding:4px 14px;border-radius:8px;border:2px solid #2ECC71">▲</div>
             </div>
@@ -130,14 +132,19 @@
         <div style="padding:0 20px 20px">
           
     <div style="background:#eee;border-radius:4px;height:8px;width:100%;margin:6px 0">
-      <div style="background:#2ECC71;width:69%;height:8px;border-radius:4px;transition:width 0.3s"></div>
+      <div style="background:#2ECC71;width:68%;height:8px;border-radius:4px;transition:width 0.3s"></div>
     </div>
-    <div style="font-size:13px;color:#333;text-align:right">+0.40</div>
+    <div style="font-size:13px;color:#333;text-align:right">+0.37</div>
     
           
+    <svg width="120" height="32" style="display:block;margin:4px 0">
+      <polyline points="0.0,9.8 60.0,9.6 120.0,10.1"
+        fill="none" stroke="#2ECC71" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
           <div style="color:#333;font-size:12px;margin:10px 0;font-style:italic">信用市场平稳，系统有足够缓冲</div>
           <table style="width:100%;border-collapse:collapse;margin-top:8px">
-            <tr><td style="color:#333;font-size:13px;padding:4px 8px">HY信用利差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">2.63%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">金融压力指数(STL)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.77</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">IG信用利差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.74%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">大宗商品价格指数(PPI)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">292.5</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">大宗商品动量(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+3.4%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">WTI原油</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">$73.8</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">原油动量(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-23.4%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">OVX原油波动率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">50.9 (历史86%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CCC级收益率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">13.65% (CCC/BB=2.3x)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CCC变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.040%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">信用分层(CCC/BB变化比)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.4x</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">BDC指数(BIZD)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">$12.37 (-1.2%/4W)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">杠杆贷款(BKLN)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">$20.48 (-0.1%/4W)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">商业票据余额变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.4%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">SOFR−EFFR利差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.4bp (正常)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">美联储资产(13W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#666;font-weight:600">+0.5% (中性)</span></td></tr>
+            <tr><td style="color:#333;font-size:13px;padding:4px 8px">HY信用利差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">2.66%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">金融压力指数(STL)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.77</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">IG信用利差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.74%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">大宗商品价格指数(PPI)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">292.5</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">大宗商品动量(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+3.4%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">WTI原油</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">$74.8</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">原油动量(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-15.1%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">OVX原油波动率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">50.7 (历史86%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CCC级收益率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">13.68% (CCC/BB=2.4x)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CCC变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.070%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">信用分层(CCC/BB变化比)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.7x</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">BDC指数(BIZD)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">$12.22 (-1.3%/4W)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">杠杆贷款(BKLN)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">$20.36 (-0.0%/4W)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">商业票据余额变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-1.6%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">SOFR−EFFR利差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.3bp (正常)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">美联储资产(13W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#666;font-weight:600">+0.5% (中性)</span></td></tr>
           </table>
         </div>
       </details>
@@ -149,7 +156,7 @@
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div style="font-size:16px;font-weight:700;color:#1a1a2e">I｜制度<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:13px;padding:2px 8px;border-radius:10px;border:1px solid #E65100;margin-left:6px" title="10/12指标 | 含月度滞后数据">★★ 10/12指标 | 含月度滞后数据</span></div>
             <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-weight:700;font-size:14px;color:#333">+0.16</span>
+              <span style="font-weight:700;font-size:14px;color:#333">+0.11</span>
               <div style="background:#FFF8E1;color:#FF8F00;font-size:22px;font-weight:900;
                           padding:4px 14px;border-radius:8px;border:2px solid #FF8F00">►</div>
             </div>
@@ -160,14 +167,19 @@
         <div style="padding:0 20px 20px">
           
     <div style="background:#eee;border-radius:4px;height:8px;width:100%;margin:6px 0">
-      <div style="background:#FF8F00;width:57%;height:8px;border-radius:4px;transition:width 0.3s"></div>
+      <div style="background:#FF8F00;width:55%;height:8px;border-radius:4px;transition:width 0.3s"></div>
     </div>
-    <div style="font-size:13px;color:#333;text-align:right">+0.16</div>
+    <div style="font-size:13px;color:#333;text-align:right">+0.11</div>
     
           
+    <svg width="120" height="32" style="display:block;margin:4px 0">
+      <polyline points="0.0,14.5 60.0,13.5 120.0,14.2"
+        fill="none" stroke="#FF8F00" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
           <div style="color:#333;font-size:12px;margin:10px 0;font-style:italic">政策不确定性上升，规则可预测性下降</div>
           <table style="width:100%;border-collapse:collapse;margin-top:8px">
-            <tr><td style="color:#333;font-size:13px;padding:4px 8px">政策不确定性(EPU)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">361 (历史78%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">实际利率(10Y)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">1.89%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">实际利率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.30%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">美元指数变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.34</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">10Y-2Y收益率曲线</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.29%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">地缘政治风险(GPR)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">184 (历史89%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">地缘交叉验证(OVX)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">50.9 (历史86%分位) [仅验证，不计分]</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">5Y通胀预期(BEI)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">2.31%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">通胀预期变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.170%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">贸易(季度)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#f39c12;font-weight:600">出口+7.1% 进口-3.0% (截至2026-01-01)</span></td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">黄金/美元背离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">Gold -7.1% USD +1.6%/20d</span> (储备稳固)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">央行购金压力</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">GLD动量-7.1% 量比1.11x</span> (正常)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">期限溢价(10Y)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">+0.77% Δ-0.03/60d</span> (中性)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">贸易政策不确定性(TPU)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#f39c12;font-weight:600">1722</span> (历史57%分位) → -0.10</td></tr>
+            <tr><td style="color:#333;font-size:13px;padding:4px 8px">政策不确定性(EPU)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">542 (历史93%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">实际利率(10Y)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">1.89%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">实际利率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.30%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">美元指数变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.31</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">10Y-2Y收益率曲线</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.27%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">地缘政治风险(GPR)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">184 (历史89%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">地缘交叉验证(OVX)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">50.7 (历史86%分位) [仅验证，不计分]</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">5Y通胀预期(BEI)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">2.28%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">通胀预期变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.160%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">贸易(季度)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#f39c12;font-weight:600">出口+7.1% 进口-3.0% (截至2026-01-01)</span></td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">黄金/美元背离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">Gold -7.8% USD +1.8%/20d</span> (储备稳固)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">央行购金压力</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">GLD动量-7.8% 量比1.21x</span> (正常)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">期限溢价(10Y)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">+0.77% Δ-0.03/60d</span> (中性)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">贸易政策不确定性(TPU)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#f39c12;font-weight:600">1722</span> (历史57%分位) → -0.10</td></tr>
           </table>
         </div>
       </details>
@@ -195,9 +207,14 @@
     <div style="font-size:13px;color:#333;text-align:right">-0.09</div>
     
           
+    <svg width="120" height="32" style="display:block;margin:4px 0">
+      <polyline points="0.0,17.7 60.0,17.4 120.0,17.4"
+        fill="none" stroke="#FF8F00" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
           <div style="color:#333;font-size:12px;margin:10px 0;font-style:italic">情绪混合，反馈方向尚未确认</div>
           <table style="width:100%;border-collapse:collapse;margin-top:8px">
-            <tr><td style="color:#333;font-size:13px;padding:4px 8px">VIX恐慌指数</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">17.1 (历史60%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">消费者信心(密歇根)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">49.8 (历史3%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">S&P500近期变化</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+865pts</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">铜价(美元/磅)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">13483.75</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">铜价动量(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+4.4%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">OVX/VIX背离比</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">2.97</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">世界不确定性(WUI)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">1.565 (历史83%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-SP500投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-3.1% OI (分位74%, 4W变化-2.8pp)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-VIX投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-10.6% OI (分位60%)</td></tr>
+            <tr><td style="color:#333;font-size:13px;padding:4px 8px">VIX恐慌指数</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">17.3 (历史63%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">消费者信心(密歇根)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">49.8 (历史3%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">S&P500近期变化</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+892pts</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">铜价(美元/磅)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">13483.75</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">铜价动量(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+4.4%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">OVX/VIX背离比</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">2.93</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">世界不确定性(WUI)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">1.565 (历史83%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-SP500投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-3.1% OI (分位74%, 4W变化-2.8pp)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-VIX投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-10.6% OI (分位60%)</td></tr>
           </table>
         </div>
       </details>
@@ -228,9 +245,14 @@
     <div style="font-size:13px;color:#333;text-align:right">+0.22</div>
     
           
+    <svg width="120" height="32" style="display:block;margin:4px 0">
+      <polyline points="0.0,12.5 60.0,12.5 120.0,12.5"
+        fill="none" stroke="#FF8F00" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
           <div style="color:#333;font-size:12px;margin:10px 0;font-style:italic">部分信号出现分化，协调性下降</div>
           <table style="width:100%;border-collapse:collapse;margin-top:8px">
-            <tr><td style="color:#333;font-size:13px;padding:4px 8px">R-I-F方差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.040</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">信用-权益背离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">HY利差-0.11% vs SP+13.0% (一致)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">波动率一致性(VIX/OVX)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">同向 (VIX-7.9 OVX-46.3)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">信心-资产偏离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">信心3%分位 vs SP99%分位</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">股债关系</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">正常</td></tr>
+            <tr><td style="color:#333;font-size:13px;padding:4px 8px">R-I-F方差</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.035</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">信用-权益背离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">HY利差-0.09% vs SP+13.6% (一致)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">波动率一致性(VIX/OVX)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">同向 (VIX-8.9 OVX-39.1)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">信心-资产偏离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">信心3%分位 vs SP98%分位</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">股债关系</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">正常</td></tr>
           </table>
         </div>
       </details>
@@ -242,7 +264,7 @@
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div style="font-size:16px;font-weight:700;color:#1a1a2e">N｜叙事<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:13px;padding:2px 8px;border-radius:10px;border:1px solid #E65100;margin-left:6px" title="8/9指标 | 含月度滞后数据、含CFTC周频数据">★★ 8/9指标 | 含月度滞后数据、含CFTC周频数据</span></div>
             <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-weight:700;font-size:14px;color:#333">+0.23</span>
+              <span style="font-weight:700;font-size:14px;color:#333">+0.03</span>
               <div style="background:#FFF8E1;color:#FF8F00;font-size:22px;font-weight:900;
                           padding:4px 14px;border-radius:8px;border:2px solid #FF8F00">►</div>
             </div>
@@ -253,14 +275,19 @@
         <div style="padding:0 20px 20px">
           
     <div style="background:#eee;border-radius:4px;height:8px;width:100%;margin:6px 0">
-      <div style="background:#FF8F00;width:61%;height:8px;border-radius:4px;transition:width 0.3s"></div>
+      <div style="background:#FF8F00;width:51%;height:8px;border-radius:4px;transition:width 0.3s"></div>
     </div>
-    <div style="font-size:13px;color:#333;text-align:right">+0.23</div>
+    <div style="font-size:13px;color:#333;text-align:right">+0.03</div>
     
           
+    <svg width="120" height="32" style="display:block;margin:4px 0">
+      <polyline points="0.0,14.5 60.0,12.4 120.0,15.6"
+        fill="none" stroke="#FF8F00" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
           <div style="color:#333;font-size:12px;margin:10px 0;font-style:italic">叙事出现分化或转向迹象</div>
           <table style="width:100%;border-collapse:collapse;margin-top:8px">
-            <tr><td style="color:#333;font-size:13px;padding:4px 8px">EPU变化速度(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-6.3%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">VIX期限结构</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.86 (正常)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">通胀-信心叙事</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">通胀+0.20 信心-0.94 差1.14</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">国债收益率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.060%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-黄金投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+53.4% OI (分位96%, 4W变化-2.4pp)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-原油投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+13.2% OI (4W变化-1.2pp)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC多品种方向一致性</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.50 (分裂)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">EM-美股背离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">EEM/SPY +7.7%/20d</span> (正常)</td></tr>
+            <tr><td style="color:#333;font-size:13px;padding:4px 8px">EPU变化速度(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+58.5%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">VIX期限结构</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.88 (正常)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">通胀-信心叙事</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">通胀+0.34 信心-0.94 差1.28</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">国债收益率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.090%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-黄金投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+53.4% OI (分位96%, 4W变化-2.4pp)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC-原油投机净仓</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+13.2% OI (4W变化-1.2pp)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CFTC多品种方向一致性</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">0.50 (分裂)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">EM-美股背离</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111"><span style="color:#27ae60;font-weight:600">EEM/SPY +7.9%/20d</span> (正常)</td></tr>
           </table>
         </div>
       </details>
@@ -270,9 +297,9 @@
       <details class="dim-details">
         <summary style="padding:20px;cursor:pointer;list-style:none;-webkit-appearance:none">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-size:16px;font-weight:700;color:#1a1a2e">T｜技术失配<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:13px;padding:2px 8px;border-radius:10px;border:1px solid #E65100;margin-left:6px" title="5/8指标 | 含月度滞后数据">★★ 5/8指标 | 含月度滞后数据</span></div>
+            <div style="font-size:16px;font-weight:700;color:#1a1a2e">T｜技术失配<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:13px;padding:2px 8px;border-radius:10px;border:1px solid #E65100;margin-left:6px" title="6/8指标 | 含月度滞后数据">★★ 6/8指标 | 含月度滞后数据</span></div>
             <div style="display:flex;align-items:center;gap:10px">
-              <span style="font-weight:700;font-size:14px;color:#333">-0.58</span>
+              <span style="font-weight:700;font-size:14px;color:#333">-0.57</span>
               <div style="background:#FFEBEE;color:#E74C3C;font-size:22px;font-weight:900;
                           padding:4px 14px;border-radius:8px;border:2px solid #E74C3C">▼</div>
             </div>
@@ -283,14 +310,19 @@
         <div style="padding:0 20px 20px">
           
     <div style="background:#eee;border-radius:4px;height:8px;width:100%;margin:6px 0">
-      <div style="background:#E74C3C;width:20%;height:8px;border-radius:4px;transition:width 0.3s"></div>
+      <div style="background:#E74C3C;width:21%;height:8px;border-radius:4px;transition:width 0.3s"></div>
     </div>
-    <div style="font-size:13px;color:#333;text-align:right">-0.58</div>
+    <div style="font-size:13px;color:#333;text-align:right">-0.57</div>
     
           
+    <svg width="120" height="32" style="display:block;margin:4px 0">
+      <polyline points="0.0,26.0 60.0,25.3 120.0,25.0"
+        fill="none" stroke="#E74C3C" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
           <div style="color:#333;font-size:12px;margin:10px 0;font-style:italic">科技板块显著跑输大盘，创新动能受阻或资本撤离科技</div>
           <table style="width:100%;border-collapse:collapse;margin-top:8px">
-            <tr><td style="color:#333;font-size:13px;padding:4px 8px">NQ100/SP500比率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">3.96</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">比率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-13.69%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">科技超额收益(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-15.48%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">Nasdaq波动率(VXN)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">27.1</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">VXN/VIX比率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">1.58</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CCC级收益率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">+0.040%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">Mag7集中度(SPY-RSP,4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-2.38%</td></tr>
+            <tr><td style="color:#333;font-size:13px;padding:4px 8px">NQ100/SP500比率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">4.06</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">比率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-8.11%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">科技超额收益(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-9.21%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">Nasdaq波动率(VXN)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">27.7 (历史93%分位)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">VXN/VIX比率</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">1.60 (3y分位100%)</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">信息业就业变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.07%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">CCC级收益率变化(4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-0.070%</td></tr><tr><td style="color:#333;font-size:13px;padding:4px 8px">Mag7集中度(SPY-RSP,4W)</td><td style="font-weight:600;font-size:13px;padding:4px 8px;text-align:right;color:#111">-1.77%</td></tr>
           </table>
         </div>
       </details>
@@ -367,8 +399,8 @@
     <svg width="180" height="180" style="background:#f8f9fa;border-radius:8px;display:block;margin:0 auto">
       <text x="90" y="12" text-anchor="middle" font-size="9" fill="#666">R-I 相空间</text>
       <circle cx="146" cy="34" r="8" fill="#FFD700" opacity="0.2"/><text x="146" y="23" text-anchor="middle" font-size="7" fill="#FFD700">黄金/稳态/停滞</text><circle cx="90" cy="130" r="8" fill="#7C4DFF" opacity="0.2"/><text x="90" y="119" text-anchor="middle" font-size="7" fill="#7C4DFF">技术</text><circle cx="34" cy="146" r="8" fill="#E74C3C" opacity="0.2"/><text x="34" y="135" text-anchor="middle" font-size="7" fill="#E74C3C">崩塌</text>
-      
-      <circle cx="122" cy="78" r="5" fill="#FFD700" stroke="#333" stroke-width="1.5"/>
+      <polyline points="121.9,77.6 119.4,81.1" fill="none" stroke="#FFD700" stroke-width="1.5" opacity="0.6" stroke-dasharray="3,2"/>
+      <circle cx="119" cy="81" r="5" fill="#FFD700" stroke="#333" stroke-width="1.5"/>
       <text x="10" y="176" font-size="8" fill="#999">R→</text>
       <text x="2" y="22" font-size="8" fill="#999">I↑</text>
     </svg></div>
@@ -405,15 +437,15 @@
               <td style="color:#333;padding:8px 0">最近恶化边界</td>
               <td style="font-weight:600;text-align:right;font-size:13px;color:#111">STRESSED_MILD→SEVERE</td></tr>
             <tr><td style="color:#333;padding:5px 0">安全裕度</td>
-                <td style="font-weight:800;text-align:right;color:#FF8F00">+0.261</td></tr>
+                <td style="font-weight:800;text-align:right;color:#FF8F00">+0.229</td></tr>
           </table>
           <div style="font-size:12px;color:#666;margin-top:8px;line-height:1.5;background:#f8f9fa;
-                      border-radius:6px;padding:8px">综合得分 = R(+0.40)×0.20 + I(+0.16)×0.20 + F(-0.09)×0.20 + C(+0.22)×0.15 + N(+0.23)×0.10 + T(-0.58)×0.15 = +0.061，距STRESSED_MILD→SEVERE边界(-0.2)的距离 = +0.061 - (-0.2) = +0.261</div>
+                      border-radius:6px;padding:8px">综合得分 = R(+0.37)×0.20 + I(+0.11)×0.20 + F(-0.09)×0.20 + C(+0.22)×0.15 + N(+0.03)×0.10 + T(-0.57)×0.15 = +0.029，距STRESSED_MILD→SEVERE边界(-0.2)的距离 = +0.029 - (-0.2) = +0.229</div>
           <div style="background:#E74C3C15;border:1px solid #E74C3C;border-radius:8px;
                       padding:10px;margin-top:10px;text-align:center">
             <div style="font-size:13px;color:#333">极端指标计数</div>
-            <div style="font-size:18px;font-weight:800;color:#E74C3C">4个 · 高危</div>
-            <div style="font-size:12px;color:#666;margin-top:6px;text-align:left;line-height:1.6">· OVX原油波动率=50.9（86%分位）<br>· 地缘政治风险(GPR)=184（89%分位）<br>· 消费者信心(密歇根)=49.8（3%分位）<br>· 信心-资产偏离（3%分位）</div>
+            <div style="font-size:18px;font-weight:800;color:#E74C3C">6个 · 高危</div>
+            <div style="font-size:12px;color:#666;margin-top:6px;text-align:left;line-height:1.6">· OVX原油波动率=50.7（86%分位）<br>· 政策不确定性(EPU)=542（93%分位）<br>· Nasdaq波动率(VXN)=27.7（93%分位）<br>· 地缘政治风险(GPR)=184（89%分位）<br>· 消费者信心(密歇根)=49.8（3%分位）<br>· 信心-资产偏离（3%分位）</div>
           </div>
         </div>
 
@@ -443,24 +475,24 @@
           <div style="display:flex;align-items:center;gap:12px">
             <div style="text-align:right">
               <div style="font-size:12px;color:#666">反脆弱度 AFI</div>
-              <div style="font-size:20px;font-weight:900;color:#2E7D32">+0.878 强反脆弱</div>
+              <div style="font-size:20px;font-weight:900;color:#2E7D32">+1.408 强反脆弱</div>
             </div>
           </div>
         </div>
         <div style="font-size:13px;color:#666;margin-bottom:16px">
-          系统: 轻度压力区 (+0.00) | 吸引子: 停滞吸引子 → 数据积累中 |
+          系统: 显著压力区 (+0.00) | 吸引子: 停滞吸引子 → 数据积累中 |
           保护月成本: ~0.6% | 年化出血: ~7.2%
           <span style="color:#999;font-style:italic">（接受频繁小亏损是反脆弱的代价）</span>
         </div>
-        <div style="margin-bottom:12px"><span style="font-size:13px;color:#C62828;font-weight:600;margin-right:6px">亮红灯的指标：</span><span style="display:inline-block;background:rgba(231,76,60,0.30000000000000004);border:1px solid rgba(231,76,60,0.7);color:#C62828;font-size:12px;padding:3px 10px;border-radius:10px;margin:2px 3px;font-weight:600">消费者信心(密歇根)=49.8（历史3%高位）</span><span style="display:inline-block;background:rgba(231,76,60,0.30000000000000004);border:1px solid rgba(231,76,60,0.7);color:#C62828;font-size:12px;padding:3px 10px;border-radius:10px;margin:2px 3px;font-weight:600">信心-资产偏离=信心3%分位 vs SP99%分位（历史3%高位）</span></div>
+        <div style="margin-bottom:12px"><span style="font-size:13px;color:#C62828;font-weight:600;margin-right:6px">亮红灯的指标：</span><span style="display:inline-block;background:rgba(231,76,60,0.23333333333333334);border:1px solid rgba(231,76,60,0.5666666666666667);color:#C62828;font-size:12px;padding:3px 10px;border-radius:10px;margin:2px 3px;font-weight:600">政策不确定=542（历史93%高位）</span><span style="display:inline-block;background:rgba(231,76,60,0.23333333333333334);border:1px solid rgba(231,76,60,0.5666666666666667);color:#C62828;font-size:12px;padding:3px 10px;border-radius:10px;margin:2px 3px;font-weight:600">科技股恐慌=27.7（历史93%高位）</span><span style="display:inline-block;background:rgba(231,76,60,0.30000000000000004);border:1px solid rgba(231,76,60,0.7);color:#C62828;font-size:12px;padding:3px 10px;border-radius:10px;margin:2px 3px;font-weight:600">消费者信心(密歇根)=49.8（历史3%高位）</span><span style="display:inline-block;background:rgba(231,76,60,0.30000000000000004);border:1px solid rgba(231,76,60,0.7);color:#C62828;font-size:12px;padding:3px 10px;border-radius:10px;margin:2px 3px;font-weight:600">信心-资产偏离=信心3%分位 vs SP98%分位（历史3%高位）</span></div>
         
     <svg width="420" height="52" style="display:block;margin:0 auto">
-      <rect x="10" y="8" width="340" height="28" rx="6" fill="#1565C0" opacity="0.85"/>
-      <text x="180" y="27" text-anchor="middle" font-size="12" font-weight="700" fill="white">85% 安全端</text>
-      <rect x="350" y="8" width="60" height="28" rx="6" fill="#E65100" opacity="0.85"/>
-      <text x="380" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="white">15%</text>
-      <text x="180" y="48" text-anchor="middle" font-size="9" fill="#888">BIL/SHY/TIPS/GLD/现金</text>
-      <text x="380" y="48" text-anchor="middle" font-size="9" fill="#888">凸性押注</text>
+      <rect x="10" y="8" width="352" height="28" rx="6" fill="#1565C0" opacity="0.85"/>
+      <text x="186" y="27" text-anchor="middle" font-size="12" font-weight="700" fill="white">88% 安全端</text>
+      <rect x="362" y="8" width="48" height="28" rx="6" fill="#E65100" opacity="0.85"/>
+      <text x="386" y="27" text-anchor="middle" font-size="11" font-weight="700" fill="white">12%</text>
+      <text x="186" y="48" text-anchor="middle" font-size="9" fill="#888">BIL/SHY/TIPS/GLD/现金</text>
+      <text x="386" y="48" text-anchor="middle" font-size="9" fill="#888">凸性押注</text>
     </svg>
       </div>
 
@@ -511,7 +543,7 @@
         <summary class="advice-summary core">
           <span class="advice-icon">&#x1F3AF;</span>
           <span class="advice-title">安全端 · 杠铃左侧</span>
-          <span class="advice-subtitle">组合85% · 跨吸引子域最大回撤&lt;5%</span>
+          <span class="advice-subtitle">组合88% · 跨吸引子域最大回撤&lt;5%</span>
           <span class="advice-dots">● ● ●</span>
         </summary>
         <div class="advice-content">
@@ -528,9 +560,9 @@
               <th style="text-align:right;padding:6px 8px;font-size:13px;color:#1565C0">配比</th>
               <th style="text-align:left;padding:6px 8px;font-size:13px;color:#1565C0">安全逻辑</th>
             </tr></thead>
-            <tbody><tr><td style="padding:4px 8px;font-size:12px;color:#333">短久期国债 (BIL/SHY)</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">34%</td><td style="padding:4px 8px;font-size:13px;color:#666">利率风险极低，所有吸引子域回撤<2%</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#333">TIPS (通胀保护)</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">17%</td><td style="padding:4px 8px;font-size:13px;color:#666">对冲通胀叙事（N维）恶化场景</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#333">实物黄金/GLD</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">17%</td><td style="padding:4px 8px;font-size:13px;color:#666">制度（I维）和叙事（N维）双维避险</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#333">现金 (货币基金)</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">17%</td><td style="padding:4px 8px;font-size:13px;color:#666">终极流动性储备，危机中的弹药</td></tr></tbody>
+            <tbody><tr><td style="padding:4px 8px;font-size:12px;color:#333">短久期国债 (BIL/SHY)</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">35%</td><td style="padding:4px 8px;font-size:13px;color:#666">利率风险极低，所有吸引子域回撤<2%</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#333">TIPS (通胀保护)</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">17%</td><td style="padding:4px 8px;font-size:13px;color:#666">对冲通胀叙事（N维）恶化场景</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#333">实物黄金/GLD</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">17%</td><td style="padding:4px 8px;font-size:13px;color:#666">制度（I维）和叙事（N维）双维避险</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#333">现金 (货币基金)</td><td style="padding:4px 8px;font-size:12px;font-weight:600;text-align:right">19%</td><td style="padding:4px 8px;font-size:13px;color:#666">终极流动性储备，危机中的弹药</td></tr></tbody>
           </table>
-          <div style="margin-top:12px"><div style="font-size:12px;font-weight:600;color:#C62828;margin-bottom:6px">&#x26D4; 禁入中间态（看似安全实有尾部风险）</div><table style="width:100%;border-collapse:collapse"><thead><tr style="border-bottom:1px solid #ffcdd2"><th style="text-align:left;padding:4px 8px;font-size:13px;color:#C62828">资产</th><th style="text-align:left;padding:4px 8px;font-size:13px;color:#C62828">排除理由</th></tr></thead><tbody><tr><td style="padding:4px 8px;font-size:12px;color:#C62828">长久期国债 (TLT/VGLT)</td><td style="padding:4px 8px;font-size:13px;color:#666">I维=+0.16未强正，加息/制度恶化风险下长债可跌30%+（2022年TLT-31%）</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#C62828">投资级公司债 (LQD)</td><td style="padding:4px 8px;font-size:13px;color:#666">F维=-0.09为负，信用利差扩张风险，回撤可达15-20%</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#C62828">科技集中型ETF (ARKK/XLK)</td><td style="padding:4px 8px;font-size:13px;color:#666">T维=-0.58负值，技术-制度失配意味估值泡沫风险</td></tr></tbody></table></div>
+          <div style="margin-top:12px"><div style="font-size:12px;font-weight:600;color:#C62828;margin-bottom:6px">&#x26D4; 禁入中间态（看似安全实有尾部风险）</div><table style="width:100%;border-collapse:collapse"><thead><tr style="border-bottom:1px solid #ffcdd2"><th style="text-align:left;padding:4px 8px;font-size:13px;color:#C62828">资产</th><th style="text-align:left;padding:4px 8px;font-size:13px;color:#C62828">排除理由</th></tr></thead><tbody><tr><td style="padding:4px 8px;font-size:12px;color:#C62828">长久期国债 (TLT/VGLT)</td><td style="padding:4px 8px;font-size:13px;color:#666">I维=+0.11未强正，加息/制度恶化风险下长债可跌30%+（2022年TLT-31%）</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#C62828">投资级公司债 (LQD)</td><td style="padding:4px 8px;font-size:13px;color:#666">F维=-0.09为负，信用利差扩张风险，回撤可达15-20%</td></tr><tr><td style="padding:4px 8px;font-size:12px;color:#C62828">科技集中型ETF (ARKK/XLK)</td><td style="padding:4px 8px;font-size:13px;color:#666">T维=-0.57负值，技术-制度失配意味估值泡沫风险</td></tr></tbody></table></div>
         </div>
       </details>
 
@@ -538,7 +570,7 @@
         <summary class="advice-summary opportunity">
           <span class="advice-icon">&#x26A1;</span>
           <span class="advice-title">投机端 · 杠铃右侧</span>
-          <span class="advice-subtitle">组合15% · 凸性押注（亏损有限·收益无限）· 单一≤5%</span>
+          <span class="advice-subtitle">组合12% · 凸性押注（亏损有限·收益无限）· 单一≤5%</span>
           <span class="advice-dots">● ● ●</span>
         </summary>
         <div class="advice-content">
@@ -547,10 +579,29 @@
             <div class="advice-desc">
               每个押注的最大亏损=投入本金（权利金），收益无上限。
               <b>不使用线性工具</b>（股票/期货暴露是对称的）。
-              单一押注≤5%组合，投机端总计≤15%。即使全部归零，组合回撤仅15%。
+              单一押注≤5%组合，投机端总计≤12%。即使全部归零，组合回撤仅12%。
             </div>
           </div>
           
+        <div class="advice-item" style="border-left-color:#E65100">
+          <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:8px">
+            赌大盘接下来会剧烈震荡<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px">赔率 5-15x | 最多亏 2-3%</span>
+          </div>
+          <div class="advice-desc" style="display:block">
+            <div style="margin-bottom:10px;padding:8px 12px;background:#f8f9fa;border-radius:6px;
+                        font-size:12px;line-height:1.7;color:#333">
+              <b style="color:#E65100">为什么现在是好时机？</b><br>纳斯达克波动率VXN=27.7（历史93%高位，说明科技股投资者特别紧张）、经济政策不确定性=542（历史93%高位，说明大家对政府下一步要干什么完全没数）。这些信号同时亮红灯很罕见，历史上类似情况大盘通常会出现一次大幅波动。
+            </div>
+            <div style="margin-bottom:10px;padding:8px 12px;background:#E8F5E9;border-radius:6px;
+                        font-size:12px;line-height:1.7;color:#333">
+              <b style="color:#2E7D32">具体怎么操作？</b><br>买入SPY的看跌期权价差（PUT spread），选3-6个月到期的，行权价大概比现价低10-15%。最坏情况就是权利金打水漂，但如果大盘真跌了，这些期权可能涨5到15倍。花组合的2-3%去买。
+            </div>
+            <div style="padding:8px 12px;background:#E3F2FD;border-radius:6px;
+                        font-size:12px;line-height:1.7;color:#333">
+              <b style="color:#1565C0">什么时候退出？</b><br>VIX飙到35以上就卖掉一半锁定利润，剩下的等那些极端指标回到正常水平（大概70%分位以下）再全部了结。如果3个月啥也没发生，期权慢慢贬值，亏掉权利金走人。
+            </div>
+          </div>
+        </div>
         <div class="advice-item" style="border-left-color:#E65100">
           <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:8px">
             赌科技股相对大盘会回落<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px">赔率 3-8x | 最多亏 2%</span>
@@ -558,7 +609,7 @@
           <div class="advice-desc" style="display:block">
             <div style="margin-bottom:10px;padding:8px 12px;background:#f8f9fa;border-radius:6px;
                         font-size:12px;line-height:1.7;color:#333">
-              <b style="color:#E65100">为什么现在是好时机？</b><br>科技行业和监管/政策之间的矛盾很大（T维=-0.58）、但经济基本面还撑得住（R维=+0.40），不是全面崩盘的局面。经济没崩但科技过热，钱会从科技流向其他板块。
+              <b style="color:#E65100">为什么现在是好时机？</b><br>科技行业和监管/政策之间的矛盾很大（T维=-0.57）、纳斯达克波动率VXN=27.7（历史93%高位，说明科技股投资者特别紧张）、但经济基本面还撑得住（R维=+0.37），不是全面崩盘的局面。经济没崩但科技过热，钱会从科技流向其他板块。
             </div>
             <div style="margin-bottom:10px;padding:8px 12px;background:#E8F5E9;border-radius:6px;
                         font-size:12px;line-height:1.7;color:#333">
@@ -572,12 +623,31 @@
         </div>
         <div class="advice-item" style="border-left-color:#E65100">
           <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:8px">
+            赌黄金会跑赢工业金属（铜）<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px">赔率 2-5x | 最多亏 3%</span>
+          </div>
+          <div class="advice-desc" style="display:block">
+            <div style="margin-bottom:10px;padding:8px 12px;background:#f8f9fa;border-radius:6px;
+                        font-size:12px;line-height:1.7;color:#333">
+              <b style="color:#E65100">为什么现在是好时机？</b><br>经济政策不确定性=542（历史93%高位，说明大家对政府下一步要干什么完全没数）、但政府和央行运转还算正常（I维=+0.11），不会乱印钱救市。不确定性越高黄金越值钱，但制度正常意味着不会大放水刺激工业需求，铜会弱。
+            </div>
+            <div style="margin-bottom:10px;padding:8px 12px;background:#E8F5E9;border-radius:6px;
+                        font-size:12px;line-height:1.7;color:#333">
+              <b style="color:#2E7D32">具体怎么操作？</b><br>买黄金ETF（GLD），同时做空铜矿ETF（COPX）。两边对冲，不怕大盘整体涨跌，只赚金铜之间的差价。花组合的3%。
+            </div>
+            <div style="padding:8px 12px;background:#E3F2FD;border-radius:6px;
+                        font-size:12px;line-height:1.7;color:#333">
+              <b style="color:#1565C0">什么时候退出？</b><br>不确定性指标回到正常水平，或者金铜比已经拉到历史很高的位置（80%分位以上），就获利了结。
+            </div>
+          </div>
+        </div>
+        <div class="advice-item" style="border-left-color:#E65100">
+          <div style="font-size:14px;font-weight:700;color:#1a1a2e;margin-bottom:8px">
             赌企业债的恐慌价会恢复正常<span style="display:inline-block;background:#FFF3E0;color:#E65100;font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px">赔率 3-8x | 最多亏 2%</span>
           </div>
           <div class="advice-desc" style="display:block">
             <div style="margin-bottom:10px;padding:8px 12px;background:#f8f9fa;border-radius:6px;
                         font-size:12px;line-height:1.7;color:#333">
-              <b style="color:#E65100">为什么现在是好时机？</b><br>消费者信心(密歇根)=49.8（历史3%分位，已是极端水平）、信心-资产偏离=信心3%分位 vs SP99%分位（历史3%分位，已是极端水平）。但经济韧性还在（R=+0.40）、政策也没乱（I=+0.16），企业大规模倒闭不太可能，信用利差扩得太多了，会收回来。
+              <b style="color:#E65100">为什么现在是好时机？</b><br>消费者信心(密歇根)=49.8（历史3%分位，已是极端水平）、信心-资产偏离=信心3%分位 vs SP98%分位（历史3%分位，已是极端水平）。但经济韧性还在（R=+0.37）、政策也没乱（I=+0.11），企业大规模倒闭不太可能，信用利差扩得太多了，会收回来。
             </div>
             <div style="margin-bottom:10px;padding:8px 12px;background:#E8F5E9;border-radius:6px;
                         font-size:12px;line-height:1.7;color:#333">
@@ -615,7 +685,7 @@
             <span style="background:#2E7D32;color:white;font-size:12px;font-weight:700;
                          padding:2px 10px;border-radius:10px">不对称性: 高</span>
           </div>
-          <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• OVX极端(86%分位)=能源市场定价地缘冲击</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• I维=+0.16：制度不确定性高→各国加速能源自主</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• 地缘指标亮灯：全球安全格局重构中</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• R维=+0.40：经济未崩→能源需求有底</div></div>
+          <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• OVX极端(86%分位)=能源市场定价地缘冲击</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• I维=+0.11：制度不确定性高→各国加速能源自主</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• 地缘指标亮灯：全球安全格局重构中</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• R维=+0.37：经济未崩→能源需求有底</div></div>
           <div class="s2-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
             <div style="background:#FFEBEE;border-radius:6px;padding:10px;font-size:12px;line-height:1.6">
               <div style="font-size:12px;color:#C62828;font-weight:700;margin-bottom:4px">旧叙事（市场当前定价逻辑）</div>
@@ -639,7 +709,7 @@
             <span style="background:#558B2F;color:white;font-size:12px;font-weight:700;
                          padding:2px 10px;border-radius:10px">不对称性: 中高</span>
           </div>
-          <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• T维=-0.58：科技板块跑输大盘，但AI算力需求刚性→电力基础设施是瓶颈</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• R维=+0.40：经济韧性支撑资本开支</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• I维=+0.16：政策不确定→电力审批是硬约束，在建项目有护城河</div></div>
+          <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• T维=-0.57：科技板块跑输大盘，但AI算力需求刚性→电力基础设施是瓶颈</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• R维=+0.37：经济韧性支撑资本开支</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• I维=+0.11：政策不确定→电力审批是硬约束，在建项目有护城河</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• 科技波动极端：AI热潮资本开支已确认，电力需求是刚性的</div></div>
           <div class="s2-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
             <div style="background:#FFEBEE;border-radius:6px;padding:10px;font-size:12px;line-height:1.6">
               <div style="font-size:12px;color:#C62828;font-weight:700;margin-bottom:4px">旧叙事（市场当前定价逻辑）</div>
@@ -663,7 +733,7 @@
             <span style="background:#558B2F;color:white;font-size:12px;font-weight:700;
                          padding:2px 10px;border-radius:10px">不对称性: 中高</span>
           </div>
-          <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• 地缘政治风险(GPR)=184（89%分位）：地缘冲突密度历史高位</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• T维=-0.58：技术-制度失配→网络战/AI武器化风险上升</div></div>
+          <div style="margin-bottom:8px"><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• 地缘政治风险(GPR)=184（89%分位）：地缘冲突密度历史高位</div><div style="font-size:13px;color:#333;padding:2px 0;line-height:1.5">• T维=-0.57：技术-制度失配→网络战/AI武器化风险上升</div></div>
           <div class="s2-grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
             <div style="background:#FFEBEE;border-radius:6px;padding:10px;font-size:12px;line-height:1.6">
               <div style="font-size:12px;color:#C62828;font-weight:700;margin-bottom:4px">旧叙事（市场当前定价逻辑）</div>
@@ -708,12 +778,12 @@
         <tbody>
         <tr style="border-bottom:1px solid #f0f0f0">
           <td style="padding:6px 10px;font-size:13px;font-weight:600;color:#1a1a2e;white-space:nowrap">
-            💪 商品货币(AUD/CAD)
+            ➡️ 商品货币(AUD/CAD)
           </td>
           <td style="padding:6px 8px;font-size:14px;font-weight:700;color:#2E7D32;text-align:right;width:60px">
-            +0.159
+            +0.126
           </td>
-          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"><div style="display:inline-block;background:#2E7D32;height:16px;width:45%;border-radius:0 4px 4px 0;min-width:2px;float:right"></div></div><div style="width:50%"></div></div></td>
+          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"><div style="display:inline-block;background:#2E7D32;height:16px;width:50%;border-radius:0 4px 4px 0;min-width:2px;float:right"></div></div><div style="width:50%"></div></div></td>
           <td style="padding:6px 10px;font-size:13px;color:#555">商品货币因全球增长+风险偏好走强</td>
         </tr>
         <tr style="border-bottom:1px solid #f0f0f0">
@@ -721,19 +791,19 @@
             ➡️ USD美元
           </td>
           <td style="padding:6px 8px;font-size:14px;font-weight:700;color:#2E7D32;text-align:right;width:60px">
-            +0.146
+            +0.107
           </td>
-          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"><div style="display:inline-block;background:#2E7D32;height:16px;width:41%;border-radius:0 4px 4px 0;min-width:2px;float:right"></div></div><div style="width:50%"></div></div></td>
+          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"><div style="display:inline-block;background:#2E7D32;height:16px;width:42%;border-radius:0 4px 4px 0;min-width:2px;float:right"></div></div><div style="width:50%"></div></div></td>
           <td style="padding:6px 10px;font-size:13px;color:#555">美元因Fed紧缩+避险获支撑</td>
         </tr>
         <tr style="border-bottom:1px solid #f0f0f0">
           <td style="padding:6px 10px;font-size:13px;font-weight:600;color:#1a1a2e;white-space:nowrap">
             ➡️ EUR欧元
           </td>
-          <td style="padding:6px 8px;font-size:14px;font-weight:700;color:#2E7D32;text-align:right;width:60px">
-            +0.080
+          <td style="padding:6px 8px;font-size:14px;font-weight:700;color:#888;text-align:right;width:60px">
+            +0.047
           </td>
-          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"><div style="display:inline-block;background:#2E7D32;height:16px;width:23%;border-radius:0 4px 4px 0;min-width:2px;float:right"></div></div><div style="width:50%"></div></div></td>
+          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"><div style="display:inline-block;background:#2E7D32;height:16px;width:19%;border-radius:0 4px 4px 0;min-width:2px;float:right"></div></div><div style="width:50%"></div></div></td>
           <td style="padding:6px 10px;font-size:13px;color:#555">欧元中性</td>
         </tr>
         <tr style="border-bottom:1px solid #f0f0f0">
@@ -741,29 +811,29 @@
             ➡️ CNY人民币
           </td>
           <td style="padding:6px 8px;font-size:14px;font-weight:700;color:#888;text-align:right;width:60px">
-            -0.005
+            +0.006
           </td>
-          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"></div><div style="width:50%"><div style="display:inline-block;background:#C62828;height:16px;width:1%;border-radius:4px 0 0 4px;min-width:2px"></div></div></div></td>
+          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"><div style="display:inline-block;background:#2E7D32;height:16px;width:2%;border-radius:0 4px 4px 0;min-width:2px;float:right"></div></div><div style="width:50%"></div></div></td>
           <td style="padding:6px 10px;font-size:13px;color:#555">人民币区间震荡</td>
         </tr>
         <tr style="border-bottom:1px solid #f0f0f0">
           <td style="padding:6px 10px;font-size:13px;font-weight:600;color:#1a1a2e;white-space:nowrap">
-            📉 JPY日元
+            ➡️ JPY日元
           </td>
           <td style="padding:6px 8px;font-size:14px;font-weight:700;color:#C62828;text-align:right;width:60px">
-            -0.157
+            -0.102
           </td>
-          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"></div><div style="width:50%"><div style="display:inline-block;background:#C62828;height:16px;width:45%;border-radius:4px 0 0 4px;min-width:2px"></div></div></div></td>
+          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"></div><div style="width:50%"><div style="display:inline-block;background:#C62828;height:16px;width:40%;border-radius:4px 0 0 4px;min-width:2px"></div></div></div></td>
           <td style="padding:6px 10px;font-size:13px;color:#555">日元因利差持续弱势</td>
         </tr>
         <tr style="border-bottom:1px solid #f0f0f0">
           <td style="padding:6px 10px;font-size:13px;font-weight:600;color:#1a1a2e;white-space:nowrap">
-            📉 XAU黄金
+            ➡️ XAU黄金
           </td>
           <td style="padding:6px 8px;font-size:14px;font-weight:700;color:#C62828;text-align:right;width:60px">
-            -0.176
+            -0.110
           </td>
-          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"></div><div style="width:50%"><div style="display:inline-block;background:#C62828;height:16px;width:50%;border-radius:4px 0 0 4px;min-width:2px"></div></div></div></td>
+          <td style="padding:6px 8px;width:200px"><div style="display:flex;align-items:center;height:22px"><div style="width:50%;text-align:right"></div><div style="width:50%"><div style="display:inline-block;background:#C62828;height:16px;width:44%;border-radius:4px 0 0 4px;min-width:2px"></div></div></div></td>
           <td style="padding:6px 10px;font-size:13px;color:#555">黄金因稳定环境回调</td>
         </tr></tbody>
       </table>
@@ -777,9 +847,9 @@
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
             <b style="font-size:13px;color:#1a1a2e">做多商品货币(AUD/CAD) / 做空XAU黄金</b>
             <span style="background:#FF8F00;color:white;font-size:12px;font-weight:700;
-                         padding:2px 10px;border-radius:10px">中 · 背离 0.335</span>
+                         padding:2px 10px;border-radius:10px">中 · 背离 0.236</span>
           </div>
-          <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:4px">商品货币(AUD/CAD)六维得分+0.159（最强），XAU黄金六维得分-0.176（最弱），背离0.335</div>
+          <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:4px">商品货币(AUD/CAD)六维得分+0.126（最强），XAU黄金六维得分-0.110（最弱），背离0.236</div>
           <div style="font-size:13px;color:#555;line-height:1.5;background:#f8f9fa;
                       border-radius:4px;padding:6px 10px">
             <b>叙事错位：</b>市场可能还在用「避险需求」定价XAU黄金，但S₂维度显示结构已转向
@@ -789,9 +859,9 @@
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
             <b style="font-size:13px;color:#1a1a2e">做多USD美元 / 做空JPY日元</b>
             <span style="background:#FF8F00;color:white;font-size:12px;font-weight:700;
-                         padding:2px 10px;border-radius:10px">中 · 背离 0.303</span>
+                         padding:2px 10px;border-radius:10px">中 · 背离 0.209</span>
           </div>
-          <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:4px">USD美元得分+0.146 vs JPY日元得分-0.157，背离0.303</div>
+          <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:4px">USD美元得分+0.107 vs JPY日元得分-0.102，背离0.209</div>
           <div style="font-size:13px;color:#555;line-height:1.5;background:#f8f9fa;
                       border-radius:4px;padding:6px 10px">
             <b>叙事错位：</b>USD美元的维度支撑vsJPY日元的维度压力构成结构性错位
@@ -874,7 +944,7 @@
         <summary class="advice-summary" style="border-left:4px solid #0D47A1">
           <span class="advice-icon">🏭</span>
           <span class="advice-title" style="color:#0D47A1">产业配置分析</span>
-          <span class="advice-subtitle">MiniMax AI · 2026-06-19 · 缓存</span>
+          <span class="advice-subtitle">MiniMax AI · 2026-06-23 · 缓存</span>
           <span class="advice-dots">● ● ●</span>
         </summary>
         <div class="advice-content">
@@ -886,17 +956,17 @@
               <b style="font-size:14px">战术配置（1-4周）</b>
               <span style="background:#FFFDE7;color:#F57F17;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:700">中</span>
             </div>
-            <div style="font-size:12px;color:#666;margin-bottom:6px">驱动：消费者信心低迷 · 地缘政治风险高企</div>
+            <div style="font-size:12px;color:#666;margin-bottom:6px">驱动：政策不确定性高（EPU=93%分位） · 原油波动率上升（OVX=86%分位）</div>
             <div style="margin:6px 0">
               <div style="font-size:12px;font-weight:700;color:#2E7D32;margin-bottom:2px">▲ 超配</div>
               <div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">必需消费品</span></div>
               <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股必需消费类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股必需消费类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股必需消费类基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">F-0.088反馈市场负循环，N+0.225叙事稳定性较高，必需消费品在市场波动中需求稳定。</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">R+0.368信用韧性健康，C+0.220市场信号一致性强，N+0.026市场共识稳定→必需消费品需求稳定。</div>
             </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">黄金</span></div>
               <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股黄金矿业ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股黄金ETF<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股黄金基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">OVX原油波动率高达86%分位，GPR地缘政治风险89%分位，黄金作为避险资产受益。</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">政策不确定性（EPU=93%分位）和地缘政治风险（GPR=89%分位）高，黄金作为避险资产受益。</div>
             </div>
             </div>
             <div style="margin:6px 0">
@@ -904,15 +974,15 @@
               <div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">科技</span></div>
               <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股科技类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股科技类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股科技类基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">T-0.584科技与制度失配严重，R+0.399信用韧性虽健康但不足以支撑高风险板块。</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">T-0.565科技与制度失配严重，F-0.087市场负反馈循环显现→科技板块面临较大压力。</div>
             </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">能源</span></div>
               <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股能源类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股能源类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股能源类基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">OVX原油波动率处于高位，能源板块受地缘政治和需求波动影响较大。</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">OVX原油波动率处于高位（86%分位），能源价格波动加剧，板块风险上升。</div>
             </div>
             </div>
             <div style="background:#F5F5F5;padding:8px 12px;border-radius:6px;font-size:13px;font-weight:600;color:#333;margin-top:8px">
-              📌 建议投资者短期以防御为主，增配避险资产和必需消费品板块。
+              📌 建议增加防御性配置，减持高波动性板块。
             </div>
           </div>
 
@@ -922,33 +992,33 @@
               <span style="font-size:15px">🧭</span>
               <b style="font-size:14px">战略配置（1-3个月）</b>
             </div>
-            <div style="font-size:12px;color:#666;margin-bottom:6px">驱动：贸易压力 · 政策规则可预测性</div>
+            <div style="font-size:12px;color:#666;margin-bottom:6px">驱动：消费者信心低迷（密歇根=3%分位） · 贸易压力（出口增长，进口下降）</div>
             <div style="margin:6px 0">
               <div style="font-size:12px;font-weight:700;color:#2E7D32;margin-bottom:2px">▲ 超配</div>
               <div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">医疗保健</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股医疗保健类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股医疗保健类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股医疗保健类基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">I+0.155政策规则可预测性稳定，医疗保健受经济周期影响较小，适合中长期配置。</div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股医疗保健ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股医疗保健基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股医疗保健基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">消费者信心低迷背景下，医疗保健作为防御性板块需求稳定。</div>
             </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">公用事业</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股公用事业类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股公用事业类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股公用事业类基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">C+0.220市场信号一致性较高，公用事业提供稳定现金流，防御属性强。</div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股公用事业ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股公用事业基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股公用事业基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">R+0.368信用韧性健康，C+0.220市场信号一致性强，公用事业板块收益稳定。</div>
             </div>
             </div>
             <div style="margin:6px 0">
               <div style="font-size:12px;font-weight:700;color:#C62828;margin-bottom:2px">▼ 减配</div>
               <div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">非必需消费品</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股非必需消费品类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股非必需消费品类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股非必需消费品类基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">消费者信心指数仅为3%分位，非必需消费品需求可能受到抑制。</div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股非必需消费品ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股非必需消费品基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股非必需消费品基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">消费者信心低迷（密歇根=3%分位），非必需消费品需求可能受到抑制。</div>
             </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
               <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">工业</span></div>
               <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股工业类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股工业类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股工业类基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">贸易压力指标显示出口增长但进口下降，工业板块面临需求不确定性。</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">贸易压力（出口增长，进口下降）表明全球需求疲软，工业板块承压。</div>
             </div>
             </div>
             <div style="font-size:12px;color:#666;font-style:italic;margin-top:6px">
-              🔄 触发重评估：消费者信心指数回升至50以上或地缘政治风险显著下降。
+              🔄 触发重评估：消费者信心回升或贸易数据改善。
             </div>
           </div>
 
@@ -958,39 +1028,39 @@
               <span style="font-size:15px">🏗️</span>
               <b style="font-size:14px">结构趋势（3-12个月）</b>
             </div>
-            <div style="font-size:12px;color:#666;margin-bottom:6px">驱动：科技与制度匹配度 · 信用市场韧性</div>
+            <div style="font-size:12px;color:#666;margin-bottom:6px">驱动：科技与制度失配（T-0.565） · 地缘政治风险（GPR=89%分位）</div>
             <div style="margin:6px 0">
               <div style="font-size:12px;font-weight:700;color:#2E7D32;margin-bottom:2px">🌬️ 顺风</div>
               <div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
-              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">绿色能源</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股绿色能源ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股绿色能源基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股绿色能源基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">长期政策支持，R+0.399信用韧性健康，支持绿色转型投资。</div>
+              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">新能源</span></div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股新能源ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股新能源基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股新能源基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">中国政策支持新能源发展，结构性机会明显。</div>
             </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
-              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">高端制造</span> <span style="background:#FFCDD2;padding:1px 5px;border-radius:3px;font-size:10px;color:#B71C1C">地缘敏感</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股高端制造ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股高端制造基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股高端制造基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">中国产业升级政策支持，R+0.399信用韧性健康。</div>
+              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">半导体</span> <span style="background:#FFCDD2;padding:1px 5px;border-radius:3px;font-size:10px;color:#B71C1C">地缘敏感</span></div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股半导体ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股半导体基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股半导体基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">尽管地缘政治风险存在，但中国半导体国产化趋势提供长期机会。</div>
             </div>
             </div>
             <div style="margin:6px 0">
               <div style="font-size:12px;font-weight:700;color:#C62828;margin-bottom:2px">🌊 逆风</div>
               <div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
-              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">传统汽车</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股传统汽车ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股传统汽车基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股传统汽车基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">新能源车替代趋势明显，T-0.584科技与制度失配，传统汽车面临挑战。</div>
+              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">传统制造业</span> <span style="background:#FFCDD2;padding:1px 5px;border-radius:3px;font-size:10px;color:#B71C1C">地缘敏感</span></div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股传统制造业ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股传统制造业基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股传统制造业基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">贸易压力和地缘政治风险对传统制造业构成挑战。</div>
             </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
-              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">房地产</span> <span style="background:#FFCDD2;padding:1px 5px;border-radius:3px;font-size:10px;color:#B71C1C">地缘敏感</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股房地产ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股房地产基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股房地产基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">EPU经济政策不确定性处于78%分位，房地产行业面临政策压力。</div>
+              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">金融</span></div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#E3F2FD;padding:1px 6px;border-radius:4px;font-size:11px;color:#1565C0">美股</span> 美股金融类ETF<br>&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股金融类基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股金融类基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">信用市场缓冲能力（R+0.368）虽健康，但政策不确定性（EPU=93%分位）增加金融风险。</div>
             </div>
             </div>
             <div style="margin:10px 0;padding:10px 14px;background:#FFF8E1;border:1px solid #FFE082;border-radius:8px"><div style="font-size:12px;font-weight:700;color:#F57F17;margin-bottom:4px">🇨🇳 中国特有机会</div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
-              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">半导体</span> <span style="background:#FFCDD2;padding:1px 5px;border-radius:3px;font-size:10px;color:#B71C1C">地缘敏感</span></div>
-              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股半导体基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股半导体基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">中国政策支持半导体国产化，R+0.399信用韧性健康。</div>
-            </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
-              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">人工智能</span> <span style="background:#FFCDD2;padding:1px 5px;border-radius:3px;font-size:10px;color:#B71C1C">地缘敏感</span></div>
+              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">人工智能</span></div>
               <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股人工智能基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股人工智能基金</div>
-              <div style="color:#333;font-size:13px;line-height:1.5">中国人工智能发展迅速，政策支持力度大。</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">中国人工智能技术快速发展，政策支持力度大。</div>
+            </div><div style="padding:6px 0;font-size:13px;line-height:1.7;border-bottom:1px solid #eee">
+              <div><span style="font-weight:700;color:#1a1a2e;font-size:14px">绿色能源</span></div>
+              <div style="margin:3px 0 5px 0;color:#222">&nbsp;&nbsp;<span style="background:#FFF3E0;padding:1px 6px;border-radius:4px;font-size:11px;color:#E65100">A股</span> A股绿色能源基金<br>&nbsp;&nbsp;<span style="background:#F3E5F5;padding:1px 6px;border-radius:4px;font-size:11px;color:#6A1B9A">港股</span> 港股绿色能源基金</div>
+              <div style="color:#333;font-size:13px;line-height:1.5">中国绿色能源转型加速，政策红利明显。</div>
             </div></div>
           </div>
 
@@ -998,7 +1068,7 @@
 
           <!-- 总结 -->
           <div style="background:#ECEFF1;border-radius:8px;padding:12px 16px;margin:8px 0;font-size:13px;color:#37474F;line-height:1.6">
-            <b>整体判断：</b>当前市场处于轻度压力区，建议投资者短期以防御为主，关注避险资产和必需消费品，中长期关注医疗保健和绿色能源板块。
+            <b>整体判断：</b>当前市场处于显著压力区，建议增加防御性配置，关注新能源和人工智能等结构性机会。
           </div>
 
           <div style="font-size:11px;color:#999;text-align:center;padding:8px 0;border-top:1px solid #eee;margin-top:8px">
@@ -1017,13 +1087,13 @@
         <div style="font-size:12px;color:#8b949e;margin-bottom:6px">当前主要矛盾</div>
         <div style="display:flex;align-items:baseline;gap:12px">
           <span style="font-size:28px;font-weight:900;color:#C62828">T 失配</span>
-          <span style="font-size:16px;font-weight:700;color:#C62828">-0.584 · 恶化</span>
+          <span style="font-size:16px;font-weight:700;color:#C62828">-0.565 · 恶化</span>
         </div>
         <div style="font-size:12px;color:#8b949e;margin-top:2px">科技-制度失配 · 科技板块显著跑输大盘，创新动能受阻或资本撤离科技</div>
       </div>
       <div style="flex:1;min-width:150px;text-align:right">
         <div style="font-size:12px;color:#8b949e;margin-bottom:6px">能量比 (ratio)</div>
-        <div style="font-size:28px;font-weight:900;color:#2E7D32">0.683</div>
+        <div style="font-size:28px;font-weight:900;color:#2E7D32">0.651</div>
         <div style="font-size:12px;color:#888">稳固 (< 0.80)</div>
       </div>
     </div>
@@ -1037,7 +1107,7 @@
       </div>
       <div style="font-size:13px;color:#333;line-height:1.8">制度正在压制科技，或技术路线出现问题——科技股跑输大盘、VXN/VIX比率异常。可能是监管打压（反垄断/AI监管）、技术路线证伪、或资本从科技撤出。T维深度负值意味着创新引擎失速，长期增长预期下修。</div>
       <div style="font-size:13px;color:#1565C0;margin-top:10px;font-weight:600;line-height:1.7">
-        操作含义：T恶化时避免科技集中敞口——科技龙头补跌风险高。但如果 R（信用韧性）和 I（制度稳定性）仍然健康（当前 R=+0.40、I=+0.16，需关注是否同步恶化），当前需谨慎评估科技回调的性质
+        操作含义：T恶化时避免科技集中敞口——科技龙头补跌风险高。但如果 R（信用韧性）和 I（制度稳定性）仍然健康（当前 R=+0.37、I=+0.11，需关注是否同步恶化），当前需谨慎评估科技回调的性质
       </div>
     </div>
   </div>
@@ -1046,7 +1116,7 @@
   <div style="padding:0 24px 16px">
     <div style="font-size:13px;font-weight:700;color:#8b949e;margin-bottom:8px">驱动指标</div>
     <div style="background:#fafafa;border-radius:8px;padding:8px 16px">
-      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">NQ100/SP500比率</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">3.96</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">比率变化(4W)</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">-13.69%</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">科技超额收益(4W)</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">-15.48%</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">Nasdaq波动率(VXN)</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">27.1</span></div>
+      <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">NQ100/SP500比率</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">4.06</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">比率变化(4W)</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">-8.11%</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">科技超额收益(4W)</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">-9.21%</span></div><div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5"><span style="font-size:13px;color:#555">Nasdaq波动率(VXN)</span><span style="font-size:13px;font-weight:600;color:#1a1a2e">27.7 (历史93%分位)</span></div>
     </div>
   </div>
 
@@ -1064,12 +1134,17 @@
   <!-- 第五区块：重评估状态 -->
   <div style="padding:0 24px 20px">
     <div style="padding:12px 16px;background:#E8F5E9;border-radius:8px">
-      <div style="font-size:13px;color:#2E7D32">主矛盾地位稳固（能量比 0.683），次要矛盾 R 韧性（+0.399）暂不构成竞争。</div>
+      <div style="font-size:13px;color:#2E7D32">主矛盾地位稳固（能量比 0.651），次要矛盾 R 韧性（+0.368）暂不构成竞争。</div>
     </div>
   </div>
 
   <!-- 第六区块：历史矛盾演化 -->
-  <div style="border-top:1px solid #f0f0f0;padding:20px 24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:13px;font-weight:700;color:#8b949e">最近矛盾演化</div><div></div></div><table style="width:100%;border-collapse:collapse"><thead><tr style="background:#f8f9fa"><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">日期</th><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">主矛盾</th><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">得分</th><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">状态描述</th></tr></thead><tbody><tr style="border-bottom:1px solid #f0f0f0">
+  <div style="border-top:1px solid #f0f0f0;padding:20px 24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:13px;font-weight:700;color:#8b949e">最近矛盾演化</div><div><span style='color:#2E7D32;font-weight:700'>收敛</span></div></div><div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.6">连续3期主矛盾锁定在T 失配——系统压力集中在单一维度，信号清晰，适合针对性对冲</div><table style="width:100%;border-collapse:collapse"><thead><tr style="background:#f8f9fa"><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">日期</th><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">主矛盾</th><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">得分</th><th style="padding:6px 12px;font-size:12px;color:#8b949e;text-align:left">状态描述</th></tr></thead><tbody><tr style="border-bottom:1px solid #f0f0f0">
+          <td style="padding:8px 12px;font-size:12px;color:#333;white-space:nowrap">2026-06-23</td>
+          <td style="padding:8px 12px;font-size:13px;font-weight:700;color:#1a1a2e;white-space:nowrap">T 失配</td>
+          <td style="padding:8px 12px;font-size:13px;color:#555;white-space:nowrap">-0.57</td>
+          <td style="padding:8px 12px;font-size:12px;color:#888;line-height:1.5">制度正在压制科技，或技术路线出现问题——科技股跑输大盘、VXN/VIX比率异常。</td>
+        </tr><tr style="border-bottom:1px solid #f0f0f0">
           <td style="padding:8px 12px;font-size:12px;color:#333;white-space:nowrap">2026-06-19</td>
           <td style="padding:8px 12px;font-size:13px;font-weight:700;color:#1a1a2e;white-space:nowrap">T 失配</td>
           <td style="padding:8px 12px;font-size:13px;color:#555;white-space:nowrap">-0.58</td>
@@ -1092,6 +1167,21 @@
         </tr>
       </thead>
       <tbody>
+        <tr style="border-bottom:1px solid #f0f0f0">
+          <td style="padding:8px 12px;font-size:12px;color:#333">2026-06-23</td>
+          <td style="padding:8px 12px;font-size:14px;text-align:center">▲</td>
+          <td style="padding:8px 12px;font-size:14px;text-align:center">►</td>
+          <td style="padding:8px 12px;font-size:14px;text-align:center">►</td>
+          <td style="padding:8px 12px;font-size:14px;text-align:center">►</td>
+          <td style="padding:8px 12px;font-size:14px;text-align:center">►</td>
+          <td style="padding:8px 12px;font-size:14px;text-align:center">▼</td>
+          <td style="padding:8px 12px">
+            <span style="background:#FFF3E0;
+                         color:#E65100;font-size:13px;font-weight:700;
+                         padding:2px 8px;border-radius:4px">显著压力区</span>
+          </td>
+          <td style="padding:8px 12px;font-size:13px;color:#333"></td>
+        </tr>
         <tr style="border-bottom:1px solid #f0f0f0">
           <td style="padding:8px 12px;font-size:12px;color:#333">2026-06-19</td>
           <td style="padding:8px 12px;font-size:14px;text-align:center">▲</td>

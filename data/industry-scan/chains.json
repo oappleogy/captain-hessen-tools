@@ -51,9 +51,9 @@
       "certainty_note": "AI算力需求增长是全球性趋势，国产替代需求进一步提升确定性；被AI系统和国内工程化能力共同需要，属于被动嵌入式需求。",
       "framework_updated": "2026-06-19 09:27",
       "created": "2026-06-18 23:48",
-      "latest_status": "催化增强",
-      "latest_heat": 90,
-      "last_tracked": "2026-06-19"
+      "latest_status": "预期透支",
+      "latest_heat": 70,
+      "last_tracked": "2026-06-20"
     },
     {
       "id": "kyber-optical-communication",
@@ -99,9 +99,9 @@
       "certainty_note": "AI算力需求增长是光通信技术发展的核心驱动力；国内光通信产业链具备一定工程化能力，但高端技术仍依赖国际合作。",
       "framework_updated": "2026-06-19 09:27",
       "created": "2026-06-18 23:48",
-      "latest_status": "震荡观察",
-      "latest_heat": 75,
-      "last_tracked": "2026-06-19"
+      "latest_status": "催化增强",
+      "latest_heat": 80,
+      "last_tracked": "2026-06-22"
     },
     {
       "id": "huawei-tao-law",
@@ -193,8 +193,8 @@
       "framework_updated": "2026-06-19 09:27",
       "created": "2026-06-19 09:04",
       "latest_status": "数据兑现",
-      "latest_heat": 80,
-      "last_tracked": "2026-06-19"
+      "latest_heat": 75,
+      "last_tracked": "2026-06-21"
     },
     {
       "id": "ai-manga-drama",
@@ -233,9 +233,9 @@
       "certainty_note": "AI技术发展是AI漫剧发展的核心驱动力；AI漫剧属于AI应用层创新，供给弹性较大，尚未形成被动嵌入式需求。",
       "framework_updated": "2026-06-19 09:27",
       "created": "2026-06-19 09:04",
-      "latest_status": "催化增强",
-      "latest_heat": 90,
-      "last_tracked": "2026-06-19"
+      "latest_status": "预期透支",
+      "latest_heat": 70,
+      "last_tracked": "2026-06-21"
     },
     {
       "id": "ai-server-liquid-cooling",
@@ -261,9 +261,9 @@
       ],
       "framework_updated": "2026-06-19 09:27",
       "created": "2026-06-19 09:27",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 80,
-      "last_tracked": "2026-06-19"
+      "latest_status": "催化增强",
+      "latest_heat": 85,
+      "last_tracked": "2026-06-22"
     },
     {
       "id": "semiconductor-testing-services",
@@ -288,10 +288,175 @@
       ],
       "framework_updated": "2026-06-19 09:27",
       "created": "2026-06-19 09:27",
+      "latest_status": "数据兑现",
+      "latest_heat": 75,
+      "last_tracked": "2026-06-22"
+    },
+    {
+      "id": "quantum-tech-industry",
+      "name": "量子科技产业链",
+      "thesis": "量子科技正从科研验证走向产业化窗口，量子通信、量子精密测量已形成示范应用，量子计算处于技术攻关阶段，未来市场空间巨大。",
+      "segments": [
+        "量子计算",
+        "量子通信",
+        "量子精密测量"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-06-23 13:47",
+      "created": "2026-06-23 13:47",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 80,
+      "last_tracked": "2026-06-20"
+    },
+    {
+      "id": "ai-energy-infrastructure",
+      "name": "AI能源基础设施",
+      "thesis": "AI算力用电激增，推动电力、煤炭、铜、铝等基础能源与大宗商品需求扩张，能源投资获得政策强力扶持，产业链迎来发展机遇。",
+      "segments": [
+        "电力供应",
+        "储能",
+        "能源投资"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 5
+      },
+      "certainty_drivers": [
+        "鹰酱",
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-06-23 13:47",
+      "created": "2026-06-23 13:47",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 90,
+      "last_tracked": "2026-06-20"
+    },
+    {
+      "id": "glass-substrate-ai-packaging",
+      "name": "玻璃基板AI封装",
+      "thesis": "玻璃基板在AI封装领域展现出独特优势，其散热与绝缘性能优于传统材料，有望成为下一代封装技术核心。",
+      "segments": [
+        "玻璃基板",
+        "ABF-GCP",
+        "溅射铜"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-06-23 13:47",
+      "created": "2026-06-23 13:47",
+      "latest_status": "预期透支",
+      "latest_heat": 70,
+      "last_tracked": "2026-06-22"
+    },
+    {
+      "id": "advanced-packaging-materials",
+      "name": "先进封装材料",
+      "thesis": "先进封装技术快速发展带动新材料需求，如玻璃基板、氮化镓、金刚石等，这些材料在散热、绝缘等方面具备优势。",
+      "segments": [
+        "玻璃基板",
+        "氮化镓",
+        "金刚石",
+        "磷化铟"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-06-23 13:47",
+      "created": "2026-06-23 13:47",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 75,
-      "last_tracked": "2026-06-19"
+      "last_tracked": "2026-06-21"
+    },
+    {
+      "id": "sst-power-electronics",
+      "name": "固态变压器（SST）电力电子",
+      "thesis": "固态变压器作为未来电力系统的重要组件，在高效能源转换和智能电网中的应用前景广阔。其技术突破将推动电力电子设备向更高效率和智能化方向发展。",
+      "segments": [
+        "固态变压器",
+        "高压SiC器件",
+        "能量路由器"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "盟国",
+        "AI"
+      ],
+      "framework_updated": "2026-06-23 13:48",
+      "created": "2026-06-23 13:48",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 65,
+      "last_tracked": "2026-06-22"
+    },
+    {
+      "id": "japan-semiconductor-export-controls",
+      "name": "日本半导体出口管制影响",
+      "thesis": "日本对华半导体出口管制大幅扩围，涵盖先进封装设备等关键领域，将加速国产替代进程，并重塑全球半导体供应链格局。",
+      "segments": [
+        "先进封装设备",
+        "高精度分选机",
+        "固晶机"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 4,
+        "竞争力": 3,
+        "寡头垄断": 3,
+        "确定性": 5
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-06-23 13:48",
+      "created": "2026-06-23 13:48",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 70,
+      "last_tracked": "2026-06-22"
     }
   ],
-  "updated": "2026-06-19 09:27"
+  "updated": "2026-06-23 13:48"
 }

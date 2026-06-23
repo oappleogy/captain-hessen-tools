@@ -41,10 +41,24 @@
   "certainty_note": "被AI数据中心和智能电网系统需要，技术壁垒高，供给刚性。",
   "framework_updated": "2026-06-23 13:48",
   "created": "2026-06-23 13:48",
-  "latest_status": "首次纳入跟踪",
-  "latest_heat": 65,
-  "last_tracked": "2026-06-22",
+  "latest_status": "数据兑现",
+  "latest_heat": 70,
+  "last_tracked": "2026-06-23",
   "timeline": [
+    {
+      "date": "2026-06-23",
+      "catalyst": "固态变压器在AI服务器供应链中需求增加，AWS ASIC服务器量产在即。",
+      "data_point": "AWS Trainium 3服务器供应链中包含多家散热和滑轨厂商，2026年下半年起分批交付产品。",
+      "status": "数据兑现",
+      "heat": 70,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-23",
+          "text": "# 🚨AWS ASIC 服务器量产... 🚨AWS ASIC 服务器量产在即！…"
+        }
+      ]
+    },
     {
       "date": "2026-06-22",
       "catalyst": "",

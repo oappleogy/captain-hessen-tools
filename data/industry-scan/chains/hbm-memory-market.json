@@ -1,0 +1,68 @@
+{
+  "id": "hbm-memory-market",
+  "name": "HBM内存市场",
+  "thesis": "HBM内存市场需求激增，SK海力士调整HBM4生产速度以增加通用DDR内存供应，HBM市场占有率持续提升。HBM内存的高带宽和低功耗特性使其成为AI服务器的核心组件。",
+  "segments": [
+    "HBM内存",
+    "DDR内存",
+    "内存封装"
+  ],
+  "tickers": [
+    {
+      "name": "SK海力士",
+      "code": "000660",
+      "role": "HBM内存制造商"
+    },
+    {
+      "name": "三星电子",
+      "code": "005930",
+      "role": "HBM内存制造商"
+    }
+  ],
+  "tracking_signals": [
+    "HBM内存出货量",
+    "HBM内存价格走势",
+    "AI服务器出货量"
+  ],
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 5,
+    "竞争力": 4,
+    "寡头垄断": 4,
+    "确定性": 5
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "鹰酱",
+    "兔子",
+    "AI"
+  ],
+  "certainty_note": "AI算力需求驱动，HBM内存是AI服务器中不可或缺的组件，供给刚性较强。",
+  "framework_updated": "2026-06-23 21:30",
+  "created": "2026-06-23 21:30",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 85,
+  "last_tracked": "2026-06-23",
+  "timeline": [
+    {
+      "date": "2026-06-23",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 85,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-23",
+          "text": "# 🏭SK 海力士调整 HBM4 ... 🏭SK 海力士调整 HBM4 生产速度…… 增加供应短缺的通用 DDR 内存以寻求额外收益 📊SK 海力士正在调整第六…"
+        },
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-23",
+          "text": "# 📰三星电子 HBM4 销售额突... 📰三星电子 HBM4 销售额突破 10 亿美元… 全球首次量产仅 4 个月 🚚三星电子，全球首次量产出货 HBM4 🏙…"
+        }
+      ]
+    }
+  ]
+}

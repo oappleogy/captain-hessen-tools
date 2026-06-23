@@ -1,0 +1,62 @@
+{
+  "id": "ai-pcb-manufacturing",
+  "name": "AI PCB制造",
+  "thesis": "AI服务器需求激增推动PCB市场规模快速增长，预计2026-2028年AI PCB市场规模年复合增长率超过90%。AI服务器对高端PCB的需求将带动相关产业链的快速发展。",
+  "segments": [
+    "AI服务器PCB",
+    "高端覆铜板",
+    "mSAP精细线路"
+  ],
+  "tickers": [
+    {
+      "name": "鹏鼎控股",
+      "code": "002938",
+      "role": "PCB制造商"
+    },
+    {
+      "name": "深南电路",
+      "code": "002916",
+      "role": "PCB制造商"
+    }
+  ],
+  "tracking_signals": [
+    "AI服务器出货量",
+    "高端覆铜板价格走势",
+    "mSAP产能利用率"
+  ],
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 5,
+    "竞争力": 4,
+    "寡头垄断": 3,
+    "确定性": 4
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "兔子",
+    "AI"
+  ],
+  "certainty_note": "AI算力需求驱动，PCB制造是AI服务器产业链中不可或缺的环节，供给刚性较强。",
+  "framework_updated": "2026-06-23 21:30",
+  "created": "2026-06-23 21:30",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 80,
+  "last_tracked": "2026-06-23",
+  "timeline": [
+    {
+      "date": "2026-06-23",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 80,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-23",
+          "text": "# 📑花旗研报｜中国 PCB 行业... 📑花旗研报｜中国 PCB 行业：AI 服务器 PCB 整体市场规模更新；上调鹏鼎控股、深南电路目标价 📌花旗核心观点 …"
+        }
+      ]
+    }
+  ]
+}

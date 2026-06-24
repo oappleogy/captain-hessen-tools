@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-06-24T07:32:46",
-  "data_as_of": "2026-06-23",
-  "data_lag_days": 1,
+  "timestamp": "2026-06-24T21:05:23",
+  "data_as_of": "2026-06-24",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "STRESSED_SEVERE",
-    "label": "严重承压",
-    "color": "#f97316",
-    "level": 3,
-    "score": 0.0,
-    "action": "系统显著承压。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.167,
+    "action": "系统轻度承压。建议仓位≤40%（趋势→），增加对冲，缩短持仓周期。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -16,14 +16,14 @@
     "R": "green",
     "I": "yellow",
     "F": "yellow",
-    "C": "yellow",
+    "C": "green",
     "N": "yellow",
     "T": "red"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.35,
+      "score": 0.33,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,37 +33,37 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.1,
+      "score": 0.12,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
       "name_cn": "制度稳定",
-      "status": "neutral"
+      "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.08,
+      "score": 0.1,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★★★",
+      "confidence": "★★",
       "name_cn": "情绪反馈",
       "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.22,
-      "state": "►",
-      "light": "yellow",
-      "note": "部分信号出现分化，协调性下降",
-      "confidence": "★★★",
+      "score": 0.65,
+      "state": "▲",
+      "light": "green",
+      "note": "各维度信号一致，系统协调运行",
+      "confidence": "⚠",
       "name_cn": "市场协调",
       "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.0,
+      "score": 0.07,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,11 +73,11 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.68,
+      "score": -0.46,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
-      "confidence": "★★",
+      "confidence": "★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
@@ -125,14 +125,13 @@
       }
     ],
     "moving_toward": "数据积累中",
-    "safety_margin": 0.1,
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
-    "count": 2,
+    "count": 1,
     "categories": [
-      "政策不确定性(EPU)=542 (历史93%分位)",
-      "Nasdaq波动率(VXN)=32.4 (历史98%分位)"
+      "政策不确定性(EPU)=542 (历史93%分位)"
     ]
   },
   "opportunities": [],
@@ -148,21 +147,16 @@
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 2,
+    "extreme_count": 1,
     "vix": {
-      "value": 19.5,
-      "percentile": 80,
-      "desc": "市场恐惧情绪偏高"
+      "value": 19.0,
+      "percentile": 50,
+      "desc": "市场情绪正常"
     },
     "credit_spread": {
       "value": 2.65,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
-    },
-    "consumer": {
-      "value": 49.8,
-      "percentile": 3,
-      "desc": "普通人的消费信心接近三年最低，非常悲观"
     }
   }
 }

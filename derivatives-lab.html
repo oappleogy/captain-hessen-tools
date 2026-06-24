@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结构化产品学习实验室 · 黑森船长</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --panel:#13131c; --panel2:#1a1a26; --line:#272736;
+    --txt:#e2e0dc; --dim:#9a98a4; --mut:#6b6976;
+    --accent:#a78bfa; --gold:#e8c47a; --good:#6ee7a8; --warn:#f0a868; --bad:#f06868;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'IBM Plex Sans','Noto Sans SC',-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--sans);
+    line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 50% -5%,rgba(167,139,250,.08),transparent 55%);}
+  .wrap{max-width:940px;margin:0 auto;padding:44px 24px 110px}
+  header{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:8px}
+  .badge{display:inline-block;font-family:var(--mono);font-size:12px;color:var(--accent);
+    border:1px solid rgba(167,139,250,.35);border-radius:999px;padding:3px 12px;margin-bottom:16px;
+    background:rgba(167,139,250,.06)}
+  h1{font-size:31px;font-weight:700;margin:0 0 10px;letter-spacing:-.01em}
+  h1 .sub{color:var(--dim);font-weight:400;font-size:18px}
+  .lede{color:var(--dim);font-size:16px;max-width:720px}
+  /* sticky nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(10,10,15,.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);margin:0 -24px 36px;padding:12px 24px;display:flex;gap:8px;
+    flex-wrap:wrap;overflow-x:auto}
+  nav a{font-size:13px;color:var(--dim);text-decoration:none;padding:5px 13px;border-radius:999px;
+    border:1px solid transparent;white-space:nowrap;transition:.15s}
+  nav a:hover{color:var(--txt)}
+  nav a.active{color:var(--accent);border-color:var(--accent);background:rgba(167,139,250,.1)}
+  section{scroll-margin-top:70px;padding-top:24px}
+  h2{font-size:23px;margin:48px 0 6px;font-weight:680;display:flex;align-items:baseline;gap:12px}
+  h2 .n{font-family:var(--mono);font-size:14px;color:var(--accent);opacity:.85}
+  .tag{font-family:var(--mono);font-size:11px;color:var(--bad);border:1px solid rgba(240,104,104,.4);
+    border-radius:6px;padding:2px 8px;margin-left:auto;font-weight:400}
+  .hook{color:var(--gold);font-size:15px;margin:4px 0 16px}
+  h3{font-size:16px;margin:26px 0 8px;color:var(--gold);font-weight:600}
+  p{margin:12px 0} strong{color:#fff;font-weight:600} em{color:var(--gold);font-style:normal}
+  .mono{font-family:var(--mono)}
+  .good{color:var(--good)} .warn{color:var(--warn)} .bad{color:var(--bad)} .acc{color:var(--accent)} .dimc{color:var(--dim)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:18px 0}
+  .card.hl{border-color:rgba(240,104,104,.35);background:linear-gradient(180deg,rgba(240,104,104,.05),transparent)}
+  .card.acc{border-color:rgba(167,139,250,.3);background:linear-gradient(180deg,rgba(167,139,250,.05),transparent)}
+  ul{margin:10px 0;padding-left:22px} li{margin:6px 0}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:500;font-size:13px}
+  td.mono{font-family:var(--mono);font-size:13px}
+  .flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;font-size:13px;margin:18px 0;color:var(--dim)}
+  .node{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;text-align:center;min-width:88px}
+  .node b{display:block;color:var(--txt);font-size:14px;margin-bottom:2px}
+  .arrow{color:var(--accent);font-size:19px}
+  /* simulator */
+  .sim{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;margin:20px 0}
+  .presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .presets button{font-family:var(--sans);font-size:13px;color:var(--dim);background:var(--panel2);
+    border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;transition:.15s}
+  .presets button:hover{color:var(--txt);border-color:var(--accent)}
+  .presets button.active{color:var(--accent);border-color:var(--accent);background:rgba(167,139,250,.1)}
+  canvas{width:100%;height:290px;display:block;margin:6px 0 4px;border-radius:8px}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px 26px;margin-top:16px}
+  .ctrl label{display:flex;justify-content:space-between;font-size:13px;color:var(--dim);margin-bottom:4px}
+  .ctrl label b{color:var(--accent);font-family:var(--mono)}
+  input[type=range]{width:100%;accent-color:var(--accent);height:4px}
+  select{font-family:var(--mono);background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font-size:13px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:16px 0 4px}
+  .stat{background:var(--panel2);padding:13px 15px}
+  .stat .k{font-size:12px;color:var(--mut)} .stat .v{font-family:var(--mono);font-size:21px;margin-top:3px}
+  .legend{display:flex;gap:18px;font-size:13px;color:var(--dim);margin:8px 0;flex-wrap:wrap}
+  .legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px;border-radius:2px}
+  .reroll{float:right;font-family:var(--sans);font-size:12px;color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+  .reroll:hover{color:var(--accent);border-color:var(--accent)}
+  .when{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  .when div{border-radius:10px;padding:13px 16px;font-size:14px}
+  .when .ok{background:rgba(110,231,168,.06);border:1px solid rgba(110,231,168,.25)}
+  .when .no{background:rgba(240,104,104,.06);border:1px solid rgba(240,104,104,.25)}
+  .foot{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+  .kv{font-family:var(--mono);font-size:13px;color:var(--mut)}
+  .progress{margin:6px 0 0;font-family:var(--mono);font-size:12px;color:var(--mut)}
+  @media(max-width:560px){.when{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="badge">结构化产品学习实验室 · 非投资建议 · 仅供学习</div>
+  <h1>结构化产品 · 一页通关<span class="sub"> ／ 那些"看着香、机制坑"的工具</span></h1>
+  <p class="lede">高分红、高杠杆、"保本又有上涨"——华尔街最会包装的几类 ETF/基金，卖点都在标签上，<em>代价都藏在机制里</em>。这页把它们一个个拆开，每个配一台可以亲手拖的模拟器。看懂机制，你就不会被标签骗。</p>
+</header>
+
+<nav id="nav">
+  <a href="#overview">总览</a>
+  <a href="#leverage">① 个股杠杆 ETF</a>
+  <a href="#covered">② 备兑收益 ETF</a>
+  <a href="#yieldmax">③ YieldMax 单股</a>
+  <a href="#buffer">④ Buffer 缓冲</a>
+  <a href="#inverse">⑤ 反向 ETF</a>
+</nav>
+
+<!-- OVERVIEW -->
+<section id="overview">
+<h2><span class="n">00</span> 总览：诱饵 vs 真实代价</h2>
+<p>五类产品，一句话各自的"包装"和"账单"：</p>
+<table>
+  <tr><th>产品</th><th>它卖给你的（诱饵）</th><th>你真正付出的（代价）</th><th>本质</th></tr>
+  <tr><td><strong>① 个股杠杆 ETF</strong></td><td>单只股票 2x 暴利</td><td class="warn">每日重置→波动损耗+高融资费</td><td class="dimc">当日武器</td></tr>
+  <tr><td><strong>② 备兑收益 ETF</strong></td><td>10% 月月到账</td><td class="warn">封顶上涨，牛市跑输指数</td><td class="dimc">收益换上涨</td></tr>
+  <tr><td><strong>③ YieldMax 单股</strong></td><td>50%–100%+ 年化分红</td><td class="warn">分红靠侵蚀净值，价格阴跌</td><td class="dimc">左手倒右手</td></tr>
+  <tr><td><strong>④ Buffer 缓冲 ETF</strong></td><td>下跌有保护、还能涨</td><td class="warn">封顶上涨+放弃分红+只在到期日成立</td><td class="dimc">保险换空间</td></tr>
+  <tr><td><strong>⑤ 反向 ETF</strong></td><td>不用保证金就做空</td><td class="warn">负漂移+损耗双杀，时间是敌人</td><td class="dimc">短线对冲</td></tr>
+</table>
+<p class="kv">共同规律：标签上的数字（杠杆/分红率）= 营销；账单（损耗/封顶/侵蚀）= 机制。<span class="acc">学这页 = 学会把营销翻译成机制。</span></p>
+</section>
+
+<!-- 1 LEVERAGE -->
+<section id="leverage">
+<h2><span class="n">01</span> 个股杠杆 ETF<span class="tag">每日重置陷阱</span></h2>
+<p class="hook">"NVDA 涨我赚 2 倍"——但 2x 只是<em>每天</em>的 2x，不是这段时间的 2x。</p>
+<p>NVDL、TSLL、CONL、MSTU 这类，用<strong>总收益互换 + 期权</strong>合成出单只股票的 2 倍（或 −1x/−2x）当日敞口。每天收盘<strong>重置</strong>杠杆——这是所有麻烦的根源。</p>
+<div class="flow">
+  <div class="node"><b>你的钱</b>100% 现金</div><span class="arrow">→</span>
+  <div class="node"><b>总收益互换</b>对手方=投行</div><span class="arrow">+</span>
+  <div class="node"><b>期权</b>补足杠杆</div><span class="arrow">=</span>
+  <div class="node"><b>≈200% 敞口</b>单只股</div>
+</div>
+<h3>为什么 2x 不是 2x：两天例子</h3>
+<div class="card">
+  <table style="margin:0">
+    <tr><th></th><th>标的股</th><th>2x ETF</th></tr>
+    <tr><td>第1天 <span class="good">+10%</span></td><td class="mono">$100→$110</td><td class="mono">+20%→$120</td></tr>
+    <tr><td>第2天 <span class="bad">−9.09%</span></td><td class="mono">→$100</td><td class="mono">−18.18%→$98.18</td></tr>
+    <tr><td><strong>两天净</strong></td><td class="mono good">0%</td><td class="mono bad">−1.82%</td></tr>
+  </table>
+</div>
+<p>股票一来一回打平，2x ETF 却凭空亏 1.8%。这就是<strong class="bad">波动损耗</strong>——震荡越久亏越多。反过来单边平滑上涨时又能拿到<span class="good">超过 2x</span>。它<strong class="acc">路径依赖</strong>：方向对不够，路径要顺。</p>
+<div class="sim" data-sim="lev">
+  <button class="reroll">↻ 换一组随机路径</button>
+  <div class="presets">
+    <button data-p="chop">震荡横盘（最坑）</button>
+    <button data-p="smooth">平稳上涨（最甜）</button>
+    <button data-p="bumpy">上涨但颠簸</button>
+    <button data-p="down">单边下跌</button>
+  </div>
+  <div class="legend"><span><i style="background:#9a98a4"></i>标的股累计</span><span><i style="background:#a78bfa"></i>杠杆 ETF 累计</span><span><i style="background:#272736"></i>0% 基准</span></div>
+  <canvas></canvas>
+  <div class="stats">
+    <div class="stat"><div class="k">标的股最终</div><div class="v" data-o="stock">—</div></div>
+    <div class="stat"><div class="k">理论倍数（天真预期）</div><div class="v" data-o="theory">—</div></div>
+    <div class="stat"><div class="k">ETF 实际到手</div><div class="v" data-o="etf">—</div></div>
+    <div class="stat"><div class="k">损耗（实际−理论）</div><div class="v" data-o="decay">—</div></div>
+  </div>
+  <div class="controls">
+    <div class="ctrl"><label>持有天数 <b data-v="days">90</b></label><input type="range" data-c="days" min="5" max="252" value="90"></div>
+    <div class="ctrl"><label>日波动率 <b data-v="vol">4.5%</b></label><input type="range" data-c="vol" min="2" max="120" value="45"></div>
+    <div class="ctrl"><label>日漂移 <b data-v="drift">+0.00%</b></label><input type="range" data-c="drift" min="-50" max="50" value="0"></div>
+    <div class="ctrl"><label>杠杆 <b data-v="lev">2x</b></label><select data-c="lev"><option value="2">+2x</option><option value="3">+3x</option><option value="1.5">+1.5x</option><option value="-1">−1x</option><option value="-2">−2x</option></select></div>
+    <div class="ctrl"><label>年化费用+融资 <b data-v="cost">7.0%</b></label><input type="range" data-c="cost" min="0" max="150" value="70"></div>
+  </div>
+</div>
+<div class="when"><div class="ok"><strong class="good">✓ 能用</strong>：方向+时机都有强信念的短线（数小时~数天）、博短期催化。</div><div class="no"><strong class="bad">✗ 绝不</strong>：买入持有。波动损耗+6%+年成本会慢慢绞杀你。</div></div>
+</section>
+
+<!-- 2 COVERED CALL -->
+<section id="covered">
+<h2><span class="n">02</span> 备兑收益 ETF（JEPQ / JEPI）<span class="tag">封顶上涨</span></h2>
+<p class="hook">"10% 分红月月拿"——代价是把股票的上涨空间卖掉了。</p>
+<p>持有一篮子股票，同时<strong>卖出看涨期权</strong>，把收到的权利金当月度分红派给你。<em>本质是"用未来上涨换当下现金流"</em>：市场横盘/小涨你赢（白拿权利金），大涨你输（涨幅被封顶），大跌你照样亏（权利金只垫一点）。</p>
+<div class="sim" data-sim="cc">
+  <button class="reroll">↻ 换一组随机路径</button>
+  <div class="presets">
+    <button data-p="bull">大牛市（你跑输）</button>
+    <button data-p="flat">震荡横盘（你跑赢）</button>
+    <button data-p="bear">熊市（小赢一点）</button>
+  </div>
+  <div class="legend"><span><i style="background:#9a98a4"></i>直接持有指数</span><span><i style="background:#a78bfa"></i>备兑收益 ETF</span></div>
+  <canvas></canvas>
+  <div class="stats">
+    <div class="stat"><div class="k">指数总回报</div><div class="v" data-o="idx">—</div></div>
+    <div class="stat"><div class="k">备兑 ETF 总回报</div><div class="v" data-o="cc">—</div></div>
+    <div class="stat"><div class="k">累计收到分红</div><div class="v" data-o="prem">—</div></div>
+    <div class="stat"><div class="k">差距（备兑−指数）</div><div class="v" data-o="gap">—</div></div>
+  </div>
+  <div class="controls">
+    <div class="ctrl"><label>月数 <b data-v="m">24</b></label><input type="range" data-c="m" min="6" max="60" value="24"></div>
+    <div class="ctrl"><label>市场月波动 <b data-v="vol">5.0%</b></label><input type="range" data-c="vol" min="10" max="120" value="50"></div>
+    <div class="ctrl"><label>市场月趋势 <b data-v="drift">+0.8%</b></label><input type="range" data-c="drift" min="-30" max="40" value="8"></div>
+    <div class="ctrl"><label>每月权利金 <b data-v="prem">0.9%</b></label><input type="range" data-c="prem" min="2" max="25" value="9"></div>
+    <div class="ctrl"><label>上涨封顶/月 <b data-v="cap">3.0%</b></label><input type="range" data-c="cap" min="10" max="80" value="30"></div>
+  </div>
+</div>
+<p>规律：<strong>大牛市 → 备兑跑输</strong>（封顶）；<strong>震荡/横盘 → 备兑跑赢</strong>（白收权利金）；<strong>熊市 → 备兑小赢</strong>（权利金垫一点但仍亏）。<em>所以它是"中性偏空"工具，不是"永远更好"。</em></p>
+<div class="when"><div class="ok"><strong class="good">✓ 适合</strong>：要稳定现金流、能接受跑输大盘的人（退休、收益组合）。</div><div class="no"><strong class="bad">✗ 不适合</strong>：还在做大本金、追求总回报的积累期——封顶上涨通常是反的。</div></div>
+</section>
+
+<!-- 3 YIELDMAX -->
+<section id="yieldmax">
+<h2><span class="n">03</span> YieldMax 单股期权收益（TSLY/NVDY/MSTY）<span class="tag">净值侵蚀</span></h2>
+<p class="hook">"年化分红 80%！"——可你的本金（净值）在月月缩水。</p>
+<p>把备兑收益玩到极致：对<strong>单只高波动股</strong>（TSLA/NVDA/MSTR）做合成备兑，把期权收入<em>几乎全部</em>按月派出。标称分红率能到 50%–100%+，但——<span class="bad">派出去的钱常常超过实际赚到的，差额是在还你自己的本金（return of capital）</span>。结果：分红率数字很美，价格/净值阴跌不止。</p>
+<div class="sim" data-sim="ym">
+  <button class="reroll">↻ 换一组随机路径</button>
+  <div class="presets">
+    <button data-p="flat">股票横盘</button>
+    <button data-p="up">股票上涨</button>
+    <button data-p="down">股票下跌（最惨）</button>
+  </div>
+  <div class="legend"><span><i style="background:#f06868"></i>基金净值/价格</span><span><i style="background:#6ee7a8"></i>含分红再投的总回报</span><span><i style="background:#9a98a4"></i>同期直接持股</span></div>
+  <canvas></canvas>
+  <div class="stats">
+    <div class="stat"><div class="k">标称年化分红率</div><div class="v" data-o="yield">—</div></div>
+    <div class="stat"><div class="k">基金净值变化</div><div class="v" data-o="nav">—</div></div>
+    <div class="stat"><div class="k">含分红总回报</div><div class="v" data-o="tr">—</div></div>
+    <div class="stat"><div class="k">同期直接持股</div><div class="v" data-o="hold">—</div></div>
+  </div>
+  <div class="controls">
+    <div class="ctrl"><label>月数 <b data-v="m">24</b></label><input type="range" data-c="m" min="6" max="60" value="24"></div>
+    <div class="ctrl"><label>单股月波动 <b data-v="vol">14%</b></label><input type="range" data-c="vol" min="40" max="250" value="140"></div>
+    <div class="ctrl"><label>单股月趋势 <b data-v="drift">+0.5%</b></label><input type="range" data-c="drift" min="-40" max="50" value="5"></div>
+    <div class="ctrl"><label>每月分红率 <b data-v="dist">5.0%</b></label><input type="range" data-c="dist" min="10" max="120" value="50"></div>
+    <div class="ctrl"><label>上涨封顶/月 <b data-v="cap">8%</b></label><input type="range" data-c="cap" min="20" max="120" value="80"></div>
+  </div>
+</div>
+<div class="card hl"><p style="margin:0">把"股票下跌"预设拉出来看：<strong class="bad">标称分红率照样显示 60%+，但净值腰斩、总回报为负。</strong>这就是 YieldMax 的真相——<em>高分红率 ≠ 高回报，它把你的本金切成片，再当"分红"发还给你，让你以为在赚钱。</em></p></div>
+<div class="when"><div class="ok"><strong class="good">✓ 极窄场景</strong>：你本就长期看好该股、且只想用一小部分仓位换现金流，并清楚净值会跌。</div><div class="no"><strong class="bad">✗ 千万别</strong>：冲着"100% 年化"去买、当被动收息机器、把它当存款替代品。</div></div>
+</section>
+
+<!-- 4 BUFFER -->
+<section id="buffer">
+<h2><span class="n">04</span> Buffer / 定义结果 ETF<span class="tag">封顶+只在到期成立</span></h2>
+<p class="hook">"下跌帮你扛前 15%，上涨还能赚"——但赚到 X% 就封顶，且只在到期日才算数。</p>
+<p>用期权组合做出一个"已定义的结果区间"：<strong>缓冲</strong>吸收开头一段下跌（如前 15%），<strong>封顶</strong>限制上涨（如最多 12%），代价还包括<span class="warn">放弃全部分红</span>。下面是它的<strong>损益图</strong>（不是时间序列）——拖滑块看缓冲和封顶怎么改变你的回报曲线。</p>
+<div class="sim" data-sim="buf">
+  <div class="legend"><span><i style="background:#9a98a4"></i>直接持有指数（45°）</span><span><i style="background:#a78bfa"></i>Buffer ETF 到期回报</span><span><i style="background:#272736"></i>0 轴</span></div>
+  <canvas></canvas>
+  <div class="stats">
+    <div class="stat"><div class="k">下跌缓冲</div><div class="v" data-o="buf">—</div></div>
+    <div class="stat"><div class="k">上涨封顶</div><div class="v" data-o="cap">—</div></div>
+    <div class="stat"><div class="k">指数 −25% 时你</div><div class="v" data-o="d25">—</div></div>
+    <div class="stat"><div class="k">指数 +25% 时你</div><div class="v" data-o="u25">—</div></div>
+  </div>
+  <div class="controls">
+    <div class="ctrl"><label>下跌缓冲 <b data-v="buf">15%</b></label><input type="range" data-c="buf" min="0" max="40" value="15"></div>
+    <div class="ctrl"><label>上涨封顶 <b data-v="cap">12%</b></label><input type="range" data-c="cap" min="3" max="40" value="12"></div>
+  </div>
+</div>
+<p>看懂这张图：横轴是指数涨跌，纵轴是你的回报。<strong>左边</strong>——指数跌到 −缓冲% 以内你不亏（平的那段），跌穿了才开始 1:1 亏；<strong>右边</strong>——涨到封顶就横住，再涨与你无关。<em>你是用"放弃超额上涨 + 放弃分红"，买了"前一段下跌的保险"。</em>而且只有<strong>持有到期日</strong>这条曲线才成立，中途买卖不算。</p>
+<div class="when"><div class="ok"><strong class="good">✓ 适合</strong>：临近用钱、怕大跌又不想空仓、能拿满一个结果周期（通常1年）的人。</div><div class="no"><strong class="bad">✗ 不适合</strong>：长期复利者（封顶+无分红长期严重拖累）、想随时进出的人。</div></div>
+</section>
+
+<!-- 5 INVERSE -->
+<section id="inverse">
+<h2><span class="n">05</span> 反向 ETF（SQQQ / 做空类）<span class="tag">时间衰减</span></h2>
+<p class="hook">"看跌就买它，不用开保证金"——但你在跟"时间"和"复利"同时作战。</p>
+<p>反向 ETF（−1x/−2x/−3x）也用互换做出"当日<em>反向</em>"敞口。它有杠杆 ETF 全部的<strong>每日重置波动损耗</strong>，外加一个独有的杀手：<span class="bad">你做空的指数长期是向上漂移的</span>——所以时间站在你的对立面，拿越久，"负漂移 + 损耗"双杀越狠。用上面①的模拟器把<strong>杠杆设成 −1x 或 −2x</strong>、漂移设正，就能看到它怎么阴跌。</p>
+<div class="card acc"><p style="margin:0"><strong>正确用法</strong>：当成<em>短线对冲/战术做空</em>（数天内）。<strong class="bad">错误用法</strong>：当作"长期看空仓位"攒着——长期持有反向 ETF 几乎注定亏损，哪怕你方向看对了大趋势，损耗和反弹也会把你磨死。看长期大跌，宁可买 put 或减仓，别长拿反向 ETF。</p></div>
+</section>
+
+<div class="foot">
+  <p><strong>一页总结：</strong>这五类产品的卖点都在<em>标签</em>（2x、10%、80%、保护、做空），账单都在<em>机制</em>（每日重置、封顶、净值侵蚀、放弃分红、负漂移）。它们大多是<strong>短线/战术工具</strong>，被当成长期持仓时最伤人。看懂了机制，你就从"被标签吸引的人"，变成"知道自己在为什么付费的人"。</p>
+  <p class="kv">tools.basealpha.ai · 结构化产品学习实验室 · 生成于 2026-06-24 · 教学示意，非投资建议。黑森船长</p>
+</div>
+</div>
+
+<script>
+(function(){
+  const DPR=window.devicePixelRatio||1;
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function gauss(rng){let u=0,v=0;while(u===0)u=rng();while(v===0)v=rng();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+  function fmt(x){return (x>=0?'+':'')+x.toFixed(1)+'%';}
+  function setColor(el,x){el.style.color=x>=0?'var(--good)':'var(--bad)';}
+
+  function fitCanvas(cv){const w=cv.width=cv.clientWidth*DPR,h=cv.height=290*DPR;return{w,h,ctx:cv.getContext('2d')};}
+  // generic cumulative-series line chart, baseline=1.0
+  function drawSeries(cv,series){
+    const {w,h,ctx}=fitCanvas(cv);ctx.clearRect(0,0,w,h);
+    let all=[];series.forEach(s=>all=all.concat(s.data));
+    let lo=Math.min(...all,0.999),hi=Math.max(...all,1.001);const pd=(hi-lo)*0.12;lo-=pd;hi+=pd;
+    const pL=8*DPR,pR=8*DPR,pT=12*DPR,pB=12*DPR,n=series[0].data.length-1;
+    const X=i=>pL+(w-pL-pR)*i/n, Y=v=>pT+(h-pT-pB)*(1-(v-lo)/(hi-lo));
+    ctx.strokeStyle='#272736';ctx.lineWidth=DPR;ctx.setLineDash([5*DPR,5*DPR]);
+    ctx.beginPath();ctx.moveTo(pL,Y(1));ctx.lineTo(w-pR,Y(1));ctx.stroke();ctx.setLineDash([]);
+    series.forEach(s=>{ctx.strokeStyle=s.color;ctx.lineWidth=(s.width||2)*DPR;ctx.beginPath();
+      s.data.forEach((v,i)=>{const x=X(i),y=Y(v);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();});
+  }
+
+  // ---------- helper to wire a sim ----------
+  function wire(root,run,presets,firstPreset){
+    const get=k=>root.querySelector('[data-c="'+k+'"]');
+    const vlab=k=>root.querySelector('[data-v="'+k+'"]');
+    const out=k=>root.querySelector('[data-o="'+k+'"]');
+    const cv=root.querySelector('canvas');
+    let seed=20260624;
+    const state={get,vlab,out,cv,seed:()=>seed};
+    function update(){run(state);}
+    root.querySelectorAll('[data-c]').forEach(el=>el.addEventListener('input',()=>{
+      root.querySelectorAll('.presets button').forEach(b=>b.classList.remove('active'));update();}));
+    const rr=root.querySelector('.reroll');
+    if(rr)rr.addEventListener('click',()=>{seed=(seed*1103515245+12345)>>>0;update();});
+    const pbar=root.querySelector('.presets');
+    function apply(p){const c=presets[p];for(const k in c){const el=get(k);if(el)el.value=c[k];}
+      root.querySelectorAll('.presets button').forEach(b=>b.classList.toggle('active',b.dataset.p===p));update();}
+    if(pbar)pbar.addEventListener('click',e=>{if(e.target.dataset.p)apply(e.target.dataset.p);});
+    window.addEventListener('resize',update);
+    state.mulberry32=mulberry32;state.gauss=gauss;
+    if(firstPreset)apply(firstPreset);else update();
+    return {update};
+  }
+
+  // ===== ① leverage decay =====
+  (function(){const root=document.querySelector('[data-sim="lev"]');if(!root)return;
+    function run(s){const V=k=>+s.get(k).value;
+      const days=V('days'),vol=V('vol')/10/100,drift=V('drift')/100/100,lev=+s.get('lev').value,cost=V('cost')/10/100;
+      s.vlab('days').textContent=days;s.vlab('vol').textContent=(V('vol')/10).toFixed(1)+'%';
+      s.vlab('drift').textContent=fmt(V('drift')/100);s.vlab('cost').textContent=(V('cost')/10).toFixed(1)+'%';
+      s.vlab('lev').textContent=(lev>0?'+':'')+lev+'x';
+      const rng=mulberry32(s.seed()),dc=cost/252;let st=1,e=1;const A=[1],B=[1];
+      for(let i=0;i<days;i++){const r=drift+vol*gauss(rng);st*=(1+r);let er=lev*r-dc;if(er<-0.99)er=-0.99;e*=(1+er);A.push(st);B.push(e);}
+      drawSeries(s.cv,[{data:A,color:'#9a98a4',width:1.6},{data:B,color:'#a78bfa',width:2.4}]);
+      const stk=(st-1)*100,etf=(e-1)*100,th=lev*stk,gap=etf-th;
+      s.out('stock').textContent=fmt(stk);setColor(s.out('stock'),stk);
+      s.out('theory').textContent=fmt(th);s.out('theory').style.color='var(--dim)';
+      s.out('etf').textContent=fmt(etf);setColor(s.out('etf'),etf);
+      s.out('decay').textContent=fmt(gap);setColor(s.out('decay'),gap);
+    }
+    wire(root,run,{chop:{vol:45,drift:0,days:90,lev:'2',cost:70},smooth:{vol:12,drift:18,days:90,lev:'2',cost:70},
+      bumpy:{vol:50,drift:15,days:90,lev:'2',cost:70},down:{vol:40,drift:-15,days:90,lev:'2',cost:70}},'chop');
+  })();
+
+  // ===== ② covered call total return (monthly) =====
+  (function(){const root=document.querySelector('[data-sim="cc"]');if(!root)return;
+    function run(s){const V=k=>+s.get(k).value;
+      const m=V('m'),vol=V('vol')/10/100,drift=V('drift')/10/100,prem=V('prem')/10/100,cap=V('cap')/10/100;
+      s.vlab('m').textContent=m;s.vlab('vol').textContent=(V('vol')/10).toFixed(1)+'%';
+      s.vlab('drift').textContent=fmt(V('drift')/10);s.vlab('prem').textContent=(V('prem')/10).toFixed(1)+'%';
+      s.vlab('cap').textContent=(V('cap')/10).toFixed(1)+'%';
+      const rng=mulberry32(s.seed());let idx=1,cc=1,premSum=0;const A=[1],B=[1];
+      for(let i=0;i<m;i++){const r=drift+vol*gauss(rng);idx*=(1+r);
+        const ccr=Math.min(r,cap)+prem; // covered call monthly = capped upside + premium
+        cc*=(1+ccr);premSum+=prem;A.push(idx);B.push(cc);}
+      drawSeries(s.cv,[{data:A,color:'#9a98a4',width:1.6},{data:B,color:'#a78bfa',width:2.4}]);
+      const ir=(idx-1)*100,cr=(cc-1)*100,gap=cr-ir;
+      s.out('idx').textContent=fmt(ir);setColor(s.out('idx'),ir);
+      s.out('cc').textContent=fmt(cr);setColor(s.out('cc'),cr);
+      s.out('prem').textContent='+'+(premSum*100).toFixed(1)+'%';s.out('prem').style.color='var(--gold)';
+      s.out('gap').textContent=fmt(gap);setColor(s.out('gap'),gap);
+    }
+    wire(root,run,{bull:{vol:35,drift:25,prem:9,cap:30,m:24},flat:{vol:55,drift:0,prem:11,cap:30,m:24},
+      bear:{vol:60,drift:-15,prem:12,cap:30,m:24}},'bull');
+  })();
+
+  // ===== ③ YieldMax: distribution vs NAV erosion =====
+  (function(){const root=document.querySelector('[data-sim="ym"]');if(!root)return;
+    function run(s){const V=k=>+s.get(k).value;
+      const m=V('m'),vol=V('vol')/10/100,drift=V('drift')/10/100,dist=V('dist')/10/100,cap=V('cap')/10/100;
+      s.vlab('m').textContent=m;s.vlab('vol').textContent=(V('vol')/10).toFixed(1)+'%';
+      s.vlab('drift').textContent=fmt(V('drift')/10);s.vlab('dist').textContent=(V('dist')/10).toFixed(1)+'%';
+      s.vlab('cap').textContent=(V('cap')/10).toFixed(1)+'%';
+      const rng=mulberry32(s.seed());let nav=1,tr=1,hold=1;const N=[1],T=[1],H=[1];
+      for(let i=0;i<m;i++){const r=drift+vol*gauss(rng);hold*=(1+r);
+        const strat=Math.min(r,cap)+dist*0.55;        // 策略本身赚的(封顶上涨+部分期权金)
+        let navAfter=nav*(1+strat);
+        const paid=navAfter*dist;                       // 按净值固定派息(常超过实赚→吃本金)
+        navAfter-=paid;
+        tr*=(1+strat);                                  // 含分红再投的总回报≈策略实赚
+        nav=navAfter;if(nav<0.02)nav=0.02;
+        N.push(nav);T.push(tr);H.push(hold);}
+      drawSeries(s.cv,[{data:N,color:'#f06868',width:2.4},{data:T,color:'#6ee7a8',width:2},{data:H,color:'#9a98a4',width:1.6}]);
+      const navc=(nav-1)*100,trc=(tr-1)*100,holdc=(hold-1)*100;
+      s.out('yield').textContent=(dist*12*100).toFixed(0)+'%';s.out('yield').style.color='var(--gold)';
+      s.out('nav').textContent=fmt(navc);setColor(s.out('nav'),navc);
+      s.out('tr').textContent=fmt(trc);setColor(s.out('tr'),trc);
+      s.out('hold').textContent=fmt(holdc);setColor(s.out('hold'),holdc);
+    }
+    wire(root,run,{flat:{vol:140,drift:0,dist:50,cap:80,m:24},up:{vol:130,drift:20,dist:50,cap:80,m:24},
+      down:{vol:150,drift:-18,dist:50,cap:80,m:24}},'flat');
+  })();
+
+  // ===== ④ Buffer payoff diagram =====
+  (function(){const root=document.querySelector('[data-sim="buf"]');if(!root)return;
+    function payoff(r,buf,cap){ // r,buf,cap in decimal
+      if(r>=0)return Math.min(r,cap);
+      return r<=-buf? r+buf : 0;
+    }
+    function run(s){const V=k=>+s.get(k).value;
+      const buf=V('buf')/100,cap=V('cap')/100;
+      s.vlab('buf').textContent=V('buf')+'%';s.vlab('cap').textContent=V('cap')+'%';
+      const {w,h,ctx}=fitCanvas(s.cv);ctx.clearRect(0,0,w,h);
+      const xmin=-0.40,xmax=0.40;let ys=[];for(let x=xmin;x<=xmax+1e-9;x+=0.01){ys.push(payoff(x,buf,cap));ys.push(x);}
+      let lo=Math.min(...ys),hi=Math.max(...ys);const pd=(hi-lo)*0.1;lo-=pd;hi+=pd;
+      const pL=34*DPR,pR=10*DPR,pT=12*DPR,pB=22*DPR;
+      const X=x=>pL+(w-pL-pR)*(x-xmin)/(xmax-xmin), Y=y=>pT+(h-pT-pB)*(1-(y-lo)/(hi-lo));
+      // axes
+      ctx.strokeStyle='#272736';ctx.lineWidth=DPR;
+      ctx.beginPath();ctx.moveTo(pL,Y(0));ctx.lineTo(w-pR,Y(0));ctx.stroke();
+      ctx.beginPath();ctx.moveTo(X(0),pT);ctx.lineTo(X(0),h-pB);ctx.stroke();
+      ctx.fillStyle='#6b6976';ctx.font=(11*DPR)+'px monospace';
+      ctx.fillText('指数',(w-pR-30*DPR),Y(0)-4*DPR);ctx.fillText('+'+(cap*100).toFixed(0)+'%',X(0)+4*DPR,Y(cap)-3*DPR);
+      // index 45deg
+      ctx.strokeStyle='#9a98a4';ctx.lineWidth=1.6*DPR;ctx.beginPath();
+      ctx.moveTo(X(xmin),Y(xmin));ctx.lineTo(X(xmax),Y(xmax));ctx.stroke();
+      // buffer payoff
+      ctx.strokeStyle='#a78bfa';ctx.lineWidth=2.6*DPR;ctx.beginPath();let first=true;
+      for(let x=xmin;x<=xmax+1e-9;x+=0.005){const px=X(x),py=Y(payoff(x,buf,cap));if(first){ctx.moveTo(px,py);first=false;}else ctx.lineTo(px,py);}
+      ctx.stroke();
+      s.out('buf').textContent=V('buf')+'%';s.out('buf').style.color='var(--good)';
+      s.out('cap').textContent='+'+V('cap')+'%';s.out('cap').style.color='var(--gold)';
+      const d25=payoff(-0.25,buf,cap)*100,u25=payoff(0.25,buf,cap)*100;
+      s.out('d25').textContent=fmt(d25);setColor(s.out('d25'),d25);
+      s.out('u25').textContent=fmt(u25);setColor(s.out('u25'),u25);
+    }
+    wire(root,run,{},null);
+  })();
+
+  // ===== sticky nav active state =====
+  const links=[...document.querySelectorAll('#nav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  function onScroll(){const y=window.scrollY+90;let idx=0;secs.forEach((s,i)=>{if(s&&s.offsetTop<=y)idx=i;});
+    links.forEach((a,i)=>a.classList.toggle('active',i===idx));}
+  window.addEventListener('scroll',onScroll);onScroll();
+})();
+</script>
+</body>
+</html>

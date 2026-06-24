@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Q1 2026 · 超预期面板 · 黑森船长</title>
+<title>Q1 2026 · 业绩超预期研究 · 黑森船长</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Serif+SC:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -39,9 +39,9 @@ a{color:inherit;text-decoration:none}
 <div style="margin-bottom:20px">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
     <div style="width:4px;height:24px;background:linear-gradient(180deg,var(--accent),var(--accentDim));border-radius:2px"></div>
-    <h1 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px">Q1 2026 · 超预期面板</h1>
+    <h1 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px">Q1 2026 · 业绩超预期研究</h1>
   </div>
-  <p style="color:var(--dim);font-size:11px;margin:6px 0 0 12px;line-height:1.5">20+家公司的业绩暴增，共同指向了什么？<span style="color:var(--accent)">　·　2026-06-24 补充 MRVL / CRDO / ETN / GEV</span></p>
+  <p style="color:var(--dim);font-size:11px;margin:6px 0 0 12px;line-height:1.5">Q1 财报季 20+家「营收+利润双超机构预期」的公司，沿 AI 算力→供电→发电全栈拆解，共同指向什么？<span style="color:var(--accent)">　·　2026-06-24 新增 MRVL / CRDO / ETN / GEV</span></p>
 </div>
 
 <div class="tab-bar" id="tabBar"></div>
@@ -181,7 +181,7 @@ function renderBeats(){
 function renderChain(){
   var h='<div class="card" style="border-color:'+C.accent+'30;background:linear-gradient(135deg,'+C.card+',#1a1f35)">';
   h+='<div style="font-size:12px;font-weight:700;color:'+C.accent+';margin-bottom:6px">面板交叉验证后的发现</div>';
-  h+='<p style="font-size:11px;color:'+C.dim+';line-height:1.7">把上一页10家公司按产业链位置重新排列，一个反直觉的规律浮现：'+mono("增速最猛的不是GPU层(AMD DC+52%)，而是电源层(TXN DC+90%)和发电层(BE+130%)",C.green)+'。越远离计算核心、越靠近物理基础设施，业绩增速反而越高。这指向一个架构级变化：'+mono("AI算力的瓶颈正在从计算端向供电端迁移",C.accent)+'。</p></div>';
+  h+='<p style="font-size:11px;color:'+C.dim+';line-height:1.7">把上一页这些公司按产业链位置重新排列，一个反直觉的规律浮现：'+mono("增速最猛的不是GPU层(AMD DC+57%)，而是电源层(TXN DC+90%)、输配电层(ETN数据中心订单+240%、GEV订单+71%)和发电层(BE+130%)",C.green)+'。越远离计算核心、越靠近物理基础设施，业绩增速反而越高。这指向一个架构级变化：'+mono("AI算力的瓶颈正在从计算端向供电/输配电端迁移",C.accent)+'。</p></div>';
 
   CHAIN.forEach(function(layer,i){
     var isOpen=expanded==="chain-"+i;
@@ -299,7 +299,7 @@ function renderUpside(){
   h+='<div style="font-size:12px;font-weight:700;margin-bottom:10px">各层定价效率 \u00D7 策略 \u00D7 理由</div>';
 
   var layers=[
-    {layer:"GPU/算力 (NVDA/AMD/AVGO)",status:"充分定价",color:C.red,pct:85,detail:"共识持仓最拥挤。SA基金在买NVDA看跌期权。任何miss都会被重罚。",strategy:"卖出虚值call (covered call) / 买入保护性put",why:"隐含波动率处于高位=期权贵=卖方有优势。你不需要做空，而是利用高IV收租。如果你持有AMD，卖30-45天到期的OTM call（delta 0.2-0.3），每月收2-3%的时间价值。即使stock继续涨，你只是少赚一点而不是亏钱。如果你不持有，不要新建多头\u2014\u2014risk/reward不对称性已经不在你这边。",actionTag:"收租",actionColor:C.red},
+    {layer:"GPU/算力·连接 (NVDA/AMD/AVGO/MRVL/CRDO)",status:"充分定价",color:C.red,pct:85,detail:"共识持仓最拥挤。SA基金在买NVDA看跌期权。任何miss都会被重罚。MRVL(定制XPU)、CRDO(AI连接/AEC)同属'卖铲'层，业绩beat但IV同样偏高，CRDO财报后还上演-15%→+10%的V型(定位差而非基本面差)。",strategy:"卖出虚值call (covered call) / 买入保护性put",why:"隐含波动率处于高位=期权贵=卖方有优势。你不需要做空，而是利用高IV收租。如果你持有AMD，卖30-45天到期的OTM call（delta 0.2-0.3），每月收2-3%的时间价值。即使stock继续涨，你只是少赚一点而不是亏钱。如果你不持有，不要新建多头\u2014\u2014risk/reward不对称性已经不在你这边。",actionTag:"收租",actionColor:C.red},
     {layer:"电源IC (TXN/MPWR)",status:"大部分定价",color:C.orange,pct:70,detail:"TXN YTD+63%。但Sherman产能释放还有2-3年runway。MPWR产能$4B\u2192$6B。",strategy:"持有 + 卖covered call / 等回调-10%再加仓",why:"业绩确定性高（backlog可见），但估值已经反映了近期增长。策略是'拿着基本面确定性、卖掉短期上涨的不确定性'。具体做法：持有正股，卖1-2个月到期的OTM call（strike高于现价8-10%），把时间价值变成持有期的额外收益。如果stock继续暴涨？你被call走了也是在高位卖出，不亏。如果回调10%？加仓，因为基本面没变。",actionTag:"持有+收租",actionColor:C.orange},
     {layer:"功率半导体 (STM vs ON)",status:"分化中",color:C.accent,pct:55,detail:"STM P/E 258x已透支。ON DC环比+30%但stock -5%。",strategy:"做多ON / 或pairs: 多ON空STM",why:"ON被市场用'汽车周期触底'的旧叙事定价，没有给AI数据中心电源的溢价。但它AI DC营收2026要翻倍，这个加速度和一年前TXN DC起步时的斜率一样。相反STM的AI数据中心叙事已经充分反映在P/E 258x里。Pairs trade的逻辑：两家都在供电链同一层，但定价效率差巨大。如果AI电源需求继续加速，ON涨幅空间>STM；如果需求放缓，STM跌幅>ON。两种情景你都对。",actionTag:"做多laggard",actionColor:C.accent},
     {layer:"散热配电 (VRT)",status:"较充分",color:C.orange,pct:65,detail:"年内+100%，P/E 47x。但$15B backlog=2年收入可见性。EMEA -29%是风险。",strategy:"持有正股 + 卖call / 或用bull put spread收租",why:"VRT的收入可见性极高（backlog翻倍），但股价已经反映了这个确定性。风险在EMEA持续疲软和Q2指引不及whisper。策略：如果持有，卖OTM call锁定部分收益。如果想新建仓位但嫌贵，卖bull put spread（卖OTM put+买更低strike put）\u2014\u2014如果stock不跌到你的short put，你白收权利金；如果跌到了，你在低位接货也愿意。",actionTag:"持有+收租",actionColor:C.orange},
@@ -322,7 +322,7 @@ function renderUpside(){
 
 /* ===== FOOTER ===== */
 document.getElementById("tabContainer").insertAdjacentHTML("afterend",
-'<div style="margin-top:20px;padding:10px 12px;background:var(--card);border-radius:8px;border:1px solid var(--border)"><div style="font-size:9px;color:var(--muted);line-height:1.6">\u{1F4CA} 数据来源：SEC 10-Q/8-K, earnings call transcripts, SIA, SA 13F filings, Fortune/Medium验证报告。截至2026.05.06。所有Rev单位：$M USD(美国)、亿元RMB(中国)。<br>\u{1F7E2} SEC actual | \u{1F7E1} 公司指引 | \u{1F534} 分析师估计 | VST Q1待5/7发布</div></div>');
+'<div style="margin-top:20px;padding:10px 12px;background:var(--card);border-radius:8px;border:1px solid var(--border)"><div style="font-size:9px;color:var(--muted);line-height:1.6">\u{1F4CA} 数据来源：SEC 10-Q/8-K, earnings call transcripts, SIA, SA 13F filings, Fortune/Medium验证报告。截至2026.06.24（6-24 新增 MRVL/CRDO/ETN/GEV，均营收+利润双超预期）。所有Rev单位：$M USD(美国)、亿元RMB(中国)。<br>\u{1F7E2} SEC actual | \u{1F7E1} 公司指引 | \u{1F534} 分析师估计</div></div>');
 
 renderTabs();
 renderContent();

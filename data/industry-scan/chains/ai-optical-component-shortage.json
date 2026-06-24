@@ -1,0 +1,68 @@
+{
+  "id": "ai-optical-component-shortage",
+  "name": "AI光通信组件短缺",
+  "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
+  "segments": [
+    "磷化铟衬底",
+    "光芯片",
+    "CPO交换机"
+  ],
+  "tickers": [
+    {
+      "name": "云南锗业",
+      "code": "",
+      "role": "上游材料核心供应商"
+    },
+    {
+      "name": "源杰科技",
+      "code": "",
+      "role": "光芯片IDM"
+    },
+    {
+      "name": "东山精密",
+      "code": "",
+      "role": "光通信IDM一体化"
+    }
+  ],
+  "tracking_signals": [
+    "InP衬底扩产进度",
+    "光芯片价格走势",
+    "CPO交换机出货量"
+  ],
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 5,
+    "竞争力": 4,
+    "寡头垄断": 3,
+    "确定性": 5
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "兔子",
+    "盟国",
+    "AI"
+  ],
+  "certainty_note": "AI算力需求刚性，上游材料供给刚性且技术门槛高，短期内难以替代。",
+  "framework_updated": "2026-06-24 21:30",
+  "created": "2026-06-24 21:30",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 90,
+  "last_tracked": "2026-06-24",
+  "timeline": [
+    {
+      "date": "2026-06-24",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 90,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-24",
+          "text": "# 🔥#CPO真卡点：上游磷化铟（... 🔥#CPO真卡点：上游磷化铟（InP）衬底/光芯片 验证了英伟达3月各砸20亿美金给Coherent和Lumentum…"
+        }
+      ]
+    }
+  ]
+}

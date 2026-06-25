@@ -46,10 +46,24 @@
   "certainty_note": "AI算力需求刚性，上游材料供给刚性且技术门槛高，短期内难以替代。",
   "framework_updated": "2026-06-24 21:30",
   "created": "2026-06-24 21:30",
-  "latest_status": "首次纳入跟踪",
-  "latest_heat": 90,
-  "last_tracked": "2026-06-24",
+  "latest_status": "需求激增，产能紧张",
+  "latest_heat": 80,
+  "last_tracked": "2026-06-25",
   "timeline": [
+    {
+      "date": "2026-06-25",
+      "catalyst": "AMD正在洽谈高功率CW激光芯片与外部激光光源采购合作，AAOI有望成为其核心合作方。",
+      "data_point": "AAOI光通信产能已全部被预定，800G/1.6T产能规划年底可达65万颗，明年底最低93万颗。",
+      "status": "需求激增，产能紧张",
+      "heat": 80,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-25",
+          "text": "# 🔦AMD 抢夺光通信产能 AA... 🔦AMD 抢夺光通信产能 AAOI 订单迎来急单 🔍产业链消息透露，AMD 近期正在洽谈高功率 CW 激光芯片与外部激…"
+        }
+      ]
+    },
     {
       "date": "2026-06-24",
       "catalyst": "",

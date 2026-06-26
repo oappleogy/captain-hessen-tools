@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-06-26T07:32:25",
-  "data_as_of": "2026-06-25",
-  "data_lag_days": 1,
+  "timestamp": "2026-06-26T21:03:56",
+  "data_as_of": "2026-06-26",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
     "color": "#f97316",
     "level": 3,
     "score": 0.0,
-    "action": "系统显著承压。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统显著承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.09,
+      "score": 0.07,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.03,
+      "score": -0.19,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -150,8 +150,8 @@
   "key_metrics": {
     "extreme_count": 2,
     "vix": {
-      "value": 18.9,
-      "percentile": 76,
+      "value": 20.1,
+      "percentile": 83,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {

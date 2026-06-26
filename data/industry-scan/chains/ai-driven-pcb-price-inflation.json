@@ -1,0 +1,67 @@
+{
+  "id": "ai-driven-pcb-price-inflation",
+  "name": "AI驱动PCB涨价潮",
+  "thesis": "AI需求激增导致PCB核心材料严重缺货，涨价趋势明确且持续时间长，产业链利润空间扩大。",
+  "segments": [
+    "PCB材料",
+    "PCB制造",
+    "CCL"
+  ],
+  "tickers": [
+    {
+      "name": "建滔积层板",
+      "code": "",
+      "role": "CCL供应商"
+    },
+    {
+      "name": "金安国纪",
+      "code": "",
+      "role": "电子布供应商"
+    },
+    {
+      "name": "中国巨石",
+      "code": "",
+      "role": "玻璃纤维供应商"
+    }
+  ],
+  "tracking_signals": [
+    "PCB厂商涨价函发布频率",
+    "CCL价格走势",
+    "7628电子布价格"
+  ],
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 5,
+    "竞争力": 4,
+    "寡头垄断": 3,
+    "确定性": 5
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "兔子",
+    "AI"
+  ],
+  "certainty_note": "AI算力需求刚性，PCB作为基础组件供给刚性，涨价趋势明确。",
+  "framework_updated": "2026-06-26 21:30",
+  "created": "2026-06-26 21:30",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 85,
+  "last_tracked": "2026-06-26",
+  "timeline": [
+    {
+      "date": "2026-06-26",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 85,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-26",
+          "text": "# 🔥【招商电子】从 PCB 涨价... 🔥【招商电子】从 PCB 涨价函看当下 PCB 产业链的投资机会！…"
+        }
+      ]
+    }
+  ]
+}

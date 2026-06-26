@@ -28,9 +28,9 @@
         }
       ],
       "tracking_signals": [
-        "国产AI芯片出货量增长",
+        "国产AI芯片在数据中心市占率提升",
         "先进封装技术突破",
-        "液冷技术应用规模扩大"
+        "液冷技术规模化应用"
       ],
       "stage": "发酵",
       "scores": {
@@ -39,13 +39,13 @@
         "寡头垄断": 3,
         "确定性": 5
       },
-      "score_notes": "AI算力需求持续增长，市场空间巨大；国内企业在AI芯片设计、服务器制造等领域具备一定竞争力，但与国际巨头仍有差距；行业集中度中等，尚未形成绝对寡头；AI算力需求被多系统共需，产业链具备高确定性。",
+      "score_notes": "AI算力需求持续增长，市场空间巨大；国内企业在AI芯片设计、服务器制造等领域具备一定竞争力，但与国际巨头仍有差距；行业集中度中等，尚未形成绝对寡头；AI算力需求被多系统共需，国产替代趋势明确，确定性高。",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "certainty_note": "国产替代趋势明确，工程化与规模化能力逐步提升；AI算力需求持续增长，产业链具备被动嵌入式需求特征。",
-      "framework_updated": "2026-06-25 21:30",
+      "certainty_note": "AI算力需求是全球性趋势，国产替代是政策驱动方向，供给刚性且不可替代，属于AI基础设施核心环节。",
+      "framework_updated": "2026-06-26 21:30",
       "created": "2026-06-18 23:48",
       "latest_status": "预期透支",
       "latest_heat": 70,
@@ -57,31 +57,31 @@
       "thesis": "韬定律提出通过时间缩微提升芯片性能，为国产高端芯片提供新路径。其核心在于逻辑折叠、系统级互联等技术，推动封装、EDA、存储等领域技术革新。",
       "segments": [
         "逻辑折叠技术",
-        "系统级互联",
-        "先进封装",
-        "EDA工具"
+        "先进封装工艺",
+        "EDA工具升级",
+        "系统级互联"
       ],
       "tickers": [
         {
           "name": "华为",
           "code": "",
-          "role": "技术引领者与核心推动者"
+          "role": "韬定律提出者与核心推动者"
         },
         {
           "name": "长电科技",
           "code": "",
-          "role": "先进封装制造"
+          "role": "先进封装工艺供应商"
         },
         {
           "name": "华大九天",
           "code": "",
-          "role": "EDA工具开发"
+          "role": "EDA工具供应商"
         }
       ],
       "tracking_signals": [
         "逻辑折叠技术商用进展",
         "国产混合键合设备研发突破",
-        "EDA工具对三维堆叠支持情况"
+        "EDA工具对3D堆叠支持情况"
       ],
       "stage": "发酵",
       "scores": {
@@ -90,13 +90,13 @@
         "寡头垄断": 3,
         "确定性": 4
       },
-      "score_notes": "该技术路线为国产高端芯片提供新方向，市场空间广阔；华为具备技术引领能力，但产业链其他环节仍需突破；先进封装、EDA等领域竞争激烈，集中度较低；AI算力需求增长背景下，产业链具备较高确定性。",
+      "score_notes": "韬定律为国产高端芯片提供新路径，市场空间广阔；华为在技术研发和产业链整合方面具备优势，但其他环节仍需突破；行业集中度较低，尚未形成绝对主导；AI算力需求驱动下，逻辑折叠等新技术应用前景明确。",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "certainty_note": "国产替代需求推动技术革新；AI算力需求增长对芯片性能提出更高要求，韬定律提供了一种可行的解决方案。",
-      "framework_updated": "2026-06-25 21:30",
+      "certainty_note": "AI算力需求增长是全球趋势，国产高端芯片突破是政策重点支持方向，韬定律技术路径具备一定不可替代性。",
+      "framework_updated": "2026-06-26 21:30",
       "created": "2026-06-18 23:48",
       "latest_status": "催化增强",
       "latest_heat": 85,
@@ -105,34 +105,34 @@
     {
       "id": "kyber-optical-communication",
       "name": "Kyber架构/光通信产业链",
-      "thesis": "随着AI数据中心和高速网络需求增长，光通信技术成为关键基础设施。Kyber架构通过CPO等技术提升光通信效率，推动产业链向高密度、低功耗方向发展。",
+      "thesis": "随着AI数据中心和高速网络需求增长，光通信技术成为关键基础设施。Kyber架构通过CPO等技术提升光通信效率，推动产业链技术革新。",
       "segments": [
         "CPO技术",
         "硅光子芯片",
         "光引擎制造",
-        "光模块封装"
+        "高速光模块"
       ],
       "tickers": [
         {
           "name": "炬光科技",
           "code": "",
-          "role": "微光学器件核心供应商"
+          "role": "微光学结构件核心供应商"
         },
         {
           "name": "台积电",
           "code": "",
-          "role": "CPO代工与硅光子集成"
+          "role": "CPO代工与硅光子集成平台主导者"
         },
         {
           "name": "英伟达",
           "code": "",
-          "role": "CPO交换机设计与应用"
+          "role": "CPO交换机核心客户与推动者"
         }
       ],
       "tracking_signals": [
         "CPO交换机出货量增长",
         "硅光子芯片良率提升",
-        "光引擎制造工艺突破"
+        "光引擎技术迭代"
       ],
       "stage": "兑现中",
       "scores": {
@@ -141,14 +141,14 @@
         "寡头垄断": 4,
         "确定性": 5
       },
-      "score_notes": "AI算力需求驱动光通信市场快速增长；CPO技术壁垒高，产业链集中度较高；炬光科技等国内企业在微光学器件领域具备竞争力；AI数据中心建设对光通信需求刚性，确定性高。",
+      "score_notes": "AI算力需求驱动光通信市场快速增长，CPO等新技术应用前景广阔；台积电、英伟达等巨头主导产业链，寡头垄断趋势明显；AI数据中心建设需求刚性，光通信技术升级趋势明确。",
       "certainty_drivers": [
         "鹰酱",
         "兔子",
         "AI"
       ],
-      "certainty_note": "AI算力需求增长对光通信提出更高要求；中美两国在AI领域竞争激烈，光通信作为基础设施被多系统共需。",
-      "framework_updated": "2026-06-25 21:30",
+      "certainty_note": "AI算力需求是全球性趋势，光通信技术是AI基础设施核心环节，供给刚性且不可替代。",
+      "framework_updated": "2026-06-26 21:30",
       "created": "2026-06-18 23:48",
       "latest_status": "数据兑现",
       "latest_heat": 80,
@@ -161,29 +161,24 @@
       "segments": [
         "液冷散热系统",
         "冷却液材料",
-        "液冷服务器制造"
+        "热管理芯片"
       ],
       "tickers": [
         {
-          "name": "华为",
+          "name": "曙光数创",
           "code": "",
-          "role": "液冷服务器设计与制造"
+          "role": "液冷散热系统供应商"
         },
         {
-          "name": "英伟达",
+          "name": "巨化股份",
           "code": "",
-          "role": "液冷技术应用与推广"
-        },
-        {
-          "name": "3M",
-          "code": "",
-          "role": "冷却液材料研发与供应"
+          "role": "冷却液材料供应商"
         }
       ],
       "tracking_signals": [
         "液冷服务器出货量增长",
         "冷却液材料研发进展",
-        "液冷技术标准化进程"
+        "热管理芯片技术突破"
       ],
       "stage": "发酵",
       "scores": {
@@ -192,17 +187,17 @@
         "寡头垄断": 3,
         "确定性": 5
       },
-      "score_notes": "AI算力需求增长推动液冷技术应用，市场空间巨大；液冷技术壁垒较高，但国内企业在部分环节具备竞争力；行业集中度中等；AI算力需求增长背景下，液冷技术需求刚性，确定性高。",
+      "score_notes": "AI服务器需求增长带动液冷技术市场空间巨大；国内企业在液冷散热系统、冷却液材料等领域具备一定竞争力，但核心技术仍需突破；行业集中度中等，尚未形成绝对主导；AI算力需求驱动下，液冷技术应用前景明确。",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "certainty_note": "AI算力需求增长对散热提出更高要求；液冷技术作为高效散热方案，被AI算力基础设施领域广泛采用。",
-      "framework_updated": "2026-06-25 21:30",
+      "certainty_note": "AI算力需求增长是全球趋势，液冷技术是解决高密度计算散热问题的关键方案，供给刚性且不可替代。",
+      "framework_updated": "2026-06-26 21:30",
       "created": "2026-06-19 09:27",
-      "latest_status": "催化增强，业绩落地",
+      "latest_status": "催化增强",
       "latest_heat": 85,
-      "last_tracked": "2026-06-25"
+      "last_tracked": "2026-06-26"
     },
     {
       "id": "semiconductor-clean-process-chain",
@@ -392,9 +387,9 @@
       ],
       "framework_updated": "2026-06-23 13:47",
       "created": "2026-06-23 13:47",
-      "latest_status": "预期透支",
-      "latest_heat": 70,
-      "last_tracked": "2026-06-22"
+      "latest_status": "数据兑现",
+      "latest_heat": 80,
+      "last_tracked": "2026-06-26"
     },
     {
       "id": "advanced-packaging-materials",
@@ -448,9 +443,9 @@
       ],
       "framework_updated": "2026-06-23 13:48",
       "created": "2026-06-23 13:48",
-      "latest_status": "数据兑现",
-      "latest_heat": 70,
-      "last_tracked": "2026-06-23"
+      "latest_status": "催化增强",
+      "latest_heat": 75,
+      "last_tracked": "2026-06-26"
     },
     {
       "id": "japan-semiconductor-export-controls",
@@ -503,8 +498,8 @@
       "framework_updated": "2026-06-23 21:30",
       "created": "2026-06-23 21:30",
       "latest_status": "催化增强",
-      "latest_heat": 75,
-      "last_tracked": "2026-06-24"
+      "latest_heat": 90,
+      "last_tracked": "2026-06-26"
     },
     {
       "id": "hbm-memory-market",
@@ -641,7 +636,61 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 65,
       "last_tracked": "2026-06-25"
+    },
+    {
+      "id": "ai-driven-pcb-price-inflation",
+      "name": "AI驱动PCB涨价潮",
+      "thesis": "AI需求激增导致PCB核心材料严重缺货，涨价趋势明确且持续时间长，产业链利润空间扩大。",
+      "segments": [
+        "PCB材料",
+        "PCB制造",
+        "CCL"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 5
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-06-26 21:30",
+      "created": "2026-06-26 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 85,
+      "last_tracked": "2026-06-26"
+    },
+    {
+      "id": "glass-substrate-packaging",
+      "name": "玻璃基板封装技术",
+      "thesis": "玻璃基板技术成熟后有望全面替代现有PCB电子布+树脂方案，在AI算力芯片封装中具备性能优势，市场空间巨大。",
+      "segments": [
+        "玻璃芯基板",
+        "CoWoP封装",
+        "TGV激光"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-06-26 21:30",
+      "created": "2026-06-26 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 80,
+      "last_tracked": "2026-06-26"
     }
   ],
-  "updated": "2026-06-25 21:30"
+  "updated": "2026-06-26 21:30"
 }

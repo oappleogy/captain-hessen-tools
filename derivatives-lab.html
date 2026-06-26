@@ -100,6 +100,7 @@
   <a data-tab="buffer">④ Buffer 缓冲</a>
   <a data-tab="inverse">⑤ 反向 ETF</a>
   <a data-tab="cta">⑥ CTA 趋势策略</a>
+  <a data-tab="design">⑦ 产品设计拆解</a>
 </nav>
 
 <!-- ===== OVERVIEW ===== -->
@@ -311,9 +312,84 @@
   <div class="when"><div class="ok"><strong class="good">✓ 价值</strong>：作为组合里 10–20% 的<em>分散器/危机保险</em>，对冲股债同跌；长期持有、再平衡。</div><div class="no"><strong class="bad">✗ 误区</strong>：当成"高收益主仓"、追着好年份买、震荡年扛不住就割。它考验的是纪律不是择时。</div></div>
 </section>
 
+<!-- ===== ⑦ PRODUCT DESIGN ===== -->
+<section class="page" id="page-design">
+  <h2>⑦ 产品设计拆解 <span class="tag calm">工程视角</span></h2>
+  <p class="hook">给有金融工程基础的你：每个零售结构化产品 = 一篮子<em>香草期权</em>的静态或动态复制。看穿复制组合，你就从"买方"站到了<em>发行方/做市商</em>那一侧——知道每个卖点是用哪条腿做出来的、谁在为它埋单。</p>
+
+  <h3>拆解四步法</h3>
+  <div class="card"><table style="margin:0">
+    <tr><th>步</th><th>问题</th><th>看什么</th></tr>
+    <tr><td class="mono acc">1 损益</td><td>到期/每日的回报曲线长什么样？</td><td class="dimc">画 payoff diagram，找<strong>拐点（kink）</strong></td></tr>
+    <tr><td class="mono acc">2 拆腿</td><td>哪些香草期权叠加出这条曲线？</td><td class="dimc">每个 kink = 一个行权价；斜率变化 = 多/空一张</td></tr>
+    <tr><td class="mono acc">3 希腊</td><td>这个组合在做多还是做空波动率？</td><td class="dimc">看净 <strong>Γ/Vega/Θ</strong> 符号——收益从哪来</td></tr>
+    <tr><td class="mono acc">4 经济</td><td>发行方靠什么赚钱、把什么风险转给你？</td><td class="dimc">费率 + 买卖价差 + 波动率风险溢价</td></tr>
+  </table></div>
+
+  <h3>六类产品的复制组合（一张表看穿）</h3>
+  <div class="card"><table style="margin:0">
+    <tr><th>产品</th><th>≈ 复制组合（腿）</th><th>净希腊/本质</th><th>发行方在卖什么</th></tr>
+    <tr><td><strong>杠杆 ETF</strong></td><td class="mono">每日再平衡的 L× 互换<br>= 动态保持 βᵈᵃⁱˡʸ=L</td><td class="bad">短 Γ（买高卖低）<br>路径依赖</td><td class="dimc">融资利差 + 管理费</td></tr>
+    <tr><td><strong>备兑收益</strong></td><td class="mono">+标的 −OTM call<br>(= −put，按 put-call 平价)</td><td class="bad">短 Γ / 短 Vega<br>收 Θ</td><td class="dimc">把<em>波动率风险溢价</em>派给你<br>抽管理费</td></tr>
+    <tr><td><strong>YieldMax</strong></td><td class="mono">合成多头(+ATM call −ATM put)<br>−OTM call，权利金全派出</td><td class="bad">短 Γ + 高 Θ<br>派息常含 ROC</td><td class="dimc">单股高 IV 的<br>vol 溢价 + 高费率</td></tr>
+    <tr><td><strong>Buffer</strong></td><td class="mono">+标的 +长 put 价差(缓冲)<br>−OTM call(封顶) ＝ 领口变体</td><td class="warn">长下行保护<br>短上行 + 短 Vega</td><td class="dimc">用<em>封顶卖出的权利金</em><br>给你买保护，赚差额</td></tr>
+    <tr><td><strong>反向 ETF</strong></td><td class="mono">每日再平衡的 −L× 互换</td><td class="bad">短 Γ + 短漂移</td><td class="dimc">融资利差 + 费</td></tr>
+    <tr><td><strong>CTA 趋势</strong></td><td class="mono">动态复制 ≈ <em>长跨式/长 straddle</em><br>(截断亏损、放任盈利)</td><td class="good">合成长 Γ<br>正偏度</td><td class="dimc">(真策略)赚趋势<br>付震荡市的"时间价值"</td></tr>
+  </table></div>
+  <p class="kv">读法：① ② ③ ④ ⑤ 的净 Γ 大多是<span class="bad">负的</span>——它们在<em>卖波动率/卖凸性</em>，平时收 Θ、出事被 Γ 反噬。只有 <span class="good">⑥ CTA 是长凸性</span>，平时漏 Θ、危机赚 Γ。<strong>"高分红/高收益"产品 ≈ 把你变成保险公司：平时收保费，巨灾年赔穿。</strong></p>
+
+  <h3>结构守恒律 · 不可能三角</h3>
+  <p>任何"自融资"结构里，<strong>① 当下现金流 ／ ② 上涨参与 ／ ③ 下跌保护</strong>三者最多占两个，第三个就是你付的价。这不是营销话术，是 put-call 平价的直接推论——每多要一项，必从另一项的期权价值里扣。</p>
+  <div class="when" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="no"><strong class="gold">备兑/YieldMax</strong><br>要 ①现金流 + ②上涨(部分)<br><span class="bad">→ 牺牲 ③保护</span></div>
+    <div class="no"><strong class="gold">Buffer</strong><br>要 ②上涨(封顶) + ③保护<br><span class="bad">→ 牺牲 ①分红 + 封顶</span></div>
+    <div class="ok"><strong class="gold">领口(零成本)</strong><br>要 ②参与 + ③保护<br><span class="warn">→ 牺牲两端极值</span></div>
+  </div>
+
+  <h3>亲手搭：把产品拆成腿</h3>
+  <p>选一个结构，看它的<strong>净到期损益</strong>（粗紫线）怎么由几条<em>香草腿</em>（细线）叠加而成。拖滑块改行权价，体会"封顶的权利金 → 资助缓冲"这类<strong>资金守恒</strong>。注意区分 <span class="acc">Buffer（先吸收前 N%）</span> vs <span class="acc">领口（地板封死、之间线性）</span>——两者差一条腿的位置。</p>
+  <div class="sim" data-sim="compose">
+    <div class="presets">
+      <button data-p="cc">备兑(短Call)</button><button data-p="buffer">Buffer 缓冲</button>
+      <button data-p="collar">零成本领口</button><button data-p="synth">合成多头(平价)</button><button data-p="bull">牛市价差</button>
+    </div>
+    <div class="legend" data-legs></div>
+    <canvas></canvas>
+    <div class="stats">
+      <div class="stat"><div class="k">结构</div><div class="v" data-o="name" style="font-size:15px">—</div></div>
+      <div class="stat"><div class="k">指数 −25% 时</div><div class="v" data-o="d25">—</div></div>
+      <div class="stat"><div class="k">指数 +25% 时</div><div class="v" data-o="u25">—</div></div>
+      <div class="stat"><div class="k">净 Vega(卖/买波动)</div><div class="v" data-o="vega" style="font-size:15px">—</div></div>
+    </div>
+    <div class="controls">
+      <div class="ctrl"><label>上行封顶/Call 行权 <b data-v="cap">12%</b></label><input type="range" data-c="cap" min="3" max="40" value="12"></div>
+      <div class="ctrl"><label>下行保护/Put 行权 <b data-v="floor">15%</b></label><input type="range" data-c="floor" min="3" max="40" value="15"></div>
+    </div>
+  </div>
+
+  <h3>两个值得记住的闭式结论</h3>
+  <div class="card"><p style="margin:0 0 6px"><strong class="acc">① 杠杆 ETF 的波动损耗</strong>（连续近似）：</p>
+    <p class="mono" style="margin:0;color:var(--gold)">E[ln R<sub>L</sub>] ≈ L·μ·T − ½·L²·σ²·T &nbsp;⇒&nbsp; 相对 L 倍标的多漏 ½·L(L−1)·σ²·T</p>
+    <p style="margin:8px 0 0" class="dimc">σ=日波动年化 50%、L=2、T=1：漏 ≈ ½·2·1·0.25 = <span class="bad">12.5%/年</span>，与方向无关，纯粹被"每日再平衡=短 Γ"吃掉。反向（L=−1）也漏 ½·(−1)(−2)σ²T，照样负。</p>
+  </div>
+  <div class="card"><p style="margin:0 0 6px"><strong class="acc">② "高分红"的会计真相（ROC）</strong>：</p>
+    <p class="mono" style="margin:0;color:var(--gold)">派息 = min(已实现期权收入, 标称分红率×NAV)；不足部分 = Return of Capital = 退你自己的本金</p>
+    <p style="margin:8px 0 0" class="dimc">所以"年化 80%"≠ 赚了 80%。NAV 阴跌 + 高派息 = <strong>左手倒右手</strong>，税表上 ROC 还降低你的成本基础（递延税，不是免税）。判断真假高息：看<em>含分红总回报</em> vs 直接持股，别看分红率。</p>
+  </div>
+
+  <h3>发行方为什么爱发这些</h3>
+  <ul>
+    <li><strong>波动率风险溢价（VRP）</strong>：隐含波动率长期 > 已实现波动率，<em>卖期权方</em>有统计正期望。备兑/YieldMax 把这个溢价包装成"分红"派给你，发行方抽走费率+价差。</li>
+    <li><strong>费率叠管理规模（AUM）</strong>：0.9%–1.3% 的费率，挂在你的本金上复利收取，与产品表现无关——发行方的确定性收入。</li>
+    <li><strong>对冲不完美 = 价差收入</strong>：发行方做市这些期权腿，吃买卖价差；散户单边买入，价差是稳定提成。</li>
+    <li><strong>税务/心理包装</strong>：把"卖出上涨期权"重命名为"高分红"、把"退本金"叫"月月派息"——同样的现金流，换个标签就能多卖几倍 AUM。</li>
+  </ul>
+  <div class="when"><div class="ok"><strong class="good">✓ 工程视角的用法</strong>：想要某个 payoff，先问"我能不能用 2–3 张香草期权自己搭，省掉 1%/年费率 + ROC 税务噪音？"——很多时候能。</div><div class="no"><strong class="bad">✗ 别犯的错</strong>：把"分红率/杠杆倍数"当收益。它们是<em>结构参数</em>，不是<em>预期回报</em>。回报由净希腊字母和路径决定。</div></div>
+</section>
+
 <div class="foot">
-  <p><strong>一句话：</strong>前五类的卖点在<em>标签</em>、账单在<em>机制</em>，大多是短线/战术工具，被当长期持仓时最伤人；CTA 是其中唯一的"真策略"，难点在反人性的持有纪律。看懂机制 + 看过真实案例，你就从"被标签吸引"，变成"知道自己在为什么付费"。</p>
-  <p class="kv">tools.basealpha.ai · 结构化产品学习实验室 · 更新于 2026-06-25 · 教学示意，非投资建议 · 黑森船长</p>
+  <p><strong>一句话：</strong>前五类的卖点在<em>标签</em>、账单在<em>机制</em>，大多是短线/战术工具，被当长期持仓时最伤人；CTA 是其中唯一的"真策略"，难点在反人性的持有纪律。<strong>第⑦页从工程视角看穿它们</strong>：每个产品都是期权乐高，守恒律决定你为每个卖点付什么价。看懂机制 + 看过真实案例 + 会拆复制组合，你就从"被标签吸引"，变成"知道自己在为什么付费"，甚至"自己搭更省"。</p>
+  <p class="kv">tools.basealpha.ai · 结构化产品学习实验室 · 更新于 2026-06-26（新增⑦产品设计拆解）· 教学示意，非投资建议 · 黑森船长</p>
   <p class="kv">案例数据来源：<a href="https://stockanalysis.com/etf/jepq/" target="_blank">stockanalysis(JEPQ/QQQ)</a> · TQQQ 2022 −79%(ProShares/各源) · <a href="https://etfdb.com/etf/DBMF/" target="_blank">DBMF 2022 +21.5%</a></p>
 </div>
 </div>
@@ -460,10 +536,72 @@
     },{trend:{vol:11,drift:14,days:160,ma:25},chop:{vol:22,drift:0,days:160,ma:25},crisis:{vol:18,drift:-16,days:160,ma:25}},'trend');
   })();
 
+  // ⑦ payoff composer
+  (function(){const root=document.querySelector('[data-sim="compose"]');if(!root)return;
+    const G='#9a98a4',GR='#6ee7a8',RD='#f06868',PU='#a78bfa';
+    function build(cap,flr){
+      const c=cap,f=flr;
+      const P={
+        cc:{name:'备兑 (covered call)',vega:'短 Vega · 卖波动',
+          legs:[{n:'+标的',c:G,fn:x=>x},{n:'−OTM call',c:RD,fn:x=>-Math.max(x-c,0)}],
+          net:x=>Math.min(x,c)},
+        buffer:{name:'Buffer 缓冲',vega:'净短 Vega',
+          legs:[{n:'+标的',c:G,fn:x=>x},{n:'+put价差(缓冲)',c:GR,fn:x=>Math.min(Math.max(-x,0),f)},{n:'−call(封顶)',c:RD,fn:x=>-Math.max(x-c,0)}],
+          net:x=>x+Math.min(Math.max(-x,0),f)-Math.max(x-c,0)},
+        collar:{name:'零成本领口 (collar)',vega:'近中性',
+          legs:[{n:'+标的',c:G,fn:x=>x},{n:'+保护性put',c:GR,fn:x=>Math.max(-f-x,0)},{n:'−call',c:RD,fn:x=>-Math.max(x-c,0)}],
+          net:x=>Math.max(Math.min(x,c),-f)},
+        synth:{name:'合成多头 (put-call 平价)',vega:'中性 · 复制标的',
+          legs:[{n:'+call(0)',c:GR,fn:x=>Math.max(x,0)},{n:'−put(0)',c:RD,fn:x=>Math.min(x,0)}],
+          net:x=>x},
+        bull:{name:'牛市价差 (call spread)',vega:'轻短 Vega',
+          legs:[{n:'+call(0)',c:GR,fn:x=>Math.max(x,0)},{n:'−call(封顶)',c:RD,fn:x=>-Math.max(x-c,0)}],
+          net:x=>Math.min(Math.max(x,0),c)}};
+      return P;
+    }
+    let cur='cc';
+    function run(s){const V=k=>+s.get(k).value;const cap=V('cap')/100,flr=V('floor')/100;
+      s.vlab('cap').textContent=V('cap')+'%';s.vlab('floor').textContent=V('floor')+'%';
+      const P=build(cap,flr),cfg=P[cur];
+      const {w,h,ctx}=fitCanvas(s.cv);ctx.clearRect(0,0,w,h);
+      const xmin=-0.40,xmax=0.40;
+      let ys=[];for(let x=xmin;x<=xmax+1e-9;x+=0.01){ys.push(cfg.net(x));cfg.legs.forEach(L=>ys.push(L.fn(x)));ys.push(x);}
+      let lo=Math.min(...ys),hi=Math.max(...ys);const pd=(hi-lo)*0.1;lo-=pd;hi+=pd;
+      const pL=34*DPR,pR=10*DPR,pT=12*DPR,pB=22*DPR;
+      const X=x=>pL+(w-pL-pR)*(x-xmin)/(xmax-xmin),Y=y=>pT+(h-pT-pB)*(1-(y-lo)/(hi-lo));
+      ctx.strokeStyle='#272736';ctx.lineWidth=DPR;
+      ctx.beginPath();ctx.moveTo(pL,Y(0));ctx.lineTo(w-pR,Y(0));ctx.stroke();
+      ctx.beginPath();ctx.moveTo(X(0),pT);ctx.lineTo(X(0),h-pB);ctx.stroke();
+      ctx.fillStyle='#6b6976';ctx.font=(11*DPR)+'px monospace';ctx.fillText('指数',(w-pR-30*DPR),Y(0)-4*DPR);
+      // 各腿(细线)
+      cfg.legs.forEach(L=>{ctx.strokeStyle=L.c;ctx.globalAlpha=.45;ctx.lineWidth=1.3*DPR;ctx.beginPath();let fst=true;
+        for(let x=xmin;x<=xmax+1e-9;x+=0.005){const px=X(x),py=Y(L.fn(x));fst?(ctx.moveTo(px,py),fst=false):ctx.lineTo(px,py);}ctx.stroke();});
+      ctx.globalAlpha=1;
+      // 净损益(粗紫)
+      ctx.strokeStyle=PU;ctx.lineWidth=2.7*DPR;ctx.beginPath();let fst=true;
+      for(let x=xmin;x<=xmax+1e-9;x+=0.004){const px=X(x),py=Y(cfg.net(x));fst?(ctx.moveTo(px,py),fst=false):ctx.lineTo(px,py);}ctx.stroke();
+      // legend
+      const lg=root.querySelector('[data-legs]');
+      lg.innerHTML='<span><i style="background:'+PU+'"></i>净到期损益</span>'+cfg.legs.map(L=>'<span><i style="background:'+L.c+';opacity:.55"></i>'+L.n+'</span>').join('');
+      // stats
+      s.out('name').textContent=cfg.name;s.out('name').style.color='var(--acc)'.replace('acc','--accent');s.out('name').style.color='var(--accent)';
+      const d=cfg.net(-0.25)*100,u=cfg.net(0.25)*100;
+      s.out('d25').textContent=fmt(d);setColor(s.out('d25'),d);
+      s.out('u25').textContent=fmt(u);setColor(s.out('u25'),u);
+      s.out('vega').textContent=cfg.vega;s.out('vega').style.color=cfg.vega.indexOf('短')>=0?'var(--bad)':(cfg.vega.indexOf('中')>=0?'var(--dim)':'var(--good)');
+    }
+    // 拦截 preset 点击改 cur(本 sim 的 preset 不是改控件值,而是切结构)
+    root.querySelector('.presets').addEventListener('click',e=>{if(e.target.dataset.p){cur=e.target.dataset.p;
+      root.querySelectorAll('.presets button').forEach(b=>b.classList.toggle('active',b.dataset.p===cur));
+      if(SIMS.compose)SIMS.compose.update();}});
+    wire('compose',root,run,{},null);
+    root.querySelectorAll('.presets button')[0].classList.add('active');
+  })();
+
   // ===== tab switching =====
   const nav=document.getElementById('nav');
   const links=[...nav.querySelectorAll('a')];
-  const simByTab={leverage:'lev',covered:'cc',yieldmax:'ym',buffer:'buf',cta:'cta'};
+  const simByTab={leverage:'lev',covered:'cc',yieldmax:'ym',buffer:'buf',cta:'cta',design:'compose'};
   function show(tab){
     links.forEach(a=>a.classList.toggle('active',a.dataset.tab===tab));
     document.querySelectorAll('.page').forEach(p=>p.classList.toggle('show',p.id==='page-'+tab));

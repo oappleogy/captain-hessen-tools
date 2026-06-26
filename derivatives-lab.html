@@ -100,7 +100,7 @@
   <a data-tab="buffer">④ Buffer 缓冲</a>
   <a data-tab="inverse">⑤ 反向 ETF</a>
   <a data-tab="cta">⑥ CTA 趋势策略</a>
-  <a data-tab="design">⑦ 产品设计拆解</a>
+  <a data-tab="design">⑦ 设计方法 · 搭积木</a>
 </nav>
 
 <!-- ===== OVERVIEW ===== -->
@@ -166,6 +166,12 @@
     <p style="margin-top:0"><strong>TQQQ</strong>（3x 纳指）2022 全年 <span class="bad">−79%</span>，同期纳指100只跌了约 <span class="warn">−33%</span>。</p>
     <p>关键不在"−79% 比 −33% 多亏"，而在<strong>恢复的不对称</strong>：纳指从 −33% 回本只需 <span class="good">+49%</span>；而 TQQQ 从 −79% 回本需要 <span class="bad">+376%</span>。<em>所以哪怕纳指 2023 全部涨回来，TQQQ 持有者也远远回不了本。</em>这就是"在下跌+高波动的年份长期持有杠杆 ETF"的真实代价——不是某天亏多少，是<strong>把你永久踢出复利游戏</strong>。</p>
   </div>
+  <h3>🔧 设计拆解</h3>
+  <div class="card">
+    <p style="margin-top:0"><strong>复制组合</strong>：每天收盘把当日 β 拉回 L × <span class="mono">总收益互换</span>（对手方=投行）。这是<em>动态</em>复制——涨了加仓（买高）、跌了减仓（卖低），天生<strong class="bad">短 Γ</strong>，路径越颠簸越亏。</p>
+    <p><strong>净希腊</strong>：短 Γ（凸性为负）、路径依赖。<strong>发行方经济学</strong>：赚融资利差 + 0.95–1.15%/年费率，方向风险经互换转嫁出去。</p>
+    <p style="margin-bottom:0"><strong class="acc">闭式波动损耗</strong>（连续近似）：<br><span class="mono" style="color:var(--gold)">E[ln R<sub>L</sub>] ≈ L·μ·T − ½·L²·σ²·T &nbsp;⇒&nbsp; 比 L 倍标的多漏 ½·L(L−1)·σ²·T</span><br><span class="dimc">σ年化50%、L=2、T=1：漏 ≈ ½·2·1·0.25 = <span class="bad">12.5%/年</span>，与方向无关——正是上面模拟器"损耗"栏的解析来源。</span></p>
+  </div>
   <div class="when"><div class="ok"><strong class="good">✓ 能用</strong>：方向+时机都有强信念的短线（数小时~数天）。</div><div class="no"><strong class="bad">✗ 绝不</strong>：买入持有。损耗+6%+年成本+恢复不对称会绞杀你。</div></div>
 </section>
 
@@ -197,6 +203,11 @@
     <h3>📖 案例复盘：JEPQ vs QQQ（近一年，截至 2026-06）</h3>
     <p style="margin-top:0">JEPQ 标称分红率约 <span class="gold">10%</span>，听着很香。但把"含分红总回报"摆出来：<br>过去一年 <strong>QQQ +35.5%</strong>，<strong>JEPQ 只有 +26.0%</strong>——<span class="warn">少赚约 9.5 个百分点</span>。</p>
     <p>你拿了 10% 现金流，代价是<em>少赚的 9.5% 涨幅</em>。这正是模拟器里"大牛市"那一档：牛越猛，备兑越显得"亏"。<strong>它不是更差的产品，是不同的产品</strong>——给要现金流的人，不给要总回报的人。（JEPQ 同期还完胜姊妹基金 JEPI +8.4%，因为纳指强于标普；反过来熊市它也会比 JEPI 跌得多。）</p>
+  </div>
+  <h3>🔧 设计拆解</h3>
+  <div class="card">
+    <p style="margin-top:0"><strong>复制组合</strong>：<span class="mono">+标的 − OTM call</span>。按 put-call 平价，它等价于 <span class="mono">−1 张 OTM put + 现金</span>——所以备兑本质是<strong class="bad">卖出波动率 / 卖下行保险</strong>。到期 payoff = <span class="mono">min(S<sub>T</sub>, K) + 权利金</span>。</p>
+    <p style="margin-bottom:0"><strong>净希腊</strong>：短 Γ、短 Vega，平时<strong>收 Θ</strong>。收益本源 = <strong class="acc">波动率风险溢价（IV 长期 > RV）</strong>。<strong>发行方</strong>：把这份 VRP 重命名为"月月分红"派给你，再抽费率 + 期权买卖价差。<em>牛市大涨你被封顶 = 卖出的 call 被行权，"少赚"的那块就是你这个保险公司的赔付。</em></p>
   </div>
   <div class="when"><div class="ok"><strong class="good">✓ 适合</strong>：要稳定现金流、能接受跑输大盘（退休、收益组合）。</div><div class="no"><strong class="bad">✗ 不适合</strong>：还在做大本金、追求总回报的积累期。</div></div>
 </section>
@@ -230,6 +241,11 @@
     <p style="margin-top:0">TSLY 标称分红率长期挂着 <span class="gold">50%–80%+</span>，是社交媒体上的"现金奶牛"明星。但两件事同时发生：<span class="bad">①基金净值/股价持续阴跌；②TSLA 在上涨的年份里，直接持有 TSLA 的总回报远远甩开 TSLY</span>。</p>
     <p>原因正是模拟器里"股票上涨/下跌"两档的叠加：备兑结构<em>封掉了 TSLA 的暴涨</em>（TSLA 一个月能涨 30%，你只分到封顶那点），而高额分红又<em>不断从净值里抽血</em>。"年化 80%"的标签下，很多人拿到手的是<strong>本金切片 + 错过的上涨</strong>。把它当"高息存款"的人，亏得最惨。</p>
   </div>
+  <h3>🔧 设计拆解</h3>
+  <div class="card">
+    <p style="margin-top:0"><strong>复制组合</strong>：<span class="mono">合成多头(+ATM call − ATM put ≈ 标的) − OTM call</span>，把权利金<em>几乎全额</em>按月派出。本质=单股版超高波动备兑；净希腊 短 Γ + 高 Θ。专挑 TSLA/NVDA/MSTR，正因它们 IV 极高=权利金极厚。</p>
+    <p style="margin-bottom:0"><strong class="acc">"高分红"的会计真相（ROC）</strong>：<br><span class="mono" style="color:var(--gold)">派息 = min(已实现期权收入, 标称率×NAV)；不足部分 = Return of Capital = 退你本金</span><br><span class="dimc">"年化 80%"≠ 赚 80%。NAV 阴跌 + 高派息 = 左手倒右手；ROC 还在税表上压低你的成本基础（递延税，非免税）。<strong>判断真假高息只看一件事：含分红总回报 vs 直接持股</strong>，别看分红率。</span></p>
+  </div>
   <div class="when"><div class="ok"><strong class="good">✓ 极窄</strong>：本就长期看好该股、只用小仓换现金流、且清楚净值会跌。</div><div class="no"><strong class="bad">✗ 千万别</strong>：冲"100% 年化"去买、当被动收息机、当存款替代。</div></div>
 </section>
 
@@ -257,6 +273,11 @@
     <p style="margin-top:0">假设 2023 年初买入、持有到期一年。标普 2023 含分红涨了约 <span class="good">+26%</span>。你的 Buffer ETF 到期回报 = <strong class="warn">封顶 +12%</strong>（外加你<em>放弃了约 1.5% 的分红</em>）。<span class="bad">你少赚了 14 个百分点</span>，只因为想要那份"用不上的"下跌保护。</p>
     <p>反过来，假如 2022（标普 −18%）你持有它：缓冲扛掉前 15%，你只亏约 <span class="good">−3%</span>，比直接持有少亏 15 个点。<em>结论：Buffer 是"保险"——保险在出事的年份值回票价，在平安的年份就是纯成本。买它前先问：我是在买保护，还是在为不会发生的事付费？</em></p>
   </div>
+  <h3>🔧 设计拆解</h3>
+  <div class="card">
+    <p style="margin-top:0"><strong>复制组合</strong>（≈领口变体）：<span class="mono">+标的 + 长 put 价差（吸收前 N% 下跌）− OTM call（封顶）+ 放弃分红</span>。守恒关键：<strong class="acc">封顶卖 call 收的权利金 + 省下的分红，恰好买那段下行保护的 put 价差</strong>——所以能"零现金成本"，代价全藏在封顶和放弃分红里。</p>
+    <p style="margin-bottom:0"><strong>净希腊</strong>：长下行保护、短上行、净短 Vega。<strong>与"领口"一线之差</strong>：Buffer 是<em>吸收前 N%</em>（−25%→你 −10%），领口是<em>地板封死</em>（−25%→你 −15%，地板以上线性参与）。差别只在 put 那条腿放哪个行权价——去 <span class="acc">第⑦页损益合成器</span>切 Buffer / 领口 两个预设，一眼看穿。</p>
+  </div>
   <div class="when"><div class="ok"><strong class="good">✓ 适合</strong>：临近用钱、怕大跌又不想空仓、能拿满一个周期（通常1年）。</div><div class="no"><strong class="bad">✗ 不适合</strong>：长期复利者、想随时进出的人。</div></div>
 </section>
 
@@ -270,6 +291,11 @@
     <h3>📖 案例复盘：SQQQ 的长期阴跌</h3>
     <p style="margin-top:0"><strong>SQQQ</strong>（−3x 纳指）自 2010 年成立以来，因为纳指长期向上 + 每日重置损耗，价格<span class="bad">跌掉了 99%+</span>，期间做过多次反向拆分（reverse split）才维持票面。<em>哪怕你在某次大跌里短暂赚钱，长期持有它几乎注定归零。</em></p>
     <p>教训：反向 ETF 是<strong>战术对冲工具，不是看空仓位</strong>。看长期大跌，宁可买 put 或直接减仓——长拿反向 ETF，方向看对都会被损耗和反弹磨死。</p>
+  </div>
+  <h3>🔧 设计拆解</h3>
+  <div class="card">
+    <p style="margin-top:0"><strong>复制组合</strong>：每日再平衡的 <span class="mono">−L× 总收益互换</span>。继承正向杠杆全部的<strong class="bad">短 Γ 波动损耗</strong>（½L(L−1)σ²T，L 取负，损耗照样为正），外加一个独有引擎：<strong class="bad">负漂移</strong>——你做空的指数长期 μ>0，时间站你对立面。</p>
+    <p style="margin-bottom:0"><strong>净希腊</strong>：短 Γ + 短漂移（短 μ）。<strong>发行方</strong>：融资利差 + 费。<em>SQQQ 长期归零的两个引擎=损耗 + 负漂移叠乘，方向看对都磨死你。</em>（想直观看：去 ① 模拟器把杠杆设 −1x/−2x、漂移设正值。）</p>
   </div>
   <div class="when"><div class="ok"><strong class="good">✓ 能用</strong>：短线对冲/战术做空（数天内）。</div><div class="no"><strong class="bad">✗ 绝不</strong>：当长期看空仓位攒着——几乎注定亏损。</div></div>
 </section>
@@ -309,13 +335,18 @@
     <p style="margin-top:0">2022 股债双杀，60/40 组合 <span class="bad">−20.75%</span>（几十年最惨之一）。而管理期货龙头 ETF <strong>DBMF（复制 SG CTA 指数）全年 +21.5%</strong>——<span class="good">同一年，多数资产在流血，它在赚钱</span>。原因：通胀+加息让债、股、商品形成了清晰的单边趋势（做空债券、做空股指、做多能源/美元），趋势策略全吃到了。这就是模拟器里"危机下跌"那一档：市场崩，CTA 做空反而赚。</p>
     <p><strong class="warn">但代价在 2023：</strong>3 月硅谷银行事件让利率瞬间急转，把趋势头寸来回打脸（典型 <em>whipsaw</em>），那一年很多趋势基金回吐/小亏。<em>CTA 的"难"就在这——它在 2022 救你命，却可能连着两三年磨你耐心。多数人是在它表现好之后追进去，又在它连亏时割肉离场，刚好两头挨打。</em></p>
   </div>
+  <h3>🔧 设计拆解</h3>
+  <div class="card">
+    <p style="margin-top:0"><strong>复制组合</strong>：动态趋势跟踪的损益 ≈ <strong class="good">合成长跨式（long straddle）</strong>——止损=截断亏损（像买了 put）、让利润奔跑=放任上行（像买了 call）。所以它<em>买凸性</em>、正偏度，与 ①–⑤ 的"卖凸性"正相反。</p>
+    <p style="margin-bottom:0"><strong>净希腊</strong>：合成<strong class="good">长 Γ</strong>。<strong>"成本"在哪</strong>：长跨式要付时间价值——震荡市反复止损=持续漏 Θ（模拟器里的 whipsaw）；趋势/危机年一把赚回（长 Γ 兑现）。<em>它不是"卖保险"，是"买保险"——巨灾年它赔付给你，平时由你交保费。这正是它能对冲前五类的根本：凸性符号相反。</em></p>
+  </div>
   <div class="when"><div class="ok"><strong class="good">✓ 价值</strong>：作为组合里 10–20% 的<em>分散器/危机保险</em>，对冲股债同跌；长期持有、再平衡。</div><div class="no"><strong class="bad">✗ 误区</strong>：当成"高收益主仓"、追着好年份买、震荡年扛不住就割。它考验的是纪律不是择时。</div></div>
 </section>
 
 <!-- ===== ⑦ PRODUCT DESIGN ===== -->
 <section class="page" id="page-design">
-  <h2>⑦ 产品设计拆解 <span class="tag calm">工程视角</span></h2>
-  <p class="hook">给有金融工程基础的你：每个零售结构化产品 = 一篮子<em>香草期权</em>的静态或动态复制。看穿复制组合，你就从"买方"站到了<em>发行方/做市商</em>那一侧——知道每个卖点是用哪条腿做出来的、谁在为它埋单。</p>
+  <h2>⑦ 设计方法 · 搭积木 <span class="tag calm">工程视角</span></h2>
+  <p class="hook">给有金融工程基础的你：每个零售结构化产品 = 一篮子<em>香草期权</em>的静态或动态复制。<strong>各产品的具体拆解在它自己的 tab 里</strong>；这一页是<em>通用方法</em>——四步拆解法、守恒律、和一个能搭出任意结构的损益合成器。</p>
 
   <h3>拆解四步法</h3>
   <div class="card"><table style="margin:0">
@@ -326,17 +357,8 @@
     <tr><td class="mono acc">4 经济</td><td>发行方靠什么赚钱、把什么风险转给你？</td><td class="dimc">费率 + 买卖价差 + 波动率风险溢价</td></tr>
   </table></div>
 
-  <h3>六类产品的复制组合（一张表看穿）</h3>
-  <div class="card"><table style="margin:0">
-    <tr><th>产品</th><th>≈ 复制组合（腿）</th><th>净希腊/本质</th><th>发行方在卖什么</th></tr>
-    <tr><td><strong>杠杆 ETF</strong></td><td class="mono">每日再平衡的 L× 互换<br>= 动态保持 βᵈᵃⁱˡʸ=L</td><td class="bad">短 Γ（买高卖低）<br>路径依赖</td><td class="dimc">融资利差 + 管理费</td></tr>
-    <tr><td><strong>备兑收益</strong></td><td class="mono">+标的 −OTM call<br>(= −put，按 put-call 平价)</td><td class="bad">短 Γ / 短 Vega<br>收 Θ</td><td class="dimc">把<em>波动率风险溢价</em>派给你<br>抽管理费</td></tr>
-    <tr><td><strong>YieldMax</strong></td><td class="mono">合成多头(+ATM call −ATM put)<br>−OTM call，权利金全派出</td><td class="bad">短 Γ + 高 Θ<br>派息常含 ROC</td><td class="dimc">单股高 IV 的<br>vol 溢价 + 高费率</td></tr>
-    <tr><td><strong>Buffer</strong></td><td class="mono">+标的 +长 put 价差(缓冲)<br>−OTM call(封顶) ＝ 领口变体</td><td class="warn">长下行保护<br>短上行 + 短 Vega</td><td class="dimc">用<em>封顶卖出的权利金</em><br>给你买保护，赚差额</td></tr>
-    <tr><td><strong>反向 ETF</strong></td><td class="mono">每日再平衡的 −L× 互换</td><td class="bad">短 Γ + 短漂移</td><td class="dimc">融资利差 + 费</td></tr>
-    <tr><td><strong>CTA 趋势</strong></td><td class="mono">动态复制 ≈ <em>长跨式/长 straddle</em><br>(截断亏损、放任盈利)</td><td class="good">合成长 Γ<br>正偏度</td><td class="dimc">(真策略)赚趋势<br>付震荡市的"时间价值"</td></tr>
-  </table></div>
-  <p class="kv">读法：① ② ③ ④ ⑤ 的净 Γ 大多是<span class="bad">负的</span>——它们在<em>卖波动率/卖凸性</em>，平时收 Θ、出事被 Γ 反噬。只有 <span class="good">⑥ CTA 是长凸性</span>，平时漏 Θ、危机赚 Γ。<strong>"高分红/高收益"产品 ≈ 把你变成保险公司：平时收保费，巨灾年赔穿。</strong></p>
+  <div class="card acc"><p style="margin:0">每个产品<em>具体</em>的复制组合（哪几条腿、净希腊、专属公式、发行方经济学），已经放进它<strong>各自的 tab</strong>——点 ①–⑥ 任意一页，往下翻到「<span class="acc">🔧 设计拆解</span>」一节。本页只留<em>跨产品通用</em>的方法、守恒律和搭积木工具。</p>
+  <p style="margin:10px 0 0" class="kv">一条总规律先记牢：<strong>① ② ③ ④ ⑤ 净 Γ 大多<span class="bad">为负</span>（卖凸性，平时收 Θ、出事被反噬）；只有 <span class="good">⑥ CTA 长凸性</span>。"高分红/高杠杆"产品 ≈ 把你变成保险公司——平时收保费，巨灾年赔穿。</strong></p></div>
 
   <h3>结构守恒律 · 不可能三角</h3>
   <p>任何"自融资"结构里，<strong>① 当下现金流 ／ ② 上涨参与 ／ ③ 下跌保护</strong>三者最多占两个，第三个就是你付的价。这不是营销话术，是 put-call 平价的直接推论——每多要一项，必从另一项的期权价值里扣。</p>
@@ -367,16 +389,6 @@
     </div>
   </div>
 
-  <h3>两个值得记住的闭式结论</h3>
-  <div class="card"><p style="margin:0 0 6px"><strong class="acc">① 杠杆 ETF 的波动损耗</strong>（连续近似）：</p>
-    <p class="mono" style="margin:0;color:var(--gold)">E[ln R<sub>L</sub>] ≈ L·μ·T − ½·L²·σ²·T &nbsp;⇒&nbsp; 相对 L 倍标的多漏 ½·L(L−1)·σ²·T</p>
-    <p style="margin:8px 0 0" class="dimc">σ=日波动年化 50%、L=2、T=1：漏 ≈ ½·2·1·0.25 = <span class="bad">12.5%/年</span>，与方向无关，纯粹被"每日再平衡=短 Γ"吃掉。反向（L=−1）也漏 ½·(−1)(−2)σ²T，照样负。</p>
-  </div>
-  <div class="card"><p style="margin:0 0 6px"><strong class="acc">② "高分红"的会计真相（ROC）</strong>：</p>
-    <p class="mono" style="margin:0;color:var(--gold)">派息 = min(已实现期权收入, 标称分红率×NAV)；不足部分 = Return of Capital = 退你自己的本金</p>
-    <p style="margin:8px 0 0" class="dimc">所以"年化 80%"≠ 赚了 80%。NAV 阴跌 + 高派息 = <strong>左手倒右手</strong>，税表上 ROC 还降低你的成本基础（递延税，不是免税）。判断真假高息：看<em>含分红总回报</em> vs 直接持股，别看分红率。</p>
-  </div>
-
   <h3>发行方为什么爱发这些</h3>
   <ul>
     <li><strong>波动率风险溢价（VRP）</strong>：隐含波动率长期 > 已实现波动率，<em>卖期权方</em>有统计正期望。备兑/YieldMax 把这个溢价包装成"分红"派给你，发行方抽走费率+价差。</li>
@@ -388,7 +400,7 @@
 </section>
 
 <div class="foot">
-  <p><strong>一句话：</strong>前五类的卖点在<em>标签</em>、账单在<em>机制</em>，大多是短线/战术工具，被当长期持仓时最伤人；CTA 是其中唯一的"真策略"，难点在反人性的持有纪律。<strong>第⑦页从工程视角看穿它们</strong>：每个产品都是期权乐高，守恒律决定你为每个卖点付什么价。看懂机制 + 看过真实案例 + 会拆复制组合，你就从"被标签吸引"，变成"知道自己在为什么付费"，甚至"自己搭更省"。</p>
+  <p><strong>一句话：</strong>前五类的卖点在<em>标签</em>、账单在<em>机制</em>，大多是短线/战术工具，被当长期持仓时最伤人；CTA 是其中唯一的"真策略"，难点在反人性的持有纪律。<strong>每个产品页底部的「🔧 设计拆解」从工程视角看穿它</strong>（复制组合/希腊/发行方经济学），第⑦页是跨产品通用方法 + 损益合成器。看懂机制 + 看过真实案例 + 会拆复制组合，你就从"被标签吸引"，变成"知道自己在为什么付费"，甚至"自己用香草期权搭更省"。</p>
   <p class="kv">tools.basealpha.ai · 结构化产品学习实验室 · 更新于 2026-06-26（新增⑦产品设计拆解）· 教学示意，非投资建议 · 黑森船长</p>
   <p class="kv">案例数据来源：<a href="https://stockanalysis.com/etf/jepq/" target="_blank">stockanalysis(JEPQ/QQQ)</a> · TQQQ 2022 −79%(ProShares/各源) · <a href="https://etfdb.com/etf/DBMF/" target="_blank">DBMF 2022 +21.5%</a></p>
 </div>

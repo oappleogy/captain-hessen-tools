@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资金水力学 · 看盘 · 黑森船长</title>
+<style>
+  :root{--bg:#0d1b2a;--bar:#13263b;--line:#23405c;--ink:#e8eef5;--sub:#90a8c0;--gold:#d9a441}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg);font:14px -apple-system,"PingFang SC",sans-serif}
+  .tabs{display:flex;align-items:center;gap:4px;background:var(--bar);border-bottom:1px solid var(--line);padding:0 10px;height:46px}
+  .tabs .brand{color:var(--gold);font-weight:700;margin-right:12px;font-size:14px}
+  .tab{color:var(--sub);background:none;border:none;padding:10px 16px;font-size:14px;cursor:pointer;border-bottom:2px solid transparent}
+  .tab.on{color:var(--ink);border-bottom-color:var(--gold)}
+  .frame{width:100%;height:calc(100vh - 46px);border:none;display:none;background:var(--bg)}
+  .frame.on{display:block}
+</style>
+</head>
+<body>
+<div class="tabs">
+  <span class="brand">💧 资金水力学</span>
+  <button class="tab on" data-t="f1">四维实时</button>
+  <button class="tab" data-t="f2">资金流向桑基</button>
+</div>
+<iframe id="f1" class="frame on" src="water_source_live.html?t=202606292030"></iframe>
+<iframe id="f2" class="frame" src="about:blank" data-src="flow_sankey.html?t=202606292030"></iframe>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.tab'), loaded={f1:true};
+  tabs.forEach(function(b){
+    b.onclick=function(){
+      var id=b.dataset.t, fr=document.getElementById(id);
+      if(!loaded[id]){ fr.src=fr.dataset.src; loaded[id]=true; }  // 懒加载第二个
+      tabs.forEach(function(x){x.classList.remove('on')}); b.classList.add('on');
+      document.querySelectorAll('.frame').forEach(function(f){f.classList.remove('on')});
+      fr.classList.add('on');
+    };
+  });
+})();
+</script>
+</body>
+</html>

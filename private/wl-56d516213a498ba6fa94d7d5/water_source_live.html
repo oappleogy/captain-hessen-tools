@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>水源·水库层 · 四维实时 · 黑森船长</title>
+<!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
+<script src="water_source_data.js?t=202606292013"></script>
+<script src="gate_diagnosis_output.js?t=202606292013"></script>
+<style>
+  :root{
+    --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
+    --gold:#d9a441; --green:#46c46e; --red:#ef5a5a; --amber:#e8a23d; --flat:#7b93ab;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,"PingFang SC",sans-serif;padding:24px;max-width:1080px;margin:0 auto}
+  h1{font-size:20px;font-weight:700;letter-spacing:.5px}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:18px;flex-wrap:wrap;gap:8px}
+  .meta{color:var(--sub);font-size:12px;text-align:right}
+  .meta b{color:var(--gold)}
+  .banner{border-radius:12px;padding:16px 20px;margin-bottom:18px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+  .banner small{font-weight:400;font-size:12px;opacity:.85}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card h2{font-size:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .w{font-size:11px;color:var(--sub);font-weight:400}
+  .arrow{font-size:18px;font-weight:700}
+  .row{display:flex;justify-content:space-between;padding:4px 0;border-top:1px dashed #1d3550}
+  .row span:first-child{color:var(--sub)}
+  .row b{font-variant-numeric:tabular-nums}
+  .state{margin-top:8px;font-size:12px;color:var(--sub)}
+  .warn{background:#2a1620;border:1px solid #5a2330;border-radius:12px;padding:14px 18px;margin-bottom:14px}
+  .warn h3{color:var(--red);font-size:13px;margin-bottom:6px}
+  .warn ul{list-style:none}
+  .warn li{padding:3px 0;font-size:13px}
+  .pending{color:var(--flat);font-size:12px;border-top:1px solid var(--line);padding-top:12px}
+  .pending span{display:inline-block;background:#15293e;border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin:3px 4px 0 0}
+  .wm{text-align:center;color:#3c597a;font-size:11px;margin-top:20px}
+  .up{color:var(--red)} .dn{color:var(--green)} .fl{color:var(--flat)}
+</style>
+</head>
+<body>
+<div class="head">
+  <h1>💧 水源 · 水库层 — 四维实时</h1>
+  <div class="meta" id="meta"></div>
+</div>
+<div id="banner" class="banner"></div>
+<div id="warnings"></div>
+<div id="grid" class="grid"></div>
+
+<h1 style="font-size:16px;margin:18px 0 10px;border-top:1px solid var(--line);padding-top:18px">🚪 产业闸 · 差异诊断(浅池 vs 阀门未开)</h1>
+<div id="gatesum" class="banner" style="background:#15293e;border:1px solid var(--line);font-size:13px;display:block"></div>
+<div id="gates" class="grid"></div>
+
+<div id="pending" class="pending"></div>
+<div class="wm">⛔ Action 层自用 · 不公开 · 数据=FRED · 校准前只用方向(±1)与背离结构 · © 黑森船长</div>
+
+<script>
+(function(){
+  var D = window.WATER_DATA;
+  var box = function(id){return document.getElementById(id)};
+  if(!D){ box('banner').textContent='⚠ 未找到数据(先跑 water_source_fetcher.py)'; return; }
+
+  // track_dir 对"水量方向"的解读: +1 利多水/放水, -1 利空水/抽水
+  function arrow(d){ if(d>0)return '<span class="dn">▲</span>'; if(d<0)return '<span class="up">▼</span>'; return '<span class="fl">▬</span>'; }
+  function dirTxt(d){ return d>0?'放水向':d<0?'抽水向':'中性'; }
+
+  // 头部
+  box('meta').innerHTML = '数据截至 <b>'+D.as_of+'</b><br>生成(UTC) '+D.generated_utc;
+
+  // 综合横幅
+  var c = D.composite, col = c.weighted_dir_raw>0.3?'#13361f':c.weighted_dir_raw<-0.3?'#3a1722':'#2a2a16';
+  var bcol = c.weighted_dir_raw>0.3?'var(--green)':c.weighted_dir_raw<-0.3?'var(--red)':'var(--amber)';
+  var b = box('banner'); b.style.background=col; b.style.border='1px solid '+bcol;
+  b.innerHTML = '<span>综合水量方向:<span style="color:'+bcol+'">　'+c.reading+'</span></span>'+
+    '<small>加权 '+c.weighted_dir_raw+' · Q/P/V = '+c.Q_P_V.join(' / ')+(c.divergence?' · ⚠量与流速背离':'')+'</small>';
+
+  // 预警
+  if(D.warnings && D.warnings.length){
+    var h='<div class="warn"><h3>⚠ 预警 ('+D.warnings.length+')</h3><ul>';
+    D.warnings.forEach(function(w){h+='<li>'+w+'</li>'});
+    box('warnings').innerHTML = h+'</ul></div>';
+  }
+
+  // 四维卡片
+  var dims = D.dimensions, names={quantity:'① 量 Quantity',price:'② 价 Price',velocity:'③ 流速 Velocity',friction:'④ 摩擦力 Friction'};
+  var fields = {
+    quantity:[['净流动性(万亿)','net_liquidity_usd_tn'],['美联储总资产(万亿)','WALCL_tn'],['TGA(十亿)','TGA_bn'],['RRP(十亿)','RRP_bn'],['准备金(万亿)','reserves_tn']],
+    price:[['SOFR','SOFR'],['SOFR-IORB(bp)','SOFR_IORB_bp'],['2s10s','T10Y2Y'],['3m10s','T10Y3M'],['10Y实际利率','TIPS_10Y_real'],['2Y美债','DGS2']],
+    velocity:[['HY OAS(bp)','HY_OAS_bp'],['HY 5日变化(bp)','HY_OAS_5d_chg_bp'],['VIX','VIX'],['风险态','risk_state']],
+    friction:[['预期差 gap','expectation_gap_flag'],['VIX/VIX3M','VIX_term_ratio'],['利率波动代理(bp)','rate_vol_proxy_bp'],['湍流','turbulence'],['状态','state']]
+  };
+  var g='';
+  Object.keys(names).forEach(function(k){
+    var dim=dims[k]; if(!dim) return;
+    var td = dim.track_dir;
+    g+='<div class="card"><h2><span>'+names[k]+(dim.weight?' <span class="w">权重'+dim.weight+'</span>':'')+'</span>';
+    g+= (td===undefined?'':'<span class="arrow">'+arrow(td)+' <span style="font-size:12px;color:var(--sub)">'+dirTxt(td)+'</span></span>');
+    g+='</h2>';
+    fields[k].forEach(function(f){
+      var v=dim[f[1]]; if(v===undefined) return;
+      if(Array.isArray(v)) v = v.length?v.join('、'):'—';
+      if(v===true)v='是'; if(v===false)v='否'; if(v===null)v='—';
+      g+='<div class="row"><span>'+f[0]+'</span><b>'+v+'</b></div>';
+    });
+    if(dim.state && k!=='friction') g+='<div class="state">'+dim.state+'</div>';
+    g+='</div>';
+  });
+  box('grid').innerHTML = g;
+
+  // ── 产业闸差异诊断 ──
+  var G = window.GATE_DATA;
+  if(G){
+    var vcol={OPEN:'#46c46e',AMBUSH:'#e8a23d',AMBUSH2:'#c98f33',SHALLOW:'#ef5a5a',GRASSHOPPER:'#d97b46',WAIT:'#7b93ab',PASSED:'#5a7286',WATCH:'#5a7286'};
+    box('gatesum').innerHTML =
+      '🔥 正在开的闸: <b style="color:#46c46e">'+(G.current_open_gate.join('、')||'—')+'</b>　　'+
+      '🟡 埋伏候选: <b style="color:#e8a23d">'+(G.ambush_candidates.join('、')||'—')+'</b>　　'+
+      '🔴 浅池/躲: <b style="color:#ef5a5a">'+(G.shallow_traps.join('、')||'—')+'</b>　　'+
+      '⚠ 蚂蚱风险: <b style="color:#d97b46">'+(G.grasshopper_risk.join('、')||'—')+'</b>';
+    var gg='';
+    G.gates.forEach(function(r){
+      var col=vcol[r.code]||'#5a7286';
+      gg+='<div class="card" style="border-left:3px solid '+col+'">';
+      gg+='<h2><span>['+r.seq+'] '+r.gate+'</span><span style="font-size:12px;color:'+col+'">'+r.verdict+'</span></h2>';
+      gg+='<div class="row"><span>叙事热度</span><b>'+r.narrative_heat+'</b></div>';
+      gg+='<div class="row"><span>capex 投向</span><b>'+r.capex_flow+'</b></div>';
+      gg+='<div class="row"><span>前置闸</span><b>'+(r.precondition_solved?'已解':'未解')+'</b></div>';
+      gg+='<div class="row"><span>领先指标</span><b>'+r.leading+'</b></div>';
+      gg+='<div class="state">'+r.why+'</div>';
+      gg+='</div>';
+    });
+    box('gates').innerHTML = gg;
+  }
+
+  // 待接入
+  if(D.pending){
+    var p='待接入(非FRED/付费源): ';
+    Object.keys(D.pending).forEach(function(k){p+='<span>'+k+'</span>'});
+    box('pending').innerHTML = p;
+  }
+})();
+</script>
+</body>
+</html>

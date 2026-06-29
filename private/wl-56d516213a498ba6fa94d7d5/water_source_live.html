@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水源·水库层 · 四维实时 · 黑森船长</title>
 <!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
-<script src="water_source_data.js?t=202606292234"></script>
-<script src="gate_diagnosis_output.js?t=202606292234"></script>
+<script src="water_source_data.js?t=202606292313"></script>
+<script src="directions_output.js?t=202606292313"></script>
 <style>
   :root{
     --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
@@ -48,9 +48,9 @@
 <div id="warnings"></div>
 <div id="grid" class="grid"></div>
 
-<h1 style="font-size:16px;margin:18px 0 10px;border-top:1px solid var(--line);padding-top:18px">🚪 产业闸 · 差异诊断(浅池 vs 阀门未开)</h1>
-<div id="gatesum" class="banner" style="background:#15293e;border:1px solid var(--line);font-size:13px;display:block"></div>
-<div id="gates" class="grid"></div>
+<h1 style="font-size:16px;margin:18px 0 10px;border-top:1px solid var(--line);padding-top:18px">🏭 产业三方向 · 差异诊断(供给 vs 需求)</h1>
+<div id="dirsum" class="banner" style="background:#15293e;border:1px solid var(--line);font-size:13px;display:block"></div>
+<div id="dirs"></div>
 
 <div id="pending" class="pending"></div>
 <div class="wm">⛔ Action 层自用 · 不公开 · 数据=FRED · 校准前只用方向(±1)与背离结构 · © 黑森船长</div>
@@ -108,34 +108,39 @@
   });
   box('grid').innerHTML = g;
 
-  // ── 产业闸差异诊断 ──
-  var G = window.GATE_DATA;
-  if(G){
+  // ── 产业三方向差异诊断 ──
+  var DR = window.DIR_DATA;
+  if(DR){
     var vcol={OPEN:'#46c46e',AMBUSH:'#e8a23d',AMBUSH2:'#c98f33',SHALLOW:'#ef5a5a',GRASSHOPPER:'#d97b46',WAIT:'#7b93ab',PASSED:'#5a7286',WATCH:'#5a7286'};
-    var ambTxt=(G.ambush_ranked&&G.ambush_ranked.length)
-      ? G.ambush_ranked.map(function(a){return a.gate+'(强度'+a.magnitude+')';}).join('、')
-      : (G.ambush_candidates.join('、')||'—');
-    box('gatesum').innerHTML =
-      '🔥 正在开的闸: <b style="color:#46c46e">'+(G.current_open_gate.join('、')||'—')+'</b><br>'+
-      '🟡 埋伏候选(按强度): <b style="color:#e8a23d">'+ambTxt+'</b><br>'+
-      '<span style="color:var(--sub);font-size:12px">埋伏强度=池深(价值量%)×空置率, 越大=深池越空=潜在空间越大</span>　'+
-      (G.shallow_traps.length?'🔴 浅池: <b style="color:#ef5a5a">'+G.shallow_traps.join('、')+'</b>　':'')+
-      (G.grasshopper_risk.length?'⚠ 蚂蚱: <b style="color:#d97b46">'+G.grasshopper_risk.join('、')+'</b>':'');
-    var gg='';
-    G.gates.forEach(function(r){
-      var col=vcol[r.code]||'#5a7286';
-      gg+='<div class="card" style="border-left:3px solid '+col+'">';
-      gg+='<h2><span>['+r.seq+'] '+r.gate+'</span><span style="font-size:12px;color:'+col+'">'+r.verdict+'</span></h2>';
-      gg+='<div class="row"><span>叙事热度</span><b>'+r.narrative_heat+'</b></div>';
-      gg+='<div class="row"><span>capex 投向</span><b>'+r.capex_flow+'</b></div>';
-      gg+='<div class="row"><span>前置闸</span><b>'+(r.precondition_solved?'已解':'未解')+'</b></div>';
-      gg+='<div class="row"><span>领先指标</span><b>'+r.leading+'</b></div>';
-      gg+='<div class="row"><span>池深(价值量)</span><b>'+(r.value_share!=null?r.value_share+'%':'—')+'</b></div>';
-      gg+='<div class="row"><span>埋伏强度</span><b style="color:var(--gold)">'+(r.ambush_magnitude!=null?r.ambush_magnitude:'—')+'</b></div>';
-      gg+='<div class="state">'+r.why+'</div>';
-      gg+='</div>';
+    var ov=DR.overall||{};
+    var supT=(DR.supply_ambush_top||[]).map(function(a){return a.component+'('+a.magnitude+')';}).join('、')||'—';
+    box('dirsum').innerHTML =
+      '<b style="color:var(--gold)">⚖ 供需总判读:</b> '+(ov.supply_vs_demand||'')+'<br>'+
+      '🟡 供给侧埋伏TOP(同口径): <b style="color:#e8a23d">'+supT+'</b>　'+
+      '<span style="color:var(--sub);font-size:12px">埋伏强度=池深(价值量%)×空置率</span>';
+    var html='';
+    DR.directions.forEach(function(d){
+      var sc = d.side==='需求' ? '#9b6bd6' : '#3b82c4';
+      html+='<div style="margin-top:16px"><div style="font-size:14px;font-weight:700;color:'+sc+';border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:8px">'
+            +d.name+' <span style="font-size:12px;color:var(--sub);font-weight:400">· '+d.role+' ('+d.side+')</span>'
+            +(d.demand_validation?' <span style="color:#9b6bd6;font-size:12px">需求验证分 '+d.demand_validation.score+'</span>':'')+'</div>';
+      html+='<div class="grid">';
+      d.components.forEach(function(c){
+        var col=vcol[c.code]||'#5a7286';
+        html+='<div class="card" style="border-left:3px solid '+col+'">';
+        html+='<h2><span>'+c.name+'</span><span style="font-size:12px;color:'+col+'">'+c.verdict+'</span></h2>';
+        html+='<div class="row"><span>叙事/capex</span><b>'+c.narrative_heat+' / '+c.capex_flow+'</b></div>';
+        html+='<div class="row"><span>前置/领先</span><b>'+(c.precondition_solved?'已解':'未解')+' / '+c.leading+'</b></div>';
+        html+='<div class="row"><span>池深(价值量)</span><b>'+(c.value_share!=null?c.value_share+'%':'—')+'</b></div>';
+        html+='<div class="row"><span>埋伏强度</span><b style="color:var(--gold)">'+(c.ambush_magnitude!=null?c.ambush_magnitude:'—')+'</b></div>';
+        html+='<div class="state">'+c.why+'</div>';
+        html+='</div>';
+      });
+      html+='</div>';
+      if(d.demand_validation) html+='<div class="state" style="margin-top:6px;color:var(--sub)">▸ '+d.demand_validation.note+'</div>';
+      html+='</div>';
     });
-    box('gates').innerHTML = gg;
+    box('dirs').innerHTML = html;
   }
 
   // 待接入

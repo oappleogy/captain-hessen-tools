@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水源·水库层 · 四维实时 · 黑森船长</title>
 <!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
-<script src="water_source_data.js?t=202606292101"></script>
-<script src="gate_diagnosis_output.js?t=202606292101"></script>
+<script src="water_source_data.js?t=202606292123"></script>
+<script src="gate_diagnosis_output.js?t=202606292123"></script>
 <style>
   :root{
     --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
@@ -112,11 +112,15 @@
   var G = window.GATE_DATA;
   if(G){
     var vcol={OPEN:'#46c46e',AMBUSH:'#e8a23d',AMBUSH2:'#c98f33',SHALLOW:'#ef5a5a',GRASSHOPPER:'#d97b46',WAIT:'#7b93ab',PASSED:'#5a7286',WATCH:'#5a7286'};
+    var ambTxt=(G.ambush_ranked&&G.ambush_ranked.length)
+      ? G.ambush_ranked.map(function(a){return a.gate+'(强度'+a.magnitude+')';}).join('、')
+      : (G.ambush_candidates.join('、')||'—');
     box('gatesum').innerHTML =
-      '🔥 正在开的闸: <b style="color:#46c46e">'+(G.current_open_gate.join('、')||'—')+'</b>　　'+
-      '🟡 埋伏候选: <b style="color:#e8a23d">'+(G.ambush_candidates.join('、')||'—')+'</b>　　'+
-      '🔴 浅池/躲: <b style="color:#ef5a5a">'+(G.shallow_traps.join('、')||'—')+'</b>　　'+
-      '⚠ 蚂蚱风险: <b style="color:#d97b46">'+(G.grasshopper_risk.join('、')||'—')+'</b>';
+      '🔥 正在开的闸: <b style="color:#46c46e">'+(G.current_open_gate.join('、')||'—')+'</b><br>'+
+      '🟡 埋伏候选(按强度): <b style="color:#e8a23d">'+ambTxt+'</b><br>'+
+      '<span style="color:var(--sub);font-size:12px">埋伏强度=池深(价值量%)×空置率, 越大=深池越空=潜在空间越大</span>　'+
+      (G.shallow_traps.length?'🔴 浅池: <b style="color:#ef5a5a">'+G.shallow_traps.join('、')+'</b>　':'')+
+      (G.grasshopper_risk.length?'⚠ 蚂蚱: <b style="color:#d97b46">'+G.grasshopper_risk.join('、')+'</b>':'');
     var gg='';
     G.gates.forEach(function(r){
       var col=vcol[r.code]||'#5a7286';
@@ -126,6 +130,8 @@
       gg+='<div class="row"><span>capex 投向</span><b>'+r.capex_flow+'</b></div>';
       gg+='<div class="row"><span>前置闸</span><b>'+(r.precondition_solved?'已解':'未解')+'</b></div>';
       gg+='<div class="row"><span>领先指标</span><b>'+r.leading+'</b></div>';
+      gg+='<div class="row"><span>池深(价值量)</span><b>'+(r.value_share!=null?r.value_share+'%':'—')+'</b></div>';
+      gg+='<div class="row"><span>埋伏强度</span><b style="color:var(--gold)">'+(r.ambush_magnitude!=null?r.ambush_magnitude:'—')+'</b></div>';
       gg+='<div class="state">'+r.why+'</div>';
       gg+='</div>';
     });

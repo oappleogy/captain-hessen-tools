@@ -4,23 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>资金流向桑基 · 位置×方向 · 黑森船长</title>
-<script src="flow_sankey_data.js?t=202606292030"></script>
-<script src="gate_diagnosis_output.js?t=202606292030"></script>
+<script src="flow_sankey_data.js?t=202606292044"></script>
+<script src="gate_diagnosis_output.js?t=202606292044"></script>
 <style>
-  :root{--bg:#0d1b2a;--ink:#e8eef5;--sub:#90a8c0;--line:#23405c;--gold:#d9a441}
+  :root{--bg:#0d1b2a;--ink:#e8eef5;--sub:#9fb2c6;--line:#23405c;--gold:#d9a441}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--ink);font:13px/1.5 -apple-system,"PingFang SC",sans-serif;padding:22px;max-width:1100px;margin:0 auto}
-  h1{font-size:18px}
+  body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,"PingFang SC",sans-serif;padding:24px;max-width:1240px;margin:0 auto}
+  h1{font-size:19px}
   .sub{color:var(--sub);font-size:12px;margin:4px 0 14px}
-  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin:10px 0}
-  .legend span{display:inline-flex;align-items:center;gap:5px}
-  .dot{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .legend{background:#0b1622;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:14px}
+  .legrow{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin:5px 0;font-size:13px}
+  .legrow b{color:var(--gold);min-width:96px;font-weight:600}
+  .legrow span{display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+  .sw{width:14px;height:14px;border-radius:3px;display:inline-block;flex:none}
   svg{width:100%;height:auto;background:#0b1622;border:1px solid var(--line);border-radius:12px}
-  text{fill:var(--ink);font-size:11px}
-  .nlab{font-size:11px} .vlab{fill:var(--sub);font-size:10px}
-  .col-title{fill:var(--gold);font-size:12px;font-weight:700}
-  .dir{margin-top:16px;background:#13261b;border:1px solid #2a5e3a;border-radius:12px;padding:14px 18px}
-  .dir h3{color:#46c46e;font-size:13px;margin-bottom:6px}
+  text{fill:var(--ink)}
+  .nlab{font-size:13px} .vlab{fill:var(--sub);font-size:11px}
+  .col-title{fill:var(--gold);font-size:14px;font-weight:700}
+  .dir{margin-top:16px;background:#13261b;border:1px solid #2a5e3a;border-radius:12px;padding:16px 20px;line-height:1.7}
+  .dir h3{color:#5fcf86;font-size:14px;margin-bottom:8px}
   .dir b{color:var(--gold)}
   .wm{text-align:center;color:#3c597a;font-size:11px;margin-top:18px}
 </style>
@@ -29,9 +31,9 @@
 <h1>💧 资金流向桑基 — 当前位置 × 运动方向</h1>
 <div class="sub" id="sub"></div>
 <div class="legend" id="legend"></div>
-<svg id="svg" viewBox="0 0 1080 640" preserveAspectRatio="xMidYMid meet"></svg>
+<svg id="svg" viewBox="0 0 1240 1000" preserveAspectRatio="xMidYMid meet"></svg>
 <div class="dir" id="dir"></div>
-<div class="wm">⛔ Action层自用·不公开 · 桑基=利润已实现位置(公开数据/未校核) · 上色=产业闸运动方向(本地引擎) · © 黑森船长</div>
+<div class="wm">⛔ Action层自用·不公开 · 桑基=利润已实现位置(公开数据/未校核) · 暖色=产业闸状态 冷色=国家 · © 黑森船长</div>
 
 <script>
 (function(){
@@ -39,27 +41,23 @@
   if(!S){document.getElementById('svg').outerHTML='<p>缺 flow_sankey_data.js</p>';return;}
   document.getElementById('sub').textContent = S.unit;
 
-  // verdict 颜色 (与主盘一致)
-  var VC={OPEN:'#46c46e',AMBUSH:'#e8a23d',AMBUSH2:'#c98f33',SHALLOW:'#ef5a5a',GRASSHOPPER:'#d97b46',WAIT:'#7b93ab',PASSED:'#5a7286',WATCH:'#6b8299'};
-  // seq -> verdict code (来自闸诊断引擎)
-  var seqCode={}, seqVerdict={};
-  if(G&&G.gates) G.gates.forEach(function(r){seqCode[r.seq]=r.code; seqVerdict[r.seq]=r.verdict;});
-  function compColor(c){ if(c.gate&&seqCode[c.gate]) return VC[seqCode[c.gate]]||'#5a7286';
-    var ct=S.countries.find(function(x){return x.id===c.country;}); return ct?ct.color:'#5a7286'; }
+  // 暖色 = 产业闸 verdict(主信号)
+  var VC={OPEN:'#3fbf6f',AMBUSH:'#e8a23d',AMBUSH2:'#cf8f3a',SHALLOW:'#ef5a5a',
+          GRASSHOPPER:'#d97b46',WAIT:'#8a93a0',PASSED:'#6b7d93',WATCH:'#6b7d93'};
+  var NEUTRAL='#6b7d93';
+  var seqCode={};
+  if(G&&G.gates) G.gates.forEach(function(r){seqCode[r.seq]=r.code;});
+  function compColor(c){ if(c.gate&&seqCode[c.gate]) return VC[seqCode[c.gate]]||NEUTRAL; return NEUTRAL; }
 
-  // ── 布局 ──
-  var W=1080,H=640, top=54, bot=24, usableH=H-top-bot;
-  var x0=120, x1=430, x2=720, nodeW=15;
-  // 国家值=公司之和
+  // ── 布局(放大) ──
+  var H=1000, top=72, bot=34, usableH=H-top-bot;
+  var x0=150, x1=490, x2=820, nodeW=18;
   S.countries.forEach(function(ct){ ct.v=S.companies.filter(function(c){return c.country===ct.id;}).reduce(function(a,c){return a+c.v;},0); });
   var total=S.countries.reduce(function(a,c){return a+c.v;},0);
-  var gC=10, gK=7;
-  var scale=(usableH - (S.companies.length-1)*gK)/total; // 以公司列(最挤)定标
-  // 公司列堆叠
+  var gC=16, gK=16;  // 加大间隙, 标签不挤
+  var scale=(usableH - (S.companies.length-1)*gK)/total;
   var cy=top; S.companies.forEach(function(c){ c.h=c.v*scale; c.y=cy; cy+=c.h+gK; });
-  // 国家列堆叠
   var ky=top; S.countries.forEach(function(ct){ ct.h=ct.v*scale; ct.y=ky; ky+=ct.h+gC; });
-  // 源节点
   var srcH=total*scale, srcY=top;
 
   function ribbon(xa,ya0,ya1,xb,yb0,yb1,fill,op){
@@ -68,56 +66,63 @@
       ' L'+xb+','+yb1+' C'+xm+','+yb1+' '+xm+','+ya1+' '+xa+','+ya1+' Z" fill="'+fill+'" opacity="'+op+'"/>';
   }
   var svg='';
-  // 列标题
-  svg+='<text class="col-title" x="'+x0+'" y="36">资金源</text>';
-  svg+='<text class="col-title" x="'+x1+'" y="36">国家大池(投入主体)</text>';
-  svg+='<text class="col-title" x="'+x2+'" y="36">标的 / 产业闸</text>';
+  svg+='<text class="col-title" x="'+x0+'" y="40">资金源</text>';
+  svg+='<text class="col-title" x="'+x1+'" y="40">国家大池</text>';
+  svg+='<text class="col-title" x="'+x2+'" y="40">标的 / 产业闸</text>';
 
-  // 源→国家 链路
+  // 源→国家: 中性淡灰(只表示量的切分, 不抢色)
   var so=srcY;
   S.countries.forEach(function(ct){
-    svg+=ribbon(x0+nodeW, so, so+ct.h, x1, ct.y, ct.y+ct.h, ct.color, 0.28); so+=ct.h;
+    svg+=ribbon(x0+nodeW, so, so+ct.h, x1, ct.y, ct.y+ct.h, '#5a708a', 0.16); so+=ct.h;
   });
-  // 国家→公司 链路
+  // 国家→公司: 暖色=verdict(主信号)
   S.countries.forEach(function(ct){
     var oo=ct.y;
     S.companies.filter(function(c){return c.country===ct.id;}).forEach(function(c){
-      svg+=ribbon(x1+nodeW, oo, oo+c.h, x2, c.y, c.y+c.h, compColor(c), 0.42); oo+=c.h;
+      svg+=ribbon(x1+nodeW, oo, oo+c.h, x2, c.y, c.y+c.h, compColor(c), 0.5); oo+=c.h;
     });
   });
-  // 源节点
-  svg+='<rect x="'+x0+'" y="'+srcY+'" width="'+nodeW+'" height="'+srcH+'" rx="2" fill="#d9a441"/>';
+  // 源节点(金)
+  svg+='<rect x="'+x0+'" y="'+srcY+'" width="'+nodeW+'" height="'+srcH+'" rx="3" fill="#d9a441"/>';
   svg+='<text class="nlab" x="'+(x0-8)+'" y="'+(srcY+srcH/2)+'" text-anchor="end">'+S.source.name+'</text>';
-  // 国家节点+标签
+  // 国家节点(冷色)+标签
   S.countries.forEach(function(ct){
-    svg+='<rect x="'+x1+'" y="'+ct.y+'" width="'+nodeW+'" height="'+ct.h+'" rx="2" fill="'+ct.color+'"/>';
-    svg+='<text class="nlab" x="'+(x1-6)+'" y="'+(ct.y+ct.h/2+3)+'" text-anchor="end">'+ct.name+' '+ct.v+'</text>';
+    svg+='<rect x="'+x1+'" y="'+ct.y+'" width="'+nodeW+'" height="'+ct.h+'" rx="3" fill="'+ct.color+'"/>';
+    svg+='<text class="nlab" x="'+(x1-8)+'" y="'+(ct.y+ct.h/2+4)+'" text-anchor="end">'+ct.name+' '+ct.v+'</text>';
   });
-  // 公司节点+标签(右侧)
+  // 公司节点(暖色=verdict)+标签(大节点才带副行)
   S.companies.forEach(function(c){
     var col=compColor(c);
-    svg+='<rect x="'+x2+'" y="'+c.y+'" width="'+nodeW+'" height="'+Math.max(c.h,1)+'" rx="2" fill="'+col+'"/>';
-    var gtag = c.gate&&S.gateNames[c.gate]? ' · '+S.gateNames[c.gate] : '';
-    svg+='<text class="nlab" x="'+(x2+nodeW+6)+'" y="'+(c.y+c.h/2+1)+'">'+c.name+'</text>';
-    svg+='<text class="vlab" x="'+(x2+nodeW+6)+'" y="'+(c.y+c.h/2+12)+'">'+(c.who||'')+gtag+'</text>';
+    svg+='<rect x="'+x2+'" y="'+c.y+'" width="'+nodeW+'" height="'+Math.max(c.h,2)+'" rx="3" fill="'+col+'"/>';
+    var cy2=c.y+c.h/2;
+    if(c.h>30){
+      svg+='<text class="nlab" x="'+(x2+nodeW+8)+'" y="'+(cy2-1)+'">'+c.name+'</text>';
+      var gtag=c.gate&&S.gateNames[c.gate]?S.gateNames[c.gate]:'';
+      svg+='<text class="vlab" x="'+(x2+nodeW+8)+'" y="'+(cy2+13)+'">'+(c.who||'')+(gtag?' · '+gtag:'')+'</text>';
+    } else {
+      svg+='<text class="nlab" x="'+(x2+nodeW+8)+'" y="'+(cy2+4)+'">'+c.name+'</text>';
+    }
   });
   document.getElementById('svg').innerHTML=svg;
 
-  // 图例
-  var leg='<span><i class="dot" style="background:#d9a441"></i>资金源/国家(区域色)</span>';
-  [['OPEN','🔥闸在开'],['AMBUSH','🟡埋伏'],['SHALLOW','🔴浅池'],['GRASSHOPPER','⚠蚂蚱'],['PASSED','已过/常态']].forEach(function(p){
-    leg+='<span><i class="dot" style="background:'+VC[p[0]]+'"></i>'+p[1]+'</span>';});
-  document.getElementById('legend').innerHTML=leg;
+  // 图例(统一方块, 分两栏)
+  function sw(color,label){return '<span><i class="sw" style="background:'+color+'"></i>'+label+'</span>';}
+  var l1='<div class="legrow"><b>产业闸状态</b>'+
+    sw(VC.OPEN,'🔥 闸在开')+sw(VC.AMBUSH,'埋伏(阀门未开)')+sw(VC.SHALLOW,'浅池(高估)')+
+    sw(VC.GRASSHOPPER,'蚂蚱风险')+sw(VC.PASSED,'已过/混合')+'</div>';
+  var l2='<div class="legrow"><b>国家/地区</b>';
+  S.countries.forEach(function(ct){ l2+=sw(ct.color, ct.name); });
+  l2+='</div>';
+  document.getElementById('legend').innerHTML=l1+l2;
 
-  // 运动方向: 埋伏闸(当前利润≈0, 桑基上没有节点) —— 水的下一站
+  // 运动方向
   if(G){
-    var here = S.companies.filter(function(c){return c.gate;}).map(function(c){return c.gate;});
-    var amb = (G.gates||[]).filter(function(r){return (r.code==='AMBUSH'||r.code==='AMBUSH2');});
+    var amb=(G.gates||[]).filter(function(r){return (r.code==='AMBUSH'||r.code==='AMBUSH2');});
     var html='<h3>↗ 运动方向(下一站)—— 桑基图上"还没有节点"的地方</h3>';
     html+='<div>当前利润几乎全部淤积在 <b>算力/GPU(英伟达·台积电)</b> + <b>存储/HBM(SK海力士·三星·美光)</b> 两格(桑基最粗的水流)。</div>';
-    html+='<div style="margin-top:6px">而引擎判定正在上膛、桑基图上<b>尚无利润节点</b>的下一站:</div><ul style="margin:6px 0 0 18px">';
+    html+='<div style="margin-top:6px">引擎判定正在上膛、桑基图上<b>尚无利润节点</b>的下一站:</div><ul style="margin:6px 0 0 20px">';
     amb.forEach(function(r){ html+='<li><b>'+r.gate+'</b> — '+r.verdict+':'+r.why+'</li>'; });
-    html+='</ul><div style="margin-top:6px;color:var(--sub)">桑基=水已淤在哪(向后);这些空位=水正流向哪(向前)。两图叠看=位置×方向。</div>';
+    html+='</ul><div style="margin-top:8px;color:var(--sub)">桑基=水已淤在哪(向后);这些空位=水正流向哪(向前)。</div>';
     document.getElementById('dir').innerHTML=html;
   }
 })();

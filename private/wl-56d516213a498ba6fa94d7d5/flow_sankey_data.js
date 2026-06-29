@@ -8,12 +8,12 @@ window.SANKEY_DATA = {
   source: { id: "pool", name: "全球AI净利润池 6370" },
   // col1 国家大池 (color=区域)
   countries: [
-    { id: "US", name: "美国", color: "#3b82c4" },
-    { id: "KR", name: "韩国", color: "#e0564f" },
-    { id: "TW", name: "中国台湾", color: "#46c46e" },
-    { id: "CN", name: "中国大陆", color: "#9b6bd6" },
-    { id: "JP", name: "日本", color: "#4aa3a8" },
-    { id: "EU", name: "欧洲", color: "#8a93a0" },
+    { id: "US", name: "美国", color: "#3d7fc0" },
+    { id: "KR", name: "韩国", color: "#8b6ad6" },
+    { id: "TW", name: "中国台湾", color: "#36a0bf" },
+    { id: "CN", name: "中国大陆", color: "#b15fb8" },
+    { id: "JP", name: "日本", color: "#5566c4" },
+    { id: "EU", name: "欧洲", color: "#6f7f97" },
   ],
   // col2 公司/标的; gate=对应产业闸 seq(用于取 verdict 颜色); 投入主体备注
   companies: [

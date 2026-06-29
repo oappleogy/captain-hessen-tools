@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水源·水库层 · 四维实时 · 黑森船长</title>
 <!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
-<script src="water_source_data.js?t=202606292144"></script>
-<script src="gate_diagnosis_output.js?t=202606292144"></script>
+<script src="water_source_data.js?t=202606292222"></script>
+<script src="gate_diagnosis_output.js?t=202606292222"></script>
 <style>
   :root{
     --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
@@ -88,7 +88,7 @@
     quantity:[['净流动性(万亿)','net_liquidity_usd_tn'],['美联储总资产(万亿)','WALCL_tn'],['TGA(十亿)','TGA_bn'],['RRP(十亿)','RRP_bn'],['准备金(万亿)','reserves_tn']],
     price:[['SOFR','SOFR'],['SOFR-IORB(bp)','SOFR_IORB_bp'],['2s10s','T10Y2Y'],['3m10s','T10Y3M'],['10Y实际利率','TIPS_10Y_real'],['2Y美债','DGS2']],
     velocity:[['HY OAS(bp)','HY_OAS_bp'],['HY 5日变化(bp)','HY_OAS_5d_chg_bp'],['VIX','VIX'],['风险态','risk_state']],
-    friction:[['预期差 gap','expectation_gap_flag'],['VIX/VIX3M','VIX_term_ratio'],['利率波动代理(bp)','rate_vol_proxy_bp'],['湍流','turbulence'],['状态','state']]
+    friction:[['市场隐含路径(2Y−EFFR)','implied_path_2y_minus_effr'],['仓位拥挤度','crowdedness'],['MOVE(利率波动)','MOVE'],['VIX/VIX3M','VIX_term_ratio'],['央行美元互换(亿)','swap_lines_usd_bn'],['湍流','turbulence'],['状态','state']]
   };
   var g='';
   Object.keys(names).forEach(function(k){

@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-06-30T07:32:28",
-  "data_as_of": "2026-06-29",
-  "data_lag_days": 1,
+  "timestamp": "2026-06-30T21:04:07",
+  "data_as_of": "2026-06-30",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
     "color": "#f97316",
     "level": 3,
-    "score": 0.0,
-    "action": "系统显著承压。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。"
+    "score": -0.167,
+    "action": "系统显著承压。建议仓位≤25%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
   "dim_lights": {
-    "R": "green",
+    "R": "yellow",
     "I": "yellow",
     "F": "yellow",
     "C": "yellow",
@@ -23,10 +23,10 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.32,
-      "state": "▲",
-      "light": "green",
-      "note": "信用市场平稳，系统有足够缓冲",
+      "score": 0.22,
+      "state": "►",
+      "light": "yellow",
+      "note": "利差温和扩张，韧性开始消耗",
       "confidence": "★★",
       "name_cn": "信用韧性",
       "status": "healthy"
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.08,
+      "score": 0.04,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -125,7 +125,7 @@
       }
     ],
     "moving_toward": "数据积累中",
-    "safety_margin": 0.1,
+    "safety_margin": -0.067,
     "early_warning": "无"
   },
   "extremes": {
@@ -151,13 +151,8 @@
     "extreme_count": 2,
     "vix": {
       "value": 17.6,
-      "percentile": 66,
+      "percentile": 65,
       "desc": "市场情绪正常"
-    },
-    "credit_spread": {
-      "value": 2.83,
-      "percentile": 50,
-      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 44.8,

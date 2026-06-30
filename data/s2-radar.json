@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-06-30T21:04:07",
+  "timestamp": "2026-07-01T07:31:25",
   "data_as_of": "2026-06-30",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
-    "state": "STRESSED_SEVERE",
-    "label": "严重承压",
-    "color": "#f97316",
-    "level": 3,
-    "score": -0.167,
-    "action": "系统显著承压。建议仓位≤25%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.0,
+    "action": "系统轻度承压。建议仓位≤25%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
   "dim_lights": {
-    "R": "yellow",
+    "R": "green",
     "I": "yellow",
     "F": "yellow",
     "C": "yellow",
@@ -23,17 +23,17 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.22,
-      "state": "►",
-      "light": "yellow",
-      "note": "利差温和扩张，韧性开始消耗",
+      "score": 0.31,
+      "state": "▲",
+      "light": "green",
+      "note": "信用市场平稳，系统有足够缓冲",
       "confidence": "★★",
       "name_cn": "信用韧性",
       "status": "healthy"
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.14,
+      "score": 0.28,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.09,
+      "score": -0.08,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.04,
+      "score": 0.06,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.86,
+      "score": -0.79,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -83,10 +83,10 @@
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -125,22 +125,21 @@
       }
     ],
     "moving_toward": "数据积累中",
-    "safety_margin": -0.067,
+    "safety_margin": 0.1,
     "early_warning": "无"
   },
   "extremes": {
-    "count": 2,
+    "count": 1,
     "categories": [
-      "政策不确定性(EPU)=502 (历史90%分位)",
-      "Nasdaq波动率(VXN)=29.4 (历史96%分位)"
+      "Nasdaq波动率(VXN)=27.1 (历史91%分位)"
     ]
   },
   "opportunities": [],
   "contradiction": {
     "type": "state_change",
-    "title": "系统状态恶化：从轻度承压进入STRESSED_SEVERE",
-    "thesis": "系统从轻度承压变为STRESSED_SEVERE。主要拖累来自技术动能（-0.86），支撑来自信用韧性（+0.32）。",
-    "metaphor": "天气突变"
+    "title": "系统状态改善：从STRESSED_SEVERE进入轻度承压",
+    "thesis": "系统从STRESSED_SEVERE变为轻度承压。主要拖累来自技术动能（-0.79），支撑来自信用韧性（+0.31）。",
+    "metaphor": "雨过天晴"
   },
   "allocation": {
     "short_term": "情绪面相对平稳，正常操作即可。",
@@ -148,11 +147,16 @@
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 2,
+    "extreme_count": 1,
     "vix": {
-      "value": 17.6,
-      "percentile": 65,
+      "value": 16.5,
+      "percentile": 51,
       "desc": "市场情绪正常"
+    },
+    "credit_spread": {
+      "value": 2.8,
+      "percentile": 50,
+      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
       "value": 44.8,

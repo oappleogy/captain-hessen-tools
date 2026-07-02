@@ -1,5 +1,5 @@
 {
-  "score": 25.2,
+  "score": 25.3,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,72 +7,72 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 16.45,
+      "current": 16.59,
       "base": 16,
-      "deviation_pct": 2.8,
+      "deviation_pct": 3.7,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 2.4
+      "contribution": 4.1
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 70.12,
+      "current": 67.86,
       "base": 75,
-      "deviation_pct": 6.5,
+      "deviation_pct": 9.5,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 8.5
+      "contribution": 18.1
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 2.8,
+      "current": 2.75,
       "base": 1.5,
-      "deviation_pct": 86.7,
+      "deviation_pct": 83.3,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 1879.2
+      "contribution": 1734.7
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 162.68,
+      "current": 162.52,
       "base": 145,
-      "deviation_pct": 12.2,
+      "deviation_pct": 12.1,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 14.9
+      "contribution": 14.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 101.24,
+      "current": 101.39,
       "base": 100,
-      "deviation_pct": 1.2,
+      "deviation_pct": 1.4,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": 0.2
+      "contribution": 0.3
     }
   ],
   "hard_alerts_count": 1,
   "significant_deviations": [
     {
       "name": "信用利差",
-      "current": 2.8,
+      "current": 2.75,
       "base": 1.5,
-      "deviation_pct": 86.7,
+      "deviation_pct": 83.3,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
       "name": "天然气TTF",
-      "current": 43.67,
+      "current": 43.15,
       "base": 35,
-      "deviation_pct": 24.8,
+      "deviation_pct": 23.3,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-07-01 08:15"
+  "timestamp": "2026-07-02 08:15"
 }

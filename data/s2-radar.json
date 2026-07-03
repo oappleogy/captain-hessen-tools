@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-07-03T07:31:05",
-  "data_as_of": "2026-07-01",
-  "data_lag_days": 2,
+  "timestamp": "2026-07-03T21:01:57",
+  "data_as_of": "2026-07-02",
+  "data_lag_days": 1,
   "system_state": {
-    "state": "STABLE",
-    "label": "系统稳定",
-    "color": "#22c55e",
-    "level": 1,
-    "score": 0.5,
-    "action": "系统健康。建议仓位≤50%（趋势↑），增加对冲，缩短持仓周期。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.333,
+    "action": "系统轻度承压。建议仓位≤55%（趋势↑），增加对冲，缩短持仓周期。"
   },
-  "regime_label": "STABLE",
-  "red_count": 0,
+  "regime_label": "WATCH",
+  "red_count": 1,
   "dim_lights": {
     "R": "green",
     "I": "green",
     "F": "green",
     "C": "yellow",
     "N": "yellow",
-    "T": "yellow"
+    "T": "red"
   },
   "dimensions": {
     "R": {
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.04,
+      "score": -0.02,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -73,13 +73,13 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.04,
-      "state": "►",
-      "light": "yellow",
-      "note": "技术-制度出现摩擦，部分行业承压",
+      "score": -0.38,
+      "state": "▼",
+      "light": "red",
+      "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "neutral"
+      "status": "stressed"
     }
   },
   "attractor": {
@@ -125,7 +125,7 @@
       }
     ],
     "moving_toward": "数据积累中",
-    "safety_margin": 0.6,
+    "safety_margin": 0.433,
     "early_warning": "无"
   },
   "extremes": {

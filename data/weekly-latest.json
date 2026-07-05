@@ -1,7 +1,7 @@
 {
   "week_label": "2026-W27",
-  "generated_at": "2026-07-04 08:15",
-  "data_time": "2026-07-04T00:15:11Z",
+  "generated_at": "2026-07-05 08:15",
+  "data_time": "2026-07-05T00:15:08Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -25,7 +25,7 @@
       "unit": "%",
       "value": 3.63,
       "date": "2026-07-01",
-      "freshness": "fresh"
+      "freshness": "stale"
     },
     {
       "key": "credit_spread",
@@ -161,7 +161,7 @@
     }
   ],
   "stress_index": {
-    "score": 20.7,
+    "score": 20.8,
     "level": "green",
     "label": "正常",
     "desc": "各变量在基准附近，系统压力可控",
@@ -169,33 +169,33 @@
       {
         "variable": "credit_spread",
         "name": "信用利差",
-        "current": 2.74,
+        "current": 2.75,
         "base": 1.5,
-        "deviation_pct": 82.7,
+        "deviation_pct": 83.3,
         "weight": 0.25,
         "weight_pct": 25,
-        "contribution": 1709.8
+        "contribution": 1734.7
       }
     ],
     "hard_alerts_count": 1,
     "significant_deviations": [
       {
         "name": "信用利差",
-        "current": 2.74,
+        "current": 2.75,
         "base": 1.5,
-        "deviation_pct": 82.7,
+        "deviation_pct": 83.3,
         "direction": "偏高",
         "level": "极端偏离"
       }
     ],
-    "timestamp": "2026-07-03 08:15"
+    "timestamp": "2026-07-04 08:15"
   },
   "significant_deviations": [
     {
       "name": "信用利差",
-      "current": 2.74,
+      "current": 2.75,
       "base": 1.5,
-      "deviation_pct": 82.7,
+      "deviation_pct": 83.3,
       "direction": "偏高",
       "level": "极端偏离"
     }

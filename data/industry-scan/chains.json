@@ -1,6 +1,404 @@
 {
   "chains": [
     {
+      "id": "glass-substrate-packaging",
+      "name": "玻璃基板封装技术",
+      "thesis": "玻璃基板技术成熟后有望全面替代现有PCB电子布+树脂方案，在AI算力芯片封装中具备性能优势，市场空间巨大。",
+      "segments": [
+        "玻璃芯基板",
+        "CoWoP封装",
+        "TGV激光"
+      ],
+      "tickers": [
+        {
+          "name": "京东方",
+          "code": "",
+          "role": "玻璃基板供应商"
+        },
+        {
+          "name": "安捷利美维",
+          "code": "",
+          "role": "玻璃基板供应商"
+        },
+        {
+          "name": "沃格光电",
+          "code": "",
+          "role": "玻璃基板供应商"
+        }
+      ],
+      "tracking_signals": [
+        "玻璃基板商业化送样进展",
+        "台积电玻璃CoPoS设计应用",
+        "玻璃基板成本下降趋势"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "AI算力需求驱动，玻璃基板技术升级具备不可替代性。",
+      "framework_updated": "2026-06-26 21:30",
+      "created": "2026-06-26 21:30",
+      "latest_status": "催化增强，产业加速",
+      "latest_heat": 90,
+      "last_tracked": "2026-06-27",
+      "timeline_count": 2,
+      "first_tracked": "2026-06-26",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "玻璃芯基板",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "CoWoP封装",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "TGV激光",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "ai-driven-semiconductor-capital-expenditure",
+      "name": "AI驱动半导体资本开支",
+      "thesis": "AI技术发展推动全球半导体资本开支加速增长，AI服务器、数据中心等需求激增，带动半导体产业链全面升级。",
+      "segments": [
+        "AI服务器",
+        "半导体设备",
+        "半导体材料"
+      ],
+      "tickers": [
+        {
+          "name": "台积电",
+          "code": "TSM",
+          "role": "晶圆代工龙头"
+        },
+        {
+          "name": "美光",
+          "code": "MU",
+          "role": "存储芯片巨头"
+        },
+        {
+          "name": "长鑫存储",
+          "code": "",
+          "role": "国内存储芯片领军企业"
+        },
+        {
+          "name": "中芯",
+          "code": "",
+          "role": "晶圆代工龙头"
+        },
+        {
+          "name": "华虹",
+          "code": "",
+          "role": "资本开支增长受益者"
+        }
+      ],
+      "tracking_signals": [
+        "全球半导体资本开支数据",
+        "AI服务器出货量",
+        "存储芯片价格走势",
+        "半导体设备出货量",
+        "晶圆代工资本开支计划",
+        "先进封装产能扩张"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 5
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "鹰酱",
+        "兔子",
+        "盟国",
+        "AI"
+      ],
+      "certainty_note": "AI算力需求刚性，半导体资本开支受AI驱动持续增长，供给端依赖全球产业链协作。",
+      "framework_updated": "2026-07-01 21:30",
+      "created": "2026-06-30 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 90,
+      "last_tracked": "2026-07-01",
+      "timeline_count": 2,
+      "first_tracked": "2026-06-30",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "AI服务器",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "半导体设备",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "半导体材料",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "sst-power-electronics",
+      "name": "固态变压器（SST）电力电子",
+      "thesis": "固态变压器作为未来电力系统的重要组件，在高效能源转换和智能电网中的应用前景广阔。其技术突破将推动电力电子设备向更高效率和智能化方向发展。",
+      "segments": [
+        "固态变压器",
+        "高压SiC器件",
+        "能量路由器"
+      ],
+      "tickers": [
+        {
+          "name": "科大智能",
+          "code": "",
+          "role": "技术研发与产业化"
+        },
+        {
+          "name": "格灵诺半导体",
+          "code": "",
+          "role": "核心器件供应"
+        },
+        {
+          "name": "新风光",
+          "code": "",
+          "role": "SST产业化先锋"
+        },
+        {
+          "name": "台达",
+          "code": "",
+          "role": "大客户订单驱动"
+        }
+      ],
+      "tracking_signals": [
+        "SST样机发布",
+        "高压SiC器件商用进展",
+        "北美市场订单突破",
+        "SST样机验证进展",
+        "大客户订单落地",
+        "SiC器件导入情况"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "兔子",
+        "盟国",
+        "AI"
+      ],
+      "certainty_note": "被AI数据中心与新能源系统同时需要，SiC器件与SST技术协同发展，供给刚性较强。",
+      "framework_updated": "2026-07-01 21:30",
+      "created": "2026-06-23 13:48",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 88,
+      "last_tracked": "2026-07-01",
+      "timeline_count": 6,
+      "first_tracked": "2026-06-22",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "固态变压器",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "高压SiC器件",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "能量路由器",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "huawei-tao-law",
+      "name": "华为韬定律产业链",
+      "thesis": "韬定律提出通过时间缩微提升芯片性能，为国产高端芯片提供新路径。其核心在于逻辑折叠、系统级互联等技术，推动封装、EDA、存储等环节变革。",
+      "segments": [
+        "逻辑折叠技术",
+        "系统级互联",
+        "先进封装",
+        "EDA工具"
+      ],
+      "tickers": [
+        {
+          "name": "华为",
+          "code": "",
+          "role": "技术引领者与产业链核心"
+        },
+        {
+          "name": "长电科技",
+          "code": "",
+          "role": "先进封装与TSV工艺"
+        }
+      ],
+      "tracking_signals": [
+        "逻辑折叠技术商用化进展",
+        "TSV工艺国产化突破",
+        "EDA工具对3D堆叠支持"
+      ],
+      "stage": "发酵",
+      "origin": "framework",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 4,
+        "确定性": 4
+      },
+      "score_notes": "空间上，韬定律为国产高端芯片提供新方向，市场潜力巨大；竞争力方面，华为技术积累深厚，但产业链其他环节仍需突破；寡头垄断程度中等，华为占据主导地位；确定性较高，受AI与半导体国产化需求驱动，但技术落地仍需时间。",
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "被AI算力需求与国产替代双重驱动，属于兔子的工程化规模化优势和AI的基础设施需求，供给刚性但技术落地存在不确定性。",
+      "framework_updated": "2026-07-01 21:30",
+      "created": "2026-06-18 23:48",
+      "latest_status": "催化增强",
+      "latest_heat": 85,
+      "last_tracked": "2026-06-19",
+      "timeline_count": 2,
+      "first_tracked": "2026-06-18",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "逻辑折叠技术",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "系统级互联",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "先进封装",
+          "companies": [
+            "长电科技"
+          ],
+          "note": ""
+        },
+        {
+          "label": "EDA工具",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "space-computing",
+      "name": "太空算力",
+      "thesis": "商业航天进入高景气周期，可回收火箭技术成熟将大幅降低发射成本，太空算力等应用场景有望加速落地。",
+      "segments": [
+        "星载高速光模块",
+        "抗辐射封装技术"
+      ],
+      "tickers": [
+        {
+          "name": "陕西华达",
+          "code": "",
+          "role": "星载射频连接器龙头"
+        },
+        {
+          "name": "中国卫星",
+          "code": "",
+          "role": "国家队龙头"
+        },
+        {
+          "name": "紫光国微",
+          "code": "",
+          "role": "星载计算核心供应商"
+        }
+      ],
+      "tracking_signals": [
+        "星网项目进展",
+        "长征十号乙火箭发射",
+        "可回收火箭试验进展",
+        "卫星组网计划",
+        "太空算力项目落地"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "AI算力需求外溢至太空，太空经济成为未来趋势，供给端技术逐步成熟。",
+      "framework_updated": "2026-06-27 21:31",
+      "created": "2026-06-25 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 85,
+      "last_tracked": "2026-06-27",
+      "timeline_count": 2,
+      "first_tracked": "2026-06-25",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 3,
+      "depth_level": "浅",
+      "chain_map": [
+        {
+          "label": "星载高速光模块",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "抗辐射封装技术",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
       "id": "domestic-ai-compute",
       "name": "国产算力链",
       "thesis": "随着AI算力需求爆发和国产替代趋势，国产算力链成为关键战略方向。核心驱动包括AI模型迭代、算力需求增长以及半导体自主可控。",
@@ -33,6 +431,7 @@
         "AI服务器出货量增长"
       ],
       "stage": "兑现中",
+      "origin": "framework",
       "scores": {
         "空间": 5,
         "竞争力": 4,
@@ -49,53 +448,270 @@
       "created": "2026-06-18 23:48",
       "latest_status": "催化增强",
       "latest_heat": 85,
-      "last_tracked": "2026-07-01"
+      "last_tracked": "2026-07-01",
+      "timeline_count": 4,
+      "first_tracked": "2026-06-18",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "AI芯片设计",
+          "companies": [
+            "寒武纪"
+          ],
+          "note": ""
+        },
+        {
+          "label": "先进封装",
+          "companies": [
+            "中芯国际"
+          ],
+          "note": ""
+        },
+        {
+          "label": "国产EDA工具",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "系统级互联技术",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
-      "id": "huawei-tao-law",
-      "name": "华为韬定律产业链",
-      "thesis": "韬定律提出通过时间缩微提升芯片性能，为国产高端芯片提供新路径。其核心在于逻辑折叠、系统级互联等技术，推动封装、EDA、存储等环节变革。",
+      "id": "ai-driven-pcb-price-inflation",
+      "name": "AI驱动PCB涨价潮",
+      "thesis": "AI需求激增导致PCB核心材料严重缺货，涨价趋势明确且持续时间长，产业链利润空间扩大。",
       "segments": [
-        "逻辑折叠技术",
-        "系统级互联",
-        "先进封装",
-        "EDA工具"
+        "PCB材料",
+        "PCB制造",
+        "CCL"
       ],
       "tickers": [
         {
-          "name": "华为",
+          "name": "建滔积层板",
           "code": "",
-          "role": "技术引领者与产业链核心"
+          "role": "CCL供应商"
         },
         {
-          "name": "长电科技",
+          "name": "金安国纪",
           "code": "",
-          "role": "先进封装与TSV工艺"
+          "role": "电子布供应商"
+        },
+        {
+          "name": "中国巨石",
+          "code": "",
+          "role": "玻璃纤维供应商"
         }
       ],
       "tracking_signals": [
-        "逻辑折叠技术商用化进展",
-        "TSV工艺国产化突破",
-        "EDA工具对3D堆叠支持"
+        "PCB厂商涨价函发布频率",
+        "CCL价格走势",
+        "7628电子布价格"
       ],
-      "stage": "发酵",
+      "stage": "萌芽",
+      "origin": "emergent",
       "scores": {
         "空间": 5,
         "竞争力": 4,
-        "寡头垄断": 4,
-        "确定性": 4
+        "寡头垄断": 3,
+        "确定性": 5
       },
-      "score_notes": "空间上，韬定律为国产高端芯片提供新方向，市场潜力巨大；竞争力方面，华为技术积累深厚，但产业链其他环节仍需突破；寡头垄断程度中等，华为占据主导地位；确定性较高，受AI与半导体国产化需求驱动，但技术落地仍需时间。",
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "certainty_note": "被AI算力需求与国产替代双重驱动，属于兔子的工程化规模化优势和AI的基础设施需求，供给刚性但技术落地存在不确定性。",
-      "framework_updated": "2026-07-01 21:30",
-      "created": "2026-06-18 23:48",
+      "certainty_note": "AI算力需求刚性，PCB作为基础组件供给刚性，涨价趋势明确。",
+      "framework_updated": "2026-06-26 21:30",
+      "created": "2026-06-26 21:30",
+      "latest_status": "数据兑现",
+      "latest_heat": 82,
+      "last_tracked": "2026-06-28",
+      "timeline_count": 3,
+      "first_tracked": "2026-06-26",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "PCB材料",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "PCB制造",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "CCL",
+          "companies": [
+            "建滔积层板"
+          ],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "ai-optical-component-shortage",
+      "name": "AI光通信组件短缺",
+      "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
+      "segments": [
+        "磷化铟衬底",
+        "光芯片",
+        "CPO交换机"
+      ],
+      "tickers": [
+        {
+          "name": "云南锗业",
+          "code": "",
+          "role": "上游材料核心供应商"
+        },
+        {
+          "name": "源杰科技",
+          "code": "",
+          "role": "光芯片IDM"
+        },
+        {
+          "name": "东山精密",
+          "code": "",
+          "role": "光通信IDM一体化"
+        }
+      ],
+      "tracking_signals": [
+        "InP衬底扩产进度",
+        "光芯片价格走势",
+        "CPO交换机出货量"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 5
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "兔子",
+        "盟国",
+        "AI"
+      ],
+      "certainty_note": "AI算力需求刚性，上游材料供给刚性且技术门槛高，短期内难以替代。",
+      "framework_updated": "2026-06-24 21:30",
+      "created": "2026-06-24 21:30",
       "latest_status": "催化增强",
-      "latest_heat": 85,
-      "last_tracked": "2026-06-19"
+      "latest_heat": 82,
+      "last_tracked": "2026-07-01",
+      "timeline_count": 6,
+      "first_tracked": "2026-06-24",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "磷化铟衬底",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "光芯片",
+          "companies": [
+            "源杰科技"
+          ],
+          "note": ""
+        },
+        {
+          "label": "CPO交换机",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "semiconductor-testing-services",
+      "name": "半导体检测服务",
+      "thesis": "半导体产业链国产化加速，第三方检测服务需求增长，国产替代空间广阔，受益先进制程和封装技术发展。",
+      "segments": [
+        "失效分析",
+        "材料分析",
+        "可靠性验证"
+      ],
+      "tickers": [
+        {
+          "name": "胜科纳米",
+          "code": "",
+          "role": "检测服务龙头"
+        },
+        {
+          "name": "苏试试验",
+          "code": "",
+          "role": "全能力检测服务"
+        },
+        {
+          "name": "广电计量",
+          "code": "",
+          "role": "车规级检测领先"
+        }
+      ],
+      "tracking_signals": [
+        "国产替代进程",
+        "先进制程研发投入",
+        "第三方检测渗透率"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "半导体产业链升级驱动检测需求增长，国产替代趋势明确，供给端技术壁垒较高。",
+      "framework_updated": "2026-06-19 09:27",
+      "created": "2026-06-19 09:27",
+      "latest_status": "数据兑现",
+      "latest_heat": 80,
+      "last_tracked": "2026-06-23",
+      "timeline_count": 4,
+      "first_tracked": "2026-06-19",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "失效分析",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "材料分析",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "可靠性验证",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "kyber-optical-communication",
@@ -125,6 +741,7 @@
         "微棱镜透镜阵列技术授权合作"
       ],
       "stage": "兑现中",
+      "origin": "framework",
       "scores": {
         "空间": 5,
         "竞争力": 4,
@@ -142,7 +759,117 @@
       "created": "2026-06-18 23:48",
       "latest_status": "数据兑现",
       "latest_heat": 80,
-      "last_tracked": "2026-06-24"
+      "last_tracked": "2026-06-24",
+      "timeline_count": 6,
+      "first_tracked": "2026-06-18",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "CPO技术",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "硅光子芯片",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "微纳光学冷加工",
+          "companies": [
+            "炬光科技"
+          ],
+          "note": ""
+        },
+        {
+          "label": "光引擎封装",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "glass-substrate-ai-packaging",
+      "name": "玻璃基板AI封装",
+      "thesis": "玻璃基板在AI封装领域展现出独特优势，其散热与绝缘性能优于传统材料，有望成为下一代封装技术核心。",
+      "segments": [
+        "玻璃基板",
+        "ABF-GCP",
+        "溅射铜"
+      ],
+      "tickers": [
+        {
+          "name": "京东方",
+          "code": "",
+          "role": "玻璃基板供应商"
+        },
+        {
+          "name": "沃格",
+          "code": "",
+          "role": "玻璃基板加工"
+        },
+        {
+          "name": "莱宝高科",
+          "code": "",
+          "role": "玻璃基板供应商"
+        }
+      ],
+      "tracking_signals": [
+        "玻璃基板量产进展",
+        "ABF-GCP技术突破",
+        "CSP厂商采用情况"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "AI算力需求推动封装技术升级，玻璃基板作为新兴方案具备技术颠覆潜力。",
+      "framework_updated": "2026-06-23 13:47",
+      "created": "2026-06-23 13:47",
+      "latest_status": "数据兑现",
+      "latest_heat": 80,
+      "last_tracked": "2026-06-26",
+      "timeline_count": 3,
+      "first_tracked": "2026-06-21",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "玻璃基板",
+          "companies": [
+            "京东方",
+            "沃格",
+            "莱宝高科"
+          ],
+          "note": ""
+        },
+        {
+          "label": "ABF-GCP",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "溅射铜",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "ai-server-liquid-cooling",
@@ -171,6 +898,7 @@
         "冷却液材料研发突破"
       ],
       "stage": "兑现中",
+      "origin": "emergent",
       "scores": {
         "空间": 5,
         "竞争力": 4,
@@ -187,7 +915,107 @@
       "created": "2026-06-19 09:27",
       "latest_status": "催化增强",
       "latest_heat": 80,
-      "last_tracked": "2026-07-01"
+      "last_tracked": "2026-07-01",
+      "timeline_count": 10,
+      "first_tracked": "2026-06-19",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "液冷散热系统",
+          "companies": [
+            "华为"
+          ],
+          "note": ""
+        },
+        {
+          "label": "冷却液材料",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "热管理系统设计",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "hbm-memory-market",
+      "name": "HBM内存市场",
+      "thesis": "HBM内存市场需求激增，SK海力士调整HBM4生产速度以增加通用DDR内存供应，HBM市场占有率持续提升。HBM内存的高带宽和低功耗特性使其成为AI服务器的核心组件。",
+      "segments": [
+        "HBM内存",
+        "DDR内存",
+        "内存封装"
+      ],
+      "tickers": [
+        {
+          "name": "SK海力士",
+          "code": "000660",
+          "role": "HBM内存制造商"
+        },
+        {
+          "name": "三星电子",
+          "code": "005930",
+          "role": "HBM内存制造商"
+        }
+      ],
+      "tracking_signals": [
+        "HBM内存出货量",
+        "HBM内存价格走势",
+        "AI服务器出货量"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 4,
+        "确定性": 5
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "鹰酱",
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "AI算力需求驱动，HBM内存是AI服务器中不可或缺的组件，供给刚性较强。",
+      "framework_updated": "2026-06-23 21:30",
+      "created": "2026-06-23 21:30",
+      "latest_status": "催化增强",
+      "latest_heat": 78,
+      "last_tracked": "2026-07-01",
+      "timeline_count": 5,
+      "first_tracked": "2026-06-23",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "HBM内存",
+          "companies": [
+            "SK海力士",
+            "三星电子"
+          ],
+          "note": ""
+        },
+        {
+          "label": "DDR内存",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "内存封装",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "semiconductor-clean-process-chain",
@@ -213,6 +1041,7 @@
         "半导体制造良率提升"
       ],
       "stage": "兑现中",
+      "origin": "emergent",
       "scores": {
         "空间": 4,
         "竞争力": 3,
@@ -229,7 +1058,36 @@
       "created": "2026-06-19 09:04",
       "latest_status": "数据兑现",
       "latest_heat": 75,
-      "last_tracked": "2026-06-21"
+      "last_tracked": "2026-06-21",
+      "timeline_count": 2,
+      "first_tracked": "2026-06-19",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "精密清洗",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "湿法清洗",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "洁净室设计",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "污染控制",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "ai-manga-drama",
@@ -255,6 +1113,7 @@
         "内容创作平台用户活跃度提升"
       ],
       "stage": "萌芽",
+      "origin": "emergent",
       "scores": {
         "空间": 5,
         "竞争力": 3,
@@ -270,16 +1129,64 @@
       "created": "2026-06-19 09:04",
       "latest_status": "数据兑现",
       "latest_heat": 75,
-      "last_tracked": "2026-06-30"
+      "last_tracked": "2026-06-30",
+      "timeline_count": 4,
+      "first_tracked": "2026-06-19",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "AI生成技术",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "互动体验设计",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "内容创作平台",
+          "companies": [
+            "中文在线"
+          ],
+          "note": ""
+        },
+        {
+          "label": "用户数据分析",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
-      "id": "semiconductor-testing-services",
-      "name": "半导体检测服务",
-      "thesis": "半导体产业链国产化加速，第三方检测服务需求增长，国产替代空间广阔，受益先进制程和封装技术发展。",
+      "id": "ai-pcb-manufacturing",
+      "name": "AI PCB制造",
+      "thesis": "AI服务器需求激增推动PCB市场规模快速增长，预计2026-2028年AI PCB市场规模年复合增长率超过90%。AI服务器对高端PCB的需求将带动相关产业链的快速发展。",
       "segments": [
-        "失效分析",
-        "材料分析",
-        "可靠性验证"
+        "AI服务器PCB",
+        "高端覆铜板",
+        "mSAP精细线路"
+      ],
+      "tickers": [
+        {
+          "name": "鹏鼎控股",
+          "code": "002938",
+          "role": "PCB制造商"
+        },
+        {
+          "name": "深南电路",
+          "code": "002916",
+          "role": "PCB制造商"
+        }
+      ],
+      "tracking_signals": [
+        "AI服务器出货量",
+        "高端覆铜板价格走势",
+        "mSAP产能利用率"
       ],
       "stage": "萌芽",
       "origin": "emergent",
@@ -289,42 +1196,114 @@
         "寡头垄断": 3,
         "确定性": 4
       },
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "framework_updated": "2026-06-19 09:27",
-      "created": "2026-06-19 09:27",
+      "certainty_note": "AI算力需求驱动，PCB制造是AI服务器产业链中不可或缺的环节，供给刚性较强。",
+      "framework_updated": "2026-06-23 21:30",
+      "created": "2026-06-23 21:30",
       "latest_status": "数据兑现",
-      "latest_heat": 80,
-      "last_tracked": "2026-06-23"
+      "latest_heat": 75,
+      "last_tracked": "2026-07-01",
+      "timeline_count": 8,
+      "first_tracked": "2026-06-23",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 6,
+      "depth_level": "深",
+      "chain_map": [
+        {
+          "label": "AI服务器PCB",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "高端覆铜板",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "mSAP精细线路",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
-      "id": "quantum-tech-industry",
-      "name": "量子科技产业链",
-      "thesis": "量子科技正从科研验证走向产业化窗口，量子通信、量子精密测量已形成示范应用，量子计算处于技术攻关阶段，未来市场空间巨大。",
+      "id": "ai-robotics-component-supply",
+      "name": "AI机器人核心零部件供应",
+      "thesis": "AI与机器人技术融合加速，核心零部件如谐波减速器需求激增，具备规模化生产能力的企业将受益。",
       "segments": [
-        "量子计算",
-        "量子通信",
-        "量子精密测量"
+        "谐波减速器",
+        "机器人结构件",
+        "AI配送机器人"
+      ],
+      "tickers": [
+        {
+          "name": "科达利",
+          "code": "",
+          "role": "谐波减速器供应商"
+        },
+        {
+          "name": "特斯拉",
+          "code": "",
+          "role": "机器人研发与生产"
+        }
+      ],
+      "tracking_signals": [
+        "谐波减速器产能释放",
+        "机器人出货量",
+        "AI技术迭代"
       ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
-        "空间": 5,
+        "空间": 4,
         "竞争力": 4,
         "寡头垄断": 3,
         "确定性": 4
       },
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
+        "盟国",
         "AI"
       ],
-      "framework_updated": "2026-06-23 13:47",
-      "created": "2026-06-23 13:47",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 80,
-      "last_tracked": "2026-06-20"
+      "certainty_note": "AI与机器人融合趋势明确，核心零部件需求持续增长，供给端需规模化生产能力。",
+      "framework_updated": "2026-06-24 21:30",
+      "created": "2026-06-24 21:30",
+      "latest_status": "催化增强",
+      "latest_heat": 70,
+      "last_tracked": "2026-06-30",
+      "timeline_count": 6,
+      "first_tracked": "2026-06-24",
+      "tracking_bucket": "持续跟踪",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "谐波减速器",
+          "companies": [
+            "科达利"
+          ],
+          "note": ""
+        },
+        {
+          "label": "机器人结构件",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "AI配送机器人",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "ai-energy-infrastructure",
@@ -335,6 +1314,17 @@
         "储能",
         "能源投资"
       ],
+      "tickers": [
+        {
+          "name": "宁德时代",
+          "code": "300750",
+          "role": "储能设备供应商"
+        }
+      ],
+      "tracking_signals": [
+        "亚太地区电力投资增速",
+        "AI数据中心电力消耗数据"
+      ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
@@ -343,25 +1333,69 @@
         "寡头垄断": 3,
         "确定性": 5
       },
+      "score_notes": "",
       "certainty_drivers": [
         "鹰酱",
         "兔子",
         "AI"
       ],
+      "certainty_note": "被AI算力需求和能源安全双重驱动，供给刚性高。",
       "framework_updated": "2026-06-23 13:47",
       "created": "2026-06-23 13:47",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 90,
-      "last_tracked": "2026-06-20"
+      "last_tracked": "2026-06-20",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-20",
+      "tracking_bucket": "首次观察",
+      "depth_score": 4,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "电力供应",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "储能",
+          "companies": [
+            "宁德时代"
+          ],
+          "note": ""
+        },
+        {
+          "label": "能源投资",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
-      "id": "glass-substrate-ai-packaging",
-      "name": "玻璃基板AI封装",
-      "thesis": "玻璃基板在AI封装领域展现出独特优势，其散热与绝缘性能优于传统材料，有望成为下一代封装技术核心。",
+      "id": "ai-liquid-cooling-platforms",
+      "name": "AI服务器液冷平台",
+      "thesis": "AI服务器液冷技术从混合液冷向全系统液冷升级，Rubin平台引领行业变革，推动液冷散热系统需求爆发。",
       "segments": [
-        "玻璃基板",
-        "ABF-GCP",
-        "溅射铜"
+        "液冷散热系统",
+        "冷却液",
+        "散热材料"
+      ],
+      "tickers": [
+        {
+          "name": "立敏达",
+          "code": "",
+          "role": "卡位/核心供应商"
+        },
+        {
+          "name": "英伟达",
+          "code": "",
+          "role": "平台引领者"
+        }
+      ],
+      "tracking_signals": [
+        "Rubin平台出货量",
+        "液冷散热系统订单量"
       ],
       "stage": "萌芽",
       "origin": "emergent",
@@ -371,15 +1405,186 @@
         "寡头垄断": 3,
         "确定性": 4
       },
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
+      "certainty_note": "AI算力需求激增，液冷技术升级成为刚性需求，供给端技术壁垒较高。",
+      "framework_updated": "2026-06-28 21:30",
+      "created": "2026-06-28 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 90,
+      "last_tracked": "2026-06-28",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-28",
+      "tracking_bucket": "首次观察",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "液冷散热系统",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "冷却液",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "散热材料",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "ai-driven-power-semiconductor-demand",
+      "name": "AI驱动功率半导体需求",
+      "thesis": "AI数据中心、新能源及储能需求爆发，推动功率半导体进入新一轮涨价周期，AI算力产业链对功率半导体的需求激增。",
+      "segments": [
+        "功率半导体",
+        "AI服务器电源",
+        "新能源"
+      ],
+      "tickers": [
+        {
+          "name": "扬杰科技",
+          "code": "",
+          "role": "IDM模式功率半导体企业"
+        },
+        {
+          "name": "新洁能",
+          "code": "",
+          "role": "中低压功率半导体领先企业"
+        },
+        {
+          "name": "天岳先进",
+          "code": "",
+          "role": "SiC材料供应商"
+        }
+      ],
+      "tracking_signals": [
+        "功率半导体价格走势",
+        "AI服务器出货量",
+        "新能源装机量"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 5
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "鹰酱",
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "AI与新能源需求共振，功率半导体需求刚性，供给端依赖全球产业链协作。",
+      "framework_updated": "2026-06-30 21:30",
+      "created": "2026-06-30 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 85,
+      "last_tracked": "2026-06-30",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-30",
+      "tracking_bucket": "首次观察",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "功率半导体",
+          "companies": [
+            "扬杰科技",
+            "新洁能"
+          ],
+          "note": ""
+        },
+        {
+          "label": "AI服务器电源",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "新能源",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
+    },
+    {
+      "id": "quantum-tech-industry",
+      "name": "量子科技产业链",
+      "thesis": "量子科技正从科研验证走向产业化窗口，量子通信、量子精密测量已形成示范应用，量子计算处于技术攻关阶段，未来市场空间巨大。",
+      "segments": [
+        "量子计算",
+        "量子通信",
+        "量子精密测量"
+      ],
+      "tickers": [
+        {
+          "name": "国盾量子",
+          "code": "688027",
+          "role": "量子通信设备供应商"
+        }
+      ],
+      "tracking_signals": [
+        "量子通信示范应用落地情况",
+        "量子计算技术突破进展"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "score_notes": "",
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "certainty_note": "被兔子工程化能力吸引，AI算力需求推动量子计算发展，供给刚性较强。",
       "framework_updated": "2026-06-23 13:47",
       "created": "2026-06-23 13:47",
-      "latest_status": "数据兑现",
+      "latest_status": "首次纳入跟踪",
       "latest_heat": 80,
-      "last_tracked": "2026-06-26"
+      "last_tracked": "2026-06-20",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-20",
+      "tracking_bucket": "首次观察",
+      "depth_score": 4,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "量子计算",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "量子通信",
+          "companies": [
+            "国盾量子"
+          ],
+          "note": ""
+        },
+        {
+          "label": "量子精密测量",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "advanced-packaging-materials",
@@ -391,6 +1596,28 @@
         "金刚石",
         "磷化铟"
       ],
+      "tickers": [
+        {
+          "name": "圣泉集团",
+          "code": "",
+          "role": "ABF树脂供应商"
+        },
+        {
+          "name": "三孚新科",
+          "code": "",
+          "role": "电镀药水供应商"
+        },
+        {
+          "name": "力诺药包",
+          "code": "",
+          "role": "玻璃供应商"
+        }
+      ],
+      "tracking_signals": [
+        "新材料技术突破",
+        "下游厂商采用情况",
+        "量产进展"
+      ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
@@ -399,43 +1626,109 @@
         "寡头垄断": 3,
         "确定性": 4
       },
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
+      "certainty_note": "AI算力需求推动封装技术升级，新材料作为关键技术支撑具备长期增长潜力。",
       "framework_updated": "2026-06-23 13:47",
       "created": "2026-06-23 13:47",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 75,
-      "last_tracked": "2026-06-21"
+      "last_tracked": "2026-06-21",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-21",
+      "tracking_bucket": "首次观察",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "玻璃基板",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "氮化镓",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "金刚石",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "磷化铟",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
-      "id": "sst-power-electronics",
-      "name": "固态变压器（SST）电力电子",
-      "thesis": "固态变压器作为未来电力系统的重要组件，在高效能源转换和智能电网中的应用前景广阔。其技术突破将推动电力电子设备向更高效率和智能化方向发展。",
+      "id": "ai-military-conflict-impact",
+      "name": "AI与军事冲突影响",
+      "thesis": "美伊冲突加剧，全球地缘政治风险上升，可能影响AI产业链的供应链稳定性和市场情绪。",
       "segments": [
-        "固态变压器",
-        "高压SiC器件",
-        "能量路由器"
+        "AI芯片供应链",
+        "国际物流"
+      ],
+      "tickers": [
+        {
+          "name": "三星",
+          "code": "",
+          "role": "关键供应商"
+        },
+        {
+          "name": "台积电",
+          "code": "",
+          "role": "制造基地"
+        }
+      ],
+      "tracking_signals": [
+        "美伊冲突进展",
+        "AI芯片供应链中断风险"
       ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
+        "空间": 3,
+        "竞争力": 2,
+        "寡头垄断": 2,
+        "确定性": 3
       },
+      "score_notes": "",
       "certainty_drivers": [
-        "兔子",
-        "盟国",
-        "AI"
+        "鹰酱",
+        "盟国"
       ],
-      "framework_updated": "2026-06-23 13:48",
-      "created": "2026-06-23 13:48",
-      "latest_status": "催化增强",
-      "latest_heat": 65,
-      "last_tracked": "2026-06-29"
+      "certainty_note": "地缘政治风险上升，AI产业链全球化布局面临挑战，供给端不确定性增加。",
+      "framework_updated": "2026-06-28 21:30",
+      "created": "2026-06-28 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 75,
+      "last_tracked": "2026-06-28",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-28",
+      "tracking_bucket": "首次观察",
+      "depth_score": 2,
+      "depth_level": "浅",
+      "chain_map": [
+        {
+          "label": "AI芯片供应链",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "国际物流",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "japan-semiconductor-export-controls",
@@ -446,6 +1739,28 @@
         "高精度分选机",
         "固晶机"
       ],
+      "tickers": [
+        {
+          "name": "深科达",
+          "code": "688328",
+          "role": "国产设备替代"
+        },
+        {
+          "name": "新益昌",
+          "code": "688383",
+          "role": "高精度固晶机供应"
+        },
+        {
+          "name": "金海通",
+          "code": "603061",
+          "role": "测试分选平台供应"
+        }
+      ],
+      "tracking_signals": [
+        "国产设备订单增长",
+        "设备交付周期变化",
+        "日本出口管制政策调整"
+      ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
@@ -454,152 +1769,43 @@
         "寡头垄断": 3,
         "确定性": 5
       },
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
+      "certainty_note": "被AI算力基础设施和半导体产业链需要，管制政策驱动供给刚性。",
       "framework_updated": "2026-06-23 13:48",
       "created": "2026-06-23 13:48",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 70,
-      "last_tracked": "2026-06-22"
-    },
-    {
-      "id": "ai-pcb-manufacturing",
-      "name": "AI PCB制造",
-      "thesis": "AI服务器需求激增推动PCB市场规模快速增长，预计2026-2028年AI PCB市场规模年复合增长率超过90%。AI服务器对高端PCB的需求将带动相关产业链的快速发展。",
-      "segments": [
-        "AI服务器PCB",
-        "高端覆铜板",
-        "mSAP精细线路"
+      "last_tracked": "2026-06-22",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-22",
+      "tracking_bucket": "首次观察",
+      "depth_score": 5,
+      "depth_level": "中",
+      "chain_map": [
+        {
+          "label": "先进封装设备",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "高精度分选机",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "固晶机",
+          "companies": [
+            "新益昌"
+          ],
+          "note": ""
+        }
       ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-23 21:30",
-      "created": "2026-06-23 21:30",
-      "latest_status": "数据兑现",
-      "latest_heat": 75,
-      "last_tracked": "2026-07-01"
-    },
-    {
-      "id": "hbm-memory-market",
-      "name": "HBM内存市场",
-      "thesis": "HBM内存市场需求激增，SK海力士调整HBM4生产速度以增加通用DDR内存供应，HBM市场占有率持续提升。HBM内存的高带宽和低功耗特性使其成为AI服务器的核心组件。",
-      "segments": [
-        "HBM内存",
-        "DDR内存",
-        "内存封装"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 4,
-        "确定性": 5
-      },
-      "certainty_drivers": [
-        "鹰酱",
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-23 21:30",
-      "created": "2026-06-23 21:30",
-      "latest_status": "催化增强",
-      "latest_heat": 78,
-      "last_tracked": "2026-07-01"
-    },
-    {
-      "id": "ai-optical-component-shortage",
-      "name": "AI光通信组件短缺",
-      "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
-      "segments": [
-        "磷化铟衬底",
-        "光芯片",
-        "CPO交换机"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 5
-      },
-      "certainty_drivers": [
-        "兔子",
-        "盟国",
-        "AI"
-      ],
-      "framework_updated": "2026-06-24 21:30",
-      "created": "2026-06-24 21:30",
-      "latest_status": "催化增强",
-      "latest_heat": 82,
-      "last_tracked": "2026-07-01"
-    },
-    {
-      "id": "ai-robotics-component-supply",
-      "name": "AI机器人核心零部件供应",
-      "thesis": "AI与机器人技术融合加速，核心零部件如谐波减速器需求激增，具备规模化生产能力的企业将受益。",
-      "segments": [
-        "谐波减速器",
-        "机器人结构件",
-        "AI配送机器人"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 4,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "盟国",
-        "AI"
-      ],
-      "framework_updated": "2026-06-24 21:30",
-      "created": "2026-06-24 21:30",
-      "latest_status": "催化增强",
-      "latest_heat": 70,
-      "last_tracked": "2026-06-30"
-    },
-    {
-      "id": "space-computing",
-      "name": "太空算力",
-      "thesis": "随着低轨卫星星座建设加速，星载高速光模块需求激增，技术突破将推动太空算力发展。",
-      "segments": [
-        "星载高速光模块",
-        "抗辐射封装技术"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 4,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-25 21:30",
-      "created": "2026-06-25 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 70,
-      "last_tracked": "2026-06-25"
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "superconductor-material",
@@ -609,6 +1815,17 @@
         "高温超导带材",
         "超导应用"
       ],
+      "tickers": [
+        {
+          "name": "永鼎股份",
+          "code": "",
+          "role": "高温超导带材生产商"
+        }
+      ],
+      "tracking_signals": [
+        "扩产计划实施",
+        "下游需求增长"
+      ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
@@ -617,201 +1834,38 @@
         "寡头垄断": 2,
         "确定性": 4
       },
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
+      "certainty_note": "技术突破与国家战略需求共同驱动，供给具有稀缺性。",
       "framework_updated": "2026-06-25 21:30",
       "created": "2026-06-25 21:30",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 65,
-      "last_tracked": "2026-06-25"
-    },
-    {
-      "id": "ai-driven-pcb-price-inflation",
-      "name": "AI驱动PCB涨价潮",
-      "thesis": "AI需求激增导致PCB核心材料严重缺货，涨价趋势明确且持续时间长，产业链利润空间扩大。",
-      "segments": [
-        "PCB材料",
-        "PCB制造",
-        "CCL"
+      "last_tracked": "2026-06-25",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-25",
+      "tracking_bucket": "首次观察",
+      "depth_score": 1,
+      "depth_level": "浅",
+      "chain_map": [
+        {
+          "label": "高温超导带材",
+          "companies": [
+            "永鼎股份"
+          ],
+          "note": ""
+        },
+        {
+          "label": "超导应用",
+          "companies": [],
+          "note": ""
+        }
       ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 5
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-26 21:30",
-      "created": "2026-06-26 21:30",
-      "latest_status": "数据兑现",
-      "latest_heat": 82,
-      "last_tracked": "2026-06-28"
-    },
-    {
-      "id": "glass-substrate-packaging",
-      "name": "玻璃基板封装技术",
-      "thesis": "玻璃基板技术成熟后有望全面替代现有PCB电子布+树脂方案，在AI算力芯片封装中具备性能优势，市场空间巨大。",
-      "segments": [
-        "玻璃芯基板",
-        "CoWoP封装",
-        "TGV激光"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-26 21:30",
-      "created": "2026-06-26 21:30",
-      "latest_status": "催化增强，产业加速",
-      "latest_heat": 90,
-      "last_tracked": "2026-06-27"
-    },
-    {
-      "id": "sst-power-electronics-x",
-      "name": "固态变压器（SST）电力电子",
-      "thesis": "SST技术正在从样机验证走向大客户订单阶段，有望重构传统供电链路，适应AI数据中心等新型架构，市场规模巨大。",
-      "segments": [
-        "固态变压器",
-        "高压SiC器件",
-        "能量路由器"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-27 21:31",
-      "created": "2026-06-27 21:31",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 80,
-      "last_tracked": "2026-06-27"
-    },
-    {
-      "id": "space-computing-x",
-      "name": "太空算力",
-      "thesis": "商业航天进入高景气周期，可回收火箭技术成熟将大幅降低发射成本，太空算力等应用场景有望加速落地。",
-      "segments": [
-        "星载高速光模块",
-        "抗辐射封装技术"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-27 21:31",
-      "created": "2026-06-27 21:31",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 85,
-      "last_tracked": "2026-06-27"
-    },
-    {
-      "id": "ai-liquid-cooling-platforms",
-      "name": "AI服务器液冷平台",
-      "thesis": "AI服务器液冷技术从混合液冷向全系统液冷升级，Rubin平台引领行业变革，推动液冷散热系统需求爆发。",
-      "segments": [
-        "液冷散热系统",
-        "冷却液",
-        "散热材料"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-28 21:30",
-      "created": "2026-06-28 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 90,
-      "last_tracked": "2026-06-28"
-    },
-    {
-      "id": "ai-military-conflict-impact",
-      "name": "AI与军事冲突影响",
-      "thesis": "美伊冲突加剧，全球地缘政治风险上升，可能影响AI产业链的供应链稳定性和市场情绪。",
-      "segments": [
-        "AI芯片供应链",
-        "国际物流"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 3,
-        "竞争力": 2,
-        "寡头垄断": 2,
-        "确定性": 3
-      },
-      "certainty_drivers": [
-        "鹰酱",
-        "盟国"
-      ],
-      "framework_updated": "2026-06-28 21:30",
-      "created": "2026-06-28 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 75,
-      "last_tracked": "2026-06-28"
-    },
-    {
-      "id": "low-carbon-hydrogen-production",
-      "name": "低碳氢气生产技术",
-      "thesis": "低碳氢气生产技术因全球净零排放趋势及半导体产业需求增长而备受关注。副产氢气提纯技术具有低碳环保优势，契合ESG发展需求。",
-      "segments": [
-        "副产氢气提纯",
-        "低碳制氢"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 4,
-        "竞争力": 3,
-        "寡头垄断": 2,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-29 21:30",
-      "created": "2026-06-29 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 60,
-      "last_tracked": "2026-06-29"
+      "key_questions": [],
+      "not_clear": ""
     },
     {
       "id": "mlcc-testing-equipment",
@@ -821,6 +1875,22 @@
         "性能检测",
         "外观检测"
       ],
+      "tickers": [
+        {
+          "name": "杰普特",
+          "code": "",
+          "role": "技术研发/生产"
+        },
+        {
+          "name": "博杰股份",
+          "code": "",
+          "role": "技术研发/生产"
+        }
+      ],
+      "tracking_signals": [
+        "MLCC测试设备订单增长",
+        "技术突破及产品认证"
+      ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
@@ -829,128 +1899,100 @@
         "寡头垄断": 2,
         "确定性": 4
       },
+      "score_notes": "",
       "certainty_drivers": [
         "盟国",
         "AI"
       ],
+      "certainty_note": "被AI及数据中心系统需要，设备需求刚性，技术壁垒较高。",
       "framework_updated": "2026-06-29 21:30",
       "created": "2026-06-29 21:30",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 65,
-      "last_tracked": "2026-06-29"
+      "last_tracked": "2026-06-29",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-29",
+      "tracking_bucket": "首次观察",
+      "depth_score": 3,
+      "depth_level": "浅",
+      "chain_map": [
+        {
+          "label": "性能检测",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "外观检测",
+          "companies": [],
+          "note": ""
+        }
+      ],
+      "key_questions": [],
+      "not_clear": ""
     },
     {
-      "id": "ai-driven-semiconductor-capital-expenditure",
-      "name": "AI驱动半导体资本开支",
-      "thesis": "AI技术发展推动全球半导体资本开支加速增长，AI服务器、数据中心等需求激增，带动半导体产业链全面升级。",
+      "id": "low-carbon-hydrogen-production",
+      "name": "低碳氢气生产技术",
+      "thesis": "低碳氢气生产技术因全球净零排放趋势及半导体产业需求增长而备受关注。副产氢气提纯技术具有低碳环保优势，契合ESG发展需求。",
       "segments": [
-        "AI服务器",
-        "半导体设备",
-        "半导体材料"
+        "副产氢气提纯",
+        "低碳制氢"
+      ],
+      "tickers": [
+        {
+          "name": "台化",
+          "code": "",
+          "role": "技术研发/生产"
+        },
+        {
+          "name": "国乔",
+          "code": "",
+          "role": "技术研发/生产"
+        }
+      ],
+      "tracking_signals": [
+        "副产氢气提纯项目进展",
+        "低碳制氢技术突破"
       ],
       "stage": "萌芽",
       "origin": "emergent",
       "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 5
-      },
-      "certainty_drivers": [
-        "鹰酱",
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-30 21:30",
-      "created": "2026-06-30 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 90,
-      "last_tracked": "2026-06-30"
-    },
-    {
-      "id": "ai-driven-power-semiconductor-demand",
-      "name": "AI驱动功率半导体需求",
-      "thesis": "AI数据中心、新能源及储能需求爆发，推动功率半导体进入新一轮涨价周期，AI算力产业链对功率半导体的需求激增。",
-      "segments": [
-        "功率半导体",
-        "AI服务器电源",
-        "新能源"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 5
-      },
-      "certainty_drivers": [
-        "鹰酱",
-        "兔子",
-        "AI"
-      ],
-      "framework_updated": "2026-06-30 21:30",
-      "created": "2026-06-30 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 85,
-      "last_tracked": "2026-06-30"
-    },
-    {
-      "id": "sst-power-electronics-x-x",
-      "name": "固态变压器（SST）电力电子",
-      "thesis": "SST技术正在从样机验证走向大客户订单阶段，有望重构传统供电链路，适配新型电力架构，市场规模巨大。",
-      "segments": [
-        "固态变压器",
-        "高压SiC器件",
-        "能量路由器"
-      ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
+        "空间": 4,
+        "竞争力": 3,
+        "寡头垄断": 2,
         "确定性": 4
       },
+      "score_notes": "",
       "certainty_drivers": [
         "兔子",
-        "盟国",
         "AI"
       ],
-      "framework_updated": "2026-07-01 21:30",
-      "created": "2026-07-01 21:30",
+      "certainty_note": "被半导体产业及新能源系统同时需要，技术路径明确，供给刚性。",
+      "framework_updated": "2026-06-29 21:30",
+      "created": "2026-06-29 21:30",
       "latest_status": "首次纳入跟踪",
-      "latest_heat": 88,
-      "last_tracked": "2026-07-01"
-    },
-    {
-      "id": "ai-driven-semiconductor-capital-expenditure-x",
-      "name": "AI驱动半导体资本开支",
-      "thesis": "AI算力需求推动半导体设备与材料投资增长，晶圆代工、先进封装等领域资本开支大幅提升。",
-      "segments": [
-        "AI服务器",
-        "半导体设备",
-        "半导体材料"
+      "latest_heat": 60,
+      "last_tracked": "2026-06-29",
+      "timeline_count": 1,
+      "first_tracked": "2026-06-29",
+      "tracking_bucket": "首次观察",
+      "depth_score": 3,
+      "depth_level": "浅",
+      "chain_map": [
+        {
+          "label": "副产氢气提纯",
+          "companies": [],
+          "note": ""
+        },
+        {
+          "label": "低碳制氢",
+          "companies": [],
+          "note": ""
+        }
       ],
-      "stage": "萌芽",
-      "origin": "emergent",
-      "scores": {
-        "空间": 5,
-        "竞争力": 4,
-        "寡头垄断": 3,
-        "确定性": 4
-      },
-      "certainty_drivers": [
-        "兔子",
-        "盟国",
-        "AI"
-      ],
-      "framework_updated": "2026-07-01 21:30",
-      "created": "2026-07-01 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 90,
-      "last_tracked": "2026-07-01"
+      "key_questions": [],
+      "not_clear": ""
     }
   ],
-  "updated": "2026-07-01 21:30"
+  "updated": "2026-07-05 23:22"
 }

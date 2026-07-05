@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>产业链跟踪 | BaseAlpha</title>
-<meta property="og:title" content="产业链持续跟踪">
-<meta property="og:description" content="一级框架 + 二级催化 + 券商数据的跨天时间线">
+<title>产业链档案 | BaseAlpha</title>
+<meta property="og:title" content="产业链档案">
+<meta property="og:description" content="把框架、产业链图、关键问题、时间线进展拆开展示">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -13,33 +13,39 @@
 @media (prefers-color-scheme:dark){:root{--bg:#0a0e17;--bg2:#111827;--card-bg:#151c2c;--text:#e8e8ed;--text2:#8b8b9a;--text3:#55556a;--accent:#5b8af5;--accent2:#9b7ffc;--accent-glow:rgba(91,138,245,0.15);--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow:0 4px 24px rgba(0,0,0,0.2);--tag-bg:rgba(91,138,245,0.12);--tag-text:#7da4f8}}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.7}
-.bg-glow{position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,var(--accent-glow) 0%,transparent 70%);pointer-events:none;z-index:0}
-.container{max-width:840px;margin:0 auto;padding:0 22px 80px;position:relative;z-index:1}
+.bg-glow{position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:840px;height:620px;background:radial-gradient(ellipse,var(--accent-glow) 0%,transparent 72%);pointer-events:none;z-index:0}
+.container{max-width:920px;margin:0 auto;padding:0 22px 84px;position:relative;z-index:1}
 .backlink{display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:13px;color:var(--text2);text-decoration:none;font-family:'JetBrains Mono',monospace}
 .backlink:hover{color:var(--accent)}
 .kicker{display:inline-flex;align-items:center;gap:8px;margin:26px 0 12px;padding:6px 14px;background:var(--tag-bg);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--tag-text)}
-h1{font-family:'Noto Serif SC',serif;font-size:clamp(23px,4vw,32px);font-weight:700;line-height:1.3;margin-bottom:8px}
+h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,34px);font-weight:700;line-height:1.3;margin-bottom:8px}
 h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stage{font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;font-family:'JetBrains Mono',monospace;vertical-align:middle}
+.hero-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 9px;border-radius:999px;letter-spacing:.5px}
+.bucket-持续跟踪{background:rgba(34,197,94,.14);color:var(--green)}
+.bucket-框架已建{background:rgba(59,130,246,.14);color:var(--blue)}
+.bucket-首次观察{background:rgba(245,158,11,.14);color:var(--amber)}
+.depth-深{background:rgba(45,90,240,.12);color:var(--accent)}
+.depth-中{background:rgba(124,92,252,.14);color:var(--accent2)}
+.depth-浅{background:rgba(239,68,68,.12);color:var(--red)}
+.stage{font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;font-family:'JetBrains Mono',monospace}
 .st-萌芽{background:rgba(59,130,246,.12);color:var(--blue)}
 .st-发酵{background:rgba(245,158,11,.14);color:var(--amber)}
 .st-兑现中{background:rgba(34,197,94,.14);color:var(--green)}
 .st-降温{background:rgba(239,68,68,.12);color:var(--red)}
-.meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:20px}
-.sec-head{margin:30px 0 12px;font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px;padding-bottom:9px;border-bottom:1px solid var(--border)}
-.framework{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow-sm)}
+.meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin:12px 0 22px}
+.notice{margin:0 0 18px;padding:14px 16px;border-radius:14px;border:1px solid rgba(245,158,11,.28);background:rgba(245,158,11,.08);font-size:13px;color:var(--text2)}
+.notice b{color:var(--text)}
+.overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.obox{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow-sm)}
+.obox .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.8px;color:var(--text3);text-transform:uppercase}
+.obox .v{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;margin-top:3px}
+.obox .d{font-size:12px;color:var(--text2);margin-top:3px}
+.sec-head{margin:30px 0 12px;font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;display:flex;align-items:center;gap:8px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow-sm)}
 .thesis{font-size:14.5px;color:var(--text);margin-bottom:14px}
 .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.8px;color:var(--text3);text-transform:uppercase;margin:14px 0 6px}
-.chain{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
-.chain .step{font-size:12px;padding:4px 10px;border-radius:8px;background:var(--bg2);color:var(--text)}
-.chain .arr{color:var(--text3);font-size:12px}
-.tickers{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.tk{font-size:12px;padding:5px 11px;border-radius:10px;background:var(--tag-bg);color:var(--tag-text);font-weight:500}
-.tk .code{font-family:'JetBrains Mono',monospace;font-size:10px;opacity:.7;margin-left:5px}
-.signals{list-style:none}
-.signals li{font-size:13px;color:var(--text2);padding:5px 0 5px 18px;position:relative}
-.signals li::before{content:'◆';position:absolute;left:0;color:var(--accent);font-size:9px;top:9px}
-.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 18px;margin-bottom:2px}
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 18px}
 .score-item{display:flex;align-items:center;gap:8px;font-size:13px}
 .score-item .sname{width:56px;color:var(--text2)}
 .dots{display:inline-flex;gap:3px}
@@ -50,6 +56,17 @@ h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-b
 .driver{font-size:12px;padding:4px 11px;border-radius:10px;background:rgba(34,197,94,.12);color:var(--green);font-weight:600}
 .cnote{font-size:12.5px;color:var(--text2);margin-top:8px;line-height:1.65}
 .cnote.dim{color:var(--text3);font-size:12px}
+.map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.mnode{position:relative;background:linear-gradient(180deg,var(--card-bg),var(--bg2));border:1px solid var(--border);border-radius:16px;padding:16px}
+.mnode::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:.75;border-radius:16px 16px 0 0}
+.mnode .nlab{font-family:'Noto Serif SC',serif;font-size:16px;font-weight:700;margin-bottom:8px}
+.companies{display:flex;flex-wrap:wrap;gap:6px}
+.co{font-size:11.5px;padding:4px 10px;border-radius:999px;background:var(--tag-bg);color:var(--tag-text);font-weight:500}
+.mnote{font-size:12px;color:var(--text2);margin-top:8px}
+.question-list,.signals{list-style:none}
+.question-list li,.signals li{font-size:13px;color:var(--text2);padding:6px 0 6px 18px;position:relative}
+.question-list li::before,.signals li::before{content:'◆';position:absolute;left:0;color:var(--accent);font-size:9px;top:10px}
+.riskbox{margin-top:12px;padding:12px 14px;background:var(--bg2);border-radius:12px;font-size:13px;color:var(--text2)}
 .timeline{position:relative;margin-left:6px;padding-left:22px;border-left:2px solid var(--border)}
 .tl-entry{position:relative;margin:0 0 20px}
 .tl-entry::before{content:'';position:absolute;left:-29px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
@@ -66,7 +83,7 @@ h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-b
 .ev{font-size:12px;color:var(--text2);background:var(--bg2);border-left:2px solid var(--border2);border-radius:0 8px 8px 0;padding:8px 12px;margin:6px 0}
 .ev.zsxq{border-left-color:var(--green)}
 .ev .src{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:3px}
-.placeholder{color:var(--text3);text-align:center;padding:40px;font-family:'JetBrains Mono',monospace;font-size:13px}
+.placeholder{color:var(--text3);text-align:center;padding:40px;border:1px dashed var(--border2);border-radius:16px;font-family:'JetBrains Mono',monospace;font-size:13px}
 .disclaimer-box{margin:26px 0 0;padding:13px 16px;background:var(--bg2);border-radius:12px;font-size:12px;color:var(--text2)}
 footer{border-top:1px solid var(--border);margin-top:50px}
 .footer-brand{font-family:'Noto Serif SC',serif;font-weight:600;font-size:14px;margin-bottom:4px}
@@ -76,9 +93,12 @@ footer{border-top:1px solid var(--border);margin-top:50px}
 <body>
 <div class="bg-glow"></div>
 <div class="container">
-  <a href="chain-tracker.html" class="backlink">← 全部产业链</a>
-  <div class="kicker">🔗 CHAIN TRACKING</div>
-  <h1><span class="hl" id="name">产业链跟踪</span> <span id="stage"></span></h1>
+  <a href="chain-tracker.html" class="backlink">← 产业链研究库</a>
+  <div class="kicker">🔗 CHAIN DOSSIER</div>
+  <div class="hero-row">
+    <h1><span class="hl" id="name">产业链档案</span></h1>
+    <span id="chips"></span>
+  </div>
   <div class="meta" id="meta"></div>
   <div id="body"><div class="placeholder">加载中…</div></div>
   <div class="disclaimer-box">⚠ 框架源自深度产业研究，催化源自资深投资人公开观点，数据源自券商研究报告，经 MiniMax 解读还原。<b>仅供分析参考，不构成投资建议</b>。</div>
@@ -86,17 +106,40 @@ footer{border-top:1px solid var(--border);margin-top:50px}
 <footer>
   <div class="container" style="padding-top:22px;padding-bottom:30px">
     <div class="footer-brand">BASEALPHA · 黑森船长</div>
-    <p class="footer-disclaimer">产业链持续跟踪 · 框架 × 二级 × 数据 · Not investment advice</p>
+    <p class="footer-disclaimer">产业链档案 · 框架 / 产业链图 / 关键问题 / 时间线 · Not investment advice</p>
   </div>
 </footer>
 <script>
 function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
+function classify(c){
+  var count=parseInt(c.timeline_count)||((c.timeline||[]).length)||0;
+  var bucket=c.tracking_bucket||'';
+  if(!bucket)bucket=count>=2?'持续跟踪':(c.origin==='emergent'?'首次观察':'框架已建');
+  return {bucket:bucket,depth:c.depth_level||'浅',count:count};
+}
 function evBlock(ev){
   if(!ev||!ev.length)return '';
   var id='ev'+Math.random().toString(36).slice(2,8);
   var items=ev.map(function(e){return '<div class="ev '+(e.type==='zsxq'?'zsxq':'')+'"><span class="src">'+esc(e.label||'')+'</span>'+esc(e.text||'')+'</div>';}).join('');
   return '<span class="ev-toggle" onclick="var l=document.getElementById(\''+id+'\');l.classList.toggle(\'open\');this.textContent=l.classList.contains(\'open\')?\'▲ 收起溯源\':\'▼ 查看溯源 ('+ev.length+')\';">▼ 查看溯源 ('+ev.length+')</span><div class="ev-list" id="'+id+'">'+items+'</div>';
+}
+function normMap(c){
+  var nodes=(c.chain_map||[]).map(function(n){
+    if(typeof n==='string')return {label:n,companies:[],note:''};
+    return n||{};
+  }).filter(function(n){return n.label;});
+  if(!nodes.length){
+    nodes=(c.segments||[]).map(function(s){return {label:s,companies:[],note:''};});
+  }
+  return nodes.slice(0,8);
+}
+function noticeFor(info){
+  if(info.bucket==='持续跟踪')return '';
+  if(info.bucket==='框架已建'){
+    return '<div class="notice"><b>当前判断：</b>这条链已有一级研究框架，但跨日验证还不够，暂时不应视为成熟的“持续跟踪”主题。</div>';
+  }
+  return '<div class="notice"><b>当前判断：</b>这条链目前仍属于首次观察，只有初次纳入记录，还没达到持续跟踪标准。</div>';
 }
 async function load(){
   var id=qs('id');
@@ -105,16 +148,27 @@ async function load(){
   try{c=await (await fetch('data/industry-scan/chains/'+encodeURIComponent(id)+'.json?t='+Date.now())).json();}
   catch(e){document.getElementById('body').innerHTML='<div class="placeholder">未找到该产业链</div>';return;}
 
+  var info=classify(c);
   document.getElementById('name').textContent=c.name||'产业链';
-  document.title=(c.name||'产业链')+' · 持续跟踪 | BaseAlpha';
-  if(c.stage)document.getElementById('stage').innerHTML='<span class="stage st-'+esc(c.stage)+'">'+esc(c.stage)+'</span>';
-  document.getElementById('meta').textContent='框架更新 '+(c.framework_updated||'')+(c.last_tracked?' · 最近跟踪 '+c.last_tracked:'')+' · '+((c.timeline||[]).length)+' 条跟踪记录';
+  document.title=(c.name||'产业链')+' · 产业链档案 | BaseAlpha';
+  document.getElementById('chips').innerHTML=
+    '<span class="chip bucket-'+esc(info.bucket)+'">'+esc(info.bucket)+'</span> '
+    +'<span class="chip depth-'+esc(info.depth)+'">深度·'+esc(info.depth)+'</span> '
+    +(c.stage?'<span class="stage st-'+esc(c.stage)+'">'+esc(c.stage)+'</span>':'');
+  document.getElementById('meta').textContent='框架更新 '+(c.framework_updated||'--')+' · 最近跟踪 '+(c.last_tracked||'--')+' · '+info.count+' 条记录';
 
   var h='';
-  // 框架
-  h+='<div class="sec-head">🧭 一级框架</div><div class="framework">';
+  h+=noticeFor(info);
+  h+='<div class="overview">'
+    +'<div class="obox"><div class="k">覆盖类型</div><div class="v">'+esc(info.bucket)+'</div><div class="d">页面不会再把首次覆盖伪装成持续跟踪</div></div>'
+    +'<div class="obox"><div class="k">跟踪次数</div><div class="v">'+esc(info.count)+'</div><div class="d">跨日独立记录数</div></div>'
+    +'<div class="obox"><div class="k">深度评级</div><div class="v">'+esc(info.depth)+'</div><div class="d">由框架、链图、问题、时间线共同决定</div></div>'
+    +'<div class="obox"><div class="k">首次纳入</div><div class="v">'+esc(c.first_tracked||'--')+'</div><div class="d">最早进入研究池的日期</div></div>'
+    +'<div class="obox"><div class="k">最新状态</div><div class="v">'+esc(c.latest_status||'--')+'</div><div class="d">最近一次跟踪结论</div></div>'
+    +'</div>';
+
+  h+='<div class="sec-head">🧭 一级框架</div><div class="card">';
   if(c.thesis)h+='<div class="thesis">'+esc(c.thesis)+'</div>';
-  // 多维评分
   var sc=c.scores||{};var dims=[['空间',sc['空间']],['竞争力',sc['竞争力']],['寡头垄断',sc['寡头垄断']],['确定性',sc['确定性']]];
   if(dims.some(function(d){return d[1];})){
     h+='<div class="lbl">多维评分</div><div class="scores">';
@@ -125,19 +179,37 @@ async function load(){
     });
     h+='</div>';
   }
-  if((c.certainty_drivers||[]).length){h+='<div class="lbl">确定性来源 · 系统吸引子</div><div class="drivers">'+c.certainty_drivers.map(function(d){return '<span class="driver">'+esc(d)+'</span>';}).join('')+'</div>';}
+  if((c.certainty_drivers||[]).length){h+='<div class="lbl">确定性来源</div><div class="drivers">'+c.certainty_drivers.map(function(d){return '<span class="driver">'+esc(d)+'</span>';}).join('')+'</div>';}
   if(c.certainty_note)h+='<div class="cnote">'+esc(c.certainty_note)+'</div>';
   if(c.score_notes)h+='<div class="cnote dim">'+esc(c.score_notes)+'</div>';
-  if((c.segments||[]).length){h+='<div class="lbl">关键环节</div><div class="chain">'+c.segments.map(function(s,i){return (i?'<span class="arr">→</span>':'')+'<span class="step">'+esc(s)+'</span>';}).join('')+'</div>';}
-  if((c.tickers||[]).length){h+='<div class="lbl">相关标的</div><div class="tickers">'+c.tickers.map(function(k){return '<span class="tk">'+esc(k.name||'')+(k.code?'<span class="code">'+esc(k.code)+'</span>':'')+(k.role?' · '+esc(k.role):'')+'</span>';}).join('')+'</div>';}
-  if((c.tracking_signals||[]).length){h+='<div class="lbl">后续跟踪信号</div><ul class="signals">'+c.tracking_signals.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>';}
   h+='</div>';
 
-  // 时间线
+  var nodes=normMap(c);
+  h+='<div class="sec-head">🗺️ 产业链图</div><div class="card">';
+  if(nodes.length){
+    h+='<div class="map-grid">'+nodes.map(function(n){
+      var cos=(n.companies||[]).slice(0,4).map(function(co){return '<span class="co">'+esc(co)+'</span>';}).join('');
+      return '<div class="mnode"><div class="nlab">'+esc(n.label)+'</div>'
+        +(cos?'<div class="companies">'+cos+'</div>':'')
+        +(n.note?'<div class="mnote">'+esc(n.note)+'</div>':'')+'</div>';
+    }).join('')+'</div>';
+  }else{
+    h+='<div class="placeholder">当前还没有足够具体的产业链节点图。</div>';
+  }
+  h+='</div>';
+
+  h+='<div class="sec-head">🔍 跟踪重点</div><div class="card">';
+  if((c.tracking_signals||[]).length){h+='<div class="lbl">后续跟踪信号</div><ul class="signals">'+c.tracking_signals.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>';}
+  if((c.key_questions||[]).length){h+='<div class="lbl">关键问题</div><ul class="question-list">'+c.key_questions.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>';}
+  if(c.not_clear){h+='<div class="lbl">当前不清楚</div><div class="riskbox">'+esc(c.not_clear)+'</div>';}
+  if(!(c.tracking_signals||[]).length && !(c.key_questions||[]).length && !c.not_clear){h+='<div class="placeholder">当前还没有补足跟踪重点。</div>';}
+  h+='</div>';
+
   h+='<div class="sec-head">📈 持续跟踪时间线</div>';
   var tl=c.timeline||[];
-  if(!tl.length){h+='<div class="placeholder">暂无跟踪记录，每日二级观点/券商研报匹配到本链时会追加于此</div>';}
-  else{
+  if(!tl.length){
+    h+='<div class="placeholder">暂无跟踪记录，后续匹配到二级催化或券商研报时会自动追加。</div>';
+  }else{
     h+='<div class="timeline">';
     tl.forEach(function(e){
       var heat=Math.max(0,Math.min(100,parseInt(e.heat)||0));

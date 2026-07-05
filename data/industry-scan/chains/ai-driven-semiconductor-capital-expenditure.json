@@ -22,12 +22,25 @@
       "name": "长鑫存储",
       "code": "",
       "role": "国内存储芯片领军企业"
+    },
+    {
+      "name": "中芯",
+      "code": "",
+      "role": "晶圆代工龙头"
+    },
+    {
+      "name": "华虹",
+      "code": "",
+      "role": "资本开支增长受益者"
     }
   ],
   "tracking_signals": [
     "全球半导体资本开支数据",
     "AI服务器出货量",
-    "存储芯片价格走势"
+    "存储芯片价格走势",
+    "半导体设备出货量",
+    "晶圆代工资本开支计划",
+    "先进封装产能扩张"
   ],
   "stage": "萌芽",
   "origin": "emergent",
@@ -41,15 +54,35 @@
   "certainty_drivers": [
     "鹰酱",
     "兔子",
+    "盟国",
     "AI"
   ],
   "certainty_note": "AI算力需求刚性，半导体资本开支受AI驱动持续增长，供给端依赖全球产业链协作。",
-  "framework_updated": "2026-06-30 21:30",
+  "framework_updated": "2026-07-01 21:30",
   "created": "2026-06-30 21:30",
   "latest_status": "首次纳入跟踪",
   "latest_heat": 90,
-  "last_tracked": "2026-06-30",
+  "last_tracked": "2026-07-01",
   "timeline": [
+    {
+      "date": "2026-07-01",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 90,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-07-01",
+          "text": "# 💻【开源计算机】每日AI重点信... 💻【开源计算机】每日AI重点信息梳理|2026.06.30 #大模型与AI应用进展 1️⃣美团发布可对外开源的万亿参数…"
+        },
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-07-01",
+          "text": "# 📈📈万亿寒王，只是国产算力开端... 📈📈万亿寒王，只是国产算力开端 半导体迎来扩产潮，叠加国产芯片全面超预期，从良率、产能再到新品发布，继续全面多头国产芯…"
+        }
+      ]
+    },
     {
       "date": "2026-06-30",
       "catalyst": "",
@@ -69,5 +102,29 @@
         }
       ]
     }
-  ]
+  ],
+  "key_questions": [],
+  "chain_map": [
+    {
+      "label": "AI服务器",
+      "companies": [],
+      "note": ""
+    },
+    {
+      "label": "半导体设备",
+      "companies": [],
+      "note": ""
+    },
+    {
+      "label": "半导体材料",
+      "companies": [],
+      "note": ""
+    }
+  ],
+  "not_clear": "",
+  "timeline_count": 2,
+  "first_tracked": "2026-06-30",
+  "tracking_bucket": "持续跟踪",
+  "depth_score": 6,
+  "depth_level": "深"
 }

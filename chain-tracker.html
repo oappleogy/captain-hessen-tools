@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>产业链持续跟踪 | BaseAlpha</title>
-<meta property="og:title" content="产业链持续跟踪">
-<meta property="og:description" content="深度产业研究定框架 × 二级催化 × 券商数据佐证 → 沿产业链持续跟踪">
+<title>产业链研究库 | BaseAlpha</title>
+<meta property="og:title" content="产业链研究库">
+<meta property="og:description" content="把持续跟踪、框架已建、首次观察拆开展示，避免把首次覆盖误当成持续跟踪">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -13,91 +13,166 @@
 @media (prefers-color-scheme:dark){:root{--bg:#0a0e17;--bg2:#111827;--card-bg:#151c2c;--text:#e8e8ed;--text2:#8b8b9a;--text3:#55556a;--accent:#5b8af5;--accent2:#9b7ffc;--accent-glow:rgba(91,138,245,0.15);--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow:0 4px 24px rgba(0,0,0,0.2);--tag-bg:rgba(91,138,245,0.12);--tag-text:#7da4f8}}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.7}
-.bg-glow{position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,var(--accent-glow) 0%,transparent 70%);pointer-events:none;z-index:0}
-.container{max-width:880px;margin:0 auto;padding:0 22px 80px;position:relative;z-index:1}
+.bg-glow{position:fixed;top:-30%;left:50%;transform:translateX(-50%);width:840px;height:620px;background:radial-gradient(ellipse,var(--accent-glow) 0%,transparent 72%);pointer-events:none;z-index:0}
+.container{max-width:980px;margin:0 auto;padding:0 22px 84px;position:relative;z-index:1}
 .backlink{display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:13px;color:var(--text2);text-decoration:none;font-family:'JetBrains Mono',monospace}
 .backlink:hover{color:var(--accent)}
 .kicker{display:inline-flex;align-items:center;gap:8px;margin:30px 0 14px;padding:6px 14px;background:var(--tag-bg);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--tag-text)}
-h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4.2vw,34px);font-weight:700;line-height:1.3;margin-bottom:10px}
+h1{font-family:'Noto Serif SC',serif;font-size:clamp(26px,4.4vw,38px);font-weight:700;line-height:1.3;margin-bottom:10px}
 h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.intro{font-size:14.5px;color:var(--text2);max-width:640px;margin-bottom:6px}
-.legend{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin:10px 0 22px}
-.updated{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:18px}
-.grid{display:grid;gap:16px}
-.ccard{display:block;text-decoration:none;color:inherit;background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:all .3s}
+.intro{font-size:15px;color:var(--text2);max-width:760px}
+.rule{margin-top:14px;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,var(--card-bg),rgba(45,90,240,0.06));border:1px solid var(--border);font-size:13px;color:var(--text2)}
+.rule b{color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:22px 0 8px}
+.stat{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:15px 16px;box-shadow:var(--shadow-sm)}
+.stat .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.8px;color:var(--text3);text-transform:uppercase}
+.stat .v{font-family:'Noto Serif SC',serif;font-size:24px;font-weight:700;margin-top:4px}
+.stat .d{font-size:12px;color:var(--text2);margin-top:2px}
+.updated{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin:12px 0 10px}
+.group{margin-top:28px}
+.group-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.group-title{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700}
+.group-desc{font-size:13px;color:var(--text2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:14px}
+.ccard{display:block;text-decoration:none;color:inherit;background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:20px 22px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:all .28s}
 .ccard:hover{box-shadow:var(--shadow);border-color:var(--border2);transform:translateY(-2px)}
-.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:.7}
-.ctop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-.cname{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700}
+.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));opacity:.78}
+.ctop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cname{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;line-height:1.35;flex:1;min-width:180px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 9px;border-radius:999px;letter-spacing:.5px}
+.bucket-持续跟踪{background:rgba(34,197,94,.14);color:var(--green)}
+.bucket-框架已建{background:rgba(59,130,246,.14);color:var(--blue)}
+.bucket-首次观察{background:rgba(245,158,11,.14);color:var(--amber)}
+.depth-深{background:rgba(45,90,240,.12);color:var(--accent)}
+.depth-中{background:rgba(124,92,252,.14);color:var(--accent2)}
+.depth-浅{background:rgba(239,68,68,.12);color:var(--red)}
 .stage{font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;font-family:'JetBrains Mono',monospace}
 .st-萌芽{background:rgba(59,130,246,.12);color:var(--blue)}
 .st-发酵{background:rgba(245,158,11,.14);color:var(--amber)}
 .st-兑现中{background:rgba(34,197,94,.14);color:var(--green)}
 .st-降温{background:rgba(239,68,68,.12);color:var(--red)}
 .heatbar{margin-left:auto;display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3)}
-.heatbar .hb{width:54px;height:6px;border-radius:4px;background:var(--bg2);overflow:hidden}
+.heatbar .hb{width:58px;height:6px;border-radius:4px;background:var(--bg2);overflow:hidden}
 .heatbar .hb>i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--amber),var(--red))}
-.thesis{font-size:13.5px;color:var(--text2);margin:6px 0 12px}
-.segs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.seg{font-size:11.5px;padding:3px 9px;border-radius:8px;background:var(--bg2);color:var(--text)}
-.latest{font-size:12px;color:var(--text3);font-family:'JetBrains Mono',monospace;border-top:1px dashed var(--border);padding-top:9px}
-.latest b{color:var(--accent);font-weight:600}
-.certrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
-.certk{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px;color:var(--text3);text-transform:uppercase}
-.certrow b{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green)}
-.dchip{font-size:11px;padding:2px 8px;border-radius:8px;background:rgba(34,197,94,.1);color:var(--green);font-weight:600;margin-left:4px}
-.placeholder{color:var(--text3);text-align:center;padding:40px;font-family:'JetBrains Mono',monospace;font-size:13px}
-footer{border-top:1px solid var(--border);margin-top:50px}
+.thesis{font-size:13.5px;color:var(--text2);margin:10px 0 12px}
+.meta-row{display:flex;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:10px}
+.map{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0 10px}
+.node{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 10px;border-radius:9px;background:var(--bg2);color:var(--text)}
+.node .nlab{font-weight:600}
+.node .nco{font-size:10px;color:var(--text2)}
+.arr{font-size:11px;color:var(--text3)}
+.qline{font-size:12.5px;color:var(--text2);padding:10px 12px;background:var(--bg2);border-radius:10px}
+.latest{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px dashed var(--border);font-size:12px;color:var(--text2)}
+.latest b{color:var(--accent)}
+.placeholder{color:var(--text3);text-align:center;padding:36px;border:1px dashed var(--border2);border-radius:16px;font-family:'JetBrains Mono',monospace;font-size:13px;margin-top:14px}
+.disclaimer-box{margin:30px 0 0;padding:14px 16px;background:var(--bg2);border-radius:12px;font-size:12px;color:var(--text2)}
+footer{border-top:1px solid var(--border);margin-top:52px}
 .footer-brand{font-family:'Noto Serif SC',serif;font-weight:600;font-size:14px;margin-bottom:4px}
 .footer-disclaimer{font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace}
-.disclaimer-box{margin:26px 0 0;padding:13px 16px;background:var(--bg2);border-radius:12px;font-size:12px;color:var(--text2)}
 </style>
 </head>
 <body>
 <div class="bg-glow"></div>
 <div class="container">
   <a href="industry-scan.html" class="backlink">← 产业机会扫描</a>
-  <div class="kicker">🔗 CONTINUOUS CHAIN TRACKING</div>
-  <h1><span class="hl">产业链持续跟踪</span></h1>
-  <p class="intro">以深度产业研究定下每条产业链的一级框架与关键环节，再用每日二级市场观点与券商研究报告，沿着这些链条持续追踪催化与数据兑现。</p>
-  <div class="legend">框架 = 深度产业研究 · 催化 = 二级观点 · 数据 = 券商研报</div>
+  <div class="kicker">🔗 INDUSTRY RESEARCH LIBRARY</div>
+  <h1>产业链<span class="hl">研究库</span></h1>
+  <p class="intro">这里不再把所有主题都混叫“持续跟踪”。我们把深度研究框架、跨日跟踪、以及刚纳入观察的首次主题分开展示，让页面更接近真实研究状态。</p>
+  <div class="rule"><b>持续跟踪标准：</b>至少出现 2 次独立跟踪记录；只有 1 次记录的主题，会明确标成“首次观察”或“框架已建”，不再假装已经形成连续跟踪。</div>
+  <div id="stats" class="stats"></div>
   <div id="updated" class="updated"></div>
-  <div id="grid" class="grid"><div class="placeholder">加载产业链…</div></div>
-
+  <div id="groups"><div class="placeholder">加载产业链研究库…</div></div>
   <div class="disclaimer-box">⚠ 由管线自动汇编：深度产业研究 + 资深投资人公开观点 + 券商研究报告，经 MiniMax 解读还原。<b>仅供分析参考，不构成投资建议</b>；机器解读可能存在偏差，标的提及不代表推荐。</div>
 </div>
 <footer>
   <div class="container" style="padding-top:22px;padding-bottom:30px">
     <div class="footer-brand">BASEALPHA · 黑森船长</div>
-    <p class="footer-disclaimer">产业链持续跟踪 · 框架 × 二级 × 数据 · Not investment advice</p>
+    <p class="footer-disclaimer">产业链研究库 · 持续跟踪 / 框架已建 / 首次观察 · Not investment advice</p>
   </div>
 </footer>
 <script>
 function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function classify(c){
+  var count=parseInt(c.timeline_count)||0;
+  var bucket=c.tracking_bucket||'';
+  if(!bucket)bucket=count>=2?'持续跟踪':(c.origin==='emergent'?'首次观察':'框架已建');
+  var depth=c.depth_level||'浅';
+  return {bucket:bucket,depth:depth,count:count};
+}
+function previewNodes(c){
+  var nodes=(c.chain_map||[]).map(function(n){
+    if(typeof n==='string')return {label:n,companies:[]};
+    return n||{};
+  }).filter(function(n){return n.label;});
+  if(!nodes.length){
+    nodes=(c.segments||[]).map(function(s){return {label:s,companies:[]};});
+  }
+  nodes=nodes.slice(0,5);
+  if(!nodes.length)return '';
+  return '<div class="map">'+nodes.map(function(n,i){
+    var co=(n.companies||[]).slice(0,2).join(' / ');
+    return (i?'<span class="arr">→</span>':'')
+      +'<span class="node"><span class="nlab">'+esc(n.label)+'</span>'
+      +(co?'<span class="nco">'+esc(co)+'</span>':'')+'</span>';
+  }).join('')+'</div>';
+}
+function renderCard(c){
+  var info=classify(c);
+  var heat=Math.max(0,Math.min(100,parseInt(c.latest_heat)||0));
+  var latest=c.latest_status?'<div class="latest"><span>最新 <b>'+esc(c.latest_status)+'</b>'+(c.last_tracked?' · '+esc(c.last_tracked):'')+'</span><span>'+(info.count?('跟踪 '+info.count+' 次'):('首次纳入 '+esc(c.first_tracked||'--')))+'</span></div>':'<div class="latest"><span>'+(info.count?('跟踪 '+info.count+' 次'):('首次纳入 '+esc(c.first_tracked||'--')))+'</span></div>';
+  var question=(c.key_questions&&c.key_questions.length)?'<div class="qline">后续关键问题：'+esc(c.key_questions[0])+'</div>':'';
+  return '<a class="ccard" href="chain.html?id='+encodeURIComponent(c.id)+'">'
+    +'<div class="ctop"><span class="cname">'+esc(c.name||'未命名产业链')+'</span>'
+    +'<span class="chip bucket-'+esc(info.bucket)+'">'+esc(info.bucket)+'</span>'
+    +'<span class="chip depth-'+esc(info.depth)+'">深度·'+esc(info.depth)+'</span>'
+    +(c.stage?'<span class="stage st-'+esc(c.stage)+'">'+esc(c.stage)+'</span>':'')
+    +'<span class="heatbar">热度<span class="hb"><i style="width:'+heat+'%"></i></span>'+heat+'</span></div>'
+    +'<div class="thesis">'+esc((c.thesis||'').slice(0,120))+((c.thesis||'').length>120?'…':'')+'</div>'
+    +'<div class="meta-row"><span>框架更新 '+esc(c.framework_updated||'--')+'</span><span>首次纳入 '+esc(c.first_tracked||'--')+'</span></div>'
+    +previewNodes(c)
+    +question
+    +latest
+    +'</a>';
+}
+function renderSection(title,desc,items,emptyText){
+  return '<section class="group"><div class="group-head"><div class="group-title">'+title+'</div><div class="group-desc">'+desc+'</div></div>'
+    +(items.length?'<div class="cards">'+items.map(renderCard).join('')+'</div>':'<div class="placeholder">'+emptyText+'</div>')
+    +'</section>';
+}
 async function load(){
-  var grid=document.getElementById('grid');
+  var groups=document.getElementById('groups');
+  var stats=document.getElementById('stats');
   try{
     var reg=await (await fetch('data/industry-scan/chains.json?t='+Date.now())).json();
     var chains=reg.chains||[];
-    if(!chains.length){grid.innerHTML='<div class="placeholder">产业链注册表为空，待深度研究接入后生成</div>';return;}
-    document.getElementById('updated').textContent='更新于 '+(reg.updated||'')+' · 共 '+chains.length+' 条产业链';
-    chains.sort(function(a,b){return (b.latest_heat||0)-(a.latest_heat||0);});
-    grid.innerHTML=chains.map(function(c){
-      var heat=Math.max(0,Math.min(100,parseInt(c.latest_heat)||0));
-      var segs=(c.segments||[]).slice(0,7).map(function(s){return '<span class="seg">'+esc(s)+'</span>';}).join('');
-      var latest=c.latest_status?('<div class="latest">最新 <b>'+esc(c.latest_status)+'</b>'+(c.last_tracked?' · '+esc(c.last_tracked):'')+'</div>'):'';
-      var cert=(c.scores&&c.scores['确定性'])||0;
-      var dchips=(c.certainty_drivers||[]).map(function(d){return '<span class="dchip">'+esc(d)+'</span>';}).join('');
-      var certrow=(cert||dchips)?('<div class="certrow">'+(cert?'<span class="certk">确定性</span><b>'+cert+'/5</b>':'')+(dchips?'<span>'+dchips+'</span>':'')+'</div>'):'';
-      return '<a class="ccard" href="chain.html?id='+encodeURIComponent(c.id)+'">'
-        +'<div class="ctop"><span class="cname">'+esc(c.name)+'</span>'
-        +'<span class="stage st-'+esc(c.stage||'发酵')+'">'+esc(c.stage||'')+'</span>'
-        +'<span class="heatbar">热度<span class="hb"><i style="width:'+heat+'%"></i></span>'+heat+'</span></div>'
-        +'<div class="thesis">'+esc((c.thesis||'').slice(0,110))+((c.thesis||'').length>110?'…':'')+'</div>'
-        +certrow
-        +'<div class="segs">'+segs+'</div>'+latest+'</a>';
+    if(!chains.length){
+      groups.innerHTML='<div class="placeholder">产业链注册表为空，待深度研究接入后生成</div>';
+      return;
+    }
+    document.getElementById('updated').textContent='更新于 '+(reg.updated||'')+' · 共 '+chains.length+' 条产业链档案';
+    var tracking=[], framework=[], watch=[];
+    chains.forEach(function(c){
+      var bucket=classify(c).bucket;
+      if(bucket==='持续跟踪')tracking.push(c);
+      else if(bucket==='框架已建')framework.push(c);
+      else watch.push(c);
+    });
+    var orderer=function(a,b){return (parseInt(b.latest_heat)||0)-(parseInt(a.latest_heat)||0);};
+    tracking.sort(orderer);framework.sort(orderer);watch.sort(orderer);
+    stats.innerHTML=[
+      {k:'持续跟踪',v:tracking.length,d:'至少 2 次独立跟踪记录'},
+      {k:'框架已建',v:framework.length,d:'有一级框架，等待二次验证'},
+      {k:'首次观察',v:watch.length,d:'首次纳入观察，不等同持续跟踪'}
+    ].map(function(s){
+      return '<div class="stat"><div class="k">'+esc(s.k)+'</div><div class="v">'+esc(s.v)+'</div><div class="d">'+esc(s.d)+'</div></div>';
     }).join('');
-  }catch(e){grid.innerHTML='<div class="placeholder">暂无数据，管线就绪后自动生成</div>';}
+    groups.innerHTML=''
+      +renderSection('持续跟踪','已经形成跨日时间线，可看进展节奏与验证过程。',tracking,'当前还没有达到持续跟踪标准的产业链。')
+      +renderSection('框架已建','已有深度研究框架，但跨日验证还不够，先别把它当成成熟跟踪。',framework,'当前没有处于“框架已建”状态的主题。')
+      +renderSection('首次观察','刚纳入研究池的方向，先看结构是否站得住，再决定是否转入持续跟踪。',watch,'当前没有新的首次观察主题。');
+  }catch(e){
+    groups.innerHTML='<div class="placeholder">暂无数据，管线就绪后自动生成</div>';
+  }
 }
 load();
 </script>

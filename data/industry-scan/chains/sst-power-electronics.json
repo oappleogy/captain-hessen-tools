@@ -17,12 +17,25 @@
       "name": "格灵诺半导体",
       "code": "",
       "role": "核心器件供应"
+    },
+    {
+      "name": "新风光",
+      "code": "",
+      "role": "SST产业化先锋"
+    },
+    {
+      "name": "台达",
+      "code": "",
+      "role": "大客户订单驱动"
     }
   ],
   "tracking_signals": [
     "SST样机发布",
     "高压SiC器件商用进展",
-    "北美市场订单突破"
+    "北美市场订单突破",
+    "SST样机验证进展",
+    "大客户订单落地",
+    "SiC器件导入情况"
   ],
   "stage": "萌芽",
   "origin": "emergent",
@@ -38,13 +51,27 @@
     "盟国",
     "AI"
   ],
-  "certainty_note": "被AI数据中心和智能电网系统需要，技术壁垒高，供给刚性。",
-  "framework_updated": "2026-06-23 13:48",
+  "certainty_note": "被AI数据中心与新能源系统同时需要，SiC器件与SST技术协同发展，供给刚性较强。",
+  "framework_updated": "2026-07-01 21:30",
   "created": "2026-06-23 13:48",
-  "latest_status": "催化增强",
-  "latest_heat": 65,
-  "last_tracked": "2026-06-29",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 88,
+  "last_tracked": "2026-07-01",
   "timeline": [
+    {
+      "date": "2026-07-01",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 88,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-07-01",
+          "text": "# 🧧🧧🧧天风新兴产业组【新风光】... 🧧🧧🧧天风新兴产业组【新风光】SST产业化拐点加速，SiC加持AIDC电力侧第二成长曲线 近期SST重要催化：海外大厂…"
+        }
+      ]
+    },
     {
       "date": "2026-06-29",
       "catalyst": "固态变压器（SST）电力电子技术应用加速，能量路由器需求上升。",
@@ -56,6 +83,20 @@
           "type": "zsxq",
           "label": "券商研报 2026-06-29",
           "text": "# 📰台化、国乔把石化副产品变黄金... 📰台化、国乔把石化副产品变黄金 抢攻电子级氢气市场 🏭台化、国乔两家石化工厂全力开展转型布局，计划把石化生产流程里的副…"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-27",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 80,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-06-26",
+          "text": "# 🧧🧧🧧天风新兴产业组【新风光】... 🧧🧧🧧天风新兴产业组【新风光】SST产业化拐点加速，SiC加持AIDC电力侧第二成长曲线 近期SST重要催化：海外大厂…"
         }
       ]
     },
@@ -101,5 +142,29 @@
         }
       ]
     }
-  ]
+  ],
+  "key_questions": [],
+  "chain_map": [
+    {
+      "label": "固态变压器",
+      "companies": [],
+      "note": ""
+    },
+    {
+      "label": "高压SiC器件",
+      "companies": [],
+      "note": ""
+    },
+    {
+      "label": "能量路由器",
+      "companies": [],
+      "note": ""
+    }
+  ],
+  "not_clear": "",
+  "timeline_count": 6,
+  "first_tracked": "2026-06-22",
+  "tracking_bucket": "持续跟踪",
+  "depth_score": 6,
+  "depth_level": "深"
 }

@@ -3,6 +3,9 @@
   "name": "AI驱动半导体资本开支",
   "thesis": "AI技术发展推动全球半导体资本开支加速增长，AI服务器、数据中心等需求激增，带动半导体产业链全面升级。",
   "segments": [
+    "AI芯片制造",
+    "先进封装",
+    "数据中心建设",
     "AI服务器",
     "半导体设备",
     "半导体材料"
@@ -11,17 +14,12 @@
     {
       "name": "台积电",
       "code": "TSM",
-      "role": "晶圆代工龙头"
+      "role": "AI芯片代工龙头"
     },
     {
-      "name": "美光",
-      "code": "MU",
-      "role": "存储芯片巨头"
-    },
-    {
-      "name": "长鑫存储",
-      "code": "",
-      "role": "国内存储芯片领军企业"
+      "name": "英伟达",
+      "code": "NVDA",
+      "role": "AI芯片设计领导者"
     },
     {
       "name": "中芯",
@@ -35,30 +33,28 @@
     }
   ],
   "tracking_signals": [
-    "全球半导体资本开支数据",
-    "AI服务器出货量",
-    "存储芯片价格走势",
+    "AI芯片代工厂产能利用率",
+    "AI服务器出货量增长",
     "半导体设备出货量",
     "晶圆代工资本开支计划",
     "先进封装产能扩张"
   ],
-  "stage": "萌芽",
+  "stage": "兑现中",
   "origin": "emergent",
   "scores": {
     "空间": 5,
     "竞争力": 4,
-    "寡头垄断": 3,
+    "寡头垄断": 4,
     "确定性": 5
   },
-  "score_notes": "",
+  "score_notes": "AI驱动半导体资本开支增长空间巨大，AI服务器和数据中心需求持续强劲。AI芯片制造和先进封装环节具备较高技术壁垒，头部企业占据主导地位。AI技术发展对半导体产业链的升级需求具有结构性支撑。",
   "certainty_drivers": [
-    "鹰酱",
     "兔子",
     "盟国",
     "AI"
   ],
-  "certainty_note": "AI算力需求刚性，半导体资本开支受AI驱动持续增长，供给端依赖全球产业链协作。",
-  "framework_updated": "2026-07-01 21:30",
+  "certainty_note": "AI技术发展对高性能计算的需求是刚性且不可逆的，同时中国在AI芯片制造和数据中心建设方面具备规模化优势。",
+  "framework_updated": "2026-07-05 23:24",
   "created": "2026-06-30 21:30",
   "latest_status": "首次纳入跟踪",
   "latest_heat": 90,
@@ -103,28 +99,42 @@
       ]
     }
   ],
-  "key_questions": [],
+  "key_questions": [
+    "AI芯片产能能否满足需求增长？",
+    "AI服务器市场渗透率提升速度如何？"
+  ],
   "chain_map": [
     {
-      "label": "AI服务器",
-      "companies": [],
-      "note": ""
+      "label": "AI芯片制造",
+      "companies": [
+        "台积电",
+        "三星",
+        "英特尔"
+      ],
+      "note": "为AI应用提供高性能芯片"
     },
     {
-      "label": "半导体设备",
-      "companies": [],
-      "note": ""
+      "label": "先进封装",
+      "companies": [
+        "日月光",
+        "安靠"
+      ],
+      "note": "提升AI芯片集成度和性能"
     },
     {
-      "label": "半导体材料",
-      "companies": [],
-      "note": ""
+      "label": "数据中心建设",
+      "companies": [
+        "亚马逊",
+        "微软",
+        "谷歌"
+      ],
+      "note": "部署AI服务器和基础设施"
     }
   ],
-  "not_clear": "",
+  "not_clear": "AI芯片产能扩张速度与市场需求增长的匹配程度存在不确定性。",
   "timeline_count": 2,
   "first_tracked": "2026-06-30",
   "tracking_bucket": "持续跟踪",
-  "depth_score": 6,
+  "depth_score": 7,
   "depth_level": "深"
 }

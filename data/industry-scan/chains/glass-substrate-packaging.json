@@ -3,33 +3,27 @@
   "name": "玻璃基板封装技术",
   "thesis": "玻璃基板技术成熟后有望全面替代现有PCB电子布+树脂方案，在AI算力芯片封装中具备性能优势，市场空间巨大。",
   "segments": [
-    "玻璃芯基板",
-    "CoWoP封装",
-    "TGV激光"
+    "玻璃基板材料研发",
+    "封装工艺开发",
+    "AI芯片应用适配"
   ],
   "tickers": [
     {
-      "name": "京东方",
-      "code": "",
-      "role": "玻璃基板供应商"
+      "name": "康宁",
+      "code": "GLW",
+      "role": "玻璃基板材料供应商"
     },
     {
-      "name": "安捷利美维",
-      "code": "",
-      "role": "玻璃基板供应商"
-    },
-    {
-      "name": "沃格光电",
-      "code": "",
-      "role": "玻璃基板供应商"
+      "name": "日月光",
+      "code": "ASX",
+      "role": "封装服务提供商"
     }
   ],
   "tracking_signals": [
-    "玻璃基板商业化送样进展",
-    "台积电玻璃CoPoS设计应用",
-    "玻璃基板成本下降趋势"
+    "玻璃基板材料量产突破",
+    "AI芯片厂商采用玻璃基板封装"
   ],
-  "stage": "萌芽",
+  "stage": "发酵",
   "origin": "emergent",
   "scores": {
     "空间": 5,
@@ -37,13 +31,12 @@
     "寡头垄断": 3,
     "确定性": 4
   },
-  "score_notes": "",
+  "score_notes": "玻璃基板封装技术市场空间巨大，尤其在AI算力芯片领域具备性能优势。技术壁垒较高，但目前竞争者较少，尚未形成寡头垄断格局。AI算力需求增长和先进封装趋势为该技术提供确定性支撑。",
   "certainty_drivers": [
-    "兔子",
     "AI"
   ],
-  "certainty_note": "AI算力需求驱动，玻璃基板技术升级具备不可替代性。",
-  "framework_updated": "2026-06-26 21:30",
+  "certainty_note": "AI算力需求增长对高性能封装技术提出刚性需求，玻璃基板封装技术具备不可替代性。",
+  "framework_updated": "2026-07-05 23:24",
   "created": "2026-06-26 21:30",
   "latest_status": "催化增强，产业加速",
   "latest_heat": 90,
@@ -78,28 +71,40 @@
       ]
     }
   ],
-  "key_questions": [],
+  "key_questions": [
+    "玻璃基板材料成本能否降低？",
+    "AI芯片厂商对玻璃基板封装的接受度如何？"
+  ],
   "chain_map": [
     {
-      "label": "玻璃芯基板",
-      "companies": [],
-      "note": ""
+      "label": "玻璃基板材料研发",
+      "companies": [
+        "康宁",
+        "旭硝子"
+      ],
+      "note": "提供高强度、高导热基板材料"
     },
     {
-      "label": "CoWoP封装",
-      "companies": [],
-      "note": ""
+      "label": "封装工艺开发",
+      "companies": [
+        "日月光",
+        "长电科技"
+      ],
+      "note": "开发玻璃基板封装工艺"
     },
     {
-      "label": "TGV激光",
-      "companies": [],
-      "note": ""
+      "label": "AI芯片应用适配",
+      "companies": [
+        "英伟达",
+        "英特尔"
+      ],
+      "note": "将玻璃基板封装应用于AI芯片"
     }
   ],
-  "not_clear": "",
+  "not_clear": "玻璃基板封装工艺的成熟度和成本控制情况尚不明确。",
   "timeline_count": 2,
   "first_tracked": "2026-06-26",
   "tracking_bucket": "持续跟踪",
-  "depth_score": 6,
+  "depth_score": 7,
   "depth_level": "深"
 }

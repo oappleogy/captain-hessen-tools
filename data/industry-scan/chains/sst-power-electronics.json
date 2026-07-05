@@ -3,20 +3,23 @@
   "name": "固态变压器（SST）电力电子",
   "thesis": "固态变压器作为未来电力系统的重要组件，在高效能源转换和智能电网中的应用前景广阔。其技术突破将推动电力电子设备向更高效率和智能化方向发展。",
   "segments": [
+    "SST研发",
+    "电力电子设备制造",
+    "智能电网应用",
     "固态变压器",
     "高压SiC器件",
     "能量路由器"
   ],
   "tickers": [
     {
-      "name": "科大智能",
-      "code": "",
-      "role": "技术研发与产业化"
+      "name": "通用电气",
+      "code": "GE",
+      "role": "SST技术研发领先者"
     },
     {
-      "name": "格灵诺半导体",
+      "name": "国家电网",
       "code": "",
-      "role": "核心器件供应"
+      "role": "智能电网建设主力军"
     },
     {
       "name": "新风光",
@@ -30,14 +33,13 @@
     }
   ],
   "tracking_signals": [
-    "SST样机发布",
-    "高压SiC器件商用进展",
-    "北美市场订单突破",
+    "SST技术商用化进展",
+    "智能电网项目招标中SST应用情况",
     "SST样机验证进展",
     "大客户订单落地",
     "SiC器件导入情况"
   ],
-  "stage": "萌芽",
+  "stage": "发酵",
   "origin": "emergent",
   "scores": {
     "空间": 5,
@@ -45,14 +47,14 @@
     "寡头垄断": 3,
     "确定性": 4
   },
-  "score_notes": "",
+  "score_notes": "SST技术在高效能源转换和智能电网中的应用前景广阔，但目前技术成熟度和市场渗透率有限。电力电子设备制造环节竞争较为激烈，智能电网应用领域存在一定进入壁垒。全球能源转型和智能电网建设趋势为SST技术提供确定性支撑。",
   "certainty_drivers": [
     "兔子",
     "盟国",
     "AI"
   ],
-  "certainty_note": "被AI数据中心与新能源系统同时需要，SiC器件与SST技术协同发展，供给刚性较强。",
-  "framework_updated": "2026-07-01 21:30",
+  "certainty_note": "中国在智能电网建设方面具备规模化优势，同时欧美国家对能源效率和电网安全性的重视也为SST技术提供需求支撑。",
+  "framework_updated": "2026-07-05 23:24",
   "created": "2026-06-23 13:48",
   "latest_status": "首次纳入跟踪",
   "latest_heat": 88,
@@ -143,28 +145,40 @@
       ]
     }
   ],
-  "key_questions": [],
+  "key_questions": [
+    "SST技术的成本能否降低到可接受水平？",
+    "智能电网对SST技术的接受度如何？"
+  ],
   "chain_map": [
     {
-      "label": "固态变压器",
-      "companies": [],
-      "note": ""
+      "label": "SST研发",
+      "companies": [
+        "通用电气",
+        "西门子"
+      ],
+      "note": "开发高效固态变压器技术"
     },
     {
-      "label": "高压SiC器件",
-      "companies": [],
-      "note": ""
+      "label": "电力电子设备制造",
+      "companies": [
+        "ABB",
+        "施耐德"
+      ],
+      "note": "将SST技术应用于电力设备"
     },
     {
-      "label": "能量路由器",
-      "companies": [],
-      "note": ""
+      "label": "智能电网应用",
+      "companies": [
+        "国家电网",
+        "南方电网"
+      ],
+      "note": "部署基于SST的智能电网解决方案"
     }
   ],
-  "not_clear": "",
+  "not_clear": "SST技术的成本控制和市场推广情况尚不明确。",
   "timeline_count": 6,
   "first_tracked": "2026-06-22",
   "tracking_bucket": "持续跟踪",
-  "depth_score": 6,
+  "depth_score": 7,
   "depth_level": "深"
 }

@@ -5,33 +5,27 @@
       "name": "玻璃基板封装技术",
       "thesis": "玻璃基板技术成熟后有望全面替代现有PCB电子布+树脂方案，在AI算力芯片封装中具备性能优势，市场空间巨大。",
       "segments": [
-        "玻璃芯基板",
-        "CoWoP封装",
-        "TGV激光"
+        "玻璃基板材料研发",
+        "封装工艺开发",
+        "AI芯片应用适配"
       ],
       "tickers": [
         {
-          "name": "京东方",
-          "code": "",
-          "role": "玻璃基板供应商"
+          "name": "康宁",
+          "code": "GLW",
+          "role": "玻璃基板材料供应商"
         },
         {
-          "name": "安捷利美维",
-          "code": "",
-          "role": "玻璃基板供应商"
-        },
-        {
-          "name": "沃格光电",
-          "code": "",
-          "role": "玻璃基板供应商"
+          "name": "日月光",
+          "code": "ASX",
+          "role": "封装服务提供商"
         }
       ],
       "tracking_signals": [
-        "玻璃基板商业化送样进展",
-        "台积电玻璃CoPoS设计应用",
-        "玻璃基板成本下降趋势"
+        "玻璃基板材料量产突破",
+        "AI芯片厂商采用玻璃基板封装"
       ],
-      "stage": "萌芽",
+      "stage": "发酵",
       "origin": "emergent",
       "scores": {
         "空间": 5,
@@ -39,13 +33,12 @@
         "寡头垄断": 3,
         "确定性": 4
       },
-      "score_notes": "",
+      "score_notes": "玻璃基板封装技术市场空间巨大，尤其在AI算力芯片领域具备性能优势。技术壁垒较高，但目前竞争者较少，尚未形成寡头垄断格局。AI算力需求增长和先进封装趋势为该技术提供确定性支撑。",
       "certainty_drivers": [
-        "兔子",
         "AI"
       ],
-      "certainty_note": "AI算力需求驱动，玻璃基板技术升级具备不可替代性。",
-      "framework_updated": "2026-06-26 21:30",
+      "certainty_note": "AI算力需求增长对高性能封装技术提出刚性需求，玻璃基板封装技术具备不可替代性。",
+      "framework_updated": "2026-07-05 23:24",
       "created": "2026-06-26 21:30",
       "latest_status": "催化增强，产业加速",
       "latest_heat": 90,
@@ -53,33 +46,48 @@
       "timeline_count": 2,
       "first_tracked": "2026-06-26",
       "tracking_bucket": "持续跟踪",
-      "depth_score": 6,
+      "depth_score": 7,
       "depth_level": "深",
       "chain_map": [
         {
-          "label": "玻璃芯基板",
-          "companies": [],
-          "note": ""
+          "label": "玻璃基板材料研发",
+          "companies": [
+            "康宁",
+            "旭硝子"
+          ],
+          "note": "提供高强度、高导热基板材料"
         },
         {
-          "label": "CoWoP封装",
-          "companies": [],
-          "note": ""
+          "label": "封装工艺开发",
+          "companies": [
+            "日月光",
+            "长电科技"
+          ],
+          "note": "开发玻璃基板封装工艺"
         },
         {
-          "label": "TGV激光",
-          "companies": [],
-          "note": ""
+          "label": "AI芯片应用适配",
+          "companies": [
+            "英伟达",
+            "英特尔"
+          ],
+          "note": "将玻璃基板封装应用于AI芯片"
         }
       ],
-      "key_questions": [],
-      "not_clear": ""
+      "key_questions": [
+        "玻璃基板材料成本能否降低？",
+        "AI芯片厂商对玻璃基板封装的接受度如何？"
+      ],
+      "not_clear": "玻璃基板封装工艺的成熟度和成本控制情况尚不明确。"
     },
     {
       "id": "ai-driven-semiconductor-capital-expenditure",
       "name": "AI驱动半导体资本开支",
       "thesis": "AI技术发展推动全球半导体资本开支加速增长，AI服务器、数据中心等需求激增，带动半导体产业链全面升级。",
       "segments": [
+        "AI芯片制造",
+        "先进封装",
+        "数据中心建设",
         "AI服务器",
         "半导体设备",
         "半导体材料"
@@ -88,17 +96,12 @@
         {
           "name": "台积电",
           "code": "TSM",
-          "role": "晶圆代工龙头"
+          "role": "AI芯片代工龙头"
         },
         {
-          "name": "美光",
-          "code": "MU",
-          "role": "存储芯片巨头"
-        },
-        {
-          "name": "长鑫存储",
-          "code": "",
-          "role": "国内存储芯片领军企业"
+          "name": "英伟达",
+          "code": "NVDA",
+          "role": "AI芯片设计领导者"
         },
         {
           "name": "中芯",
@@ -112,30 +115,28 @@
         }
       ],
       "tracking_signals": [
-        "全球半导体资本开支数据",
-        "AI服务器出货量",
-        "存储芯片价格走势",
+        "AI芯片代工厂产能利用率",
+        "AI服务器出货量增长",
         "半导体设备出货量",
         "晶圆代工资本开支计划",
         "先进封装产能扩张"
       ],
-      "stage": "萌芽",
+      "stage": "兑现中",
       "origin": "emergent",
       "scores": {
         "空间": 5,
         "竞争力": 4,
-        "寡头垄断": 3,
+        "寡头垄断": 4,
         "确定性": 5
       },
-      "score_notes": "",
+      "score_notes": "AI驱动半导体资本开支增长空间巨大，AI服务器和数据中心需求持续强劲。AI芯片制造和先进封装环节具备较高技术壁垒，头部企业占据主导地位。AI技术发展对半导体产业链的升级需求具有结构性支撑。",
       "certainty_drivers": [
-        "鹰酱",
         "兔子",
         "盟国",
         "AI"
       ],
-      "certainty_note": "AI算力需求刚性，半导体资本开支受AI驱动持续增长，供给端依赖全球产业链协作。",
-      "framework_updated": "2026-07-01 21:30",
+      "certainty_note": "AI技术发展对高性能计算的需求是刚性且不可逆的，同时中国在AI芯片制造和数据中心建设方面具备规模化优势。",
+      "framework_updated": "2026-07-05 23:24",
       "created": "2026-06-30 21:30",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 90,
@@ -143,47 +144,64 @@
       "timeline_count": 2,
       "first_tracked": "2026-06-30",
       "tracking_bucket": "持续跟踪",
-      "depth_score": 6,
+      "depth_score": 7,
       "depth_level": "深",
       "chain_map": [
         {
-          "label": "AI服务器",
-          "companies": [],
-          "note": ""
+          "label": "AI芯片制造",
+          "companies": [
+            "台积电",
+            "三星",
+            "英特尔"
+          ],
+          "note": "为AI应用提供高性能芯片"
         },
         {
-          "label": "半导体设备",
-          "companies": [],
-          "note": ""
+          "label": "先进封装",
+          "companies": [
+            "日月光",
+            "安靠"
+          ],
+          "note": "提升AI芯片集成度和性能"
         },
         {
-          "label": "半导体材料",
-          "companies": [],
-          "note": ""
+          "label": "数据中心建设",
+          "companies": [
+            "亚马逊",
+            "微软",
+            "谷歌"
+          ],
+          "note": "部署AI服务器和基础设施"
         }
       ],
-      "key_questions": [],
-      "not_clear": ""
+      "key_questions": [
+        "AI芯片产能能否满足需求增长？",
+        "AI服务器市场渗透率提升速度如何？"
+      ],
+      "not_clear": "AI芯片产能扩张速度与市场需求增长的匹配程度存在不确定性。"
     },
     {
       "id": "sst-power-electronics",
       "name": "固态变压器（SST）电力电子",
       "thesis": "固态变压器作为未来电力系统的重要组件，在高效能源转换和智能电网中的应用前景广阔。其技术突破将推动电力电子设备向更高效率和智能化方向发展。",
       "segments": [
+        "SST研发",
+        "电力电子设备制造",
+        "智能电网应用",
         "固态变压器",
         "高压SiC器件",
         "能量路由器"
       ],
       "tickers": [
         {
-          "name": "科大智能",
-          "code": "",
-          "role": "技术研发与产业化"
+          "name": "通用电气",
+          "code": "GE",
+          "role": "SST技术研发领先者"
         },
         {
-          "name": "格灵诺半导体",
+          "name": "国家电网",
           "code": "",
-          "role": "核心器件供应"
+          "role": "智能电网建设主力军"
         },
         {
           "name": "新风光",
@@ -197,14 +215,13 @@
         }
       ],
       "tracking_signals": [
-        "SST样机发布",
-        "高压SiC器件商用进展",
-        "北美市场订单突破",
+        "SST技术商用化进展",
+        "智能电网项目招标中SST应用情况",
         "SST样机验证进展",
         "大客户订单落地",
         "SiC器件导入情况"
       ],
-      "stage": "萌芽",
+      "stage": "发酵",
       "origin": "emergent",
       "scores": {
         "空间": 5,
@@ -212,14 +229,14 @@
         "寡头垄断": 3,
         "确定性": 4
       },
-      "score_notes": "",
+      "score_notes": "SST技术在高效能源转换和智能电网中的应用前景广阔，但目前技术成熟度和市场渗透率有限。电力电子设备制造环节竞争较为激烈，智能电网应用领域存在一定进入壁垒。全球能源转型和智能电网建设趋势为SST技术提供确定性支撑。",
       "certainty_drivers": [
         "兔子",
         "盟国",
         "AI"
       ],
-      "certainty_note": "被AI数据中心与新能源系统同时需要，SiC器件与SST技术协同发展，供给刚性较强。",
-      "framework_updated": "2026-07-01 21:30",
+      "certainty_note": "中国在智能电网建设方面具备规模化优势，同时欧美国家对能源效率和电网安全性的重视也为SST技术提供需求支撑。",
+      "framework_updated": "2026-07-05 23:24",
       "created": "2026-06-23 13:48",
       "latest_status": "首次纳入跟踪",
       "latest_heat": 88,
@@ -227,70 +244,80 @@
       "timeline_count": 6,
       "first_tracked": "2026-06-22",
       "tracking_bucket": "持续跟踪",
-      "depth_score": 6,
+      "depth_score": 7,
       "depth_level": "深",
       "chain_map": [
         {
-          "label": "固态变压器",
-          "companies": [],
-          "note": ""
+          "label": "SST研发",
+          "companies": [
+            "通用电气",
+            "西门子"
+          ],
+          "note": "开发高效固态变压器技术"
         },
         {
-          "label": "高压SiC器件",
-          "companies": [],
-          "note": ""
+          "label": "电力电子设备制造",
+          "companies": [
+            "ABB",
+            "施耐德"
+          ],
+          "note": "将SST技术应用于电力设备"
         },
         {
-          "label": "能量路由器",
-          "companies": [],
-          "note": ""
+          "label": "智能电网应用",
+          "companies": [
+            "国家电网",
+            "南方电网"
+          ],
+          "note": "部署基于SST的智能电网解决方案"
         }
       ],
-      "key_questions": [],
-      "not_clear": ""
+      "key_questions": [
+        "SST技术的成本能否降低到可接受水平？",
+        "智能电网对SST技术的接受度如何？"
+      ],
+      "not_clear": "SST技术的成本控制和市场推广情况尚不明确。"
     },
     {
       "id": "huawei-tao-law",
       "name": "华为韬定律产业链",
-      "thesis": "韬定律提出通过时间缩微提升芯片性能，为国产高端芯片提供新路径。其核心在于逻辑折叠、系统级互联等技术，推动封装、EDA、存储等环节变革。",
+      "thesis": "韬定律提出通过时间缩微提升芯片性能，为国产高端芯片提供新路径。其核心在于逻辑折叠、系统级互联等技术，推动封装、EDA、存储等环节技术升级。",
       "segments": [
         "逻辑折叠技术",
         "系统级互联",
-        "先进封装",
-        "EDA工具"
+        "先进封装"
       ],
       "tickers": [
         {
           "name": "华为",
           "code": "",
-          "role": "技术引领者与产业链核心"
+          "role": "韬定律技术引领者"
         },
         {
-          "name": "长电科技",
-          "code": "",
-          "role": "先进封装与TSV工艺"
+          "name": "Marvell",
+          "code": "MRVL",
+          "role": "系统级互联技术提供商"
         }
       ],
       "tracking_signals": [
-        "逻辑折叠技术商用化进展",
-        "TSV工艺国产化突破",
-        "EDA工具对3D堆叠支持"
+        "逻辑折叠芯片商用化进展",
+        "系统级互联技术标准化进展"
       ],
-      "stage": "发酵",
+      "stage": "萌芽",
       "origin": "framework",
       "scores": {
         "空间": 5,
         "竞争力": 4,
-        "寡头垄断": 4,
+        "寡头垄断": 3,
         "确定性": 4
       },
-      "score_notes": "空间上，韬定律为国产高端芯片提供新方向，市场潜力巨大；竞争力方面，华为技术积累深厚，但产业链其他环节仍需突破；寡头垄断程度中等，华为占据主导地位；确定性较高，受AI与半导体国产化需求驱动，但技术落地仍需时间。",
+      "score_notes": "韬定律为国产高端芯片提供了一条新的技术路径，市场空间巨大。华为在芯片设计和系统级互联方面具备技术优势，但整体产业链成熟度较低，竞争格局尚未形成。AI算力需求增长和国产替代趋势为该技术提供确定性支撑。",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "certainty_note": "被AI算力需求与国产替代双重驱动，属于兔子的工程化规模化优势和AI的基础设施需求，供给刚性但技术落地存在不确定性。",
-      "framework_updated": "2026-07-01 21:30",
+      "certainty_note": "AI算力需求增长对芯片性能提升提出刚性需求，同时中国在AI芯片设计和制造方面具备规模化优势。",
+      "framework_updated": "2026-07-05 23:24",
       "created": "2026-06-18 23:48",
       "latest_status": "催化增强",
       "latest_heat": 85,
@@ -298,34 +325,38 @@
       "timeline_count": 2,
       "first_tracked": "2026-06-18",
       "tracking_bucket": "持续跟踪",
-      "depth_score": 6,
+      "depth_score": 7,
       "depth_level": "深",
       "chain_map": [
         {
           "label": "逻辑折叠技术",
-          "companies": [],
-          "note": ""
+          "companies": [
+            "华为海思"
+          ],
+          "note": "开发逻辑折叠芯片设计技术"
         },
         {
           "label": "系统级互联",
-          "companies": [],
-          "note": ""
+          "companies": [
+            "华为",
+            "Marvell"
+          ],
+          "note": "开发高速系统级互联解决方案"
         },
         {
           "label": "先进封装",
           "companies": [
+            "日月光",
             "长电科技"
           ],
-          "note": ""
-        },
-        {
-          "label": "EDA工具",
-          "companies": [],
-          "note": ""
+          "note": "开发支持逻辑折叠的先进封装工艺"
         }
       ],
-      "key_questions": [],
-      "not_clear": ""
+      "key_questions": [
+        "逻辑折叠技术能否实现规模化应用？",
+        "系统级互联技术能否成为行业标准？"
+      ],
+      "not_clear": "逻辑折叠技术的商用化路径和系统级互联技术的标准化进程尚不明确。"
     },
     {
       "id": "space-computing",
@@ -1994,5 +2025,5 @@
       "not_clear": ""
     }
   ],
-  "updated": "2026-07-05 23:22"
+  "updated": "2026-07-05 23:24"
 }

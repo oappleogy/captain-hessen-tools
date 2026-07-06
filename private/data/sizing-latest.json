@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-29",
+  "date": "2026-07-06",
   "market": "US",
   "market_label": "美股",
   "regime_position_cap": {
@@ -11,13 +11,52 @@
     "max_total_position_pct": 81.2,
     "reasoning": "降息初期，观察"
   },
-  "opportunity_sizing": [],
+  "opportunity_sizing": [
+    {
+      "opportunity": "看多美股地产/REITs",
+      "sector": "地产/REITs",
+      "type": "cross_model_consensus",
+      "win_rate": 0.65,
+      "win_rate_source": "保守默认值（多模型共识历史准确率较高）",
+      "payoff_ratio": 1.5,
+      "payoff_source": "默认1.5",
+      "kelly_raw": 0.4167,
+      "kelly_safe": 0.2083,
+      "suggested_size": "20.3%",
+      "suggested_size_pct": 20.3,
+      "cap_binding": "25%单笔上限触发（凯利建议20.8%）",
+      "viable": true
+    }
+  ],
   "portfolio_risk": {
-    "factor_concentration": {},
+    "factor_concentration": {
+      "利率": {
+        "level": "低",
+        "count": 1,
+        "sectors": [
+          "地产/REITs"
+        ],
+        "details": [
+          "地产/REITs(极高(r=+30))"
+        ]
+      },
+      "美元": {
+        "level": "低",
+        "count": 1,
+        "sectors": [
+          "地产/REITs"
+        ],
+        "details": [
+          "地产/REITs(中(d=-10))"
+        ]
+      }
+    },
     "warnings": [
       "因子分散度良好，无集中风险"
     ],
-    "involved_sectors": []
+    "involved_sectors": [
+      "地产/REITs"
+    ]
   },
   "disclaimer": "仅为参考建议，最终决策由你做出。当前模型仅覆盖美国市场。"
 }

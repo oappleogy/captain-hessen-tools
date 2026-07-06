@@ -1,5 +1,5 @@
 {
-  "scan_date": "2026-06-29",
+  "scan_date": "2026-07-06",
   "market": "US",
   "market_label": "美股",
   "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
@@ -8,16 +8,33 @@
     "hmm_state": "S2",
     "confidence": 0.8
   },
-  "opportunities": [],
+  "opportunities": [
+    {
+      "type": "cross_model_consensus",
+      "sector": "地产/REITs",
+      "signal": "齿轮景气=68 + 体制=easing(conf=0.80)",
+      "direction": "看多美股地产/REITs",
+      "confidence": {
+        "gear_model": 0.37,
+        "regime_hmm": 0.8,
+        "consensus": "2/3模型一致"
+      },
+      "models_agreeing": 2,
+      "caveats": [
+        "仅2/3模型一致，置信度中等",
+        "蒙特卡洛未参与（无MC数据），实际为2模型交叉"
+      ],
+      "model_limitations": "传导系数v2.0(部分校准) + HMM混合体制（MC未参与）"
+    }
+  ],
   "no_signal_sectors": [
     "军工/防务",
     "出口制造",
-    "地产/REITs",
     "消费/零售",
     "科技/AI",
     "能源",
     "银行/金融",
     "黄金/大宗"
   ],
-  "scan_summary": "无结构性错配信号，8个行业均在体制预期区间内"
+  "scan_summary": "发现1个多模型共识，7个行业无信号"
 }

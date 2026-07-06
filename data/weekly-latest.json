@@ -1,7 +1,7 @@
 {
-  "week_label": "2026-W27",
-  "generated_at": "2026-07-05 08:15",
-  "data_time": "2026-07-05T00:15:08Z",
+  "week_label": "2026-W28",
+  "generated_at": "2026-07-06 08:15",
+  "data_time": "2026-07-06T00:15:08Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -33,7 +33,7 @@
       "unit": "%",
       "value": 2.75,
       "date": "2026-07-02",
-      "freshness": "fresh"
+      "freshness": "stale"
     },
     {
       "key": "t10y2y",
@@ -41,19 +41,19 @@
       "unit": "%",
       "value": 0.35,
       "date": "2026-07-02",
-      "freshness": "fresh"
+      "freshness": "stale"
     }
   ],
   "sectors": [
     {
       "name": "地产/REITs",
-      "prosperity": 68.4,
+      "prosperity": 68.3,
       "signal": "看好"
     },
     {
       "name": "科技/AI",
-      "prosperity": 60.2,
-      "signal": "看好"
+      "prosperity": 59.9,
+      "signal": "中性"
     },
     {
       "name": "消费/零售",
@@ -61,23 +61,23 @@
       "signal": "中性"
     },
     {
-      "name": "出口制造",
-      "prosperity": 56.2,
+      "name": "能源",
+      "prosperity": 55.8,
       "signal": "中性"
     },
     {
-      "name": "能源",
-      "prosperity": 56.1,
+      "name": "出口制造",
+      "prosperity": 55.7,
       "signal": "中性"
     },
     {
       "name": "银行/金融",
-      "prosperity": 51.0,
+      "prosperity": 51.1,
       "signal": "中性"
     },
     {
       "name": "黄金/大宗",
-      "prosperity": 48.5,
+      "prosperity": 49.0,
       "signal": "中性"
     },
     {
@@ -89,13 +89,13 @@
   "macro": [
     {
       "name": "利率",
-      "value": 64.8,
+      "value": 64.5,
       "label": "景气",
       "delta": null
     },
     {
       "name": "美元",
-      "value": 49.3,
+      "value": 48.5,
       "label": "中性",
       "delta": null
     },
@@ -107,13 +107,13 @@
     },
     {
       "name": "能源",
-      "value": 57.3,
+      "value": 57.0,
       "label": "中性",
       "delta": null
     },
     {
       "name": "供应链",
-      "value": 62.1,
+      "value": 62.5,
       "label": "景气",
       "delta": null
     }
@@ -121,13 +121,13 @@
   "industries": [
     {
       "name": "地产/REITs",
-      "value": 68.4,
+      "value": 68.3,
       "label": "景气"
     },
     {
       "name": "科技/AI",
-      "value": 60.2,
-      "label": "景气"
+      "value": 59.9,
+      "label": "中性"
     },
     {
       "name": "消费/零售",
@@ -135,23 +135,23 @@
       "label": "中性"
     },
     {
-      "name": "出口制造",
-      "value": 56.2,
+      "name": "能源",
+      "value": 55.8,
       "label": "中性"
     },
     {
-      "name": "能源",
-      "value": 56.1,
+      "name": "出口制造",
+      "value": 55.7,
       "label": "中性"
     },
     {
       "name": "银行/金融",
-      "value": 51.0,
+      "value": 51.1,
       "label": "中性"
     },
     {
       "name": "黄金/大宗",
-      "value": 48.5,
+      "value": 49.0,
       "label": "中性"
     },
     {
@@ -188,7 +188,7 @@
         "level": "极端偏离"
       }
     ],
-    "timestamp": "2026-07-04 08:15"
+    "timestamp": "2026-07-05 08:15"
   },
   "significant_deviations": [
     {
@@ -304,11 +304,11 @@
   "s2_state": "STRESSED_MILD",
   "s2_score": 0.3333333333333333,
   "macro_prosperity": {
-    "rate_n": 64.8,
-    "usd_n": 49.3,
+    "rate_n": 64.5,
+    "usd_n": 48.5,
     "risk_n": 59.7,
-    "energy_n": 57.3,
-    "supply_n": 62.1
+    "energy_n": 57.0,
+    "supply_n": 62.5
   },
   "forward_rates": {},
   "watermark": "黑森船长"

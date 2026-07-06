@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-07-03T21:01:57",
+  "timestamp": "2026-07-06T07:31:04",
   "data_as_of": "2026-07-02",
-  "data_lag_days": 1,
+  "data_lag_days": 4,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.49,
+      "score": 0.47,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.51,
+      "score": 0.52,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.02,
+      "score": -0.05,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.38,
+      "score": -0.41,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -124,7 +124,7 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "数据积累中",
+    "moving_toward": "崩塌",
     "safety_margin": 0.433,
     "early_warning": "无"
   },
@@ -154,7 +154,7 @@
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.74,
+      "value": 2.75,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

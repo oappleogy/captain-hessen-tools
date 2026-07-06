@@ -3,48 +3,40 @@
   "name": "AI光通信组件短缺",
   "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
   "segments": [
-    "磷化铟衬底",
-    "光芯片",
-    "CPO交换机"
+    "磷化铟衬底制造",
+    "光芯片制造",
+    "光通信模块封装"
   ],
   "tickers": [
     {
-      "name": "云南锗业",
-      "code": "",
-      "role": "上游材料核心供应商"
+      "name": "美国AXT",
+      "code": "AXTI",
+      "role": "磷化铟衬底供应商"
     },
     {
-      "name": "源杰科技",
-      "code": "",
-      "role": "光芯片IDM"
-    },
-    {
-      "name": "东山精密",
-      "code": "",
-      "role": "光通信IDM一体化"
+      "name": "菲尼萨",
+      "code": "FNSR",
+      "role": "光通信模块供应商"
     }
   ],
   "tracking_signals": [
-    "InP衬底扩产进度",
-    "光芯片价格走势",
-    "CPO交换机出货量"
+    "磷化铟衬底产能扩张计划",
+    "光芯片制造厂商订单量"
   ],
-  "stage": "萌芽",
+  "stage": "兑现中",
   "origin": "emergent",
   "scores": {
-    "空间": 5,
-    "竞争力": 4,
-    "寡头垄断": 3,
-    "确定性": 5
+    "空间": 4,
+    "竞争力": 3,
+    "寡头垄断": 4,
+    "确定性": 4
   },
-  "score_notes": "",
+  "score_notes": "AI光通信组件需求增长，市场空间较大，但上游材料及芯片制造环节技术壁垒较高，短期内供应紧张。行业集中度较高，磷化铟衬底及光芯片制造环节存在一定垄断。",
   "certainty_drivers": [
-    "兔子",
-    "盟国",
     "AI"
   ],
-  "certainty_note": "AI算力需求刚性，上游材料供给刚性且技术门槛高，短期内难以替代。",
-  "framework_updated": "2026-06-24 21:30",
+  "certainty_note": "AI算力需求增长对光通信组件的需求是结构性的，短期内难以缓解的供应紧张进一步提升了确定性。",
+  "framework_updated": "2026-07-06 21:31",
   "created": "2026-06-24 21:30",
   "latest_status": "催化增强",
   "latest_heat": 82,
@@ -135,30 +127,40 @@
       ]
     }
   ],
-  "key_questions": [],
+  "key_questions": [
+    "磷化铟衬底产能何时能缓解？",
+    "光芯片制造厂商的扩产计划如何？"
+  ],
   "chain_map": [
     {
-      "label": "磷化铟衬底",
-      "companies": [],
-      "note": ""
-    },
-    {
-      "label": "光芯片",
+      "label": "磷化铟衬底制造",
       "companies": [
-        "源杰科技"
+        "美国AXT",
+        "日本住友电工"
       ],
-      "note": ""
+      "note": "提供磷化铟衬底"
     },
     {
-      "label": "CPO交换机",
-      "companies": [],
-      "note": ""
+      "label": "光芯片制造",
+      "companies": [
+        "三菱化学",
+        "住友电工"
+      ],
+      "note": "制造光通信芯片"
+    },
+    {
+      "label": "光通信模块封装",
+      "companies": [
+        "菲尼萨",
+        "博通"
+      ],
+      "note": "封装光通信模块"
     }
   ],
-  "not_clear": "",
+  "not_clear": "磷化铟衬底产能扩张速度及光芯片制造厂商的具体扩产计划尚不明确。",
   "timeline_count": 6,
   "first_tracked": "2026-06-24",
   "tracking_bucket": "持续跟踪",
-  "depth_score": 6,
+  "depth_score": 7,
   "depth_level": "深"
 }

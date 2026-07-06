@@ -3,42 +3,41 @@
   "name": "AI服务器液冷技术",
   "thesis": "AI算力需求激增，服务器散热需求提升，液冷技术成为解决高密度计算散热问题的关键方案，市场空间巨大。",
   "segments": [
-    "液冷散热系统",
-    "冷却液材料",
-    "热管理系统设计"
+    "液冷系统设计",
+    "液冷设备制造",
+    "数据中心液冷应用"
   ],
   "tickers": [
     {
-      "name": "阿里",
+      "name": "CoolIT Systems",
       "code": "",
-      "role": "AI服务器液冷技术研发与应用"
+      "role": "液冷设备制造商"
     },
     {
-      "name": "华为",
+      "name": "阿里云",
       "code": "",
-      "role": "液冷散热系统与AI服务器整合"
+      "role": "液冷技术应用者"
     }
   ],
   "tracking_signals": [
-    "AI服务器液冷技术商用化进展",
-    "液冷散热系统订单增长",
-    "冷却液材料研发突破"
+    "液冷设备制造厂商订单量",
+    "数据中心液冷技术应用案例"
   ],
-  "stage": "兑现中",
+  "stage": "发酵",
   "origin": "emergent",
   "scores": {
     "空间": 5,
     "竞争力": 4,
     "寡头垄断": 3,
-    "确定性": 5
+    "确定性": 4
   },
-  "score_notes": "空间上，AI服务器需求增长迅速，液冷技术市场空间巨大；竞争力方面，技术壁垒较高，但国内厂商逐步突破；寡头垄断程度中等，头部企业占据主导地位；确定性高，受AI算力需求驱动，供给刚性且不可替代。",
+  "score_notes": "AI服务器液冷技术市场空间巨大，但液冷设备制造环节技术壁垒较高，行业集中度中等。AI算力需求增长对液冷技术的需求是结构性的，液冷技术在数据中心中的应用前景广阔。",
   "certainty_drivers": [
     "兔子",
     "AI"
   ],
-  "certainty_note": "被AI算力需求驱动，属于AI基础设施需求，供给刚性且符合兔子的规模化优势。",
-  "framework_updated": "2026-07-01 21:30",
+  "certainty_note": "AI算力需求增长推动服务器散热需求，液冷技术作为高效散热方案，具备结构性需求。",
+  "framework_updated": "2026-07-06 21:31",
   "created": "2026-06-19 09:27",
   "latest_status": "催化增强",
   "latest_heat": 80,
@@ -215,30 +214,40 @@
       ]
     }
   ],
-  "key_questions": [],
+  "key_questions": [
+    "液冷设备制造厂商的产能能否满足需求？",
+    "液冷技术在数据中心中的应用进展如何？"
+  ],
   "chain_map": [
     {
-      "label": "液冷散热系统",
+      "label": "液冷系统设计",
       "companies": [
-        "华为"
+        "微软",
+        "谷歌"
       ],
-      "note": ""
+      "note": "设计液冷散热系统"
     },
     {
-      "label": "冷却液材料",
-      "companies": [],
-      "note": ""
+      "label": "液冷设备制造",
+      "companies": [
+        "CoolIT Systems",
+        "Asetek"
+      ],
+      "note": "制造液冷设备"
     },
     {
-      "label": "热管理系统设计",
-      "companies": [],
-      "note": ""
+      "label": "数据中心液冷应用",
+      "companies": [
+        "亚马逊AWS",
+        "阿里云"
+      ],
+      "note": "在数据中心应用液冷技术"
     }
   ],
-  "not_clear": "",
+  "not_clear": "液冷设备制造厂商的产能及数据中心液冷技术应用的具体数据尚不明确。",
   "timeline_count": 10,
   "first_tracked": "2026-06-19",
   "tracking_bucket": "持续跟踪",
-  "depth_score": 5,
-  "depth_level": "中"
+  "depth_score": 6,
+  "depth_level": "深"
 }

@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-07-06T21:02:23",
-  "data_as_of": "2026-07-02",
+  "timestamp": "2026-07-07T07:31:09",
+  "data_as_of": "2026-07-03",
   "data_lag_days": 4,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
-    "score": 0.333,
-    "action": "系统轻度承压。建议仓位≤55%（趋势↑），增加对冲，缩短持仓周期。"
+    "score": 0.5,
+    "action": "系统轻度承压。建议仓位≤60%（趋势↑），可持有方向性仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -17,13 +17,13 @@
     "I": "green",
     "F": "green",
     "C": "yellow",
-    "N": "yellow",
+    "N": "green",
     "T": "red"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.47,
+      "score": 0.37,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.52,
+      "score": 0.48,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -53,27 +53,27 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.05,
+      "score": 0.21,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.16,
-      "state": "►",
-      "light": "yellow",
-      "note": "叙事出现分化或转向迹象",
+      "score": 0.58,
+      "state": "▲",
+      "light": "green",
+      "note": "叙事稳定，市场预期可预测",
       "confidence": "★",
       "name_cn": "叙事共识",
       "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.41,
+      "score": -0.57,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -125,13 +125,13 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": 0.433,
+    "safety_margin": 0.6,
     "early_warning": "无"
   },
   "extremes": {
     "count": 1,
     "categories": [
-      "Nasdaq波动率(VXN)=27.7 (历史93%分位)"
+      "Nasdaq波动率(VXN)=28.0 (历史93%分位)"
     ]
   },
   "opportunities": [],
@@ -149,12 +149,12 @@
   "key_metrics": {
     "extreme_count": 1,
     "vix": {
-      "value": 16.6,
-      "percentile": 53,
+      "value": 15.8,
+      "percentile": 42,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.75,
+      "value": 2.74,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

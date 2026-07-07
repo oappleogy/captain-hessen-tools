@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-07-07T07:31:09",
-  "data_as_of": "2026-07-03",
-  "data_lag_days": 4,
+  "timestamp": "2026-07-07T21:02:54",
+  "data_as_of": "2026-07-06",
+  "data_lag_days": 1,
   "system_state": {
-    "state": "STRESSED_MILD",
-    "label": "轻度承压",
-    "color": "#eab308",
-    "level": 2,
+    "state": "STABLE",
+    "label": "系统稳定",
+    "color": "#22c55e",
+    "level": 1,
     "score": 0.5,
-    "action": "系统轻度承压。建议仓位≤60%（趋势↑），可持有方向性仓位。"
+    "action": "系统健康。建议仓位≤65%（趋势↑），可持有方向性仓位。"
   },
-  "regime_label": "WATCH",
-  "red_count": 1,
+  "regime_label": "STABLE",
+  "red_count": 0,
   "dim_lights": {
     "R": "green",
     "I": "green",
-    "F": "green",
+    "F": "yellow",
     "C": "yellow",
     "N": "green",
-    "T": "red"
+    "T": "yellow"
   },
   "dimensions": {
     "R": {
@@ -43,17 +43,17 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.39,
-      "state": "▲",
-      "light": "green",
-      "note": "市场情绪健康，正反馈可持续",
+      "score": 0.11,
+      "state": "►",
+      "light": "yellow",
+      "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★",
       "name_cn": "情绪反馈",
       "status": "healthy"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.21,
+      "score": 0.15,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -73,10 +73,10 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.57,
-      "state": "▼",
-      "light": "red",
-      "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
+      "score": -0.21,
+      "state": "►",
+      "light": "yellow",
+      "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
       "status": "stressed"

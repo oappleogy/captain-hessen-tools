@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-07-07T21:02:54",
-  "data_as_of": "2026-07-06",
+  "timestamp": "2026-07-08T21:03:23",
+  "data_as_of": "2026-07-07",
   "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
@@ -8,7 +8,7 @@
     "color": "#22c55e",
     "level": 1,
     "score": 0.5,
-    "action": "系统健康。建议仓位≤65%（趋势↑），可持有方向性仓位。"
+    "action": "系统健康。建议仓位≤70%（趋势↑），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.37,
+      "score": 0.51,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.48,
+      "score": 0.43,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.11,
+      "score": 0.19,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.15,
+      "score": 0.22,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.58,
+      "score": 0.53,
       "state": "▲",
       "light": "green",
       "note": "叙事稳定，市场预期可预测",
@@ -73,13 +73,13 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.21,
+      "score": -0.18,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "stressed"
+      "status": "neutral"
     }
   },
   "attractor": {
@@ -131,7 +131,7 @@
   "extremes": {
     "count": 1,
     "categories": [
-      "Nasdaq波动率(VXN)=28.0 (历史93%分位)"
+      "Nasdaq波动率(VXN)=26.8 (历史90%分位)"
     ]
   },
   "opportunities": [],
@@ -149,12 +149,12 @@
   "key_metrics": {
     "extreme_count": 1,
     "vix": {
-      "value": 15.8,
-      "percentile": 42,
+      "value": 15.6,
+      "percentile": 38,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.74,
+      "value": 2.72,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

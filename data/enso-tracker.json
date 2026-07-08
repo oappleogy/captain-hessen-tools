@@ -1,262 +1,262 @@
 {
- "last_updated": "2026-07-09",
- "next_update": "2026-07-16",
- "data_window": "1950-01 ~ 2026-05",
- "current_state": {
-  "label": "厄尔尼诺已形成 · El Niño Advisory",
-  "phase": "el_nino",
-  "intensity": "弱（临界）但快速增强 / Weak (borderline) but rapidly strengthening",
-  "alert": "El Niño Advisory",
-  "alert_note": "CPC 判定厄尔尼诺条件已现并将增强，NDJ 期间有 63% 概率达到 1950 年以来名列前茅的『超强』厄尔尼诺。",
-  "summary": "CPC（11 June 2026）正式发布 El Niño Advisory：中至东赤道太平洋海温偏暖、低层西风异常、SOI 为负，海气耦合显示厄尔尼诺已形成，最新周度 Niño-3.4 为 +0.7°C（Niño-1+2 高达 +2.1°C）。ONI（MAM 26）=+0.48°C，仍略低于 +0.5°C 阈值，但近六季由 -0.55 持续抬升至 +0.48，趋势明确转暖。NMME/CFSv2 与高海洋热含量支撑厄尔尼诺在 2026-27 北半球冬季显著增强，高信心。"
- },
- "indicators": [
-  {
-   "code": "ONI",
-   "name": "Oceanic Niño Index",
-   "name_zh": "海洋尼诺指数",
-   "value": 0.98,
-   "unit": "°C",
-   "window": "AMJ 26",
-   "trend": [
-    -0.54,
-    -0.37,
-    -0.14,
-    0.13,
-    0.51,
-    0.98
-   ],
-   "trend_labels": [
-    "NDJ 25",
-    "DJF 26",
-    "JFM 26",
-    "FMA 26",
-    "MAM 26",
-    "AMJ 26"
-   ],
-   "thresholds": {
-    "el_nino": 0.5,
-    "la_nina": -0.5
-   },
-   "source": "NOAA CPC · Niño 3.4 ERSSTv5 三月滑动均值"
+  "last_updated": "2026-07-09",
+  "next_update": "2026-07-16",
+  "data_window": "1950-01 ~ 2026-05",
+  "current_state": {
+    "label": "厄尔尼诺已形成 · El Niño Advisory",
+    "phase": "el_nino",
+    "intensity": "弱（临界）但快速增强 / Weak (borderline) but rapidly strengthening",
+    "alert": "El Niño Advisory",
+    "alert_note": "CPC 判定厄尔尼诺条件已现并将增强，NDJ 期间有 63% 概率达到 1950 年以来名列前茅的『超强』厄尔尼诺。",
+    "summary": "CPC（11 June 2026）正式发布 El Niño Advisory：中至东赤道太平洋海温偏暖、低层西风异常、SOI 为负，海气耦合显示厄尔尼诺已形成，最新周度 Niño-3.4 为 +0.7°C（Niño-1+2 高达 +2.1°C）。ONI（MAM 26）=+0.48°C，仍略低于 +0.5°C 阈值，但近六季由 -0.55 持续抬升至 +0.48，趋势明确转暖。NMME/CFSv2 与高海洋热含量支撑厄尔尼诺在 2026-27 北半球冬季显著增强，高信心。"
   },
-  {
-   "code": "N34_SST",
-   "name": "Niño 3.4 SST Anomaly",
-   "name_zh": "Niño 3.4 区海温异常",
-   "value": 1.8,
-   "unit": "°C",
-   "window": "Week of 01JUL2026",
-   "trend": [
-    1.0,
-    1.3,
-    1.5,
-    1.7,
-    1.8,
-    1.8
-   ],
-   "thresholds": {
-    "el_nino": 0.5,
-    "la_nina": -0.5
-   },
-   "source": "NOAA CPC · 周度 OISST",
-   "trend_labels": [
-    "27MAY2026",
-    "03JUN2026",
-    "10JUN2026",
-    "17JUN2026",
-    "24JUN2026",
-    "01JUL2026"
-   ]
-  },
-  {
-   "code": "SOI",
-   "name": "Southern Oscillation Index",
-   "name_zh": "南方涛动指数",
-   "value": -4.5,
-   "unit": "",
-   "window": "30-day · 2026-05",
-   "trend": [
-    2.5,
-    1.6,
-    0.4,
-    -0.2,
-    -1.1,
-    -1.9,
-    -2.3,
-    -2.6,
-    -3.0,
-    -3.2,
-    -3.8,
-    -4.5
-   ],
-   "thresholds": {
-    "el_nino": -7,
-    "la_nina": 7
-   },
-   "note": "负值偏向厄尔尼诺，正值偏向拉尼娜",
-   "source": "BoM Australia 30-day SOI"
-  },
-  {
-   "code": "MEI_V2",
-   "name": "Multivariate ENSO Index v2",
-   "name_zh": "多变量 ENSO 指数 v2",
-   "value": 0.7,
-   "unit": "",
-   "window": "AM 2026 双月",
-   "trend": [
-    -0.5,
-    -0.4,
-    -0.2,
-    -0.1,
-    0.0,
-    0.1,
-    0.2,
-    0.3,
-    0.3,
-    0.4,
-    0.5,
-    0.7
-   ],
-   "thresholds": {
-    "el_nino": 0.5,
-    "la_nina": -0.5
-   },
-   "source": "NOAA PSL · MEI.v2"
-  }
- ],
- "forecast": [
-  {
-   "season": "MJJ 26",
-   "la_nina": 1,
-   "neutral": 14,
-   "el_nino": 85
-  },
-  {
-   "season": "JJA 26",
-   "la_nina": 1,
-   "neutral": 11,
-   "el_nino": 88
-  },
-  {
-   "season": "JAS 26",
-   "la_nina": 1,
-   "neutral": 9,
-   "el_nino": 90
-  },
-  {
-   "season": "ASO 26",
-   "la_nina": 0,
-   "neutral": 8,
-   "el_nino": 92
-  },
-  {
-   "season": "SON 26",
-   "la_nina": 0,
-   "neutral": 7,
-   "el_nino": 93
-  },
-  {
-   "season": "OND 26",
-   "la_nina": 0,
-   "neutral": 5,
-   "el_nino": 95
-  },
-  {
-   "season": "NDJ 26",
-   "la_nina": 0,
-   "neutral": 5,
-   "el_nino": 95
-  }
- ],
- "history": [
-  {
-   "event": "1982-83",
-   "type": "极强厄尔尼诺",
-   "oni_peak": 2.2,
-   "duration_mo": 16,
-   "damage_usd_b": 13,
-   "highlight": "澳洲千年大旱、秘鲁洪灾、全球饥荒压力"
-  },
-  {
-   "event": "1997-98",
-   "type": "极强厄尔尼诺",
-   "oni_peak": 2.4,
-   "duration_mo": 13,
-   "damage_usd_b": 35,
-   "highlight": "印尼森林大火 · 美国冬季异常 · 大宗商品全面波动"
-  },
-  {
-   "event": "2009-10",
-   "type": "中等厄尔尼诺",
-   "oni_peak": 1.6,
-   "duration_mo": 10,
-   "damage_usd_b": 8,
-   "highlight": "印度季风偏弱、糖价两年新高"
-  },
-  {
-   "event": "2015-16",
-   "type": "极强厄尔尼诺",
-   "oni_peak": 2.6,
-   "duration_mo": 19,
-   "damage_usd_b": 42,
-   "highlight": "全球均温创纪录、南亚高温干旱、中美洲旱灾迁徙潮"
-  },
-  {
-   "event": "2023-24",
-   "type": "强厄尔尼诺",
-   "oni_peak": 2.0,
-   "duration_mo": 12,
-   "damage_usd_b": 28,
-   "highlight": "巴拿马运河大幅减航 · 巴西大豆减产 · 全球均温首破 1.5°C"
-  },
-  {
-   "event": "2024-25",
-   "type": "弱拉尼娜",
-   "oni_peak": -0.7,
-   "duration_mo": 6,
-   "damage_usd_b": 4,
-   "highlight": "美洲大豆/玉米带湿润 · 西太平洋台风偏多"
-  },
-  {
-   "event": "2026-27",
-   "type": "形成中(预测)",
-   "oni_peak": null,
-   "duration_mo": null,
-   "damage_usd_b": null,
-   "highlight": "动力模型多指向中等强度厄尔尼诺，巅峰可能落在 NDJ 2026"
-  }
- ],
- "watch_windows": [
-  {
-   "date": "2026-06-11",
-   "tag": "数据",
-   "label": "CPC 月度 ENSO Diagnostic Discussion · 可能升级为 El Niño Advisory"
-  },
-  {
-   "date": "2026-06-15",
-   "tag": "数据",
-   "label": "IRI/CPC ENSO Quick Look 多模型集合预测更新"
-  },
-  {
-   "date": "2026-07-01",
-   "tag": "季节",
-   "label": "印度西南季风进入活跃期 · 厄尔尼诺年季风偏弱，关注降水偏离"
-  },
-  {
-   "date": "2026-08-15",
-   "tag": "季节",
-   "label": "巴西中部进入开种窗口 · 厄尔尼诺往年此时降水偏多"
-  },
-  {
-   "date": "2026-09-30",
-   "tag": "季节",
-   "label": "印尼/马来 9-10 月旱季 · 棕榈油单产与森林火灾风险监测"
-  },
-  {
-   "date": "2026-11-15",
-   "tag": "峰值",
-   "label": "厄尔尼诺通常 NDJ 达峰 · 北美冬季气温/天然气需求观察"
-  }
- ]
+  "indicators": [
+    {
+      "code": "ONI",
+      "name": "Oceanic Niño Index",
+      "name_zh": "海洋尼诺指数",
+      "value": 0.98,
+      "unit": "°C",
+      "window": "AMJ 26",
+      "trend": [
+        -0.54,
+        -0.37,
+        -0.14,
+        0.13,
+        0.51,
+        0.98
+      ],
+      "trend_labels": [
+        "NDJ 25",
+        "DJF 26",
+        "JFM 26",
+        "FMA 26",
+        "MAM 26",
+        "AMJ 26"
+      ],
+      "thresholds": {
+        "el_nino": 0.5,
+        "la_nina": -0.5
+      },
+      "source": "NOAA CPC · Niño 3.4 ERSSTv5 三月滑动均值"
+    },
+    {
+      "code": "N34_SST",
+      "name": "Niño 3.4 SST Anomaly",
+      "name_zh": "Niño 3.4 区海温异常",
+      "value": 1.8,
+      "unit": "°C",
+      "window": "Week of 01JUL2026",
+      "trend": [
+        1.0,
+        1.3,
+        1.5,
+        1.7,
+        1.8,
+        1.8
+      ],
+      "thresholds": {
+        "el_nino": 0.5,
+        "la_nina": -0.5
+      },
+      "source": "NOAA CPC · 周度 OISST",
+      "trend_labels": [
+        "27MAY2026",
+        "03JUN2026",
+        "10JUN2026",
+        "17JUN2026",
+        "24JUN2026",
+        "01JUL2026"
+      ]
+    },
+    {
+      "code": "SOI",
+      "name": "Southern Oscillation Index",
+      "name_zh": "南方涛动指数",
+      "value": -4.5,
+      "unit": "",
+      "window": "30-day · 2026-05",
+      "trend": [
+        2.5,
+        1.6,
+        0.4,
+        -0.2,
+        -1.1,
+        -1.9,
+        -2.3,
+        -2.6,
+        -3.0,
+        -3.2,
+        -3.8,
+        -4.5
+      ],
+      "thresholds": {
+        "el_nino": -7,
+        "la_nina": 7
+      },
+      "note": "负值偏向厄尔尼诺，正值偏向拉尼娜",
+      "source": "BoM Australia 30-day SOI"
+    },
+    {
+      "code": "MEI_V2",
+      "name": "Multivariate ENSO Index v2",
+      "name_zh": "多变量 ENSO 指数 v2",
+      "value": 0.7,
+      "unit": "",
+      "window": "AM 2026 双月",
+      "trend": [
+        -0.5,
+        -0.4,
+        -0.2,
+        -0.1,
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.3,
+        0.4,
+        0.5,
+        0.7
+      ],
+      "thresholds": {
+        "el_nino": 0.5,
+        "la_nina": -0.5
+      },
+      "source": "NOAA PSL · MEI.v2"
+    }
+  ],
+  "forecast": [
+    {
+      "season": "MJJ 26",
+      "la_nina": 1,
+      "neutral": 14,
+      "el_nino": 85
+    },
+    {
+      "season": "JJA 26",
+      "la_nina": 1,
+      "neutral": 11,
+      "el_nino": 88
+    },
+    {
+      "season": "JAS 26",
+      "la_nina": 1,
+      "neutral": 9,
+      "el_nino": 90
+    },
+    {
+      "season": "ASO 26",
+      "la_nina": 0,
+      "neutral": 8,
+      "el_nino": 92
+    },
+    {
+      "season": "SON 26",
+      "la_nina": 0,
+      "neutral": 7,
+      "el_nino": 93
+    },
+    {
+      "season": "OND 26",
+      "la_nina": 0,
+      "neutral": 5,
+      "el_nino": 95
+    },
+    {
+      "season": "NDJ 26",
+      "la_nina": 0,
+      "neutral": 5,
+      "el_nino": 95
+    }
+  ],
+  "history": [
+    {
+      "event": "1982-83",
+      "type": "极强厄尔尼诺",
+      "oni_peak": 2.2,
+      "duration_mo": 16,
+      "damage_usd_b": 13,
+      "highlight": "澳洲千年大旱、秘鲁洪灾、全球饥荒压力"
+    },
+    {
+      "event": "1997-98",
+      "type": "极强厄尔尼诺",
+      "oni_peak": 2.4,
+      "duration_mo": 13,
+      "damage_usd_b": 35,
+      "highlight": "印尼森林大火 · 美国冬季异常 · 大宗商品全面波动"
+    },
+    {
+      "event": "2009-10",
+      "type": "中等厄尔尼诺",
+      "oni_peak": 1.6,
+      "duration_mo": 10,
+      "damage_usd_b": 8,
+      "highlight": "印度季风偏弱、糖价两年新高"
+    },
+    {
+      "event": "2015-16",
+      "type": "极强厄尔尼诺",
+      "oni_peak": 2.6,
+      "duration_mo": 19,
+      "damage_usd_b": 42,
+      "highlight": "全球均温创纪录、南亚高温干旱、中美洲旱灾迁徙潮"
+    },
+    {
+      "event": "2023-24",
+      "type": "强厄尔尼诺",
+      "oni_peak": 2.0,
+      "duration_mo": 12,
+      "damage_usd_b": 28,
+      "highlight": "巴拿马运河大幅减航 · 巴西大豆减产 · 全球均温首破 1.5°C"
+    },
+    {
+      "event": "2024-25",
+      "type": "弱拉尼娜",
+      "oni_peak": -0.7,
+      "duration_mo": 6,
+      "damage_usd_b": 4,
+      "highlight": "美洲大豆/玉米带湿润 · 西太平洋台风偏多"
+    },
+    {
+      "event": "2026-27",
+      "type": "形成中(预测)",
+      "oni_peak": null,
+      "duration_mo": null,
+      "damage_usd_b": null,
+      "highlight": "动力模型多指向中等强度厄尔尼诺，巅峰可能落在 NDJ 2026"
+    }
+  ],
+  "watch_windows": [
+    {
+      "date": "2026-06-11",
+      "tag": "数据",
+      "label": "CPC 月度 ENSO Diagnostic Discussion · 可能升级为 El Niño Advisory"
+    },
+    {
+      "date": "2026-06-15",
+      "tag": "数据",
+      "label": "IRI/CPC ENSO Quick Look 多模型集合预测更新"
+    },
+    {
+      "date": "2026-07-01",
+      "tag": "季节",
+      "label": "印度西南季风进入活跃期 · 厄尔尼诺年季风偏弱，关注降水偏离"
+    },
+    {
+      "date": "2026-08-15",
+      "tag": "季节",
+      "label": "巴西中部进入开种窗口 · 厄尔尼诺往年此时降水偏多"
+    },
+    {
+      "date": "2026-09-30",
+      "tag": "季节",
+      "label": "印尼/马来 9-10 月旱季 · 棕榈油单产与森林火灾风险监测"
+    },
+    {
+      "date": "2026-11-15",
+      "tag": "峰值",
+      "label": "厄尔尼诺通常 NDJ 达峰 · 北美冬季气温/天然气需求观察"
+    }
+  ]
 }

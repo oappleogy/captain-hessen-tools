@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-07-10T08:41:53",
-  "data_as_of": "2026-07-09",
-  "data_lag_days": 1,
+  "timestamp": "2026-07-13T10:02:38",
+  "data_as_of": "2026-07-10",
+  "data_lag_days": 3,
   "system_state": {
-    "state": "STABLE",
-    "label": "系统稳定",
-    "color": "#22c55e",
-    "level": 1,
-    "score": 0.333,
-    "action": "系统健康。建议仓位≤55%（趋势↑），增加对冲，缩短持仓周期。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.0,
+    "action": "系统轻度承压。建议仓位≤55%（趋势↓），增加对冲，缩短持仓周期。"
   },
-  "regime_label": "STABLE",
-  "red_count": 0,
+  "regime_label": "WATCH",
+  "red_count": 1,
   "dim_lights": {
     "R": "green",
-    "I": "green",
+    "I": "yellow",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
-    "T": "yellow"
+    "T": "red"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.49,
+      "score": 0.41,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,27 +33,27 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.44,
-      "state": "▲",
-      "light": "green",
-      "note": "政策路径清晰，制度运行稳定",
+      "score": 0.27,
+      "state": "►",
+      "light": "yellow",
+      "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.02,
+      "score": -0.1,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★",
+      "confidence": "★★★",
       "name_cn": "情绪反馈",
       "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.28,
+      "score": 0.22,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -63,30 +63,30 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.15,
+      "score": 0.17,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
-      "confidence": "★",
+      "confidence": "★★",
       "name_cn": "叙事共识",
       "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.28,
-      "state": "►",
-      "light": "yellow",
-      "note": "技术-制度出现摩擦，部分行业承压",
+      "score": -0.5,
+      "state": "▼",
+      "light": "red",
+      "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
       "confidence": "★★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 70.6
+        "pct": 72.2
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 29.4
+        "pct": 27.8
       },
       {
         "key": "TECH_DOM",
@@ -124,15 +124,13 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "停滞",
-    "safety_margin": 0.433,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.1,
     "early_warning": "无"
   },
   "extremes": {
-    "count": 1,
-    "categories": [
-      "Nasdaq波动率(VXN)=27.9 (历史93%分位)"
-    ]
+    "count": 0,
+    "categories": []
   },
   "opportunities": [],
   "contradiction": {
@@ -147,10 +145,10 @@
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 1,
+    "extreme_count": 0,
     "vix": {
-      "value": 16.9,
-      "percentile": 57,
+      "value": 15.0,
+      "percentile": 32,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

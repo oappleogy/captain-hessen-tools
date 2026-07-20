@@ -1,7 +1,7 @@
 {
-  "week_label": "2026-W28",
-  "generated_at": "2026-07-10 01:13",
-  "data_time": "2026-07-09T17:13:41Z",
+  "week_label": "2026-W30",
+  "generated_at": "2026-07-20 08:15",
+  "data_time": "2026-07-20T00:15:59Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -24,72 +24,72 @@
       "name": "Fed利率",
       "unit": "%",
       "value": 3.63,
-      "date": "2026-07-07",
-      "freshness": "fresh"
+      "date": "2026-07-16",
+      "freshness": "stale"
     },
     {
       "key": "credit_spread",
       "name": "信用利差",
       "unit": "%",
-      "value": 2.67,
-      "date": "2026-07-07",
-      "freshness": "fresh"
+      "value": 2.71,
+      "date": "2026-07-16",
+      "freshness": "stale"
     },
     {
       "key": "t10y2y",
       "name": "10Y-2Y利差",
       "unit": "%",
-      "value": 0.35,
-      "date": "2026-07-08",
+      "value": 0.37,
+      "date": "2026-07-17",
       "freshness": "fresh"
     }
   ],
   "sectors": [
     {
       "name": "地产/REITs",
-      "prosperity": 63.7,
-      "signal": "看好"
-    },
-    {
-      "name": "出口制造",
-      "prosperity": 60.4,
+      "prosperity": 63.3,
       "signal": "看好"
     },
     {
       "name": "科技/AI",
-      "prosperity": 57.2,
+      "prosperity": 58.2,
+      "signal": "中性"
+    },
+    {
+      "name": "出口制造",
+      "prosperity": 57.9,
       "signal": "中性"
     },
     {
       "name": "能源",
-      "prosperity": 56.3,
+      "prosperity": 57.2,
       "signal": "中性"
     },
     {
       "name": "消费/零售",
-      "prosperity": 54.4,
-      "signal": "中性"
-    },
-    {
-      "name": "军工/防务",
-      "prosperity": 48.4,
+      "prosperity": 54.3,
       "signal": "中性"
     },
     {
       "name": "银行/金融",
-      "prosperity": 47.9,
+      "prosperity": 48.6,
+      "signal": "中性"
+    },
+    {
+      "name": "军工/防务",
+      "prosperity": 48.0,
       "signal": "中性"
     },
     {
       "name": "黄金/大宗",
-      "prosperity": 47.1,
+      "prosperity": 45.6,
       "signal": "中性"
     }
   ],
   "macro": [
     {
       "name": "利率",
-      "value": 65.2,
+      "value": 64.7,
       "label": "景气",
       "delta": null
     },
@@ -101,67 +101,67 @@
     },
     {
       "name": "风险",
-      "value": 54.0,
+      "value": 55.0,
       "label": "中性",
       "delta": null
     },
     {
       "name": "能源",
-      "value": 57.6,
+      "value": 58.6,
       "label": "中性",
       "delta": null
     },
     {
       "name": "供应链",
-      "value": 62.0,
-      "label": "景气",
+      "value": 57.0,
+      "label": "中性",
       "delta": null
     }
   ],
   "industries": [
     {
       "name": "地产/REITs",
-      "value": 63.7,
-      "label": "景气"
-    },
-    {
-      "name": "出口制造",
-      "value": 60.4,
+      "value": 63.3,
       "label": "景气"
     },
     {
       "name": "科技/AI",
-      "value": 57.2,
+      "value": 58.2,
+      "label": "中性"
+    },
+    {
+      "name": "出口制造",
+      "value": 57.9,
       "label": "中性"
     },
     {
       "name": "能源",
-      "value": 56.3,
+      "value": 57.2,
       "label": "中性"
     },
     {
       "name": "消费/零售",
-      "value": 54.4,
-      "label": "中性"
-    },
-    {
-      "name": "军工/防务",
-      "value": 48.4,
+      "value": 54.3,
       "label": "中性"
     },
     {
       "name": "银行/金融",
-      "value": 47.9,
+      "value": 48.6,
+      "label": "中性"
+    },
+    {
+      "name": "军工/防务",
+      "value": 48.0,
       "label": "中性"
     },
     {
       "name": "黄金/大宗",
-      "value": 47.1,
+      "value": 45.6,
       "label": "中性"
     }
   ],
   "stress_index": {
-    "score": 20.7,
+    "score": 20.2,
     "level": "green",
     "label": "正常",
     "desc": "各变量在基准附近，系统压力可控",
@@ -169,33 +169,33 @@
       {
         "variable": "credit_spread",
         "name": "信用利差",
-        "current": 2.74,
+        "current": 2.71,
         "base": 1.5,
-        "deviation_pct": 82.7,
+        "deviation_pct": 80.7,
         "weight": 0.25,
         "weight_pct": 25,
-        "contribution": 1709.8
+        "contribution": 1628.1
       }
     ],
     "hard_alerts_count": 1,
     "significant_deviations": [
       {
         "name": "信用利差",
-        "current": 2.74,
+        "current": 2.71,
         "base": 1.5,
-        "deviation_pct": 82.7,
+        "deviation_pct": 80.7,
         "direction": "偏高",
         "level": "极端偏离"
       }
     ],
-    "timestamp": "2026-07-07 08:15"
+    "timestamp": "2026-07-19 08:15"
   },
   "significant_deviations": [
     {
       "name": "信用利差",
-      "current": 2.74,
+      "current": 2.71,
       "base": 1.5,
-      "deviation_pct": 82.7,
+      "deviation_pct": 80.7,
       "direction": "偏高",
       "level": "极端偏离"
     }
@@ -302,13 +302,13 @@
   ],
   "has_comparison": false,
   "s2_state": "STABLE",
-  "s2_score": 0.3333333333333333,
+  "s2_score": 0.16666666666666666,
   "macro_prosperity": {
-    "rate_n": 65.2,
+    "rate_n": 64.7,
     "usd_n": 56.6,
-    "risk_n": 54.0,
-    "energy_n": 57.6,
-    "supply_n": 62.0
+    "risk_n": 55.0,
+    "energy_n": 58.6,
+    "supply_n": 57.0
   },
   "forward_rates": {},
   "watermark": "黑森船长"

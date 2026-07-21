@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-07-21T07:31:10",
-  "data_as_of": "2026-07-17",
-  "data_lag_days": 4,
+  "timestamp": "2026-07-21T21:03:17",
+  "data_as_of": "2026-07-20",
+  "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
     "score": 0.333,
-    "action": "系统健康。建议仓位≤60%（趋势↑），可持有方向性仓位。"
+    "action": "系统健康。建议仓位≤60%（趋势→），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.51,
+      "score": 0.44,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -73,13 +73,13 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.24,
+      "score": -0.06,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "stressed"
+      "status": "neutral"
     }
   },
   "attractor": {

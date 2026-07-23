@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-07-22T21:03:06",
+  "timestamp": "2026-07-23T07:31:41",
   "data_as_of": "2026-07-21",
-  "data_lag_days": 1,
+  "data_lag_days": 2,
   "system_state": {
-    "state": "STABLE",
-    "label": "系统稳定",
-    "color": "#22c55e",
-    "level": 1,
-    "score": 0.333,
-    "action": "系统健康。建议仓位≤60%（趋势→），可持有方向性仓位。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.167,
+    "action": "系统轻度承压。建议仓位≤55%（趋势↓），增加对冲，缩短持仓周期。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
   "dim_lights": {
     "R": "green",
-    "I": "green",
+    "I": "yellow",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.43,
+      "score": 0.44,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,23 +33,23 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.32,
-      "state": "▲",
-      "light": "green",
-      "note": "政策路径清晰，制度运行稳定",
+      "score": 0.24,
+      "state": "►",
+      "light": "yellow",
+      "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.01,
+      "score": 0.18,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★",
       "name_cn": "情绪反馈",
-      "status": "neutral"
+      "status": "healthy"
     },
     "C": {
       "name": "C｜协调",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.0,
+      "score": 0.1,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.19,
+      "score": -0.08,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -83,10 +83,10 @@
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 66.7
+        "pct": 83.3
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 33.3
+        "pct": 16.7
       },
       {
         "key": "TECH_DOM",
@@ -125,15 +125,15 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": 0.433,
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
     "count": 3,
     "categories": [
-      "OVX原油波动率=62.1 (历史91%分位)",
-      "地缘交叉验证(OVX)=62.1 (历史91%分位) [仅验证，不计分]",
-      "Nasdaq波动率(VXN)=28.5 (历史94%分位)"
+      "OVX原油波动率=63.8 (历史91%分位)",
+      "政策不确定性(EPU)=605 (历史96%分位)",
+      "地缘交叉验证(OVX)=63.8 (历史91%分位) [仅验证，不计分]"
     ]
   },
   "opportunities": [],
@@ -151,9 +151,9 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 18.6,
-      "percentile": 75,
-      "desc": "市场恐惧情绪偏高"
+      "value": 17.1,
+      "percentile": 58,
+      "desc": "市场情绪正常"
     },
     "credit_spread": {
       "value": 2.69,

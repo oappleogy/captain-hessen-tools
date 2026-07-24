@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-07-24T07:31:19",
-  "data_as_of": "2026-07-22",
-  "data_lag_days": 2,
+  "timestamp": "2026-07-24T21:04:03",
+  "data_as_of": "2026-07-23",
+  "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
-    "score": 0.333,
-    "action": "系统健康。建议仓位≤55%（趋势↑），增加对冲，缩短持仓周期。"
+    "score": 0.667,
+    "action": "系统健康。建议仓位≤65%（趋势↑），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -16,9 +16,9 @@
     "R": "green",
     "I": "green",
     "F": "yellow",
-    "C": "yellow",
+    "C": "green",
     "N": "yellow",
-    "T": "yellow"
+    "T": "green"
   },
   "dimensions": {
     "R": {
@@ -43,50 +43,50 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.16,
+      "score": -0.08,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★",
       "name_cn": "情绪反馈",
-      "status": "healthy"
+      "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.06,
-      "state": "►",
-      "light": "yellow",
-      "note": "部分信号出现分化，协调性下降",
-      "confidence": "★★★",
+      "score": 0.51,
+      "state": "▲",
+      "light": "green",
+      "note": "各维度信号一致，系统协调运行",
+      "confidence": "⚠",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.09,
+      "score": -0.06,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
-      "confidence": "★",
+      "confidence": "⚠",
       "name_cn": "叙事共识",
       "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.03,
-      "state": "►",
-      "light": "yellow",
-      "note": "技术-制度出现摩擦，部分行业承压",
-      "confidence": "★★",
+      "score": 0.71,
+      "state": "▲",
+      "light": "green",
+      "note": "技术进步与制度消化能力匹配",
+      "confidence": "⚠",
       "name_cn": "技术动能",
-      "status": "neutral"
+      "status": "healthy"
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 83.3
+        "pct": 66.7
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 16.7
+        "pct": 33.3
       },
       {
         "key": "TECH_DOM",
@@ -125,7 +125,7 @@
       }
     ],
     "moving_toward": "停滞",
-    "safety_margin": 0.433,
+    "safety_margin": 0.767,
     "early_warning": "无"
   },
   "extremes": {

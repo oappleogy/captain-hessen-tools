@@ -1,5 +1,5 @@
 {
-  "scan_date": "2026-07-20",
+  "scan_date": "2026-07-27",
   "market": "US",
   "market_label": "美股",
   "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
@@ -15,7 +15,7 @@
       "signal": "齿轮景气=63 + 体制=easing(conf=0.80)",
       "direction": "看多美股地产/REITs",
       "confidence": {
-        "gear_model": 0.27,
+        "gear_model": 0.26,
         "regime_hmm": 0.8,
         "consensus": "2/3模型一致"
       },

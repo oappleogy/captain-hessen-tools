@@ -1,7 +1,7 @@
 {
-  "week_label": "2026-W30",
-  "generated_at": "2026-07-26 08:15",
-  "data_time": "2026-07-26T00:15:44Z",
+  "week_label": "2026-W31",
+  "generated_at": "2026-07-27 08:15",
+  "data_time": "2026-07-27T00:15:46Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -25,7 +25,7 @@
       "unit": "%",
       "value": 3.63,
       "date": "2026-07-23",
-      "freshness": "fresh"
+      "freshness": "stale"
     },
     {
       "key": "credit_spread",
@@ -33,7 +33,7 @@
       "unit": "%",
       "value": 2.77,
       "date": "2026-07-23",
-      "freshness": "fresh"
+      "freshness": "stale"
     },
     {
       "key": "t10y2y",
@@ -46,117 +46,117 @@
   ],
   "sectors": [
     {
-      "name": "出口制造",
-      "prosperity": 66.1,
+      "name": "地产/REITs",
+      "prosperity": 63.2,
       "signal": "看好"
     },
     {
-      "name": "地产/REITs",
-      "prosperity": 59.4,
+      "name": "能源",
+      "prosperity": 55.9,
       "signal": "中性"
     },
     {
-      "name": "能源",
-      "prosperity": 56.2,
+      "name": "出口制造",
+      "prosperity": 55.8,
       "signal": "中性"
     },
     {
       "name": "科技/AI",
-      "prosperity": 54.5,
-      "signal": "中性"
-    },
-    {
-      "name": "消费/零售",
-      "prosperity": 52.2,
-      "signal": "中性"
-    },
-    {
-      "name": "军工/防务",
-      "prosperity": 50.9,
+      "prosperity": 54.3,
       "signal": "中性"
     },
     {
       "name": "黄金/大宗",
-      "prosperity": 45.3,
+      "prosperity": 52.2,
+      "signal": "中性"
+    },
+    {
+      "name": "消费/零售",
+      "prosperity": 52.0,
+      "signal": "中性"
+    },
+    {
+      "name": "军工/防务",
+      "prosperity": 50.8,
       "signal": "中性"
     },
     {
       "name": "银行/金融",
-      "prosperity": 44.9,
+      "prosperity": 45.3,
       "signal": "中性"
     }
   ],
   "macro": [
     {
       "name": "利率",
-      "value": 64.9,
+      "value": 63.8,
       "label": "景气",
       "delta": null
     },
     {
       "name": "美元",
-      "value": 65.3,
-      "label": "景气",
+      "value": 50.7,
+      "label": "中性",
       "delta": null
     },
     {
       "name": "风险",
-      "value": 47.7,
+      "value": 48.0,
       "label": "中性",
       "delta": null
     },
     {
       "name": "能源",
-      "value": 57.5,
+      "value": 57.1,
       "label": "中性",
       "delta": null
     },
     {
       "name": "供应链",
-      "value": 61.9,
+      "value": 60.6,
       "label": "景气",
       "delta": null
     }
   ],
   "industries": [
     {
-      "name": "出口制造",
-      "value": 66.1,
+      "name": "地产/REITs",
+      "value": 63.2,
       "label": "景气"
     },
     {
-      "name": "地产/REITs",
-      "value": 59.4,
+      "name": "能源",
+      "value": 55.9,
       "label": "中性"
     },
     {
-      "name": "能源",
-      "value": 56.2,
+      "name": "出口制造",
+      "value": 55.8,
       "label": "中性"
     },
     {
       "name": "科技/AI",
-      "value": 54.5,
-      "label": "中性"
-    },
-    {
-      "name": "消费/零售",
-      "value": 52.2,
-      "label": "中性"
-    },
-    {
-      "name": "军工/防务",
-      "value": 50.9,
+      "value": 54.3,
       "label": "中性"
     },
     {
       "name": "黄金/大宗",
-      "value": 45.3,
+      "value": 52.2,
+      "label": "中性"
+    },
+    {
+      "name": "消费/零售",
+      "value": 52.0,
+      "label": "中性"
+    },
+    {
+      "name": "军工/防务",
+      "value": 50.8,
       "label": "中性"
     },
     {
       "name": "银行/金融",
-      "value": 44.9,
+      "value": 45.3,
       "label": "中性"
     }
   ],
@@ -188,7 +188,7 @@
         "level": "极端偏离"
       }
     ],
-    "timestamp": "2026-07-25 08:15"
+    "timestamp": "2026-07-26 08:15"
   },
   "significant_deviations": [
     {
@@ -302,13 +302,13 @@
   ],
   "has_comparison": false,
   "s2_state": "STABLE",
-  "s2_score": 0.6666666666666666,
+  "s2_score": 0.3333333333333333,
   "macro_prosperity": {
-    "rate_n": 64.9,
-    "usd_n": 65.3,
-    "risk_n": 47.7,
-    "energy_n": 57.5,
-    "supply_n": 61.9
+    "rate_n": 63.8,
+    "usd_n": 50.7,
+    "risk_n": 48.0,
+    "energy_n": 57.1,
+    "supply_n": 60.6
   },
   "forward_rates": {},
   "watermark": "黑森船长"

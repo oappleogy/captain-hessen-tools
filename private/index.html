@@ -373,7 +373,7 @@ async function loadData() {
 
   // 加载扫描数据
   try {
-    const resp = await fetch('../data/weekly-latest.json');
+    const resp = await fetch('../data/weekly-latest.json?t=' + Date.now());
     if (resp.ok) {
       const weekly = await resp.json();
       renderScanFromWeekly(weekly);

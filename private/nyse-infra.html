@@ -730,7 +730,7 @@ renderConnections();
 renderRisks();
 
 // ── 实时行情 ──
-fetch('../data/nyse-latest.json')
+fetch('../data/nyse-latest.json?t='+Date.now())
   .then(r => r.json())
   .then(data => {
     const el = document.getElementById('live-prices');

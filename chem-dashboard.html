@@ -103,7 +103,7 @@ function App(){
   const filtered=tf?ITEMS.filter(i=>i.tier===tf):ITEMS;
 
   useEffect(()=>{
-    fetch("data/chem-latest.json").then(r=>r.json()).then(d=>setLive(d)).catch(()=>{});
+    fetch("data/chem-latest.json?t="+Date.now()).then(r=>r.json()).then(d=>setLive(d)).catch(()=>{});
   },[]);
 
   const getLive=(name)=>live&&live.items&&live.items[name]?live.items[name]:null;

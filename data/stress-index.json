@@ -1,5 +1,5 @@
 {
-  "score": 21.2,
+  "score": 21.5,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,24 +7,24 @@
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 2.77,
+      "current": 2.79,
       "base": 1.5,
-      "deviation_pct": 84.7,
+      "deviation_pct": 86.0,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 1793.5
+      "contribution": 1849.0
     }
   ],
   "hard_alerts_count": 1,
   "significant_deviations": [
     {
       "name": "信用利差",
-      "current": 2.77,
+      "current": 2.79,
       "base": 1.5,
-      "deviation_pct": 84.7,
+      "deviation_pct": 86.0,
       "direction": "偏高",
       "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-07-27 08:15"
+  "timestamp": "2026-07-28 08:15"
 }

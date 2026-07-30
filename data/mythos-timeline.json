@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-29",
+  "last_updated": "2026-07-31",
   "timeline": [
     {
       "date": "2026-03-26",
@@ -1114,6 +1114,65 @@
         "Anthropic Official"
       ],
       "new_members": []
+    },
+    {
+      "date": "2026-07-20",
+      "tag": "成员",
+      "title": "Sophos加入Project Glasswing",
+      "detail": "网络安全公司Sophos宣布加入Anthropic的Project Glasswing网络安全计划，该计划旨在为关键软件提供AI安全防护。",
+      "impact": "信息",
+      "sources": [
+        "Sophos"
+      ],
+      "new_members": [
+        "Sophos"
+      ]
+    },
+    {
+      "date": "2026-07-28",
+      "tag": "成员",
+      "title": "SonicWall加入Project Glasswing",
+      "detail": "网络安全公司SonicWall宣布加入Anthropic的Project Glasswing计划，成为该网络安全联盟的新成员。",
+      "impact": "信息",
+      "sources": [
+        "PR Newswire"
+      ],
+      "new_members": [
+        "SonicWall"
+      ]
+    },
+    {
+      "date": "2026-07-29",
+      "tag": "能力",
+      "title": "ProPublica报道Mythos发现大量漏洞",
+      "detail": "ProPublica报道Anthropic的新AI模型Mythos能够识别有史以来最多的软件漏洞，但微软等公司修复速度跟不上发现速度。",
+      "impact": "信息",
+      "sources": [
+        "ProPublica"
+      ],
+      "new_members": []
+    },
+    {
+      "date": "2026-07-29",
+      "tag": "监管",
+      "title": "FBI将Mythos AI列为执法挑战",
+      "detail": "Tech Times报道FBI将Mythos AI列为执法挑战，其漏洞利用能力已达到开源模型水平，引发监管关注。",
+      "impact": "重大",
+      "sources": [
+        "Tech Times"
+      ],
+      "new_members": []
+    },
+    {
+      "date": "2026-07-21",
+      "tag": "监管",
+      "title": "CNBC报道美联储数月无法访问Mythos",
+      "detail": "CNBC报道美联储曾对Anthropic的Mythos AI模型发出警告，但在数月内无法获得该模型的访问权限。",
+      "impact": "信息",
+      "sources": [
+        "CNBC"
+      ],
+      "new_members": []
     }
   ],
   "tracking_lines": [
@@ -1284,6 +1343,8 @@
       "Palo Alto Networks",
       "SK Hynix",
       "Samsung",
+      "SonicWall",
+      "Sophos",
       "TrendAI",
       "Verizon",
       "三井住友金融集团",
@@ -1433,6 +1494,13 @@
         "date": "2026-07-19",
         "added": [
           "三星"
+        ]
+      },
+      {
+        "date": "2026-07-31",
+        "added": [
+          "SonicWall",
+          "Sophos"
         ]
       }
     ]

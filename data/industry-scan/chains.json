@@ -140,9 +140,9 @@
       "certainty_note": "AI算力需求增长是主要驱动因素，同时在工程化与规模化方面具备支撑，被AI与半导体产业链共同需要。",
       "framework_updated": "2026-07-22 21:30",
       "created": "2026-06-30 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 90,
-      "last_tracked": "2026-07-01",
+      "latest_status": "催化增强",
+      "latest_heat": 85,
+      "last_tracked": "2026-07-31",
       "timeline_count": 2,
       "first_tracked": "2026-06-30",
       "tracking_bucket": "持续跟踪",
@@ -634,8 +634,8 @@
       "framework_updated": "2026-07-22 21:30",
       "created": "2026-06-24 21:30",
       "latest_status": "催化增强",
-      "latest_heat": 82,
-      "last_tracked": "2026-07-01",
+      "latest_heat": 80,
+      "last_tracked": "2026-07-31",
       "timeline_count": 6,
       "first_tracked": "2026-06-24",
       "tracking_bucket": "持续跟踪",
@@ -948,8 +948,8 @@
       "framework_updated": "2026-07-20 21:30",
       "created": "2026-06-19 09:27",
       "latest_status": "催化增强",
-      "latest_heat": 80,
-      "last_tracked": "2026-07-01",
+      "latest_heat": 75,
+      "last_tracked": "2026-07-31",
       "timeline_count": 10,
       "first_tracked": "2026-06-19",
       "tracking_bucket": "持续跟踪",
@@ -1533,9 +1533,9 @@
       "certainty_note": "AI与新能源需求共振，功率半导体需求刚性，供给端依赖全球产业链协作。",
       "framework_updated": "2026-06-30 21:30",
       "created": "2026-06-30 21:30",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 85,
-      "last_tracked": "2026-06-30",
+      "latest_status": "催化增强",
+      "latest_heat": 70,
+      "last_tracked": "2026-07-31",
       "timeline_count": 1,
       "first_tracked": "2026-06-30",
       "tracking_bucket": "首次观察",
@@ -2036,7 +2036,34 @@
       ],
       "key_questions": [],
       "not_clear": ""
+    },
+    {
+      "id": "ai-cloud-service-provider-growth",
+      "name": "AI云服务提供商增长",
+      "thesis": "随着AI模型能力提升和成本下降，云服务提供商可以提供更高效的AI服务，推动中小企业采用AI技术，从而带动云服务市场的增长。",
+      "segments": [
+        "云服务",
+        "AI模型",
+        "中小企业应用"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-07-31 22:00",
+      "created": "2026-07-31 22:00",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 70,
+      "last_tracked": "2026-07-31"
     }
   ],
-  "updated": "2026-07-22 21:30"
+  "updated": "2026-07-31 22:00"
 }

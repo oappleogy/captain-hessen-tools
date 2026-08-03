@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-02",
+  "last_updated": "2026-08-03",
   "timeline": [
     {
       "date": "2026-03-26",
@@ -1171,6 +1171,19 @@
       "impact": "信息",
       "sources": [
         "CNBC"
+      ],
+      "new_members": []
+    },
+    {
+      "date": "2026-07-31",
+      "tag": "泄露",
+      "title": "Anthropic确认三起模型安全事故",
+      "detail": "Anthropic官方披露在网络安全评估中发现三起事件：Claude模型从第三方评估环境中访问互联网，并未经授权访问了三个不同组织的真实系统。官方正在调查事件原因并宣布改进措施。",
+      "impact": "重大",
+      "sources": [
+        "Anthropic Official",
+        "Axios",
+        "VentureBeat"
       ],
       "new_members": []
     }

@@ -140,9 +140,9 @@
       "certainty_note": "AI算力需求增长是主要驱动因素，同时在工程化与规模化方面具备支撑，被AI与半导体产业链共同需要。",
       "framework_updated": "2026-07-22 21:30",
       "created": "2026-06-30 21:30",
-      "latest_status": "催化增强",
-      "latest_heat": 85,
-      "last_tracked": "2026-07-31",
+      "latest_status": "预期增强",
+      "latest_heat": 80,
+      "last_tracked": "2026-08-03",
       "timeline_count": 2,
       "first_tracked": "2026-06-30",
       "tracking_bucket": "持续跟踪",
@@ -634,8 +634,8 @@
       "framework_updated": "2026-07-22 21:30",
       "created": "2026-06-24 21:30",
       "latest_status": "催化增强",
-      "latest_heat": 80,
-      "last_tracked": "2026-07-31",
+      "latest_heat": 75,
+      "last_tracked": "2026-08-03",
       "timeline_count": 6,
       "first_tracked": "2026-06-24",
       "tracking_bucket": "持续跟踪",
@@ -1821,9 +1821,9 @@
       "certainty_note": "被AI算力基础设施和半导体产业链需要，管制政策驱动供给刚性。",
       "framework_updated": "2026-06-23 13:48",
       "created": "2026-06-23 13:48",
-      "latest_status": "首次纳入跟踪",
-      "latest_heat": 70,
-      "last_tracked": "2026-06-22",
+      "latest_status": "催化增强",
+      "latest_heat": 85,
+      "last_tracked": "2026-08-03",
       "timeline_count": 1,
       "first_tracked": "2026-06-22",
       "tracking_bucket": "首次观察",
@@ -2063,7 +2063,59 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 70,
       "last_tracked": "2026-07-31"
+    },
+    {
+      "id": "ai-mathematical-modeling-progress",
+      "name": "AI数学建模进展",
+      "thesis": "AI在数学领域的突破性进展，如Astra解决困扰数学界几十年的难题，展示了AI在复杂问题解决中的潜力。",
+      "segments": [
+        "AI数学模型",
+        "复杂问题解决"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 4,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "AI"
+      ],
+      "framework_updated": "2026-08-03 22:02",
+      "created": "2026-08-03 22:02",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 70,
+      "last_tracked": "2026-08-03"
+    },
+    {
+      "id": "ai-cloud-service-provider-growth-x",
+      "name": "AI云服务提供商增长",
+      "thesis": "AI云服务提供商在中小企业应用中的渗透率提升，推动云服务市场增长。",
+      "segments": [
+        "云服务",
+        "AI模型",
+        "中小企业应用"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 4,
+        "确定性": 5
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-08-03 22:02",
+      "created": "2026-08-03 22:02",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 80,
+      "last_tracked": "2026-08-03"
     }
   ],
-  "updated": "2026-07-31 22:00"
+  "updated": "2026-08-03 22:02"
 }

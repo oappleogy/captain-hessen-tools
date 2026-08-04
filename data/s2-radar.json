@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-08-04T01:52:33",
-  "data_as_of": "2026-08-03",
-  "data_lag_days": 1,
+  "timestamp": "2026-08-04T22:40:40",
+  "data_as_of": "2026-08-04",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
     "score": 0.167,
-    "action": "系统轻度承压。建议仓位≤50%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统轻度承压。建议仓位≤50%（趋势→），增加对冲，缩短持仓周期。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.56,
+      "score": 0.46,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.44,
+      "score": 0.43,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -43,17 +43,17 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.2,
+      "score": -0.18,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
-      "status": "stressed"
+      "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.23,
+      "score": -0.22,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -63,13 +63,13 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.14,
+      "score": 0.03,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
@@ -147,8 +147,8 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 16.0,
-      "percentile": 43,
+      "value": 15.9,
+      "percentile": 40,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

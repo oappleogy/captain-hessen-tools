@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#06101c">
+    <title>中国推理算力 × 全球叙事追踪｜BaseAlpha</title>
+    <meta name="description" content="区分真实采用、叙事热度与国产推理芯片盈利兑现。">
+    <meta property="og:title" content="中国推理算力 × 全球叙事追踪">
+    <meta property="og:description" content="真实采用 ≠ 叙事热度 ≠ 芯片兑现">
+    <meta property="og:image" content="https://tools.basealpha.ai/inference-narrative-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="inference-narrative.css?v=20260804">
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <header class="site-header">
+      <a class="brand" href="https://tools.basealpha.ai/" aria-label="返回 BaseAlpha">
+        <span class="brand-mark">BA</span>
+        <span><strong>BASEALPHA</strong><small>产业叙事雷达</small></span>
+      </a>
+      <nav aria-label="页面导航">
+        <button class="nav-link is-active" data-target="overview">总览</button>
+        <button class="nav-link" data-target="narrative">叙事传播</button>
+        <button class="nav-link" data-target="evidence">证据链</button>
+        <button class="nav-link" data-target="transmission">投资传导</button>
+      </nav>
+      <div class="asof"><span class="pulse"></span><span id="asof">数据载入中</span></div>
+    </header>
+
+    <main>
+      <section class="hero section-anchor" id="overview">
+        <div class="hero-copy">
+          <p class="eyebrow">CHINA INFERENCE × GLOBAL NARRATIVE</p>
+          <h1>中国推理算力<br><span>全球叙事追踪</span></h1>
+          <p class="hero-deck">把信息茧房拆成三层：海外是否真的采用、中国推理负载是否真的增长、最终是否真的转化为国产芯片收入。</p>
+          <div class="verdict" id="verdict">
+            <span class="verdict-label">本周判断</span>
+            <strong>真实升温，兑现待验证</strong>
+            <p>不是微信凭空制造，但热度仍集中于开发者圈层。</p>
+          </div>
+        </div>
+        <div class="hero-score">
+          <div class="score-ring" id="score-ring" style="--score:74">
+            <div><span id="total-score">74</span><small>/100</small></div>
+          </div>
+          <p>综合验证指数</p>
+          <div class="confidence"><span>置信度</span><strong>中高</strong></div>
+        </div>
+      </section>
+
+      <section class="score-grid" aria-label="三层验证指数">
+        <article class="score-card blue">
+          <div class="score-card-head"><span>01</span><p>国内推理需求</p><strong id="domestic-score">32/40</strong></div>
+          <div class="meter"><i style="width:80%"></i></div>
+          <p>Token 与 Agent 负载明确扩张，仍需国产卡承载比例。</p>
+        </article>
+        <article class="score-card gold">
+          <div class="score-card-head"><span>02</span><p>海外真实采用</p><strong id="adoption-score">27/35</strong></div>
+          <div class="meter"><i style="width:77%"></i></div>
+          <p>开发者采用显著升温，部署生态比大众讨论更扎实。</p>
+        </article>
+        <article class="score-card red">
+          <div class="score-card-head"><span>03</span><p>海外原生反馈</p><strong id="social-score">15/25</strong></div>
+          <div class="meter"><i style="width:60%"></i></div>
+          <p>Reddit 样本有效；X/TikTok 覆盖不足，谨防外推。</p>
+        </article>
+      </section>
+
+      <section class="panel section-anchor" id="narrative">
+        <div class="section-heading">
+          <div><p class="eyebrow">NARRATIVE ECONOMICS</p><h2>叙事不是情绪，是一条传播—变异—兑现链</h2></div>
+          <p>借用叙事经济学与传播动力学：一个故事只有跨圈层复制，并转化为行为，才可能影响资本开支与估值。</p>
+        </div>
+        <div class="narrative-metrics" id="narrative-metrics"></div>
+        <div class="spread-map">
+          <div class="spread-node done"><span>1</span><strong>模型发布</strong><small>技术冲击源</small></div>
+          <b>→</b>
+          <div class="spread-node done"><span>2</span><strong>开发者采用</strong><small>下载 / 调用 / 部署</small></div>
+          <b>→</b>
+          <div class="spread-node active"><span>3</span><strong>媒体与 KOL</strong><small>叙事放大、框架竞争</small></div>
+          <b>→</b>
+          <div class="spread-node"><span>4</span><strong>大众迁移</strong><small>留存与付费</small></div>
+          <b>→</b>
+          <div class="spread-node"><span>5</span><strong>芯片兑现</strong><small>订单 / 收入 / 毛利</small></div>
+        </div>
+        <div class="filter-row" role="group" aria-label="叙事筛选">
+          <button class="filter is-active" data-filter="all">全部叙事</button>
+          <button class="filter" data-filter="positive">强化叙事</button>
+          <button class="filter" data-filter="counter">反叙事</button>
+        </div>
+        <div class="narrative-grid" id="narrative-grid"></div>
+      </section>
+
+      <section class="two-col section-anchor" id="evidence">
+        <article class="panel evidence-panel">
+          <div class="section-heading compact"><div><p class="eyebrow">HARD SIGNALS</p><h2>硬指标，不靠转述</h2></div></div>
+          <div id="hard-signals" class="signal-list"></div>
+        </article>
+        <article class="panel evidence-panel">
+          <div class="section-heading compact"><div><p class="eyebrow">NATIVE VOICES</p><h2>海外原生反馈</h2></div></div>
+          <div class="platform-tabs" id="platform-tabs"></div>
+          <div id="social-samples" class="sample-list"></div>
+        </article>
+      </section>
+
+      <section class="panel section-anchor" id="transmission">
+        <div class="section-heading">
+          <div><p class="eyebrow">A-SHARE TRANSMISSION</p><h2>从模型热度到 A 股盈利，中间还有三道闸门</h2></div>
+          <span class="status-pill">当前：需求强化 / 兑现未闭环</span>
+        </div>
+        <div class="transmission-grid" id="transmission-grid"></div>
+        <div class="decision-rule">
+          <span>仓位规则</span>
+          <p><strong>社交热度不能单独触发上调。</strong>只有国内负载、海外采用、国产芯片订单/利用率三者至少两项连续改善，才升级投资判断。</p>
+        </div>
+      </section>
+
+      <section class="method-strip">
+        <p><span>A 级</span>官方披露 / 平台统计 / 代码与生产案例</p>
+        <p><span>B 级</span>权威媒体 / 可复现评测</p>
+        <p><span>C 级</span>普通帖子 / 评论 / 未核截图</p>
+        <p class="warning">TikTok/X 无法稳定读取时明确标记样本缺失，不用搜索结果数冒充热度。</p>
+      </section>
+    </main>
+
+    <footer>
+      <div><strong>BASEALPHA</strong><span>中国推理算力 × 全球叙事追踪</span></div>
+      <p>研究工具，不构成投资建议 · <span id="footer-date"></span></p>
+    </footer>
+    <div class="loading" id="loading"><span></span><p>正在校验证据链</p></div>
+    <script src="inference-narrative.js?v=20260804" defer></script>
+  </body>
+</html>

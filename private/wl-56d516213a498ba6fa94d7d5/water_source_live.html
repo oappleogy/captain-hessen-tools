@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水源·水库层 · 四维实时 · 黑森船长</title>
 <!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
-<script src="water_source_data.js?t=202608041335"></script>
-<script src="directions_output.js?t=202608041335"></script>
+<script src="water_source_data.js?t=202608041520"></script>
+<script src="directions_output.js?t=202608041520"></script>
 <style>
   :root{
     --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
@@ -43,6 +43,14 @@
   .warn h3{color:var(--red);font-size:13px;margin-bottom:6px}
   .warn ul{list-style:none}
   .warn li{padding:3px 0;font-size:13px}
+  .turning{background:#102237;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:18px}
+  .turning h2{font-size:15px;margin-bottom:8px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .turn-score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+  .turn-score div{background:#13263b;border:1px solid #284864;border-radius:8px;padding:8px;color:var(--sub);font-size:12px}
+  .turn-score b{display:block;color:var(--ink);font-size:17px}
+  .assets{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:10px}
+  .asset{border-top:1px dashed #284864;padding-top:7px;color:var(--sub);font-size:12px}
+  .asset b{color:var(--ink)}
   .pending{color:var(--flat);font-size:12px;border-top:1px solid var(--line);padding-top:12px}
   .pending span{display:inline-block;background:#15293e;border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin:3px 4px 0 0}
   .wm{text-align:center;color:#3c597a;font-size:11px;margin-top:20px}
@@ -56,6 +64,7 @@
 </div>
 <div id="banner" class="banner"></div>
 <div id="warnings"></div>
+<div id="turning"></div>
 <div id="grid" class="grid"></div>
 
 <h1 style="font-size:16px;margin:18px 0 10px;border-top:1px solid var(--line);padding-top:18px">🏭 产业三方向 · 差异诊断(供给 vs 需求)</h1>
@@ -127,10 +136,32 @@
     box('warnings').innerHTML = h+'</ul></div>';
   }
 
+  // 短线底部窗口与反转确认：流动性先行，价格必须确认；规则分不是概率。
+  var T=D.turning_point;
+  if(T){
+    function pct(v){return v===null||v===undefined?'—':(v*100).toFixed(1)+'%';}
+    function n(v){return v===null||v===undefined?'—':v;}
+    var phaseColor=T.phase==='反转确认'?'var(--green)':T.phase==='底部候选'||T.phase==='衰竭观察'||T.phase.indexOf('价格反弹')>=0?'var(--amber)':T.phase.indexOf('数据不足')>=0?'var(--flat)':'var(--sub)';
+    var th='<div class="turning" style="border-color:'+phaseColor+'"><h2><span>🧭 短线拐点 · <b style="color:'+phaseColor+'">'+T.phase+'</b></span>'+
+      '<span style="color:var(--sub);font-size:12px">'+T.horizon+' · 置信度 '+T.confidence+'/100</span></h2>'+
+      '<div style="color:var(--ink);font-weight:700">'+T.action_level+'</div>'+
+      '<div class="turn-score"><div>流动性转向分<b>'+n(T.liquidity_turn_score)+'</b></div><div>底部窗口分<b>'+n(T.bottom_window_score)+'</b></div><div>反转确认分<b>'+n(T.reversal_confirmation_score)+'</b></div><div>激进提示<b style="color:var(--red)">禁用</b></div></div>'+
+      '<div class="state">'+T.reason+'<br>'+T.score_note+'</div>';
+    if(T.asset_signals && T.asset_signals.length){
+      th+='<div class="assets">';
+      T.asset_signals.forEach(function(a){
+        if(!a.available){th+='<div class="asset"><b>'+a.name+'</b> · 数据不足</div>';return;}
+        th+='<div class="asset"><b>'+a.name+'</b> · '+a.as_of+'<br>1D '+pct(a.return_1d)+' / 3D '+pct(a.return_3d)+' / 相对3D '+pct(a.relative_3d)+'<br>底部结构 '+a.bottom_structure_score+' · 反转确认 '+a.reversal_confirmation_score+'</div>';
+      });
+      th+='</div>';
+    }
+    box('turning').innerHTML=th+'</div>';
+  }
+
   // 四维卡片
   var dims = D.dimensions, names={quantity:'① 量 Quantity',price:'② 价 Price',velocity:'③ 流速 Velocity',friction:'④ 摩擦力 Friction'};
   var fields = {
-    quantity:[['净流动性(万亿)','net_liquidity_usd_tn'],['美联储总资产(万亿)','WALCL_tn'],['TGA(十亿)','TGA_bn'],['RRP(十亿)','RRP_bn'],['准备金(万亿)','reserves_tn']],
+    quantity:[['净流动性(万亿)','net_liquidity_usd_tn'],['净流动性本期变化(十亿)','net_liquidity_change_bn'],['净流动性变化加速度(十亿)','net_liquidity_acceleration_bn'],['美联储总资产(万亿)','WALCL_tn'],['TGA(十亿)','TGA_bn'],['RRP(十亿)','RRP_bn'],['准备金(万亿)','reserves_tn']],
     price:[['SOFR','SOFR'],['SOFR-IORB(bp)','SOFR_IORB_bp'],['2s10s','T10Y2Y'],['3m10s','T10Y3M'],['10Y实际利率','TIPS_10Y_real'],['2Y美债','DGS2'],['2Y-EFFR','implied_path_2y_minus_effr']],
     velocity:[['HY OAS(bp)','HY_OAS_bp'],['HY 5日变化(bp)','HY_OAS_5d_chg_bp'],['VIX','VIX'],['VIX/VIX3M','VIX_term_ratio'],['风险态','risk_state']],
     friction:[['市场隐含路径(2Y−EFFR)','implied_path_2y_minus_effr'],['仓位拥挤度','crowdedness'],['仓位数据日期','positioning_as_of'],['MOVE(利率波动)','MOVE'],['VIX/VIX3M','VIX_term_ratio'],['央行美元互换(亿)','swap_lines_usd_bn'],['湍流','turbulence'],['状态','state']]

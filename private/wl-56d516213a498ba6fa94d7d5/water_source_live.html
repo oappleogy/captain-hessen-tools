@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水源·水库层 · 四维实时 · 黑森船长</title>
 <!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
-<script src="water_source_data.js?t=202608040941"></script>
-<script src="directions_output.js?t=202608040941"></script>
+<script src="water_source_data.js?t=202608041335"></script>
+<script src="directions_output.js?t=202608041335"></script>
 <style>
   :root{
     --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
@@ -109,11 +109,15 @@
   box('meta').innerHTML = meta;
 
   // 综合横幅
-  var c = D.composite, col = c.weighted_dir_raw>0.3?'#13361f':c.weighted_dir_raw<-0.3?'#3a1722':'#2a2a16';
+  var c = D.composite, qdim = D.dimensions.quantity || {}, vdim = D.dimensions.velocity || {};
+  var liqLabel = c.liquidity_label || qdim.label || '—';
+  var appetiteLabel = c.risk_appetite_label || vdim.risk_appetite_label || vdim.risk_state || '—';
+  var col = c.weighted_dir_raw>0.3?'#13361f':c.weighted_dir_raw<-0.3?'#3a1722':'#2a2a16';
   var bcol = c.weighted_dir_raw>0.3?'var(--green)':c.weighted_dir_raw<-0.3?'var(--red)':'var(--amber)';
   var b = box('banner'); b.style.background=col; b.style.border='1px solid '+bcol;
-  b.innerHTML = '<div class="headline"><span>综合水量方向:<span style="color:'+bcol+'">　'+c.reading+'</span></span>'+
-    '<small>加权 '+c.weighted_dir_raw+' · Q/P/V = '+c.Q_P_V.join(' / ')+(c.divergence?' · ⚠量与流速背离':'')+'</small></div>'+
+  b.innerHTML = '<div class="headline"><span>流动性: <b>'+liqLabel+'</b>　·　风险偏好: <b>'+appetiteLabel+'</b><br>'+
+    '<span style="color:'+bcol+';font-size:14px">'+c.reading+'</span></span>'+
+    '<small>加权 '+(c.weighted_dir_raw==null?'—':c.weighted_dir_raw)+' · Q/P/V = '+c.Q_P_V.join(' / ')+(c.divergence?' · ⚠量与流速背离':'')+'</small></div>'+
     (c.reason?'<div class="detail">'+c.reason+'</div>':'');
 
   // 预警

@@ -1,5 +1,5 @@
 {
-  "score": 2.6,
+  "score": 23.3,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,54 +7,72 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 15.86,
+      "current": 16.5,
       "base": 16,
-      "deviation_pct": 0.9,
+      "deviation_pct": 3.1,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 0.2
+      "contribution": 2.9
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 80.56,
+      "current": 75.37,
       "base": 75,
-      "deviation_pct": 7.4,
+      "deviation_pct": 0.5,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 11.0
+      "contribution": 0.1
+    },
+    {
+      "variable": "credit_spread",
+      "name": "信用利差",
+      "current": 2.78,
+      "base": 1.5,
+      "deviation_pct": 85.3,
+      "weight": 0.25,
+      "weight_pct": 25,
+      "contribution": 1819.0
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 157.27,
+      "current": 157.62,
       "base": 145,
-      "deviation_pct": 8.5,
+      "deviation_pct": 8.7,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 7.2
+      "contribution": 7.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.97,
+      "current": 99.84,
       "base": 100,
-      "deviation_pct": 0.0,
+      "deviation_pct": 0.2,
       "weight": 0.15,
       "weight_pct": 15,
       "contribution": 0.0
     }
   ],
-  "hard_alerts_count": 1,
+  "hard_alerts_count": 2,
   "significant_deviations": [
     {
+      "name": "信用利差",
+      "current": 2.78,
+      "base": 1.5,
+      "deviation_pct": 85.3,
+      "direction": "偏高",
+      "level": "极端偏离"
+    },
+    {
       "name": "天然气TTF",
-      "current": 57.8,
+      "current": 55.22,
       "base": 35,
-      "deviation_pct": 65.1,
+      "deviation_pct": 57.8,
       "direction": "偏高",
       "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-08-04 08:22"
+  "timestamp": "2026-08-05 09:38"
 }

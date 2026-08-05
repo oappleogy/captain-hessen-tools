@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>资金流向桑基 · 位置×方向 · 黑森船长</title>
-<script src="flow_sankey_data.js?t=202608050938"></script>
-<script src="gate_diagnosis_output.js?t=202608050938"></script>
+<script src="flow_sankey_data.js?t=202608052120"></script>
+<script src="gate_diagnosis_output.js?t=202608052120"></script>
 <style>
   :root{--bg:#0d1b2a;--ink:#e8eef5;--sub:#9fb2c6;--line:#23405c;--gold:#d9a441}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -108,7 +108,7 @@
   // 图例(统一方块, 分两栏)
   function sw(color,label){return '<span><i class="sw" style="background:'+color+'"></i>'+label+'</span>';}
   var l1='<div class="legrow"><b>产业闸状态</b>'+
-    sw(VC.OPEN,'🔥 闸在开')+sw(VC.AMBUSH,'埋伏(阀门未开)')+sw(VC.SHALLOW,'浅池(高估)')+
+    sw(VC.OPEN,'产业资本开支扩张')+sw(VC.AMBUSH,'潜在瓶颈·待验证')+sw(VC.SHALLOW,'高估风险')+
     sw(VC.GRASSHOPPER,'蚂蚱风险')+sw(VC.PASSED,'已过/混合')+'</div>';
   var l2='<div class="legrow"><b>国家/地区</b>';
   S.countries.forEach(function(ct){ l2+=sw(ct.color, ct.name); });

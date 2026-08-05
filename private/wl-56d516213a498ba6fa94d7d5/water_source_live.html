@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水源·水库层 · 四维实时 · 黑森船长</title>
 <!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
-<script src="water_source_data.js?t=202608050938"></script>
-<script src="directions_output.js?t=202608050938"></script>
+<script src="water_source_data.js?t=202608052120"></script>
+<script src="directions_output.js?t=202608052120"></script>
 <style>
   :root{
     --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
@@ -198,11 +198,14 @@
   if(DR){
     var vcol={OPEN:'#46c46e',AMBUSH:'#e8a23d',AMBUSH2:'#c98f33',SHALLOW:'#ef5a5a',GRASSHOPPER:'#d97b46',WAIT:'#7b93ab',PASSED:'#5a7286',WATCH:'#5a7286'};
     var ov=DR.overall||{};
+    var tc=ov.trade_context||{};
     var supT=(DR.supply_ambush_top||[]).map(function(a){return a.component+'('+a.magnitude+')';}).join('、')||'—';
     box('dirsum').innerHTML =
-      '<b style="color:var(--gold)">⚖ 供需总判读:</b> '+(ov.supply_vs_demand||'')+'<br>'+
-      '🟡 供给侧埋伏TOP(同口径): <b style="color:#e8a23d">'+supT+'</b>　'+
-      '<span style="color:var(--sub);font-size:12px">埋伏强度=池深(价值量%)×空置率</span>';
+      '<b style="color:var(--gold)">⚖ 产业供需:</b> '+(ov.supply_vs_demand||'')+'<br>'+
+      '<b style="color:var(--amber)">🧭 交易动作:</b> '+(tc.conclusion||'产业状态不等于交易信号')+'<br>'+
+      '<span style="color:var(--sub)">水力 '+(tc.liquidity||'—')+' · 拐点 '+(tc.turning_phase||'—')+' · '+(tc.action_level||'不触发机会提示')+'</span><br>'+
+      '🟡 潜在瓶颈观察TOP(同口径): <b style="color:#e8a23d">'+supT+'</b>　'+
+      '<span style="color:var(--sub);font-size:12px">缺口刻度=池深(价值量%)×空置率；不是上涨概率或仓位建议</span>';
     var html='';
     DR.directions.forEach(function(d){
       var sc = d.side==='需求' ? '#9b6bd6' : '#3b82c4';

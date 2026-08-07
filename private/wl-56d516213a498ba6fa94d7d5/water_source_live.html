@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>水源·水库层 · 四维实时 · 黑森船长</title>
 <!-- 数据由 water_source_fetcher.py 生成; 纯数据展示, 不含判断逻辑 -->
-<script src="water_source_data.js?t=202608062344"></script>
-<script src="directions_output.js?t=202608062344"></script>
+<script src="water_source_data.js?t=202608071132"></script>
+<script src="directions_output.js?t=202608071132"></script>
 <style>
   :root{
     --bg:#0d1b2a; --card:#13263b; --line:#23405c; --ink:#e8eef5; --sub:#90a8c0;
@@ -136,22 +136,24 @@
     box('warnings').innerHTML = h+'</ul></div>';
   }
 
-  // 短线底部窗口与反转确认：流动性先行，价格必须确认；规则分不是概率。
+  // 短线双向拐点：补水/抽水先行，价格必须确认；规则分不是概率。
   var T=D.turning_point;
   if(T){
     function pct(v){return v===null||v===undefined?'—':(v*100).toFixed(1)+'%';}
     function n(v){return v===null||v===undefined?'—':v;}
-    var phaseColor=T.phase==='反转确认'?'var(--green)':T.phase==='底部候选'||T.phase==='衰竭观察'||T.phase.indexOf('价格反弹')>=0?'var(--amber)':T.phase.indexOf('数据不足')>=0?'var(--flat)':'var(--sub)';
+    var isDown=T.phase==='向下反转确认'||T.phase==='顶部候选'||T.phase==='上涨衰竭观察'||T.phase.indexOf('价格下跌')>=0;
+    var isUp=T.phase==='向上反转确认'||T.phase==='底部候选'||T.phase==='下跌衰竭观察'||T.phase.indexOf('价格反弹')>=0;
+    var phaseColor=T.phase==='向上反转确认'?'var(--green)':T.phase==='向下反转确认'?'var(--red)':isDown||isUp?'var(--amber)':T.phase.indexOf('数据不足')>=0?'var(--flat)':'var(--sub)';
     var th='<div class="turning" style="border-color:'+phaseColor+'"><h2><span>🧭 短线拐点 · <b style="color:'+phaseColor+'">'+T.phase+'</b></span>'+
       '<span style="color:var(--sub);font-size:12px">'+T.horizon+' · 置信度 '+T.confidence+'/100</span></h2>'+
       '<div style="color:var(--ink);font-weight:700">'+T.action_level+'</div>'+
-      '<div class="turn-score"><div>流动性转向分<b>'+n(T.liquidity_turn_score)+'</b></div><div>底部窗口分<b>'+n(T.bottom_window_score)+'</b></div><div>反转确认分<b>'+n(T.reversal_confirmation_score)+'</b></div><div>激进提示<b style="color:var(--red)">禁用</b></div></div>'+
-      '<div class="state">'+T.reason+'<br>'+T.score_note+'</div>';
+      '<div class="turn-score"><div>补水转向分<b>'+n(T.liquidity_turn_score)+'</b></div><div>底部窗口分<b>'+n(T.bottom_window_score)+'</b></div><div>向上确认分<b>'+n(T.reversal_confirmation_score)+'</b></div><div>抽水转弱分<b>'+n(T.liquidity_drain_score)+'</b></div><div>顶部窗口分<b>'+n(T.top_window_score)+'</b></div><div>向下确认分<b>'+n(T.downside_confirmation_score)+'</b></div><div>激进提示<b style="color:var(--red)">禁用</b></div></div>'+
+      '<div class="state">'+T.reason+'<br>'+T.score_note+(T.historical_validation_note?'<br><b style="color:var(--amber)">'+T.historical_validation_note+'</b>':'')+'</div>';
     if(T.asset_signals && T.asset_signals.length){
       th+='<div class="assets">';
       T.asset_signals.forEach(function(a){
         if(!a.available){th+='<div class="asset"><b>'+a.name+'</b> · 数据不足</div>';return;}
-        th+='<div class="asset"><b>'+a.name+'</b> · '+a.as_of+'<br>1D '+pct(a.return_1d)+' / 3D '+pct(a.return_3d)+' / 相对3D '+pct(a.relative_3d)+'<br>底部结构 '+a.bottom_structure_score+' · 反转确认 '+a.reversal_confirmation_score+'</div>';
+        th+='<div class="asset"><b>'+a.name+'</b> · '+a.as_of+'<br>1D '+pct(a.return_1d)+' / 3D '+pct(a.return_3d)+' / 相对3D '+pct(a.relative_3d)+'<br>底部 '+a.bottom_structure_score+' · 向上确认 '+a.reversal_confirmation_score+'<br>顶部 '+a.top_structure_score+' · 向下确认 '+a.downside_confirmation_score+'</div>';
       });
       th+='</div>';
     }

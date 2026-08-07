@@ -1,5 +1,5 @@
 {
-  "score": 2.5,
+  "score": 3.4,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,37 +7,37 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 15.43,
+      "current": 15.15,
       "base": 16,
-      "deviation_pct": 3.6,
+      "deviation_pct": 5.3,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 3.9
+      "contribution": 8.4
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 76.91,
+      "current": 78.16,
       "base": 75,
-      "deviation_pct": 2.5,
+      "deviation_pct": 4.2,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 1.2
+      "contribution": 3.5
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 158.38,
+      "current": 158.51,
       "base": 145,
-      "deviation_pct": 9.2,
+      "deviation_pct": 9.3,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 8.5
+      "contribution": 8.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.97,
+      "current": 99.96,
       "base": 100,
       "deviation_pct": 0.0,
       "weight": 0.15,
@@ -49,12 +49,12 @@
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 55.77,
+      "current": 55.65,
       "base": 35,
-      "deviation_pct": 59.3,
+      "deviation_pct": 59.0,
       "direction": "偏高",
       "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-08-06 23:44"
+  "timestamp": "2026-08-07 08:56"
 }

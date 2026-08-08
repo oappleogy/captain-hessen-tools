@@ -1,52 +1,66 @@
 {
-  "asOf": "2026-08-04 21:00 CST",
+  "asOf": "2026-08-07 23:59 CST",
   "week": "2026-W32",
-  "totalScore": 74,
+  "totalScore": 76,
   "verdict": {
     "title": "真实升温，兑现待验证",
-    "detail": "不是微信凭空制造，但热度仍集中于开发者圈层。"
+    "detail": "海外调用、下载与部署继续增强；国内新增负载和国产芯片订单/收入证据仍缺席。"
   },
-  "scores": { "domestic": 32, "adoption": 27, "social": 15 },
+  "scores": { "domestic": 32, "adoption": 28, "social": 16 },
   "narrativeMetrics": [
-    { "label": "叙事再生产率 Rₙ", "value": "基线建立中", "note": "需 4 周独立作者序列", "tone": "neutral" },
-    { "label": "跨圈层扩散", "value": "3 / 5 层", "note": "已到媒体，尚未验证大众留存", "tone": "gold" },
-    { "label": "叙事半衰期", "value": "待观察", "note": "区分发布脉冲与 2—4 周留存", "tone": "neutral" },
-    { "label": "行为转化", "value": "开发者强", "note": "下载与适配领先于付费和芯片订单", "tone": "blue" }
+    { "label": "叙事再生产率 Rₙ", "value": "无法计算", "note": "上期无同口径独立作者分母；本期建立 11 人基线", "tone": "neutral" },
+    { "label": "叙事半衰期", "value": "无法计算", "note": "缺少逐日去重强度与可复核发布峰值", "tone": "neutral" },
+    { "label": "跨圈层扩散", "value": "3 / 6 层", "note": "研究/开发/科技媒体已到达，企业与大众待验证", "tone": "gold" },
+    { "label": "载体多样性", "value": "11 作者｜2 平台｜2 语言", "note": "X/TikTok 缺失，地区多数未知", "tone": "blue" },
+    { "label": "叙事变异率", "value": "27%（3/11）", "note": "小样本主观编码，仅作方向性观察", "tone": "gold" },
+    { "label": "行为转化率", "value": "91%（10/11）", "note": "条件样本偏向真实试用；芯片订单新增证据为 0", "tone": "blue" },
+    { "label": "反叙事强度", "value": "45% 作者占比", "note": "互动弱于正面，集中于稳定性、成本、许可", "tone": "red" }
   ],
   "narratives": [
-    { "type": "positive", "strength": 88, "title": "中国开放权重模型逼近前沿", "carrier": "开发者 → 科技媒体", "evidence": "HF 下载、vLLM day-0、真实代码任务", "risk": "强模型不等于低部署门槛" },
-    { "type": "positive", "strength": 82, "title": "推理成本下降将释放 Token 需求", "carrier": "API 用户 → 企业采购", "evidence": "DeepSeek 价格性能讨论与高缓存命中", "risk": "降价快于用量增长会压缩收入" },
-    { "type": "positive", "strength": 76, "title": "开放权重推动全球本地部署", "carrier": "开源社区 → 企业 IT", "evidence": "量化、FP8、llama.cpp 与 vLLM 适配", "risk": "大型 MoE 对显存与集群要求极高" },
-    { "type": "counter", "strength": 69, "title": "榜单表现可能高于真实可用性", "carrier": "评测用户 → 工程社区", "evidence": "输出失败、指令遵循和稳定性反馈", "risk": "若问题持续，将阻断生产迁移" },
-    { "type": "counter", "strength": 64, "title": "模型繁荣未必由国产芯片承接", "carrier": "产业研究 → 资本市场", "evidence": "缺少国产卡调用占比和订单数据", "risk": "工作负载可能仍主要落在海外 GPU" },
-    { "type": "counter", "strength": 58, "title": "大众热度可能被推荐算法放大", "carrier": "中文推荐流 → 投资者", "evidence": "X/TikTok 原生样本覆盖仍不完整", "risk": "开发者圈层不能外推为大众采用" }
+    { "type": "positive", "strength": 90, "title": "中国模型占据海外真实调用高位", "carrier": "API 用户 → Agent 开发者", "evidence": "OpenRouter 前十含 5 个中国模型，DeepSeek/Kimi/MiniMax 多项上榜", "risk": "单平台与促销模型会放大 Token" },
+    { "type": "positive", "strength": 85, "title": "开放权重催生量化与本地部署", "carrier": "HF 社区 → 本地推理用户", "evidence": "DeepSeek 0731、Kimi K3、MiniMax-H3 均出现至少 99 个搜索匹配衍生仓", "risk": "HF 下载为滚动 30 天，不能当累计用户" },
+    { "type": "positive", "strength": 80, "title": "部署框架继续主动承接中国模型", "carrier": "框架维护者 → 云与本地部署", "evidence": "vLLM 合入 Qwen3.8 ROCm，llama.cpp 修复 DeepSeek-V4 转换", "risk": "本周适配多落在 NVIDIA/AMD，不等于国产卡承接" },
+    { "type": "counter", "strength": 74, "title": "榜单能力与真实可靠性仍分化", "carrier": "评测开发者 → 工程社区", "evidence": "指令遵循、34 提示词失败、提供商稳定性出现可复核反例", "risk": "若问题持续，将阻断生产迁移" },
+    { "type": "counter", "strength": 69, "title": "高端模型容量和额度仍稀缺", "carrier": "API/Ollama 用户 → 采购决策", "evidence": "DeepSeek 拟高峰 2 倍定价；Kimi K3 需 Pro/Max 与额外额度并提示扩容", "risk": "价格上升可能压低用量或加速小模型替代" },
+    { "type": "counter", "strength": 66, "title": "模型繁荣尚未穿透国产芯片盈利", "carrier": "产业研究 → 资本市场", "evidence": "本周无新增国产推理芯片订单、交付、收入 A 级披露", "risk": "海外增量可能主要由 NVIDIA/AMD/海外云承接" }
   ],
   "hardSignals": [
-    { "value": "140 万亿+", "label": "中国日均 Token", "change": "两年 +1400%+", "grade": "A", "source": "中国信通院", "url": "https://www.citmt.cn/news/202604/122721.html" },
-    { "value": "2185 EFLOPS", "label": "中国智能算力规模", "change": "设施上架率 71.4%", "grade": "A", "source": "工信部 2026H1", "url": "https://www.1921.org.cn/jrgz/2026/07/20/detailed_2026072048575.html" },
-    { "value": "317 万", "label": "DeepSeek V4 Flash HF 下载", "change": "大量量化/部署衍生", "grade": "A", "source": "Hugging Face", "url": "https://huggingface.co/deepseek-ai/models" },
-    { "value": "93 万+", "label": "K3 发布后一周 App 下载", "change": "周增约 200%", "grade": "B", "source": "AP / Sensor Tower", "url": "https://apnews.com/article/a00bf637866fcd4d81f4fde28c9862ce" }
+    { "value": "5 / 10", "label": "OpenRouter 前十中国模型", "change": "DeepSeek Flash +111%，Pro +409%", "grade": "A", "source": "OpenRouter Rankings", "url": "https://openrouter.ai/rankings/" },
+    { "value": "70.3 万", "label": "DeepSeek 0731 HF 下载", "change": "2763 likes；至少 99 个衍生匹配", "grade": "A", "source": "Hugging Face", "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731" },
+    { "value": "130.8 万", "label": "Kimi K3 HF 下载", "change": "10292 likes；至少 99 个衍生匹配", "grade": "A", "source": "Hugging Face", "url": "https://huggingface.co/moonshotai/Kimi-K3" },
+    { "value": "高峰拟 2×", "label": "DeepSeek API 定价", "change": "Flash 并发 2500，Pro 500；生效日待公告", "grade": "A", "source": "DeepSeek API Docs", "url": "https://api-docs.deepseek.com/quick_start/pricing/" },
+    { "value": "¥12 / ¥36", "label": "Qwen3.8-Max 输入/输出", "change": "API 可用；官方开放权重待验证", "grade": "A", "source": "阿里云百炼", "url": "https://help.aliyun.com/en/model-studio/model-pricing" },
+    { "value": "140 万亿+", "label": "中国日均 Token", "change": "截至 2026 年 3 月；本周无刷新", "grade": "A", "source": "国家数据局", "url": "https://www.nda.gov.cn/sjj/swdt/mtsy/0325/20260325113132934906079_pc.html" }
   ],
   "social": {
     "Reddit": [
-      { "tone": "positive", "title": "DeepSeek 成本效率讨论", "engagement": "约 2400 赞", "detail": "评论集中于推理速度、缓存、MoE，并出现真实代码负载。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1uzqspl/what_kind_of_dark_magic_is_deepseek_using/" },
-      { "tone": "positive", "title": "Kimi K3 真实代码任务", "engagement": "约 94 赞", "detail": "部分用户称前端表现突出，也有人质疑指令遵循和过度执行。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1uymonq/does_k3_really_live_up_to_the_hype_real_world/" },
-      { "tone": "negative", "title": "V4 Flash 小样本稳定性测试", "engagement": "34 个提示词", "detail": "报告 5 次输出失败；样本小，但提供了可复核测试。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vcl502/deepseekv4flash0731_oneshot_evals_surprisingly/" }
+      { "tone": "positive", "title": "DeepSeek 2-bit 本地 SQL 测试", "engagement": "约 65 赞｜开发者｜英语", "detail": "双 3080/96GB RAM 下完成 25/25 SQL 题并披露速度；真实试用。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vfctwf/deepseek_v4_flash_2bit_quant_is_the_first_model_i/" },
+      { "tone": "positive", "title": "Kimi K3 单 CPU/8GB 部署", "engagement": "约 733 赞｜开发者｜英语", "detail": "自写 C99 引擎并给出内存、速度和磁盘开销；真实部署但不具生产效率。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vd874t/i_pushed_kimi_k3_onto_one_cpu_with_8_gb_of_ram/" },
+      { "tone": "negative", "title": "DeepSeek 指令遵循反例", "engagement": "约 163 赞｜开发者｜英语", "detail": "全精度本地运行仍忽略 rules/prompts/skills；评论显示 harness 可能影响结果。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vct09w/deepseek_v4_flash_0731_still_not_holding_up/" },
+      { "tone": "negative", "title": "34 提示词成本与失败测试", "engagement": "约 12 赞｜评测开发者｜英语", "detail": "DeepSeek 5 次无输出、$1.29/753k tokens；Kimi 无失败且成本更低。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1vcl502/deepseekv4flash0731_oneshot_evals_surprisingly/" },
+      { "tone": "negative", "title": "Kimi K3 额度消耗过快", "engagement": "约 70 赞｜普通用户｜英语", "detail": "OpenCode 单次请求接近月额度 10%；高质量未转成低成本体验。", "url": "https://www.reddit.com/r/opencode/comments/1vdzqjo/when_deepseek_v4_does_not_resolve_your_issue_what/" }
+    ],
+    "YouTube": [
+      { "tone": "positive", "title": "DeepSeek GA 完整测试", "engagement": "37623 views｜932 likes｜英语 KOL", "detail": "8 月 1 日发布，覆盖价格、速度和 Agent 任务；真实测试但标题偏强情绪。", "url": "https://www.youtube.com/watch?v=wT42SgaOPK4" },
+      { "tone": "positive", "title": "DeepSeek RTX PRO 本地量化", "engagement": "759 views｜12 likes｜繁中创作者", "detail": "单卡 96GB VRAM 对比 IQ2/IQ3，披露硬件和量化选择。", "url": "https://www.youtube.com/watch?v=gSoXmXWdx4o" },
+      { "tone": "positive", "title": "MiniMax-H3 影片工作流", "engagement": "3427 views｜93 likes｜英语创作者", "detail": "2K 影片制作任务展示，支持真实创作者试用。", "url": "https://www.youtube.com/watch?v=JsttNJib1z8" },
+      { "tone": "negative", "title": "Qwen3.8-Max 不推荐测试", "engagement": "1309 views｜20 likes｜英语小型 KOL", "detail": "8 月 4 日任务测试的单一反例；不外推总体质量。", "url": "https://www.youtube.com/watch?v=aOqZAY2HnMI" }
     ],
     "X": [
-      { "tone": "neutral", "title": "样本覆盖不足", "engagement": "待补充", "detail": "当前仅有媒体引用与搜索可见片段，不据此计算独立作者热度。", "url": "https://x.com/" }
+      { "tone": "neutral", "title": "样本缺失", "engagement": "无法稳定读取", "detail": "仅能见到媒体引用或搜索片段，不据此计算作者与热度。", "url": "https://x.com/" }
     ],
     "TikTok": [
-      { "tone": "neutral", "title": "公开抓取受限", "engagement": "样本缺失", "detail": "不把无法访问解释为没有讨论，也不以搜索结果数替代帖子统计。", "url": "https://www.tiktok.com/" }
+      { "tone": "neutral", "title": "样本缺失", "engagement": "robots/公开访问受限", "detail": "不把无法访问解释为没有讨论，也不使用搜索结果数。", "url": "https://www.tiktok.com/" }
     ],
     "GitHub": [
-      { "tone": "negative", "title": "Kimi K3 本地部署门槛", "engagement": "多项适配请求", "detail": "用户请求 27B/70B、MLX 与 Apple Silicon 支持。", "url": "https://github.com/MoonshotAI/Kimi-K3/issues" },
-      { "tone": "positive", "title": "vLLM day-0 支持", "engagement": "发布即适配", "detail": "服务框架主动承接 KDA、MXFP4 MoE 与长上下文部署。", "url": "https://vllm-project.github.io/2026/07/27/k3.html" }
+      { "tone": "positive", "title": "Qwen3.8 AMD ROCm 支持", "engagement": "8 月 7 日合入 vLLM", "detail": "框架前置支持成立，但 Qwen 官方开放权重仍待发布核验。", "url": "https://github.com/vllm-project/vllm/commit/f2bfad9167a29e963f29f9ea79f2811513566ea6" },
+      { "tone": "positive", "title": "DeepSeek-V4 llama.cpp 修复", "engagement": "8 月 6 日合入", "detail": "修复 transformers 5.x 下 RoPE 转换参数，说明生态在持续打磨。", "url": "https://github.com/ggml-org/llama.cpp/commit/eb5667a169ae4baf7d0545ebc1cc7b3f2fc65342" },
+      { "tone": "negative", "title": "国产芯片承接缺口", "engagement": "本周 0 条订单/收入 A 证据", "detail": "海外框架进展主要落在 NVIDIA/AMD/Apple，不能直接映射国产卡。", "url": "https://developer.cambricon.com/" }
     ]
   },
   "transmission": [
-    { "stage": "需求", "status": "强化", "score": 86, "detail": "Token、Agent、长上下文共同抬高推理计算量。", "watch": "连续 4 周负载与调用量" },
-    { "stage": "国产替代", "status": "有窗口", "score": 61, "detail": "开放权重和价格敏感负载更易迁移，但生态仍是门槛。", "watch": "国产卡实例、框架适配、集群稳定" },
-    { "stage": "盈利兑现", "status": "未闭环", "score": 43, "detail": "缺少公司订单、收入确认与单位 Token 毛利证据。", "watch": "出货、在手订单、利用率与毛利" }
+    { "stage": "需求", "status": "强化", "score": 86, "detail": "海外真实调用与部署继续增长，国内总量背景强；但周度 Token 未刷新。", "watch": "连续 4 周国内负载、API 调用与高峰错误率" },
+    { "stage": "国产替代", "status": "有窗口", "score": 59, "detail": "国产框架适配存在，但本周新增生态主要由海外 GPU/框架承接。", "watch": "国产卡实例调用占比、客户验收与集群故障率" },
+    { "stage": "盈利兑现", "status": "未闭环", "score": 43, "detail": "缺少新增订单、交付、收入确认和单位 Token 毛利证据。", "watch": "在手订单、出货、利用率、收入与毛利" }
   ]
 }

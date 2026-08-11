@@ -1,20 +1,20 @@
 {
-  "timestamp": "2026-08-06T23:47:42",
-  "data_as_of": "2026-08-06",
-  "data_lag_days": 0,
+  "timestamp": "2026-08-11T10:00:41",
+  "data_as_of": "2026-08-10",
+  "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
-    "score": 0.167,
-    "action": "系统健康。建议仓位≤45%（趋势↑），增加对冲，缩短持仓周期。"
+    "score": 0.333,
+    "action": "系统健康。建议仓位≤65%（趋势↓），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
   "dim_lights": {
     "R": "green",
-    "I": "yellow",
+    "I": "green",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.46,
+      "score": 0.57,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,17 +33,17 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.26,
-      "state": "►",
-      "light": "yellow",
-      "note": "政策不确定性上升，规则可预测性下降",
+      "score": 0.31,
+      "state": "▲",
+      "light": "green",
+      "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.18,
+      "score": -0.19,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,40 +53,40 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.13,
+      "score": 0.02,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "healthy"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.09,
+      "score": 0.25,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.08,
+      "score": 0.17,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "neutral"
+      "status": "healthy"
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 69.6
+        "pct": 62.5
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 30.4
+        "pct": 37.5
       },
       {
         "key": "TECH_DOM",
@@ -124,8 +124,8 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
-    "safety_margin": 0.267,
+    "moving_toward": "TECH_DOM",
+    "safety_margin": 0.433,
     "early_warning": "无"
   },
   "extremes": {
@@ -147,12 +147,12 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 15.4,
-      "percentile": 35,
+      "value": 15.5,
+      "percentile": 36,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.75,
+      "value": 2.7,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

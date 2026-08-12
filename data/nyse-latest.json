@@ -1,32 +1,42 @@
 {
-  "date": "2026-08-10",
+  "date": "2026-08-12",
   "prices": {
+    "ICE": {
+      "name": "Intercontinental Exchange",
+      "price": 151.25,
+      "change_pct": 0.77
+    },
     "CRCL": {
       "name": "Circle",
-      "price": 66.67,
-      "change_pct": 4.81
+      "price": 71.16,
+      "change_pct": 6.69
+    },
+    "HOOD": {
+      "name": "Robinhood",
+      "price": 94.38,
+      "change_pct": -0.07
     },
     "COIN": {
       "name": "Coinbase",
-      "price": 153.6,
-      "change_pct": 5.12
+      "price": 148.58,
+      "change_pct": -0.16
     },
     "NDAQ": {
       "name": "Nasdaq",
-      "price": 94.59,
-      "change_pct": 0.36
+      "price": 95.02,
+      "change_pct": -0.63
     },
     "FFIV": {
       "name": "F5 Networks",
-      "price": 400.23,
-      "change_pct": -3.09
+      "price": 414.0,
+      "change_pct": 0.98
     },
     "BLK": {
       "name": "BlackRock",
-      "price": 1136.39,
-      "change_pct": 0.74
+      "price": 1148.84,
+      "change_pct": 1.53
     }
   },
-  "news_count": 0,
+  "news_count": 1,
   "has_update": false
 }

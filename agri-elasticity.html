@@ -1738,6 +1738,55 @@
     color: var(--text-primary);
     font-weight: 600;
   }
+  .overlay-method {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+  }
+  .overlay-method-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--crimson);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .overlay-method p {
+    margin: 0 0 7px 0;
+    color: var(--text-primary);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .overlay-method p:last-child { margin-bottom: 0; }
+  .overlay-method b { color: var(--gold); font-weight: 600; }
+  .overlay-kicker {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .screen-table .note-col {
+    min-width: 260px;
+  }
+  .screen-signal {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .screen-signal.triple { background: rgba(154,48,40,0.12); color: var(--crimson); border: 1px solid rgba(154,48,40,0.36); }
+  .screen-signal.dual { background: rgba(199,142,79,0.15); color: var(--amber); border: 1px solid rgba(199,142,79,0.38); }
+  .screen-signal.mixed { background: rgba(61,92,128,0.12); color: var(--slate); border: 1px solid rgba(61,92,128,0.32); }
+  .screen-signal.watch { background: rgba(128,144,168,0.12); color: var(--text-muted); border: 1px solid rgba(128,144,168,0.3); }
 
   .cluster-grid {
     display: grid;
@@ -2897,6 +2946,38 @@
 
   <div class="section-head" style="margin-top:24px;">
     <span class="section-num">07 · B</span>
+    <span class="section-title">瓶颈叠加评分矩阵</span>
+    <span class="section-desc">Supply × Hormuz × ENSO · Click-to-sort</span>
+  </div>
+  <div class="overlay-method">
+    <div class="overlay-method-head">Overlay Logic · 单锁 / 双锁 / 三锁</div>
+    <p><b>B1 供需</b>看结构性缺口本身，重点是供给集中、库存缓冲和替代难度。<b>B2 Hormuz</b>看中东能源与航运冲击能否把油价、化肥、生柴和到岸运费同时抬起来。<b>B3 ENSO</b>看厄尔尼诺是否直接卡住主产区产量。</p>
+    <p><b>B4-B6 双叠加</b>不是简单相加，而是看两个瓶颈会不会互相放大。只有两个都不弱，双锁分才会上去。<b>B7 三锁</b>只有在三条线能同向共振时才给高分，所以它更像“极端共振评分”，不是日常基准分。</p>
+    <span class="overlay-kicker">每列 1-5 分，总分 SUM / 35，可按任一列一键排序，和原矩阵相同。</span>
+  </div>
+  <div class="logic-grid" id="bottleneckMethodGrid"></div>
+  <div class="screen-table-wrap">
+    <table class="screen-table" id="bottleneckTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="name" style="width: 170px;"><span class="dim-code">品种</span><span class="dim-short">Contract</span></th>
+          <th class="sortable" data-sort="supply" style="width: 62px;"><span class="dim-code">B1</span><span class="dim-short">供需</span></th>
+          <th class="sortable" data-sort="hormuz" style="width: 62px;"><span class="dim-code">B2</span><span class="dim-short">Hormuz</span></th>
+          <th class="sortable" data-sort="enso" style="width: 62px;"><span class="dim-code">B3</span><span class="dim-short">ENSO</span></th>
+          <th class="sortable" data-sort="pairSH" style="width: 78px;"><span class="dim-code">B4</span><span class="dim-short">供需×H</span></th>
+          <th class="sortable" data-sort="pairSE" style="width: 78px;"><span class="dim-code">B5</span><span class="dim-short">供需×E</span></th>
+          <th class="sortable" data-sort="pairHE" style="width: 78px;"><span class="dim-code">B6</span><span class="dim-short">H×E</span></th>
+          <th class="sortable" data-sort="triple" style="width: 78px;"><span class="dim-code">B7</span><span class="dim-short">三锁</span></th>
+          <th class="sortable" data-sort="total" style="width: 86px;"><span class="dim-code">总分</span><span class="dim-short">SUM / 35</span></th>
+          <th class="note-col"><span class="dim-code">主卡点</span><span class="dim-short">Why It Stacks</span></th>
+        </tr>
+      </thead>
+      <tbody id="bottleneckTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">07 · C</span>
     <span class="section-title">筛选结论</span>
     <span class="section-desc">Primary · Secondary · Watchlist</span>
   </div>
@@ -4164,6 +4245,117 @@ const futuresScreeners = [
   }
 ];
 
+const bottleneckMethodCards = [
+  {
+    code:'B1-B3',
+    tag:'Single',
+    title:'单瓶颈看“各自能卡多深”',
+    detail:'供需看结构性缺口与库存缓冲，Hormuz 看油价/化肥/运费链，ENSO 看主产区是否被直接卡住。',
+    use:'单锁高分，说明这一条线单独发作就足以影响该品种。'
+  },
+  {
+    code:'B4-B6',
+    tag:'Pair',
+    title:'双叠加不是简单加法',
+    detail:'只有两个瓶颈都不弱，双锁分才会上去；一强一弱时，只能算“有放大但不共振”。',
+    use:'双锁分更适合看“主矛盾会不会快速升级”。'
+  },
+  {
+    code:'B7',
+    tag:'Triple',
+    title:'三锁分专门抓“极端共振”',
+    detail:'三条线能同向共振时，价格弹性会明显非线性放大，所以三锁分是极端情景下的优先级，而不是日常基准分。',
+    use:'三锁高分的品种，就是最值得优先做压力测试和盯盘的。'
+  },
+  {
+    code:'SUM',
+    tag:'Sort',
+    title:'总分就是综合拥堵度',
+    detail:'把单锁、双锁、三锁一起加总后，总分越高，说明这个品种越容易在多重瓶颈里成为“被卡住的主战场”。',
+    use:'和原表一样，点任何列都能一键排序，不用只盯总分。'
+  }
+];
+
+const supplyScoreBias = { ZW:1, ZC:1 };
+const bottleneckNotes = {
+  P:'<span class="screen-signal triple">三锁同向</span> 印尼/马来供给、Hormuz 油价链、ENSO 干旱三条线最整齐。',
+  ZL:'<span class="screen-signal dual">双锁主导</span> Hormuz + ENSO 最强，供需本身不如棕榈紧，但生柴传导会把它迅速带上来。',
+  SB:'<span class="screen-signal triple">三锁同向</span> 印度季风、巴西糖醇比、Hormuz 抬油价三条线能互相放大。',
+  RS:'<span class="screen-signal mixed">油籽跟随</span> 供需和油籽替代逻辑成立，但 ENSO 直接性较弱，更像油籽板块的二阶传导。',
+  ZS:'<span class="screen-signal mixed">过渡主线</span> 供需和 Hormuz 都在，但真正放大还要等南美播种窗口重新进入天气交易。',
+  ZW:'<span class="screen-signal dual">双锁偏强</span> 供需缺口 + Hormuz 最突出，ENSO 只提供中等助推，库存缓冲仍要防。',
+  ZC:'<span class="screen-signal watch">单锁偏多</span> 供需和 Hormuz 都有，但 El Niño 近端未必帮忙，所以三锁不成立。',
+  RM:'<span class="screen-signal dual">双锁偏强</span> 东南亚供需与 ENSO 很强，Hormuz 对欧洲航线和到岸溢价也会继续加分。'
+};
+
+function clampScore(v) {
+  return Math.max(1, Math.min(5, v));
+}
+
+function supplyScoreFromProduct(p) {
+  const structural = (p.d[0] * 0.35) + (p.d[2] * 0.35) + (p.d[3] * 0.10) + (p.d[4] * 0.20);
+  const bias = supplyScoreBias[p.code] || 0;
+  return clampScore(Math.round(structural + bias));
+}
+
+function hormuzScoreFromProduct(p) {
+  const delta = p.hormuz ? p.hormuz.delta : 0;
+  if (delta >= 3) return 5;
+  if (delta === 2) return 4;
+  if (delta === 1) return 2;
+  return 1;
+}
+
+function ensoScoreFromCode(code) {
+  const item = ensoMarketScores.find(x => x.code === code);
+  if (!item) return 1;
+  return clampScore(Math.round((item.certainty + item.elasticity + item.timing) / 3));
+}
+
+function pairOverlayScore(a, b) {
+  const avg = (a + b) / 2;
+  const minVal = Math.min(a, b);
+  const diff = Math.abs(a - b);
+  const bonus = minVal >= 4 ? 1 : 0;
+  const penalty = diff >= 3 ? 1 : (diff >= 2 ? 0.5 : 0);
+  return clampScore(Math.round(avg + bonus - penalty));
+}
+
+function tripleOverlayScore(a, b, c) {
+  const avg = (a + b + c) / 3;
+  const values = [a, b, c];
+  const strongCount = values.filter(v => v >= 4).length;
+  const minVal = Math.min(...values);
+  const bonus = minVal >= 4 ? 1 : (strongCount >= 2 && minVal >= 3 ? 0.5 : 0);
+  return clampScore(Math.round(avg + bonus));
+}
+
+const bottleneckRows = ['P','ZL','SB','RS','ZS','ZW','ZC','RM'].map(code => {
+  const p = products.find(x => x.code === code);
+  const supply = supplyScoreFromProduct(p);
+  const hormuz = hormuzScoreFromProduct(p);
+  const enso = ensoScoreFromCode(code);
+  const pairSH = pairOverlayScore(supply, hormuz);
+  const pairSE = pairOverlayScore(supply, enso);
+  const pairHE = pairOverlayScore(hormuz, enso);
+  const triple = tripleOverlayScore(supply, hormuz, enso);
+  const total = supply + hormuz + enso + pairSH + pairSE + pairHE + triple;
+  return {
+    code,
+    name: p.name.replace(/^(CBOT|ICE|BMD\/DCE)\s+/, ''),
+    matrixCode: code,
+    supply,
+    hormuz,
+    enso,
+    pairSH,
+    pairSE,
+    pairHE,
+    triple,
+    total,
+    note: bottleneckNotes[code] || ''
+  };
+});
+
 const screeningClusters = [
   {
     level:'preferred',
@@ -4272,6 +4464,22 @@ function renderArticleLogic() {
   `).join('');
 }
 
+function renderBottleneckMethodGrid() {
+  const wrap = document.getElementById('bottleneckMethodGrid');
+  if (!wrap) return;
+  wrap.innerHTML = bottleneckMethodCards.map(item => `
+    <div class="logic-card">
+      <div class="logic-head">
+        <span class="logic-code">${item.code}</span>
+        <span class="logic-tag">${item.tag}</span>
+      </div>
+      <div class="logic-title">${item.title}</div>
+      <div class="logic-detail">${item.detail}</div>
+      <div class="logic-use">${item.use}</div>
+    </div>
+  `).join('');
+}
+
 function jumpToMatrixProduct(code) {
   if (!code) return;
   const gi = products.findIndex(p => p.code === code);
@@ -4283,6 +4491,62 @@ function jumpToMatrixProduct(code) {
     setTimeout(() => row.scrollIntoView({ behavior:'smooth', block:'center' }), 120);
   }
 }
+
+let bottleneckSortState = { col:'total', dir:'desc' };
+
+function compareBottlenecks(a, b) {
+  const c = bottleneckSortState.col;
+  const va = c === 'name' ? a.name : a[c];
+  const vb = c === 'name' ? b.name : b[c];
+  if (va < vb) return bottleneckSortState.dir === 'asc' ? -1 : 1;
+  if (va > vb) return bottleneckSortState.dir === 'asc' ? 1 : -1;
+  return b.total - a.total;
+}
+
+function renderBottleneckTable() {
+  const body = document.getElementById('bottleneckTableBody');
+  if (!body) return;
+  const sorted = [...bottleneckRows].sort(compareBottlenecks);
+  body.innerHTML = sorted.map(item => `
+    <tr class="${item.matrixCode ? 'clickable' : ''}" data-code="${item.matrixCode}">
+      <td>
+        <span class="screen-name">${item.name}</span>
+        <span class="screen-sub">${item.code}</span>
+      </td>
+      <td><span class="screen-cell ${screenCellClass(item.supply)}">${item.supply}</span></td>
+      <td><span class="screen-cell ${screenCellClass(item.hormuz)}">${item.hormuz}</span></td>
+      <td><span class="screen-cell ${screenCellClass(item.enso)}">${item.enso}</span></td>
+      <td><span class="screen-cell ${screenCellClass(item.pairSH)}">${item.pairSH}</span></td>
+      <td><span class="screen-cell ${screenCellClass(item.pairSE)}">${item.pairSE}</span></td>
+      <td><span class="screen-cell ${screenCellClass(item.pairHE)}">${item.pairHE}</span></td>
+      <td><span class="screen-cell ${screenCellClass(item.triple)}">${item.triple}</span></td>
+      <td><span class="screen-total ${screenTotalClass(item.total, 35)}">${item.total}</span></td>
+      <td><span class="screen-why">${item.note}</span></td>
+    </tr>
+  `).join('');
+  body.querySelectorAll('tr.clickable').forEach(row => {
+    row.addEventListener('click', () => jumpToMatrixProduct(row.dataset.code));
+  });
+  document.querySelectorAll('#bottleneckTable th.sortable').forEach(th => {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (th.dataset.sort === bottleneckSortState.col) {
+      th.classList.add('sort-' + bottleneckSortState.dir);
+    }
+  });
+}
+
+document.querySelectorAll('#bottleneckTable th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.sort;
+    if (bottleneckSortState.col === col) {
+      bottleneckSortState.dir = bottleneckSortState.dir === 'desc' ? 'asc' : 'desc';
+    } else {
+      bottleneckSortState.col = col;
+      bottleneckSortState.dir = col === 'name' ? 'asc' : 'desc';
+    }
+    renderBottleneckTable();
+  });
+});
 
 function renderFuturesScreeners() {
   const body = document.getElementById('futuresScreenBody');
@@ -4357,6 +4621,8 @@ function renderEquityWatchCards() {
 }
 
 renderArticleLogic();
+renderBottleneckMethodGrid();
+renderBottleneckTable();
 renderFuturesScreeners();
 renderScreeningClusters();
 renderEquityThemes();

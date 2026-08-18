@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-17",
+  "last_updated": "2026-08-18",
   "timeline": [
     {
       "date": "2026-03-26",
@@ -1232,6 +1232,43 @@
         "Anthropic Official"
       ],
       "new_members": []
+    },
+    {
+      "date": "2026-08-17",
+      "tag": "成员",
+      "title": "Kraken母公司Payward加入Glasswing",
+      "detail": "加密货币交易所Kraken母公司Payward宣布加入Anthropic的Project Glasswing网络安全计划，获得Claude Mythos模型访问权以寻找安全漏洞。这是继7月Sophos、SonicWall之后的新成员。",
+      "impact": "信息",
+      "sources": [
+        "CoinDesk",
+        "Decrypt",
+        "Moomoo"
+      ],
+      "new_members": [
+        "Payward (Kraken母公司)"
+      ]
+    },
+    {
+      "date": "2026-08-14",
+      "tag": "发布",
+      "title": "Anthropic推出Claude文本水印功能",
+      "detail": "Anthropic宣布未来Claude模型生成的文本将包含水印，用于识别AI生成内容以符合欧盟AI法案要求。该水印方法在实用性上无影响。",
+      "impact": "信息",
+      "sources": [
+        "Anthropic Official"
+      ],
+      "new_members": []
+    },
+    {
+      "date": "2026-08-12",
+      "tag": "能力",
+      "title": "CrowdStrike警告Mythos加速零日决策",
+      "detail": "CrowdStrike发布警告称Claude Mythos可能加速零日漏洞的发现和利用决策，对网络安全格局产生重大影响。",
+      "impact": "信息",
+      "sources": [
+        "Yellow.com"
+      ],
+      "new_members": []
     }
   ],
   "tracking_lines": [
@@ -1400,6 +1437,7 @@
       "Novartis",
       "Nvidia",
       "Palo Alto Networks",
+      "Payward (Kraken母公司)",
       "Rapid7",
       "SK Hynix",
       "Samsung",
@@ -1567,6 +1605,12 @@
         "date": "2026-08-07",
         "added": [
           "Rapid7"
+        ]
+      },
+      {
+        "date": "2026-08-18",
+        "added": [
+          "Payward (Kraken母公司)"
         ]
       }
     ]

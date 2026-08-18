@@ -1542,6 +1542,267 @@
   }
   .agency-disclaimer b { color: var(--text-primary); font-style: normal; font-weight: 600; }
 
+  /* ARTICLE-DRIVEN SCREENING */
+  .screening-intro {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    font-size: 12.5px;
+    color: var(--text-primary);
+    line-height: 1.75;
+  }
+  .screening-intro-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .screening-intro p { margin: 0 0 8px 0; }
+  .screening-intro p:last-child { margin-bottom: 0; }
+  .screening-intro b { color: var(--gold); font-weight: 600; }
+  .screening-intro .hl { color: var(--amber); font-weight: 600; }
+
+  .logic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .logic-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 15px 16px;
+  }
+  .logic-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .logic-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+  .logic-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .logic-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .logic-detail {
+    color: var(--text-secondary);
+    font-size: 11.5px;
+    line-height: 1.55;
+    margin-bottom: 7px;
+  }
+  .logic-use {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--amber);
+    line-height: 1.5;
+  }
+
+  .screen-table-wrap {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  table.screen-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  table.screen-table thead th {
+    background: var(--bg-panel-2);
+    padding: 11px 12px;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  table.screen-table thead th:first-child,
+  table.screen-table thead th:last-child {
+    text-align: left;
+  }
+  table.screen-table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px dashed var(--border);
+    vertical-align: middle;
+    text-align: center;
+  }
+  table.screen-table tbody td:first-child,
+  table.screen-table tbody td:last-child {
+    text-align: left;
+  }
+  table.screen-table tbody tr:last-child td { border-bottom: none; }
+  table.screen-table tbody tr.clickable { cursor: pointer; }
+  table.screen-table tbody tr.clickable:hover { background: var(--bg-panel-2); }
+  .screen-rank {
+    display: inline-block;
+    min-width: 28px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(138,104,24,0.12);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    margin-right: 8px;
+    text-align: center;
+  }
+  .screen-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .screen-sub {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+  .screen-bias {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .screen-bias.preferred { background: rgba(154,48,40,0.12); color: var(--crimson); border: 1px solid rgba(154,48,40,0.36); }
+  .screen-bias.secondary { background: rgba(199,142,79,0.15); color: var(--amber); border: 1px solid rgba(199,142,79,0.38); }
+  .screen-bias.watch { background: rgba(61,92,128,0.12); color: var(--slate); border: 1px solid rgba(61,92,128,0.32); }
+  .screen-bias.defer { background: rgba(128,144,168,0.12); color: var(--text-muted); border: 1px solid rgba(128,144,168,0.3); }
+  .screen-cell {
+    display: inline-block;
+    width: 28px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .screen-cell.s5 { background: var(--cell-5); color: #fff; }
+  .screen-cell.s4 { background: var(--cell-4); color: #fff; }
+  .screen-cell.s3 { background: var(--cell-3); color: #fff; }
+  .screen-cell.s2 { background: var(--cell-2); color: var(--text-primary); }
+  .screen-cell.s1 { background: var(--cell-1); color: var(--text-secondary); }
+  .screen-total {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+  .screen-total.high { background: rgba(154,48,40,0.18); color: var(--crimson); border: 1px solid rgba(154,48,40,0.4); }
+  .screen-total.mid { background: rgba(199,142,79,0.16); color: var(--amber); border: 1px solid rgba(199,142,79,0.38); }
+  .screen-total.low { background: rgba(128,144,168,0.12); color: var(--slate); border: 1px solid rgba(128,144,168,0.3); }
+  .screen-why {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.52;
+  }
+  .screen-why b {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .cluster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .cluster-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+  }
+  .cluster-card.preferred { border-top: 3px solid var(--crimson); }
+  .cluster-card.secondary { border-top: 3px solid var(--amber); }
+  .cluster-card.watch { border-top: 3px solid var(--slate); }
+  .cluster-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .cluster-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .cluster-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .cluster-note {
+    color: var(--text-secondary);
+    font-size: 11.5px;
+    line-height: 1.6;
+    margin-bottom: 9px;
+  }
+  .cluster-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .cluster-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    padding: 3px 7px;
+    border: 1px solid var(--border);
+    background: var(--bg-panel-2);
+    color: var(--text-primary);
+  }
+  .cluster-watch {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 10.5px;
+    color: var(--amber);
+    line-height: 1.45;
+  }
+
   /* DAILY TRACKER */
   .daily-tracker {
     background: var(--bg-panel);
@@ -2159,12 +2420,20 @@
     <span class="tab-num">06 · ENSO</span>
     <span>情景 · 厄尔尼诺</span>
   </button>
+  <button class="tab-btn" data-tab="screening" role="tab">
+    <span class="tab-num">07 · SCREENING</span>
+    <span>筛选 · 期货<span class="tab-count">8 候选</span></span>
+  </button>
+  <button class="tab-btn" data-tab="equities" role="tab">
+    <span class="tab-num">08 · EQUITIES</span>
+    <span>筛选 · 股票<span class="tab-count">5 链条</span></span>
+  </button>
   <button class="tab-btn" data-tab="timeline" role="tab">
-    <span class="tab-num">07 · TIMELINE</span>
+    <span class="tab-num">09 · TIMELINE</span>
     <span>时序日历</span>
   </button>
   <button class="tab-btn" data-tab="caveats" role="tab">
-    <span class="tab-num">08 · BOUNDARIES</span>
+    <span class="tab-num">10 · BOUNDARIES</span>
     <span>边界</span>
   </button>
 </div>
@@ -2584,11 +2853,110 @@
 </div>
 </div><!-- /panel-enso -->
 
+<!-- PANEL: FUTURES SCREENING -->
+<div class="tab-panel" id="panel-screening">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <span class="section-title">文章逻辑筛选 · 期货主战场</span>
+    <span class="section-desc">Lag × Buffer × Cost × Demand × Tradeability</span>
+  </div>
+
+  <div class="screening-intro">
+    <div class="screening-intro-head">Method Rewrite · 从叙事到筛选器</div>
+    <p>这里不再只看“ENSO 会不会发生”，而是把刚才文章里的核心逻辑拆成可评分的筛选器: <b>天气冲击滞后 4–8 个月</b>、<b>玉米/小麦供需缺口</b>、<b>库存缓冲</b>、<b>油价与化肥成本抬升</b>、<b>ABCD 粮商更偏好油籽</b>，以及最后最关键的一条: <span class="hl">交易工具是否足够大、足够深、足够能承接题材资金</span>。</p>
+    <p>所以这页不是“谁基本面最差谁排第一”，而是“谁最可能在未来 4–8 个月里，成为可交易、可放大的主战场”。同样也因此，<b>玉米/小麦虽然缺口存在，但库存缓冲更厚</b>;真正更像优先解的是 <b>油籽链 + 原糖</b>。</p>
+  </div>
+
+  <div class="logic-grid" id="articleLogicGrid"></div>
+
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">07 · A</span>
+    <span class="section-title">大品种候选矩阵</span>
+    <span class="section-desc">点击可跳转回总矩阵查看原七维评分</span>
+  </div>
+  <div class="screen-table-wrap">
+    <table class="screen-table">
+      <thead>
+        <tr>
+          <th style="width: 170px;">候选品种</th>
+          <th style="width: 88px;">偏好</th>
+          <th style="width: 62px;">S1</th>
+          <th style="width: 62px;">S2</th>
+          <th style="width: 62px;">S3</th>
+          <th style="width: 62px;">S4</th>
+          <th style="width: 62px;">S5</th>
+          <th style="width: 62px;">S6</th>
+          <th style="width: 86px;">总分</th>
+          <th>为什么现在看它</th>
+        </tr>
+      </thead>
+      <tbody id="futuresScreenBody"></tbody>
+    </table>
+  </div>
+
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">07 · B</span>
+    <span class="section-title">筛选结论</span>
+    <span class="section-desc">Primary · Secondary · Watchlist</span>
+  </div>
+  <div class="cluster-grid" id="screeningClusterGrid"></div>
+</div>
+</div><!-- /panel-screening -->
+
+<!-- PANEL: EQUITY MAPPING -->
+<div class="tab-panel" id="panel-equities">
+<div class="section">
+  <div class="section-head">
+    <span class="section-num">08</span>
+    <span class="section-title">股票产业链映射 · 题材优先于盈利线性外推</span>
+    <span class="section-desc">Demand Visibility × Pass-through × Order Capture</span>
+  </div>
+
+  <div class="screening-intro">
+    <div class="screening-intro-head">Equity Lens · 先选链条,再拆个股页面</div>
+    <p>这页故意不直接写成“选股名单”，而是先按<b>产业链</b>筛一遍。原因很简单: <b>期货通常先反应、股票往往后反应</b>，而且股票的盈利兑现经常不如题材扩散来得快。先把主链条分清，再决定后面要不要拆成单独个股页，会更稳。</p>
+    <p>因此这里的核心标准不是“谁最便宜”，而是<b>谁最容易承接需求增量</b>、<b>谁最能把上游价格和订单传导到报表</b>、以及<b>谁最容易形成持续性的市场关注</b>。从这套口径看，欧洲空调渗透和电网扩容，是这次厄尔尼诺叙事里最容易外溢到股票端的两条线。</p>
+  </div>
+
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">08 · A</span>
+    <span class="section-title">股票链条优先级</span>
+    <span class="section-desc">更偏链条选择,不是直接荐股</span>
+  </div>
+  <div class="screen-table-wrap">
+    <table class="screen-table">
+      <thead>
+        <tr>
+          <th style="width: 200px;">产业链方向</th>
+          <th style="width: 88px;">偏好</th>
+          <th style="width: 62px;">E1</th>
+          <th style="width: 62px;">E2</th>
+          <th style="width: 62px;">E3</th>
+          <th style="width: 62px;">E4</th>
+          <th style="width: 62px;">E5</th>
+          <th style="width: 86px;">总分</th>
+          <th>主逻辑 / 风险提示</th>
+        </tr>
+      </thead>
+      <tbody id="equityThemeBody"></tbody>
+    </table>
+  </div>
+
+  <div class="section-head" style="margin-top:24px;">
+    <span class="section-num">08 · B</span>
+    <span class="section-title">股票端观察要点</span>
+    <span class="section-desc">Narrative Discipline</span>
+  </div>
+  <div class="cluster-grid" id="equityWatchGrid"></div>
+</div>
+</div><!-- /panel-equities -->
+
 <!-- PANEL: TIMELINE -->
 <div class="tab-panel" id="panel-timeline">
 <div class="section">
   <div class="section-head">
-    <span class="section-num">07</span>
+    <span class="section-num">09</span>
     <span class="section-title">时序日历 · 全年关键事件窗口</span>
     <span class="section-desc">12 月 × 20 品种 × 5 类信号</span>
   </div>
@@ -2665,7 +3033,7 @@
 <div class="tab-panel" id="panel-caveats">
 <div class="section">
   <div class="section-head">
-    <span class="section-num">08</span>
+    <span class="section-num">10</span>
     <span class="section-title">框架失效场景 · 何时不要用此分数排序</span>
     <span class="section-desc">事件型、政策反转型、流动性悬崖型</span>
   </div>
@@ -3698,6 +4066,301 @@ if (ensoScoreBody) {
     </tr>
   `).join('');
 }
+
+// ============ ARTICLE-DRIVEN SCREENING ============
+const articleLogicPillars = [
+  {
+    code:'L1',
+    tag:'Timing',
+    title:'天气冲击通常滞后 4-8 个月',
+    detail:'当前更像“预埋伏期”而不是“结果兑现期”。最该盯的是 2026 Q4 到 2027 H1 的价格传导，而不是只盯当下现货波动。',
+    use:'对应筛选维度 S2: 谁最符合“滞后兑现”的交易节奏。'
+  },
+  {
+    code:'L2',
+    tag:'Gap',
+    title:'玉米 / 小麦缺口在放大',
+    detail:'文中给出的核心判断是: 玉米约 1.8%、小麦约 0.8% 的供需缺口，已经来到近十多年偏高位置。',
+    use:'对应 S1 与 S3: 有缺口不等于立刻最强，仍要看库存缓冲是否够厚。'
+  },
+  {
+    code:'L3',
+    tag:'Buffer',
+    title:'库存高位会吸收一部分冲击',
+    detail:'大米、小麦等库存并不低，这意味着“方向对”不等于“弹性最大”。库存厚的品种更容易被延后、被钝化。',
+    use:'对应 S3: 把“库存缓冲”单独拿出来，避免只按减产故事排序。'
+  },
+  {
+    code:'L4',
+    tag:'Cost',
+    title:'高油价与化肥成本抬升会二次放大',
+    detail:'油价不是背景噪音，而是会通过能源、化肥、种植结构、生柴掺混，把农业冲击从天气事件扩成成本事件。',
+    use:'对应 S4: 原糖、豆油、棕榈油会比纯粮食更能接住这条传导。'
+  },
+  {
+    code:'L5',
+    tag:'ABCD',
+    title:'四大粮商更偏好油籽链',
+    detail:'ABCD 更看好油籽，不只是供给受损，而是需求端也在增强。这个判断很重要，因为它决定主战场更可能落在油脂油籽，而不是所有谷物一起涨。',
+    use:'对应 S5: 需求增强比单纯天气减产更容易形成持续行情。'
+  },
+  {
+    code:'L6',
+    tag:'Cross-Asset',
+    title:'欧洲空调和电网是股票端外溢',
+    detail:'厄尔尼诺不只指向农产品。高温推动欧洲空调渗透、电网扩容与配网投资，这会让主题从期货端扩散到制造业和电力设备。',
+    use:'对应股票页 E1-E5: 先选链条，再考虑是否拆成独立个股页。'
+  }
+];
+
+const futuresScreeners = [
+  {
+    rank:1, code:'P', name:'棕榈油', bias:'preferred', biasLabel:'优先',
+    scores:[5,5,4,5,5,4], total:28,
+    thesis:'<b>主逻辑:</b> 东南亚干旱是 ENSO 直达区，高油价又抬升生柴需求，ABCD 偏好的油籽链会在这里最直接兑现。<br><b>观察:</b> MPOB / GAPKI 库存、印尼 B40、印度进口。<br><b>风险:</b> DMO 或出口政策反转。',
+    matrixCode:'P'
+  },
+  {
+    rank:2, code:'ZL', name:'豆油', bias:'preferred', biasLabel:'优先',
+    scores:[4,4,3,5,5,5], total:26,
+    thesis:'<b>主逻辑:</b> 豆油不是最直接的天气受灾品，但能同时承接棕榈减产、生柴政策和高油价三条线。<br><b>观察:</b> 45Z / RVO、生柴利润、豆油-棕榈价差。<br><b>风险:</b> 政策回摆或板块传导弱于预期。',
+    matrixCode:'ZL'
+  },
+  {
+    rank:3, code:'SB', name:'原糖', bias:'preferred', biasLabel:'优先',
+    scores:[4,5,3,4,4,5], total:25,
+    thesis:'<b>主逻辑:</b> 印度季风偏弱与高油价下乙醇分流共振，最契合“4-8 个月滞后兑现”的节奏。<br><b>观察:</b> ISMA、UNICA 糖醇比、印度出口许可。<br><b>风险:</b> 巴西丰产或印度突然放松出口。',
+    matrixCode:'SB'
+  },
+  {
+    rank:4, code:'RS', name:'油菜籽', bias:'secondary', biasLabel:'次优',
+    scores:[3,4,3,4,5,3], total:22,
+    thesis:'<b>主逻辑:</b> 油籽链整体受益时，菜籽更像板块跟随者; ABCD 偏好对它是加分项。<br><b>观察:</b> 三油价差、库存、政策摩擦。<br><b>风险:</b> ENSO 直接性偏弱，容易被政策噪音盖过。',
+    matrixCode:'RS'
+  },
+  {
+    rank:5, code:'ZS', name:'大豆', bias:'secondary', biasLabel:'次优',
+    scores:[3,4,3,3,4,5], total:22,
+    thesis:'<b>主逻辑:</b> 近端美豆未必受益，但南美播种窗口重新进入天气交易后，大豆会回到主舞台。<br><b>观察:</b> USDA、Conab、阿根廷/南巴西降雨。<br><b>风险:</b> 近月天气偏友好，中美贸易噪音独立压制。',
+    matrixCode:'ZS'
+  },
+  {
+    rank:6, code:'ZW', name:'小麦', bias:'watch', biasLabel:'观察',
+    scores:[3,5,2,4,2,5], total:21,
+    thesis:'<b>主逻辑:</b> 0.8% 缺口是支持项，但库存缓冲更厚，真正爆发仍需黑海或印度政策共振。<br><b>观察:</b> 澳洲天气、俄出口配额、印度禁运。<br><b>风险:</b> 库存释放会钝化天气逻辑。',
+    matrixCode:'ZW'
+  },
+  {
+    rank:7, code:'ZC', name:'玉米', bias:'watch', biasLabel:'观察',
+    scores:[2,5,2,4,2,5], total:20,
+    thesis:'<b>主逻辑:</b> 1.8% 缺口最大，但 El Niño 对美玉米授粉期反而偏友好，近端并不天然最强。<br><b>观察:</b> WASDE、乙醇利润、黑海与南非供给。<br><b>风险:</b> 近月天气利空，库存缓冲未尽。',
+    matrixCode:'ZC'
+  },
+  {
+    rank:8, code:'RICE', name:'大米(观察项)', bias:'defer', biasLabel:'暂缓',
+    scores:[3,4,1,2,1,1], total:12,
+    thesis:'<b>主逻辑:</b> 大米是基本面验证项，不是当前主交易项。库存缓冲厚，国际直达工具和流动性也不如主流油脂谷物。<br><b>观察:</b> 印度出口政策、东南亚库存。<br><b>风险:</b> 只有突发禁运才会显著改写排序。',
+    matrixCode:''
+  }
+];
+
+const screeningClusters = [
+  {
+    level:'preferred',
+    tag:'Primary',
+    title:'主战场先看油籽链与原糖',
+    note:'真正既有 ENSO 直达性、又有成本传导、还能吃到需求强化的，是油脂油籽和原糖，而不是所有谷物一起均匀受益。',
+    items:['棕榈油 P','豆油 ZL','原糖 SB'],
+    watch:'盯库存、盯生柴、盯印度/印尼政策，优先把“供需+政策+资金”三线汇合的品种放在前面。'
+  },
+  {
+    level:'secondary',
+    tag:'Secondary',
+    title:'大豆 / 菜籽更像板块跟随与二阶传导',
+    note:'它们不是所有时点都最强，但一旦油籽链整体进入加速区，二阶传导和价差机会会变得很重要。',
+    items:['大豆 ZS','油菜籽 RS'],
+    watch:'更适合结合南美播种窗口、三油价差和政策摩擦一起看，而不是孤立看单一减产故事。'
+  },
+  {
+    level:'watch',
+    tag:'Watchlist',
+    title:'玉米 / 小麦 / 大米要防“方向对但弹性不大”',
+    note:'供需缺口并不等于立即是交易第一顺位。库存厚、气候传导不纯、或交易工具不够直接，都会削弱行情强度。',
+    items:['小麦 ZW','玉米 ZC','大米 RICE'],
+    watch:'这组更适合当验证项和事件驱动项，除非再叠加黑海、印度禁运或库存快速去化。'
+  }
+];
+
+const equityThemes = [
+  {
+    rank:1, name:'欧洲空调渗透 / 白电出海', bias:'preferred', biasLabel:'优先',
+    scores:[5,4,4,5,5], total:23,
+    thesis:'<b>主逻辑:</b> 欧洲空调渗透率低，热浪会把新增装机需求直接推上来，中国白电链最容易承接。<br><b>风险:</b> 安装服务与渠道库存是主要节奏约束。'
+  },
+  {
+    rank:2, name:'配电网 / 变压器 / 电网设备', bias:'preferred', biasLabel:'优先',
+    scores:[4,5,3,5,4], total:21,
+    thesis:'<b>主逻辑:</b> 空调渗透提升带来夏峰负荷，配网扩容、电网投资与变压器交付周期会变成更中期的受益线。<br><b>风险:</b> 订单确认慢，兑现偏中期。'
+  },
+  {
+    rank:3, name:'油脂油籽加工 / 压榨链', bias:'secondary', biasLabel:'次优',
+    scores:[4,4,3,4,3], total:18,
+    thesis:'<b>主逻辑:</b> ABCD 偏好油籽说明需求端更强，压榨与食用油链更容易承接价格与价差扩张。<br><b>风险:</b> 原料波动很大，利润不一定线性放大。'
+  },
+  {
+    rank:4, name:'化肥 / 农资', bias:'secondary', biasLabel:'次优',
+    scores:[3,4,3,3,4], total:17,
+    thesis:'<b>主逻辑:</b> 高油价和天然气会通过化肥成本重估农业链，是典型的主题扩散方向。<br><b>风险:</b> 一旦油价回落，逻辑退潮也会比较快。'
+  },
+  {
+    rank:5, name:'种植 / 种子 / 农机', bias:'watch', biasLabel:'观察',
+    scores:[3,3,2,3,4], total:15,
+    thesis:'<b>主逻辑:</b> 这类方向更容易成为农业主题扩散时的高 beta 载体。<br><b>风险:</b> 业绩兑现难，更适合题材视角而不是线性盈利外推。'
+  }
+];
+
+const equityWatchCards = [
+  {
+    level:'preferred',
+    tag:'Discipline',
+    title:'先看订单与渠道,再看报表',
+    note:'白电和电网链通常是“先订单、后利润”兑现。题材开始阶段更重要的是渠道补库、交付周期、出口订单变化，而不是马上追逐单季利润。',
+    items:['出口订单','渠道补库','交付周期'],
+    watch:'如果订单和渠道都没动，只靠高温叙事，股票端持续性会明显变弱。'
+  },
+  {
+    level:'secondary',
+    tag:'Trigger',
+    title:'把外部触发器盯紧',
+    note:'股票端最容易被三个外部变量放大: 热浪天数、油价中枢、以及欧洲/新兴市场电网资本开支表态。',
+    items:['热浪天数','油价中枢','电网 capex'],
+    watch:'这三个变量里至少要有两个同向强化，股票链条才更容易从主题走向趋势。'
+  },
+  {
+    level:'watch',
+    tag:'Boundary',
+    title:'农业股更适合题材视角',
+    note:'文章里最重要的边界之一就是: 农业想出业绩非常难。所以股票端不能简单照搬期货逻辑，必须承认“题材先于盈利”的现实。',
+    items:['题材扩散','盈利兑现','估值回吐'],
+    watch:'一旦期货端不再继续强化，农业高 beta 股票往往比期货回撤更快。'
+  }
+];
+
+function screenCellClass(v) {
+  return v >= 5 ? 's5' : v >= 4 ? 's4' : v >= 3 ? 's3' : v >= 2 ? 's2' : 's1';
+}
+
+function screenTotalClass(total, maxScore) {
+  if (total >= maxScore * 0.82) return 'high';
+  if (total >= maxScore * 0.64) return 'mid';
+  return 'low';
+}
+
+function renderArticleLogic() {
+  const wrap = document.getElementById('articleLogicGrid');
+  if (!wrap) return;
+  wrap.innerHTML = articleLogicPillars.map(item => `
+    <div class="logic-card">
+      <div class="logic-head">
+        <span class="logic-code">${item.code}</span>
+        <span class="logic-tag">${item.tag}</span>
+      </div>
+      <div class="logic-title">${item.title}</div>
+      <div class="logic-detail">${item.detail}</div>
+      <div class="logic-use">${item.use}</div>
+    </div>
+  `).join('');
+}
+
+function jumpToMatrixProduct(code) {
+  if (!code) return;
+  const gi = products.findIndex(p => p.code === code);
+  if (gi < 0) return;
+  switchTab('matrix', false);
+  const row = document.querySelector(`#scoreTable tbody tr[data-i="${gi}"]`);
+  if (row) {
+    row.click();
+    setTimeout(() => row.scrollIntoView({ behavior:'smooth', block:'center' }), 120);
+  }
+}
+
+function renderFuturesScreeners() {
+  const body = document.getElementById('futuresScreenBody');
+  if (!body) return;
+  const sorted = [...futuresScreeners].sort((a, b) => b.total - a.total);
+  body.innerHTML = sorted.map(item => `
+    <tr class="${item.matrixCode ? 'clickable' : ''}" data-code="${item.matrixCode}">
+      <td>
+        <span class="screen-rank">${item.rank}</span>
+        <span class="screen-name">${item.name}</span>
+        <span class="screen-sub">${item.code}</span>
+      </td>
+      <td><span class="screen-bias ${item.bias}">${item.biasLabel}</span></td>
+      ${item.scores.map(score => `<td><span class="screen-cell ${screenCellClass(score)}">${score}</span></td>`).join('')}
+      <td><span class="screen-total ${screenTotalClass(item.total, 30)}">${item.total}</span></td>
+      <td><span class="screen-why">${item.thesis}</span></td>
+    </tr>
+  `).join('');
+  body.querySelectorAll('tr.clickable').forEach(row => {
+    row.addEventListener('click', () => jumpToMatrixProduct(row.dataset.code));
+  });
+}
+
+function renderScreeningClusters() {
+  const wrap = document.getElementById('screeningClusterGrid');
+  if (!wrap) return;
+  wrap.innerHTML = screeningClusters.map(item => `
+    <div class="cluster-card ${item.level}">
+      <div class="cluster-head">
+        <div class="cluster-title">${item.title}</div>
+        <div class="cluster-tag">${item.tag}</div>
+      </div>
+      <div class="cluster-note">${item.note}</div>
+      <div class="cluster-items">${item.items.map(label => `<span class="cluster-item">${label}</span>`).join('')}</div>
+      <div class="cluster-watch">${item.watch}</div>
+    </div>
+  `).join('');
+}
+
+function renderEquityThemes() {
+  const body = document.getElementById('equityThemeBody');
+  if (!body) return;
+  const sorted = [...equityThemes].sort((a, b) => b.total - a.total);
+  body.innerHTML = sorted.map(item => `
+    <tr>
+      <td>
+        <span class="screen-rank">${item.rank}</span>
+        <span class="screen-name">${item.name}</span>
+      </td>
+      <td><span class="screen-bias ${item.bias}">${item.biasLabel}</span></td>
+      ${item.scores.map(score => `<td><span class="screen-cell ${screenCellClass(score)}">${score}</span></td>`).join('')}
+      <td><span class="screen-total ${screenTotalClass(item.total, 25)}">${item.total}</span></td>
+      <td><span class="screen-why">${item.thesis}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderEquityWatchCards() {
+  const wrap = document.getElementById('equityWatchGrid');
+  if (!wrap) return;
+  wrap.innerHTML = equityWatchCards.map(item => `
+    <div class="cluster-card ${item.level}">
+      <div class="cluster-head">
+        <div class="cluster-title">${item.title}</div>
+        <div class="cluster-tag">${item.tag}</div>
+      </div>
+      <div class="cluster-note">${item.note}</div>
+      <div class="cluster-items">${item.items.map(label => `<span class="cluster-item">${label}</span>`).join('')}</div>
+      <div class="cluster-watch">${item.watch}</div>
+    </div>
+  `).join('');
+}
+
+renderArticleLogic();
+renderFuturesScreeners();
+renderScreeningClusters();
+renderEquityThemes();
+renderEquityWatchCards();
 
 // ============ GLOBAL AGENCY FORECAST COMPARISON ============
 const agencies = [

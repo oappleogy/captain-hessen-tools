@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-08-17T23:15:48",
+  "timestamp": "2026-08-18T08:56:57",
   "data_as_of": "2026-08-17",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.25,
+      "score": 0.28,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.16,
+      "score": -0.14,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.0,
+      "score": 0.07,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.11,
+      "score": 0.16,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -147,12 +147,12 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 15.0,
-      "percentile": 30,
+      "value": 15.2,
+      "percentile": 32,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 2.71,
+      "value": 2.67,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

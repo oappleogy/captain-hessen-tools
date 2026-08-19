@@ -362,6 +362,72 @@ table.hist tbody tr.current { background: rgba(255,107,61,0.06); }
 .imp-list .arrow-up { color: var(--hot2); }
 .imp-list .arrow-down { color: var(--cool2); }
 
+/* BOTTLENECK RANKINGS */
+.rank-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+}
+@media (max-width: 760px) { .rank-grid { grid-template-columns: 1fr; } }
+.rank-card {
+  background: linear-gradient(180deg, rgba(12,34,55,0.96), rgba(8,24,42,0.96));
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.rank-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.rank-top {
+  display: flex; justify-content: space-between; gap: 12px; align-items: flex-start;
+  margin-bottom: 8px;
+}
+.rank-title {
+  font-family: 'Noto Serif SC', serif; font-size: 15.5px; font-weight: 600;
+}
+.rank-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.rank-summary {
+  font-size: 12.5px; color: var(--text2); line-height: 1.7; margin-bottom: 14px;
+}
+.rank-list {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.rank-item {
+  display: grid; grid-template-columns: 34px 1fr; gap: 10px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-top: 1px dashed var(--border);
+}
+.rank-item:first-child { border-top: none; padding-top: 0; }
+.rank-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  background: rgba(255,159,67,0.14); color: var(--hot2);
+  border: 1px solid rgba(255,159,67,0.28);
+  margin-top: 2px;
+}
+.rank-body { min-width: 0; }
+.rank-line {
+  display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline;
+  margin-bottom: 4px;
+}
+.rank-name {
+  font-size: 13px; color: var(--text); font-weight: 600;
+}
+.rank-metric {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  color: var(--gold); letter-spacing: 0.04em;
+}
+.rank-note {
+  font-size: 11.5px; color: var(--text2); line-height: 1.65;
+}
+.rank-foot {
+  margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border);
+  font-size: 11px; color: var(--text3); line-height: 1.7;
+}
+
 /* WATCH WINDOWS */
 .watch-list {
   display: flex; flex-direction: column; gap: 8px;
@@ -748,6 +814,67 @@ footer .disc {
     }
   ];
 
+  const bottleneckCards = [
+    {
+      title: '粮食供需缺口排名',
+      tag: 'SUPPLY GAP',
+      summary: '把天气冲击、需求韧性与库存缓冲放在一起看，真正脆弱的不是“所有粮食一起涨”，而是缺口更大、库存更薄、成本传导更硬的品类。',
+      items: [
+        { name: '玉米', metric: '缺口约 1.8%', note: '新增产量落后需求最明显，饲料、工业用粮与天气冲击叠加，属于本轮脆弱度最高的一档。' },
+        { name: '小麦', metric: '缺口约 0.8%', note: '供需也已转紧，但高库存仍提供缓冲，价格弹性更多取决于天气与出口政策共振。' },
+        { name: '大米', metric: '库存高位缓冲', note: '更敏感的是季风偏弱与出口管制预期，而不是立刻出现硬缺口，政策变量大于静态供需表。' }
+      ],
+      foot: '这组排序不是简单看产量，而是看“缺口大小 × 库存缓冲 × 政策弹性”的综合脆弱度。'
+    },
+    {
+      title: 'ABCD 粮商偏好排名',
+      tag: 'ABCD VIEW',
+      summary: '按你给的四大粮商观点梳理，这一轮他们更偏向油籽链，不是因为谷物没冲击，而是油籽的需求端更强、价格弹性也更顺着油价走。',
+      items: [
+        { name: '大豆链', metric: '优先级 #1', note: '化肥依赖相对更低，且蛋白与植物油需求都在支撑，最符合“供给扰动 + 需求增强”双驱动。' },
+        { name: '油菜籽 / 葵花籽', metric: '优先级 #2', note: '更贴近全球食用油与替代油脂链条，弹性常常强于传统谷物。' },
+        { name: '传统谷物', metric: '优先级 #3', note: '有供给冲击，但高库存与政策缓冲会压低纯供给逻辑的持续性，更适合交易预期差而不是线性外推业绩。' }
+      ],
+      foot: '核心分歧点在于：本轮强势方向未必是“最缺的粮”，而是“需求最能接住提价”的那一段。'
+    },
+    {
+      title: '成本传导瓶颈排名',
+      tag: 'COST STACK',
+      summary: '这次农产品并不只是天气故事。高油价把化肥、柴油、灌溉、运输一整条成本链都抬高了，供给端的边际收缩会被进一步放大。',
+      items: [
+        { name: '化肥成本', metric: '最硬瓶颈', note: '决定种植意愿与边际亩产，是谷物与油籽分化的最关键成本项之一。' },
+        { name: '能源 / 柴油 / 灌溉', metric: '二级传导', note: '油价上行直接抬升田间作业、抽水灌溉和农机运行成本。' },
+        { name: '种植切换', metric: '结构变化', note: '美国农民由传统谷物转向大豆，本质上是在对冲化肥成本，供给结构因此进一步偏移。' },
+        { name: '物流与收割', metric: '尾部放大器', note: '即便单产未必极差，收割、仓储、港口与出口节奏也会把局部紧张放大成价格波动。' }
+      ],
+      foot: '真正值得盯的不是单一天气点，而是成本曲线抬高后，谁最先失去边际供给。'
+    },
+    {
+      title: '欧洲制冷与电网瓶颈排名',
+      tag: 'EU COOLING',
+      summary: '欧洲长期是“为保暖而设计”的住宅体系，热穹顶把短板一下子暴露出来。这里不是简单卖空调，而是一条从整机到配电的系统性补短板链。',
+      items: [
+        { name: '空调渗透率', metric: '约 20%', note: '渗透率太低意味着需求不是小修小补，而是从“可选”转向“刚需”的抬升。' },
+        { name: '安装与渠道能力', metric: '扩张瓶颈', note: '订单放量后，谁能快速铺货、安装、服务，谁更容易先吃到份额。' },
+        { name: '配电 / 变压器 / 电网投资', metric: '二阶受益', note: '空调普及带来峰值负荷上升，欧洲脆弱电网必须追加投资，电力设备与配网改造会持续受益。' },
+        { name: '峰时电力与调峰能源', metric: '系统约束', note: '制冷负荷最终会回到发电与调峰能力，电力、天然气与跨区输配电都要跟着补课。' }
+      ],
+      foot: '这条线的节奏往往比农业更长，订单兑现也更偏制造业与基建投资逻辑。'
+    },
+    {
+      title: '交易节奏瓶颈排名',
+      tag: 'TIMING',
+      summary: '摩根给的 4-8 个月滞后很关键。市场最容易犯的错，是把“气象升级当天的情绪”当成“业绩当天的兑现”。',
+      items: [
+        { name: '预期先行', metric: '0-3 个月', note: '先交易 NOAA / 气象中心升级、媒体讨论升温与题材热度扩散。' },
+        { name: '食品价格传导', metric: '4-8 个月', note: '天气冲击通常滞后进入食品价格，这一段才更像全球数据共振窗口。' },
+        { name: '库存缓冲验证', metric: '中段分化', note: '库存高位会延缓现货紧张，决定行情能不能从题材变成更扎实的价格趋势。' },
+        { name: '业绩兑现', metric: '最慢一层', note: '农业公司把题材真正转成利润非常难，所以更适合把它当成交易框架，而不是线性业绩模型。' }
+      ],
+      foot: '如果只想抓赔率，应该更重视传导节奏；如果想看业绩，反而要比题材交易更冷静。'
+    }
+  ];
+
   html += `
     <section>
       <div class="sec-head">
@@ -767,6 +894,42 @@ footer .disc {
               <span class="imp-tag la">La Niña</span>
               <ul class="imp-list">${c.la.map(li => '<li>' + li + '</li>').join('')}</ul>
             </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+
+  // ── Bottleneck rankings ──
+  html += `
+    <section>
+      <div class="sec-head">
+        <h2><span class="icon">🧭</span>结构性瓶颈排名 · Bottleneck Rankings</h2>
+        <span class="tag">Research Overlay</span>
+      </div>
+      <div class="rank-grid">
+        ${bottleneckCards.map(card => `
+          <div class="rank-card">
+            <div class="rank-top">
+              <div class="rank-title">${esc(card.title)}</div>
+              <span class="rank-tag">${esc(card.tag)}</span>
+            </div>
+            <div class="rank-summary">${esc(card.summary)}</div>
+            <div class="rank-list">
+              ${card.items.map((item, idx) => `
+                <div class="rank-item">
+                  <span class="rank-num">${idx + 1}</span>
+                  <div class="rank-body">
+                    <div class="rank-line">
+                      <span class="rank-name">${esc(item.name)}</span>
+                      <span class="rank-metric">${esc(item.metric)}</span>
+                    </div>
+                    <div class="rank-note">${esc(item.note)}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="rank-foot">${esc(card.foot)}</div>
           </div>
         `).join('')}
       </div>

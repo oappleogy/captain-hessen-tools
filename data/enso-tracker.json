@@ -1,6 +1,6 @@
 {
- "last_updated": "2026-08-17",
- "next_update": "2026-08-24",
+ "last_updated": "2026-08-19",
+ "next_update": "2026-08-26",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
   "label": "厄尔尼诺已形成 · El Niño Advisory",
@@ -44,16 +44,16 @@
    "code": "N34_SST",
    "name": "Niño 3.4 SST Anomaly",
    "name_zh": "Niño 3.4 区海温异常",
-   "value": 2.6,
+   "value": 2.7,
    "unit": "°C",
-   "window": "Week of 05AUG2026",
+   "window": "Week of 12AUG2026",
    "trend": [
-    1.7,
     2.0,
     2.1,
     2.2,
     2.3,
-    2.6
+    2.6,
+    2.7
    ],
    "thresholds": {
     "el_nino": 0.5,
@@ -61,12 +61,12 @@
    },
    "source": "NOAA CPC · 周度 OISST",
    "trend_labels": [
-    "01JUL2026",
     "08JUL2026",
     "15JUL2026",
     "22JUL2026",
     "29JUL2026",
-    "05AUG2026"
+    "05AUG2026",
+    "12AUG2026"
    ]
   },
   {

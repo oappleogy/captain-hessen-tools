@@ -159,9 +159,13 @@ function esc(s){return (s||'').replace(/[&<>]/g,function(c){return{'&':'&amp;','
     if(!Array.isArray(ix)||!ix.length){box.innerHTML='<div class="placeholder">日报管线已就绪，明日起每日自动归档于此</div>';return;}
     box.innerHTML='<div class="reports" style="grid-template-columns:1fr">'+ix.map(function(it){
       var themes=(it.themes||[]).filter(Boolean).map(function(t){return '<span class="tag">'+esc(t)+'</span>';}).join('');
+      var mode=it.update_mode==='carry_forward';
+      var desc=mode
+        ? ('当日无新增高置信材料 · 沿用 '+esc(it.carry_forward_from||'上一期')+' 主线观察')
+        : ('资深投资人观点 '+(it.kol_count||0)+' 条解读 · 含 '+((it.themes||[]).length)+' 个产业链主题');
       return '<a href="scan-issue.html?date='+esc(it.date)+'" class="rcard">'
         +'<div class="rcard-top"><span class="ic">📅</span><span class="t">'+esc(it.date)+' · '+esc(it.headline||'产业机会扫描')+'</span><span class="ar">→</span></div>'
-        +'<div class="d">资深投资人观点 '+(it.kol_count||0)+' 条解读 · 含 '+((it.themes||[]).length)+' 个产业链主题</div>'
+        +'<div class="d">'+desc+'</div>'
         +(themes?'<div class="tags">'+themes+'</div>':'')+'</a>';
     }).join('')+'</div>';
   }catch(e){box.innerHTML='<div class="placeholder">日报管线已就绪，明日起每日自动归档于此</div>';}

@@ -25,6 +25,8 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 h1{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4.2vw,34px);font-weight:700;line-height:1.3;margin-bottom:8px}
 h1 .hl{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.5px;margin-bottom:22px}
+.notice{margin:0 0 18px;padding:14px 16px;border-radius:14px;border:1px solid rgba(245,158,11,.28);background:rgba(245,158,11,.08);font-size:13px;color:var(--text2)}
+.notice b{color:var(--text)}
 .sec-head{margin:32px 0 12px;font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px;padding-bottom:9px;border-bottom:1px solid var(--border)}
 .digest{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:10px 0;box-shadow:var(--shadow-sm)}
 .digest .who{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.5px;margin-bottom:6px}
@@ -107,9 +109,13 @@ async function load(){
 
   document.getElementById('headline').innerHTML='<span class="hl">'+esc(d.headline||'产业机会扫描')+'</span>';
   var sc=d.source_counts||{};
-  document.getElementById('meta').textContent=date+' · 资深投资人观点 '+(sc.kol||0)+' 条 · 投研纪要 '+(sc.zsxq||0)+' 条 · 生成于 '+(d.generated_at||'')+' · MiniMax 解读';
+  var modeText=d.update_mode==='carry_forward'?'延续观察快照':'当日新解读';
+  document.getElementById('meta').textContent=date+' · 资深投资人观点 '+(sc.kol||0)+' 条 · 投研纪要 '+(sc.zsxq||0)+' 条 · 生成于 '+(d.generated_at||'')+' · '+modeText;
 
   var h='';
+  if(d.update_note){
+    h+='<div class="notice"><b>当期说明：</b>'+esc(d.update_note)+'</div>';
+  }
   // 观点速读
   if((d.kol_digest||[]).length){
     h+='<div class="sec-head">🛰️ 今日观点速读</div>';

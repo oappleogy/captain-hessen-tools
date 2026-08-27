@@ -128,7 +128,7 @@ function renderCard(c){
     +(c.stage?'<span class="stage st-'+esc(c.stage)+'">'+esc(c.stage)+'</span>':'')
     +'<span class="heatbar">热度<span class="hb"><i style="width:'+heat+'%"></i></span>'+heat+'</span></div>'
     +'<div class="thesis">'+esc((c.thesis||'').slice(0,120))+((c.thesis||'').length>120?'…':'')+'</div>'
-    +'<div class="meta-row"><span>框架更新 '+esc(c.framework_updated||'--')+'</span><span>首次纳入 '+esc(c.first_tracked||'--')+'</span></div>'
+    +'<div class="meta-row"><span>框架更新 '+esc(c.framework_updated||'--')+'</span><span>最近巡检 '+esc(c.last_checked||'--')+'</span></div>'
     +previewNodes(c)
     +question
     +latest
@@ -149,7 +149,8 @@ async function load(){
       groups.innerHTML='<div class="placeholder">产业链注册表为空，待深度研究接入后生成</div>';
       return;
     }
-    document.getElementById('updated').textContent='更新于 '+(reg.updated||'')+' · 共 '+chains.length+' 条产业链档案';
+    var note=reg.update_note?(' · '+reg.update_note):'';
+    document.getElementById('updated').textContent='更新于 '+(reg.updated||'')+' · 最近巡检 '+(reg.last_checked||'--')+' · 共 '+chains.length+' 条产业链档案'+note;
     var tracking=[], framework=[], watch=[];
     chains.forEach(function(c){
       var bucket=classify(c).bucket;

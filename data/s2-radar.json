@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-08-27T09:48:36",
-  "data_as_of": "2026-08-26",
-  "data_lag_days": 1,
+  "timestamp": "2026-08-27T21:03:42",
+  "data_as_of": "2026-08-27",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
     "score": 0.333,
-    "action": "系统健康。建议仓位≤65%（趋势↓），可持有方向性仓位。"
+    "action": "系统健康。建议仓位≤60%（趋势↓），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.31,
+      "score": 0.33,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -49,11 +49,11 @@
       "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
-      "status": "healthy"
+      "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.22,
+      "score": 0.21,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -73,20 +73,20 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.08,
+      "score": -0.26,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "neutral"
+      "status": "stressed"
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 61.5
+        "pct": 57.7
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 38.5
+        "pct": 42.3
       },
       {
         "key": "TECH_DOM",
@@ -147,8 +147,8 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 15.2,
-      "percentile": 33,
+      "value": 15.1,
+      "percentile": 31,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

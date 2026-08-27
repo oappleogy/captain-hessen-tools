@@ -1,0 +1,132 @@
+{
+  "id": "ai-driven-analog-chip-demand",
+  "name": "AI驱动模拟芯片需求",
+  "thesis": "AI芯片及系统级应用对模拟芯片的需求增长显著，AI服务器、边缘计算设备等对高精度、低功耗模拟芯片需求持续上升。",
+  "segments": [
+    "模拟芯片设计",
+    "AI服务器电源管理",
+    "边缘计算设备"
+  ],
+  "chain_map": [
+    {
+      "label": "模拟芯片设计",
+      "companies": [
+        "杰华特",
+        "纳芯微"
+      ],
+      "note": "提供高精度、低功耗模拟芯片"
+    },
+    {
+      "label": "AI服务器电源管理",
+      "companies": [
+        "圣邦",
+        "思瑞浦"
+      ],
+      "note": "为AI服务器提供电源管理方案"
+    },
+    {
+      "label": "边缘计算设备",
+      "companies": [
+        "中芯国际",
+        "华虹半导体"
+      ],
+      "note": "边缘计算设备对模拟芯片需求增长"
+    }
+  ],
+  "tickers": [
+    {
+      "name": "杰华特",
+      "code": "",
+      "role": "模拟芯片设计"
+    },
+    {
+      "name": "纳芯微",
+      "code": "",
+      "role": "模拟芯片设计"
+    },
+    {
+      "name": "圣邦",
+      "code": "",
+      "role": "电源管理"
+    },
+    {
+      "name": "思瑞浦",
+      "code": "",
+      "role": "电源管理"
+    },
+    {
+      "name": "中芯国际",
+      "code": "",
+      "role": "晶圆制造"
+    },
+    {
+      "name": "华虹半导体",
+      "code": "",
+      "role": "晶圆制造"
+    }
+  ],
+  "tracking_signals": [
+    "AI服务器出货量增长",
+    "模拟芯片价格走势",
+    "AI芯片厂商对模拟芯片的需求"
+  ],
+  "key_questions": [
+    "AI服务器对模拟芯片的具体需求类型",
+    "模拟芯片厂商的产能规划"
+  ],
+  "not_clear": "AI服务器对模拟芯片的具体需求类型及用量尚不明确。",
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 4,
+    "竞争力": 3,
+    "寡头垄断": 2,
+    "确定性": 4
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "兔子",
+    "AI"
+  ],
+  "certainty_note": "AI算力需求增长驱动模拟芯片需求，模拟芯片设计及制造能力是关键。",
+  "framework_updated": "2026-08-14 21:30",
+  "created": "2026-08-14 21:30",
+  "latest_status": "数据兑现",
+  "latest_heat": 80,
+  "last_tracked": "2026-08-26",
+  "timeline": [
+    {
+      "date": "2026-08-26",
+      "catalyst": "AI服务器电源管理需求增长，模拟芯片设计重要性凸显。",
+      "data_point": "AI数据中心支出预计将以28%的复合年增长率增长，AI服务器需求推动模拟芯片市场扩张。",
+      "status": "数据兑现",
+      "heat": 80,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-08-26",
+          "text": "# 📑 美银（bofa）的 AI ... 📑 美银（bofa）的 AI 总体潜在市场规模（TAM） 🚀 大规模扩张：全球数据中心系统 TAM 预计将从当前的 7…"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-14",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 72,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-08-14",
+          "text": "# 🧲中芯法说会：FAB3.0成立... 🧲中芯法说会：FAB3.0成立，模拟高景气，最少持续到27年底！ 💪该击球了！…"
+        }
+      ]
+    }
+  ],
+  "timeline_count": 2,
+  "first_tracked": "2026-08-14",
+  "tracking_bucket": "持续跟踪",
+  "depth_score": 7,
+  "depth_level": "深"
+}

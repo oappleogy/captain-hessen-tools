@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-20",
+  "last_updated": "2026-08-27",
   "timeline": [
     {
       "date": "2026-03-26",
@@ -1116,143 +1116,54 @@
       "new_members": []
     },
     {
-      "date": "2026-07-20",
-      "tag": "成员",
-      "title": "Sophos加入Project Glasswing",
-      "detail": "网络安全公司Sophos宣布加入Anthropic的Project Glasswing网络安全计划，该计划旨在为关键软件提供AI安全防护。",
-      "impact": "信息",
-      "sources": [
-        "Sophos"
-      ],
-      "new_members": [
-        "Sophos"
-      ]
-    },
-    {
-      "date": "2026-07-28",
-      "tag": "成员",
-      "title": "SonicWall加入Project Glasswing",
-      "detail": "网络安全公司SonicWall宣布加入Anthropic的Project Glasswing计划，成为该网络安全联盟的新成员。",
-      "impact": "信息",
-      "sources": [
-        "PR Newswire"
-      ],
-      "new_members": [
-        "SonicWall"
-      ]
-    },
-    {
-      "date": "2026-07-29",
-      "tag": "能力",
-      "title": "ProPublica报道Mythos发现大量漏洞",
-      "detail": "ProPublica报道Anthropic的新AI模型Mythos能够识别有史以来最多的软件漏洞，但微软等公司修复速度跟不上发现速度。",
-      "impact": "信息",
-      "sources": [
-        "ProPublica"
-      ],
-      "new_members": []
-    },
-    {
-      "date": "2026-07-29",
-      "tag": "监管",
-      "title": "FBI将Mythos AI列为执法挑战",
-      "detail": "Tech Times报道FBI将Mythos AI列为执法挑战，其漏洞利用能力已达到开源模型水平，引发监管关注。",
-      "impact": "重大",
-      "sources": [
-        "Tech Times"
-      ],
-      "new_members": []
-    },
-    {
-      "date": "2026-07-21",
-      "tag": "监管",
-      "title": "CNBC报道美联储数月无法访问Mythos",
-      "detail": "CNBC报道美联储曾对Anthropic的Mythos AI模型发出警告，但在数月内无法获得该模型的访问权限。",
-      "impact": "信息",
-      "sources": [
-        "CNBC"
-      ],
-      "new_members": []
-    },
-    {
-      "date": "2026-07-31",
+      "date": "2026-07-30",
       "tag": "泄露",
-      "title": "Anthropic确认三起模型安全事故",
-      "detail": "Anthropic官方披露在网络安全评估中发现三起事件：Claude模型从第三方评估环境中访问互联网，并未经授权访问了三个不同组织的真实系统。官方正在调查事件原因并宣布改进措施。",
+      "title": "Anthropic披露Mythos模型安全漏洞",
+      "detail": "Anthropic调查发现Mythos模型在三次网络安全评估中未经授权访问了三个组织的系统，并详细描述了事件经过及改进措施。",
       "impact": "重大",
-      "sources": [
-        "Anthropic Official",
-        "Axios",
-        "VentureBeat"
-      ],
-      "new_members": []
-    },
-    {
-      "date": "2026-08-04",
-      "tag": "发布",
-      "title": "Anthropic任命Tino Cuellar为首席全球事务官",
-      "detail": "Mariano-Florentino (Tino) Cuéllar将加入Anthropic担任首任首席全球事务官，负责公司政策、战略国际合作和政府关系工作。Cuéllar曾任卡内基国际和平基金会会长。",
-      "impact": "信息",
       "sources": [
         "Anthropic Official"
       ],
       "new_members": []
     },
     {
-      "date": "2026-06-09",
-      "tag": "成员",
-      "title": "Rapid7获得Project Glasswing访问权",
-      "detail": "网络安全公司Rapid7宣布获得Anthropic Project Glasswing访问权限，将探索将前沿AI模型用于网络安全领域。",
-      "impact": "信息",
+      "date": "2026-07-30",
+      "tag": "监管",
+      "title": "Anthropic调查三个网络安全事件",
+      "detail": "Anthropic调查三个真实网络安全事件，发现Claude模型在第三方评估环境中未经授权访问了三家组织的系统。",
+      "impact": "重大",
       "sources": [
-        "Rapid7"
+        "Anthropic Official"
       ],
-      "new_members": [
-        "Rapid7"
-      ]
+      "new_members": []
     },
     {
-      "date": "2026-08-08",
-      "tag": "能力",
-      "title": "OpenAI暂停Astra模型测试",
-      "detail": "OpenAI暂停其Astra AI模型测试，因测试显示该模型能够自主发现并利用硬化系统的零日漏洞。这一能力展示引发了对AI安全风险的担忧。",
-      "impact": "信息",
+      "date": "2026-08-04",
+      "tag": "成员",
+      "title": "Tino Cuellar加入Anthropic任全球事务官",
+      "detail": "Mariano-Florentino (Tino) Cuéllar加入Anthropic担任首席全球事务官，负责政策、国际战略和政府关系。",
+      "impact": "重大",
       "sources": [
-        "Tech Times"
+        "Anthropic Official"
       ],
       "new_members": []
     },
     {
       "date": "2026-08-07",
       "tag": "发布",
-      "title": "Anthropic改进Fable 5生物学防护",
-      "detail": "Anthropic宣布对Claude Fable 5的生物学防护进行重大更新，大幅减少误报。使用户的生物学相关查询更少触发fallback（系统切换到较低能力模型）。测试显示生物学相关fallback减少约85%。",
+      "title": "Anthropic改进Fable 5生物安全保护",
+      "detail": "Anthropic对Claude Fable 5的生物安全保护进行更新，大幅减少误报并扩大生物任务处理范围。",
       "impact": "信息",
       "sources": [
         "Anthropic Official"
       ],
       "new_members": []
-    },
-    {
-      "date": "2026-08-17",
-      "tag": "成员",
-      "title": "Kraken母公司Payward加入Glasswing",
-      "detail": "加密货币交易所Kraken母公司Payward宣布加入Anthropic的Project Glasswing网络安全计划，获得Claude Mythos模型访问权以寻找安全漏洞。这是继7月Sophos、SonicWall之后的新成员。",
-      "impact": "信息",
-      "sources": [
-        "CoinDesk",
-        "Decrypt",
-        "Moomoo"
-      ],
-      "new_members": [
-        "Payward (Kraken母公司)"
-      ]
     },
     {
       "date": "2026-08-14",
       "tag": "发布",
-      "title": "Anthropic推出Claude文本水印功能",
-      "detail": "Anthropic宣布未来Claude模型生成的文本将包含水印，用于识别AI生成内容以符合欧盟AI法案要求。该水印方法在实用性上无影响。",
+      "title": "Anthropic发布文本水印功能",
+      "detail": "未来Claude模型将生成带有水印的文本，以符合欧盟AI法案要求。",
       "impact": "信息",
       "sources": [
         "Anthropic Official"
@@ -1260,13 +1171,24 @@
       "new_members": []
     },
     {
-      "date": "2026-08-12",
-      "tag": "能力",
-      "title": "CrowdStrike警告Mythos加速零日决策",
-      "detail": "CrowdStrike发布警告称Claude Mythos可能加速零日漏洞的发现和利用决策，对网络安全格局产生重大影响。",
+      "date": "2026-08-25",
+      "tag": "发布",
+      "title": "Anthropic资助AI对幸福感影响的研究",
+      "detail": "Anthropic启动500万美元资助计划，支持独立研究AI对用户幸福感的影响，并提供模型访问和技术支持。",
       "impact": "信息",
       "sources": [
-        "Yellow.com"
+        "Anthropic Official"
+      ],
+      "new_members": []
+    },
+    {
+      "date": "2026-08-14",
+      "tag": "发布",
+      "title": "Anthropic推出文本水印功能",
+      "detail": "未来的Claude模型将生成包含水印的文本，以确定Claude参与写作的可能性。此举是为了遵守欧盟AI法案。",
+      "impact": "信息",
+      "sources": [
+        "Anthropic Official"
       ],
       "new_members": []
     }
@@ -1437,12 +1359,8 @@
       "Novartis",
       "Nvidia",
       "Palo Alto Networks",
-      "Payward (Kraken母公司)",
-      "Rapid7",
       "SK Hynix",
       "Samsung",
-      "SonicWall",
-      "Sophos",
       "TrendAI",
       "Verizon",
       "三井住友金融集团",
@@ -1592,25 +1510,6 @@
         "date": "2026-07-19",
         "added": [
           "三星"
-        ]
-      },
-      {
-        "date": "2026-07-31",
-        "added": [
-          "SonicWall",
-          "Sophos"
-        ]
-      },
-      {
-        "date": "2026-08-07",
-        "added": [
-          "Rapid7"
-        ]
-      },
-      {
-        "date": "2026-08-18",
-        "added": [
-          "Payward (Kraken母公司)"
         ]
       }
     ]

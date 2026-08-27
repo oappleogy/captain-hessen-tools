@@ -1,0 +1,94 @@
+{
+  "id": "printing-oled-material-market",
+  "name": "印刷OLED材料市场",
+  "thesis": "印刷OLED技术是显示行业的重要迭代方向，材料是量产放量的先行指标。随着TCL华星等厂商的产线落地，印刷OLED材料市场将迎来爆发。",
+  "segments": [
+    "印刷OLED材料研发",
+    "材料生产",
+    "OLED显示器制造"
+  ],
+  "chain_map": [
+    {
+      "label": "印刷OLED材料研发",
+      "companies": [
+        "瑞联新材"
+      ],
+      "note": "提供核心材料技术支持"
+    },
+    {
+      "label": "材料生产",
+      "companies": [
+        "TCL华星"
+      ],
+      "note": "大规模生产印刷OLED材料"
+    },
+    {
+      "label": "OLED显示器制造",
+      "companies": [
+        "TCL华星"
+      ],
+      "note": "应用印刷OLED材料制造显示器"
+    }
+  ],
+  "tickers": [
+    {
+      "name": "瑞联新材",
+      "code": "",
+      "role": "材料研发与供应"
+    },
+    {
+      "name": "TCL华星",
+      "code": "",
+      "role": "材料生产与显示器制造"
+    }
+  ],
+  "tracking_signals": [
+    "TCL华星产线建设进度",
+    "印刷OLED材料订单量"
+  ],
+  "key_questions": [
+    "印刷OLED材料的技术成熟度如何？",
+    "TCL华星产线何时能大规模量产？"
+  ],
+  "not_clear": "印刷OLED材料的良率及成本控制情况尚不明确。",
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 4,
+    "竞争力": 4,
+    "寡头垄断": 3,
+    "确定性": 4
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "兔子",
+    "AI"
+  ],
+  "certainty_note": "被兔子工程化需求吸引，AI算力基础设施对显示技术有高需求，材料供给刚性。",
+  "framework_updated": "2026-08-18 21:30",
+  "created": "2026-08-18 21:30",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 75,
+  "last_tracked": "2026-08-18",
+  "timeline": [
+    {
+      "date": "2026-08-18",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 75,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-08-18",
+          "text": "# 🧧【瑞联新材】从中间体到终端材... 🧧【瑞联新材】从中间体到终端材料：牵手TCL华星，印刷OLEM材料的''正规军''时刻 ———————————— 核心…"
+        }
+      ]
+    }
+  ],
+  "timeline_count": 1,
+  "first_tracked": "2026-08-18",
+  "tracking_bucket": "首次观察",
+  "depth_score": 6,
+  "depth_level": "深"
+}

@@ -1,0 +1,103 @@
+{
+  "id": "ai-driven-precision-agriculture",
+  "name": "AI驱动精准农业",
+  "thesis": "AI技术正在改变传统农业，通过精准农业技术提高作物产量、减少资源浪费，并实现可持续发展。AI在农业中的应用包括作物监测、土壤分析、自动化农机等，具有广阔的市场前景。",
+  "segments": [
+    "作物监测与分析",
+    "自动化农机",
+    "农业数据分析"
+  ],
+  "chain_map": [
+    {
+      "label": "作物监测与分析",
+      "companies": [
+        "约翰迪尔",
+        "拜耳"
+      ],
+      "note": "AI分析作物生长状况"
+    },
+    {
+      "label": "自动化农机",
+      "companies": [
+        "凯斯纽荷兰",
+        "久保田"
+      ],
+      "note": "AI控制农机进行精准作业"
+    },
+    {
+      "label": "农业数据分析",
+      "companies": [
+        "微软",
+        "IBM"
+      ],
+      "note": "AI分析农业数据提供决策支持"
+    }
+  ],
+  "tickers": [
+    {
+      "name": "约翰迪尔",
+      "code": "DE",
+      "role": "卡位/自动化农机"
+    },
+    {
+      "name": "拜耳",
+      "code": "BAYRY",
+      "role": "卡位/农业数据分析"
+    },
+    {
+      "name": "微软",
+      "code": "MSFT",
+      "role": "卡位/农业AI平台"
+    }
+  ],
+  "tracking_signals": [
+    "AI农业应用案例数量",
+    "精准农业设备出货量",
+    "农业AI技术专利申请"
+  ],
+  "key_questions": [
+    "AI在农业中的应用场景有哪些？",
+    "AI技术对农业生产的实际影响如何？"
+  ],
+  "not_clear": "AI技术在农业中的普及速度，以及与传统农业技术的整合难度。",
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 5,
+    "竞争力": 3,
+    "寡头垄断": 2,
+    "确定性": 4
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "兔子",
+    "AI"
+  ],
+  "certainty_note": "AI技术被农业系统需要，AI驱动的精准农业方案具有不可替代性。",
+  "framework_updated": "2026-08-15 21:30",
+  "created": "2026-08-15 21:30",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 65,
+  "last_tracked": "2026-08-15",
+  "timeline": [
+    {
+      "date": "2026-08-15",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 65,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-08-15",
+          "text": "# （以下为专家访谈 不作为投资建... （以下为专家访谈 不作为投资建议） 2027年与2028年DRAM位增长展望如何？…"
+        }
+      ]
+    }
+  ],
+  "timeline_count": 1,
+  "first_tracked": "2026-08-15",
+  "tracking_bucket": "首次观察",
+  "depth_score": 6,
+  "depth_level": "深"
+}

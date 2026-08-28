@@ -1,5 +1,5 @@
 {
-  "score": 24.4,
+  "score": 25.7,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,49 +7,49 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 15.21,
+      "current": 14.47,
       "base": 16,
-      "deviation_pct": 4.9,
+      "deviation_pct": 9.6,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 7.2
+      "contribution": 27.6
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 81.76,
+      "current": 83.12,
       "base": 75,
-      "deviation_pct": 9.0,
+      "deviation_pct": 10.8,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 16.2
+      "contribution": 23.3
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 2.7,
+      "current": 2.67,
       "base": 1.5,
-      "deviation_pct": 80.0,
+      "deviation_pct": 78.0,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 1600.0
+      "contribution": 1521.0
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 159.23,
+      "current": 159.67,
       "base": 145,
-      "deviation_pct": 9.8,
+      "deviation_pct": 10.1,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 9.6
+      "contribution": 10.2
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.11,
+      "current": 99.18,
       "base": 100,
-      "deviation_pct": 0.9,
+      "deviation_pct": 0.8,
       "weight": 0.15,
       "weight_pct": 15,
       "contribution": 0.1
@@ -59,20 +59,20 @@
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 66.17,
+      "current": 68.7,
       "base": 35,
-      "deviation_pct": 89.1,
+      "deviation_pct": 96.3,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
       "name": "信用利差",
-      "current": 2.7,
+      "current": 2.67,
       "base": 1.5,
-      "deviation_pct": 80.0,
+      "deviation_pct": 78.0,
       "direction": "偏高",
       "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-08-27 09:48"
+  "timestamp": "2026-08-28 19:34"
 }

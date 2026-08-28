@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-28T19:35:25",
+  "timestamp": "2026-08-28T21:03:27",
   "data_as_of": "2026-08-28",
   "data_lag_days": 0,
   "system_state": {
@@ -8,7 +8,7 @@
     "color": "#22c55e",
     "level": 1,
     "score": 0.333,
-    "action": "系统健康。建议仓位≤60%（趋势↓），可持有方向性仓位。"
+    "action": "系统健康。建议仓位≤60%（趋势→），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.7,
+      "score": 0.69,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -147,8 +147,8 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 14.5,
-      "percentile": 24,
+      "value": 14.4,
+      "percentile": 23,
       "desc": "市场极度乐观"
     },
     "credit_spread": {

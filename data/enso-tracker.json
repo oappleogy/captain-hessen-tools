@@ -1,6 +1,6 @@
 {
- "last_updated": "2026-09-03",
- "next_update": "2026-09-10",
+ "last_updated": "2026-09-10",
+ "next_update": "2026-09-17",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
   "label": "厄尔尼诺已形成 · El Niño Advisory",
@@ -15,24 +15,24 @@
    "code": "ONI",
    "name": "Oceanic Niño Index",
    "name_zh": "海洋尼诺指数",
-   "value": 1.39,
+   "value": 1.8,
    "unit": "°C",
-   "window": "MJJ 26",
+   "window": "JJA 26",
    "trend": [
-    -0.39,
     -0.21,
     0.11,
     0.46,
     0.95,
-    1.39
+    1.39,
+    1.8
    ],
    "trend_labels": [
-    "DJF 26",
     "JFM 26",
     "FMA 26",
     "MAM 26",
     "AMJ 26",
-    "MJJ 26"
+    "MJJ 26",
+    "JJA 26"
    ],
    "thresholds": {
     "el_nino": 0.5,
@@ -44,16 +44,16 @@
    "code": "N34_SST",
    "name": "Niño 3.4 SST Anomaly",
    "name_zh": "Niño 3.4 区海温异常",
-   "value": 2.6,
+   "value": 2.7,
    "unit": "°C",
-   "window": "Week of 26AUG2026",
+   "window": "Week of 02SEP2026",
    "trend": [
-    2.2,
     2.4,
     2.5,
-    2.7,
     2.6,
-    2.6
+    2.6,
+    2.6,
+    2.7
    ],
    "thresholds": {
     "el_nino": 0.5,
@@ -61,12 +61,12 @@
    },
    "source": "NOAA CPC · 周度 OISST",
    "trend_labels": [
-    "22JUL2026",
     "29JUL2026",
     "05AUG2026",
     "12AUG2026",
     "19AUG2026",
-    "26AUG2026"
+    "26AUG2026",
+    "02SEP2026"
    ]
   },
   {

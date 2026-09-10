@@ -1,5 +1,5 @@
 {
-  "score": 26.1,
+  "score": 27.0,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,47 +7,47 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 15.72,
+      "current": 16.46,
       "base": 16,
-      "deviation_pct": 1.7,
+      "deviation_pct": 2.9,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 0.9
+      "contribution": 2.5
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 94.49,
+      "current": 97.03,
       "base": 75,
-      "deviation_pct": 26.0,
+      "deviation_pct": 29.4,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 135.2
+      "contribution": 172.9
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 2.68,
+      "current": 2.67,
       "base": 1.5,
-      "deviation_pct": 78.7,
+      "deviation_pct": 78.0,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 1548.4
+      "contribution": 1521.0
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 153.31,
+      "current": 153.55,
       "base": 145,
-      "deviation_pct": 5.7,
+      "deviation_pct": 5.9,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 3.2
+      "contribution": 3.5
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 98.75,
+      "current": 98.79,
       "base": 100,
       "deviation_pct": 1.2,
       "weight": 0.15,
@@ -59,28 +59,28 @@
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 76.7,
+      "current": 78.97,
       "base": 35,
-      "deviation_pct": 119.1,
+      "deviation_pct": 125.6,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
       "name": "信用利差",
-      "current": 2.68,
+      "current": 2.67,
       "base": 1.5,
-      "deviation_pct": 78.7,
+      "deviation_pct": 78.0,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
       "name": "WTI油价",
-      "current": 94.49,
+      "current": 97.03,
       "base": 75,
-      "deviation_pct": 26.0,
+      "deviation_pct": 29.4,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-09-09 08:15"
+  "timestamp": "2026-09-10 08:15"
 }

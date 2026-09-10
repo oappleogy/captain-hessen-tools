@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-09-10T21:05:01",
+  "timestamp": "2026-09-11T07:37:12",
   "data_as_of": "2026-09-10",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
     "score": 0.5,
-    "action": "系统健康。建议仓位≤65%（趋势↑），可持有方向性仓位。"
+    "action": "系统健康。建议仓位≤70%（趋势↑），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
   "dim_lights": {
     "R": "green",
-    "I": "yellow",
+    "I": "green",
     "F": "yellow",
     "C": "green",
-    "N": "green",
+    "N": "yellow",
     "T": "yellow"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.63,
+      "score": 0.46,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,47 +33,47 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.19,
-      "state": "►",
-      "light": "yellow",
-      "note": "政策不确定性上升，规则可预测性下降",
-      "confidence": "★",
+      "score": 0.38,
+      "state": "▲",
+      "light": "green",
+      "note": "政策路径清晰，制度运行稳定",
+      "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.08,
+      "score": 0.15,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★★",
+      "confidence": "★★★",
       "name_cn": "情绪反馈",
-      "status": "neutral"
+      "status": "healthy"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.6,
+      "score": 0.31,
       "state": "▲",
       "light": "green",
       "note": "各维度信号一致，系统协调运行",
-      "confidence": "⚠",
+      "confidence": "★★★",
       "name_cn": "市场协调",
       "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.34,
-      "state": "▲",
-      "light": "green",
-      "note": "叙事稳定，市场预期可预测",
+      "score": 0.2,
+      "state": "►",
+      "light": "yellow",
+      "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
       "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.27,
+      "score": 0.13,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -129,8 +129,11 @@
     "early_warning": "无"
   },
   "extremes": {
-    "count": 0,
-    "categories": []
+    "count": 2,
+    "categories": [
+      "OVX原油波动率=60.8 (历史90%分位)",
+      "地缘交叉验证(OVX)=60.8 (历史90%分位) [仅验证，不计分]"
+    ]
   },
   "opportunities": [],
   "contradiction": {
@@ -145,11 +148,21 @@
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 0,
+    "extreme_count": 2,
     "vix": {
-      "value": 17.7,
-      "percentile": 50,
+      "value": 17.8,
+      "percentile": 67,
       "desc": "市场情绪正常"
+    },
+    "credit_spread": {
+      "value": 2.71,
+      "percentile": 50,
+      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
+    },
+    "consumer": {
+      "value": 55.2,
+      "percentile": 31,
+      "desc": "消费信心偏低"
     }
   }
 }

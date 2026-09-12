@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-09-11T01:20:03.441911Z",
+  "generated_utc": "2026-09-12T01:20:04.728653Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 186351811,
-    "volume_usd": 41715352.0,
-    "as_of": "2026-09-10T01:58:25.997909Z",
+    "transactions": 186554450,
+    "volume_usd": 41721405.0,
+    "as_of": "2026-09-11T01:57:35.752674Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -108,10 +108,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-09-01",
-      "transactions": 186351811,
-      "volume_usd": 41715352.0,
-      "period_transactions": 8480549,
-      "period_volume_usd": 128798.0,
+      "transactions": 186554450,
+      "volume_usd": 41721405.0,
+      "period_transactions": 8683188,
+      "period_volume_usd": 134851.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -307,13 +307,15 @@ window.X402_DATA = {
       "transactions": 186351811,
       "volume_usd": 41715352.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-09-12",
+      "transactions": 186554450,
+      "volume_usd": 41721405.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-07-13",
-      "txs": 221116
-    },
     {
       "day": "2026-07-14",
       "txs": 235013
@@ -544,11 +546,15 @@ window.X402_DATA = {
     },
     {
       "day": "2026-09-09",
-      "txs": 199141
+      "txs": 202062
     },
     {
       "day": "2026-09-10",
-      "txs": 14736
+      "txs": 198602
+    },
+    {
+      "day": "2026-09-11",
+      "txs": 14516
     }
   ],
   "market_24h": {

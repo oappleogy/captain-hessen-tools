@@ -1,5 +1,5 @@
 {
-  "score": 27.7,
+  "score": 28.3,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 100.05,
+      "current": 102.39,
       "base": 75,
-      "deviation_pct": 33.4,
+      "deviation_pct": 36.5,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 223.1
+      "contribution": 266.4
     },
     {
       "variable": "credit_spread",
@@ -37,7 +37,7 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 153.55,
+      "current": 153.53,
       "base": 145,
       "deviation_pct": 5.9,
       "weight": 0.1,
@@ -47,7 +47,7 @@
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 99.12,
+      "current": 99.11,
       "base": 100,
       "deviation_pct": 0.9,
       "weight": 0.15,
@@ -75,12 +75,12 @@
     },
     {
       "name": "WTI油价",
-      "current": 100.05,
+      "current": 102.39,
       "base": 75,
-      "deviation_pct": 33.4,
+      "deviation_pct": 36.5,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-09-13 08:15"
+  "timestamp": "2026-09-14 08:15"
 }

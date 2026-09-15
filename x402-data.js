@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-09-14T01:20:34.236112Z",
+  "generated_utc": "2026-09-15T01:20:07.174209Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -322,6 +322,12 @@ window.X402_DATA = {
     },
     {
       "date": "2026-09-14",
+      "transactions": 186770472,
+      "volume_usd": 41735704.0,
+      "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-09-15",
       "transactions": 186770472,
       "volume_usd": 41735704.0,
       "kind": "daily_snapshot"

@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-09-15T01:20:07.174209Z",
+  "generated_utc": "2026-09-16T01:20:33.119515Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 186770472,
-    "volume_usd": 41735704.0,
-    "as_of": "2026-09-12T02:02:53.245368Z",
+    "transactions": 187361193,
+    "volume_usd": 41752974.0,
+    "as_of": "2026-09-15T02:20:27.099665Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -108,10 +108,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-09-01",
-      "transactions": 186770472,
-      "volume_usd": 41735704.0,
-      "period_transactions": 8899210,
-      "period_volume_usd": 149150.0,
+      "transactions": 187361193,
+      "volume_usd": 41752974.0,
+      "period_transactions": 9489931,
+      "period_volume_usd": 166420.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -331,21 +331,15 @@ window.X402_DATA = {
       "transactions": 186770472,
       "volume_usd": 41735704.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-09-16",
+      "transactions": 187361193,
+      "volume_usd": 41752974.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-07-15",
-      "txs": 194926
-    },
-    {
-      "day": "2026-07-16",
-      "txs": 186630
-    },
-    {
-      "day": "2026-07-17",
-      "txs": 187142
-    },
     {
       "day": "2026-07-18",
       "txs": 184740
@@ -568,11 +562,23 @@ window.X402_DATA = {
     },
     {
       "day": "2026-09-11",
-      "txs": 211456
+      "txs": 214229
     },
     {
       "day": "2026-09-12",
-      "txs": 14584
+      "txs": 194941
+    },
+    {
+      "day": "2026-09-13",
+      "txs": 197819
+    },
+    {
+      "day": "2026-09-14",
+      "txs": 190839
+    },
+    {
+      "day": "2026-09-15",
+      "txs": 16451
     }
   ],
   "market_24h": {
@@ -603,6 +609,6 @@ window.X402_DATA = {
   },
   "source_status": {
     "official_30d": "live",
-    "cumulative": "stale_fallback"
+    "cumulative": "live"
   }
 };

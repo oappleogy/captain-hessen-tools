@@ -1,18 +1,18 @@
 {
-  "fetched_at": "2026-09-17T00:15:50Z",
-  "cleaned_at": "2026-09-17T00:15:50Z",
+  "fetched_at": "2026-09-18T02:56:34Z",
+  "cleaned_at": "2026-09-18T02:56:34Z",
   "sliders": {
     "us_rate": {
-      "value": 3.63,
+      "value": 0,
       "name": "Fed利率",
-      "date": "2026-09-15",
-      "freshness": "fresh",
+      "date": "",
+      "freshness": "stale",
       "source": "FRED/DFF"
     },
     "us_dxy": {
-      "value": 100.237,
+      "value": 100.234,
       "name": "美元指数DXY",
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "freshness": "fresh",
       "source": "Yahoo/DX-Y.NYB"
     },
@@ -21,33 +21,33 @@
       "name": "VIX恐慌指数",
       "date": "2026-09-16",
       "freshness": "fresh",
-      "source": "Yahoo/^VIX"
+      "source": "FRED/VIXCLS"
     },
     "cn_yuan": {
-      "value": 6.698,
+      "value": 6.708,
       "name": "USD/CNY汇率",
-      "date": "2026-09-17",
-      "freshness": "fresh",
-      "source": "Yahoo/CNY=X"
+      "date": "2026-09-11",
+      "freshness": "stale",
+      "source": "FRED/DEXCHUS"
     },
     "eu_gas": {
-      "value": 77.58,
+      "value": 77.015,
       "name": "天然气TTF",
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "freshness": "fresh",
       "source": "Yahoo/TTF=F"
     },
     "jp_yen": {
-      "value": 155.944,
+      "value": 156.212,
       "name": "USD/JPY汇率",
-      "date": "2026-09-17",
+      "date": "2026-09-18",
       "freshness": "fresh",
       "source": "Yahoo/JPY=X"
     },
     "geo_oil": {
-      "value": 101.54,
+      "value": 101.27,
       "name": "WTI油价",
-      "date": "2026-09-16",
+      "date": "2026-09-17",
       "freshness": "fresh",
       "source": "Yahoo/CL=F"
     }

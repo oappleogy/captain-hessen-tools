@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-09-21T09:08:37",
-  "data_as_of": "2026-09-18",
-  "data_lag_days": 3,
+  "timestamp": "2026-09-21T21:04:13",
+  "data_as_of": "2026-09-21",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
-    "score": 0.333,
-    "action": "系统健康。建议仓位≤65%（趋势↓），可持有方向性仓位。"
+    "score": 0.667,
+    "action": "系统健康。建议仓位≤70%（趋势↑），可持有方向性仓位。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -16,8 +16,8 @@
     "R": "green",
     "I": "green",
     "F": "yellow",
-    "C": "yellow",
-    "N": "yellow",
+    "C": "green",
+    "N": "green",
     "T": "yellow"
   },
   "dimensions": {
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.34,
+      "score": 0.36,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -53,27 +53,27 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.22,
-      "state": "►",
-      "light": "yellow",
-      "note": "部分信号出现分化，协调性下降",
-      "confidence": "★★★",
+      "score": 0.65,
+      "state": "▲",
+      "light": "green",
+      "note": "各维度信号一致，系统协调运行",
+      "confidence": "⚠",
       "name_cn": "市场协调",
       "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.1,
-      "state": "►",
-      "light": "yellow",
-      "note": "叙事出现分化或转向迹象",
+      "score": 0.35,
+      "state": "▲",
+      "light": "green",
+      "note": "叙事稳定，市场预期可预测",
       "confidence": "★★",
       "name_cn": "叙事共识",
       "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.13,
+      "score": 0.25,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -125,7 +125,7 @@
       }
     ],
     "moving_toward": "TECH_DOM",
-    "safety_margin": 0.433,
+    "safety_margin": 0.767,
     "early_warning": "无"
   },
   "extremes": {
@@ -147,8 +147,8 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 14.8,
-      "percentile": 26,
+      "value": 14.9,
+      "percentile": 27,
       "desc": "市场极度乐观"
     },
     "credit_spread": {

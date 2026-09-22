@@ -1,0 +1,78 @@
+{
+  "id": "agentic-ai-infrastructure",
+  "name": "Agentic AI基础设施",
+  "thesis": "Agentic AI的兴起推动对持久化云端运行环境、浏览器、API、虚拟机及任务调度资源的需求，CPU成为Agent规模化运行的重要算力底座。",
+  "segments": [
+    "CPU算力",
+    "持久化云端运行环境",
+    "任务调度资源"
+  ],
+  "tickers": [
+    {
+      "name": "Intel",
+      "code": "",
+      "role": "CPU供应商"
+    },
+    {
+      "name": "AMD",
+      "code": "",
+      "role": "CPU供应商"
+    },
+    {
+      "name": "Meta",
+      "code": "",
+      "role": "AI智能体平台"
+    }
+  ],
+  "tracking_signals": [
+    "CPU价格走势",
+    "AI智能体用户增长数据",
+    "服务器CPU出货量"
+  ],
+  "stage": "萌芽",
+  "origin": "emergent",
+  "scores": {
+    "空间": 5,
+    "竞争力": 4,
+    "寡头垄断": 3,
+    "确定性": 4
+  },
+  "score_notes": "",
+  "certainty_drivers": [
+    "鹰酱",
+    "兔子",
+    "AI"
+  ],
+  "certainty_note": "被AI算力需求和全球AI智能体发展需要，CPU供给刚性且技术门槛高。",
+  "framework_updated": "2026-09-22 21:30",
+  "created": "2026-09-22 21:30",
+  "latest_status": "首次纳入跟踪",
+  "latest_heat": 88,
+  "last_tracked": "2026-09-22",
+  "timeline": [
+    {
+      "date": "2026-09-22",
+      "catalyst": "",
+      "data_point": "",
+      "status": "首次纳入跟踪",
+      "heat": 88,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-09-22",
+          "text": "# 📈📈【华创计算机｜AI 】Mu... 📈📈【华创计算机｜AI 】Muse登顶引爆美股，CPU主线全面走强 260922 ① 今日凌晨，Meta个人AI智能体…"
+        },
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-09-22",
+          "text": "# 🔥CPU板块继续大涨，AMD历... 🔥CPU板块继续大涨，AMD历史新高，GPT6新场景引领 重申重视【长程任务/MultiAgent时代 CPU价值重估…"
+        },
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-09-22",
+          "text": "# 🔥🔥🔥【Agentic AI加... 🔥🔥🔥【Agentic AI加速落地：Muse带动CPU需求重估，关注硬件与应用两条主线】 📣 事件：Meta新一代智…"
+        }
+      ]
+    }
+  ]
+}

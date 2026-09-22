@@ -1,204 +1,234 @@
 {
-  "last_updated": "2026-09-21 09:40",
-  "date": "2026-09-21",
+  "last_updated": "2026-09-22 11:50",
+  "date": "2026-09-22",
   "generation_mode": "minimax",
   "generation_attempt": "full",
   "source_counts": {
     "wallstreetcn": 0,
-    "cls": 20,
+    "cls": 19,
     "google_news": 25,
     "weibo": 20
   },
   "keywords": [
     {
-      "keyword": "软银110亿美元债券",
-      "heat": 92,
-      "category": "finance",
-      "summary": "软银密集发行垃圾债券融资超110亿美元投资OpenAI，反映科技AI领域资本竞争激烈",
+      "keyword": "AI应用芯片走强",
+      "heat": 95,
+      "category": "ai-tech",
+      "summary": "双创指数冲高回落，AI应用与算力芯片概念持续走强，市场资金明显流入科技成长方向",
       "sources": [
         "财联社",
-        "财联社"
+        "Google News"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-21 09:37",
-          "text": "财联社9月21日电，投资条款清单显示，软银集团为投资OpenAI发行了100亿美元及10亿欧元债券。"
+          "time": "09-22 11:32",
+          "text": "【午评：双创指数集体冲高回落 AI应用、算力芯片概念走强】财联社9月22日电，沪指早盘红盘震荡，双创指数冲高回落，创业板指盘中一度涨超2%。量能有所放大，沪深两市半日成交额1.43万亿，较上个交易日放量1004亿。全市场超2800只个股上涨。盘面上，题材局部强势，AI应用南威软件2连板，智度股份、光云科技、新炬网络涨停；算力芯片概念走强，旋极信息封20cm涨停，中国长城、禾盛新材、综艺股份涨停；医"
         },
         {
-          "source": "财联社",
-          "time": "09-21 09:21",
-          "text": "财联社9月21日电，软银据悉寻求通过多批次垃圾债券交易筹集逾110亿美元的资金。"
+          "source": "Google News / Bloomberg.com",
+          "time": "09-22 10:05",
+          "text": "Korean Chip Stocks Gain as Meta’s Muse AI Agent Spurs Enthusiasm - Bloomberg.com"
         }
-      ]
+      ],
+      "tool": {
+        "href": "ai-capex.html",
+        "label": "AI CapEx"
+      }
     },
     {
-      "keyword": "MLCC缺货涨价",
+      "keyword": "碳酸锂多晶硅暴涨",
       "heat": 88,
-      "category": "ai-tech",
-      "summary": "AI拉动高容量MLCC型号缺货疯涨，电子元件行业景气度上行",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-21 09:34",
-          "text": "【MLCC概念表现活跃 双星新材逼近涨停】财联社9月21日电，MLCC概念表现活跃，双星新材逼近涨停，昀冢科技、三环集团、风华高科、火炬电子、国瓷材料跟涨。消息面上，据报道，MLCC被业内称为“电子工业大米”，AI拉动高容量型号缺货疯涨，部分现货暴涨数倍。进入6月，现货市场进入“一天一价、甚至一小时一价”的火热状态，部分热门型号短短一个月涨幅达7-8倍。"
-        },
-        {
-          "source": "财联社",
-          "time": "09-21 09:26",
-          "text": "【三大指数集体高开】财联社9月21日电，沪指高开0.21%，深成指高开0.55%，创业板指高开0.93%，MLCC、出版、电梯等板块指数涨幅居前，玻纤、农业种植、贵金属等板块指数跌幅居前。"
-        }
-      ]
-    },
-    {
-      "keyword": "央行逆回购1650亿",
-      "heat": 85,
-      "category": "macro",
-      "summary": "央行开展7天逆回购操作1650亿元，利率1.40%，维护流动性平稳",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-21 09:22",
-          "text": "财联社9月21日电，央行今日开展1650亿元7天逆回购操作，操作利率为1.40%。"
-        }
-      ]
-    },
-    {
-      "keyword": "A股创业板走强",
-      "heat": 82,
-      "category": "finance",
-      "summary": "创业板指涨逾1%，MLCC、出版等概念活跃，市场情绪回暖",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-21 09:31",
-          "text": "【创业板指涨逾1%】财联社9月21日电，指数走强，创业板指拉升涨逾1.05%，沪指涨0.24%，深成指涨0.56%，出版、MLCC、陶瓷产业等板块指数涨幅居前，房屋租赁、农业种植、玻纤等板块指数跌幅居前。"
-        },
-        {
-          "source": "财联社",
-          "time": "09-21 09:26",
-          "text": "【三大指数集体高开】财联社9月21日电，沪指高开0.21%，深成指高开0.55%，创业板指高开0.93%，MLCC、出版、电梯等板块指数涨幅居前，玻纤、农业种植、贵金属等板块指数跌幅居前。"
-        }
-      ]
-    },
-    {
-      "keyword": "港股光通信走强",
-      "heat": 78,
       "category": "industry",
-      "summary": "俊知集团涨超12%，长飞光纤等跟涨，光通信板块受资金追捧",
+      "summary": "国内期货多晶硅、碳酸锂涨超2%，碳酸锂期货持续受新能源需求提振",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-21 09:35",
-          "text": "【港股光通信股走强 俊知集团涨超12%】财联社9月21日电，截至发稿，俊知集团(01300.HK)涨12.20%，长飞光纤光缆(06869.HK)涨4.64%，剑桥科技(06166.HK)涨3.44%。"
+          "time": "09-22 11:31",
+          "text": "【国内期货主力合约涨跌不一】财联社9月22日电，国内期货主力合约涨跌不一，多晶硅、碳酸锂、玻璃、纯苯涨超2%，国际铜涨近2%，沪铜、焦煤、对二甲苯涨超1%。跌幅方面，乙二醇（EG）跌超3%，沥青跌近3%，丙烯跌超2%。"
         }
       ]
     },
     {
-      "keyword": "AI制药CRO概念",
-      "heat": 76,
-      "category": "ai-tech",
-      "summary": "工信部等十部门印发医药工业发展政策，AI制药概念反复走强",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-21 09:34",
-          "text": "【AI制药、CRO概念反复走强 诺禾致源20cm涨停】财联社9月21日电，AI制药、CRO概念反复走强，诺禾致源20cm涨停，泓博医药、成都先导、博济医药、贝瑞基因、塞力医疗跟涨。消息面上，9月18日，工信部等十部门联合印发《医药工业发展“十五五”规划》。规划提出，加快人工智能、量子计算、超级计算、计算医学等新技术赋能药物研发，探索超限制造、太空制药、生物制造等药械生产新模式。"
-        }
-      ]
-    },
-    {
-      "keyword": "比特币突破82000",
-      "heat": 74,
+      "keyword": "南向资金买入港股",
+      "heat": 85,
       "category": "finance",
-      "summary": "比特币日内涨超1%突破82000美元，加密货币市场持续升温",
+      "summary": "南向资金净买入额达60亿港元，显示资金持续布局港股市场",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-21 09:24",
-          "text": "财联社9月21日电，比特币升破82000美元，日内涨超1%。"
+          "time": "09-22 11:25",
+          "text": "财联社9月22日电，截至目前，南向资金净买入额达60亿港元。"
         }
       ]
     },
     {
-      "keyword": "新股异常交易被查",
-      "heat": 72,
-      "category": "finance",
-      "summary": "上交所暂停C沈鼓异常交易账户，该股单日波动超300%引发监管",
+      "keyword": "四川锂电产量激增",
+      "heat": 82,
+      "category": "industry",
+      "summary": "成都1-8月锂离子电池产量同比增长152.7%，新能源产业链高景气延续",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "09-22 11:36",
+          "text": "【成都1—8月锂离子电池产量同比增长152.7%】财联社9月22日电，成都统计局官微消息，1—8月，全市规模以上工业增加值同比增长6.3%。分行业看，37个大类行业中有26个行业增加值实现增长。其中，电气机械和器材制造业同比增长19.1%，专用设备制造业增长14.5%，石油、煤炭及其他燃料加工业增长14.1%，计算机、通信和其他电子设备制造业增长12.6%。从主要工业产品产量看，锂离子电池同比增长"
+        }
+      ]
+    },
+    {
+      "keyword": "电力交易量价齐升",
+      "heat": 80,
+      "category": "industry",
+      "summary": "1-8月全国电力市场交易电量同比增长19.2%，电力市场化改革持续推进",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "09-22 11:35",
+          "text": "【1—8月全国电力市场交易电量同比增长19.2%】财联社9月22日电，国家能源局发布数据显示，1—8月，全国各电力交易机构累计完成交易电量51800亿千瓦时，同比增长19.2%。其中，省内交易电量同比增长21.5%；跨省跨区交易电量同比增长12.1%。8月，全国各电力交易机构完成交易电量同比增长15.2%。统一电力市场体系有效促进了电力资源的优化配置。"
+        }
+      ]
+    },
+    {
+      "keyword": "矿产资源需求刚性",
+      "heat": 78,
+      "category": "macro",
+      "summary": "自然资源部称十五五时期重要矿产资源需求仍将保持刚性增长",
       "sources": [
         "财交所"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-21 09:27",
-          "text": "【相关异常账户被暂停交易 C沈鼓大幅低开48%】财联社9月21日电，早盘C沈鼓大幅低开48%，成交额1.78亿元，该股上周五日内一度涨超297%。消息面上，上交所依规对新股沈鼓集团异常交易相关投资者采取暂停账户交易等自律监管措施。"
+          "time": "09-22 11:29",
+          "text": "【自然资源部：“十五五”时期我国重要矿产资源需求仍将保持刚性增长】财联社9月22日电，自然资源部新闻发言人、副部长周星在国新办新闻发布会上表示，中国是制造业大国，“十五五”时期，我国重要矿产资源需求仍将保持刚性增长。为此，自然资源部将继续实施新一轮找矿突破战略行动，牢牢端稳能源这个饭碗，为我国发展先进制造业提供坚强保障。包括，实施国家地质填图计划，推动陆域1:50000区域地质调查覆盖率提升至51"
         }
       ]
     },
     {
-      "keyword": "央行港股发票据",
-      "heat": 70,
-      "category": "macro",
-      "summary": "央行将在香港发行600亿元中央银行票据，完善人民币收益率曲线",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-21 09:35",
-          "text": "【央行将在香港发行600亿元中央银行票据】财联社9月21日电，中国人民银行公告，为丰富香港高信用等级人民币金融产品，完善香港人民币收益率曲线，2026年9月23日（周三）中国人民银行将通过香港金融管理局债务工具中央结算系统（CMU）债券投标平台，招标发行2026年第九期中央银行票据。第九期中央银行票据期限6个月（182天），为固定利率附息债券，到期还本付息，发行量为人民币600亿元，起息日为202"
-        }
-      ]
-    },
-    {
-      "keyword": "养老产业政策",
-      "heat": 68,
+      "keyword": "探矿权出让火热",
+      "heat": 75,
       "category": "industry",
-      "summary": "国常会部署积极应对人口老龄化，养老概念股集体涨停",
+      "summary": "1-8月全国探矿权出让成交金额同比增长133.5%，资源勘查找矿热情高涨",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-21 09:33",
-          "text": "【养老概念盘初活跃 奥佳华、澳洋健康双双涨停】财联社9月21日电，早盘养老概念活跃，奥佳华、澳洋健康涨停，悦心健康、翔宇医疗、新里程、莎普爱思等跟涨。消息面上，9月18日国常会指出，要全面客观认识人口老龄化带来的影响，深入实施积极应对人口老龄化国家战略，推动老龄事业全面发展进步。数据显示，预计到2030年，我国60岁及以上老年人口将突破4亿，占总人口比例超30%，银发经济整体规模将达到30万亿元左"
+          "time": "09-22 11:26",
+          "text": "【自然资源部：1-8月全国探矿权出让成交金额同比增长133.5%】财联社9月22日电，国家自然资源总督察刘国洪在国新办新闻发布会上表示，1—8月全国探矿权出让成交金额同比增长133.5%，上半年非油气矿产勘查投入同比增长8.1%。1—8月份，海洋船舶新接订单量，海洋工程装备新接订单金额同比分别增长83.7%和160.8%。"
         }
       ]
     },
     {
-      "keyword": "美联储利率决策",
-      "heat": 65,
+      "keyword": "江苏投资下滑",
+      "heat": 72,
       "category": "macro",
-      "summary": "美联储利率决策反映新通胀环境，地缘政治影响全球经济预期",
+      "summary": "江苏1-8月固定资产投资同比下降11%，经济大省面临投资下行压力",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "09-22 11:25",
+          "text": "【江苏：1—8月全省固定资产投资同比下降11.0%】财联社9月22日电，江苏省统计局发布1—8月江苏经济运行简况，1—8月，全省固定资产投资同比下降11.0%。从主要领域看，基础设施投资下降8.4%，制造业投资下降1.6%，房地产开发投资下降25.4%。大规模设备更新扎实推进，1—8月全省设备工器具购置投资同比增长13.8%。"
+        }
+      ]
+    },
+    {
+      "keyword": "成都土拍溢价",
+      "heat": 70,
+      "category": "finance",
+      "summary": "成都双流区宅地溢价39.6%成交，土地市场出现回暖迹象",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "09-22 11:27",
+          "text": "【成都1宗宅地溢价39.6%成交】财联社9月22日电，成都双流区1宗宅地出让，地块出让面积为25809平方米（合38.71亩），规划建筑面积51618平方米，容积率2，起拍楼面价12000元/平方米，折合起始总价6.19亿元。该地块吸引了多房企参拍，经过近百轮竞价后，最终渝太以楼面价16750元/平方米竞得该地块，成交总价8.65亿元，溢价率39.6%。"
+        }
+      ]
+    },
+    {
+      "keyword": "MetaMuse推动芯片股",
+      "heat": 68,
+      "category": "ai-tech",
+      "summary": "Meta发布Muse AI代理提振市场热情，韩国芯片股集体上涨",
       "sources": [
         "Google News"
       ],
       "evidence": [
         {
-          "source": "Google News / AP News",
-          "time": "09-20 21:45",
-          "text": "Federal Reserve rate hike reflects new world of sticky inflation and faster growth - AP News"
+          "source": "Google News / Bloomberg.com",
+          "time": "09-22 10:05",
+          "text": "Korean Chip Stocks Gain as Meta’s Muse AI Agent Spurs Enthusiasm - Bloomberg.com"
+        }
+      ]
+    },
+    {
+      "keyword": "Nvidia驳斥AI末日论",
+      "heat": 65,
+      "category": "ai-tech",
+      "summary": "黄仁勋表示2030年不会是世界末日，持续看好AI发展潜力",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / foxbusiness.com",
+          "time": "09-22 00:50",
+          "text": "Nvidia's Jensen Huang rejects AI doomsday fears: '2030 is not going to be the end of the world' - foxbusiness.com"
+        }
+      ],
+      "tool": {
+        "href": "ai-capex.html",
+        "label": "AI CapEx"
+      }
+    },
+    {
+      "keyword": "SoftBank数据中心IPO延迟",
+      "heat": 63,
+      "category": "finance",
+      "summary": "软银500亿美元数据中心集团放缓IPO计划，市场估值承压",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Financial Times",
+          "time": "09-22 07:51",
+          "text": "SoftBank’s $50bn data centre group slows IPO - Financial Times"
+        }
+      ]
+    },
+    {
+      "keyword": "韩美投资协议",
+      "heat": 60,
+      "category": "geo",
+      "summary": "韩国称特朗普将宣布韩国对美投资项目，地缘投资合作或有新进展",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "09-22 11:18",
+          "text": "财联社9月22日电，据报道，韩国称特朗普将宣布韩国对美投资项目。韩国将在美国提出请求后的45天内拨付项目资金。"
         }
       ],
       "tool": {
@@ -207,71 +237,18 @@
       }
     },
     {
-      "keyword": "AI风险担忧",
-      "heat": 62,
-      "category": "ai-tech",
-      "summary": "彭博报道AI风险令十亿级基金紧张，AI波动性或影响市场和经济",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Bloomberg.com",
-          "time": "09-21 05:00",
-          "text": "AI Risk Is Everywhere and It's Making Billion Dollar Funds Nervous - Bloomberg.com"
-        },
-        {
-          "source": "Google News / Bloomberg.com",
-          "time": "09-20 21:00",
-          "text": "AI’s Wobbly House of Cards Puts Markets and US Economy at Risk - Bloomberg.com"
-        }
-      ]
-    },
-    {
-      "keyword": "油轮短缺危机",
-      "heat": 58,
-      "category": "industry",
-      "summary": "全球超大型油轮供应短缺威胁长途石油运输，供需失衡加剧",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Bloomberg.com",
-          "time": "09-19 19:30",
-          "text": "World Running Short of Supertankers Threatens Long-Haul Oil Flow - Bloomberg.com"
-        }
-      ]
-    },
-    {
-      "keyword": "朝鲜导弹发射",
+      "keyword": "澳联储关注AI需求",
       "heat": 55,
-      "category": "geo",
-      "summary": "朝鲜发射导弹加大对美施压，地缘紧张局势升级",
+      "category": "macro",
+      "summary": "澳大利亚央行行长表示诸多迹象表明AI正在影响需求端",
       "sources": [
-        "Google News"
+        "财联社"
       ],
       "evidence": [
         {
-          "source": "Google News / CBS News",
-          "time": "09-20 21:00",
-          "text": "North Korea launches missiles as it dials up pressure against U.S. - CBS News"
-        }
-      ]
-    },
-    {
-      "keyword": "中东局势紧张",
-      "heat": 52,
-      "category": "geo",
-      "summary": "伊朗称美国计划恢复轰炸，中东地区暴力冲突风险上升",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / The Guardian",
-          "time": "09-21 05:12",
-          "text": "Middle East braces for more violence as Iran claims US is planning to renew bombing campaign - The Guardian"
+          "source": "财联社",
+          "time": "09-22 11:24",
+          "text": "财联社9月22日电，澳大利亚储备银行行长布洛克表示，诸多迹象表明人工智能正在影响需求端。"
         }
       ]
     }

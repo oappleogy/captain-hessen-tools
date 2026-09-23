@@ -1,5 +1,5 @@
 {
-  "score": NaN,
+  "score": 27.5,
   "level": "green",
   "label": "正常",
   "desc": "各变量在基准附近，系统压力可控",
@@ -7,72 +7,72 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 14.87,
+      "current": 14.21,
       "base": 16,
-      "deviation_pct": 7.1,
+      "deviation_pct": 11.2,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 15.1
+      "contribution": 37.6
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 92.49,
+      "current": 89.59,
       "base": 75,
-      "deviation_pct": 23.3,
+      "deviation_pct": 19.5,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 108.6
+      "contribution": 76.0
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 2.68,
+      "current": 2.66,
       "base": 1.5,
-      "deviation_pct": 78.7,
+      "deviation_pct": 77.3,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 1548.4
+      "contribution": 1493.8
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 157.34,
+      "current": 157.49,
       "base": 145,
-      "deviation_pct": 8.5,
+      "deviation_pct": 8.6,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 7.2
+      "contribution": 7.4
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": NaN,
+      "current": 100.57,
       "base": 100,
-      "deviation_pct": NaN,
+      "deviation_pct": 0.6,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": NaN
+      "contribution": 0.1
     }
   ],
-  "hard_alerts_count": 1,
+  "hard_alerts_count": 2,
   "significant_deviations": [
     {
-      "name": "信用利差",
-      "current": 2.68,
-      "base": 1.5,
-      "deviation_pct": 78.7,
+      "name": "天然气TTF",
+      "current": 73.88,
+      "base": 35,
+      "deviation_pct": 111.1,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
-      "name": "WTI油价",
-      "current": 92.49,
-      "base": 75,
-      "deviation_pct": 23.3,
+      "name": "信用利差",
+      "current": 2.66,
+      "base": 1.5,
+      "deviation_pct": 77.3,
       "direction": "偏高",
-      "level": "显著偏离"
+      "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-09-22 09:10"
+  "timestamp": "2026-09-23 08:15"
 }

@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-09-24T01:20:36.150359Z",
+  "generated_utc": "2026-09-25T01:20:33.039651Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -385,6 +385,12 @@ window.X402_DATA = {
       "transactions": 188186529,
       "volume_usd": 41800229.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-09-25",
+      "transactions": 188186529,
+      "volume_usd": 41800229.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
@@ -634,10 +640,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 22058241,
-    "volume_usd": 1004065.78,
-    "buyers": 20389,
-    "sellers": 37708
+    "transactions": 20725608,
+    "volume_usd": 1020459.33,
+    "buyers": 21084,
+    "sellers": 37952
   },
   "leader": {
     "name": "BlockRun",

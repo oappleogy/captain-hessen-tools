@@ -17,16 +17,11 @@
       "name": "住友电工",
       "code": "",
       "role": "光芯片制造"
-    },
-    {
-      "name": "光迅科技",
-      "code": "",
-      "role": "光通信模块"
     }
   ],
   "tracking_signals": [
     "磷化铟衬底价格持续上涨",
-    "光芯片产能扩张计划"
+    "光芯片交货周期延长至40周以上"
   ],
   "stage": "兑现中",
   "origin": "emergent",
@@ -36,17 +31,31 @@
     "寡头垄断": 5,
     "确定性": 4
   },
-  "score_notes": "AI光通信组件需求增长明确，但上游材料及芯片产能扩张周期长，短期内供应紧张局面难以缓解。磷化铟衬底和光芯片制造环节技术壁垒高，寡头垄断特征明显。",
+  "score_notes": "AI光通信需求增长推动上游组件价格上涨，短期内供应紧张难以缓解。磷化铟衬底和光芯片制造环节壁垒高，寡头垄断特征明显。",
   "certainty_drivers": [
     "AI"
   ],
-  "certainty_note": "AI算力需求增长对光通信组件的需求是结构性的，短期内难以被替代。",
-  "framework_updated": "2026-09-24 21:30",
+  "certainty_note": "AI算力发展对光通信组件的需求是结构性的，且上游供应紧张问题短期内难以解决，属于被动嵌入式需求。",
+  "framework_updated": "2026-09-25 21:30",
   "created": "2026-06-24 21:30",
-  "latest_status": "数据兑现，供给紧张加剧",
-  "latest_heat": 90,
-  "last_tracked": "2026-09-24",
+  "latest_status": "数据兑现，供应格局变化",
+  "latest_heat": 75,
+  "last_tracked": "2026-09-25",
   "timeline": [
+    {
+      "date": "2026-09-25",
+      "catalyst": "AI需求持续挤占传统市场，MLCC行业正经历结构性转变。",
+      "data_point": "日韩头部供应商减少消费类MLCC供应，中国供应商进入全球品牌验证阶段。",
+      "status": "数据兑现，供应格局变化",
+      "heat": 75,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-09-25",
+          "text": "# 📌TF：日韩 MLCC 厂商削... 📌TF：日韩 MLCC 厂商削减消费类供应以聚焦 AI，中国供应商进入全球品牌验证 📈TF 指出，随着 AI 需求持续…"
+        }
+      ]
+    },
     {
       "date": "2026-09-24",
       "catalyst": "AI光互联瓶颈从光模块向高速TIA/Driver及上游12寸SiGe硅锗产能转移，2027年SiGe硅锗订单已售罄。",
@@ -327,5 +336,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-09-23"
+  "last_checked": "2026-09-24"
 }

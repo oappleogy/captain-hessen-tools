@@ -75,6 +75,14 @@ body {
   display: flex; align-items: center; gap: 8px;
 }
 .section-body { padding: 16px 20px; }
+.data-status {
+  margin: 20px 0; padding: 14px 18px; background: var(--card-bg);
+  border: 1px solid var(--border2); border-radius: 12px;
+  font-size: 12px; color: var(--text2); line-height: 1.8; overflow-wrap: anywhere;
+}
+.data-status strong { color: var(--text); }
+.data-status-note { margin-top: 6px; }
+.data-status-warning { color: var(--yellow); }
 
 /* S₂ System State Banner */
 .s2-banner {
@@ -458,16 +466,44 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
   function labelCls(label) {
     return label === '景气' ? 'label-good' : label === '承压' ? 'label-bad' : 'label-neutral';
   }
+  function safeText(value) {
+    return String(value ?? '未知').replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function renderDataStatus(d, s2) {
+    const dates = (d?.variables || []).map(v => v.date).filter(v => /^\d{4}-\d{2}-\d{2}$/.test(v)).sort();
+    const observationRange = dates.length ? (dates[0] === dates.at(-1) ? dates[0] : `${dates[0]} 至 ${dates.at(-1)}`) : '未知';
+    const generated = d?.generated_at;
+    const stressTime = d?.stress_index?.timestamp;
+    const s2Time = s2?.timestamp;
+    const day = value => String(value || '').slice(0, 10);
+    const notes = [];
+    if (!d) notes.push('总览数据加载失败，当前仅显示 S₂。');
+    if (d && !stressTime) notes.push('压力指数缺失，不能把空值视为低风险。');
+    if (generated && stressTime && day(stressTime) < day(generated)) notes.push('压力指数早于总览生成日，尚未同步到本轮。');
+    if (!s2) notes.push('S₂ 数据加载失败，暂不显示状态判断。');
+    else if (generated && s2Time && day(s2Time) < day(generated)) notes.push('S₂ 与行情总览不是同一批次，当前保留最近一次成功计算，不代表已用最新行情重算。');
+    return `<div class="data-status" role="status" aria-label="数据更新时间">
+      <strong>各区块独立更新，不共用一个日期</strong>
+      <div>行情总览生成：${safeText(generated)}（北京时间） · 指标观测日期：${safeText(observationRange)}</div>
+      <div>组合压力计算：${safeText(stressTime)}（北京时间）</div>
+      <div>S₂ 最近成功计算：${safeText(s2Time)}（北京时间） · 数据截至：${safeText(s2?.data_as_of)}</div>
+      ${notes.map(note => `<div class="data-status-warning">${safeText(note)}</div>`).join('')}
+      <div class="data-status-note">总览每日生成；S₂ 按现行计划仅工作日计算。生成时间不等于原始数据日期，各指标以其观测日期为准。</div>
+    </div>`;
+  }
 
   function render(d, s2) {
-    let html = '';
+    let html = renderDataStatus(d, s2);
     let delay = 0;
     const ad = () => { delay += 0.05; return `animation-delay:${delay.toFixed(2)}s`; };
 
     // ═══════ 速览区（仪表盘） ═══════
     if (d) {
       const reg = d.regime;
-      const stScore = d.stress_index ? d.stress_index.score : 0;
+      const stScore = d.stress_index ? d.stress_index.score : null;
       const stLabel = d.stress_index ? d.stress_index.label : '';
       const stCls = stScore > 60 ? 'g-red' : stScore > 30 ? 'g-yellow' : 'g-green';
       const ringColor = v => v >= 60 ? 'var(--green)' : v >= 40 ? 'var(--yellow)' : 'var(--red)';
@@ -482,9 +518,9 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
         <div class="glance-right">
           <div class="glance-stress ${stCls}">
             <span class="glance-stress-lbl">压力</span>
-            <span class="glance-stress-num">${stScore}</span>
+            <span class="glance-stress-num">${stScore ?? '暂无'}</span>
           </div>
-          <span class="glance-time">${d.generated_at || ''}</span>
+          <span class="glance-time">总览生成 ${d.generated_at || ''}</span>
         </div>
       </div>`;
 
@@ -542,8 +578,10 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
           html += `<div class="ga-ok">⚠️ 压力指数 ${stScore} — ${stLabel}</div>`;
         }
         html += `</div>`;
-      } else {
+      } else if (d.stress_index) {
         html += `<div class="glance-alerts"><div class="ga-ok">✅ 一切正常 · 各指标在安全范围</div></div>`;
+      } else {
+        html += `<div class="glance-alerts"><div class="ga-item warn">压力指数暂无数据，不能据此判断风险。</div></div>`;
       }
 
       html += `<div class="glance-more">↓ 下滑查看完整分析</div>`;
@@ -814,6 +852,7 @@ const FRESH_MAP = { fresh: '实时', stale: '滞后', delayed: '延迟', unknown
               <div class="stress-info">
                 <div class="si-label" style="color:${gaugeColor}">${si.label}</div>
                 <div class="si-desc">${si.desc}</div>
+                <div class="si-desc">本区块计算：${safeText(si.timestamp)}（北京时间）</div>
               </div>
             </div>
             <div class="stress-components">`;

@@ -33,10 +33,24 @@
   "certainty_note": "被AI算力基建需求吸引，SiGe产能稀缺且不可替代。",
   "framework_updated": "2026-09-24 21:30",
   "created": "2026-09-24 21:30",
-  "latest_status": "数据兑现，景气上行",
+  "latest_status": "催化增强",
   "latest_heat": 80,
-  "last_tracked": "2026-09-25",
+  "last_tracked": "2026-09-26",
   "timeline": [
+    {
+      "date": "2026-09-26",
+      "catalyst": "AI光互联升级需求增加，800G和1.6T DSP出货量预期大幅增长。",
+      "data_point": "2026年800G DSP出货量预计接近5000万单位，1.6T DSP需求可能超过2000万单位。",
+      "status": "催化增强",
+      "heat": 80,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-09-26",
+          "text": "# 野村：DSP 出货量 202... 野村：DSP 出货量 2026 年预测 (2026E) 800G DSP：出货量预计将接近 5000 万单位。…"
+        }
+      ]
+    },
     {
       "date": "2026-09-25",
       "catalyst": "AI光互联升级需求推动高速TIA/Driver和SiGe硅锗晶圆制造发展。",

@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-09-25T07:33:11",
-  "data_as_of": "2026-09-24",
-  "data_lag_days": 1,
+  "timestamp": "2026-09-28T07:33:34",
+  "data_as_of": "2026-09-25",
+  "data_lag_days": 3,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.5,
+      "score": 0.39,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.08,
+      "score": -0.16,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,27 +53,27 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.14,
+      "score": -0.15,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "healthy"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.11,
+      "score": -0.01,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.15,
+      "score": 0.14,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 70.0
+        "pct": 63.6
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 30.0
+        "pct": 36.4
       },
       {
         "key": "TECH_DOM",
@@ -136,30 +136,30 @@
   "contradiction": {
     "type": "dimension_shift",
     "title": "「市场协调」本周剧烈恶化",
-    "thesis": "市场协调维度从+0.73变为+0.14，单周变化0.59，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "thesis": "市场协调维度从+0.14变为-0.15，单周变化0.29，超过异动阈值。需要判断这是噪音还是趋势的开始。",
     "metaphor": "合唱出现裂缝"
   },
   "allocation": {
-    "short_term": "情绪面相对平稳，正常操作即可。",
+    "short_term": "可以小幅试探性加仓，但不要一次性打满。情绪还在波动，留足应对空间。",
     "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 15.7,
-      "percentile": 38,
-      "desc": "市场情绪正常"
+      "value": 14.9,
+      "percentile": 27,
+      "desc": "市场极度乐观"
     },
     "credit_spread": {
-      "value": 2.73,
+      "value": 2.8,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },
     "consumer": {
-      "value": 55.2,
-      "percentile": 31,
-      "desc": "消费信心偏低"
+      "value": 51.7,
+      "percentile": 14,
+      "desc": "普通人的消费信心接近三年最低，非常悲观"
     }
   }
 }

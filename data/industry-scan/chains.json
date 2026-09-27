@@ -12,22 +12,22 @@
       "tickers": [
         {
           "name": "康宁",
-          "code": "GLW",
+          "code": "",
           "role": "玻璃基板制造"
         },
         {
           "name": "日东电工",
-          "code": "6988.T",
-          "role": "封装工艺开发"
+          "code": "",
+          "role": "封装材料开发"
         },
         {
-          "name": "国内某AI芯片公司",
+          "name": "国内封装企业",
           "code": "",
-          "role": "AI芯片应用"
+          "role": "AI芯片封装应用"
         }
       ],
       "tracking_signals": [
-        "玻璃基板量产良率提升",
+        "玻璃基板良率提升至95%以上",
         "AI芯片厂商采用玻璃基板封装方案"
       ],
       "stage": "发酵",
@@ -37,19 +37,19 @@
         "寡头垄断": 3,
         "确定性": 4
       },
-      "score_notes": "玻璃基板在AI芯片封装领域具备颠覆性潜力，市场空间巨大，但技术成熟度和量产能力仍需验证。",
+      "score_notes": "玻璃基板封装技术市场空间巨大，尤其在AI算力芯片领域需求增长迅速。技术壁垒较高，但国内企业正在快速追赶。全球市场由少数国际巨头主导，但国内企业有望通过技术突破获得市场份额。AI算力需求增长为该技术提供长期支撑。",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "certainty_note": "AI算力需求增长推动封装技术升级，玻璃基板作为高性能方案被AI产业链需求，但需突破工程化瓶颈。",
-      "framework_updated": "2026-09-26 21:30",
+      "certainty_note": "该技术被AI算力需求和国内半导体产业规模化需求共同驱动，属于AI算力发展的关键支撑环节，供给刚性且不可替代。",
+      "framework_updated": "2026-09-27 21:30",
       "created": "2026-06-26 21:30",
       "origin": "emergent",
       "latest_status": "催化增强，产业加速",
       "latest_heat": 90,
       "last_tracked": "2026-06-27",
-      "last_checked": "2026-09-26",
+      "last_checked": "2026-09-27",
       "timeline_count": 2,
       "first_tracked": "2026-06-26",
       "tracking_bucket": "持续跟踪",
@@ -93,8 +93,8 @@
       "thesis": "AI算力用电激增，推动电力、煤炭、铜、铝等基础能源与大宗商品需求扩张，能源投资获得政策强力扶持，产业链迎来发展机遇。",
       "segments": [
         "电力供应",
-        "能源基础设施",
-        "大宗商品"
+        "能源设备制造",
+        "大宗商品供应"
       ],
       "tickers": [
         {
@@ -103,40 +103,40 @@
           "role": "电力供应"
         },
         {
-          "name": "中国神华",
-          "code": "601088",
-          "role": "煤炭供应"
+          "name": "东方电气",
+          "code": "",
+          "role": "能源设备制造"
         },
         {
-          "name": "江西铜业",
-          "code": "600362",
-          "role": "铜供应"
+          "name": "中国铝业",
+          "code": "",
+          "role": "大宗商品供应"
         }
       ],
       "tracking_signals": [
-        "AI数据中心用电量增长",
-        "能源基础设施投资规模扩大"
+        "AI数据中心用电量增长超预期",
+        "能源设备订单量显著增加"
       ],
       "stage": "兑现中",
       "scores": {
         "空间": 5,
-        "竞争力": 3,
-        "寡头垄断": 4,
+        "竞争力": 4,
+        "寡头垄断": 3,
         "确定性": 5
       },
-      "score_notes": "AI算力需求增长推动能源基础设施投资，市场空间巨大，但行业集中度较高，竞争格局相对稳定。",
+      "score_notes": "AI算力需求增长推动能源基础设施投资，市场空间巨大。能源设备制造和电力供应领域具备一定技术壁垒，但国内企业具备规模化优势。大宗商品供应领域集中度较低，但需求刚性。AI算力发展对能源基础设施的需求具有长期确定性。",
       "certainty_drivers": [
         "兔子",
         "AI"
       ],
-      "certainty_note": "AI算力需求增长是长期趋势，能源基础设施作为基础支撑被AI产业链需求，供给刚性且不可替代。",
-      "framework_updated": "2026-09-26 21:30",
+      "certainty_note": "该产业链被AI算力需求和国内能源安全需求共同驱动，属于AI发展的基础支撑环节，供给刚性且不可替代。",
+      "framework_updated": "2026-09-27 21:30",
       "created": "2026-06-23 13:47",
       "origin": "emergent",
       "latest_status": "催化增强",
       "latest_heat": 90,
       "last_tracked": "2026-08-12",
-      "last_checked": "2026-09-26",
+      "last_checked": "2026-09-27",
       "timeline_count": 2,
       "first_tracked": "2026-06-20",
       "tracking_bucket": "持续跟踪",
@@ -169,50 +169,50 @@
       "name": "AI光通信组件短缺",
       "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
       "segments": [
-        "磷化铟衬底",
+        "磷化铟衬底制造",
         "光芯片制造",
-        "光通信组件"
+        "光通信设备"
       ],
       "tickers": [
         {
-          "name": "住友化学",
-          "code": "4005.T",
-          "role": "磷化铟衬底"
+          "name": "国内磷化铟衬底企业",
+          "code": "",
+          "role": "磷化铟衬底制造"
         },
         {
-          "name": "国内某光芯片公司",
+          "name": "光迅科技",
           "code": "",
           "role": "光芯片制造"
         },
         {
-          "name": "光迅科技",
-          "code": "002281",
-          "role": "光通信组件"
+          "name": "华为",
+          "code": "",
+          "role": "光通信设备"
         }
       ],
       "tracking_signals": [
-        "磷化铟衬底价格波动",
+        "磷化铟衬底价格持续上涨",
         "光芯片产能扩张计划"
       ],
       "stage": "兑现中",
       "scores": {
         "空间": 4,
-        "竞争力": 4,
-        "寡头垄断": 5,
+        "竞争力": 3,
+        "寡头垄断": 4,
         "确定性": 4
       },
-      "score_notes": "AI算力需求推动光通信组件需求增长，但上游供应紧张导致产业链利润向上游倾斜。",
+      "score_notes": "AI算力需求推动光通信组件需求增长，市场空间较大。磷化铟衬底和光芯片制造技术壁垒较高，短期内供应紧张局面难以缓解，产业链利润向上游倾斜。国内企业在光芯片制造领域有一定竞争力，但与国际巨头仍有差距。",
       "certainty_drivers": [
         "AI"
       ],
-      "certainty_note": "AI算力需求增长是长期趋势，光通信组件作为AI数据中心的关键基础设施，需求刚性且不可替代。",
-      "framework_updated": "2026-09-26 21:30",
+      "certainty_note": "该产业链由AI算力需求驱动，属于AI发展的关键支撑环节，供给刚性且不可替代。",
+      "framework_updated": "2026-09-27 21:30",
       "created": "2026-06-24 21:30",
       "origin": "emergent",
       "latest_status": "催化增强",
       "latest_heat": 85,
       "last_tracked": "2026-09-26",
-      "last_checked": "2026-09-26",
+      "last_checked": "2026-09-27",
       "timeline_count": 15,
       "first_tracked": "2026-06-24",
       "tracking_bucket": "持续跟踪",
@@ -255,30 +255,30 @@
       "name": "AI驱动半导体资本开支",
       "thesis": "AI技术发展推动全球半导体资本开支加速增长，AI服务器、数据中心等需求激增，带动半导体产业链全面升级。",
       "segments": [
-        "AI服务器芯片",
-        "数据中心建设",
-        "半导体制造设备"
+        "AI芯片制造",
+        "半导体设备",
+        "数据中心建设"
       ],
       "tickers": [
         {
-          "name": "英伟达",
-          "code": "NVDA",
-          "role": "AI服务器芯片"
-        },
-        {
           "name": "台积电",
-          "code": "2330.TW",
-          "role": "半导体制造设备"
+          "code": "",
+          "role": "AI芯片制造"
         },
         {
-          "name": "国内某数据中心公司",
+          "name": "ASML",
+          "code": "",
+          "role": "半导体设备"
+        },
+        {
+          "name": "华为",
           "code": "",
           "role": "数据中心建设"
         }
       ],
       "tracking_signals": [
-        "AI服务器出货量增长",
-        "半导体制造设备订单增加"
+        "AI芯片制造订单量增长",
+        "半导体设备出货量增加"
       ],
       "stage": "兑现中",
       "scores": {
@@ -287,18 +287,18 @@
         "寡头垄断": 4,
         "确定性": 5
       },
-      "score_notes": "AI技术发展推动半导体产业链全面升级，市场空间巨大，但行业集中度较高，竞争格局相对稳定。",
+      "score_notes": "AI技术发展推动半导体产业进入新一轮增长周期，市场空间巨大。半导体设备制造和AI芯片制造领域技术壁垒高，寡头垄断格局明显。AI算力需求增长对半导体产业链的推动具有长期确定性。",
       "certainty_drivers": [
         "AI"
       ],
-      "certainty_note": "AI技术发展是长期趋势，半导体产业链作为AI算力的基础支撑，被AI产业链需求，供给刚性且不可替代。",
-      "framework_updated": "2026-09-26 21:30",
+      "certainty_note": "该产业链由AI技术发展驱动，属于AI发展的核心支撑环节，供给刚性且不可替代。",
+      "framework_updated": "2026-09-27 21:30",
       "created": "2026-06-30 21:30",
       "origin": "emergent",
       "latest_status": "数据兑现",
       "latest_heat": 90,
       "last_tracked": "2026-09-26",
-      "last_checked": "2026-09-26",
+      "last_checked": "2026-09-27",
       "timeline_count": 12,
       "first_tracked": "2026-06-30",
       "tracking_bucket": "持续跟踪",
@@ -385,7 +385,7 @@
       "latest_status": "震荡观察",
       "latest_heat": 70,
       "last_tracked": "2026-08-26",
-      "last_checked": "2026-09-26",
+      "last_checked": "2026-09-27",
       "timeline_count": 2,
       "first_tracked": "2026-06-28",
       "tracking_bucket": "持续跟踪",
@@ -449,7 +449,7 @@
       "latest_status": "催化增强，数据兑现",
       "latest_heat": 90,
       "last_tracked": "2026-08-22",
-      "last_checked": "2026-09-26",
+      "last_checked": "2026-09-27",
       "timeline_count": 8,
       "first_tracked": "2026-06-24",
       "tracking_bucket": "持续跟踪",
@@ -574,7 +574,7 @@
         "智能电网建设对SST的需求有多大？"
       ],
       "not_clear": "SST技术商用化进程和成本控制情况尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "huawei-tao-law",
@@ -655,7 +655,7 @@
         "系统级互联技术能否成为行业标准？"
       ],
       "not_clear": "逻辑折叠技术的商用化路径和系统级互联技术的标准化进程尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "space-computing",
@@ -727,7 +727,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "domestic-ai-compute",
@@ -813,7 +813,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-pcb-price-inflation",
@@ -891,7 +891,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "kyber-optical-communication",
@@ -971,7 +971,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-power-semiconductor-demand",
@@ -1051,7 +1051,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "semiconductor-testing-services",
@@ -1127,7 +1127,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "glass-substrate-ai-packaging",
@@ -1207,7 +1207,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-pcb-manufacturing",
@@ -1251,9 +1251,9 @@
       "certainty_note": "AI算力需求驱动，PCB制造是AI服务器产业链中不可或缺的环节，供给刚性较强。",
       "framework_updated": "2026-06-23 21:30",
       "created": "2026-06-23 21:30",
-      "latest_status": "催化增强，数据兑现",
-      "latest_heat": 80,
-      "last_tracked": "2026-08-22",
+      "latest_status": "催化增强",
+      "latest_heat": 85,
+      "last_tracked": "2026-09-27",
       "timeline_count": 9,
       "first_tracked": "2026-06-23",
       "tracking_bucket": "持续跟踪",
@@ -1278,7 +1278,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-server-liquid-cooling",
@@ -1360,7 +1360,7 @@
         "液冷散热技术能否标准化？"
       ],
       "not_clear": "液冷散热技术的标准化和成本控制能力尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-analog-chip-demand",
@@ -1463,7 +1463,7 @@
         "模拟芯片厂商的产能规划"
       ],
       "not_clear": "AI服务器对模拟芯片的具体需求类型及用量尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "hbm-memory-market",
@@ -1538,7 +1538,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "semiconductor-clean-process-chain",
@@ -1611,7 +1611,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-liquid-cooling-platforms",
@@ -1681,7 +1681,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-semiconductor-yield-improvement",
@@ -1730,9 +1730,9 @@
       "certainty_note": "AI技术被半导体制造系统需要，AI驱动的良率提升方案具有不可替代性。",
       "framework_updated": "2026-08-15 21:30",
       "created": "2026-08-15 21:30",
-      "latest_status": "催化增强",
-      "latest_heat": 82,
-      "last_tracked": "2026-09-26",
+      "latest_status": "数据兑现",
+      "latest_heat": 78,
+      "last_tracked": "2026-09-27",
       "timeline_count": 9,
       "first_tracked": "2026-08-15",
       "tracking_bucket": "持续跟踪",
@@ -1769,7 +1769,7 @@
         "AI技术对半导体制造良率提升的实际效果如何？"
       ],
       "not_clear": "AI技术在半导体制造中的普及速度，以及与传统工艺的整合难度。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-manga-drama",
@@ -1843,7 +1843,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-precision-measurement",
@@ -1940,7 +1940,7 @@
         "精密测量设备厂商的AI技术整合能力"
       ],
       "not_clear": "AI算法在精密测量领域的具体应用场景及效果尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "quantum-tech-industry",
@@ -2007,7 +2007,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "commercial-space-launch",
@@ -2094,7 +2094,7 @@
         "卫星互联网应用场景的落地情况如何？"
       ],
       "not_clear": "火箭回收技术的长期成本效益和市场需求规模尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-data-center-infrastructure",
@@ -2178,7 +2178,7 @@
         "模块化数据中心的市场接受度"
       ],
       "not_clear": "数据中心基础设施升级的具体技术路径及成本效益分析。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "advanced-packaging-materials",
@@ -2260,7 +2260,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "printing-oled-material-market",
@@ -2339,7 +2339,7 @@
         "TCL华星产线何时能大规模量产？"
       ],
       "not_clear": "印刷OLED材料的良率及成本控制情况尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-precision-measurement",
@@ -2422,7 +2422,7 @@
         "精密测量设备的市场需求增长情况如何？"
       ],
       "not_clear": "AI算法在精密测量中的技术成熟度和市场接受度尚不明确。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "japan-semiconductor-export-controls",
@@ -2500,7 +2500,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "chemical-inspection-robot",
@@ -2580,7 +2580,7 @@
         "市场需求增长是否达到预期？"
       ],
       "not_clear": "技术突破的具体方向和速度，以及市场接受度。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "superconductor-material",
@@ -2641,7 +2641,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "mlcc-testing-equipment",
@@ -2705,7 +2705,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-precision-agriculture",
@@ -2793,7 +2793,7 @@
         "AI技术对农业生产的实际影响如何？"
       ],
       "not_clear": "AI技术在农业中的普及速度，以及与传统农业技术的整合难度。",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "low-carbon-hydrogen-production",
@@ -2857,7 +2857,7 @@
       ],
       "key_questions": [],
       "not_clear": "",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-energy-efficiency",
@@ -2885,7 +2885,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 70,
       "last_tracked": "2026-09-16",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-supply-chain-optimization",
@@ -2913,7 +2913,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 75,
       "last_tracked": "2026-09-16",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "agentic-ai-infrastructure",
@@ -2942,7 +2942,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 88,
       "last_tracked": "2026-09-22",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-ecommerce-marketing",
@@ -2971,7 +2971,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 82,
       "last_tracked": "2026-09-22",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-token-factory",
@@ -3004,7 +3004,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 82,
       "last_tracked": "2026-09-23",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "global-gas-turbine-shortage",
@@ -3033,7 +3033,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 80,
       "last_tracked": "2026-09-23",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-optical-connection-upgrade",
@@ -3057,10 +3057,10 @@
       ],
       "framework_updated": "2026-09-24 21:30",
       "created": "2026-09-24 21:30",
-      "latest_status": "催化增强",
-      "latest_heat": 80,
-      "last_tracked": "2026-09-26",
-      "last_checked": "2026-09-26"
+      "latest_status": "预期透支",
+      "latest_heat": 72,
+      "last_tracked": "2026-09-27",
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-glass-substrate-metalization",
@@ -3087,7 +3087,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 80,
       "last_tracked": "2026-09-24",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-semiconductor-yield-improvement-x",
@@ -3115,7 +3115,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 70,
       "last_tracked": "2026-09-25",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-manga-drama-x",
@@ -3144,7 +3144,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 65,
       "last_tracked": "2026-09-25",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-pharmaceutical-equipment",
@@ -3172,7 +3172,7 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 75,
       "last_tracked": "2026-09-26",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
     },
     {
       "id": "ai-driven-energy-storage",
@@ -3201,16 +3201,72 @@
       "latest_status": "首次纳入跟踪",
       "latest_heat": 78,
       "last_tracked": "2026-09-26",
-      "last_checked": "2026-09-26"
+      "last_checked": "2026-09-27"
+    },
+    {
+      "id": "ai-driven-retail-expansion",
+      "name": "AI驱动零售业扩张",
+      "thesis": "AI技术正在加速零售业的数字化转型，通过优化供应链和提升客户体验，推动门店扩张和运营效率提升。",
+      "segments": [
+        "AI零售平台",
+        "门店数字化",
+        "供应链优化"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 4,
+        "竞争力": 3,
+        "寡头垄断": 2,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-09-27 21:30",
+      "created": "2026-09-27 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 80,
+      "last_tracked": "2026-09-27",
+      "last_checked": "2026-09-27"
+    },
+    {
+      "id": "ai-semiconductor-yield-optimization",
+      "name": "AI半导体良率优化",
+      "thesis": "AI算法在半导体制造中的应用日益广泛，通过缺陷检测和工艺优化，显著提升良率和生产效率。",
+      "segments": [
+        "AI缺陷检测",
+        "工艺优化算法",
+        "良率数据分析"
+      ],
+      "stage": "萌芽",
+      "origin": "emergent",
+      "scores": {
+        "空间": 5,
+        "竞争力": 4,
+        "寡头垄断": 3,
+        "确定性": 4
+      },
+      "certainty_drivers": [
+        "兔子",
+        "AI"
+      ],
+      "framework_updated": "2026-09-27 21:30",
+      "created": "2026-09-27 21:30",
+      "latest_status": "首次纳入跟踪",
+      "latest_heat": 82,
+      "last_tracked": "2026-09-27",
+      "last_checked": "2026-09-27"
     }
   ],
-  "updated": "2026-09-26 21:30",
-  "last_checked": "2026-09-26",
+  "updated": "2026-09-27 21:30",
+  "last_checked": "2026-09-27",
   "source_counts": {
     "kol": 0,
     "zsxq": 22
   },
   "update_mode": "fresh",
-  "update_note": "已完成今日巡检，更新 5 条产业链时间线，新增 2 个主题。",
-  "last_input_date": "2026-09-26"
+  "update_note": "已完成今日巡检，更新 3 条产业链时间线，新增 2 个主题。",
+  "last_input_date": "2026-09-27"
 }

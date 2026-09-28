@@ -1,22 +1,55 @@
 {
-  "scan_date": "2026-09-21",
+  "scan_date": "2026-09-28",
   "market": "US",
   "market_label": "美股",
   "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
   "regime": {
     "name": "easing",
     "hmm_state": "S2",
-    "confidence": 0.8
+    "confidence": 0.6
   },
   "opportunities": [
     {
-      "type": "cross_model_consensus",
-      "sector": "地产/REITs",
-      "signal": "齿轮景气=65 + 体制=easing(conf=0.80)",
-      "direction": "看多美股地产/REITs",
+      "type": "regime_mismatch",
+      "sector": "科技/AI",
+      "signal": "体制=easing + 科技/AI景气=39 + 预期区间=[50, 70] + 偏离=11点 + 宏观: 利率中性(48)/风险中性(47)/能源中性(57)",
+      "direction": "看多美股科技/AI（景气39低于体制'easing'预期下界50）",
       "confidence": {
-        "gear_model": 0.29,
-        "regime_hmm": 0.8,
+        "gear_model": 0.38,
+        "regime_hmm": 0.6,
+        "consensus": "1/3模型支撑"
+      },
+      "deviation_points": 11.4,
+      "caveats": [
+        "体制预期区间基于历史经验设定，非统计拟合"
+      ],
+      "model_limitations": "传导系数v2.0，部分行业验证集R²<0.15"
+    },
+    {
+      "type": "supply_chain_scissors",
+      "sector": "能源↔消费/零售",
+      "signal": "美股能源景气=59 vs 消费/零售景气=36（差=22） — 油价→消费者支出",
+      "direction": "看空美股消费/零售（能源成本传导），或看多美股能源持续性",
+      "confidence": {
+        "gear_model": 0.56,
+        "consensus": "1/3模型（仅齿轮）"
+      },
+      "gap_points": 22.2,
+      "caveats": [
+        "剪刀差需持续≥2周才有意义（当前为单次快照）",
+        "传导逻辑'油价→消费者支出'为经验假设",
+        "产业链关系简化，实际传导路径更复杂"
+      ],
+      "model_limitations": "产业链映射为专家判断，未经统计验证"
+    },
+    {
+      "type": "cross_model_consensus",
+      "sector": "银行/金融",
+      "signal": "齿轮景气=33 + 体制=easing(conf=0.60)",
+      "direction": "看空美股银行/金融",
+      "confidence": {
+        "gear_model": -0.35,
+        "regime_hmm": 0.6,
         "consensus": "2/3模型一致"
       },
       "models_agreeing": 2,
@@ -30,11 +63,10 @@
   "no_signal_sectors": [
     "军工/防务",
     "出口制造",
+    "地产/REITs",
     "消费/零售",
-    "科技/AI",
     "能源",
-    "银行/金融",
     "黄金/大宗"
   ],
-  "scan_summary": "发现1个多模型共识，7个行业无信号"
+  "scan_summary": "发现1个体制错配, 1个产业链剪刀差, 1个多模型共识，6个行业无信号"
 }

@@ -3,51 +3,53 @@
   "name": "AI与军事冲突影响",
   "thesis": "美伊冲突加剧，全球地缘政治风险上升，可能影响AI产业链的供应链稳定性和市场情绪。",
   "segments": [
-    "AI芯片制造",
-    "AI软件",
-    "AI应用"
+    "AI芯片供应链",
+    "AI应用市场",
+    "地缘政治风险"
   ],
-  "tickers": [
-    {
-      "name": "英伟达",
-      "code": "",
-      "role": "AI芯片制造"
-    },
-    {
-      "name": "微软",
-      "code": "",
-      "role": "AI软件"
-    },
-    {
-      "name": "特斯拉",
-      "code": "",
-      "role": "AI应用"
-    }
-  ],
+  "tickers": [],
   "tracking_signals": [
-    "地缘政治风险事件",
-    "AI产业链供应链中断风险"
+    "美伊冲突升级",
+    "AI芯片供应链中断风险上升"
   ],
   "stage": "萌芽",
   "origin": "emergent",
   "scores": {
     "空间": 3,
-    "竞争力": 3,
-    "寡头垄断": 3,
+    "竞争力": 2,
+    "寡头垄断": 2,
     "确定性": 2
   },
-  "score_notes": "地缘政治风险对AI产业链的影响具有不确定性，短期内可能造成市场波动，但长期影响有限。AI产业链全球化程度高，供应链调整能力较强。",
+  "score_notes": "地缘政治风险对AI产业链的影响具有不确定性，市场空间有限。AI产业链对地缘政治风险的抵抗力较弱，竞争力较低。AI算力需求增长与地缘政治风险共同影响确定性。",
   "certainty_drivers": [
-    "鹰酱",
-    "盟国"
+    "AI"
   ],
-  "certainty_note": "AI产业链对地缘政治风险的敏感性较高，但目前尚未形成被多系统共需的结构性资产。",
-  "framework_updated": "2026-09-24 21:30",
+  "certainty_note": "AI产业链对地缘政治风险的敏感性较高，但并非AI算力发展的核心驱动因素，属于潜在风险因素。",
+  "framework_updated": "2026-09-29 21:30",
   "created": "2026-06-28 21:30",
   "latest_status": "震荡观察",
-  "latest_heat": 70,
-  "last_tracked": "2026-08-26",
+  "latest_heat": 65,
+  "last_tracked": "2026-09-29",
   "timeline": [
+    {
+      "date": "2026-09-29",
+      "catalyst": "特朗普与科技公司CEO的人工智能会议聚焦于寻求平衡，可能影响AI芯片供应链。",
+      "data_point": "会议讨论AI风险，可能对AI应用市场产生间接影响。",
+      "status": "震荡观察",
+      "heat": 65,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-09-29",
+          "text": "# 美国众议院议长表示，特朗普与科... 美国众议院议长表示，特朗普与科技公司 CEO 的人工智能会议将聚焦于寻求平衡"
+        },
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-09-29",
+          "text": "# 英伟达公司首席执行官黄仁勋、A... 英伟达公司首席执行官黄仁勋、Anthropic PBC 总裁达里奥·阿莫迪和 Palantir Technologie…"
+        }
+      ]
+    },
     {
       "date": "2026-08-26",
       "catalyst": "AI芯片供应链受到国际物流与地缘政治影响。",
@@ -96,5 +98,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 3,
   "depth_level": "浅",
-  "last_checked": "2026-09-23"
+  "last_checked": "2026-09-28"
 }

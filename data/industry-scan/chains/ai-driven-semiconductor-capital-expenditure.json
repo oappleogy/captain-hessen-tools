@@ -14,19 +14,14 @@
       "role": "AI芯片制造"
     },
     {
-      "name": "应用材料",
+      "name": "ASML",
       "code": "",
       "role": "半导体设备"
-    },
-    {
-      "name": "万国数据",
-      "code": "",
-      "role": "数据中心建设"
     }
   ],
   "tracking_signals": [
-    "AI芯片制造设备订单增长",
-    "数据中心投资规模扩大"
+    "AI芯片代工产能利用率持续超过95%",
+    "半导体设备订单量增长超过30%"
   ],
   "stage": "兑现中",
   "origin": "emergent",
@@ -36,12 +31,12 @@
     "寡头垄断": 4,
     "确定性": 5
   },
-  "score_notes": "AI技术发展推动半导体产业链升级，市场空间巨大。半导体设备制造和数据中心建设进入壁垒高，但竞争格局相对分散。AI算力需求增长确保其长期发展确定性。",
+  "score_notes": "AI技术发展推动半导体资本开支增长，市场空间巨大。半导体产业链壁垒高，但竞争格局相对分散。AI算力需求增长与政策支持共同推动高确定性。",
   "certainty_drivers": [
     "AI"
   ],
-  "certainty_note": "该领域主要由AI算力需求驱动，属于AI基础设施的关键环节，供给刚性且不可替代。",
-  "framework_updated": "2026-09-28 21:30",
+  "certainty_note": "AI算力发展对半导体资本开支的需求是结构性的，且AI技术迭代速度快，属于AI算力发展的核心支撑。",
+  "framework_updated": "2026-09-29 21:30",
   "created": "2026-06-30 21:30",
   "latest_status": "催化增强",
   "latest_heat": 85,
@@ -376,5 +371,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-09-27"
+  "last_checked": "2026-09-28"
 }

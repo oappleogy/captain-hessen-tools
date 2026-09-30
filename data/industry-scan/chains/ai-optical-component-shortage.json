@@ -9,19 +9,19 @@
   ],
   "tickers": [
     {
-      "name": "三菱化学",
-      "code": "",
+      "name": "II-VI",
+      "code": "IIVI",
       "role": "磷化铟衬底"
     },
     {
       "name": "住友电工",
-      "code": "",
+      "code": "5802.T",
       "role": "光芯片制造"
     }
   ],
   "tracking_signals": [
     "磷化铟衬底价格持续上涨",
-    "光芯片交货周期延长至40周以上"
+    "光芯片交货周期延长"
   ],
   "stage": "兑现中",
   "origin": "emergent",
@@ -31,12 +31,12 @@
     "寡头垄断": 5,
     "确定性": 4
   },
-  "score_notes": "AI光通信组件需求增长推动市场空间扩大，但上游材料与芯片供应紧张，短期内难以缓解。磷化铟衬底与光芯片制造环节壁垒高，寡头垄断特征明显。AI算力需求增长推动高确定性。",
+  "score_notes": "AI光通信需求增长明确，但上游供应瓶颈短期内难以解决，产业链利润向上游集中。",
   "certainty_drivers": [
     "AI"
   ],
-  "certainty_note": "AI算力发展对光通信组件的需求是结构性的，且短期内难以找到替代方案，属于AI算力发展的关键支撑。",
-  "framework_updated": "2026-09-29 21:30",
+  "certainty_note": "AI算力需求推动光通信技术升级，磷化铟衬底和光芯片作为核心组件，具备结构性需求。",
+  "framework_updated": "2026-09-30 21:30",
   "created": "2026-06-24 21:30",
   "latest_status": "预期透支",
   "latest_heat": 70,
@@ -383,5 +383,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-09-28"
+  "last_checked": "2026-09-29"
 }

@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-09-30 08:15",
-  "date": "2026-09-30",
+  "last_updated": "2026-10-01 08:15",
+  "date": "2026-10-01",
   "source_counts": {
     "wallstreetcn": 0,
     "cls": 20,
@@ -9,34 +9,72 @@
   },
   "keywords": [
     {
-      "keyword": "港股IPO市场热度",
+      "keyword": "日本央行加息讨论",
       "heat": 95,
-      "category": "finance",
-      "summary": "港股IPO市场持续火热，369家公司排队聆讯，科技企业为主要驱动力。",
+      "category": "macro",
+      "summary": "日本央行内部对加息意见不一，经济与通胀前景是关键考量。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-30 07:55",
-          "text": "【港股IPO市场热度居高不下 369家公司排队聆讯处理中】财联社9月30日电，今年以来，港股IPO市场热度居高不下，企业赴港上市热情持续高涨。Wind数据显示，截至9月29日收盘，港股年内聆讯且已经完成上市动作的有76家，聆讯通过但暂未上市的有7家、聆讯处理中的有369家、失效的有145家、撤回的有2家。这一轮IPO热潮的核心驱动力来自科技企业的大规模入场与A股公司赴港上市热度的持续攀升，两条主线"
+          "time": "10-01 07:57",
+          "text": "财联社10月1日电，日本央行9月意见摘要显示，一位委员表示，根据经济、物价和金融形势发展继续加息是合适的；一位委员表示，无需急于加息，但必须适当引导政策，因为潜在通胀可能很快就会达到2%。"
         }
       ]
     },
     {
-      "keyword": "AI驱动政府网站",
-      "heat": 85,
+      "keyword": "美国AI企业达成共识",
+      "heat": 90,
       "category": "ai-tech",
-      "summary": "特朗普政府推出AI驱动的联邦政府信息网站，旨在简化公众获取信息途径。",
+      "summary": "美国AI企业就新版内部控制和审计达成共识，监管压力加大。",
+      "sources": [
+        "财联社",
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-01 06:52",
+          "text": "财联社10月1日电，白宫AI主管Sacks称，众多AI企业近日围绕新版内部控制、审计达成共识。"
+        },
+        {
+          "source": "Google News / Forbes",
+          "time": "10-01 00:08",
+          "text": "Here’s The White House’s 308-Word AI ‘Accord’ In Full—Including Misspelling - Forbes"
+        }
+      ]
+    },
+    {
+      "keyword": "美国组建自主作战司令部",
+      "heat": 85,
+      "category": "geo",
+      "summary": "美国国防部宣布组建自主作战司令部，提升机器人作战能力。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-30 08:00",
-          "text": "【特朗普政府推出人工智能驱动的政府网站】财联社9月30日电，美国特朗普政府9月29日推出一个由人工智能驱动的联邦政府信息网站，这个域名为America.gov的网站已上线。美联社报道称，该网站旨在简化公众获取联邦政府信息和服务的途径。不过，这篇报道质疑其问答功能在一些敏感问题上的客观性。"
+          "time": "10-01 06:47",
+          "text": "【美防长宣布组建“自主作战司令部”】财联社10月1日电，美国国防部长赫格塞思9月30日宣布组建“自主作战司令部”，以提升美军规模化自主及机器人作战能力。"
+        }
+      ]
+    },
+    {
+      "keyword": "美联储资产负债表策略",
+      "heat": 80,
+      "category": "macro",
+      "summary": "美联储官员讨论资产负债表策略，利率环境是关键考量。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-01 06:33",
+          "text": "【美联储卡什卡利：美联储资产负债表在接近零利率的情况下使用效果最佳】财联社10月1日电，美联储卡什卡利称，美联储资产负债表在接近零利率的情况下使用效果最佳，美联储资产负债表的规模是一个复杂的问题，重新审视资产负债表策略是完全合理的。"
         }
       ],
       "tool": {
@@ -45,191 +83,151 @@
       }
     },
     {
-      "keyword": "光模块温控技术升级",
-      "heat": 80,
-      "category": "ai-tech",
-      "summary": "光模块温控技术重要性提升，形成芯片级精准控温、界面导热、模组级均热三层体系。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-30 08:14",
-          "text": "【中信证券：光模块温控正由“配套环节”升级为“性能决定环节”】财联社9月30日电，中信证券指出，随着800G光模块大规模放量、1.6T进入起量元年，单模块功耗与对温控精度的要求正在显著提高，光模块温控正由“配套环节”升级为“性能决定环节”。光模块温控形成芯片级精准控温（Micro-TEC+陶瓷基板热沉）、界面导热（TIM凝胶/石墨烯垫片）、模组级均热（VC均热板/冷板）三层体系，单模块温控价值量随"
-        }
-      ]
-    },
-    {
-      "keyword": "南向资金持续流入港股",
+      "keyword": "国产变速抽水蓄能机组",
       "heat": 75,
-      "category": "finance",
-      "summary": "南向资金年内净买入近4300亿港元，资讯科技业、金融业等受青睐。",
+      "category": "industry",
+      "summary": "我国首台国产变速抽水蓄能机组完成安装，助力新能源高效利用。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-30 07:23",
-          "text": "【南向资金年内净买入近4300亿港元 机构称港股整体趋势有望向好】财联社9月30日电，今年以来，南向资金明显加仓港股市场，是港股市场最重要的增量资金来源之一。Wind数据显示，截至9月29日，今年以来南向资金累计净流入近4300亿港元。近一个月，资讯科技业、工业、金融业等行业受到南向资金青睐，净买入金额居前。机构人士认为，短期看海外流动性预期反复及科技板块估值波动仍是港股市场主要扰动因素。展望后市"
+          "time": "10-01 07:22",
+          "text": "【我国首台国产变速抽水蓄能机组转子吊装】财联社10月1日电，记者从南方电网了解到，今天，广东肇庆浪江抽水蓄能工程变速机组转子成功吊装，标志着我国首台国产变速抽蓄机组主体安装完成。该变速抽水蓄能机组国产化程度达到100%，它可以根据电网的需求，灵活调节转速，更有利于新能源的高效灵活消纳。经测算，机组每小时可将新能源发出的电能转化成28万立方米的水能储存起来，在电网需要时再稳定发电。"
         }
       ]
     },
     {
-      "keyword": "美国第六代舰载战斗机",
+      "keyword": "紧凑型聚变能实验装置",
       "heat": 70,
-      "category": "geo",
-      "summary": "美国海军选择波音公司研发第六代舰载战斗机F/A-XX，合同价值超200亿美元。",
+      "category": "industry",
+      "summary": "我国新一代聚变能实验装置园区交付使用，核聚变研究取得进展。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-30 06:59",
-          "text": "【美国海军选择波音公司为其研发第六代舰载战斗机】财联社9月30日电，记者获悉，美国海军已选择波音公司负责研发第六代舰载战斗机F/A-XX。美国国防部随后表示，该项目全尺寸研制阶段合同价值超过200亿美元，将采购多架测试机，用于地面、适航、系统及武器集成测试。F/A-XX预计于2030年代开始为美国海军服役。"
+          "time": "10-01 07:21",
+          "text": "【“人造太阳”建设新进展：紧凑型聚变能实验装置园区交付使用】国庆前夕，国家重大工程紧凑型聚变能实验装置（BEST）迎来重要节点，项目园区正式交付启用，核聚变装置主机的建造进入了“四环套装”的关键攻坚阶段。BEST装置是我国自主研发的新一代聚变燃烧实验装置，目标是模拟太阳内部的核聚变反应，从而获得几乎取之不尽的清洁能源。"
         }
       ]
     },
     {
-      "keyword": "日本经济数据低于预期",
+      "keyword": "AI数据中心冷却投资",
       "heat": 65,
-      "category": "macro",
-      "summary": "日本8月工业产值同比增长3.4%，零售额同比增长2.7%，均低于市场预期。",
+      "category": "ai-tech",
+      "summary": "LG电子投资AI数据中心冷却业务，AI基础设施需求增长。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "09-30 07:52",
-          "text": "财联社9月30日电，日本8月份工业产值同比增长3.4%，预估6.8%。"
-        },
-        {
-          "source": "财联社",
-          "time": "09-30 07:51",
-          "text": "财联社9月30日电，日本8月份零售额同比增长2.7%，预估为3.2%。"
+          "time": "10-01 07:32",
+          "text": "财联社10月1日电，LG电子将投资1500亿韩元用于AI数据中心冷却业务。"
         }
       ]
     },
     {
-      "keyword": "AI安全与数据扩展",
+      "keyword": "火箭实验室发射协议",
       "heat": 60,
+      "category": "industry",
+      "summary": "火箭实验室与日本卫星公司达成20次发射协议，商业航天市场活跃。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-01 07:26",
+          "text": "财联社10月1日电，火箭实验室（Rocket Lab）与日本卫星公司Synspective达成20次发射协议。"
+        }
+      ]
+    },
+    {
+      "keyword": "美国释放柴油储备",
+      "heat": 55,
+      "category": "macro",
+      "summary": "美国内政部长称欧洲释放柴油储备可能压低柴油价格。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-01 06:26",
+          "text": "财联社10月1日电，美国内政部长Burgum称，如果欧洲释放精炼燃料储备（柴油储备），可能会压低柴油价格。"
+        }
+      ]
+    },
+    {
+      "keyword": "Paramount收购华纳",
+      "heat": 50,
+      "category": "finance",
+      "summary": "法官允许派拉蒙以1100亿美元收购华纳，媒体行业整合加速。",
+      "sources": [
+        "Google News",
+        "NBC News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / NBC News",
+          "time": "10-01 04:15",
+          "text": "Judge allows Paramount to close $110 billion takeover of Warner Bros. Discovery - NBC News"
+        }
+      ]
+    },
+    {
+      "keyword": "OpenAI与Anthropic被调查",
+      "heat": 45,
       "category": "ai-tech",
-      "summary": "特朗普与AI公司CEO签署自愿安全协议，支持数据中心扩展。",
+      "summary": "FTC对OpenAI和Anthropic展开广泛调查，AI监管趋严。",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / The Washington Post",
+          "time": "10-01 07:40",
+          "text": "FTC launches broad investigation into Anthropic, OpenAI - The Washington Post"
+        }
+      ],
+      "tool": {
+        "href": "mythos-tracker.html",
+        "label": "Mythos 追踪"
+      }
+    },
+    {
+      "keyword": "英国结束与法国移民协议",
+      "heat": 40,
+      "category": "geo",
+      "summary": "英国终止与法国的'一进一出'移民协议，移民政策调整。",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Euronews.com",
+          "time": "10-01 01:28",
+          "text": "UK ends 'one in, one out' migrant returns deal with France - Euronews.com"
+        }
+      ]
+    },
+    {
+      "keyword": "俄罗斯对北约发出核警告",
+      "heat": 35,
+      "category": "geo",
+      "summary": "俄罗斯在波罗的海紧张局势中向北约发出核警告。",
       "sources": [
         "Google News"
       ],
       "evidence": [
         {
           "source": "Google News / Reuters",
-          "time": "09-30 06:45",
-          "text": "Trump, AI CEOs sign voluntary safety pact, back data center expansion - Reuters"
-        }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "可吞服纸电池技术",
-      "heat": 55,
-      "category": "industry",
-      "summary": "新型可吞服纸电池可在体内供电并降解，展现医疗应用前景。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-30 06:58",
-          "text": "【可吞服纸电池能在体内给医疗装置供电】财联社9月30日电，新一期《自然·化学工程》杂志发表的一项研究称，一款能在体内给医疗装置供电并最终降解的可吞服纸电池，在临床前研究（包括在猪体内开展的研究）中展现出应用前景。该技术能支持追踪用药情况或进行电刺激的临时装置，且事后无需取出。"
-        }
-      ]
-    },
-    {
-      "keyword": "美联储加息预期",
-      "heat": 50,
-      "category": "macro",
-      "summary": "美联储官员预测2026年底前将再加息一次。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Bloomberg.com",
-          "time": "09-30 02:00",
-          "text": "Fed’s Williams Sees One More Interest Rate Hike in Late 2026 - Bloomberg.com"
-        }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "港股配置策略",
-      "heat": 45,
-      "category": "finance",
-      "summary": "港股市场迎来布局窗口期，机构共识为“红利底仓+AI进攻”策略。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-30 07:50",
-          "text": "【港股配置主线浮出水面 “红利底仓+AI进攻”渐成机构共识】财联社9月30日电，随着三季度行情步入尾声，港股市场在经历9月的震荡回调后，正迎来新一轮布局窗口期。多家券商近期密集发布港股配置观点，普遍认为外部扰动边际缓和，估值收缩空间有限，回调有望提供布局时机。配置层面，“红利底仓+AI进攻”的杠铃策略逐渐成为机构主流共识，成长端关注AI应用链，防御端则锚定红利资产。分析人士认为，随着三季报披露期临"
-        }
-      ]
-    },
-    {
-      "keyword": "地缘政治紧张局势",
-      "heat": 40,
-      "category": "geo",
-      "summary": "沙特否认与以色列官员会谈，强调巴勒斯坦建国前不与以色列建交。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "09-30 08:07",
-          "text": "【沙特否认有官员与以色列官员会谈】财联社9月30日电，一名沙特高级官员当地时间9月29日否认了有沙特官员近日与以色列官员在阿联酋会谈的报道。有以色列媒体此前报道称，以色列总理内塔尼亚胡9月27日秘密访问阿联酋期间与中东国家官员举行会谈，其中包括一名沙特官员。沙特与以色列目前尚未建交，且沙特方面明确表示，在巴勒斯坦独立建国前，不会与以色列建立任何形式的外交关系。"
-        }
-      ]
-    },
-    {
-      "keyword": "AI应用与创新",
-      "heat": 35,
-      "category": "ai-tech",
-      "summary": "OpenAI推出Dots agents等新功能，直接挑战传统应用商店模式。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / CNBC",
-          "time": "09-30 05:03",
-          "text": "OpenAI DevDay recap: AI lab rolls out Dots agents, Altman and Friar comment on IPO - CNBC"
-        }
-      ]
-    },
-    {
-      "keyword": "厄尔尼诺现象影响",
-      "heat": 30,
-      "category": "macro",
-      "summary": "最强厄尔尼诺现象将影响我国秋冬季节气候。",
-      "sources": [
-        "微博热搜"
-      ],
-      "evidence": [
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "最强厄尔尼诺将影响我国秋冬"
+          "time": "10-01 04:11",
+          "text": "Russia sends nuclear warning to NATO as tensions rise in the Baltic - Reuters"
         }
       ]
     }

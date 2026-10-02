@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-02T07:33:24",
-  "data_as_of": "2026-10-01",
-  "data_lag_days": 1,
+  "timestamp": "2026-10-02T21:03:11",
+  "data_as_of": "2026-10-02",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.35,
+      "score": 0.39,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.11,
+      "score": 0.16,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.21,
+      "score": 0.2,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -147,8 +147,8 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 16.4,
-      "percentile": 50,
+      "value": 15.5,
+      "percentile": 37,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

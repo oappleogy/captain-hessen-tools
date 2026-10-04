@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-02T21:03:11",
+  "timestamp": "2026-10-05T07:32:17",
   "data_as_of": "2026-10-02",
-  "data_lag_days": 0,
+  "data_lag_days": 3,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.39,
+      "score": 0.36,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -63,17 +63,17 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.16,
+      "score": 0.03,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.2,
+      "score": 0.18,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 70.0
+        "pct": 63.6
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 30.0
+        "pct": 36.4
       },
       {
         "key": "TECH_DOM",
@@ -124,7 +124,7 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "TECH_DOM",
+    "moving_toward": "崩塌",
     "safety_margin": 0.267,
     "early_warning": "无"
   },
@@ -135,9 +135,9 @@
   "opportunities": [],
   "contradiction": {
     "type": "dimension_shift",
-    "title": "「叙事共识」本周剧烈改善",
-    "thesis": "叙事共识维度从-0.05变为+0.11，单周变化0.16，超过异动阈值。需要判断这是噪音还是趋势的开始。",
-    "metaphor": "共识在修复"
+    "title": "「叙事共识」本周剧烈恶化",
+    "thesis": "叙事共识维度从+0.16变为+0.03，单周变化0.13，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "共识出现裂缝"
   },
   "allocation": {
     "short_term": "情绪面相对平稳，正常操作即可。",
@@ -147,12 +147,12 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 15.5,
-      "percentile": 37,
+      "value": 15.3,
+      "percentile": 33,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
-      "value": 3.12,
+      "value": 3.24,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

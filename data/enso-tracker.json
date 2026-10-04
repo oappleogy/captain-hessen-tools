@@ -1,6 +1,6 @@
 {
- "last_updated": "2026-10-03",
- "next_update": "2026-10-10",
+ "last_updated": "2026-10-04",
+ "next_update": "2026-10-11",
  "data_window": "1950-01 ~ 2026-05",
  "current_state": {
   "label": "厄尔尼诺已形成 · El Niño Advisory",
@@ -15,24 +15,24 @@
    "code": "ONI",
    "name": "Oceanic Niño Index",
    "name_zh": "海洋尼诺指数",
-   "value": 1.8,
+   "value": 2.16,
    "unit": "°C",
-   "window": "JJA 26",
+   "window": "JAS 26",
    "trend": [
-    -0.21,
     0.11,
     0.46,
     0.95,
     1.39,
-    1.8
+    1.8,
+    2.16
    ],
    "trend_labels": [
-    "JFM 26",
     "FMA 26",
     "MAM 26",
     "AMJ 26",
     "MJJ 26",
-    "JJA 26"
+    "JJA 26",
+    "JAS 26"
    ],
    "thresholds": {
     "el_nino": 0.5,

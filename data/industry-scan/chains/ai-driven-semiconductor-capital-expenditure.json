@@ -10,35 +10,33 @@
   "tickers": [
     {
       "name": "台积电",
-      "code": "2330",
+      "code": "TSM",
       "role": "AI芯片制造龙头"
     },
     {
-      "name": "ASML",
-      "code": "ASML",
-      "role": "半导体设备核心供应商"
+      "name": "应用材料",
+      "code": "AMAT",
+      "role": "半导体设备供应商"
     }
   ],
   "tracking_signals": [
     "AI芯片代工产能利用率持续超过95%",
-    "半导体设备订单量增长"
+    "半导体设备订单量增长加速"
   ],
   "stage": "兑现中",
   "origin": "emergent",
   "scores": {
     "空间": 5,
-    "竞争力": 5,
+    "竞争力": 4,
     "寡头垄断": 4,
     "确定性": 5
   },
-  "score_notes": "AI技术发展对半导体产业链的拉动作用显著，AI芯片制造和半导体设备环节受益明显。台积电等企业在AI芯片制造领域具备技术优势，寡头垄断格局明显。",
+  "score_notes": "AI技术发展推动半导体资本开支增长，市场空间巨大；半导体产业链进入壁垒高，少数企业主导；AI需求增长为结构性趋势，需求刚性且持续。",
   "certainty_drivers": [
-    "鹰酱",
-    "兔子",
     "AI"
   ],
-  "certainty_note": "AI算力需求增长对半导体产业链的拉动是结构性的，同时AI芯片制造和设备供应的全球化属性使其被多个系统需要。",
-  "framework_updated": "2026-10-05 21:30",
+  "certainty_note": "AI算力需求增长对半导体产业链提出更高要求，AI发展对半导体资本开支的依赖性持续增强，需求不可替代。",
+  "framework_updated": "2026-10-06 21:31",
   "created": "2026-06-30 21:30",
   "latest_status": "催化增强",
   "latest_heat": 85,
@@ -468,5 +466,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-10-04"
+  "last_checked": "2026-10-05"
 }

@@ -4,26 +4,26 @@
   "thesis": "美伊冲突加剧，全球地缘政治风险上升，可能影响AI产业链的供应链稳定性和市场情绪。",
   "segments": [
     "AI芯片供应链",
-    "AI应用场景",
-    "地缘政治风险"
+    "AI软件服务",
+    "AI硬件制造"
   ],
   "tickers": [
     {
       "name": "英伟达",
       "code": "NVDA",
-      "role": "AI芯片核心供应商"
+      "role": "AI芯片供应商"
     },
     {
-      "name": "台积电",
-      "code": "2330",
-      "role": "AI芯片制造核心企业"
+      "name": "微软",
+      "code": "MSFT",
+      "role": "AI软件服务提供商"
     }
   ],
   "tracking_signals": [
-    "美伊冲突升级",
-    "AI芯片供应链中断风险"
+    "地缘政治冲突升级",
+    "AI供应链中断风险增加"
   ],
-  "stage": "降温",
+  "stage": "发酵",
   "origin": "emergent",
   "scores": {
     "空间": 3,
@@ -31,13 +31,12 @@
     "寡头垄断": 3,
     "确定性": 2
   },
-  "score_notes": "地缘政治风险对AI产业链的影响具有不确定性，短期内可能造成供应链中断和市场情绪波动，但长期看AI技术发展的大趋势不会改变。",
+  "score_notes": "地缘政治风险对AI产业链构成潜在威胁，但影响程度取决于冲突范围和持续时间；AI产业链全球化程度高，局部冲突影响有限；市场情绪波动较大，但长期需求依然强劲。",
   "certainty_drivers": [
-    "鹰酱",
     "AI"
   ],
-  "certainty_note": "AI产业链对地缘政治风险的敏感性较高，但AI技术发展的需求是结构性的，地缘政治风险属于外部干扰因素。",
-  "framework_updated": "2026-10-05 21:30",
+  "certainty_note": "AI发展对地缘政治风险具有一定敏感性，但AI技术作为全球性趋势，需求刚性且不可替代。",
+  "framework_updated": "2026-10-06 21:31",
   "created": "2026-06-28 21:30",
   "latest_status": "催化增强",
   "latest_heat": 70,
@@ -124,5 +123,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 3,
   "depth_level": "浅",
-  "last_checked": "2026-10-04"
+  "last_checked": "2026-10-05"
 }

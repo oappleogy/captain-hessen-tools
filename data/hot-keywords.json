@@ -1,62 +1,165 @@
 {
-  "last_updated": "2026-10-07 08:15",
-  "date": "2026-10-07",
+  "last_updated": "2026-10-08 08:16",
+  "date": "2026-10-08",
   "source_counts": {
     "wallstreetcn": 0,
-    "cls": 20,
+    "cls": 19,
     "google_news": 25,
     "weibo": 20
   },
   "keywords": [
     {
-      "keyword": "日本东证指数创历史新高",
+      "keyword": "美债收益率创新高",
       "heat": 95,
-      "category": "finance",
-      "summary": "日本东证指数突破历史最高收盘水平，反映市场乐观情绪。",
+      "category": "macro",
+      "summary": "10年期美债收益率突破5.352%，创24年新高，引发市场对高利率环境的担忧。",
       "sources": [
-        "财联社"
+        "Google News / The New York Times",
+        "Google News / Bloomberg.com"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-07 08:13",
-          "text": "财联社10月7日电，日本东证指数升破历史最高收盘水平。"
+          "time": "10-08 07:29",
+          "text": "【外资机构关注中国资产 全球多头基金调升中国股票配置】财联社10月8日电，国庆长假期间，外围市场并不平静。10年期美债收益率一度升破5.352%，创24年新高。在高利率的阴云之下，外资对中国资产的关注不降反升。美银最新报告显示，全球主动型多头基金对中国股票的配置已从“低配”升至“基准中性”，结束了长达四年的低配状态。富达国际、威灵顿投资管理等全球资管巨头也相继发声，在复杂的宏观中积极寻觅中国“新一"
+        },
+        {
+          "source": "Google News / The New York Times",
+          "time": "10-08 02:25",
+          "text": "Fed Minutes Show Officials Saw More Work to Do to Quell Inflation - The New York Times"
         }
       ]
     },
     {
-      "keyword": "美联储维持利率不变概率高",
+      "keyword": "外资增加中国资产配置",
       "heat": 90,
-      "category": "macro",
-      "summary": "CME数据显示，美联储10月维持利率不变的概率为79.5%。",
+      "category": "finance",
+      "summary": "全球主动型多头基金对中国股票的配置从低配升至基准中性，结束四年低配状态。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-07 06:02",
-          "text": "【美联储10月维持利率不变的概率为79.5%】财联社10月7日电，据CME“美联储观察”：美联储到10月维持利率不变的概率为79.5%，累计加息25个基点的概率为20.5%。美联储到12月维持利率不变的概率为15.5%，累计加息25个基点的概率68%，累计加息50个基点的概率为16.5%。"
+          "time": "10-08 07:29",
+          "text": "【外资机构关注中国资产 全球多头基金调升中国股票配置】财联社10月8日电，国庆长假期间，外围市场并不平静。10年期美债收益率一度升破5.352%，创24年新高。在高利率的阴云之下，外资对中国资产的关注不降反升。美银最新报告显示，全球主动型多头基金对中国股票的配置已从“低配”升至“基准中性”，结束了长达四年的低配状态。富达国际、威灵顿投资管理等全球资管巨头也相继发声，在复杂的宏观中积极寻觅中国“新一"
         }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
+      ]
     },
     {
-      "keyword": "SpaceX采购英伟达芯片",
+      "keyword": "日本国债收益率波动",
       "heat": 85,
-      "category": "ai-tech",
-      "summary": "阿波罗全球管理牵头融资助力SpaceX采购英伟达芯片。",
+      "category": "finance",
+      "summary": "日本30年期国债收益率下跌2.5个基点至4.185%，外资买进日债规模大幅增加。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-07 06:31",
-          "text": "财联社10月7日电，由阿波罗全球管理牵头的融资将助力SpaceX采购英伟达芯片。"
+          "time": "10-08 08:12",
+          "text": "财联社10月8日电，日本30年期国债收益率下跌2.5个基点，至4.185%。"
+        },
+        {
+          "source": "财联社",
+          "time": "10-08 07:51",
+          "text": "财联社10月8日电，日本至10月2日当周外资买进日债5857亿日元，前值-13418亿日元。"
+        }
+      ]
+    },
+    {
+      "keyword": "布伦特原油价格上涨",
+      "heat": 80,
+      "category": "industry",
+      "summary": "布伦特原油期货涨幅扩大至1%，报101.218美元/桶，反映市场对能源需求的预期。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-08 08:03",
+          "text": "财联社10月8日电，布伦特原油期货涨幅扩大至1%，报101.218美元/桶。"
+        }
+      ]
+    },
+    {
+      "keyword": "AI技术发展与风险",
+      "heat": 75,
+      "category": "ai-tech",
+      "summary": "OpenAI称青少年每天使用ChatGPT时间低于15分钟，同时AI风险引发更多关注。",
+      "sources": [
+        "Google News / Reuters"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Reuters",
+          "time": "10-08 00:03",
+          "text": "OpenAI says teens use ChatGPT for under 15 minutes a day as worries over risks grow - Reuters"
+        }
+      ]
+    },
+    {
+      "keyword": "新基金发行热潮",
+      "heat": 70,
+      "category": "finance",
+      "summary": "10月近百只新基金定档待售，六成聚焦权益赛道，有望为A股带来增量资金。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-08 07:27",
+          "text": "【10月近百只新基金定档待售 六成产品聚焦权益赛道】财联社10月8日电，国庆假期过后，10月新基金发行掀起小高峰，近百只新基金已经定档待售，其中六成产品聚焦权益赛道，有望为A股带来更多增量资金。同时，处于建仓期的次新基金也有望为A股带来约300亿元增量资金，其中包括规模超百亿元的科技主题新发股票ETF，以及近200亿元处于建仓期内的主动权益次新基金。此外，受益于新动能持续培育、传统经济内生动力修复"
+        }
+      ]
+    },
+    {
+      "keyword": "白酒市场表现平淡",
+      "heat": 65,
+      "category": "industry",
+      "summary": "中秋及国庆期间白酒市场整体表现平淡，商务次高端压力明显，行业分化加剧。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-08 08:00",
+          "text": "【华泰证券：白酒市场“双节”表现平淡 行业分化延续】财联社10月8日电，华泰证券研报称，今年中秋及国庆白酒市场整体表现平淡，行业延续分化表现。分场景看，商务宴请、高端礼赠及企业大额采购仍弱，个人礼赠、家庭聚饮和大众宴席相对有支撑；分价格带看，飞天茅台、茅台1935及部分地产酒优势单品表现靠前，商务次高端压力较为明显。当前需求向头部品牌及优势单品集中的趋势延续，局部去库有助于释放渠道经营压力，行业需"
+        }
+      ]
+    },
+    {
+      "keyword": "地缘政治紧张局势",
+      "heat": 60,
+      "category": "geo",
+      "summary": "乌克兰表示愿意参加乌俄美三方会谈，俄方称若美方倡议将迅速协调。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-08 08:06",
+          "text": "【乌克兰称愿意参加乌俄美三方会谈】财联社10月8日电，乌克兰外交部发言人季希当地时间10月7日表示，乌克兰愿意参加乌克兰、俄罗斯和美国三方和平会谈，乌方希望会谈能够在10月举行。季希称，乌方不仅愿意参加领导人级别会晤，也愿意参加其他级别的三方会谈。同一天，俄罗斯总统新闻秘书佩斯科夫表示，俄罗斯总统普京与美国总统特朗普的新一轮通话目前尚未在“具体层面”商定，但若美国政府方面有相关倡议，俄方将迅速协调"
+        }
+      ]
+    },
+    {
+      "keyword": "AI硬件创新",
+      "heat": 55,
+      "category": "ai-tech",
+      "summary": "微软发布新款AI PC，搭载英伟达芯片并搭载新版Windows 11。",
+      "sources": [
+        "Google News / TechCrunch"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / TechCrunch",
+          "time": "10-08 04:22",
+          "text": "Microsoft releases new Nvidia-chip AI PCs with revamped Windows 11 - TechCrunch"
         }
       ],
       "tool": {
@@ -65,214 +168,55 @@
       }
     },
     {
-      "keyword": "OpenAI发布数学能力测试成果",
-      "heat": 80,
-      "category": "ai-tech",
-      "summary": "OpenAI公开前沿大模型的数学研究成果，包含Lean语言形式化证明。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-07 06:26",
-          "text": "【OpenAI发布前沿大模型的全新数学能力测试成果‌】财联社10月7日电，OpenAI正在公开其内部前沿大模型生成的一系列全新数学研究成果，相关内容通过GitHub代码库发布，同时附带了论文修订与引用的规范协议。本次公开的成果包含Lean语言形式化证明，可让数学证明内容直接通过计算机完成校验；单份成果平均消耗的算力，约等于ChatGPT Pro三小时的深度推理时长。"
-        }
-      ]
-    },
-    {
-      "keyword": "WTI原油价格突破90美元",
-      "heat": 75,
-      "category": "industry",
-      "summary": "WTI原油期货价格向上触及90美元/桶，反映能源市场紧张。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-07 07:34",
-          "text": "财联社10月7日电，WTI原油期货向上触及90美元/桶，日内涨0.63%。"
-        }
-      ]
-    },
-    {
-      "keyword": "巴彦油田日产原油创新高",
-      "heat": 70,
-      "category": "industry",
-      "summary": "巴彦油田日产原油首次突破5000吨，创历史新高。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-07 07:51",
-          "text": "【巴彦油田日产原油首次突破5000吨 创历史新高】财联社10月7日电，记者今天（7日）从中国石油获悉，位于内蒙古河套盆地的巴彦油田日产原油达到5080吨，首次突破5000吨大关，创历史新高，标志着中国石油华北油田新区增储上产迈上新台阶。"
-        }
-      ]
-    },
-    {
-      "keyword": "胡塞武装与沙特冲突升级",
-      "heat": 65,
-      "category": "geo",
-      "summary": "沙特拦截胡塞武装导弹，胡塞称挫败沙特多次进攻。",
-      "sources": [
-        "财联社",
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-07 07:18",
-          "text": "【沙特主导联军称拦截一枚也门胡塞武装导弹】财联社10月7日电，据沙特阿拉伯通讯社7日凌晨报道，沙特主导的多国联军发言人图尔基·马利基表示，多国联军拦截并摧毁了也门胡塞武装向沙特西南部城市海米斯穆谢特发射的一枚弹道导弹。马利基说，胡塞武装控制的也门首都萨那以及萨达省、阿姆兰省是导弹威胁的来源地。联军正持续采取行动，消除导弹威胁，并摧毁其源头。"
-        },
-        {
-          "source": "财联社",
-          "time": "10-07 06:23",
-          "text": "【周三你需要知道的隔夜全球要闻：纳指、标普500指数创收盘新高；胡塞武装称挫败沙特多次进攻；派拉蒙完成以1100亿美元收购华纳兄弟探索的交易】\n1、也门胡塞武装当地时间10月6日发表声明说，他们挫败了沙特方面多次试图向曼德海峡方向推进的兵力集结，并迫使其撤退。\n2、美国总统特朗普表示，俄乌冲突正越来越接近结束。\n3、当地时间6日夜间，在也门首都萨那至少听到两声爆炸以及战斗机飞过的声音。另据胡塞武装"
-        }
-      ]
-    },
-    {
-      "keyword": "纳指、标普500指数创新高",
-      "heat": 60,
-      "category": "finance",
-      "summary": "美国股市主要指数创收盘新高，市场情绪乐观。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-07 06:23",
-          "text": "【周三你需要知道的隔夜全球要闻：纳指、标普500指数创收盘新高；胡塞武装称挫败沙特多次进攻；派拉蒙完成以1100亿美元收购华纳兄弟探索的交易】\n1、也门胡塞武装当地时间10月6日发表声明说，他们挫败了沙特方面多次试图向曼德海峡方向推进的兵力集结，并迫使其撤退。\n2、美国总统特朗普表示，俄乌冲突正越来越接近结束。\n3、当地时间6日夜间，在也门首都萨那至少听到两声爆炸以及战斗机飞过的声音。另据胡塞武装"
-        }
-      ],
-      "tool": {
-        "href": "s2-battle.html",
-        "label": "S2 战场"
-      }
-    },
-    {
-      "keyword": "苹果发布智能家居新品",
-      "heat": 55,
-      "category": "ai-tech",
-      "summary": "苹果将与LG联合开发门铃、智能门锁及温控器。",
-      "sources": [
-        "财联社",
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-07 05:22",
-          "text": "财联社10月7日电，苹果据称将推出与LG联合开发的门铃、智能门锁以及温控器。"
-        },
-        {
-          "source": "Google News / Bloomberg.com",
-          "time": "10-07 05:07",
-          "text": "Apple’s Smart Home Push Includes Doorbell, Lock, Thermostat Codeveloped With LG - Bloomberg.com"
-        }
-      ]
-    },
-    {
-      "keyword": "富时A50期指上涨",
+      "keyword": "医保科技与高端制造受关注",
       "heat": 50,
-      "category": "finance",
-      "summary": "富时A50期指连续夜盘收涨0.12%，反映对中国股市的乐观预期。",
+      "category": "industry",
+      "summary": "知名基金经理扎堆调研医保科技、高端制造等细分赛道龙头，挖掘投资机会。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-07 05:17",
-          "text": "财联社10月7日电，富时A50期指连续夜盘收涨0.12%，报13872点。"
+          "time": "10-08 07:31",
+          "text": "【知名基金经理扎堆调研医保科技、高端制造等细分赛道龙头】财联社10月8日电，三季度A股市场走势极致分化，市场风格持续演绎再平衡，众多基金经理加大调研力度，从中挖掘投资机会。日前，易方达基金杨宗昌、富国基金朱少醒、大成基金刘旭等多位知名基金经理纷纷奔赴调研一线，扎堆调研医保科技、高端制造、矿业能源、电力设备等细分赛道龙头，深挖行业回暖信号与个股投资价值。与此同时，多家头部基金同步更新最新配置策略，困"
         }
       ]
     },
     {
-      "keyword": "黄金价格持续上涨",
+      "keyword": "限售股解禁",
       "heat": 45,
-      "category": "industry",
-      "summary": "COMEX黄金期货收涨0.86%，贵金属市场表现强劲。",
+      "category": "finance",
+      "summary": "10月8日共有10家公司限售股解禁，合计解禁市值达321.36亿元。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-07 05:01",
-          "text": "财联社10月7日电，COMEX黄金期货收涨0.86%，报4192.7美元/盎司；COMEX白银期货涨0.65%，报61.7美元/盎司。"
+          "time": "10-08 07:31",
+          "text": "【A股限售股解禁一览：321.36亿元市值限售股今日解禁】财联社10月8日电，Wind数据显示，周四（10月8日），共有10家公司限售股解禁，合计解禁量为31.85亿股，按最新收盘价计算，合计解禁市值为321.36亿元。从解禁量来看，中国能建、中国神华、哈尔斯解禁量居前，解禁股数分别为25.49亿股、4.58亿股、9354.4万股。从解禁市值来看，中国神华、中国能建、科源制药解禁市值居前，解禁市值"
         }
       ]
     },
     {
-      "keyword": "美国对伊朗态度引发争议",
+      "keyword": "三星电子财报会议",
       "heat": 40,
-      "category": "geo",
-      "summary": "白宫为特朗普关于伊朗的言论辩护，引发外交争议。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / BBC",
-          "time": "10-07 04:15",
-          "text": "White House defends Trump comment to let Iran 'take out' LA and San Diego - BBC"
-        }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "英国关闭近900所学校",
-      "heat": 35,
       "category": "industry",
-      "summary": "法国因教育抗议升级关闭近900所学校，社会动荡加剧。",
+      "summary": "三星电子将于10月29日举行第三季度财报电话会议，股价在盘前交易中上涨1.7%。",
       "sources": [
-        "Google News"
+        "财联社"
       ],
       "evidence": [
         {
-          "source": "Google News / NBC News",
-          "time": "10-07 07:26",
-          "text": "France shuts down nearly 900 schools as violent education protests escalate - NBC News"
-        }
-      ]
-    },
-    {
-      "keyword": "美国潜艇投资引发争议",
-      "heat": 30,
-      "category": "geo",
-      "summary": "马里兰州州长与白宫就37亿美元潜艇投资事件发生争执。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
+          "source": "财联社",
+          "time": "10-08 07:17",
+          "text": "财联社10月8日电，三星电子股价在盘前交易中上涨1.7%。"
+        },
         {
-          "source": "Google News / The Hill",
-          "time": "10-07 02:21",
-          "text": "Maryland governor, White House spar over $3.7B submarine investment event - The Hill"
-        }
-      ]
-    },
-    {
-      "keyword": "美国居民涉嫌协助加拿大枪击案",
-      "heat": 25,
-      "category": "geo",
-      "summary": "美国居民被控协助加拿大致命校园枪击案。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / NBC News",
-          "time": "10-07 06:21",
-          "text": "U.S. resident charged with helping Canadian school shooter in rampage that killed 8 in Tumbler Ridge - NBC News"
+          "source": "财联社",
+          "time": "10-08 07:09",
+          "text": "财联社10月8日电，三星电子将于10月29日举行第三季度财报电话会议。"
         }
       ]
     }

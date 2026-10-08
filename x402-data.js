@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-10-07T01:20:06.332224Z",
+  "generated_utc": "2026-10-08T01:20:34.581725Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 190551441,
-    "volume_usd": 41876015.0,
-    "as_of": "2026-10-05T04:20:12.740601Z",
+    "transactions": 190959094,
+    "volume_usd": 41889397.0,
+    "as_of": "2026-10-07T03:12:40.032126Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -116,10 +116,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-10-01",
-      "transactions": 190551441,
-      "volume_usd": 41876015.0,
-      "period_transactions": 820536,
-      "period_volume_usd": 25598.0,
+      "transactions": 190959094,
+      "volume_usd": 41889397.0,
+      "period_transactions": 1228189,
+      "period_volume_usd": 38980.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -471,17 +471,15 @@ window.X402_DATA = {
       "transactions": 190551441,
       "volume_usd": 41876015.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-10-08",
+      "transactions": 190959094,
+      "volume_usd": 41889397.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-08-07",
-      "txs": 192313
-    },
-    {
-      "day": "2026-08-08",
-      "txs": 190645
-    },
     {
       "day": "2026-08-09",
       "txs": 190572
@@ -712,7 +710,15 @@ window.X402_DATA = {
     },
     {
       "day": "2026-10-05",
-      "txs": 33180
+      "txs": 201839
+    },
+    {
+      "day": "2026-10-06",
+      "txs": 204850
+    },
+    {
+      "day": "2026-10-07",
+      "txs": 24613
     }
   ],
   "market_24h": {
@@ -720,10 +726,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 4475575,
-    "volume_usd": 968286.22,
-    "buyers": 30817,
-    "sellers": 38893
+    "transactions": 2768518,
+    "volume_usd": 957548.9,
+    "buyers": 33207,
+    "sellers": 39234
   },
   "leader": {
     "name": "BlockRun",

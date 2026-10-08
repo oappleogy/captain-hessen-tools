@@ -1,0 +1,623 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-08",
+  "last_checked_at": "2026-10-08T05:52:19.505339+00:00",
+  "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
+  "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
+  "layers": [
+    {
+      "id": "protocol",
+      "title": "通信协议",
+      "question": "Agent 如何表达任务与交换消息",
+      "assessment": "规范与实现已出现",
+      "gap": "任务状态一致性、双向流与跨版本兼容仍需验证。"
+    },
+    {
+      "id": "discovery",
+      "title": "注册与发现",
+      "question": "如何找到能完成任务的 Agent",
+      "assessment": "已有注册组件",
+      "gap": "跨目录可发现性、质量排序与活跃性证据仍不完整。"
+    },
+    {
+      "id": "identity",
+      "title": "身份与信任",
+      "question": "对方是谁，代表谁，能做什么",
+      "assessment": "规范与实现并行",
+      "gap": "身份、声誉、用户授权不能互相替代。"
+    },
+    {
+      "id": "runtime",
+      "title": "开发与执行",
+      "question": "如何构建、委派和运行任务",
+      "assessment": "已有多框架接入",
+      "gap": "接入文档不等于跨厂商生产任务可靠完成。"
+    },
+    {
+      "id": "network",
+      "title": "网络与网关",
+      "question": "跨边界路由、鉴权与流量治理",
+      "assessment": "已有组件",
+      "gap": "需验证跨租户隔离、端到端策略及故障恢复。"
+    },
+    {
+      "id": "operations",
+      "title": "安全与观测",
+      "question": "如何发现错误、验证交付",
+      "assessment": "工具逐步补齐",
+      "gap": "业务结果正确性、跨 Agent 归因仍需实测。"
+    },
+    {
+      "id": "payment",
+      "title": "支付与授权",
+      "question": "如何在预算内付款和收款",
+      "assessment": "协议与产品并行",
+      "gap": "撤销授权、失败补偿、网络费和真实需求是重点。"
+    },
+    {
+      "id": "commerce",
+      "title": "商业闭环",
+      "question": "如何报价、交付、结算与争议处理",
+      "assessment": "已有规范与服务",
+      "gap": "经济闭环尚缺统一可比较的采用与净收入数据。"
+    }
+  ],
+  "projects": [
+    {
+      "id": "a2a",
+      "name": "Agent2Agent A2A",
+      "layer": "protocol",
+      "stage": "规范已发布",
+      "capability": "官方发布页 Latest 为 v1.0.1；面向独立 Agent 任务协作。",
+      "source": "https://github.com/a2aproject/A2A/releases",
+      "gap": "v1.1、双向流和多轮协作在路线图中。",
+      "scope": "核心",
+      "related": [
+        "adk",
+        "microsoft",
+        "langchain",
+        "crewai"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "mcp",
+      "name": "MCP",
+      "layer": "protocol",
+      "stage": "规范已发布",
+      "capability": "连接模型应用与外部工具、数据。",
+      "source": "https://modelcontextprotocol.io/docs/getting-started/intro",
+      "gap": "不要把工具接入数当作 A2A 协作规模。",
+      "scope": "相邻",
+      "related": [
+        "gateway",
+        "coinbase"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "anp",
+      "name": "Agent Network Protocol",
+      "layer": "protocol",
+      "stage": "有公开实现",
+      "capability": "Agent 身份、发现、协商与安全通信；有 AgentConnect SDK。",
+      "source": "https://github.com/agent-network-protocol/AgentNetworkProtocol",
+      "gap": "跨域真实采用和兼容性需继续核验。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "acp-communication",
+      "name": "ACP 通信协议",
+      "layer": "protocol",
+      "stage": "迁移中",
+      "capability": "官方文档提示已加入 A2A，并提供迁移入口。",
+      "source": "https://agentcommunicationprotocol.dev/introduction/welcome",
+      "gap": "与 Agentic Commerce Protocol 同缩写但不同项目。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "directory",
+      "name": "AGNTCY Directory",
+      "layer": "discovery",
+      "stage": "有公开实现",
+      "capability": "联邦注册与跨框架、跨协议发现。",
+      "source": "https://agntcy.org/",
+      "gap": "去重、可用性、排序质量与商业目录采用。",
+      "scope": "核心",
+      "related": [
+        "oasf",
+        "identity-agntcy"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "oasf",
+      "name": "OASF",
+      "layer": "discovery",
+      "stage": "有公开实现",
+      "capability": "AGNTCY 栈中的 Agent 描述相关组件与 SDK。",
+      "source": "https://agntcy.org/",
+      "gap": "描述兼容性与能力声明是否可验证。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "nacos",
+      "name": "Nacos A2A Registry",
+      "layer": "discovery",
+      "stage": "有接入文档",
+      "capability": "Nacos 3.1.0 起支持 Agent 注册、发现、隔离与版本管理。",
+      "source": "https://www.alibabacloud.com/help/en/mse/user-guide/agent-management",
+      "gap": "企业采用与跨注册中心互通。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "identity-agntcy",
+      "name": "AGNTCY Identity",
+      "layer": "identity",
+      "stage": "有公开实现",
+      "capability": "管理与验证组织签发的 Agent 和工具身份。",
+      "source": "https://agntcy.org/",
+      "gap": "撤销、跨组织策略和身份与权限映射。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "erc8004",
+      "name": "ERC-8004",
+      "layer": "identity",
+      "stage": "草案",
+      "capability": "身份、声誉、验证注册表；EIP 页面仍标 Draft。",
+      "source": "https://eips.ethereum.org/EIPS/eip-8004",
+      "gap": "标准状态、女巫攻击与声誉质量。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "visa",
+      "name": "Visa Trusted Agent Protocol",
+      "layer": "identity",
+      "stage": "规范已发布",
+      "capability": "通过签名帮助商户识别可信 Agent。",
+      "source": "https://developer.visa.com/capabilities/trusted-agent-protocol",
+      "gap": "身份验证并不单独完成支付与争议处理。",
+      "scope": "支付相关",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "adk",
+      "name": "Google ADK",
+      "layer": "runtime",
+      "stage": "有接入文档",
+      "capability": "提供 A2A 集成入口与开发文档。",
+      "source": "https://adk.dev/a2a/",
+      "gap": "与其他框架的实际互操作测试。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft Agent Framework",
+      "layer": "runtime",
+      "stage": "有接入文档",
+      "capability": "提供 A2A 远程调用及服务暴露。",
+      "source": "https://learn.microsoft.com/en-us/agent-framework/journey/agent-to-agent",
+      "gap": "各语言版本、托管与认证差异。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "aws",
+      "name": "AWS AgentCore Runtime",
+      "layer": "runtime",
+      "stage": "有接入文档",
+      "capability": "提供 A2A server 部署及 Agent Card 获取流程。",
+      "source": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-a2a.html",
+      "gap": "区域、运行约束、费用及生产采用。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "langchain",
+      "name": "LangGraph / LangSmith",
+      "layer": "runtime",
+      "stage": "有接入文档",
+      "capability": "Agent Server 提供 A2A endpoint 文档。",
+      "source": "https://docs.langchain.com/langsmith/server-a2a",
+      "gap": "协议覆盖范围、认证及部署限制。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "crewai",
+      "name": "CrewAI",
+      "layer": "runtime",
+      "stage": "有接入文档",
+      "capability": "提供 A2A Agent 委派文档。",
+      "source": "https://docs.crewai.com/en/learn/a2a-agent-delegation",
+      "gap": "多轮委派、版本兼容与失败恢复。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "shadi",
+      "name": "AGNTCY Shadi",
+      "layer": "runtime",
+      "stage": "有公开实现",
+      "capability": "安全运行时覆盖身份、秘密、OS 沙箱与加密本地记忆。",
+      "source": "https://agntcy.org/",
+      "gap": "隔离效果与安全评估。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "slim",
+      "name": "AGNTCY SLIM",
+      "layer": "network",
+      "stage": "有公开实现",
+      "capability": "Agent 网络级安全通信组件。",
+      "source": "https://agntcy.org/",
+      "gap": "跨框架互通与长连接可靠性。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "gateway",
+      "name": "agentgateway",
+      "layer": "network",
+      "stage": "有公开实现",
+      "capability": "统一处理服务、模型、MCP 与 A2A 流量。",
+      "source": "https://agentgateway.dev/",
+      "gap": "端到端身份、策略执行与故障恢复。",
+      "scope": "核心",
+      "related": [
+        "a2a",
+        "mcp"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "bridge",
+      "name": "AGNTCY AgentBridge",
+      "layer": "network",
+      "stage": "有公开实现",
+      "capability": "通过 A2A 连接编码 Agent 和 CLI。",
+      "source": "https://agntcy.org/",
+      "gap": "委派上下文保真与任务结果校验。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "inspector",
+      "name": "A2A Inspector",
+      "layer": "operations",
+      "stage": "验证工具",
+      "capability": "官方路线图列出的调试与验证工作。",
+      "source": "https://a2a-protocol.org/latest/roadmap/",
+      "gap": "调试成功不等于业务任务正确。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "tck",
+      "name": "A2A TCK",
+      "layer": "operations",
+      "stage": "验证工具",
+      "capability": "官方列出的协议兼容性测试工作。",
+      "source": "https://a2a-protocol.org/latest/roadmap/",
+      "gap": "覆盖率与各实现通过情况需单独核验。",
+      "scope": "核心",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "observe",
+      "name": "AGNTCY Observability",
+      "layer": "operations",
+      "stage": "有公开实现",
+      "capability": "提供多 Agent 可观测与评估组件。",
+      "source": "https://agntcy.org/",
+      "gap": "跨组织追踪、归因和业务结果评估。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "ap2",
+      "name": "AP2",
+      "layer": "payment",
+      "stage": "规范已发布",
+      "capability": "提供结账与付款授权凭证；有 A2A、UCP 扩展。",
+      "source": "https://ap2-protocol.org/",
+      "gap": "预授权、撤销与争议证据；v0.2 不等于生产规模。",
+      "scope": "核心",
+      "related": [
+        "a2a",
+        "ucp",
+        "x402"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "x402",
+      "name": "x402",
+      "layer": "payment",
+      "stage": "规范已发布",
+      "capability": "通过 HTTP 402 请求付费访问数字服务。",
+      "source": "https://x402.org/",
+      "gap": "需区分测试、自交易、补贴与真实付费调用。",
+      "scope": "核心",
+      "related": [
+        "coinbase",
+        "nevermined"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "coinbase",
+      "name": "Coinbase Agentic Wallet",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "capability": "CLI 和 MCP 两类入口支持钱包与 x402 付款。",
+      "source": "https://docs.cdp.coinbase.com/agentic-wallet/welcome",
+      "gap": "CLI 与 MCP 能力不同，需核验权限和费用。",
+      "scope": "核心",
+      "related": [
+        "x402",
+        "mcp"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "mastercard",
+      "name": "Mastercard AP4M",
+      "layer": "payment",
+      "stage": "已公告",
+      "capability": "2026-06-10 发布 Agent Pay for Machines，面向机器小额支付。",
+      "source": "https://www.mastercard.com/us/en/news-and-trends/press/2026/june/mastercard-launches-agent-pay-for-machines.html",
+      "gap": "实际接入范围与生产量不能从合作名单推断。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "ucp",
+      "name": "UCP",
+      "layer": "commerce",
+      "stage": "规范已发布",
+      "capability": "商务流程互操作，声明支持 AP2、A2A、MCP。",
+      "source": "https://ucp.dev/",
+      "gap": "商户采用、履约和售后闭环。",
+      "scope": "核心",
+      "related": [
+        "ap2",
+        "a2a",
+        "mcp"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "acp-commerce",
+      "name": "ACP 商业协议",
+      "layer": "commerce",
+      "stage": "规范已发布",
+      "capability": "Agent 与商户结账和付款凭证交换。",
+      "source": "https://www.agenticcommerce.dev/",
+      "gap": "PSP 和商户实际覆盖；与通信 ACP 分开。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "nevermined",
+      "name": "Nevermined",
+      "layer": "commerce",
+      "stage": "有接入文档",
+      "capability": "文档覆盖按请求计费、授权访问、卡支付和稳定币结算。",
+      "source": "https://nevermined.ai/docs/getting-started/overview",
+      "gap": "厂商能力描述需用真实客户和净收入核实。",
+      "scope": "核心",
+      "related": [
+        "x402"
+      ],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    },
+    {
+      "id": "skyfire",
+      "name": "Skyfire",
+      "layer": "commerce",
+      "stage": "有接入文档",
+      "capability": "官方提供 Agent 身份与支付服务文档入口。",
+      "source": "https://docs.skyfire.xyz/docs/introduction-to-skyfire",
+      "gap": "具体使用范围、交易量和费用继续核验。",
+      "scope": "核心",
+      "related": [],
+      "checked_at": "2026-10-08",
+      "adoption": "未在本轮独立核验生产规模"
+    }
+  ],
+  "events": [
+    {
+      "id": "a2a-map-20261008",
+      "date": "2026-10-08",
+      "observed_at": "2026-10-08",
+      "title": "A2A 基础设施全景地图建立",
+      "type": "研究更新",
+      "summary": "按八层整理公开证据，新增项目详情、能力缺口与通知定位。历史进展已作为基线归档。",
+      "impact": "从单一支付协议扩展到发现、身份、协作、交付与结算全链路。",
+      "source": "https://a2a-protocol.org/latest/",
+      "projects": [
+        "a2a",
+        "ap2",
+        "x402"
+      ],
+      "notify": true
+    },
+    {
+      "id": "a2a-roadmap-20260915",
+      "date": "2026-09-15",
+      "observed_at": "2026-10-08",
+      "title": "A2A 路线图聚焦双向流与多轮协作",
+      "type": "路线图",
+      "summary": "v1.1 稳健性、BiDi Streaming、CLI 和结构化多轮交互被列为近期方向。",
+      "impact": "关注复杂协作能否从消息交换升级为可靠任务执行；尚不能当作全部交付。",
+      "source": "https://a2a-protocol.org/latest/roadmap/",
+      "projects": [
+        "a2a"
+      ],
+      "notify": false
+    },
+    {
+      "id": "ap4m-20260610",
+      "date": "2026-06-10",
+      "observed_at": "2026-10-08",
+      "title": "Mastercard 发布 Agent Pay for Machines",
+      "type": "厂商公告",
+      "summary": "提出机器高频、小额支付及权限和多通道结算能力。",
+      "impact": "传统支付网络进入机器支付；生产可用范围和实际采用仍需核验。",
+      "source": "https://www.mastercard.com/us/en/news-and-trends/press/2026/june/mastercard-launches-agent-pay-for-machines.html",
+      "projects": [
+        "mastercard"
+      ],
+      "notify": false
+    },
+    {
+      "id": "a2a-v101-20260526",
+      "date": "2026-05-26",
+      "observed_at": "2026-10-08",
+      "title": "A2A v1.0.1 进入已发布基线",
+      "type": "规范发布",
+      "summary": "发布页 Latest 为 v1.0.1；5月26日为变更日志日期，GitHub发布显示5月28日。",
+      "impact": "与各 SDK 版本分别追踪，避免混淆规范和实现。",
+      "source": "https://github.com/a2aproject/A2A/releases",
+      "projects": [
+        "a2a"
+      ],
+      "notify": false
+    },
+    {
+      "id": "ap2-v02-20260428",
+      "date": "2026-04-28",
+      "observed_at": "2026-10-08",
+      "title": "AP2 v0.2 与 FIDO 移交公告",
+      "type": "规范发布",
+      "summary": "Google 宣布 AP2 v0.2 与向 FIDO Alliance 捐赠，重点包含 Human Not Present 支付。",
+      "impact": "预授权成为研究重点，后续跟踪预算约束、撤销与责任证据。",
+      "source": "https://blog.google/products-and-platforms/platforms/google-pay/agent-payments-protocol-fido-alliance/",
+      "projects": [
+        "ap2"
+      ],
+      "notify": false
+    }
+  ],
+  "watchlist": [
+    {
+      "name": "Higress / Spring AI Alibaba / AgentScope",
+      "layer": "network",
+      "question": "逐项核验原生 A2A 支持及国内接入"
+    },
+    {
+      "name": "支付宝 / Ant International",
+      "layer": "payment",
+      "question": "分开核验国内与国际产品、开放范围"
+    },
+    {
+      "name": "腾讯 / 华为 / 百度 / 字节",
+      "layer": "runtime",
+      "question": "寻找官方 A2A 文档和客户采用"
+    },
+    {
+      "name": "Crossmint / Privy / Turnkey / Safe",
+      "layer": "payment",
+      "question": "核验 Agent 权限、钱包托管与撤销"
+    },
+    {
+      "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
+      "layer": "payment",
+      "question": "核验结算通道和 A2A 实际接入"
+    },
+    {
+      "name": "OpenTelemetry / Langfuse / Phoenix / AgentOps",
+      "layer": "operations",
+      "question": "区分通用工具与原生 A2A 能力"
+    },
+    {
+      "name": "托管支付 / 结果验收 / 退款争议",
+      "layer": "commerce",
+      "question": "寻找可复现的端到端经济闭环"
+    }
+  ],
+  "checks": [
+    {
+      "date": "2026-10-08",
+      "status": "建立基线",
+      "note": "公开官方文档核验；未执行跨厂商互操作实验或独立审计交易量。"
+    }
+  ]
+}

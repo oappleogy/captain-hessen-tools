@@ -1,0 +1,1005 @@
+{
+  "schema_version": 1,
+  "inventory_checked_at": "2026-10-08",
+  "timezone": "Asia/Shanghai",
+  "rules": [
+    "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
+    "增量跟踪不表示原底稿的全部数字、评分和估值已重算。",
+    "未采到数据标缺失；无实质新证据只更新巡检记录，不改研究日期。",
+    "重大事件随时触发，月报/季报按实际披露日跟进，不强求每天改写。"
+  ],
+  "automation": {
+    "review_time": "每日10:30（北京时间）",
+    "mode": "由专题维护任务分派到期项；独立管线不重复运行",
+    "availability": "研究任务依赖本机Codex在线；Mac mini既有数据管线独立运行。逾期会持续显示，不会自动变绿。"
+  },
+  "topics": [
+    {
+      "id": "robotics",
+      "title": "机器人与具身智能",
+      "pages": [
+        "embodied-intelligence.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-05-15",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-12",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "重大订单、客户部署、安全事故与产品发布巡检；有变化才改结论",
+        "weekly": "每周一：订单条件、交付、付费部署、有效工时、故障与干预率",
+        "monthly": "每月20日：供应商量产/良率/降本与真实收入证据",
+        "quarterly": "财报披露后2日：核心公司收入、毛利、现金流与估值；季度复核117家公司"
+      },
+      "pending": [
+        "117家公司旧评分和5月14日市值尚未重算；不能用于当前排名。",
+        "先复核绿的谐波、汇川等半年报的业务拆分；未单列机器人收入的公司不补估值。",
+        "核验 Tesla 10月21日业绩会的最新里程碑，不把过去路线图当作已投产。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "研究主线从演示转向可付费工作",
+          "body": "Agility披露此前平台累计运行超过6.5万小时；这是厂商口径，不是全行业出货。Digit 5超过3亿美元的多年订单附合同里程碑条件，不能等同收入；计划2027年上半年早期交付、年底普遍供应，不能写成当前已规模量产。跟踪顺序调整为：订单条件→交付验收→客户持续使用→单位经济性。",
+          "source_period": "2026-09-15 / 订单口径截至2026-05",
+          "sources": [
+            {
+              "title": "Agility Digit 5 产品与商业进度",
+              "url": "https://www.agilityrobotics.com/content/agility-unveils-digit-5-humanoid-robot-built-for-cooperatively-safe-work-at-scale",
+              "date": "2026-09-15"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-08",
+          "title": "安全集成与软件工具成为新的验证环节",
+          "body": "10月1日Agility与FORT签署安全合作谅解备忘录，重点是人机协作安全接口；合作计划不等于认证完成或量产。Isaac ROS 5.0发布是开发工具进展，不能直接推导整机销量。供应商筛选需要同时看到客户验证、可量产良率和可归属收入，不能只凭合作名单加分。",
+          "source_period": "2026-09-22 至 2026-10-01",
+          "sources": [
+            {
+              "title": "Agility 与 FORT 安全合作",
+              "url": "https://www.agilityrobotics.com/content/agility-and-fort-robotics-announce-strategic-partnership-to-advance-humanoid-robot-safety",
+              "date": "2026-10-01"
+            },
+            {
+              "title": "NVIDIA Isaac ROS 5.0",
+              "url": "https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/",
+              "date": "2026-09-22"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-08",
+          "title": "下一步补财报，而不是给旧名单重新贴日期",
+          "body": "已定位绿的谐波、汇川技术2026半年报，财务与机器人业务拆分尚待逐项抽取。Tesla投资者页面列示三季度业绩会在10月21日；本页旧时间轴涉及Optimus的投产描述改为待核实的历史预测。",
+          "source_period": "2026-10-08",
+          "sources": [
+            {
+              "title": "绿的谐波 2026 半年报",
+              "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225513912.PDF",
+              "date": "2026-08-27"
+            },
+            {
+              "title": "汇川技术 2026 半年报",
+              "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225524610.PDF",
+              "date": "2026-08-29"
+            },
+            {
+              "title": "Tesla 投资者日历",
+              "url": "https://ir.tesla.com/",
+              "date": "2026-10-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-pharma",
+      "title": "制药产业与AI",
+      "pages": [
+        "ai-pharma.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-09-30",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-14",
+      "review_state": "needs_research",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "临床读出、监管审批、重大合作事件触发",
+        "weekly": "每周三：实验验证、商业合作与候选公司的反证",
+        "monthly": "每月20日：管线阶段、客户付费和竞争格局",
+        "quarterly": "财报后2日：收入归因、现金消耗、融资与估值"
+      },
+      "pending": [
+        "9月30日公开版仍保留；本轮只纳入排期，未重新核验全部公司。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "inference",
+      "title": "中国推理算力与全球叙事",
+      "pages": [
+        "inference-narrative.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-09-24",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-09-24",
+      "next_due": "2026-10-09",
+      "review_state": "backfill",
+      "owner": "既有推理周报任务",
+      "schedule": {
+        "daily": "重大模型发布/价格/供应限制按事件触发",
+        "weekly": "每周五18:30：已有独立周报任务",
+        "monthly": "月末：真实采用和社交样本留存",
+        "quarterly": "财报后：需求、国产替代与盈利分别验证"
+      },
+      "pending": [
+        "补发9月24日已有研究，不是10月8日新一期；9月25日至今增量仍待周报补齐。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "guba",
+      "title": "股吧情绪样本",
+      "pages": [
+        "guba-sentiment.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-06",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "needs_research",
+      "owner": "专题维护",
+      "schedule": {
+        "weekly": "每周五：固定样本窗重新采集、去重与作者分层",
+        "monthly": "月末：样本偏差和词典复核",
+        "quarterly": "季度：验证情绪指标与实际行为的关系"
+      },
+      "pending": [
+        "旧页面是6月样本，不代表当前情绪。",
+        "需重新采集可合法访问的公开样本；登录/风控失败需标明缺失，不能靠搜索条数续更。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "douyin",
+      "title": "物理AI民意样本",
+      "pages": [
+        "douyin-sentiment.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-06",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "needs_research",
+      "owner": "专题维护",
+      "schedule": {
+        "weekly": "每周五：同口径公众反馈抽样、去重与作者分类",
+        "monthly": "月末：样本结构和主题变化",
+        "quarterly": "季度：核验情绪与购买/采用行为"
+      },
+      "pending": [
+        "6月样本不能标作今日风评；平台访问与样本可比性待恢复。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "power",
+      "title": "供电链业绩研究",
+      "pages": [
+        "earnings-beat.html",
+        "power-chain.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "2026-06-24",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-09",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "重大订单和业绩预告事件触发",
+        "weekly": "每周二：订单交付和产能瓶颈",
+        "monthly": "每月20日：交期与在手订单口径",
+        "quarterly": "财报后2日：逐公司滚动替换Q1底稿；当季20日检查披露日历"
+      },
+      "pending": [
+        "Q1对比表已落后，需按公司实际披露更新到最近财季，不伪称全部Q3已披露。",
+        "本轮只确认存在后续财报，尚未重算20多家公司的超预期评分。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "财季必须按公司逐一对齐",
+          "body": "Vertiv官方目录已有7月29日发布的2026二季度业绩，Q1供电链底稿需要滚动补齐。后续比较应拆开实际业绩、全年指引和市场预期，不能用全年指引提高代替当季盈利兑现。",
+          "source_period": "2026 Q2",
+          "sources": [
+            {
+              "title": "Vertiv 官方业绩公告目录",
+              "url": "https://investors.vertiv.com/news/",
+              "date": "2026-10-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tsmc",
+      "title": "台积电产能地图",
+      "pages": [
+        "tsmc-capacity.html"
+      ],
+      "cadence": "monthly",
+      "baseline_as_of": "2026-05",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-11-11",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "停工、扩产和客户重大变化事件触发",
+        "weekly": "每周二：先进封装供应链增量",
+        "monthly": "月营收公告后1日；预计每月10日前后，按官网日历修正",
+        "quarterly": "法说后2日：资本开支、制程、CoWoS与区域产能"
+      },
+      "pending": [
+        "旧CoWoS产能、客户配额、良率预测尚待法说和客户交叉核验。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "营收已补到今天公告的九月数据",
+          "body": "台积电10月8日披露：9月营收5,118.6亿新台币，同比+54.6%、环比-0.6%；1—9月累计38,987.3亿新台币，同比+41.1%。这是营收事实，不等于CoWoS产能或客户份额已按同幅度增长，旧产能估计暂不重写。",
+          "source_period": "2026-09",
+          "sources": [
+            {
+              "title": "台积电九月营收公告",
+              "url": "https://pr.cld.tsmc.com/english/news/3343",
+              "date": "2026-10-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sa",
+      "title": "态势感知基金与论文",
+      "pages": [
+        "situational-awareness.html",
+        "aschenbrenner-paper.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "2026-05",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-13",
+      "review_state": "needs_research",
+      "owner": "专题维护",
+      "schedule": {
+        "weekly": "每周二：基金公开重大变化；论文只做新证据注释",
+        "quarterly": "13F披露后2日，检查持仓报告期、申报日、修订；不推断空头与实时仓位"
+      },
+      "pending": [
+        "基金持仓需补最近公开13F；论文正文为历史原作，不随月份改写。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "x402",
+      "title": "x402 Agent支付",
+      "pages": [
+        "x402-investment.html"
+      ],
+      "cadence": "daily",
+      "baseline_as_of": "2026-10-08",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "pipeline",
+      "owner": "既有x402管线",
+      "schedule": {
+        "daily": "09:20已有管线；10:30检查原始日期、交易质量和失败",
+        "weekly": "每周五：真实付费、去重与非自然交易过滤",
+        "monthly": "月末：收入捕获与竞争格局",
+        "quarterly": "季度：商业模式与成本复核"
+      },
+      "pending": [
+        "本轮验证管线运行，未独立重审全部交易指标；自动生成日期不等于每条指标都新。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "a2a",
+      "title": "Agent A2A基础设施",
+      "pages": [
+        "agentic-infra.html",
+        "agentic-infra-202603.html"
+      ],
+      "cadence": "daily",
+      "baseline_as_of": "2026-10-08",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "pipeline",
+      "owner": "既有A2A任务",
+      "schedule": {
+        "daily": "09:00已有独立研究任务，综合任务只检查成功与页面发布",
+        "weekly": "每周五：采用证据和协议状态",
+        "monthly": "月末：项目能力缺口与生命周期",
+        "quarterly": "季度：参与者价值留存复核"
+      },
+      "pending": [
+        "保留3月旧版存档；不将路线图当成生产采用。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "optical",
+      "title": "光通信",
+      "pages": [
+        "optical-comm.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-05",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-12",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "产品/订单/客户验证重大变化触发",
+        "weekly": "每周一：800G/1.6T、硅光、CPO进展与验证",
+        "monthly": "每月20日：交期、良率与扩产",
+        "quarterly": "财报后2日：收入、毛利和资本开支"
+      },
+      "pending": [
+        "旧产业图仍可阅读；速率渗透率和公司订单未全量复核。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "把技术路线与业绩兑现分开",
+          "body": "Coherent截至6月30日的FY2026 Q4营收20.5亿美元，同比+34%，GAAP毛利率38.5%。这是公司整体口径，不是全部来自AI光模块；不能据此直接上调中国供应商的订单或利润。下一步需核对产品组合、客户验收和利润率兑现。",
+          "source_period": "FY2026 Q4 / 截至2026-06-30",
+          "sources": [
+            {
+              "title": "Coherent FY2026 Q4 业绩",
+              "url": "https://www.coherent.com/news/press-releases/fourth-quarter-and-fiscal-year-2026-results",
+              "date": "2026-08-12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capex-hub",
+      "title": "AI资本开支研究专栏",
+      "pages": [
+        "ai-capex-hub.html",
+        "ai-capex-collision.html",
+        "ai-capex-deep-dive.html",
+        "ai-capex-funding.html",
+        "ai-capex-reflexivity.html",
+        "ai-capex-stress-test.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-13",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "重大融资、指引和延期事件触发",
+        "weekly": "每周二：融资、租赁、电力交付与建设进度",
+        "monthly": "月末：资金成本与项目落地",
+        "quarterly": "巨头财报后2日：统一现金/融资租赁口径后重做压力测试"
+      },
+      "pending": [
+        "旧四巨头模型及压力测试未完整重算；新证据不能与旧总量直接相加。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "资本开支口径变了，不能误判为砍单",
+          "body": "微软FY2026 Q4说明，部分租赁分类变化使2026自然年报告口径资本开支约为1,750亿美元，但经济投入预期没有同步削减。Meta二季度资本开支（含融资租赁本金）310.8亿美元，全年指引1,300—1,450亿美元。比较时必须对齐自然年/财年和租赁口径，不能简单相加。",
+          "source_period": "2026 Q2 / FY2026 Q4",
+          "sources": [
+            {
+              "title": "微软 FY2026 Q4 业绩说明会",
+              "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+              "date": "2026-07-29"
+            },
+            {
+              "title": "Meta 2026 Q2 业绩",
+              "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+              "date": "2026-07-29"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capex-revenue",
+      "title": "AI投入与收入兑现",
+      "pages": [
+        "ai-capex.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "2026-03",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-13",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "weekly": "每周二：合同、利用率、价格和融资增量",
+        "monthly": "月末：收入质量与算力租赁",
+        "quarterly": "财报后2日：实际Capex、收入、现金流同口径滚动"
+      },
+      "pending": [
+        "旧页面的总投入和模型公司收入仍是历史假设；应先重建可比口径再重算倍数。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "旧总投入数字不能当作实时分母",
+          "body": "资本开支研究专栏已补微软租赁口径及Meta二季度证据。当前投入/收入比较仍待逐公司复核；年度指引不是已发生现金流，ARR也不是当季确认收入。旧标题中的总量仅代表原底稿假设。",
+          "source_period": "2026 Q2 / FY2026 Q4",
+          "sources": [
+            {
+              "title": "微软 FY2026 Q4 业绩说明会",
+              "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+              "date": "2026-07-29"
+            },
+            {
+              "title": "Meta 2026 Q2 业绩",
+              "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+              "date": "2026-07-29"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reports",
+      "title": "AI产业双报告阅读",
+      "pages": [
+        "report-explorer.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2027-01-08",
+      "review_state": "archive",
+      "owner": "专题维护",
+      "schedule": {
+        "quarterly": "每季度检查原报告链接与是否有后续版本；保留原刊日期"
+      },
+      "pending": [
+        "档案阅读器，不是实时行业数据；新证据在机器人/推理专题另行跟踪。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "mythos",
+      "title": "AI网安与Mythos跟踪",
+      "pages": [
+        "mythos-tracker.html"
+      ],
+      "cadence": "daily",
+      "baseline_as_of": "2026-10-08",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "pipeline",
+      "owner": "既有日报管线 + 专题核验",
+      "schedule": {
+        "daily": "既有新闻管线；核对事件发生日与抓取日",
+        "weekly": "每周三：将关键事件补齐原始公告链接并查反证",
+        "monthly": "月末：事件状态与情景假设",
+        "quarterly": "季度：风险框架复核"
+      },
+      "pending": [
+        "产物10月8日、近期事件到10月6日；部分来源只有媒体名，尚不能算全部独立核验。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "hormuz",
+      "title": "霍尔木兹海峡",
+      "pages": [
+        "hormuz-dashboard.html"
+      ],
+      "cadence": "daily",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-09",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "通航/事故/保险/官方公告，区分发生日与报道日",
+        "weekly": "每周四：绕行与输送能力",
+        "monthly": "随EIA/IMO月报复核",
+        "quarterly": "季度：长期替代路线与情景参数"
+      },
+      "pending": [
+        "4月损伤/恢复率与情景数字不能继续视作当前事实；需设施级来源重估。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "跟踪通航，不再沿用旧损失估计",
+          "body": "IMO事件清单更新至10月6日，航行图截至10月4日。清单用于态势跟踪，并不是已审计的能源通量。EIA十月展望仍假设四季度受限，但存在护航、绕行与转运恢复；这是预测假设，不是已经恢复的实测比例。",
+          "source_period": "2026-10-01 至 2026-10-06",
+          "sources": [
+            {
+              "title": "IMO 霍尔木兹航运事件跟踪",
+              "url": "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx",
+              "date": "2026-10-06"
+            },
+            {
+              "title": "EIA 十月短期能源展望",
+              "url": "https://www.eia.gov/outlooks/steo/report/",
+              "date": "2026-10-06"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fragility",
+      "title": "日韩半导体与能源脆弱性",
+      "pages": [
+        "supply-chain-fragility.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-13",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "停产、断供、制裁事件触发",
+        "weekly": "每周二：原料库存、替代来源、航线、交货期",
+        "monthly": "月度能源/贸易数据后1日",
+        "quarterly": "公司披露后：实际成本传导与产能影响"
+      },
+      "pending": [
+        "未核实各企业当前库存天数、停工概率和替代进口成本；旧模型需重算。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "从总量风险拆到企业库存缓冲",
+          "body": "EIA十月展望将海峡受限与逐步恢复并列考虑。因此研究上要分别验证能源可得性、保险/运费、企业库存和成本转嫁；不能从中东冲突直接推导日韩半导体同时停产。此处是传导假设，尚非公司层面的事实确认。",
+          "source_period": "2026-10 / 预测输入截至10-01",
+          "sources": [
+            {
+              "title": "EIA 十月短期能源展望",
+              "url": "https://www.eia.gov/outlooks/steo/report/",
+              "date": "2026-10-06"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enso",
+      "title": "厄尔尼诺",
+      "pages": [
+        "el-nino-tracker.html"
+      ],
+      "cadence": "monthly",
+      "baseline_as_of": "2026-06-11",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-11-13",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "天气重大异常触发；检查数据源失败",
+        "weekly": "每周四：NOAA海温序列与区域降水",
+        "monthly": "CPC正式诊断后1日；下一份11月12日",
+        "quarterly": "季节切换：地区影响与反证复核"
+      },
+      "pending": [
+        "SOI与MEI仍是4—5月数据，不能作为当前信号。",
+        "CPC十月文字中的Niño3.4与周度原始表不一致，分别保留日期/来源，待官方释疑。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "正文恢复到十月诊断，旧概率表退出当前视图",
+          "body": "10月8日CPC判断厄尔尼诺继续增强。强度预测使用RONI，不能直接当作ONI或三类ENSO发生概率。旧MJJ起始概率表未重新核验，已归档而不是平移日期。NOAA周度表9月30日Niño3.4为+3.2°C，诊断文字另述+2.1°C；这处差异尚未解释，不擅自归因为同一口径。",
+          "source_period": "2026-10-08诊断 / 2026-09-30周度",
+          "sources": [
+            {
+              "title": "NOAA CPC 十月 ENSO 诊断",
+              "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
+              "date": "2026-10-08"
+            },
+            {
+              "title": "NOAA 周度海温原始序列",
+              "url": "https://www.cpc.ncep.noaa.gov/data/indices/wksst9120.for",
+              "date": "2026-09-30"
+            },
+            {
+              "title": "NOAA ONI 原始序列",
+              "url": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt",
+              "date": "2026-10-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swift",
+      "title": "SWIFT人民币国际化",
+      "pages": [
+        "swift-tracker.html"
+      ],
+      "cadence": "monthly",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-19",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "monthly": "每月19日检查新一期；发布后1日更新，未发布保持原观察期",
+        "quarterly": "季度：支付、融资与储备份额分别复核"
+      },
+      "pending": [
+        "本轮找到九月报告（统计八月），未完整重建历史序列；旧四月图表仍标历史。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "报告月与数据月分开",
+          "body": "SWIFT文档中心最新可见为9月17日发布的Global Currency Tracker，报告观察期为8月。不能把它写成9月或10月实时份额。份额还须区分全球支付与剔除欧元区内部支付；与CIPS清算金额不是同一分母。",
+          "source_period": "2026-08",
+          "sources": [
+            {
+              "title": "SWIFT Global Currency Tracker 文档中心",
+              "url": "https://www.swift.com/products/global-currency-tracker/document-centre?sort%5Bfield_last_updated%5D=DESC&tl=en",
+              "date": "2026-09-17"
+            },
+            {
+              "title": "SWIFT 九月报告（统计期八月）",
+              "url": "https://www.swift.com/swift-resource/252606/download",
+              "date": "2026-09-17"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cips",
+      "title": "CIPS跨境支付",
+      "pages": [
+        "cips-tracker.html"
+      ],
+      "cadence": "monthly",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-19",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "monthly": "每月19日检查运营统计；新月报发布后1日更新",
+        "quarterly": "季度：参与者、网络扩展与制度变化"
+      },
+      "pending": [
+        "旧正文/参与者分布尚待复核；不能将官网6月参与者数当作10月最新数。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "补充八月运营统计",
+          "body": "CIPS官网列示：2026年8月业务79.1万笔、19.4万亿元；1—8月累计602.3万笔、139.7万亿元。该指标反映系统业务处理规模，不直接等同人民币国际使用份额，也不能与SWIFT报文占比横比。",
+          "source_period": "2026-08",
+          "sources": [
+            {
+              "title": "CIPS 官方运营统计",
+              "url": "https://www.cips.com.cn/kjjqgs/cipsfw/",
+              "date": "2026-10-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "credit",
+      "title": "私人信贷风险",
+      "pages": [
+        "private-credit-tracker.html"
+      ],
+      "cadence": "daily",
+      "baseline_as_of": "2026-10-08",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "pipeline",
+      "owner": "既有日报管线 + 专题核验",
+      "schedule": {
+        "daily": "违约、赎回限制、估值重估与融资新闻",
+        "weekly": "每周三：关键新闻核对机构原公告",
+        "monthly": "月末：违约、利差与流动性",
+        "quarterly": "财报后：BDC非应计、NAV和杠杆"
+      },
+      "pending": [
+        "产物10月8日、近期事件到10月2日；新闻管线运行不等于季度NAV/违约数据已重算。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "oil",
+      "title": "原油与能源",
+      "pages": [
+        "oil-dashboard.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-15",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "价格、库存发布及供给事件检查；保留各自截止日期",
+        "weekly": "每周四：库存、供应与期限结构",
+        "monthly": "EIA STEO/IEA/OPEC发布后1日",
+        "quarterly": "季度：供需情景与成本曲线"
+      },
+      "pending": [
+        "旧现货价格/设施损失不代表当前；本轮补的是官方展望，不是实时行情。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "区分油价展望与今天报价",
+          "body": "EIA 10月6日展望采用截至10月1日的信息，预测四季度Brent均价105美元/桶。这是条件预测，不是当前现货报价；晚于输入截止日的事件还未计入。本页旧情景需与库存缓冲、航运恢复和需求逐项重估。",
+          "source_period": "2026-10 / 截止10-01",
+          "sources": [
+            {
+              "title": "EIA 十月短期能源展望",
+              "url": "https://www.eia.gov/outlooks/steo/report/",
+              "date": "2026-10-06"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chem",
+      "title": "化工周期",
+      "pages": [
+        "chem-dashboard.html"
+      ],
+      "cadence": "daily",
+      "baseline_as_of": "2026-10-08",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "pipeline",
+      "owner": "既有化工数据管线",
+      "schedule": {
+        "daily": "既有化工数据管线，检查价格日期与缺失",
+        "weekly": "每周四：价差、开工率与库存",
+        "monthly": "月报后：进出口与需求结构",
+        "quarterly": "财报后：实际利润与供给出清"
+      },
+      "pending": [
+        "自动价差数据已运行；仍需对照价格序列验证，不能用文件日期替代报价日期。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "agri",
+      "title": "农产品弹性与多重瓶颈",
+      "pages": [
+        "agri-elasticity.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-04",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-10",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "天气、出口限制、航运与成本事件触发",
+        "weekly": "每周四：作物关键生长期、库存/消费比、运输与价差",
+        "monthly": "WASDE等供需月报发布后1日；10月9日美国中午发布",
+        "quarterly": "季度：种植面积与作物年度切换"
+      },
+      "pending": [
+        "原弹性分数未重算，供需/海峡/天气冲击不能简单三次加分。",
+        "截至10月8日十月WASDE尚未发布；需先补最近已发布表，再等待新报告。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "从天气主题转向分品种验证",
+          "body": "新增核验顺序：油籽看压榨/生物燃料需求与出口国库存；谷物看库存消费比和主产区单产；糖、咖啡、可可看产地与运输集中度。天气、能源成本和海峡运输可能相关，必须区分共同原因与独立瓶颈。USDA下一份WASDE在10月9日12:00美东发布，北京时间10月10日00:00，不能提前填十月数据。",
+          "source_period": "截至2026-10-08",
+          "sources": [
+            {
+              "title": "USDA WASDE 发布日历与报告",
+              "url": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+              "date": "2026-10-08"
+            },
+            {
+              "title": "NOAA CPC 十月 ENSO 诊断",
+              "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
+              "date": "2026-10-08"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pvc",
+      "title": "PVC及基金溢价",
+      "pages": [
+        "pvc_dashboard.html"
+      ],
+      "cadence": "daily",
+      "baseline_as_of": "2026-05-05",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "needs_research",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "交易日：价格/NAV/估值日期对齐后重算；休市不伪造报价",
+        "weekly": "每周四：PVC库存、开工与价差",
+        "monthly": "月报后：地产/出口/供需",
+        "quarterly": "季度：持仓与产品规则复核"
+      },
+      "pending": [
+        "五月NAV和溢价已失效；在恢复同日净值与价格前不输出当前套利/溢价判断。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "glass",
+      "title": "玻璃基板与材料",
+      "pages": [
+        "glass-substrate-materials.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "2026-06-17",
+      "last_checked": "2026-10-08",
+      "last_research_update": "2026-10-08",
+      "next_due": "2026-10-14",
+      "review_state": "partial",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "客户认证、量产和扩产事件触发",
+        "weekly": "每周三：认证阶段、良率和设备/材料瓶颈",
+        "monthly": "每月20日：产线/客户验证",
+        "quarterly": "财报后：收入与资本开支兑现"
+      },
+      "pending": [
+        "旧供应商评分与量产时间表未完整复核。"
+      ],
+      "updates": [
+        {
+          "date": "2026-10-08",
+          "title": "合作不等于进入量产收入",
+          "body": "Intel与蓝思科技7月24日公布先进封装合作，涉及玻璃基板技术发展。研究上需把合作、送样、客户认证、量产及收入确认分成不同阶段；不能把这次合作直接外推为所有玻璃产业链公司订单已兑现。",
+          "source_period": "2026-07-24",
+          "sources": [
+            {
+              "title": "Intel 与蓝思科技先进封装合作",
+              "url": "https://newsroom.intel.com/new-technologies/intel-and-lens-technology-collaborate-to-enable-advanced-semiconductor-packaging-for-the-ai-era",
+              "date": "2026-07-24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "woge",
+      "title": "沃格光电",
+      "pages": [
+        "woge-optoelectronics.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "2026-06-17",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-14",
+      "review_state": "needs_research",
+      "owner": "专题维护",
+      "schedule": {
+        "weekly": "每周三：交易所公告、客户认证与资本开支",
+        "monthly": "每月20日：项目投产与验证进度",
+        "quarterly": "财报后2日：收入、毛利、现金流与减值"
+      },
+      "pending": [
+        "半年报与最近公告需要逐项补齐；别家玻璃合作不能作为沃格订单证据。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "crypto",
+      "title": "加密相关上市公司",
+      "pages": [
+        "crypto-stocks-tracker.html"
+      ],
+      "cadence": "weekly",
+      "baseline_as_of": "原页静态快照",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2026-10-09",
+      "review_state": "needs_research",
+      "owner": "专题维护",
+      "schedule": {
+        "daily": "交易日价格、资产储备与监管事件；来源未恢复不显示实时结论",
+        "weekly": "每周五：融资稀释、储备、NAV折溢价",
+        "monthly": "月末：资产结构与现金流",
+        "quarterly": "财报后：债务到期、托管与审计"
+      },
+      "pending": [
+        "本轮仅完成覆盖审计；旧报价、储备和NAV尚未重新采集。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "hantavirus",
+      "title": "汉坦病毒情景模型",
+      "pages": [
+        "hantavirus.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "原始情景版本",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2027-01-08",
+      "review_state": "archive",
+      "owner": "专题维护",
+      "schedule": {
+        "quarterly": "季度检查来源与模型假设；官方重大卫生事件触发复核"
+      },
+      "pending": [
+        "模型演示与历史情景，不是实时疫情监测或医学建议。"
+      ],
+      "updates": []
+    },
+    {
+      "id": "s2-battle",
+      "title": "S2对抗情景模型",
+      "pages": [
+        "s2-battle.html"
+      ],
+      "cadence": "quarterly",
+      "baseline_as_of": "2026-03-13",
+      "last_checked": "2026-10-08",
+      "last_research_update": null,
+      "next_due": "2027-01-08",
+      "review_state": "archive",
+      "owner": "专题维护",
+      "schedule": {
+        "quarterly": "季度验证情景假设、模型边界与页面可用性"
+      },
+      "pending": [
+        "静态推演工具，不冒充每日行情或预测结果。"
+      ],
+      "updates": []
+    }
+  ]
+}

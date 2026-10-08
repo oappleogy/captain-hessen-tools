@@ -478,6 +478,8 @@ footer .disc {
   font-family: 'JetBrains Mono', monospace; color: var(--text3); font-size: 12px;
 }
 </style>
+<link rel="stylesheet" href="research-updates.css?v=20261008">
+<script src="research-updates.js?v=20261008" defer></script>
 </head>
 <body>
 <a class="back-link" href="index.html">← 返回</a>
@@ -576,7 +578,9 @@ footer .disc {
       <div class="subtitle">赤道太平洋海温异常 · 全球农业 / 能源 / 渔业 / 新兴市场传导地图。<br/>
         每月跟踪 NOAA CPC、IRI、BoM 多源指标，并将信号映射到大宗与权益市场。</div>
       <div class="meta">
-        <span><b>数据更新</b>${esc(data.last_updated || '—')}</span>
+        <span><b>产物变化</b>${esc(data.last_updated || '—')}</span>
+        <span><b>官方诊断</b>${esc(data.discussion_as_of || '尚未核验')}</span>
+        <span><b>最近巡检</b>${esc(data.last_checked_at || '未知')}</span>
         <span><b>下一节点</b>${esc(data.next_update || '—')}</span>
         <span><b>样本窗口</b>${esc(data.data_window || '—')}</span>
         <span><b>来源</b>NOAA CPC · NOAA PSL · BoM · IRI · ECMWF</span>
@@ -597,7 +601,7 @@ footer .disc {
         <div class="meter-wrap">
           <div>
             <div class="meter-label">
-              <span>NIÑO 3.4 SST 异常 · 实时定位</span>
+              <span>NIÑO 3.4 SST 异常 · 最近可得周度数据</span>
               <span class="val">${sstVal >= 0 ? '+' : ''}${sstVal.toFixed(2)}°C</span>
             </div>
             <div class="meter-bar"><div class="meter-pin" style="left:${pinPct(sstVal).toFixed(1)}%"></div></div>
@@ -605,7 +609,7 @@ footer .disc {
           </div>
           ${sstInd ? `
             <div class="spark-wrap">
-              <div class="spark-head"><span>过去 12 周 Niño 3.4 SST 异常</span><b>${esc(sstInd.window || '')}</b></div>
+              <div class="spark-head"><span>最近 ${sstInd.trend.length} 期 Niño 3.4 SST 异常</span><b>${esc(sstInd.window || '')}</b></div>
               ${sparkline(sstInd.trend, { width: 320, height: 64, cls: 'spark-svg', stroke: '#ff9f43', fill: 'rgba(255,159,67,0.16)', thresholds: sstInd.thresholds })}
             </div>
           ` : ''}
@@ -619,7 +623,7 @@ footer .disc {
     <section>
       <div class="sec-head">
         <h2><span class="icon">🌡️</span>核心指标 · Core Indicators</h2>
-        <span class="tag">5 阈值法</span>
+        <span class="tag">各指标日期独立，历史值不参与当前判断</span>
       </div>
       <div class="ind-grid">
         ${inds.map(ind => {
@@ -644,7 +648,7 @@ footer .disc {
             <div class="ind-value-row">
               <span class="ind-value">${sign}${ind.value.toFixed(2)}</span>
               <span class="ind-unit">${esc(ind.unit || '')}</span>
-              <span class="ind-state ${stUsed.cls}">${esc(stUsed.label)}</span>
+              <span class="ind-state ${ind.stale ? 'neut' : stUsed.cls}">${esc(ind.stale ? '历史值 · 待补' : stUsed.label)}</span>
             </div>
             ${sparkline(ind.trend, { width: 240, height: 32, stroke: stroke, fill: fill, thresholds: ind.thresholds })}
             <div class="ind-foot">${esc(ind.note || ind.source || '')}</div>
@@ -660,15 +664,16 @@ footer .disc {
     <section>
       <div class="sec-head">
         <h2><span class="icon">📈</span>季节概率预测 · CPC / IRI 集合</h2>
-        <span class="tag">${fc.length} 滑动窗口</span>
+        <span class="tag">${fc.length ? fc.length + ' 滑动窗口' : '最新概率待核验'}</span>
       </div>
       <div class="fc-card">
-        <div class="fc-legend">
+        ${!fc.length ? `<div class="fc-foot">${esc(data.forecast_note || '缺少已核验的最新预测，不用零值代替。')} <a href="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml" target="_blank" rel="noopener noreferrer">CPC原文</a></div>` : ''}
+        <div class="fc-legend" style="${!fc.length ? 'display:none' : ''}">
           <span><i style="background:linear-gradient(180deg,#ff6b3d,#ff9f43)"></i>厄尔尼诺 El Niño</span>
           <span><i style="background:linear-gradient(180deg,#6b7e96,#4f6275)"></i>中性 Neutral</span>
           <span><i style="background:linear-gradient(180deg,#5dc4ff,#3da9fc)"></i>拉尼娜 La Niña</span>
         </div>
-        <div class="fc-bars">
+        <div class="fc-bars" style="${!fc.length ? 'display:none' : ''}">
           ${fc.map(f => {
             const en = f.el_nino || 0, ne = f.neutral || 0, la = f.la_nina || 0;
             const enH = (en / fcMax) * 100;
@@ -688,8 +693,7 @@ footer .disc {
         </div>
         <div class="fc-foot">
           <b style="color:var(--text2)">读图法 · </b>
-          每根柱代表三月滑动季 (e.g. ASO = Aug-Sep-Oct)；橙色段超过 50% 通常意味着 CPC 进入 <i>El Niño Watch / Advisory</i>。
-          阈值条件：Niño 3.4 区 SST 三月平均偏暖 ≥ 0.5°C 且大气耦合证据 (SOI / OLR / 信风减弱) 同步出现。
+          季节概率、强度概率、ONI与RONI是不同口径，不能相互替代；CPC预警还结合海气耦合，不由柱状图单一概率决定。
         </div>
       </div>
     </section>
@@ -748,7 +752,7 @@ footer .disc {
       sub: 'GRAINS · SOFTS · OILSEEDS',
       color: '#f0c040',
       en: [
-        '<b>棕榈油</b> 印尼/马来旱季缺水 → 单产 <span class="arrow-up">↑</span> 价格弹性 <span class="arrow-up">↑</span>',
+        '<b>棕榈油</b> 印尼/马来旱季缺水 → 单产下降风险；价格仍取决于库存、需求与地区降水',
         '<b>糖</b> 印度/泰国甘蔗减产 → 国际糖价 <span class="arrow-up">↑</span>',
         '<b>大豆/玉米</b> 阿根廷/南巴西雨水偏多 → 单产改善但收割物流受扰',
         '<b>小麦</b> 澳洲东部干旱 → 出口配额收紧',
@@ -878,7 +882,7 @@ footer .disc {
   html += `
     <section>
       <div class="sec-head">
-        <h2><span class="icon">🌐</span>影响传导地图 · Transmission</h2>
+        <h2><span class="icon">🌐</span>历史传导假设 · 非当前影响实测</h2>
         <span class="tag">El Niño ↔ La Niña 双向</span>
       </div>
       <div class="impact-grid">
@@ -904,8 +908,8 @@ footer .disc {
   html += `
     <section>
       <div class="sec-head">
-        <h2><span class="icon">🧭</span>结构性瓶颈排名 · Bottleneck Rankings</h2>
-        <span class="tag">Research Overlay</span>
+        <h2><span class="icon">🧭</span>旧文章逻辑与瓶颈假设（待供需数据重估）</h2>
+        <span class="tag">0.8% / 1.8%缺口及旧排序未在本轮核验，不是当前排名</span>
       </div>
       <div class="rank-grid">
         ${bottleneckCards.map(card => `
@@ -941,7 +945,7 @@ footer .disc {
     <section>
       <div class="sec-head">
         <h2><span class="icon">🗓️</span>关键监测窗口 · Watch Calendar</h2>
-        <span class="tag">未来 9 个月</span>
+        <span class="tag">下一批官方发布与观察节点</span>
       </div>
       <div class="watch-list">
         ${watch.map(w => {

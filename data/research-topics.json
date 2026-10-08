@@ -103,10 +103,10 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-30",
-      "last_checked": "2026-10-08",
-      "last_research_update": null,
+      "last_checked": "2026-10-09",
+      "last_research_update": "2026-10-09",
       "next_due": "2026-10-14",
-      "review_state": "needs_research",
+      "review_state": "partial",
       "owner": "专题维护",
       "schedule": {
         "daily": "临床读出、监管审批、重大合作事件触发",
@@ -115,9 +115,24 @@
         "quarterly": "财报后2日：收入归因、现金消耗、融资与估值"
       },
       "pending": [
-        "9月30日公开版仍保留；本轮只纳入排期，未重新核验全部公司。"
+        "原地图及六家公司估值未全面重算；2026-10-09仅增补行业信号核验。",
+        "补采购规格、临床招募分层、合成表达功能检测订单及毛利，不能把行业叙事当作盈利兑现。"
       ],
-      "updates": []
+      "updates": [
+        {
+          "date": "2026-10-09",
+          "title": "新增五项行业信号核验，纠正2028必然获批叙事",
+          "body": "已区分大分子公司需求、人体临床资源与实验猴供需，并核查AI药审批时间和CRO受益逻辑。英矽9月公告所引研究负责人估计三期启动至获批在有利条件下仍需3—4年；不能视为监管承诺。细节与反证见行业信号核验栏目，原标的组未调整。",
+          "source_period": "2025年度及2026年1—9月；不是10月全行业景气快照",
+          "sources": [
+            {
+              "title": "英矽智能三期首例给药与条件性时间预期",
+              "url": "https://insilico.com/news/isn1009261-insilico-medicine-doses-first-patient-genesis-ipf-3",
+              "date": "2026-09-10"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "inference",

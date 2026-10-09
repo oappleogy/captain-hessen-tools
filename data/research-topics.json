@@ -142,7 +142,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": "2026-09-24",
       "next_due": "2026-10-09",
       "review_state": "backfill",
@@ -156,7 +156,13 @@
       "pending": [
         "补发9月24日已有研究，不是10月8日新一期；9月25日至今增量仍待周报补齐。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "既有独立周报任务仍启用，计划今日18:30运行；本次核验时尚未到运行时点，不重复执行，不把9月24日数据改成今日研究。"
+        }
+      ]
     },
     {
       "id": "guba",
@@ -166,7 +172,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-06",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -180,7 +186,13 @@
         "旧页面是6月样本，不代表当前情绪。",
         "需重新采集可合法访问的公开样本；登录/风控失败需标明缺失，不能靠搜索条数续更。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "公开新易盛股吧列表可访问，含10月9日记录；并非已确认Cookie失效。尚未完成固定时间窗、多标的、独立作者去重及原帖抽样，不能用列表条数恢复情绪分数。"
+        }
+      ]
     },
     {
       "id": "douyin",
@@ -190,7 +202,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-06",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -203,7 +215,13 @@
       "pending": [
         "6月样本不能标作今日风评；平台访问与样本可比性待恢复。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "直接读取公开搜索页未取得可解析内容；无法判断具体是工具解析还是平台限制。本轮无可比评论样本，保留缺失，不绕过登录/风控。"
+        }
+      ]
     },
     {
       "id": "power",
@@ -214,8 +232,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-24",
-      "last_checked": "2026-10-08",
-      "last_research_update": "2026-10-08",
+      "last_checked": "2026-10-09",
+      "last_research_update": "2026-10-09",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -226,8 +244,8 @@
         "quarterly": "财报后2日：逐公司滚动替换Q1底稿；当季20日检查披露日历"
       },
       "pending": [
-        "Q1对比表已落后，需按公司实际披露更新到最近财季，不伪称全部Q3已披露。",
-        "本轮只确认存在后续财报，尚未重算20多家公司的超预期评分。"
+        "已补VRT、ETN的Q2实际业绩与Q3指引；GEV、BE、VST、CEG及其余公司仍待补。",
+        "机构一致预期、原Q1评分、SA持仓及估值未重算；新证据不是20多家公司全量更新，截止日保持可见。"
       ],
       "updates": [
         {
@@ -240,6 +258,24 @@
               "title": "Vertiv 官方业绩公告目录",
               "url": "https://investors.vertiv.com/news/",
               "date": "2026-10-08"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-09",
+          "title": "两家供电链公司补入Q2实际结果，而非只改日期",
+          "body": "原页新增VRT、ETN官方财报表，分别展示营收、有机增速、GAAP/调整后EPS、现金流及公告日。VRT利润率和现金流兑现增强证据；ETN订单增长但分部利润率同比回落，不能把整条链写成利润同步扩张。Q3仅为公司指引，未核验机构一致预期；旧Q1排名折叠为历史。",
+          "source_period": "2026-04-01至2026-06-30；公告7月29/31日",
+          "sources": [
+            {
+              "title": "Vertiv Q2业绩",
+              "url": "https://investors.vertiv.com/news/news-details/2026/Vertiv-Reports-Strong-Second-Quarter-2026-with-Diluted-EPS-Growth-of-53-Adjusted-Diluted-EPS-Growth-of-60-Raises-Full-Year-2026-Guidance-Across-All-Key-Metrics/default.aspx",
+              "date": "2026-07-29"
+            },
+            {
+              "title": "Eaton Q2 SEC业绩附件",
+              "url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000027/etn06302026exhibit99.htm",
+              "date": "2026-07-31"
             }
           ]
         }
@@ -314,7 +350,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -328,7 +364,13 @@
       "pending": [
         "本轮验证管线运行，未独立重审全部交易指标；自动生成日期不等于每条指标都新。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "产物生成于10月9日09:20，累计量内层as_of为10月8日；30日窗口未单列截止时点。真实付费、去重与非自然交易过滤仍未独立验证，周五任务未完成，截止日不顺延。"
+        }
+      ]
     },
     {
       "id": "a2a",
@@ -339,7 +381,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -353,7 +395,13 @@
       "pending": [
         "保留3月旧版存档；不将路线图当成生产采用。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "公开数据的last_checked_at仍为10月8日13:52（北京时间），未见今日独立任务的新产物；距上次检查尚未满48小时。保留今日待核验，不创建重复任务，也不把页面可访问等同今日研究完成。"
+        }
+      ]
     },
     {
       "id": "optical",
@@ -512,7 +560,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -524,9 +572,15 @@
         "quarterly": "季度：风险框架复核"
       },
       "pending": [
-        "产物10月8日、近期事件到10月6日；部分来源只有媒体名，尚不能算全部独立核验。"
+        "产物10月9日、最新事件到10月8日；逐事件原始公告链接与反证仍待补，文件日期不是验证完成日。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "文件日期10月9日，最新事件发生日10月8日；来源仍为Anthropic Official等标签而非逐条链接，本轮未完成独立原文核验，保留待办。"
+        }
+      ]
     },
     {
       "id": "hormuz",
@@ -536,7 +590,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": "2026-10-08",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -568,6 +622,12 @@
               "date": "2026-10-06"
             }
           ]
+        }
+      ],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "IMO页面事件清单标注更新至10月8日，航行图仍截至10月4日。本轮未逐案完成清单差异与设施级运量核验，未改变旧损失参数，也未推进截止日。"
         }
       ]
     },
@@ -617,7 +677,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": "2026-10-08",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -655,6 +715,12 @@
               "date": "2026-10-08"
             }
           ]
+        }
+      ],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "官方诊断日保持10月8日；ONI为JAS26、周度海温为9月30日；SOI为5月、MEI为4—5月。外层last_updated为10月9日不能代表内层指标全部更新。"
         }
       ]
     },
@@ -743,7 +809,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -755,9 +821,15 @@
         "quarterly": "财报后：BDC非应计、NAV和杠杆"
       },
       "pending": [
-        "产物10月8日、近期事件到10月2日；新闻管线运行不等于季度NAV/违约数据已重算。"
+        "产物10月9日、事件仍到10月2日；来源链接、BDC非应计/NAV/杠杆尚未逐项复核。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "文件日期10月9日，但事件日期最大值仍为10月2日，不能只取未排序数组末项；季度指标仍含无链接来源，未将产物时间算成新研究。"
+        }
+      ]
     },
     {
       "id": "oil",
@@ -805,7 +877,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -819,7 +891,13 @@
       "pending": [
         "自动价差数据已运行；仍需对照价格序列验证，不能用文件日期替代报价日期。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "10月9日产物内抽查期货报价为10月8日，苯乙烯库存观察日仍9月30日；存在库存0和缺失字段，真实零值与采集缺失尚未区分，保留积压。"
+        }
+      ]
     },
     {
       "id": "agri",
@@ -867,27 +945,52 @@
     },
     {
       "id": "pvc",
-      "title": "PVC及基金溢价",
+      "title": "公开创投基金（PVC）与净值溢价",
       "pages": [
         "pvc_dashboard.html"
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-05-05",
-      "last_checked": "2026-10-08",
-      "last_research_update": null,
+      "last_checked": "2026-10-09",
+      "last_research_update": "2026-10-09",
       "next_due": "2026-10-09",
-      "review_state": "needs_research",
+      "review_state": "partial",
       "owner": "专题维护",
       "schedule": {
-        "daily": "交易日：价格/NAV/估值日期对齐后重算；休市不伪造报价",
-        "weekly": "每周四：PVC库存、开工与价差",
-        "monthly": "月报后：地产/出口/供需",
-        "quarterly": "季度：持仓与产品规则复核"
+        "daily": "交易日核对收盘价、最新正式NAV及各自观察日；缺失不算当前溢价，非交易型产品不伪造市价",
+        "weekly": "每周五：基金份额、ATM发行、管理费、解禁与折溢价；PVC指Public Venture Capital，非化工",
+        "monthly": "月末：底层资产重估、融资稀释、流动性及最新NAV披露",
+        "quarterly": "财报披露后2日：正式NAV、组合退出与现金流；初步估计单列，不能充当最终财报"
       },
       "pending": [
-        "五月NAV和溢价已失效；在恢复同日净值与价格前不输出当前套利/溢价判断。"
+        "已补VCX、DXYZ、NSLR三只披露，其余六只产品待核验；本轮没有10月现价，不提供当前套利判断。",
+        "NSLR三季度NAV为管理层初估，正式季报预计11月；旧五月预测与九只产品敞口未重算。"
       ],
-      "updates": []
+      "updates": [
+        {
+          "date": "2026-10-09",
+          "title": "纠正PVC分类与SSSS代码，补三只基金净值证据",
+          "body": "PVC在本页指公开创投基金，原排期误配了化工库存任务，现改为基金披露跟踪。SSSS已更名NSLR；Q2正式NAV与Q3初估分开。VCX的9月8日与DXYZ的6月30日同日价格/NAV可复算各自历史折溢价，但不是今日横向比较。原五月表、催化与预测归档，撤回几乎确定回归的表述。",
+          "source_period": "2026-06-30、2026-09-08及2026-09-30初估；不是同日样本",
+          "sources": [
+            {
+              "title": "VCX SEC招股补充",
+              "url": "https://www.sec.gov/Archives/edgar/data/1867090/000121390026098534/ea0303702-01_424b2.htm",
+              "date": "2026-09-09"
+            },
+            {
+              "title": "DXYZ半年报",
+              "url": "https://www.sec.gov/Archives/edgar/data/1843974/000121390026095201/ea0302101-01_ncsrs.htm",
+              "date": "2026-08-28"
+            },
+            {
+              "title": "Neostellar Q3初步更新",
+              "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-announces-third-quarter-2026-preliminary",
+              "date": "2026-10-05"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "glass",
@@ -952,27 +1055,34 @@
     },
     {
       "id": "crypto",
-      "title": "加密相关上市公司",
+      "title": "代币股与永续资金费率",
       "pages": [
         "crypto-stocks-tracker.html"
       ],
       "cadence": "weekly",
       "baseline_as_of": "原页静态快照",
-      "last_checked": "2026-10-08",
+      "last_checked": "2026-10-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
       "owner": "专题维护",
       "schedule": {
-        "daily": "交易日价格、资产储备与监管事件；来源未恢复不显示实时结论",
-        "weekly": "每周五：融资稀释、储备、NAV折溢价",
-        "monthly": "月末：资产结构与现金流",
-        "quarterly": "财报后：债务到期、托管与审计"
+        "daily": "页面实时请求行情；检查交易所响应时间、资金费率、实际结算周期及失败提示，不拿页面日期代替报价时间",
+        "weekly": "每周五：核对各交易所合约与现货上线状态、符号映射、保证金/下架规则；不是上市公司储备NAV表",
+        "monthly": "月末：现货权益、托管/赎回权利、合成指数与基差风险",
+        "quarterly": "季度：合约规则、交易时段和极端行情风险复核"
       },
       "pending": [
-        "本轮仅完成覆盖审计；旧报价、储备和NAV尚未重新采集。"
+        "原页是交易所代币股/永续监控，不是加密上市公司财报。静态上线名单和部分默认8小时结算参数未全量复核。",
+        "10月9日公开接口抽查：OKX与Bitget的TSLA资金费率成功返回；Binance返回地区限制，未绕过。单品种成功不等于全市场或浏览器CORS全部正常。"
       ],
-      "updates": []
+      "updates": [],
+      "checks": [
+        {
+          "date": "2026-10-09",
+          "result": "已纠正专题范围。抽查公开TSLA合约接口；保留Binance地区限制并停止该源尝试。资金费率0为本次有效返回，不代表未来可持续收益；全量合约名单与前端数据时效门槛仍待核验。"
+        }
+      ]
     },
     {
       "id": "hantavirus",

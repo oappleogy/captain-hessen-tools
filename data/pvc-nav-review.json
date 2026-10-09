@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "kind": "nav",
+  "title": "已核验的 NAV 与同日价格快照",
+  "checked_on": "2026-10-09",
+  "scope": "本轮覆盖 VCX、DXYZ、NSLR 三只基金；不是九只基金的实时报价。下表价格只用于对应历史日期的折溢价复算，不是今日价格。金额均为美元/份。",
+  "columns": [
+    {"key":"label","label":"基金"},
+    {"key":"nav","label":"已披露 NAV","format":"usd"},
+    {"key":"nav_date","label":"NAV 观察日"},
+    {"key":"price","label":"同日历史价格","format":"usd"},
+    {"key":"price_date","label":"价格观察日"},
+    {"key":"premium","label":"该日折溢价","format":"pct"},
+    {"key":"announced","label":"披露日"}
+  ],
+  "rows": [
+    {
+      "id":"VCX", "label":"VCX · Fundrise", "nav":21.70, "nav_date":"2026-09-08", "nav_status":"reported",
+      "price":38.12, "price_date":"2026-09-08", "announced":"2026-09-09", "current_price":null,
+      "known":"9月9日招股补充文件同时披露9月8日每份NAV和收盘价。10亿美元ATM是可发行上限，不是已募集金额。",
+      "unknown":"本轮未核验10月8日收盘价、更晚NAV及ATM实际发行数量。",
+      "impact":"原页626%溢价不能再作为当前结论；本表约75.67%也是9月8日的历史快照，不能据此推断今日套利空间。",
+      "sources":[{"title":"SEC 424(b)(2) · 2026-09-09","url":"https://www.sec.gov/Archives/edgar/data/1867090/000121390026098534/ea0303702-01_424b2.htm"}]
+    },
+    {
+      "id":"DXYZ", "label":"DXYZ · Destiny Tech100", "nav":34.30, "nav_date":"2026-06-30", "nav_status":"reported",
+      "price":25.76, "price_date":"2026-06-30", "announced":"2026-08-28", "current_price":null,
+      "known":"半年报列示6月30日NAV 34.30与期末市价25.76；期初NAV为19.93，修正旧底稿19.97的记录。财务报表为未经审计半年报。",
+      "unknown":"尚未核验10月行情及9月末完整NAV；私募资产估值不等于可立即退出的现金。",
+      "impact":"6月30日为约24.90%折价，不是五月底稿的89%溢价；两者不是同一观察期，不可拼成同日横向套利。",
+      "sources":[{"title":"SEC N-CSRS · 2026-08-28","url":"https://www.sec.gov/Archives/edgar/data/1843974/000121390026095201/ea0302101-01_ncsrs.htm"},{"title":"SEC 申报日期与观察期","url":"https://www.sec.gov/Archives/edgar/data/1843974/000121390026095201/0001213900-26-095201-index.html"}]
+    },
+    {
+      "id":"NSLR", "label":"NSLR · 原 SSSS", "nav":13.44, "nav_date":"2026-06-30", "nav_status":"reported",
+      "price":null, "price_date":null, "announced":"2026-08-05", "current_price":null,
+      "preliminary":{"nav_low":12.25,"nav_high":12.75,"period_end":"2026-09-30","announced":"2026-10-05","status":"management_estimate"},
+      "known":"SuRo于7月1日更名Neostellar，代码由SSSS变NSLR；7月15日起改为外部管理。Q2已披露NAV 13.44；Q3管理层初估12.25—12.75，正式结果预计11月公布。",
+      "unknown":"Q3初估未经审计、审阅或会计师程序，不是正式结果；本轮缺少匹配价格，不计算折溢价。",
+      "impact":"旧SSSS代码及5月12日催化已过时。应跟踪外部管理费用、融资稀释、估值变动与退出回款，不把旧13—15预测当成已实现NAV。",
+      "sources":[{"title":"公司更名及管理结构公告 · 2026-07-21","url":"https://investors.neostellar.vc/news-releases/news-release-details/suro-capital-team-and-magnetar-launch-neostellar-advisors"},{"title":"Q2正式业绩公告 · 2026-08-05","url":"https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-reports-second-quarter-2026-financial"},{"title":"Q3初步组合更新 · 2026-10-05","url":"https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-announces-third-quarter-2026-preliminary"}]
+    }
+  ],
+  "pending":["补其余六只产品的正式披露、份额类别和赎回机制；不可把非交易型基金的缺失市价记为0%溢价。","恢复收盘价采集。若价格与最新披露NAV日期不同，只能称相对已披露NAV的参考溢价，同时显示估值时差，不能假装是同日净值。","不同基金的底层资产、份额权利、费用、税负与退出约束不同；折溢价不保证收敛，也不是无风险套利。"]
+}

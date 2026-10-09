@@ -20,8 +20,9 @@
     return `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a> <small>(${esc(s.date)})</small>`;
   }
   function details(t) {
-    const updates = t.updates.map(n => `<article class="ru-note"><h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><p class="ru-meta">复核 ${esc(n.date)} · 证据观察期 ${esc(n.source_period)}</p><div class="ru-sources">${n.sources.map(sourceLink).join(' · ')}</div></article>`).join('');
-    return `${updates || '<p>本轮完成页面与更新链路检查，尚未补齐新一轮研究。旧数据不可视作当前结论。</p>'}<h4>尚待完成</h4><ul>${t.pending.map(p=>`<li>${esc(p)}</li>`).join('')}</ul><details class="ru-rhythm"><summary>日 / 周 / 月 / 季如何更新</summary><dl>${Object.entries(t.schedule).map(([k,v])=>`<dt>${esc(cadenceNames[k])}</dt><dd>${esc(v)}</dd>`).join('')}</dl></details>`;
+    const updates = [...t.updates].sort((a,b)=>b.date.localeCompare(a.date)).map(n => `<article class="ru-note"><h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><p class="ru-meta">复核 ${esc(n.date)} · 证据观察期 ${esc(n.source_period)}</p><div class="ru-sources">${n.sources.map(sourceLink).join(' · ')}</div></article>`).join('');
+    const checks = (t.checks || []).slice(-3).reverse().map(c=>`<li><b>${esc(c.date)}</b> · ${esc(c.result)}</li>`).join('');
+    return `${updates || '<p>尚未补齐新一轮研究。旧数据不可视作当前结论。</p>'}${checks ? `<h4>最近检查（不等于研究已更新）</h4><ul>${checks}</ul>` : ''}<h4>尚待完成</h4><ul>${t.pending.map(p=>`<li>${esc(p)}</li>`).join('')}</ul><details class="ru-rhythm"><summary>日 / 周 / 月 / 季如何更新</summary><dl>${Object.entries(t.schedule).map(([k,v])=>`<dt>${esc(cadenceNames[k])}</dt><dd>${esc(v)}</dd>`).join('')}</dl></details>`;
   }
   function heading(t) {
     const s = status(t);

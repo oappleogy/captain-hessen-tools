@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "kind": "earnings",
+  "title": "供电链财报增量：实际兑现与指引分开",
+  "checked_on": "2026-10-09",
+  "scope": "先补 Vertiv 与 Eaton 的2026年第二季度。观察期均截至6月30日，不能称为10月经营实况或Q3已实现业绩。营收、经营现金流单位：百万美元；EPS：美元/股。机构一致预期尚未核验，不计算双超预期评分。",
+  "columns": [
+    {"key":"label","label":"公司"},
+    {"key":"period_end","label":"财季截至"},
+    {"key":"revenue_musd","label":"营收 / 百万美元","format":"number"},
+    {"key":"revenue_yoy_pct","label":"营收同比","format":"pct"},
+    {"key":"organic_yoy_pct","label":"有机同比","format":"pct"},
+    {"key":"gaap_eps","label":"GAAP EPS","format":"usd"},
+    {"key":"adjusted_eps","label":"调整后 EPS","format":"usd"},
+    {"key":"operating_cash_flow_musd","label":"经营现金流 / 百万美元","format":"number"},
+    {"key":"announced","label":"公告日"}
+  ],
+  "rows": [
+    {
+      "id":"VRT", "label":"VRT · Vertiv", "period_end":"2026-06-30", "announced":"2026-07-29",
+      "revenue_musd":3274.3, "revenue_yoy_pct":24, "organic_yoy_pct":18, "gaap_eps":1.27, "adjusted_eps":1.52, "operating_cash_flow_musd":1100,
+      "known":"营收增长中包含并购5个百分点及汇率1个百分点。调整后营业利润率22.6%，同比提高410bp；调整后自由现金流925百万美元。公司称供应链拥堵和分阶段实施影响了收入确认时点。",
+      "guidance":"7月29日公司对Q3的指引：营收3650—3850百万美元、调整后EPS 1.77—1.83。此为前瞻区间，尚非已实现结果。",
+      "unknown":"未核对同期机构一致预期、订单取消率、客户验收与最新股价估值；不能给出当前超预期分数或潜在涨幅。",
+      "impact":"新增利润率和现金流兑现证据，支持继续研究供电与散热需求；但供应受限也可能推迟交付，不等于所有订单立即转收入。",
+      "sources":[{"title":"Vertiv Q2正式业绩 · 2026-07-29","url":"https://investors.vertiv.com/news/news-details/2026/Vertiv-Reports-Strong-Second-Quarter-2026-with-Diluted-EPS-Growth-of-53-Adjusted-Diluted-EPS-Growth-of-60-Raises-Full-Year-2026-Guidance-Across-All-Key-Metrics/default.aspx"}]
+    },
+    {
+      "id":"ETN", "label":"ETN · Eaton", "period_end":"2026-06-30", "announced":"2026-07-31",
+      "revenue_musd":8531, "revenue_yoy_pct":21, "organic_yoy_pct":14, "gaap_eps":2.11, "adjusted_eps":3.15, "operating_cash_flow_musd":1100,
+      "known":"分部利润率23.1%，超过公司原指引上限10bp，但同比下降80bp。电气业务积压同比增43%；美洲电气订单为滚动12个月口径、增长41%，不是单季新增收入。自由现金流874百万美元。",
+      "guidance":"7月31日公司对Q3的指引：GAAP EPS 2.77—2.87、调整后EPS 3.46—3.56。调整后口径不是GAAP利润。",
+      "unknown":"机构一致预期未核验；并购贡献与原有业务必须分开。尚不能把全年指引上调视为当季双超预期。",
+      "impact":"订单及营收继续增长，但利润率同比回落是对全链利润同步扩张叙事的反证；只看订单或调整后EPS会遗漏费用与并购影响。",
+      "sources":[{"title":"Eaton Q2 SEC业绩附件 · 2026-07-31","url":"https://www.sec.gov/Archives/edgar/data/1551182/000155118226000027/etn06302026exhibit99.htm"}]
+    }
+  ],
+  "pending":["本轮仅2家公司。GEV、BE、VST、CEG及其余原表公司仍需最近财季、订单验收、现金流和一致预期核对；截止日不因部分完成而顺延。","旧Q1评分、SA基金持仓、目标空间及历史市值未重算，移入历史区；本表不是新的全链排名。","各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。"]
+}

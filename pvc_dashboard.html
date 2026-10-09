@@ -364,7 +364,9 @@
   }
 </style>
 <link rel="stylesheet" href="research-updates.css?v=20261008">
-<script src="research-updates.js?v=20261008" defer></script>
+<script src="research-updates.js?v=20261009" defer></script>
+<link rel="stylesheet" href="research-evidence.css?v=20261009">
+<script src="research-evidence.js?v=20261009" defer></script>
 </head>
 <body>
 <div class="watermark">黑森船长</div>
@@ -375,17 +377,19 @@
     <div class="eyebrow">CAPTAIN HESSEN · PUBLIC VC FUND PREMIUM TRACKER</div>
     <h1>公开私募VC基金溢价跟踪面板</h1>
     <div class="abstract">
-      9只标的，3种结构，1个真问题：retail对AI私募叙事的pricing power。<br>
-      VCX +626%、SSSS −0%。同标的不同船，跨基金spread本身才是可交易资产。
+      PVC 在这里指 Public Venture Capital，不是化工品。<br>
+      分开核验净值、市场价格、资产结构与赎回约束；不同观察日的溢价不能直接比较，更不代表无风险套利。
     </div>
     <div class="meta-row">
-      <div>数据截至 <b>2026-05-05</b></div>
-      <div>覆盖 <b>9只标的</b></div>
+      <div>证据复核 <b>2026-10-09</b></div>
+      <div>本轮核验 <b>3只 / 原底稿9只</b></div>
       <div>结构 <b>CEF · BDC · Interval · Non-traded · ETF</b></div>
-      <div>下次催化 <b>2026-05-12 SSSS Q1 NAV</b></div>
+      <div>报价状态 <b>今日价格未核验</b></div>
     </div>
   </section>
 
+  <section id="latest-evidence" class="research-evidence" data-evidence="data/pvc-nav-review.json"><h2>正在加载已核验净值</h2><p>没有实时价格时不计算当前溢价。<a href="data/pvc-nav-review.json">查看证据数据</a></p></section>
+  <details class="research-archive" id="historical-may"><summary>展开2026-05-05历史档案：旧报价、旧代码、旧预测与图表（未重算）</summary><p>以下“当前”均指当时底稿，不是今日。原SSSS现为NSLR；旧预测不是实际净值。历史敞口、催化日历及相对价值判断保留供复盘。</p>
   <!-- 1. Master Table -->
   <section class="card">
     <div class="card-title">1. 主表格 · 9只标的核心数据</div>
@@ -396,9 +400,9 @@
           <tr>
             <th title="Ticker / 代码">标的</th>
             <th title="基金名称">名称</th>
-            <th title="当前现价 (USD)">现价</th>
+            <th title="旧底稿价格，非当前行情 (USD)">历史价格</th>
             <th title="末次披露NAV / share (USD)">末次NAV</th>
-            <th title="(price/NAV - 1) × 100，按现价与最近一次NAV计算">当前溢价</th>
+            <th title="旧底稿未重算，非当前折溢价">历史溢价</th>
             <th title="Forward NAV 区间预测 (低 - 高)">Forward NAV</th>
             <th title="Forward NAV下的溢价区间，用最高NAV算最低溢价、最低NAV算最高溢价">Forward溢价</th>
             <th title="AUM 或 市值 (US$M)">AUM/市值</th>
@@ -529,25 +533,26 @@
       <div class="insight">
         <div class="insight-num">01</div>
         <div class="insight-title">VCX 是异常值，不是基准</div>
-        <div class="insight-body">626% 溢价 + Citron 空头报告 + 9月 lockup = 数学上几乎确定的均值回归。同期 forward NAV 即便达到 $32，仍隐含 +330% 溢价——这不是基本面定价，是供需失衡。</div>
+        <div class="insight-body">原底稿以626%溢价和解禁预期推断回归，证据不足以支持“几乎确定”。净值可能变化，溢价可持续或扩大，借券、挤仓和融资成本也会改变结果；旧情景不作为当前交易结论。</div>
       </div>
       <div class="insight">
         <div class="insight-num">02</div>
-        <div class="insight-title">SSSS 是隐藏价值</div>
-        <div class="insight-body">BDC 结构强制分配 90% 收益，机构定价扎实。CoreWeave 已 IPO mark-up，5/12 财报是 mgmt 已 telegraph 的 mark-up 催化。Forward 溢价进入折价区。</div>
+        <div class="insight-title">SSSS 旧假设已需重做</div>
+        <div class="insight-body">旧催化与预测NAV不能代替披露结果。新的NSLR净值、管理结构及未知项见上方核验区；分配安排与基金结构本身不保证价值实现。</div>
       </div>
       <div class="insight">
         <div class="insight-num">03</div>
         <div class="insight-title">板块本质 = AI 私募叙事强度指数</div>
-        <div class="insight-body">P/NAV spread 不是噪音，是 retail 对 IPO 供给冲击预期的量化输出。9 只标的的横截面 spread 是观察 AI 私募叙事最干净的实时指标。</div>
+        <div class="insight-body">折溢价可能反映情绪，也同时受估值滞后、资产差异、费用、流动性与份额供给影响。旧九只产品并非同日同口径样本，不能称作干净的实时情绪指标。</div>
       </div>
     </div>
   </section>
 
+  </details>
   <!-- Footer -->
   <footer>
-    <div><b>captain-hessen.com</b> · 公开私募VC基金溢价跟踪 · 数据截至 2026-05-05</div>
-    <div style="margin-top:6px;">数据来源：SEC EDGAR 申报、各基金官方网站与 IR 披露、earnings call 实录、Citron Research 报告、媒体报道（Bloomberg / FT / WSJ）。所有 forward NAV 估算均基于公开可验证信息推算。</div>
+    <div><b>captain-hessen.com</b> · 公开私募VC基金溢价跟踪 · 各数值观察期见表</div>
+    <div style="margin-top:6px;">本轮来源为SEC与基金官方披露，逐项链接见核验区。五月forward NAV仅属历史假设，未延用为当前预测。</div>
     <div style="margin-top:6px;">本面板仅供个人投资跟踪与思路记录，不构成投资建议。</div>
     <div class="legend-tags">
       <span>🟢 SEC 实际披露</span>

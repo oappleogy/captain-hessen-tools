@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-10-08",
+  "last_updated": "2026-10-09",
   "next_update": "2026-11-12",
-  "data_window": "ONI: JAS 26; SST: 30SEP2026; SOI/MEI: 2026-04~05 (historical)",
+  "data_window": "ONI: JAS 26; weekly SST: 30SEP2026; SOI/MEI: historical unless separately updated",
   "current_state": {
     "label": "厄尔尼诺继续增强 · El Niño Advisory",
     "phase": "el_nino",
@@ -38,7 +38,8 @@
         "el_nino": 0.5,
         "la_nina": -0.5
       },
-      "source": "NOAA CPC · Niño 3.4 ERSSTv5 三月滑动均值"
+      "source": "NOAA CPC · Niño 3.4 ERSSTv5 三月滑动均值",
+      "source_url": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
     },
     {
       "code": "N34_SST",
@@ -46,12 +47,12 @@
       "name_zh": "Niño 3.4 区海温异常",
       "value": 3.2,
       "unit": "°C",
-      "window": "Week of 30SEP2026",
+      "window": "30SEP2026",
       "trend": [
         2.6,
         2.8,
         2.8,
-        3,
+        3.0,
         3.1,
         3.2
       ],
@@ -67,7 +68,8 @@
         "16SEP2026",
         "23SEP2026",
         "30SEP2026"
-      ]
+      ],
+      "source_url": "https://www.cpc.ncep.noaa.gov/data/indices/wksst9120.for"
     },
     {
       "code": "SOI",
@@ -204,7 +206,7 @@
       "label": "观察南美作物、东南亚降水、北美冬季需求；影响并非确定"
     }
   ],
-  "last_checked_at": "2026-10-08",
+  "last_checked_at": "2026-10-09T08:25:02+08:00",
   "discussion_as_of": "2026-10-08",
   "discussion_source": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
   "forecast_as_of": null,

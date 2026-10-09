@@ -1,5 +1,5 @@
 {
-  "score": 32.2,
+  "score": 33.2,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -7,49 +7,49 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 15.08,
+      "current": 15.41,
       "base": 16,
-      "deviation_pct": 5.8,
+      "deviation_pct": 3.7,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 10.1
+      "contribution": 4.1
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 89.09,
+      "current": 91.34,
       "base": 75,
-      "deviation_pct": 18.8,
+      "deviation_pct": 21.8,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 70.7
+      "contribution": 95.0
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 3.03,
+      "current": 3.09,
       "base": 1.5,
-      "deviation_pct": 102.0,
+      "deviation_pct": 106.0,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 2601.0
+      "contribution": 2809.0
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 157.89,
+      "current": 158.07,
       "base": 145,
-      "deviation_pct": 8.9,
+      "deviation_pct": 9.0,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 7.9
+      "contribution": 8.1
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 102.22,
+      "current": 102.14,
       "base": 100,
-      "deviation_pct": 2.2,
+      "deviation_pct": 2.1,
       "weight": 0.15,
       "weight_pct": 15,
       "contribution": 0.7
@@ -59,20 +59,28 @@
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 78.53,
+      "current": 77.2,
       "base": 35,
-      "deviation_pct": 124.4,
+      "deviation_pct": 120.6,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
       "name": "信用利差",
-      "current": 3.03,
+      "current": 3.09,
       "base": 1.5,
-      "deviation_pct": 102.0,
+      "deviation_pct": 106.0,
       "direction": "偏高",
       "level": "极端偏离"
+    },
+    {
+      "name": "WTI油价",
+      "current": 91.34,
+      "base": 75,
+      "deviation_pct": 21.8,
+      "direction": "偏高",
+      "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-10-08 08:15"
+  "timestamp": "2026-10-09 08:15"
 }

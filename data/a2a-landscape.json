@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-08",
-  "last_checked_at": "2026-10-08T05:52:19.505339+00:00",
+  "as_of": "2026-10-09",
+  "last_checked_at": "2026-10-09T05:45:11.864208+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -70,15 +70,16 @@
       "stage": "规范已发布",
       "capability": "官方发布页 Latest 为 v1.0.1；面向独立 Agent 任务协作。",
       "source": "https://github.com/a2aproject/A2A/releases",
-      "gap": "v1.1、双向流和多轮协作在路线图中。",
+      "gap": "v1.1、多轮及双向流仍需核验；CLI 已有独立官方入口，不能继续统称未交付。",
       "scope": "核心",
       "related": [
         "adk",
         "microsoft",
         "langchain",
-        "crewai"
+        "crewai",
+        "a2a-cli"
       ],
-      "checked_at": "2026-10-08",
+      "checked_at": "2026-10-09",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -198,7 +199,7 @@
       "gap": "标准状态、女巫攻击与声誉质量。",
       "scope": "核心",
       "related": [],
-      "checked_at": "2026-10-08",
+      "checked_at": "2026-10-09",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "ERC-8004 社区"
     },
@@ -417,7 +418,7 @@
         "ucp",
         "x402"
       ],
-      "checked_at": "2026-10-08",
+      "checked_at": "2026-10-09",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "AP2 项目 / Google"
     },
@@ -434,7 +435,7 @@
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-10-08",
+      "checked_at": "2026-10-09",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "x402 项目 / Coinbase"
     },
@@ -483,7 +484,7 @@
         "a2a",
         "mcp"
       ],
-      "checked_at": "2026-10-08",
+      "checked_at": "2026-10-09",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "Google / Shopify 等共同建设"
     },
@@ -522,17 +523,141 @@
       "name": "Skyfire",
       "layer": "commerce",
       "stage": "有接入文档",
-      "capability": "官方提供 Agent 身份与支付服务文档入口。",
+      "capability": "提供 Agent 身份与支付服务文档；Mastercard 10月8日文章披露双方推进 KYA 接入。",
       "source": "https://docs.skyfire.xyz/docs/introduction-to-skyfire",
-      "gap": "具体使用范围、交易量和费用继续核验。",
+      "gap": "合作不等于全面上线；费用、开放范围和真实交易量仍待核验。",
       "scope": "核心",
-      "related": [],
-      "checked_at": "2026-10-08",
+      "related": [
+        "mastercard-trust"
+      ],
+      "checked_at": "2026-10-09",
       "adoption": "未在本轮独立核验生产规模",
-      "participant": "Skyfire"
+      "participant": "Skyfire",
+      "additional_sources": [
+        "https://www.mastercard.com/us/en/news-and-trends/stories/2026/agentic-commerce-identity-know-your-agent.html"
+      ]
+    },
+    {
+      "id": "a2a-cli",
+      "name": "A2A CLI",
+      "layer": "runtime",
+      "stage": "有公开实现",
+      "participant": "A2A 项目",
+      "capability": "官方命令行入口支持发现、发送消息和流式回复，面向协议 v1.0。",
+      "source": "https://a2a-protocol.org/latest/blog/2026/10/01/introducing-a2a-cli/",
+      "gap": "echo/exec 服务端模式仅用于学习演示测试；未做生产互操作实测。",
+      "related": [
+        "a2a"
+      ],
+      "scope": "核心",
+      "checked_at": "2026-10-09",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+    },
+    {
+      "id": "agentscope",
+      "name": "AgentScope Java",
+      "layer": "runtime",
+      "stage": "有接入文档",
+      "participant": "AgentScope 社区",
+      "capability": "文档提供远程 A2A 调用、服务端暴露与 Nacos 注册发现。",
+      "source": "https://github.com/agentscope-ai/agentscope-java/blob/main/docs/v1/en/docs/task/a2a.md",
+      "gap": "未独立核验跨语言兼容和生产任务成功率。",
+      "related": [
+        "nacos",
+        "a2a"
+      ],
+      "scope": "核心",
+      "checked_at": "2026-10-09",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+    },
+    {
+      "id": "spring-alibaba",
+      "name": "Spring AI Alibaba",
+      "layer": "runtime",
+      "stage": "有接入文档",
+      "participant": "Spring AI Alibaba 社区",
+      "capability": "官方版本表列有 A2A Nacos starter，按 BOM 管理版本。",
+      "source": "https://java2ai.com/docs/versions/",
+      "gap": "进阶文档本次读取失败；具体版本兼容与客户采用待核验。",
+      "related": [
+        "nacos"
+      ],
+      "scope": "核心",
+      "checked_at": "2026-10-09",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+    },
+    {
+      "id": "alipay-agent",
+      "name": "支付宝 Agent 支付",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "participant": "支付宝（中国业务）",
+      "capability": "接口文档提供 alipay.trade.agent.pay，生成含商户信息的签名串，用于调起支付宝。",
+      "source": "https://aipay.alipay.com/docs/agent-pay/api-list/agent-pay.html",
+      "gap": "该接口不等于付款已完成；KYA agent_id 需申请，准入、费率及退款范围待核验。",
+      "related": [],
+      "scope": "核心",
+      "checked_at": "2026-10-09",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+    },
+    {
+      "id": "ant-amp",
+      "name": "Alipay+ AMP",
+      "layer": "payment",
+      "stage": "已公告",
+      "participant": "蚂蚁国际",
+      "capability": "9月11日公告披露钱包与收单方接入，以及任务授权、KYA 与交易保障方向。",
+      "source": "https://www.ant-intl.com/cn/news/detail/?id=jsx9m407&redirect=news&tag=undefined",
+      "gap": "合作覆盖不等于活跃支付用户；保障条款、适用地域和净收入仍待核验。",
+      "related": [
+        "alipay-agent"
+      ],
+      "scope": "核心",
+      "checked_at": "2026-10-09",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+    },
+    {
+      "id": "mastercard-trust",
+      "name": "Agent Pay Trust Framework",
+      "layer": "identity",
+      "stage": "已公告",
+      "participant": "Mastercard",
+      "capability": "10月8日厂商文章披露加入身份、欺诈和行为判断，并与 Skyfire 推进 KYA。",
+      "source": "https://www.mastercard.com/us/en/news-and-trends/stories/2026/agentic-commerce-identity-know-your-agent.html",
+      "gap": "尚未独立核验开放范围、误判率、定价及生产规模；与 AP4M 分开记录。",
+      "related": [
+        "skyfire",
+        "mastercard"
+      ],
+      "scope": "核心",
+      "checked_at": "2026-10-09",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
     }
   ],
   "events": [
+    {
+      "id": "mastercard-trust-20261008",
+      "date": "2026-10-08",
+      "announced_at": "2026-10-08",
+      "observed_at": "2026-10-09",
+      "title": "商家如何认出受你委托的 AI？身份检查继续补齐",
+      "type": "厂商披露",
+      "summary": "Mastercard 披露为 Agent Pay 加入身份、欺诈与行为判断，并与 Skyfire 推进助手身份识别。",
+      "impact": "好比代你买鞋的助手出示工牌与委托凭据；这有助于商家判断是否放行，但不等于每笔购买都安全。",
+      "source": "https://www.mastercard.com/us/en/news-and-trends/stories/2026/agentic-commerce-identity-know-your-agent.html",
+      "projects": [
+        "mastercard-trust",
+        "skyfire"
+      ],
+      "notify": true,
+      "reader_title": "商家如何认出受你委托的 AI？身份检查继续补齐",
+      "reader_summary": "Mastercard 披露为 Agent Pay 加入身份、欺诈与行为判断，并与 Skyfire 推进助手身份识别。",
+      "reader_impact": "好比代你买鞋的助手出示工牌与委托凭据；这有助于商家判断是否放行，但不等于每笔购买都安全。",
+      "previous_state": "原地图仅收录 AP4M 与 Skyfire 文档",
+      "current_state": "新增信任框架的厂商披露",
+      "next_step": "继续核验开放范围、误判率、用户同意凭据和收费",
+      "evidence_type": "官方文章；未独立实测"
+    },
     {
       "id": "a2a-map-20261008",
       "date": "2026-10-08",
@@ -553,6 +678,29 @@
       "reader_impact": "帮助你判断：是已经有一个零件，还是整件事真的能放心交给 AI。"
     },
     {
+      "id": "a2a-cli-20261001",
+      "date": "2026-10-01",
+      "announced_at": "2026-10-01",
+      "observed_at": "2026-10-09",
+      "title": "让现有程序也能给 AI 助手派活",
+      "type": "工具发布",
+      "summary": "官方 10月1日介绍 A2A CLI，可查助手名片、发送任务和接收过程消息；今日补录。",
+      "impact": "像给现有办公系统加一个统一联络窗口。演示服务模式并不适合直接生产部署。",
+      "source": "https://a2a-protocol.org/latest/blog/2026/10/01/introducing-a2a-cli/",
+      "projects": [
+        "a2a-cli",
+        "a2a"
+      ],
+      "notify": false,
+      "reader_title": "让现有程序也能给 AI 助手派活",
+      "reader_summary": "官方 10月1日介绍 A2A CLI，可查助手名片、发送任务和接收过程消息；今日补录。",
+      "reader_impact": "像给现有办公系统加一个统一联络窗口。演示服务模式并不适合直接生产部署。",
+      "previous_state": "此前仅跟踪 CLI 路线图",
+      "current_state": "已发现官方工具入口，支持协议 v1.0",
+      "next_step": "独立验证认证、错误处理和生产部署边界",
+      "evidence_type": "官方文章；未独立实测"
+    },
+    {
       "id": "a2a-roadmap-20260915",
       "date": "2026-09-15",
       "observed_at": "2026-10-08",
@@ -568,6 +716,28 @@
       "reader_title": "让不同 AI 助手能边办事、边商量",
       "reader_summary": "A2A 的路线图准备改善来回沟通、进行中更新结果，以及需要人补充信息的流程。",
       "reader_impact": "例如酒店没房了，助手需要继续商量替代方案；这些方向还不能当作全部已经做完。"
+    },
+    {
+      "id": "ant-amp-20260911",
+      "date": "2026-09-11",
+      "announced_at": "2026-09-11",
+      "observed_at": "2026-10-09",
+      "title": "让熟悉的钱包接上 AI 购物",
+      "type": "厂商披露",
+      "summary": "蚂蚁国际9月11日披露 AMP 钱包及收单伙伴接入；今日作为历史基线补录。",
+      "impact": "可以继续观察 AI 订酒店时如何带着预算和授权调用钱包；合作方覆盖不能当作实际用户或交易规模。",
+      "source": "https://www.ant-intl.com/cn/news/detail/?id=jsx9m407&redirect=news&tag=undefined",
+      "projects": [
+        "ant-amp"
+      ],
+      "notify": false,
+      "reader_title": "让熟悉的钱包接上 AI 购物",
+      "reader_summary": "蚂蚁国际9月11日披露 AMP 钱包及收单伙伴接入；今日作为历史基线补录。",
+      "reader_impact": "可以继续观察 AI 订酒店时如何带着预算和授权调用钱包；合作方覆盖不能当作实际用户或交易规模。",
+      "previous_state": "蚂蚁国际仍在待研究队列",
+      "current_state": "已有合作与能力披露，实际规模待核验",
+      "next_step": "核对保障条款、可撤销授权、真实付款与净收入",
+      "evidence_type": "官方文章；未独立实测"
     },
     {
       "id": "ap4m-20260610",
@@ -625,12 +795,12 @@
     {
       "name": "Higress / Spring AI Alibaba / AgentScope",
       "layer": "network",
-      "question": "逐项核验原生 A2A 支持及国内接入"
+      "question": "AgentScope Java 与 Spring AI Alibaba 已补文档基线；Higress 本轮仅核实通用模型/MCP治理，原生 A2A 待核验。"
     },
     {
       "name": "支付宝 / Ant International",
       "layer": "payment",
-      "question": "分开核验国内与国际产品、开放范围"
+      "question": "国内 Agent 支付接口和国际 AMP 分开收录；继续核验准入、费率、退款和保障条款。"
     },
     {
       "name": "腾讯 / 华为 / 百度 / 字节",
@@ -659,6 +829,11 @@
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-09",
+      "status": "增量核验（部分覆盖）",
+      "note": "增量与近7天回看：核验 A2A 发布/路线图/CLI、ERC-8004、AP2、UCP、x402 及支付厂商线索；重点扩展 AgentScope、Spring AI Alibaba、支付宝国内接口、蚂蚁国际 AMP。发现10月8日 Mastercard 信任框架披露；CLI 10月1日和 AMP 9月11日作历史补录。Spring AI Alibaba 旧进阶文档读取失败，版本表可读；未覆盖全部 SDK、钱包与运维队列，未做互操作、交易清洗或生产规模审计。"
+    },
     {
       "date": "2026-10-08",
       "status": "专项核验",
@@ -690,14 +865,15 @@
       "layer": "identity",
       "title": "确认对方是谁",
       "analogy": "像查营业执照和工牌",
-      "now": "已经有验证助手身份的办法，也有人在建设服务评价记录。",
+      "now": "已有验身份的方案；支付网络也在加入助手身份和风险判断，帮助商家决定是否接单。",
       "status": "已有验身份的办法",
       "gap": "身份是真的，不代表服务一定好，也不代表它有权替你花钱。",
       "next": "要能查清它代表谁、被允许做什么，授权能否及时收回。",
       "projects": [
         "identity-agntcy",
         "visa",
-        "erc8004"
+        "erc8004",
+        "mastercard-trust"
       ]
     },
     {
@@ -732,7 +908,7 @@
       "layer": "runtime",
       "title": "让几个帮手分工办事",
       "analogy": "像一家旅行社协调各岗位",
-      "now": "多个开发平台已经提供连接外部助手的做法，可以搭建分工流程。",
+      "now": "已有开发平台接入，以及让普通程序联系助手的官方命令行工具；国内 Java 生态也提供接入文档。",
       "status": "已有搭建工具",
       "gap": "能接上不等于每件事都办成；一个环节失败，其他安排可能也要跟着改。",
       "next": "需要真实案例证明：跨公司办事稳定，失败也能妥善收尾。",
@@ -741,7 +917,10 @@
         "microsoft",
         "aws",
         "langchain",
-        "crewai"
+        "crewai",
+        "a2a-cli",
+        "agentscope",
+        "spring-alibaba"
       ]
     },
     {
@@ -770,7 +949,9 @@
         "ap2",
         "x402",
         "coinbase",
-        "mastercard"
+        "mastercard",
+        "alipay-agent",
+        "ant-amp"
       ]
     },
     {
@@ -871,7 +1052,7 @@
       "payer": "企业、商户、支付机构",
       "model": "按验证请求或企业套餐；也可能捆绑免费",
       "judgment": "付费理由清晰，易被平台捆绑",
-      "moat": "可信身份、授权记录、风险控制",
+      "moat": "可信身份、授权记录、风险控制；新增支付网络与 KYA 合作线索，但尚无可比单独收入。",
       "evidence": "AWS：外部资源身份令牌/API key 请求 $0.010 / 千次；通过 Runtime 或 Gateway 使用时不额外收费",
       "source": "https://aws.amazon.com/bedrock/agentcore/pricing/",
       "checked_at": "2026-10-08"
@@ -932,9 +1113,9 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "待补可比净收入、费率、退款成本和留存数据",
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。",
       "source": "",
-      "checked_at": null
+      "checked_at": "2026-10-09"
     }
   ]
 }

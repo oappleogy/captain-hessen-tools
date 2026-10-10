@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-09",
-  "last_checked_at": "2026-10-09T05:45:11.864208+00:00",
+  "as_of": "2026-10-10",
+  "last_checked_at": "2026-10-10T04:09:28.789113+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-10-09",
+      "checked_at": "2026-10-10",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -418,7 +418,7 @@
         "ucp",
         "x402"
       ],
-      "checked_at": "2026-10-09",
+      "checked_at": "2026-10-10",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "AP2 项目 / Google"
     },
@@ -435,7 +435,7 @@
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-10-09",
+      "checked_at": "2026-10-10",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "x402 项目 / Coinbase"
     },
@@ -484,7 +484,7 @@
         "a2a",
         "mcp"
       ],
-      "checked_at": "2026-10-09",
+      "checked_at": "2026-10-10",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "Google / Shopify 等共同建设"
     },
@@ -543,14 +543,14 @@
       "layer": "runtime",
       "stage": "有公开实现",
       "participant": "A2A 项目",
-      "capability": "官方命令行入口支持发现、发送消息和流式回复，面向协议 v1.0。",
+      "capability": "官方命令行入口支持发现、消息与流式回复，面向协议 v1.0；CLI 自身 Latest 为 v0.3.0（2026-09-24），与协议版本分开。",
       "source": "https://a2a-protocol.org/latest/blog/2026/10/01/introducing-a2a-cli/",
       "gap": "echo/exec 服务端模式仅用于学习演示测试；未做生产互操作实测。",
       "related": [
         "a2a"
       ],
       "scope": "核心",
-      "checked_at": "2026-10-09",
+      "checked_at": "2026-10-10",
       "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
     },
     {
@@ -632,6 +632,34 @@
       "scope": "核心",
       "checked_at": "2026-10-09",
       "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+    },
+    {
+      "id": "privy",
+      "name": "Privy 钱包策略",
+      "participant": "Privy",
+      "source": "https://docs.privy.io/security/wallet-infrastructure/policy-and-controls",
+      "capability": "文档支持转账限制、收款地址及合约名单、授权密钥与多方批准；钱包动作由安全执行环境校验策略。",
+      "gap": "具体链和方法的适用范围、管理员权限、撤销延迟及累计预算需实测；不是 A2A 通信协议。",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "scope": "相邻：钱包权限基础设施",
+      "related": [],
+      "checked_at": "2026-10-10",
+      "adoption": "官方文档基线；未独立核验 Agent 付费规模"
+    },
+    {
+      "id": "turnkey",
+      "name": "Turnkey 钱包策略",
+      "participant": "Turnkey",
+      "source": "https://whitepaper.turnkey.com/architecture",
+      "capability": "普通策略要求显式允许，拒绝优先；支持条件与多方批准。",
+      "gap": "Root Quorum 可绕过普通策略；需验证根权限隔离、撤销及并发预算，不把策略存在当作永不越权。",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "scope": "相邻：钱包权限基础设施",
+      "related": [],
+      "checked_at": "2026-10-10",
+      "adoption": "官方文档基线；未独立核验 Agent 付费规模"
     }
   ],
   "events": [
@@ -810,7 +838,7 @@
     {
       "name": "Crossmint / Privy / Turnkey / Safe",
       "layer": "payment",
-      "question": "核验 Agent 权限、钱包托管与撤销"
+      "question": "Privy/Turnkey 已核验钱包策略文档；累计预算、撤销与根权限待实测。Crossmint/Safe 继续排队。"
     },
     {
       "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
@@ -829,6 +857,11 @@
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-10",
+      "status": "增量核验（部分覆盖）",
+      "note": "部分覆盖：回看10月3日至10月10日线索，复核 A2A 协议 Latest v1.0.1 与 CLI v0.3.0，读取 AP2/UCP/x402 入口，检索 MCP 与支付厂商更新。补入 Privy/Turnkey 钱包策略存量文档，非今日发布；本轮未核实值得单独通知的新重大变化。Mastercard 昨日来源本次直读失败，保留原核验日期；其余 SDK、国内平台和运维队列未全量复查。"
+    },
     {
       "date": "2026-10-09",
       "status": "增量核验（部分覆盖）",
@@ -944,14 +977,16 @@
       "now": "已有记录购买授权、让软件付款的规则和工具；部分方案提供预先授权的流程。",
       "status": "已有授权和付款方案",
       "gap": "预算怎么算、授权怎么撤回、失败会不会重复扣款，仍需逐项验证。",
-      "next": "要证明每笔钱都在许可内，异常扣款可发现、可处理。",
+      "next": "像给代付卡设规则：需要实测单笔与累计预算、收款方限制、撤销延迟，以及管理员能否改掉限制。",
       "projects": [
         "ap2",
         "x402",
         "coinbase",
         "mastercard",
         "alipay-agent",
-        "ant-amp"
+        "ant-amp",
+        "privy",
+        "turnkey"
       ]
     },
     {

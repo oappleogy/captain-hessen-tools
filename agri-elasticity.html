@@ -2411,6 +2411,8 @@
 </style>
 <link rel="stylesheet" href="research-updates.css?v=20261008">
 <script src="research-updates.js?v=20261008" defer></script>
+<link rel="stylesheet" href="research-evidence.css?v=20261009">
+<script src="research-evidence.js?v=20261009" defer></script>
 </head>
 <body>
 <div class="container">
@@ -2446,12 +2448,17 @@
 </div>
 
 <!-- TABS -->
+<p class="disclosure" style="padding:14px;display:block">本期新增：10月9日 USDA 年度供需预测。下列旧矩阵、双锁/三锁评分和股票候选未重算，不代表当前排名；请先看“本期供需核验”。</p>
 <div class="tabs" role="tablist">
+  <button class="tab-btn active" data-tab="evidence" role="tab">
+    <span class="tab-num">00 · VERIFIED</span>
+    <span>本期供需核验<span class="tab-count">10月 WASDE</span></span>
+  </button>
   <button class="tab-btn" data-tab="framework" role="tab">
     <span class="tab-num">01 · FRAMEWORK</span>
     <span>框架</span>
   </button>
-  <button class="tab-btn active" data-tab="matrix" role="tab">
+  <button class="tab-btn" data-tab="matrix" role="tab">
     <span class="tab-num">02 · MATRIX</span>
     <span>矩阵<span class="tab-count">20 品种</span></span>
   </button>
@@ -2490,6 +2497,19 @@
 </div>
 
 <!-- PANEL: FRAMEWORK -->
+<div class="tab-panel active" id="panel-evidence">
+  <section class="research-evidence" data-evidence="data/agri-wasde-review.json" aria-label="十月农产品供需证据">
+    <h2>本期供需证据加载中</h2>
+    <p>公告日2026-10-09；观察口径为2026/27年度预测，核验日2026-10-10。不是今日实测库存。</p>
+    <noscript><p>需启用 JavaScript 查看可排序表格。可直接读取 <a href="data/agri-wasde-review.json">公开核验数据</a> 或 <a href="https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf">USDA 原始报告</a>。</p></noscript>
+  </section>
+  <section class="research-evidence" aria-label="棕榈油与叠加瓶颈边界">
+    <h2>棕榈油风险线索，不等于全体油籽同步紧缺</h2>
+    <p>USDA 将2026/27印尼棕榈油产量预测下调220万吨至4500万吨，全球产量预测同比减少250万吨。原因描述为过去数月的干燥天气；不能据此把全部冲击归给厄尔尼诺。全球库存消费比的同口径明细尚未补齐，不填造数值。</p>
+    <p><a href="https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=3" target="_blank" rel="noopener noreferrer">官方来源：WASDE-676，第3页，10月9日</a></p>
+    <p><strong>对筛选的影响：</strong>优先核验棕榈油产地、出口及替代需求，但不直接升级期货总分或股票等级。供需预测已经包含的天气损失，不能再以“天气瓶颈”重复加分；海峡直接运输与能源、化肥成本的间接传导也须拆开。</p>
+  </section>
+</div>
 <div class="tab-panel" id="panel-framework">
 <!-- DIMENSION CARDS -->
 <div class="section">
@@ -2548,7 +2568,7 @@
 </div><!-- /panel-framework -->
 
 <!-- PANEL: MATRIX -->
-<div class="tab-panel active" id="panel-matrix">
+<div class="tab-panel" id="panel-matrix">
 <div class="section">
   <div class="section-head">
     <span class="section-num">02</span>

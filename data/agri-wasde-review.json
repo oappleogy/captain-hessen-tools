@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-10",
+  "announced_on": "2026-10-09",
+  "event_date": "2026-10-09",
+  "source_period": "2026/27各地市场年度，2026年10月预测",
+  "estimate_status": "forecast",
+  "title": "十月 WASDE：年度缺口与月度修正分开看",
+  "scope": "USDA 10月9日发布、10月10日核验。全部为2026/27年度预测，不是10月9日实测库存。数量单位：百万公吨；稻米为碾米口径。库消比=期末库存÷全球总消费；生产缺口率=(总消费−产量)÷总消费，负值表示产量高于消费，不等于现货短缺。库存修正=本次预测−同一报告所列九月预测，不是一个月实际累库量。大豆分母为总消费，不是压榨量。跨品种比值不直接等于价格弹性排名。",
+  "columns": [
+    {"key":"label","label":"品种"},
+    {"key":"production","label":"产量预测","format":"number"},
+    {"key":"use","label":"总消费预测","format":"number"},
+    {"key":"stocks","label":"期末库存预测","format":"number"},
+    {"key":"stocks_revision","label":"库存较九月修正","format":"number"},
+    {"key":"stocks_use_pct","label":"十月库消比 (%)","format":"number"},
+    {"key":"previous_stocks_use_pct","label":"九月库消比 (%)","format":"number"},
+    {"key":"production_gap_pct","label":"生产缺口率 (%)","format":"number"}
+  ],
+  "rows": [
+    {
+      "label":"小麦",
+      "production":822.39,"use":827.90,"stocks":276.04,
+      "previous":{"production":822.43,"use":826.75,"stocks":276.29},
+      "stocks_revision":-0.25,"stocks_use_pct":33.34,"previous_stocks_use_pct":33.42,"production_gap_pct":0.67,
+      "known":"全球期末库存预测小幅下修，消费预测上调。",
+      "unknown":"全球库存并不全可出口；具体贸易通道与可交割库存未在此表验证。",
+      "impact":"按本期数据计算的生产缺口率为0.67%，不能继续把文章中的0.8%当作当前通用事实；也不能据此认定现货必然短缺。",
+      "sources":[{"title":"USDA WASDE-676，第8页，World / Wheat","url":"https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=8","date":"2026-10-09"}]
+    },
+    {
+      "label":"玉米",
+      "production":1293.75,"use":1320.47,"stocks":280.44,
+      "previous":{"production":1290.95,"use":1320.23,"stocks":272.10},
+      "stocks_revision":8.34,"stocks_use_pct":21.24,"previous_stocks_use_pct":20.61,"production_gap_pct":2.02,
+      "known":"全球库存预测上修8.34百万吨；仍存在年度产量低于消费的预测差额。",
+      "unknown":"尚未核验当前期货价格已反映多少修正，以及进口国实际可获得的库存。",
+      "impact":"年度缺口与本月边际宽松可以同时成立。不能用旧1.8%缺口或厄尔尼诺叙事直接给供需瓶颈加分。",
+      "sources":[{"title":"USDA WASDE-676，第23页，World / Corn","url":"https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=23","date":"2026-10-09"}]
+    },
+    {
+      "label":"大米（碾米）",
+      "production":533.08,"use":538.80,"stocks":198.50,
+      "previous":{"production":533.85,"use":539.61,"stocks":196.99},
+      "stocks_revision":1.51,"stocks_use_pct":36.84,"previous_stocks_use_pct":36.51,"production_gap_pct":1.06,
+      "known":"全球库存预测上修，消费预测下修。",
+      "unknown":"出口限制、国别库存可动用程度和品级替代仍需另外核实。",
+      "impact":"不能把美国稻米库存下降外推成全球同向紧缺。全球库消比亦不代表所有地区的库存可自由交易。",
+      "sources":[{"title":"USDA WASDE-676，第8页，World / Rice, milled","url":"https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=8","date":"2026-10-09"}]
+    },
+    {
+      "label":"大豆",
+      "production":442.70,"use":442.18,"stocks":124.28,
+      "previous":{"production":442.35,"use":442.44,"stocks":124.02},
+      "stocks_revision":0.26,"stocks_use_pct":28.11,"previous_stocks_use_pct":28.03,"production_gap_pct":-0.12,
+      "known":"全球产量与期末库存预测均上调；大豆不是植物油整体。",
+      "unknown":"生物燃料增量需求、压榨利润和豆油替代棕榈油的实际规模仍待验证。",
+      "impact":"不能把油脂供应风险等同于大豆全链条紧缺。全球进出口存在市场年度及统计时差，不能强迫世界表逐项完全配平。",
+      "sources":[{"title":"USDA WASDE-676，第28页，World / Soybeans及脚注","url":"https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=28","date":"2026-10-09"}]
+    }
+  ],
+  "palm_oil_signal": {
+    "source_period":"2026/27年度预测",
+    "announced_on":"2026-10-09",
+    "status":"forecast",
+    "indonesia_production_mmt":45.0,
+    "indonesia_revision_mmt":-2.2,
+    "world_production_yoy_mmt":-2.5,
+    "world_stocks_use_pct":null,
+    "source_url":"https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=3",
+    "known":"USDA因过去数月干燥天气下调印尼棕榈油产量预测；全球产量预测同比减少，库存预测为2017/18以来最低。",
+    "unknown":"尚未取得与此口径一致的全球消费和库存明细；不填造库消比，也不把全部减产归因于厄尔尼诺。"
+  },
+  "pending": [
+    "棕榈油另列：印尼产量预测4500万吨，较上月下调220万吨；全球产量预测同比减少250万吨。它是后续优先核验的供应风险线索，不是已实现减产或买入建议。来源为报告第3页；全球库消比暂缺。",
+    "还需出口国可动用库存、运费与化肥传导、产区降水、生物燃料需求及期货价差，不把全球库消比直接转成可交易库存。",
+    "期货20品种评分、双锁/三锁分数和股票候选尚未重算。天气影响如已进入供需预测，不能再作为独立缺口重复加分；海峡直接物流与油价/化肥间接成本需分开。",
+    "股票需另验收入结构、采购与售价传导、套保、订单、利润及现金流。四大粮商观点未在本轮新增独立原文证实，不能把商品价格变化自动写成上市公司盈利。",
+    "农业到期补课保持可见；下期WASDE官方计划11月10日发布，按实际披露跟进，不延后未完成的旧任务。"
+  ]
+}

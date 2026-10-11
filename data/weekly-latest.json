@@ -1,7 +1,7 @@
 {
   "week_label": "2026-W41",
-  "generated_at": "2026-10-10 08:15",
-  "data_time": "2026-10-10T00:15:20Z",
+  "generated_at": "2026-10-11 08:15",
+  "data_time": "2026-10-11T00:15:19Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -39,7 +39,7 @@
       "key": "dxy",
       "name": "DXY",
       "unit": "",
-      "value": 102.231,
+      "value": 102.21,
       "date": "2026-10-09",
       "freshness": "fresh"
     },
@@ -55,7 +55,7 @@
       "key": "oil",
       "name": "WTI油价",
       "unit": "$/b",
-      "value": 91.66,
+      "value": 91.85,
       "date": "2026-10-09",
       "freshness": "fresh"
     },
@@ -64,7 +64,7 @@
       "name": "USD/CNY",
       "unit": "",
       "value": 6.683,
-      "date": "2026-10-09",
+      "date": "2026-10-10",
       "freshness": "fresh"
     },
     {
@@ -227,12 +227,12 @@
       {
         "variable": "oil",
         "name": "WTI油价",
-        "current": 91.66,
+        "current": 91.85,
         "base": 75,
-        "deviation_pct": 22.2,
+        "deviation_pct": 22.5,
         "weight": 0.2,
         "weight_pct": 20,
-        "contribution": 98.6
+        "contribution": 101.2
       },
       {
         "variable": "credit_spread",
@@ -257,7 +257,7 @@
       {
         "variable": "dxy",
         "name": "DXY",
-        "current": 102.23,
+        "current": 102.21,
         "base": 100,
         "deviation_pct": 2.2,
         "weight": 0.15,
@@ -269,9 +269,9 @@
     "significant_deviations": [
       {
         "name": "天然气TTF",
-        "current": 81.38,
+        "current": 81.43,
         "base": 35,
-        "deviation_pct": 132.5,
+        "deviation_pct": 132.7,
         "direction": "偏高",
         "level": "极端偏离"
       },
@@ -285,21 +285,21 @@
       },
       {
         "name": "WTI油价",
-        "current": 91.66,
+        "current": 91.85,
         "base": 75,
-        "deviation_pct": 22.2,
+        "deviation_pct": 22.5,
         "direction": "偏高",
         "level": "显著偏离"
       }
     ],
-    "timestamp": "2026-10-10 08:15"
+    "timestamp": "2026-10-11 08:15"
   },
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 81.38,
+      "current": 81.43,
       "base": 35,
-      "deviation_pct": 132.5,
+      "deviation_pct": 132.7,
       "direction": "偏高",
       "level": "极端偏离"
     },
@@ -313,9 +313,9 @@
     },
     {
       "name": "WTI油价",
-      "current": 91.66,
+      "current": 91.85,
       "base": 75,
-      "deviation_pct": 22.2,
+      "deviation_pct": 22.5,
       "direction": "偏高",
       "level": "显著偏离"
     }
@@ -324,7 +324,7 @@
     {
       "regime": "避险冲击",
       "met": false,
-      "total_gap": 20.93,
+      "total_gap": 20.95,
       "triggers": [
         {
           "name": "VIX",
@@ -337,15 +337,15 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 102.23,
-          "gap": 5.77
+          "current": 102.21,
+          "gap": 5.79
         }
       ]
     },
     {
       "regime": "加息紧缩",
       "met": false,
-      "total_gap": 6.39,
+      "total_gap": 6.41,
       "triggers": [
         {
           "name": "Fed利率",
@@ -358,8 +358,8 @@
           "name": "DXY",
           "need": ">",
           "threshold": 108,
-          "current": 102.23,
-          "gap": 5.77
+          "current": 102.21,
+          "gap": 5.79
         },
         {
           "name": "VIX",
@@ -373,7 +373,7 @@
     {
       "regime": "宽松放水",
       "met": false,
-      "total_gap": 9.11,
+      "total_gap": 9.09,
       "triggers": [
         {
           "name": "Fed利率",
@@ -386,22 +386,22 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 102.23,
-          "gap": 7.23
+          "current": 102.21,
+          "gap": 7.21
         }
       ]
     },
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 16.19,
+      "total_gap": 15.98,
       "triggers": [
         {
           "name": "油价",
           "need": ">",
           "threshold": 100,
-          "current": 91.66,
-          "gap": 8.34
+          "current": 91.85,
+          "gap": 8.15
         },
         {
           "name": "Fed利率",
@@ -414,8 +414,8 @@
           "name": "DXY",
           "need": "<",
           "threshold": 95,
-          "current": 102.23,
-          "gap": 7.23
+          "current": 102.21,
+          "gap": 7.21
         }
       ]
     }
@@ -433,29 +433,29 @@
   "forward_rates": {
     "futures": {
       "curve": {
-        "2026-10": 3.8825,
+        "2026-10": 3.885,
         "2026-11": 3.925,
         "2026-12": 4.07,
         "2027-01": 4.14,
         "2027-02": 4.23,
-        "2027-03": 4.305,
+        "2027-03": 4.31,
         "2027-04": 4.41,
         "2027-05": 4.5,
-        "2027-06": 4.57,
+        "2027-06": 4.575,
         "2027-07": 4.61,
-        "2027-08": 4.64,
+        "2027-08": 4.645,
         "2027-09": 4.665,
         "2027-10": 4.685,
-        "2027-11": 4.69,
-        "2027-12": 4.65,
+        "2027-11": 4.695,
+        "2027-12": 4.69,
         "2028-01": 4.69,
-        "2028-02": 4.65
+        "2028-02": 4.685
       },
-      "current_rate": 3.8825,
+      "current_rate": 3.885,
       "terminal_rate_12m": 4.685,
-      "rate_gap": -0.8025,
-      "cuts_priced_12m": -3.21,
-      "date": "2026-10-10"
+      "rate_gap": -0.8,
+      "cuts_priced_12m": -3.2,
+      "date": "2026-10-11"
     }
   },
   "watermark": "黑森船长"

@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-12T07:32:01",
-  "data_as_of": "2026-10-09",
-  "data_lag_days": 3,
+  "timestamp": "2026-10-12T21:04:09",
+  "data_as_of": "2026-10-12",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.37,
+      "score": 0.35,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -53,17 +53,17 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.22,
+      "score": -0.08,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
       "confidence": "★★★",
       "name_cn": "市场协调",
-      "status": "stressed"
+      "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.09,
+      "score": 0.07,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.04,
+      "score": -0.15,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -147,9 +147,9 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 14.8,
-      "percentile": 27,
-      "desc": "市场极度乐观"
+      "value": 15.5,
+      "percentile": 37,
+      "desc": "市场情绪正常"
     },
     "credit_spread": {
       "value": 3.15,

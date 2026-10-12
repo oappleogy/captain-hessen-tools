@@ -1,5 +1,5 @@
 {
-  "scan_date": "2026-10-05",
+  "scan_date": "2026-10-12",
   "market": "US",
   "market_label": "美股",
   "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
@@ -12,14 +12,14 @@
     {
       "type": "regime_mismatch",
       "sector": "科技/AI",
-      "signal": "体制=easing + 科技/AI景气=39 + 预期区间=[50, 70] + 偏离=11点 + 宏观: 利率中性(47)/风险中性(52)/能源中性(56)",
-      "direction": "看多美股科技/AI（景气39低于体制'easing'预期下界50）",
+      "signal": "体制=easing + 科技/AI景气=40 + 预期区间=[50, 70] + 偏离=10点 + 宏观: 利率中性(46)/风险中性(52)/能源中性(56)",
+      "direction": "看多美股科技/AI（景气40低于体制'easing'预期下界50）",
       "confidence": {
-        "gear_model": 0.37,
+        "gear_model": 0.33,
         "regime_hmm": 0.6,
         "consensus": "1/3模型支撑"
       },
-      "deviation_points": 11.1,
+      "deviation_points": 10.0,
       "caveats": [
         "体制预期区间基于历史经验设定，非统计拟合"
       ],
@@ -28,10 +28,10 @@
     {
       "type": "cross_model_consensus",
       "sector": "银行/金融",
-      "signal": "齿轮景气=35 + 体制=easing(conf=0.60)",
+      "signal": "齿轮景气=37 + 体制=easing(conf=0.60)",
       "direction": "看空美股银行/金融",
       "confidence": {
-        "gear_model": -0.31,
+        "gear_model": -0.25,
         "regime_hmm": 0.6,
         "consensus": "2/3模型一致"
       },

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-12",
+  "title": "供应商半年报：增长不等于人形机器人收入",
+  "scope": "补核已披露的2026年1—6月财报，不是10月经营数据。金额统一为人民币百万元；均为公司合并口径，未经本次审计。人形收入未单列不等于零。毛利率按(收入−成本)/收入计算，不据此更新历史评级。",
+  "columns": [
+    {"key": "label", "label": "公司"},
+    {"key": "period", "label": "观察期"},
+    {"key": "announced", "label": "披露日"},
+    {"key": "revenue", "label": "合并收入 / 百万元", "format": "number"},
+    {"key": "revenue_yoy", "label": "收入同比", "format": "pct"},
+    {"key": "net_income", "label": "归母净利 / 百万元", "format": "number"},
+    {"key": "operating_cash_flow", "label": "经营现金流 / 百万元", "format": "number"},
+    {"key": "gross_margin", "label": "合并毛利率", "format": "pct"},
+    {"key": "humanoid_revenue", "label": "单列人形收入 / 百万元", "format": "number"}
+  ],
+  "rows": [
+    {
+      "label": "绿的谐波 688017",
+      "period": "2026-01-01 至 2026-06-30",
+      "announced": "2026-08-27",
+      "revenue": 348.5491881,
+      "cost": 236.10994032,
+      "revenue_yoy": 38.64,
+      "net_income": 70.10922656,
+      "operating_cash_flow": -17.41570754,
+      "gross_margin": 32.259220,
+      "humanoid_revenue": null,
+      "known": "产品收入：谐波减速器及金属部件288.15百万元，机电一体化54.74百万元。公司称机器人相关业务增长；现金流转负主要涉及票据结算和长期资产购置安排，不能简单等同销售未回款。",
+      "unknown": "未单列人形机器人收入、客户验收量、量产良率或人形业务利润。",
+      "impact": "从概念关联推进到可核实的产品收入；仍不能把全部减速器收入归为人形机器人，不据此上调旧评分。",
+      "sources": [{"title": "2026半年报：第6—7、23、145页", "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225513912.PDF"}]
+    },
+    {
+      "label": "汇川技术 300124",
+      "period": "2026-01-01 至 2026-06-30",
+      "announced": "2026-08-29",
+      "revenue": 24675.25099763,
+      "cost": 17336.41564553,
+      "revenue_yoy": 20.31,
+      "net_income": 2809.92412246,
+      "operating_cash_flow": 1975.05903042,
+      "gross_margin": 29.741684,
+      "humanoid_revenue": null,
+      "known": "新兴产业收入1467.12百万元、毛利率28.38%，包含智能机器人与数字能源，非纯机器人。公司披露无框电机小批量应用、仿生臂客户验证，泛人形方案仍在试机；归母净利同比−5.35%、经营现金流−34.60%。",
+      "unknown": "未单列人形收入、利润、现金流和量产良率；定点、验证与小批量不能等同大规模验收。",
+      "impact": "业务已有分阶段进展，但混合板块收入不可直接给人形业务估值；使用重述后的同比口径，旧评级不变。",
+      "sources": [{"title": "2026半年报：第8、24—28页", "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225524610.PDF"}]
+    }
+  ],
+  "pending": [
+    "117家公司旧评分与2026-05-14市值未重算；其余公司仍待逐季核验。",
+    "两家公司的人形收入、客户验收、良率及维护成本继续保留未知，不用总收入替代。"
+  ]
+}

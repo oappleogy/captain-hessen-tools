@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-12",
+  "title": "客户部署：合同、工时与准确率不是一回事",
+  "scope": "本轮补证并去重，不把2024年合同和9月厂商披露写成10月新订单。未获客户逐班工时、干预率、收费或盈利明细，不能据此计算回本周期。",
+  "columns": [
+    {"key": "label", "label": "证据"},
+    {"key": "period", "label": "发生日 / 观察期"},
+    {"key": "announced", "label": "公告日"},
+    {"key": "stage", "label": "证据性质"}
+  ],
+  "rows": [
+    {
+      "label": "GXO / Digit 商业合同",
+      "period": "2024-06-27合同公告；此前2023年试点",
+      "announced": "2024-06-27",
+      "stage": "客户原文确认多年RaaS部署协议",
+      "known": "GXO公告在SPANX仓库部署Digit，任务为周转箱搬运。这是客户侧合同证据，不是只有机器人厂商演示。",
+      "unknown": "该公告未提供2026年持续使用明细、收入确认、维护费用或停机率。",
+      "impact": "商业合同存在可确认；合同存续不能替代本期客户验收和单位经济性。",
+      "sources": [{"title": "GXO 客户公告 2024-06-27", "url": "https://gxo.com/news_article/gxo-signs-industry-first-multi-year-agreement-with-agility-robotics/"}]
+    },
+    {
+      "label": "Agility / Digit 4 运行披露",
+      "period": "截至2026-09-15所述累计值；具体达到日未披露",
+      "announced": "2026-09-15",
+      "stage": "厂商自述，非独立客户审计",
+      "known": "Digit 4跨多个客户场地累计运行超过65000小时；GXO Flowery Branch累计搬运100000箱，执行任务时准确率约98%。",
+      "unknown": "65000小时不是GXO单站工时；98%不是开机率、无干预率或安全事故率。未取得统一分母与客户审计。",
+      "impact": "已有持续工作线索，但不能外推整机行业销量、投资回报或中国供应商收入；保留Digit 5条件订单和安全认证缺口。",
+      "sources": [{"title": "Agility Digit 5公告中的上一代运行披露 2026-09-15", "url": "https://www.agilityrobotics.com/content/agility-unveils-digit-5-humanoid-robot-built-for-cooperatively-safe-work-at-scale"}]
+    }
+  ],
+  "pending": [
+    "核对客户持续付费、有效工时、人工干预、停机维修和安全记录。",
+    "Digit 5附条件订单不计入收入；安全合作备忘录不等于独立认证；未来交付计划不等于当前交付。"
+  ]
+}

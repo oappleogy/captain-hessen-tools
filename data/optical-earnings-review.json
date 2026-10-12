@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-12",
+  "title": "光通信：季度业绩与未来光互联分层核验",
+  "scope": "金额为百万美元；两家公司FY2026 Q4截止日不同，不能混为10月数据。公司整体收入不是AI光模块、CPO或中国供应商收入。列名可排序；Coherent净利润金额本轮未抽取，留空而非零。",
+  "columns": [
+    {"key": "label", "label": "公司"},
+    {"key": "period", "label": "季度截至"},
+    {"key": "announced", "label": "公告日"},
+    {"key": "revenue", "label": "收入 / 百万美元", "format": "number"},
+    {"key": "revenue_yoy", "label": "收入同比", "format": "pct"},
+    {"key": "gaap_gross_margin", "label": "GAAP毛利率", "format": "pct"},
+    {"key": "adjusted_gross_margin", "label": "非GAAP毛利率", "format": "pct"},
+    {"key": "gaap_net_income", "label": "GAAP净利 / 百万美元", "format": "number"}
+  ],
+  "rows": [
+    {
+      "label": "Lumentum LITE",
+      "period": "FY2026 Q4 / 2026-06-27",
+      "announced": "2026-08-11",
+      "revenue": 1006.3,
+      "revenue_yoy": 109.3,
+      "gaap_gross_margin": 47.4,
+      "adjusted_gross_margin": 50.4,
+      "gaap_net_income": -7161.7,
+      "known": "组件收入649.4、系统356.9百万美元。GAAP净亏损含7756.6百万美元一次性非现金债务清偿损失；非GAAP净利326.3百万美元，两种口径不能互换。管理层提到1.6T采用推进及ELS初始订单。",
+      "guidance": "FY2027 Q1收入1225—1275百万美元是8月11日发布的指引，不是9月季度已实现收入。",
+      "unknown": "发布稿未单列800G、1.6T、CPO收入、客户验收量或中国供应商订单；订单不能直接当收入。",
+      "impact": "整体经营改善有披露支持，但净利润受债务处理影响；不因总收入翻倍便推导CPO已大规模贡献利润。",
+      "sources": [{"title": "Lumentum FY2026 Q4业绩及报表 2026-08-11", "url": "https://investor.lumentum.com/financial-news-releases/news-details/2026/Lumentum-Announces-Fourth-Quarter-and-Full-Fiscal-Year-2026-Results/default.aspx"}]
+    },
+    {
+      "label": "Coherent COHR",
+      "period": "FY2026 Q4 / 2026-06-30",
+      "announced": "2026-08-12",
+      "revenue": 2050,
+      "revenue_yoy": 34,
+      "gaap_gross_margin": 38.5,
+      "adjusted_gross_margin": 40.2,
+      "gaap_net_income": null,
+      "known": "公司公告季度收入约20.5亿美元；34%为报告同比，42%为备考同比，不混用。GAAP每股收益1.19美元不是净利润金额。",
+      "unknown": "这份摘要没有单列800G/1.6T/CPO收入；中国供应商受益与订单金额未验证。",
+      "impact": "保留10月8日已核验的整体业绩基线，新增横向口径对照，不宣称这是今天的新财报。",
+      "sources": [{"title": "Coherent FY2026 Q4官方摘要 2026-08-12", "url": "https://www.coherent.com/news/press-releases/fourth-quarter-and-fiscal-year-2026-results"}]
+    }
+  ],
+  "pending": [
+    "补速率分档收入、订单到交付验收的转化、产能良率与资本开支；缺少披露时明确留空。",
+    "ECOC演示、产品路线图及初始订单不等于批量收入；原页市场规模、渗透率和公司排名仍属历史底稿。"
+  ]
+}

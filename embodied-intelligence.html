@@ -131,6 +131,8 @@ tr:hover{background:var(--card2)}
 </style>
 <link rel="stylesheet" href="research-updates.css?v=20261008">
 <script src="research-updates.js?v=20261008" defer></script>
+<link rel="stylesheet" href="research-evidence.css?v=20261009">
+<script src="research-evidence.js?v=20261009" defer></script>
 </head>
 <body>
 
@@ -145,7 +147,8 @@ tr:hover{background:var(--card2)}
 <div class="tab-wrap" id="tabWrap">
 <div class="tab-hint" id="tabHint" onclick="document.getElementById('tabBar').scrollBy({left:200,behavior:'smooth'})">&rsaquo;</div>
 <div class="tab-bar" id="tabBar">
-  <div class="tab active" onclick="showTab('overview',event)">产业概览</div>
+  <div class="tab active" onclick="showTab('evidence',event)">业绩与部署核验</div>
+  <div class="tab" onclick="showTab('overview',event)">历史产业概览</div>
   <div class="tab" onclick="showTab('chain',event)">产业链地图</div>
   <div class="tab" onclick="showTab('bom',event)">价值量拆解</div>
   <div class="tab" onclick="showTab('competition',event)">竞争格局</div>
@@ -158,7 +161,12 @@ tr:hover{background:var(--card2)}
 </div>
 
 <!-- ===== TAB: 产业概览 ===== -->
-<div class="content tab-content" id="tab-overview">
+<div class="content tab-content" id="tab-evidence">
+  <section class="research-evidence" data-evidence="data/robotics-evidence.json"><h2>供应商半年报核验</h2><p>正在加载证据。财报观察期不是检查日，缺失收入不按零处理。</p></section>
+  <section class="research-evidence" data-evidence="data/robotics-deployment-review.json"><h2>客户部署与工时核验</h2><p>正在加载证据。合同、有效工时、准确率与盈利分别核验。</p></section>
+  <p>其余页签为2026年5月历史底稿；117家公司评分、市值与模拟参数未重算，不是当前推荐。</p>
+</div>
+<div class="content tab-content hidden" id="tab-overview">
   <div class="stats">
     <div class="stat-card"><div class="num" style="color:var(--accent)">1.8万</div><div class="label">2025全球出货量(台)</div><div class="change" style="color:var(--green)">YoY +508%</div></div>
     <div class="stat-card"><div class="num" style="color:var(--yellow)">2400亿</div><div class="label">2030中国市场规模(元)</div><div class="change" style="color:var(--green)">CAGR 85%</div></div>

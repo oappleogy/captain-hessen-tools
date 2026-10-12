@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-10-08",
+  "inventory_checked_at": "2026-10-12",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -22,8 +22,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05-15",
-      "last_checked": "2026-10-08",
-      "last_research_update": "2026-10-08",
+      "last_checked": "2026-10-12",
+      "last_research_update": "2026-10-12",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -35,10 +35,47 @@
       },
       "pending": [
         "117家公司旧评分和5月14日市值尚未重算；不能用于当前排名。",
-        "先复核绿的谐波、汇川等半年报的业务拆分；未单列机器人收入的公司不补估值。",
+        "绿的谐波、汇川H1财报已完成本轮拆分；人形可归属收入、良率和客户验收仍未单列，不用公司总收入代替。",
+        "GXO历史合同与Agility累计工时已分来源核验；客户本期付费、有效工时、干预率与维修费用仍待补，本周验收不宣称完整。",
         "核验 Tesla 10月21日业绩会的最新里程碑，不把过去路线图当作已投产。"
       ],
       "updates": [
+        {
+          "date": "2026-10-12",
+          "title": "供应商业绩落到数字，混合业务不再当人形收入",
+          "body": "已补两家半年报的收入、归母净利、经营现金流和毛利率可排序表。绿的谐波按减速器/机电一体化拆分；汇川新兴产业包含机器人及数字能源，不能全部归入人形业务。两家公司人形收入未单列，保留未知，不重算旧117家公司评分。此前10月8日的待抽取项已部分关闭。",
+          "source_period": "2026-01-01至2026-06-30；披露日8月27日/29日；本次补核10月12日",
+          "sources": [
+            {
+              "title": "绿的谐波2026半年报",
+              "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225513912.PDF",
+              "date": "2026-08-27"
+            },
+            {
+              "title": "汇川技术2026半年报",
+              "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225524610.PDF",
+              "date": "2026-08-29"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-12",
+          "title": "补客户合同原文，累计工时与准确率保留分母",
+          "body": "GXO原文确认2024年的多年商业部署协议；9月Agility披露的跨场地工时和GXO搬箱里程碑仍是厂商口径。准确率不是开机率、安全率或投资回报。原页新增部署核验，明确历史合同、厂商运行披露与本期客户验收之间的缺口，不把转载视作新订单。",
+          "source_period": "客户公告2024-06-27；厂商累计运行披露2026-09-15，里程碑具体达到日未披露",
+          "sources": [
+            {
+              "title": "GXO商业部署协议",
+              "url": "https://gxo.com/news_article/gxo-signs-industry-first-multi-year-agreement-with-agility-robotics/",
+              "date": "2024-06-27"
+            },
+            {
+              "title": "Agility运行与产品披露",
+              "url": "https://www.agilityrobotics.com/content/agility-unveils-digit-5-humanoid-robot-built-for-cooperatively-safe-work-at-scale",
+              "date": "2026-09-15"
+            }
+          ]
+        },
         {
           "date": "2026-10-08",
           "title": "研究主线从演示转向可付费工作",
@@ -142,7 +179,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-10-10",
+      "last_checked": "2026-10-12",
       "last_research_update": "2026-10-09",
       "next_due": "2026-10-16",
       "review_state": "partial",
@@ -179,6 +216,10 @@
         {
           "date": "2026-10-10",
           "result": "独立周报10月9日新产物已上线，HTTP与最新公开仓JSON逐字节一致；研究截至10月8日23:59，周度/滚动30日/单日窗口分别保留。不是9月24日旧期；本轮只验收，不重复研究或改独立评分。"
+        },
+        {
+          "date": "2026-10-12",
+          "result": "HTTP与最新公开仓数据一致，仍为10月9日发布期，观察截至10月8日23:59 CST；下一周报10月16日尚未到期。仅验收既有产物，不刷新研究日期或独立评分。"
         }
       ]
     },
@@ -368,7 +409,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-10",
+      "last_checked": "2026-10-12",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -391,6 +432,10 @@
         {
           "date": "2026-10-10",
           "result": "线上JS仍生成于10月9日09:20，累计统计内层as_of为10月8日11:28；没有确认今日新产物。真实付费、去重及30日截止仍待核验，保持10月9日逾期，不重复安装任务。"
+        },
+        {
+          "date": "2026-10-12",
+          "result": "线上产物10月12日09:20生成，累计量内层as_of为10月11日；滚动30日仍未单列截止时点。生成恢复不等于真实付费、去重与非自然交易核验完成，保持10月9日积压。"
         }
       ]
     },
@@ -403,9 +448,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-10",
+      "last_checked": "2026-10-12",
       "last_research_update": null,
-      "next_due": "2026-10-11",
+      "next_due": "2026-10-13",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -415,7 +460,7 @@
         "quarterly": "季度：参与者价值留存复核"
       },
       "pending": [
-        "保留3月历史版；独立任务截至10月10日为部分覆盖，SDK、国内平台及运维队列仍未全量复查，路线图不等于生产采用。"
+        "保留3月历史版；独立任务截至10月12日仍为部分覆盖，不等于全部SDK、国内平台及运维队列已审计，生产采用仍待核实。"
       ],
       "updates": [],
       "checks": [
@@ -426,6 +471,10 @@
         {
           "date": "2026-10-10",
           "result": "补正昨日较早巡检：10月9日任务后来已发布；10月10日又有独立增量，last_checked_at为10月10日12:09北京时间，HTTP与最新公开仓数据一致。今日成功/页面发布检查完成，下一日检查10月11日；其SDK、国内平台与运维队列仍是部分覆盖，未视作全量审计。"
+        },
+        {
+          "date": "2026-10-12",
+          "result": "独立产物last_checked_at为10月12日09:00北京时间；HTTP与本轮最新公开仓一致，核心协议、CLI及部分项目有10月12日检查，非全量生产采用审计。今日成功/上线检查完成，下一检查10月13日；未重复运行独立任务。"
         }
       ]
     },
@@ -437,8 +486,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-10-08",
-      "last_research_update": "2026-10-08",
+      "last_checked": "2026-10-12",
+      "last_research_update": "2026-10-12",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -449,9 +498,41 @@
         "quarterly": "财报后2日：收入、毛利和资本开支"
       },
       "pending": [
-        "旧产业图仍可阅读；速率渗透率和公司订单未全量复核。"
+        "本轮补Lumentum季度业绩及ECOC技术公告；800G/1.6T/CPO单列收入、客户验收和量产良率仍未补齐，10月12日本周待办不顺延。",
+        "旧产业图、速率渗透率、公司订单与估值未全量复核；演示、初始订单、指引不视作收入。"
       ],
       "updates": [
+        {
+          "date": "2026-10-12",
+          "title": "补季度业绩，同时拆开GAAP、调整后利润与指引",
+          "body": "新增Lumentum与Coherent同口径可排序核验表，保留各自季度截止日。Lumentum整体收入增长和毛利改善已披露，但GAAP净亏损包含大额非现金债务清偿损失，不能只用调整后利润。公司整体、组件与系统收入均不能直接等同800G/1.6T/CPO收入；下一季指引仍是预测。",
+          "source_period": "FY2026 Q4分别截至2026-06-27和2026-06-30；非10月季度数据",
+          "sources": [
+            {
+              "title": "Lumentum FY2026 Q4",
+              "url": "https://investor.lumentum.com/financial-news-releases/news-details/2026/Lumentum-Announces-Fourth-Quarter-and-Full-Fiscal-Year-2026-Results/default.aspx",
+              "date": "2026-08-11"
+            },
+            {
+              "title": "Coherent FY2026 Q4",
+              "url": "https://www.coherent.com/news/press-releases/fourth-quarter-and-fiscal-year-2026-results",
+              "date": "2026-08-12"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-12",
+          "title": "ECOC补入技术证据，不升级为量产收入",
+          "body": "补核Coherent对3.2T可插拔、6.4T NPO和CPO光纤连接组件的演示公告。扩展到光学装配、维护和验证环节，但未取得客户验收、批量交付和收入证据；不因展会已结束就推定量产兑现，旧公司等级不变。",
+          "source_period": "公告2026-09-20；计划展示2026-09-21至23；实际验收日未知",
+          "sources": [
+            {
+              "title": "Coherent ECOC技术公告",
+              "url": "https://www.coherent.com/news/press-releases/showcases-optical-innovations-scale-ai-infrastructure-ecoc-2026",
+              "date": "2026-09-20"
+            }
+          ]
+        },
         {
           "date": "2026-10-08",
           "title": "把技术路线与业绩兑现分开",
@@ -586,7 +667,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-10",
+      "last_checked": "2026-10-12",
       "last_research_update": "2026-10-10",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -630,6 +711,10 @@
         {
           "date": "2026-10-10",
           "result": "10月10日新闻产物将OSS Scanner放在10月9日；已找到官方原文公告日为10月8日。增量区保留这一日期差异和免人工审核的产品边界，原流水线其他事件未全量核验。"
+        },
+        {
+          "date": "2026-10-12",
+          "result": "HTTP回读外层日期10月12日，新闻条目最晚10月9日；没有把本次可访问性核验写成新研究，原官方证据与待核项保留。"
         }
       ]
     },
@@ -747,7 +832,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-10-10",
+      "last_checked": "2026-10-12",
       "last_research_update": "2026-10-08",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -795,6 +880,10 @@
         {
           "date": "2026-10-10",
           "result": "线上外层last_updated仍10月9日，正式discussion_as_of为10月8日；指标窗口依次为ONI JAS26、海温9月30日、SOI五月、MEI四至五月。只复核上线数据窗口，没有获取新官方观测，不改研究日期。"
+        },
+        {
+          "date": "2026-10-12",
+          "result": "产物检查时点10月12日08:25；正式诊断仍10月8日，ONI为JAS26、周海温9月30日、SOI五月、MEI四至五月。逐层窗口已核对，未取得新观测，不改研究日期。"
         }
       ]
     },
@@ -883,7 +972,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-10",
+      "last_checked": "2026-10-12",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -906,6 +995,10 @@
         {
           "date": "2026-10-10",
           "result": "文件last_updated为10月10日，按日期排序后最新事件仍为10月2日；事件来源多为名称而非原文链接。未核实其赎回叙述或季度NAV/杠杆，不能视为今日研究，保留逾期。"
+        },
+        {
+          "date": "2026-10-12",
+          "result": "HTTP回读外层日期10月12日，新闻条目仍最晚10月2日；生成新不代表内容新。未补齐基金原始赎回/违约披露，原10月9日积压保留。"
         }
       ]
     },
@@ -955,7 +1048,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-10",
+      "last_checked": "2026-10-12",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -978,6 +1071,10 @@
         {
           "date": "2026-10-10",
           "result": "10月10日产物内17项报价日期均为10月9日；苯乙烯库存仍9月30日，多个库存值为0且未区分真实零与缺失。报价观察日与生成日不同；原始报价/库存来源仍未独立逐项复核，截止日保留。"
+        },
+        {
+          "date": "2026-10-12",
+          "result": "10月12日08:15生成的线上数据与最新公开仓一致；交易与库存内层日期混有9月30日、10月9日、10月11日，未统一改写。零库存真实性及源数据口径仍未核完，保持原到期日。"
         }
       ]
     },

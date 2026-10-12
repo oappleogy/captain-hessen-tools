@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-10",
-  "last_checked_at": "2026-10-10T04:09:28.789113+00:00",
+  "as_of": "2026-10-12",
+  "last_checked_at": "2026-10-12T01:00:09.278185+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-12",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -418,7 +418,7 @@
         "ucp",
         "x402"
       ],
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-12",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "AP2 项目 / Google"
     },
@@ -435,7 +435,7 @@
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-12",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "x402 项目 / Coinbase"
     },
@@ -550,7 +550,7 @@
         "a2a"
       ],
       "scope": "核心",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-12",
       "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
     },
     {
@@ -660,6 +660,34 @@
       "related": [],
       "checked_at": "2026-10-10",
       "adoption": "官方文档基线；未独立核验 Agent 付费规模"
+    },
+    {
+      "id": "crossmint",
+      "name": "Crossmint 钱包权限",
+      "participant": "Crossmint",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "scope": "相邻：钱包权限基础设施",
+      "source": "https://www.crossmint.com/products/wallet-infrastructure",
+      "capability": "官方产品页说明委托签名人、支出限制与链上权限控制，支持签名人增删及轮换。",
+      "gap": "具体链和钱包类型、累计预算、撤销生效与管理员权限需实测；未核实原生 A2A 接入。",
+      "adoption": "官方产品与文档基线；未独立核验 Agent 付费规模",
+      "related": [],
+      "checked_at": "2026-10-12"
+    },
+    {
+      "id": "langfuse",
+      "name": "Langfuse 任务追踪",
+      "participant": "Langfuse",
+      "layer": "operations",
+      "stage": "有接入文档",
+      "scope": "相邻：通用观测工具",
+      "source": "https://langfuse.com/docs/observability/best-practices",
+      "capability": "按步骤、任务和会话组织追踪，提供任务树、Agent 图及模型调用成本记录。",
+      "gap": "原生 A2A 跨服务上下文传播、端到端归因和业务交付正确性未核验；图示不等于协议互通。",
+      "adoption": "官方通用观测文档；未独立核验 A2A 生产采用",
+      "related": [],
+      "checked_at": "2026-10-12"
     }
   ],
   "events": [
@@ -838,7 +866,7 @@
     {
       "name": "Crossmint / Privy / Turnkey / Safe",
       "layer": "payment",
-      "question": "Privy/Turnkey 已核验钱包策略文档；累计预算、撤销与根权限待实测。Crossmint/Safe 继续排队。"
+      "question": "Crossmint/Privy/Turnkey 已补钱包权限资料基线；累计预算、撤销与管理员权限待实测，Safe 继续排队。"
     },
     {
       "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
@@ -848,7 +876,7 @@
     {
       "name": "OpenTelemetry / Langfuse / Phoenix / AgentOps",
       "layer": "operations",
-      "question": "区分通用工具与原生 A2A 能力"
+      "question": "Langfuse 已补通用追踪文档基线，原生 A2A 能力未核实；其余工具继续逐项核验。"
     },
     {
       "name": "托管支付 / 结果验收 / 退款争议",
@@ -857,6 +885,11 @@
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-12",
+      "status": "增量核验（部分覆盖）",
+      "note": "部分覆盖：自10月10日成功检查以来，并回看10月5日至12日线索；复核 A2A 发布仍为 v1.0.1、CLI 为 v0.3.0，读取 AP2/x402。补入 Crossmint 钱包权限、Langfuse 通用追踪存量资料，非本日发布；未核实需通知的新重大变化。Mastercard 10月8日来源再次直读失败，保留旧核验日期。10月11日无成功检查记录；其余 SDK、国内平台、支付和运维队列未全量复查，未做互操作或交易审计。"
+    },
     {
       "date": "2026-10-10",
       "status": "增量核验（部分覆盖）",
@@ -967,7 +1000,8 @@
       "projects": [
         "observe",
         "inspector",
-        "tck"
+        "tck",
+        "langfuse"
       ]
     },
     {
@@ -986,7 +1020,8 @@
         "alipay-agent",
         "ant-amp",
         "privy",
-        "turnkey"
+        "turnkey",
+        "crossmint"
       ]
     },
     {

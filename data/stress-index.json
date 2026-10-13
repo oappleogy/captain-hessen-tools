@@ -7,22 +7,22 @@
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 14.84,
+      "current": 15.21,
       "base": 16,
-      "deviation_pct": 7.3,
+      "deviation_pct": 4.9,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 16.0
+      "contribution": 7.2
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 90.86,
+      "current": 93.13,
       "base": 75,
-      "deviation_pct": 21.1,
+      "deviation_pct": 24.2,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 89.0
+      "contribution": 117.1
     },
     {
       "variable": "credit_spread",
@@ -37,31 +37,31 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 158.12,
+      "current": 158.5,
       "base": 145,
-      "deviation_pct": 9.0,
+      "deviation_pct": 9.3,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 8.1
+      "contribution": 8.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 102.18,
+      "current": 102.55,
       "base": 100,
-      "deviation_pct": 2.2,
+      "deviation_pct": 2.5,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": 0.7
+      "contribution": 0.9
     }
   ],
   "hard_alerts_count": 2,
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 81.43,
+      "current": 84.73,
       "base": 35,
-      "deviation_pct": 132.7,
+      "deviation_pct": 142.1,
       "direction": "偏高",
       "level": "极端偏离"
     },
@@ -75,12 +75,12 @@
     },
     {
       "name": "WTI油价",
-      "current": 90.86,
+      "current": 93.13,
       "base": 75,
-      "deviation_pct": 21.1,
+      "deviation_pct": 24.2,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-10-12 08:15"
+  "timestamp": "2026-10-13 08:15"
 }

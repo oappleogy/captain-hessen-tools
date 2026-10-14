@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-12",
-  "last_checked_at": "2026-10-12T01:00:09.278185+00:00",
+  "as_of": "2026-10-14",
+  "last_checked_at": "2026-10-14T08:26:07.108966+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-10-12",
+      "checked_at": "2026-10-14",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -418,7 +418,7 @@
         "ucp",
         "x402"
       ],
-      "checked_at": "2026-10-12",
+      "checked_at": "2026-10-14",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "AP2 项目 / Google"
     },
@@ -435,7 +435,7 @@
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-10-12",
+      "checked_at": "2026-10-14",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "x402 项目 / Coinbase"
     },
@@ -550,7 +550,7 @@
         "a2a"
       ],
       "scope": "核心",
-      "checked_at": "2026-10-12",
+      "checked_at": "2026-10-14",
       "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
     },
     {
@@ -630,7 +630,7 @@
         "mastercard"
       ],
       "scope": "核心",
-      "checked_at": "2026-10-09",
+      "checked_at": "2026-10-14",
       "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
     },
     {
@@ -688,6 +688,37 @@
       "adoption": "官方通用观测文档；未独立核验 A2A 生产采用",
       "related": [],
       "checked_at": "2026-10-12"
+    },
+    {
+      "id": "safe",
+      "name": "Safe 模块与权限",
+      "participant": "Safe",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "scope": "相邻：智能账户权限基础设施",
+      "source": "https://docs.safe.global/advanced/smart-account-modules",
+      "capability": "可用模块设置支出额度、定期付款与自定义交易规则；由账户所有者达到签名门槛后增删模块。",
+      "gap": "模块能执行任意交易，需核实审计、所有者权限及撤销；错误的 Module Guard 可能阻断交易。未核实原生 A2A 或真实 Agent 付费规模。",
+      "adoption": "官方模块文档基线；未独立实测",
+      "related": [],
+      "checked_at": "2026-10-14"
+    },
+    {
+      "id": "himarket",
+      "name": "HiMarket Agent 上架",
+      "participant": "Higress / HiMarket 社区",
+      "layer": "discovery",
+      "stage": "有接入文档",
+      "scope": "A2A 服务目录与上架流程",
+      "source": "https://higress.ai/docs/ai/himarket/himarket-agentscope-agent/",
+      "capability": "官方指南展示 AgentScope 通过 Nacos 注册后，关联到 HiMarket 产品并发布至门户的流程。",
+      "gap": "文档流程不等于跨厂商互操作或生产采用；上线后可用率、计费和收入未核验。与 Higress 网关未合并 PR 分开。",
+      "adoption": "官方接入指南；未独立验证部署",
+      "related": [
+        "agentscope",
+        "nacos"
+      ],
+      "checked_at": "2026-10-14"
     }
   ],
   "events": [
@@ -851,7 +882,7 @@
     {
       "name": "Higress / Spring AI Alibaba / AgentScope",
       "layer": "network",
-      "question": "AgentScope Java 与 Spring AI Alibaba 已补文档基线；Higress 本轮仅核实通用模型/MCP治理，原生 A2A 待核验。"
+      "question": "HiMarket 上架指南已核验；Higress A2A 1.0 网关 PR #4650 当前仍 Open，跟踪合并、发布和兼容实测，不视为正式可用。"
     },
     {
       "name": "支付宝 / Ant International",
@@ -866,7 +897,7 @@
     {
       "name": "Crossmint / Privy / Turnkey / Safe",
       "layer": "payment",
-      "question": "Crossmint/Privy/Turnkey 已补钱包权限资料基线；累计预算、撤销与管理员权限待实测，Safe 继续排队。"
+      "question": "四家均已补权限资料基线；继续实测累计预算、模块/管理员权限、撤销和恢复机制。"
     },
     {
       "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
@@ -882,9 +913,20 @@
       "name": "托管支付 / 结果验收 / 退款争议",
       "layer": "commerce",
       "question": "寻找可复现的端到端经济闭环"
+    },
+    {
+      "name": "AgentValve 支付授权研究",
+      "layer": "payment",
+      "question": "2026-10-09 预印本，2026-10-14 首次发现；只核验摘要与提交记录，全文、代码和复现实验待查，不计入已核实产品。",
+      "source": "https://arxiv.org/abs/2610.12948"
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-14",
+      "status": "增量核验（部分覆盖）",
+      "note": "部分覆盖：自10月12日成功检查以来并回看10月7日至14日线索；A2A Latest v1.0.1、CLI v0.3.0，读取 AP2/x402，检索 Visa/Mastercard。补入 Safe 模块和 HiMarket 上架存量文档；Higress A2A 网关 PR #4650 仍 Open。AgentValve 10月9日预印本加入待核验队列，未当作生产产品。Mastercard 10月8日来源恢复直读。10月13日无成功检查记录；其余协议、SDK、平台与支付队列未全量复查，未核实需通知的新重大变化。"
+    },
     {
       "date": "2026-10-12",
       "status": "增量核验（部分覆盖）",
@@ -924,7 +966,8 @@
       "projects": [
         "directory",
         "nacos",
-        "oasf"
+        "oasf",
+        "himarket"
       ]
     },
     {
@@ -1021,7 +1064,8 @@
         "ant-amp",
         "privy",
         "turnkey",
-        "crossmint"
+        "crossmint",
+        "safe"
       ]
     },
     {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-14",
-  "last_checked_at": "2026-10-14T08:26:07.108966+00:00",
+  "as_of": "2026-10-15",
+  "last_checked_at": "2026-10-15T07:16:30.081626+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-10-14",
+      "checked_at": "2026-10-15",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -418,7 +418,7 @@
         "ucp",
         "x402"
       ],
-      "checked_at": "2026-10-14",
+      "checked_at": "2026-10-15",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "AP2 项目 / Google"
     },
@@ -435,7 +435,7 @@
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-10-14",
+      "checked_at": "2026-10-15",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "x402 项目 / Coinbase"
     },
@@ -719,6 +719,22 @@
         "nacos"
       ],
       "checked_at": "2026-10-14"
+    },
+    {
+      "id": "circle-nanopayments",
+      "name": "Circle Gateway Nanopayments",
+      "participant": "Circle",
+      "layer": "payment",
+      "stage": "有官方公告",
+      "scope": "相邻：x402 小额 USDC 结算",
+      "capability": "厂商披露主网上线：先验证签名授权与余额，再批量链上结算，接入 x402 小额付款。",
+      "source": "https://www.circle.com/blog/nanopayments-powered-by-circle-gateway-is-now-live-on-mainnet",
+      "gap": "免逐笔 gas 不代表全流程免费；入金、提现、服务费、退款与结算失败处理待核验。最低支付金额不是服务价格。",
+      "related": [
+        "x402"
+      ],
+      "checked_at": "2026-10-15",
+      "adoption": "2026-04-29 厂商主网上线及早期集成披露；未独立验证客户使用量和净收入"
     }
   ],
   "events": [
@@ -861,6 +877,28 @@
       "reader_impact": "不同团队做的助手有了共同约定，但是否把事办好仍要实际检验。"
     },
     {
+      "id": "circle-nanopayments-20260429",
+      "date": "2026-04-29",
+      "announced_at": "2026-04-29",
+      "observed_at": "2026-10-15",
+      "title": "Circle Nanopayments 主网上线公告（历史补录）",
+      "type": "厂商公告",
+      "summary": "Circle 披露 Gateway Nanopayments 从测试网进入主网，采用签名授权、即时验证和批量结算。",
+      "impact": "补全小额支付结算参与者；需分别评估付款验证与最终结算风险。",
+      "source": "https://www.circle.com/blog/nanopayments-powered-by-circle-gateway-is-now-live-on-mainnet",
+      "projects": [
+        "circle-nanopayments"
+      ],
+      "notify": false,
+      "previous_state": "公告称此前为测试网",
+      "new_state": "厂商宣布主网上线，未独立验证生产规模",
+      "evidence_type": "厂商公告",
+      "next_step": "核验服务收费、资金退出、失败恢复及客户原文。",
+      "reader_title": "把多笔零碎费用合在一起结算",
+      "reader_summary": "像把许多小额账单汇总处理：Circle 的方案先检查付款授权，再把多笔交易合并结算。这是4月公告的历史补录。",
+      "reader_impact": "有助于按次购买数据等小额服务；最终到账、退款与全部费用仍需查清。"
+    },
+    {
       "id": "ap2-v02-20260428",
       "date": "2026-04-28",
       "observed_at": "2026-10-08",
@@ -902,12 +940,12 @@
     {
       "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
       "layer": "payment",
-      "question": "核验结算通道和 A2A 实际接入"
+      "question": "Circle Nanopayments 已补主网上线公告基线；收费、退出、失败与采用规模待核验。其余参与者继续排队。"
     },
     {
       "name": "OpenTelemetry / Langfuse / Phoenix / AgentOps",
       "layer": "operations",
-      "question": "Langfuse 已补通用追踪文档基线，原生 A2A 能力未核实；其余工具继续逐项核验。"
+      "question": "GenAI 旧文档已迁移至 open-telemetry/semantic-conventions-genai；已找到新仓库，字段稳定性与原生 A2A 支持仍待核验，其他工具继续排队。"
     },
     {
       "name": "托管支付 / 结果验收 / 退款争议",
@@ -922,6 +960,11 @@
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-15",
+      "status": "增量核验（部分覆盖）",
+      "note": "部分覆盖：自10月14日成功检查以来并回看10月8日至15日线索。A2A 发布页仍为 v1.0.1，读取 AP2/x402；Higress #4650 返回页仍显示 Open（抓取有缓存，未作实时 API 确认）。补录 Circle 4月29日主网上线公告及参与者，不作今日新闻。OpenTelemetry 旧 GenAI 文档迁移入口与新仓库已确认，字段及 A2A 支持待核验。其余 SDK、国内平台、支付与论文队列未全量复查；未核实需通知的新重大变化。"
+    },
     {
       "date": "2026-10-14",
       "status": "增量核验（部分覆盖）",
@@ -1065,7 +1108,8 @@
         "privy",
         "turnkey",
         "crossmint",
-        "safe"
+        "safe",
+        "circle-nanopayments"
       ]
     },
     {
@@ -1215,7 +1259,7 @@
       "model": "按成功处理笔数或交易额；另有网络等费用",
       "judgment": "可量化单价，规模待证明",
       "moat": "可靠结算、合规接入、风控与分发",
-      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）",
+      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。",
       "source": "https://www.coinbase.com/developer-platform/discover/launches/x402facilitator-polygon",
       "checked_at": "2026-10-08"
     },

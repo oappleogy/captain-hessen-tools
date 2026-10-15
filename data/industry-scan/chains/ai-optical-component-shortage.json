@@ -4,39 +4,41 @@
   "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
   "segments": [
     "磷化铟衬底",
-    "光芯片",
-    "光通信模块"
+    "光芯片制造",
+    "光通信组件"
   ],
   "tickers": [
     {
-      "name": "II-VI公司",
-      "code": "IIVI",
-      "role": "磷化铟衬底供应商"
+      "name": "住友电工",
+      "code": "",
+      "role": "磷化铟衬底"
     },
     {
-      "name": "Lumentum",
-      "code": "LITE",
-      "role": "光芯片供应商"
+      "name": "II-VI",
+      "code": "",
+      "role": "光芯片制造"
     }
   ],
   "tracking_signals": [
-    "磷化铟衬底价格上涨",
+    "磷化铟衬底价格持续上涨",
     "光芯片交货周期延长"
   ],
   "stage": "兑现中",
   "origin": "emergent",
   "scores": {
     "空间": 4,
-    "竞争力": 3,
-    "寡头垄断": 4,
+    "竞争力": 4,
+    "寡头垄断": 5,
     "确定性": 4
   },
-  "score_notes": "AI光通信组件需求增长迅速，但上游材料供应紧张，短期内难以缓解。产业链中上游供应商具有较强的定价权，但整体竞争格局较为分散。",
+  "score_notes": "AI光通信组件需求增长推动上游材料价格上涨，龙头企业具备较强的定价权。但随着产能扩张和技术进步，短缺问题有望逐步缓解。",
   "certainty_drivers": [
+    "鹰酱",
+    "兔子",
     "AI"
   ],
-  "certainty_note": "AI算力需求增长对光通信组件的需求是结构性的，且短期内难以替代，属于AI产业链中的关键环节。",
-  "framework_updated": "2026-10-14 21:30",
+  "certainty_note": "AI光通信组件短缺问题被中美两国AI算力发展共同需要，属于AI基础设施建设的关键环节。",
+  "framework_updated": "2026-10-15 21:30",
   "created": "2026-06-24 21:30",
   "latest_status": "催化增强",
   "latest_heat": 85,
@@ -439,5 +441,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-10-13"
+  "last_checked": "2026-10-14"
 }

@@ -1,0 +1,54 @@
+{
+  "packed_record_count": 1956430,
+  "pack_count": 1549,
+  "pack_index_count": 1960,
+  "audited_at": "2026-10-14T22:22:19.437746+00:00",
+  "snapshot_database": "observatory-20261014T205427.198982Z.sqlite",
+  "raw_hashes_checked": 1959521,
+  "public_raw_evidence_checked": 1954549,
+  "raw_bytes_checked": 10513058536,
+  "latest_months_checked": 1897960,
+  "raw_commit_records_checked": 1905998,
+  "history_quality": {
+    "not_yet_created": 340991,
+    "complete": 1523184,
+    "partial": 41260,
+    "missing": 52555
+  },
+  "creation_distribution": {
+    "eligible": 463417,
+    "preperiod": 231841,
+    "monthly_points": 46,
+    "quarterly_points": 16,
+    "category_series_checked": 6
+  },
+  "catalog_generated_at": "2026-10-14T21:03:39.453811+00:00",
+  "catalog_rows": 1144468,
+  "all_collection_pages_checked": 17023,
+  "distinct_source_pages_audited": 14031,
+  "metadata_counts": {
+    "accepted_nonfork": 463417,
+    "accepted_forks": 553648,
+    "candidates": 127403,
+    "archived_nonfork": 11509,
+    "active_push90d": 73955,
+    "new_created30d": 11858
+  },
+  "query_status_counts": {
+    "complete": 1960,
+    "fetching": 4,
+    "pending": 1578,
+    "split": 3374
+  },
+  "queries_complete": false,
+  "history_coverage": {
+    "catalog_eligible": 463417,
+    "complete_history_repositories": 40702,
+    "catalog_completed_history_repositories": 40702,
+    "pending_history_repositories": 422715,
+    "registered_history_repositories": 42565,
+    "ratio": 0.08783018318274902
+  },
+  "issues": [],
+  "historical_cohort_count": 40702
+}

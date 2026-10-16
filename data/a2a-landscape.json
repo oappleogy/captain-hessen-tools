@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-15",
-  "last_checked_at": "2026-10-15T07:16:30.081626+00:00",
+  "as_of": "2026-10-16",
+  "last_checked_at": "2026-10-16T00:57:18.954855+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-10-15",
+      "checked_at": "2026-10-16",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -418,7 +418,7 @@
         "ucp",
         "x402"
       ],
-      "checked_at": "2026-10-15",
+      "checked_at": "2026-10-16",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "AP2 项目 / Google"
     },
@@ -435,7 +435,7 @@
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-10-15",
+      "checked_at": "2026-10-16",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "x402 项目 / Coinbase"
     },
@@ -735,6 +735,23 @@
       ],
       "checked_at": "2026-10-15",
       "adoption": "2026-04-29 厂商主网上线及早期集成披露；未独立验证客户使用量和净收入"
+    },
+    {
+      "id": "stripe-machine",
+      "name": "Stripe Machine Payments / MPP",
+      "participant": "Stripe / Tempo（MPP共同作者）",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "scope": "相邻：机器收款与结算",
+      "capability": "Stripe 文档支持 MPP 卡及稳定币付款、x402 稳定币付款，进入 Stripe 余额，并通过后台或 API 退款。",
+      "source": "https://docs.stripe.com/payments/machine",
+      "gap": "准入依地区、支付方式及审批而异；退款可调用不等于跨商户争议自动解决。费率、失败退款时限和真实收入待核验。",
+      "related": [
+        "x402",
+        "acp-commerce"
+      ],
+      "checked_at": "2026-10-16",
+      "adoption": "官方文档与3月18日公告基线；厂商案例不作为独立核实的交易规模"
     }
   ],
   "events": [
@@ -940,7 +957,7 @@
     {
       "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
       "layer": "payment",
-      "question": "Circle Nanopayments 已补主网上线公告基线；收费、退出、失败与采用规模待核验。其余参与者继续排队。"
+      "question": "Circle 与 Stripe Machine Payments/MPP 已补资料基线；核验收费、退出、失败退款、客户原文与生产规模，Adyen/Checkout.com/Tempo 独立产品继续排队。"
     },
     {
       "name": "OpenTelemetry / Langfuse / Phoenix / AgentOps",
@@ -960,6 +977,11 @@
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-16",
+      "status": "增量核验（部分覆盖）",
+      "note": "部分覆盖：自10月15日成功检查以来并回看10月9日至16日线索；A2A 发布页 Latest 仍 v1.0.1，读取 AP2/x402。核验 Stripe MPP 公告与 Machine Payments 文档，补入收款、退款及准入边界的存量基线；未作为今日发布。最低付款与结算金额不是服务收费。其他协议、SDK、国内平台、运维及论文队列未全量复查；未核实需通知的新重大变化。"
+    },
     {
       "date": "2026-10-15",
       "status": "增量核验（部分覆盖）",
@@ -1109,7 +1131,8 @@
         "turnkey",
         "crossmint",
         "safe",
-        "circle-nanopayments"
+        "circle-nanopayments",
+        "stripe-machine"
       ]
     },
     {
@@ -1124,7 +1147,8 @@
         "ucp",
         "acp-commerce",
         "nevermined",
-        "skyfire"
+        "skyfire",
+        "stripe-machine"
       ]
     }
   ],
@@ -1271,9 +1295,9 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。",
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。",
       "source": "",
-      "checked_at": "2026-10-09"
+      "checked_at": "2026-10-16"
     }
   ]
 }

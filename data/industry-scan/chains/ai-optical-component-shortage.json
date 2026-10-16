@@ -4,46 +4,59 @@
   "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
   "segments": [
     "磷化铟衬底",
-    "光芯片制造",
+    "光芯片",
     "光通信组件"
   ],
   "tickers": [
     {
-      "name": "住友电工",
+      "name": "住友化学",
       "code": "",
-      "role": "磷化铟衬底"
+      "role": "磷化铟衬底供应商"
     },
     {
       "name": "II-VI",
-      "code": "",
-      "role": "光芯片制造"
+      "code": "IIVI",
+      "role": "光芯片供应商"
     }
   ],
   "tracking_signals": [
     "磷化铟衬底价格持续上涨",
-    "光芯片交货周期延长"
+    "光芯片产能扩张计划"
   ],
   "stage": "兑现中",
   "origin": "emergent",
   "scores": {
     "空间": 4,
-    "竞争力": 4,
+    "竞争力": 5,
     "寡头垄断": 5,
     "确定性": 4
   },
-  "score_notes": "AI光通信组件需求增长推动上游材料价格上涨，龙头企业具备较强的定价权。但随着产能扩张和技术进步，短缺问题有望逐步缓解。",
+  "score_notes": "AI光通信组件需求增长推动市场空间扩大，但上游材料与芯片供应高度集中，短期内供应紧张难以缓解，产业链利润向上游倾斜。",
   "certainty_drivers": [
     "鹰酱",
-    "兔子",
     "AI"
   ],
-  "certainty_note": "AI光通信组件短缺问题被中美两国AI算力发展共同需要，属于AI基础设施建设的关键环节。",
-  "framework_updated": "2026-10-15 21:30",
+  "certainty_note": "AI算力需求对光通信组件的需求是结构性的，且上游材料供应刚性，属于多系统共需的被动嵌入式需求。",
+  "framework_updated": "2026-10-16 21:30",
   "created": "2026-06-24 21:30",
-  "latest_status": "催化增强",
-  "latest_heat": 85,
-  "last_tracked": "2026-10-11",
+  "latest_status": "预期升温",
+  "latest_heat": 70,
+  "last_tracked": "2026-10-16",
   "timeline": [
+    {
+      "date": "2026-10-16",
+      "catalyst": "NPO（近封装光学）技术讨论热度提升，市场对NPO的关注度持续增加。",
+      "data_point": "NPO技术旨在实现更优的信号完整性、带宽及能效表现，商业化加速推进概率提升。",
+      "status": "预期升温",
+      "heat": 70,
+      "evidence": [
+        {
+          "type": "zsxq",
+          "label": "券商研报 2026-10-16",
+          "text": "# 📑📌OCP 全球峰会：NPO ... 📑📌OCP 全球峰会：NPO 技术核心要点 🔗互联互通已经成为性能瓶颈，NPO（近封装光学）是具备潜力的解决方案，我们…"
+        }
+      ]
+    },
     {
       "date": "2026-10-11",
       "catalyst": "AI集群扩张推动光互联由可插拔向CPO演进，AI训练和推理对网络带宽需求持续提升。",
@@ -441,5 +454,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-10-14"
+  "last_checked": "2026-10-15"
 }

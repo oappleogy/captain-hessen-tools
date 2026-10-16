@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "kind": "13f",
+  "checked_on": "2026-10-16",
+  "title": "2026Q2 13F：股票与期权分开看",
+  "scope": "观察日2026-06-30，申报日2026-08-14，复核日2026-10-16。26行合计20,242,292,228美元，其中23行股票/ADR为20,169,035,068美元；3行期权的申报值合计73,257,160美元是标的证券口径，不是期权市值。股票前二合计55.77%，前十92.10%；分母只含非期权行，不是基金净资产。此表不代表10月实时持仓。",
+  "period_end": "2026-06-30",
+  "announced": "2026-08-14",
+  "accession": "0000935836-26-000418",
+  "summary": {
+    "reported_entry_count": 26,
+    "non_option_entries": 23,
+    "option_entries": 3,
+    "cover_value_usd": 20242292228,
+    "non_option_value_usd": 20169035068,
+    "option_underlying_value_usd": 73257160,
+    "top_two_non_option_pct": 55.76646511386788,
+    "top_ten_non_option_pct": 92.10142275211001
+  },
+  "columns": [
+    {
+      "key": "label",
+      "label": "证券 / 合约类型"
+    },
+    {
+      "key": "reported_value_usd",
+      "label": "申报值 USD（期权为标的）",
+      "format": "usd"
+    },
+    {
+      "key": "shares_or_underlying",
+      "label": "股数 / 期权标的股数",
+      "format": "number"
+    },
+    {
+      "key": "stock_weight_pct",
+      "label": "非期权部分占比",
+      "format": "pct"
+    },
+    {
+      "key": "period_end",
+      "label": "持仓观察日"
+    }
+  ],
+  "rows": [
+    {
+      "label": "APPLIED DIGITAL CORP",
+      "cusip": "038169207",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 469022807,
+      "shares_or_underlying": 15384616,
+      "stock_weight_pct": 2.325459822042489,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "BABCOCK & WILCOX ENTERPRISES",
+      "cusip": "05614L209",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 28587059,
+      "shares_or_underlying": 2027451,
+      "stock_weight_pct": 0.1417373657372234,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "BITDEER TECHNOLOGIES GROUP",
+      "cusip": "G11448100",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 54584072,
+      "shares_or_underlying": 3439450,
+      "stock_weight_pct": 0.27063303631517094,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "BLOOM ENERGY CORP · Call",
+      "cusip": "093712107",
+      "instrument": "Call",
+      "reported_value_usd": 44133660,
+      "shares_or_underlying": 145800,
+      "stock_weight_pct": null,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "BLOOM ENERGY CORP",
+      "cusip": "093712107",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 1898778982,
+      "shares_or_underlying": 6272808,
+      "stock_weight_pct": 9.414327336921462,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "CEREBRAS SYSTEMS INC",
+      "cusip": "15675D103",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 2210000,
+      "shares_or_underlying": 10000,
+      "stock_weight_pct": 0.010957390834757212,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "CLEANSPARK INC",
+      "cusip": "18452B209",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 178617822,
+      "shares_or_underlying": 12276139,
+      "stock_weight_pct": 0.8856042016774186,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "CORE SCIENTIFIC INC NEW",
+      "cusip": "21874A106",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 665556824,
+      "shares_or_underlying": 26008473,
+      "stock_weight_pct": 3.2998942277410492,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "COREWEAVE INC",
+      "cusip": "21873S108",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 744515203,
+      "shares_or_underlying": 7479558,
+      "stock_weight_pct": 3.6913774034794593,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "HIVE DIGITAL TECHNOLOGIES LT",
+      "cusip": "433921103",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 33246763,
+      "shares_or_underlying": 9133726,
+      "stock_weight_pct": 0.16484062270658154,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "IREN LIMITED",
+      "cusip": "Q4982L109",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 433250547,
+      "shares_or_underlying": 9474099,
+      "stock_weight_pct": 2.1480975442766286,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "INFOSYS LTD · Put",
+      "cusip": "456788108",
+      "instrument": "Put",
+      "reported_value_usd": 5245000,
+      "shares_or_underlying": 500000,
+      "stock_weight_pct": null,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "KEEL INFRASTRUCTURE CORP",
+      "cusip": "486917107",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 151830996,
+      "shares_or_underlying": 26451393,
+      "stock_weight_pct": 0.7527925628970402,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "MICRON TECHNOLOGY INC",
+      "cusip": "595112103",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 5573819392,
+      "shares_or_underlying": 4828786,
+      "stock_weight_pct": 27.635528289815753,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "NEBIUS GROUP N.V.",
+      "cusip": "N97284108",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 1232894684,
+      "shares_or_underlying": 4464260,
+      "stock_weight_pct": 6.11280946184728,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "PROPETRO HLDG CORP",
+      "cusip": "74347M108",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 28111878,
+      "shares_or_underlying": 1960382,
+      "stock_weight_pct": 0.13938137300679318,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "RIOT PLATFORMS INC",
+      "cusip": "767292105",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 468198000,
+      "shares_or_underlying": 17100000,
+      "stock_weight_pct": 2.3213703502496186,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "SANDISK CORP",
+      "cusip": "80004C200",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 5673738513,
+      "shares_or_underlying": 2495344,
+      "stock_weight_pct": 28.13093682405213,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "SHARONAI HOLDINGS INC",
+      "cusip": "778920306",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 456836112,
+      "shares_or_underlying": 5396127,
+      "stock_weight_pct": 2.2650370256176102,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "SOLARIS ENERGY INFRAS INC",
+      "cusip": "83418M103",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 90889306,
+      "shares_or_underlying": 1129621,
+      "stock_weight_pct": 0.4506378500189338,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "STMICROELECTRONICS",
+      "cusip": "861012102",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 584344203,
+      "shares_or_underlying": 7802700,
+      "stock_weight_pct": 2.89723430511118,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "T1 ENERGY INC",
+      "cusip": "35834F104",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 46452000,
+      "shares_or_underlying": 4900000,
+      "stock_weight_pct": 0.23031344753671584,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "TAIWAN SEMICONDUCTOR MANUFAC",
+      "cusip": "874039100",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 1265099645,
+      "shares_or_underlying": 2649035,
+      "stock_weight_pct": 6.272484730849594,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "TAIWAN SEMICONDUCTOR MANUFAC · Call",
+      "cusip": "874039100",
+      "instrument": "Call",
+      "reported_value_usd": 23878500,
+      "shares_or_underlying": 50000,
+      "stock_weight_pct": null,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "VISHAY INTERTECHNOLOGY INC",
+      "cusip": "928298108",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 20167500,
+      "shares_or_underlying": 375000,
+      "stock_weight_pct": 0.09999238898641,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    },
+    {
+      "label": "WHITEFIBER INC",
+      "cusip": "G96115103",
+      "instrument": "股票 / ADR",
+      "reported_value_usd": 68282760,
+      "shares_or_underlying": 1757600,
+      "stock_weight_pct": 0.3385524382786997,
+      "period_end": "2026-06-30",
+      "announced": "2026-08-14"
+    }
+  ],
+  "findings": [
+    {
+      "label": "纠正“基金可能未披露13F”的旧说法",
+      "known": "SEC已存在正式13F。本次逐行核对26行，合计与封面一致。Sandisk与Micron为非期权部分最大的两行，Bloom与台积电股票另有看涨期权行；Infosys为看跌期权行。",
+      "unknown": "实时持仓、现金、空头、杠杆、未披露资产、期权行权价/到期日/权利金及真实AUM未知。SEC原始XML和全量申报API本轮返回403；使用可读取的官方展示表，尚未完成所有修订文件排查。",
+      "impact": "不再使用早期1.5—2B规模、29仓位/86%或四条旧主线作为当前组合事实；13F金额不能替代AUM，未比较上季股份数前不声称主动加减仓。",
+      "sources": [
+        {
+          "title": "SEC 13F 信息表：2026-06-30 持仓",
+          "url": "https://www.sec.gov/Archives/edgar/data/2045724/000093583626000418/xslForm13F_X02/form13fInfoTable.xml"
+        },
+        {
+          "title": "SEC 封面：26行及总计",
+          "url": "https://www.sec.gov/Archives/edgar/data/2045724/000093583626000418/xslForm13F_X02/primary_doc.xml"
+        },
+        {
+          "title": "SEC 申报目录：2026-08-14",
+          "url": "https://www.sec.gov/Archives/edgar/data/2045724/000093583626000418/0000935836-26-000418-index-headers.html"
+        },
+        {
+          "title": "SEC 13F FAQ：期权及披露边界",
+          "url": "https://www.sec.gov/rules-regulations/staff-guidance/frequently-asked-questions-about-form-13f"
+        }
+      ]
+    }
+  ],
+  "pending": [
+    "补齐修订申报排查、上一季逐项股份数比较及后续13F；本次不冒称全量持仓研究已完成。",
+    "原论文及旧估值、扩展观察池均为历史档案，不是基金当前持仓或投资建议。"
+  ]
+}

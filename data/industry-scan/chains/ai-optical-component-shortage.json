@@ -4,40 +4,39 @@
   "thesis": "AI算力需求激增导致上游磷化铟（InP）衬底及光芯片供应紧张，短期内难以缓解，产业链利润向上游倾斜。",
   "segments": [
     "磷化铟衬底",
-    "光芯片",
+    "光芯片制造",
     "光通信组件"
   ],
   "tickers": [
     {
-      "name": "住友化学",
+      "name": "II-VI",
       "code": "",
-      "role": "磷化铟衬底供应商"
+      "role": "磷化铟衬底"
     },
     {
-      "name": "II-VI",
-      "code": "IIVI",
-      "role": "光芯片供应商"
+      "name": "Lumentum",
+      "code": "",
+      "role": "光芯片制造"
     }
   ],
   "tracking_signals": [
-    "磷化铟衬底价格持续上涨",
-    "光芯片产能扩张计划"
+    "磷化铟衬底价格波动",
+    "光芯片产能扩张"
   ],
   "stage": "兑现中",
   "origin": "emergent",
   "scores": {
     "空间": 4,
-    "竞争力": 5,
+    "竞争力": 4,
     "寡头垄断": 5,
     "确定性": 4
   },
-  "score_notes": "AI光通信组件需求增长推动市场空间扩大，但上游材料与芯片供应高度集中，短期内供应紧张难以缓解，产业链利润向上游倾斜。",
+  "score_notes": "AI光通信组件需求增长推动市场空间扩大。磷化铟衬底和光芯片制造环节壁垒高，少数企业主导市场，定价权强。供应紧张短期内难以缓解。",
   "certainty_drivers": [
-    "鹰酱",
     "AI"
   ],
-  "certainty_note": "AI算力需求对光通信组件的需求是结构性的，且上游材料供应刚性，属于多系统共需的被动嵌入式需求。",
-  "framework_updated": "2026-10-16 21:30",
+  "certainty_note": "AI算力需求增长是主要驱动因素，短期内供给刚性，需求持续增长。",
+  "framework_updated": "2026-10-17 21:30",
   "created": "2026-06-24 21:30",
   "latest_status": "预期升温",
   "latest_heat": 70,
@@ -454,5 +453,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-10-15"
+  "last_checked": "2026-10-16"
 }

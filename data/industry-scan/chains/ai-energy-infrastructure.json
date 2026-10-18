@@ -10,18 +10,18 @@
   "tickers": [
     {
       "name": "国家电网",
-      "code": "",
+      "code": "SGCC",
       "role": "电力供应"
     },
     {
       "name": "中国神华",
-      "code": "",
+      "code": "601088",
       "role": "煤炭供应"
     }
   ],
   "tracking_signals": [
-    "AI数据中心电力需求增长",
-    "能源大宗商品价格波动"
+    "AI数据中心用电量增长",
+    "能源基础设施投资规模扩大"
   ],
   "stage": "兑现中",
   "origin": "emergent",
@@ -31,13 +31,14 @@
     "寡头垄断": 4,
     "确定性": 5
   },
-  "score_notes": "AI算力需求增长推动能源基础设施投资，市场空间巨大。能源行业壁垒较高，但竞争格局相对分散。国家政策支持提升确定性。",
+  "score_notes": "AI算力需求增长推动能源基础设施投资，能源需求刚性较强，市场空间巨大。能源行业集中度较高，少数企业主导市场。AI算力需求增长是长期趋势，供给刚性较强。",
   "certainty_drivers": [
+    "鹰酱",
     "兔子",
     "AI"
   ],
-  "certainty_note": "AI算力需求增长与能源基础设施投资是全球性趋势，中国在规模化与政策支持方面具有优势。",
-  "framework_updated": "2026-10-17 21:30",
+  "certainty_note": "AI算力需求增长是全球性趋势，能源基础设施投资被多国政策支持，供给刚性较高。",
+  "framework_updated": "2026-10-18 21:30",
   "created": "2026-06-23 13:47",
   "latest_status": "催化增强",
   "latest_heat": 90,
@@ -103,5 +104,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 5,
   "depth_level": "中",
-  "last_checked": "2026-10-16"
+  "last_checked": "2026-10-17"
 }

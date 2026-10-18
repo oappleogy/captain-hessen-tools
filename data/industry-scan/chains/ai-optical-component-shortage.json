@@ -9,19 +9,19 @@
   ],
   "tickers": [
     {
-      "name": "II-VI",
-      "code": "",
+      "name": "住友电工",
+      "code": "SMFG",
       "role": "磷化铟衬底"
     },
     {
-      "name": "Lumentum",
-      "code": "",
+      "name": "II-VI",
+      "code": "IIVI",
       "role": "光芯片制造"
     }
   ],
   "tracking_signals": [
-    "磷化铟衬底价格波动",
-    "光芯片产能扩张"
+    "磷化铟衬底价格持续上涨",
+    "光芯片交货周期延长"
   ],
   "stage": "兑现中",
   "origin": "emergent",
@@ -31,12 +31,13 @@
     "寡头垄断": 5,
     "确定性": 4
   },
-  "score_notes": "AI光通信组件需求增长推动市场空间扩大。磷化铟衬底和光芯片制造环节壁垒高，少数企业主导市场，定价权强。供应紧张短期内难以缓解。",
+  "score_notes": "AI光通信需求增长推动上游材料价格上涨，短期内供应紧张难以缓解，产业链利润向上游倾斜。磷化铟衬底和光芯片制造环节壁垒较高，市场集中度较高。AI算力需求增长是长期趋势，但供应紧张可能逐步缓解。",
   "certainty_drivers": [
+    "鹰酱",
     "AI"
   ],
-  "certainty_note": "AI算力需求增长是主要驱动因素，短期内供给刚性，需求持续增长。",
-  "framework_updated": "2026-10-17 21:30",
+  "certainty_note": "AI算力需求增长推动光通信组件需求增长，磷化铟衬底和光芯片制造环节被AI系统需要，供给刚性较高。",
+  "framework_updated": "2026-10-18 21:30",
   "created": "2026-06-24 21:30",
   "latest_status": "预期升温",
   "latest_heat": 70,
@@ -453,5 +454,5 @@
   "tracking_bucket": "持续跟踪",
   "depth_score": 7,
   "depth_level": "深",
-  "last_checked": "2026-10-16"
+  "last_checked": "2026-10-17"
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-16",
-  "last_checked_at": "2026-10-16T00:57:18.954855+00:00",
+  "as_of": "2026-10-19",
+  "last_checked_at": "2026-10-19T04:24:20.086282+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -752,6 +752,22 @@
       ],
       "checked_at": "2026-10-16",
       "adoption": "官方文档与3月18日公告基线；厂商案例不作为独立核实的交易规模"
+    },
+    {
+      "id": "checkout-acp",
+      "name": "Checkout.com ACP 委托付款",
+      "participant": "Checkout.com",
+      "layer": "payment",
+      "stage": "Beta",
+      "scope": "相邻：Agentic Commerce Protocol 支付接入",
+      "capability": "Beta API 创建有范围限制的一次性付款令牌；请求包含额度、商户、到期时间及签名校验，提供幂等键用于重试。",
+      "source": "https://api-reference.checkout.com/tag/agentic-commerce-protocol",
+      "gap": "需联系平台准入；创建令牌不是扣款成功。撤销、退款、争议、费率与真实付费采用待核验。",
+      "related": [
+        "acp-commerce"
+      ],
+      "checked_at": "2026-10-19",
+      "adoption": "官方 Beta API 文档基线；未执行真实交易或验证生产规模"
     }
   ],
   "events": [
@@ -957,7 +973,7 @@
     {
       "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
       "layer": "payment",
-      "question": "Circle 与 Stripe Machine Payments/MPP 已补资料基线；核验收费、退出、失败退款、客户原文与生产规模，Adyen/Checkout.com/Tempo 独立产品继续排队。"
+      "question": "Circle、Stripe、Checkout.com 已补公告/API基线；Checkout.com 标 Beta。准入、费率、退款与采用待查；Adyen 已发现官方产品文章，具体API与范围待查，Tempo独立产品继续排队。"
     },
     {
       "name": "OpenTelemetry / Langfuse / Phoenix / AgentOps",
@@ -974,9 +990,20 @@
       "layer": "payment",
       "question": "2026-10-09 预印本，2026-10-14 首次发现；只核验摘要与提交记录，全文、代码和复现实验待查，不计入已核实产品。",
       "source": "https://arxiv.org/abs/2610.12948"
+    },
+    {
+      "name": "Agent Step-Up 授权安全研究",
+      "layer": "identity",
+      "source": "https://arxiv.org/abs/2610.21063",
+      "question": "10月15日预印本；本轮核验摘要与日期，研究确认界面与实际执行绑定。全文、代码、受影响版本及独立复现待查，不认定已验证生产漏洞。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-19",
+      "status": "中断后续检（部分覆盖）",
+      "note": "中断后续检（部分覆盖）：上次成功为10月16日，17、18日未完成发布，不补写成功记录。检索10月12日至19日线索；补入 Checkout.com ACP Beta API 基线，创建令牌不代表付款完成。核验 Adyen 产品文章入口、10月15日 Agent Step-Up 论文摘要并列入待查。A2A发布页仅17日读取，未将全量项目核验日刷新；其他SDK、国内平台、运维及支付队列未全量复查。未核实需通知的新重大变化。"
+    },
     {
       "date": "2026-10-16",
       "status": "增量核验（部分覆盖）",
@@ -1132,7 +1159,8 @@
         "crossmint",
         "safe",
         "circle-nanopayments",
-        "stripe-machine"
+        "stripe-machine",
+        "checkout-acp"
       ]
     },
     {

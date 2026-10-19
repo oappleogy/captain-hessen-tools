@@ -1,5 +1,5 @@
 {
-  "score": 44.5,
+  "score": 43.5,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 101.41,
+      "current": 97.57,
       "base": 75,
-      "deviation_pct": 35.2,
+      "deviation_pct": 30.1,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 247.8
+      "contribution": 181.2
     },
     {
       "variable": "credit_spread",
@@ -37,17 +37,17 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 157.99,
+      "current": 157.75,
       "base": 145,
-      "deviation_pct": 9.0,
+      "deviation_pct": 8.8,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 8.1
+      "contribution": 7.7
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 101.84,
+      "current": 101.78,
       "base": 100,
       "deviation_pct": 1.8,
       "weight": 0.15,
@@ -75,9 +75,9 @@
     },
     {
       "name": "WTI油价",
-      "current": 101.41,
+      "current": 97.57,
       "base": 75,
-      "deviation_pct": 35.2,
+      "deviation_pct": 30.1,
       "direction": "偏高",
       "level": "显著偏离"
     },
@@ -90,5 +90,5 @@
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-10-18 08:15"
+  "timestamp": "2026-10-19 08:15"
 }

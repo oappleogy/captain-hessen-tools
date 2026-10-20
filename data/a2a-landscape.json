@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-19",
-  "last_checked_at": "2026-10-19T04:28:23.931629+00:00",
+  "as_of": "2026-10-20",
+  "last_checked_at": "2026-10-20T02:07:49.550261+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -623,15 +623,15 @@
       "stage": "已公告",
       "participant": "Mastercard",
       "capability": "10月8日厂商文章披露加入身份、欺诈和行为判断，并与 Skyfire 推进 KYA。",
-      "source": "https://www.mastercard.com/us/en/news-and-trends/stories/2026/agentic-commerce-identity-know-your-agent.html",
-      "gap": "尚未独立核验开放范围、误判率、定价及生产规模；与 AP4M 分开记录。",
+      "source": "https://investor.mastercard.com/investor-news/investor-news-details/2026/Mastercard-Advances-Agentic-Commerce-With-New-Trust-and-Intelligence-Services/default.aspx",
+      "gap": "测试范围、误判率、商户准入和收费待核验；10月8日为后续解释文章，不是首次公告。",
       "related": [
         "skyfire",
         "mastercard"
       ],
       "scope": "核心",
-      "checked_at": "2026-10-14",
-      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+      "checked_at": "2026-10-20",
+      "adoption": "9月30日厂商公告：首项AI交易概率评分在美国推出测试；未独立验证生产规模。"
     },
     {
       "id": "privy",
@@ -772,29 +772,6 @@
   ],
   "events": [
     {
-      "id": "mastercard-trust-20261008",
-      "date": "2026-10-08",
-      "announced_at": "2026-10-08",
-      "observed_at": "2026-10-09",
-      "title": "商家如何认出受你委托的 AI？身份检查继续补齐",
-      "type": "厂商披露",
-      "summary": "Mastercard 披露为 Agent Pay 加入身份、欺诈与行为判断，并与 Skyfire 推进助手身份识别。",
-      "impact": "好比代你买鞋的助手出示工牌与委托凭据；这有助于商家判断是否放行，但不等于每笔购买都安全。",
-      "source": "https://www.mastercard.com/us/en/news-and-trends/stories/2026/agentic-commerce-identity-know-your-agent.html",
-      "projects": [
-        "mastercard-trust",
-        "skyfire"
-      ],
-      "notify": true,
-      "reader_title": "商家如何认出受你委托的 AI？身份检查继续补齐",
-      "reader_summary": "Mastercard 披露为 Agent Pay 加入身份、欺诈与行为判断，并与 Skyfire 推进助手身份识别。",
-      "reader_impact": "好比代你买鞋的助手出示工牌与委托凭据；这有助于商家判断是否放行，但不等于每笔购买都安全。",
-      "previous_state": "原地图仅收录 AP4M 与 Skyfire 文档",
-      "current_state": "新增信任框架的厂商披露",
-      "next_step": "继续核验开放范围、误判率、用户同意凭据和收费",
-      "evidence_type": "官方文章；未独立实测"
-    },
-    {
       "id": "a2a-map-20261008",
       "date": "2026-10-08",
       "observed_at": "2026-10-08",
@@ -834,6 +811,29 @@
       "previous_state": "此前仅跟踪 CLI 路线图",
       "current_state": "已发现官方工具入口，支持协议 v1.0",
       "next_step": "独立验证认证、错误处理和生产部署边界",
+      "evidence_type": "官方文章；未独立实测"
+    },
+    {
+      "id": "mastercard-trust-20261008",
+      "date": "2026-09-30",
+      "announced_at": "2026-09-30",
+      "observed_at": "2026-10-09",
+      "title": "商家如何认出受你委托的 AI？身份检查继续补齐",
+      "type": "厂商披露",
+      "summary": "补充核验发现9月30日已有官方公告，首项AI交易概率评分在美国测试；10月8日为后续解释文章。保留原事件ID与首次发现日期以避免通知重复。",
+      "impact": "好比代你买鞋的助手出示工牌与委托凭据；这有助于商家判断是否放行，但不等于每笔购买都安全。",
+      "source": "https://investor.mastercard.com/investor-news/investor-news-details/2026/Mastercard-Advances-Agentic-Commerce-With-New-Trust-and-Intelligence-Services/default.aspx",
+      "projects": [
+        "mastercard-trust",
+        "skyfire"
+      ],
+      "notify": true,
+      "reader_title": "商家如何认出受你委托的 AI？身份检查继续补齐",
+      "reader_summary": "银行正在测试识别由AI发起的付款，帮助判断是否需要进一步检查；相关公告发布于9月30日，10月8日是后续介绍。",
+      "reader_impact": "像核对代购人的身份与委托，但还不能据此认定服务已全面开放或能保证交易安全。",
+      "previous_state": "原地图仅收录 AP4M 与 Skyfire 文档",
+      "current_state": "新增信任框架的厂商披露",
+      "next_step": "继续核验开放范围、误判率、用户同意凭据和收费",
       "evidence_type": "官方文章；未独立实测"
     },
     {
@@ -1000,11 +1000,16 @@
     {
       "name": "OpenA2A 10月安全报告",
       "layer": "operations",
-      "question": "检索发现10月18日报告；全文、采样、去重及握手后行为待核验，不认定生产事件。",
+      "question": "已读正文与方法：同一网址当前引用日期为10月19日，与此前10月18日索引快照不同；观测窗口、指纹口径有变化。蜜罐请求不等于真实攻击意图，暴露服务不等于受攻击；原始数据与独立复现待查。",
       "source": "https://research.opena2a.org/reports/state-of-ai-agent-security-2026-10"
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-20",
+      "status": "部分核验与证据修订",
+      "note": "部分核验：比较10月19日检查并回看近7天；A2A发布页仍Latest v1.0.1。复核OpenA2A正文与方法，发现同网址已更新为10月19日测量/引用口径，不沿用旧数字；未独立复现。补核Mastercard9月30日公告，将原10月8日事件改为首次公告日期，保留稳定ID和首次发现日；首项评分在美国测试，不认定全面可用。支付厂商检索未形成可确认的新通知事件；其他协议、SDK、国内平台和队列未全量覆盖。"
+    },
     {
       "date": "2026-10-19",
       "status": "中断后续检（部分覆盖）",

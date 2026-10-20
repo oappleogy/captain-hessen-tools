@@ -21,7 +21,7 @@
   }
   function details(t) {
     const updates = [...t.updates].sort((a,b)=>b.date.localeCompare(a.date)).map(n => `<article class="ru-note"><h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><p class="ru-meta">复核 ${esc(n.date)} · 证据观察期 ${esc(n.source_period)}</p><div class="ru-sources">${n.sources.map(sourceLink).join(' · ')}</div></article>`).join('');
-    const checks = (t.checks || []).slice(-3).reverse().map(c=>`<li><b>${esc(c.date)}</b> · ${esc(c.result)}</li>`).join('');
+    const checks = (t.checks || []).slice(-3).reverse().map(c=>`<li><b>${esc(c.date)}</b> · ${esc(c.result)}${c.sources?.length ? `<div class="ru-sources">${c.sources.map(sourceLink).join(" · ")}</div>` : ""}</li>`).join('');
     return `${updates || '<p>尚未补齐新一轮研究。旧数据不可视作当前结论。</p>'}${checks ? `<h4>最近检查（不等于研究已更新）</h4><ul>${checks}</ul>` : ''}<h4>尚待完成</h4><ul>${t.pending.map(p=>`<li>${esc(p)}</li>`).join('')}</ul><details class="ru-rhythm"><summary>日 / 周 / 月 / 季如何更新</summary><dl>${Object.entries(t.schedule).map(([k,v])=>`<dt>${esc(cadenceNames[k])}</dt><dd>${esc(v)}</dd>`).join('')}</dl></details>`;
   }
   function heading(t) {
@@ -76,7 +76,7 @@
     const panel = document.createElement('aside');
     panel.className = 'ru-panel ru-inline';
     panel.setAttribute('aria-label','专题研究时效与跟踪');
-    panel.innerHTML = `${heading(t)}<p><strong>以下原页面仍保留历史底稿。新证据不会自动重算旧表格、估值或排名。</strong></p><details class="ru-detail"${['robotics','woge','glass','sa','pvc','tsmc'].includes(t.id) ? ' open' : ''}><summary>查看本次跟踪、待办与更新频率</summary>${details(t)}</details><p><a href="research-schedule.html#topic-${esc(t.id)}">查看全部专题更新计划</a></p>`;
+    panel.innerHTML = `${heading(t)}<p><strong>以下原页面仍保留历史底稿。新证据不会自动重算旧表格、估值或排名。</strong></p><details class="ru-detail"${['robotics','woge','glass','sa','pvc','tsmc','power','optical','cips','capex-hub','capex-revenue'].includes(t.id) ? ' open' : ''}><summary>查看本次跟踪、待办与更新频率</summary>${details(t)}</details><p><a href="research-schedule.html#topic-${esc(t.id)}">查看全部专题更新计划</a></p>`;
     document.body.prepend(panel);
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = {esc,status,sorted,today};

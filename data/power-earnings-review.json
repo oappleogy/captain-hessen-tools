@@ -2,38 +2,184 @@
   "schema_version": 1,
   "kind": "earnings",
   "title": "供电链财报增量：实际兑现与指引分开",
-  "checked_on": "2026-10-09",
-  "scope": "先补 Vertiv 与 Eaton 的2026年第二季度。观察期均截至6月30日，不能称为10月经营实况或Q3已实现业绩。营收、经营现金流单位：百万美元；EPS：美元/股。机构一致预期尚未核验，不计算双超预期评分。",
+  "checked_on": "2026-10-20",
+  "scope": "四家Q2实际结果，不是10月经营实况。VRT/ETN保留10月9日核验，新增GEV/BE于10月20日复核。营收与现金流：百万美元；EPS：美元/股。GEV摘要为十亿美元取整后换算，EPS缺失不填0；机构预期未核，不计算双超预期分数。",
   "columns": [
-    {"key":"label","label":"公司"},
-    {"key":"period_end","label":"财季截至"},
-    {"key":"revenue_musd","label":"营收 / 百万美元","format":"number"},
-    {"key":"revenue_yoy_pct","label":"营收同比","format":"pct"},
-    {"key":"organic_yoy_pct","label":"有机同比","format":"pct"},
-    {"key":"gaap_eps","label":"GAAP EPS","format":"usd"},
-    {"key":"adjusted_eps","label":"调整后 EPS","format":"usd"},
-    {"key":"operating_cash_flow_musd","label":"经营现金流 / 百万美元","format":"number"},
-    {"key":"announced","label":"公告日"}
+    {
+      "key": "label",
+      "label": "公司"
+    },
+    {
+      "key": "period_end",
+      "label": "财季截至"
+    },
+    {
+      "key": "revenue_musd",
+      "label": "营收 / 百万美元",
+      "format": "number"
+    },
+    {
+      "key": "revenue_yoy_pct",
+      "label": "营收同比",
+      "format": "pct"
+    },
+    {
+      "key": "organic_yoy_pct",
+      "label": "有机同比",
+      "format": "pct"
+    },
+    {
+      "key": "gaap_eps",
+      "label": "GAAP EPS",
+      "format": "usd"
+    },
+    {
+      "key": "adjusted_eps",
+      "label": "调整后 EPS",
+      "format": "usd"
+    },
+    {
+      "key": "operating_cash_flow_musd",
+      "label": "经营现金流 / 百万美元",
+      "format": "number"
+    },
+    {
+      "key": "announced",
+      "label": "公告日"
+    },
+    {
+      "key": "checked_on",
+      "label": "本条核验日"
+    }
   ],
   "rows": [
     {
-      "id":"VRT", "label":"VRT · Vertiv", "period_end":"2026-06-30", "announced":"2026-07-29",
-      "revenue_musd":3274.3, "revenue_yoy_pct":24, "organic_yoy_pct":18, "gaap_eps":1.27, "adjusted_eps":1.52, "operating_cash_flow_musd":1100,
-      "known":"营收增长中包含并购5个百分点及汇率1个百分点。调整后营业利润率22.6%，同比提高410bp；调整后自由现金流925百万美元。公司称供应链拥堵和分阶段实施影响了收入确认时点。",
-      "guidance":"7月29日公司对Q3的指引：营收3650—3850百万美元、调整后EPS 1.77—1.83。此为前瞻区间，尚非已实现结果。",
-      "unknown":"未核对同期机构一致预期、订单取消率、客户验收与最新股价估值；不能给出当前超预期分数或潜在涨幅。",
-      "impact":"新增利润率和现金流兑现证据，支持继续研究供电与散热需求；但供应受限也可能推迟交付，不等于所有订单立即转收入。",
-      "sources":[{"title":"Vertiv Q2正式业绩 · 2026-07-29","url":"https://investors.vertiv.com/news/news-details/2026/Vertiv-Reports-Strong-Second-Quarter-2026-with-Diluted-EPS-Growth-of-53-Adjusted-Diluted-EPS-Growth-of-60-Raises-Full-Year-2026-Guidance-Across-All-Key-Metrics/default.aspx"}]
+      "id": "VRT",
+      "label": "VRT · Vertiv",
+      "period_end": "2026-06-30",
+      "announced": "2026-07-29",
+      "revenue_musd": 3274.3,
+      "revenue_yoy_pct": 24,
+      "organic_yoy_pct": 18,
+      "gaap_eps": 1.27,
+      "adjusted_eps": 1.52,
+      "operating_cash_flow_musd": 1100,
+      "known": "营收增长中包含并购5个百分点及汇率1个百分点。调整后营业利润率22.6%，同比提高410bp；调整后自由现金流925百万美元。公司称供应链拥堵和分阶段实施影响了收入确认时点。",
+      "guidance": "7月29日公司对Q3的指引：营收3650—3850百万美元、调整后EPS 1.77—1.83。此为前瞻区间，尚非已实现结果。",
+      "unknown": "未核对同期机构一致预期、订单取消率、客户验收与最新股价估值；不能给出当前超预期分数或潜在涨幅。",
+      "impact": "新增利润率和现金流兑现证据，支持继续研究供电与散热需求；但供应受限也可能推迟交付，不等于所有订单立即转收入。",
+      "sources": [
+        {
+          "title": "Vertiv Q2正式业绩 · 2026-07-29",
+          "url": "https://investors.vertiv.com/news/news-details/2026/Vertiv-Reports-Strong-Second-Quarter-2026-with-Diluted-EPS-Growth-of-53-Adjusted-Diluted-EPS-Growth-of-60-Raises-Full-Year-2026-Guidance-Across-All-Key-Metrics/default.aspx"
+        }
+      ],
+      "checked_on": "2026-10-09"
     },
     {
-      "id":"ETN", "label":"ETN · Eaton", "period_end":"2026-06-30", "announced":"2026-07-31",
-      "revenue_musd":8531, "revenue_yoy_pct":21, "organic_yoy_pct":14, "gaap_eps":2.11, "adjusted_eps":3.15, "operating_cash_flow_musd":1100,
-      "known":"分部利润率23.1%，超过公司原指引上限10bp，但同比下降80bp。电气业务积压同比增43%；美洲电气订单为滚动12个月口径、增长41%，不是单季新增收入。自由现金流874百万美元。",
-      "guidance":"7月31日公司对Q3的指引：GAAP EPS 2.77—2.87、调整后EPS 3.46—3.56。调整后口径不是GAAP利润。",
-      "unknown":"机构一致预期未核验；并购贡献与原有业务必须分开。尚不能把全年指引上调视为当季双超预期。",
-      "impact":"订单及营收继续增长，但利润率同比回落是对全链利润同步扩张叙事的反证；只看订单或调整后EPS会遗漏费用与并购影响。",
-      "sources":[{"title":"Eaton Q2 SEC业绩附件 · 2026-07-31","url":"https://www.sec.gov/Archives/edgar/data/1551182/000155118226000027/etn06302026exhibit99.htm"}]
+      "id": "ETN",
+      "label": "ETN · Eaton",
+      "period_end": "2026-06-30",
+      "announced": "2026-07-31",
+      "revenue_musd": 8531,
+      "revenue_yoy_pct": 21,
+      "organic_yoy_pct": 14,
+      "gaap_eps": 2.11,
+      "adjusted_eps": 3.15,
+      "operating_cash_flow_musd": 1100,
+      "known": "分部利润率23.1%，超过公司原指引上限10bp，但同比下降80bp。电气业务积压同比增43%；美洲电气订单为滚动12个月口径、增长41%，不是单季新增收入。自由现金流874百万美元。",
+      "guidance": "7月31日公司对Q3的指引：GAAP EPS 2.77—2.87、调整后EPS 3.46—3.56。调整后口径不是GAAP利润。",
+      "unknown": "机构一致预期未核验；并购贡献与原有业务必须分开。尚不能把全年指引上调视为当季双超预期。",
+      "impact": "订单及营收继续增长，但利润率同比回落是对全链利润同步扩张叙事的反证；只看订单或调整后EPS会遗漏费用与并购影响。",
+      "sources": [
+        {
+          "title": "Eaton Q2 SEC业绩附件 · 2026-07-31",
+          "url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000027/etn06302026exhibit99.htm"
+        }
+      ],
+      "checked_on": "2026-10-09"
+    },
+    {
+      "announced": "2026-07-22",
+      "event_date": null,
+      "period": "2026-04-01至2026-06-30",
+      "stage": "公司已报告季度实际，旧披露补核",
+      "known": "收入及经营现金流已实现；订单与RPO仍未全部履约。116GW包含燃机设备积压和档期预留。 原摘要约数：收入11100、经营现金流5500、订单24200、RPO176000百万美元；116GW包括档期预留，精度不因单位换算而增加。",
+      "guidance": "7月时全年收入45500—46500百万美元、调整后EBITDA率12%—14%、自由现金流11500—12500百万美元，均非全年实际。",
+      "unknown": "Q3按官方日历计划10月28日盘前发布，本轮没有Q3实际值。预付款结构、取消率、机构一致预期与当前估值未核。",
+      "impact": "供电需求有收入与现金流证据，不把预留档期当全部已确认收入，也不把7月Q3产能目标当10月已完成。",
+      "currency": "USD",
+      "unit": "million",
+      "revenue_musd": 11100,
+      "revenue_yoy_pct": 22,
+      "organic_yoy_pct": 12,
+      "operating_cash_flow_musd": 5500,
+      "net_income_musd": 600,
+      "orders_musd": 24200,
+      "backlog_rpo_musd": 176000,
+      "gas_backlog_plus_slot_reservations_gw": 116,
+      "gaap_eps": null,
+      "adjusted_eps": null,
+      "id": "GEV",
+      "label": "GEV · GE Vernova（摘要约数）",
+      "period_end": "2026-06-30",
+      "checked_on": "2026-10-20",
+      "sources": [
+        {
+          "title": "GE Vernova Q2官方结果",
+          "url": "https://www.gevernova.com/news/articles/ge-vernova-releases-second-quarter-2026-financial-results",
+          "date": "2026-07-22"
+        },
+        {
+          "title": "GEV Q3日历：10月28日盘前",
+          "url": "https://www.gevernova.com/news/press-releases/ge-vernova-announce-third-quarter-2026-financial-results-october-28",
+          "date": "2026-10-13"
+        }
+      ]
+    },
+    {
+      "announced": "2026-07-28",
+      "event_date": null,
+      "period": "2026-04-01至2026-06-30",
+      "stage": "公司已报告季度实际，旧披露补核",
+      "known": "Q2经营现金流为单季而非半年累计；递延收入与客户定金增加对现金流有贡献，应收及合同资产消耗现金。 原表千美元转百万：经营现金流226.432；递延收入/定金现金流贡献211.693，应收账款-101.372、合同资产-122.964。",
+      "guidance": "7月28日全年收入3900—4200百万美元、非GAAP EPS 2.55—2.85为当时指引，不是实现值。",
+      "unknown": "Q3按官方日历计划10月22日盘后发布，本轮没有Q3实际值。订单验收、机构一致预期与当前估值未核。",
+      "impact": "盈利及现金流转好有依据，但预收款不是已交付收入，不把经营现金流增加全归为现货回款；不据此重排全链评分。",
+      "currency": "USD",
+      "unit": "million",
+      "revenue_musd": 1065.365,
+      "revenue_yoy_pct": 165.5,
+      "organic_yoy_pct": null,
+      "gaap_eps": 0.62,
+      "adjusted_eps": 0.78,
+      "operating_cash_flow_musd": 226.432,
+      "gaap_operating_income_musd": 182.237,
+      "net_income_common_musd": 196.29,
+      "deferred_revenue_customer_deposits_cashflow_musd": 211.693,
+      "accounts_receivable_cashflow_musd": -101.372,
+      "contract_assets_cashflow_musd": -122.964,
+      "id": "BE",
+      "label": "BE · Bloom Energy",
+      "period_end": "2026-06-30",
+      "checked_on": "2026-10-20",
+      "sources": [
+        {
+          "title": "Bloom Q2公告及单季现金流量表（原表千美元）",
+          "url": "https://investor.bloomenergy.com/press-releases/press-release-details/2026/Bloom-Energy-Reports-Record-Second-Quarter-2026-Financial-Results-and-Raises-Full-Year-2026-Guidance/default.aspx",
+          "date": "2026-07-28"
+        },
+        {
+          "title": "Bloom Q3日历：10月22日盘后",
+          "url": "https://www.bloomenergy.com/news/bloom-energy-to-announce-third-quarter-2026-financial-results-on-october-22-2026/",
+          "date": "2026-10-12"
+        }
+      ]
     }
   ],
-  "pending":["本轮仅2家公司。GEV、BE、VST、CEG及其余原表公司仍需最近财季、订单验收、现金流和一致预期核对；截止日不因部分完成而顺延。","旧Q1评分、SA基金持仓、目标空间及历史市值未重算，移入历史区；本表不是新的全链排名。","各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。"]
+  "pending": [
+    "本表仅4家公司Q2。VST、CEG及其余原表公司仍待补；VRT/ETN未在本轮重审，Q3发布后逐家补实际值，旧10月9日积压不因未来日历而顺延。",
+    "旧Q1评分、SA基金持仓、目标空间及历史市值未重算，移入历史区；本表不是新的全链排名。",
+    "各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。"
+  ]
 }

@@ -1,13 +1,29 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-10-12",
+  "checked_on": "2026-10-20",
   "title": "客户部署：合同、工时与准确率不是一回事",
-  "scope": "本轮补证并去重，不把2024年合同和9月厂商披露写成10月新订单。未获客户逐班工时、干预率、收费或盈利明细，不能据此计算回本周期。",
+  "scope": "四条不同阶段证据，逐行列检查日：2024合同、2025客户试点、2026年9月厂商累计值及10月电池合作。只有后者为近期新公告；未来电池目标不是客户实测。不重算117家公司历史分数。",
   "columns": [
-    {"key": "label", "label": "证据"},
-    {"key": "period", "label": "发生日 / 观察期"},
-    {"key": "announced", "label": "公告日"},
-    {"key": "stage", "label": "证据性质"}
+    {
+      "key": "label",
+      "label": "证据"
+    },
+    {
+      "key": "period",
+      "label": "发生日 / 观察期"
+    },
+    {
+      "key": "announced",
+      "label": "公告日"
+    },
+    {
+      "key": "stage",
+      "label": "证据性质"
+    },
+    {
+      "key": "checked_on",
+      "label": "本条核验日"
+    }
   ],
   "rows": [
     {
@@ -18,7 +34,13 @@
       "known": "GXO公告在SPANX仓库部署Digit，任务为周转箱搬运。这是客户侧合同证据，不是只有机器人厂商演示。",
       "unknown": "该公告未提供2026年持续使用明细、收入确认、维护费用或停机率。",
       "impact": "商业合同存在可确认；合同存续不能替代本期客户验收和单位经济性。",
-      "sources": [{"title": "GXO 客户公告 2024-06-27", "url": "https://gxo.com/news_article/gxo-signs-industry-first-multi-year-agreement-with-agility-robotics/"}]
+      "sources": [
+        {
+          "title": "GXO 客户公告 2024-06-27",
+          "url": "https://gxo.com/news_article/gxo-signs-industry-first-multi-year-agreement-with-agility-robotics/"
+        }
+      ],
+      "checked_on": "2026-10-12"
     },
     {
       "label": "Agility / Digit 4 运行披露",
@@ -28,11 +50,75 @@
       "known": "Digit 4跨多个客户场地累计运行超过65000小时；GXO Flowery Branch累计搬运100000箱，执行任务时准确率约98%。",
       "unknown": "65000小时不是GXO单站工时；98%不是开机率、无干预率或安全事故率。未取得统一分母与客户审计。",
       "impact": "已有持续工作线索，但不能外推整机行业销量、投资回报或中国供应商收入；保留Digit 5条件订单和安全认证缺口。",
-      "sources": [{"title": "Agility Digit 5公告中的上一代运行披露 2026-09-15", "url": "https://www.agilityrobotics.com/content/agility-unveils-digit-5-humanoid-robot-built-for-cooperatively-safe-work-at-scale"}]
+      "sources": [
+        {
+          "title": "Agility Digit 5公告中的上一代运行披露 2026-09-15",
+          "url": "https://www.agilityrobotics.com/content/agility-unveils-digit-5-humanoid-robot-built-for-cooperatively-safe-work-at-scale"
+        }
+      ],
+      "checked_on": "2026-10-12"
+    },
+    {
+      "id": "bmw-figure02-customer-history",
+      "event_date": null,
+      "period": "2025年启动的十个月试点；精确起止日未提供",
+      "announced": "2026-02-27",
+      "stage": "客户历史运行披露，不是10月新增订单",
+      "metrics": {
+        "operating_hours_approx": 1250,
+        "components_moved_lower_bound": 90000,
+        "vehicles_supported_lower_bound": 30000,
+        "uptime_pct": null,
+        "paid_revenue": null
+      },
+      "known": "宝马客户原文披露Figure 02在车身焊接供料任务的工时和产出；实施中增加隔挡并改进5G覆盖。 十个月试点约1250运行小时、搬运超90000件、支持超30000辆X3；不是连续开机率。",
+      "unknown": "没有逐班停机、人工干预、维护成本、付款或验收明细。十小时班制不等于每天十小时有效工作。",
+      "impact": "补上客户侧使用证据，但不能从累计工时推算开机率或ROI。9月21日页面重复该历史试点，不计第二个样本。AEON段仍写4月/夏季计划，与页面日期混杂，不能据此确认新一轮量产验收。",
+      "label": "BMW / Figure 02 客户历史工时",
+      "checked_on": "2026-10-20",
+      "sources": [
+        {
+          "title": "宝马2026-02-27客户公告",
+          "url": "https://www.press.bmwgroup.com/belux/article/detail/T0455865DE/bmw-group-to-deploy-humanoid-robots-in-production-in-germany-for-the-first-time?language=de&showMedia=photo",
+          "date": "2026-02-27"
+        },
+        {
+          "title": "宝马9月页面，历史数字重复及计划日期混杂",
+          "url": "https://www.bmwgroup.com/en/news/general/2026/humanoid-robot-in-leipzig.html",
+          "date": "2026-09-21"
+        }
+      ]
+    },
+    {
+      "id": "agility-nyobolt-20261015",
+      "event_date": "2026-10-15",
+      "period": "合作于10月15日公告；早期供货目标2027H1",
+      "announced": "2026-10-15",
+      "stage": "厂商技术目标/计划",
+      "metrics": {
+        "claimed_runtime_minutes": 90,
+        "claimed_charge_minutes": 9,
+        "claimed_work_hours_per_day_lower_bound": 20,
+        "verified_customer_work_hours_per_day": null,
+        "recognized_revenue": null
+      },
+      "known": "10月15日指定电池合作方；90分钟运行/9分钟充电、每日超20小时为厂商对Digit 5的目标，不是客户实测。",
+      "unknown": "缺少当前客户按负载测试、衰减曲线、故障维修与实测有效工时；早期供应预计2027H1。",
+      "impact": "新增可验证的电池合作方，但90/9仅为运行充电比，不能写成今天客户利用率、已交付规模或供应商收入。不调整117家旧评分。",
+      "label": "Digit 5 / Nyobolt 未来电池目标",
+      "checked_on": "2026-10-20",
+      "sources": [
+        {
+          "title": "Agility / Nyobolt合作公告",
+          "url": "https://www.agilityrobotics.com/content/agility-robotics-selects-nyobolt-as-its-ultra-fast-charging-battery-technology-partner-for-digit-5",
+          "date": "2026-10-15"
+        }
+      ]
     }
   ],
   "pending": [
     "核对客户持续付费、有效工时、人工干预、停机维修和安全记录。",
-    "Digit 5附条件订单不计入收入；安全合作备忘录不等于独立认证；未来交付计划不等于当前交付。"
+    "Digit 5附条件订单不计入收入；安全合作备忘录不等于独立认证；未来交付计划不等于当前交付。",
+    "BMW缺逐班故障/干预、付费与验收；Nyobolt缺衰减、安全运维、客户负载测试和可归属收入，2027H1早期供货仍为计划。"
   ]
 }

@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-10-19T01:20:04.190434Z",
+  "generated_utc": "2026-10-20T01:20:09.173938Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 192088626,
-    "volume_usd": 41934158.0,
-    "as_of": "2026-10-18T02:06:58.473057Z",
+    "transactions": 192138259,
+    "volume_usd": 41936048.0,
+    "as_of": "2026-10-19T02:17:57.267496Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -116,10 +116,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-10-01",
-      "transactions": 192088626,
-      "volume_usd": 41934158.0,
-      "period_transactions": 2357721,
-      "period_volume_usd": 83741.0,
+      "transactions": 192138259,
+      "volume_usd": 41936048.0,
+      "period_transactions": 2407354,
+      "period_volume_usd": 85631.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -537,13 +537,15 @@ window.X402_DATA = {
       "transactions": 192088626,
       "volume_usd": 41934158.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-10-20",
+      "transactions": 192138259,
+      "volume_usd": 41936048.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-08-20",
-      "txs": 952531
-    },
     {
       "day": "2026-08-21",
       "txs": 859255
@@ -778,7 +780,11 @@ window.X402_DATA = {
     },
     {
       "day": "2026-10-18",
-      "txs": 39
+      "txs": 44652
+    },
+    {
+      "day": "2026-10-19",
+      "txs": 103
     }
   ],
   "market_24h": {
@@ -786,10 +792,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 3017979,
-    "volume_usd": 1119495.92,
-    "buyers": 36433,
-    "sellers": 38402
+    "transactions": 3032739,
+    "volume_usd": 1223516.28,
+    "buyers": 36108,
+    "sellers": 38383
   },
   "leader": {
     "name": "BlockRun",

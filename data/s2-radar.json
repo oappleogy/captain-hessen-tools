@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-21T07:34:09",
-  "data_as_of": "2026-10-20",
-  "data_lag_days": 1,
+  "timestamp": "2026-10-21T21:05:26",
+  "data_as_of": "2026-10-21",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
     "score": 0.167,
-    "action": "系统健康。建议仓位≤50%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统健康。建议仓位≤50%（趋势→），增加对冲，缩短持仓周期。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.28,
+      "score": 0.29,
       "state": "►",
       "light": "yellow",
       "note": "利差温和扩张，韧性开始消耗",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.36,
+      "score": 0.38,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -43,37 +43,37 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.05,
+      "score": 0.26,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★★★",
+      "confidence": "★★",
       "name_cn": "情绪反馈",
-      "status": "neutral"
+      "status": "healthy"
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.14,
+      "score": 0.0,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
-      "confidence": "★★★",
+      "confidence": "⚠",
       "name_cn": "市场协调",
       "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.04,
+      "score": 0.28,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.28,
+      "score": -0.27,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -124,7 +124,7 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
+    "moving_toward": "TECH_DOM",
     "safety_margin": 0.267,
     "early_warning": "无"
   },
@@ -147,19 +147,14 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 17.3,
-      "percentile": 63,
+      "value": 17.1,
+      "percentile": 50,
       "desc": "市场情绪正常"
     },
     "credit_spread": {
       "value": 3.29,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
-    },
-    "consumer": {
-      "value": 51.7,
-      "percentile": 14,
-      "desc": "普通人的消费信心接近三年最低，非常悲观"
     }
   }
 }

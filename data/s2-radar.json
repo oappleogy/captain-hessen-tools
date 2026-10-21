@@ -1,49 +1,49 @@
 {
-  "timestamp": "2026-10-21T21:05:26",
+  "timestamp": "2026-10-22T07:36:29",
   "data_as_of": "2026-10-21",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
-    "score": 0.167,
-    "action": "系统健康。建议仓位≤50%（趋势→），增加对冲，缩短持仓周期。"
+    "score": 0.333,
+    "action": "系统健康。建议仓位≤50%（趋势↑），增加对冲，缩短持仓周期。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
   "dim_lights": {
     "R": "yellow",
-    "I": "green",
+    "I": "yellow",
     "F": "yellow",
-    "C": "yellow",
-    "N": "yellow",
+    "C": "green",
+    "N": "green",
     "T": "yellow"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.29,
+      "score": -0.21,
       "state": "►",
       "light": "yellow",
       "note": "利差温和扩张，韧性开始消耗",
-      "confidence": "★★",
+      "confidence": "★",
       "name_cn": "信用韧性",
-      "status": "healthy"
+      "status": "stressed"
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.38,
-      "state": "▲",
-      "light": "green",
-      "note": "政策路径清晰，制度运行稳定",
-      "confidence": "★★",
+      "score": -0.06,
+      "state": "►",
+      "light": "yellow",
+      "note": "政策不确定性上升，规则可预测性下降",
+      "confidence": "★",
       "name_cn": "制度稳定",
-      "status": "healthy"
+      "status": "neutral"
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.26,
+      "score": 0.13,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,33 +53,33 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.0,
-      "state": "►",
-      "light": "yellow",
-      "note": "部分信号出现分化，协调性下降",
+      "score": 0.65,
+      "state": "▲",
+      "light": "green",
+      "note": "各维度信号一致，系统协调运行",
       "confidence": "⚠",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.28,
-      "state": "►",
-      "light": "yellow",
-      "note": "叙事出现分化或转向迹象",
+      "score": 0.35,
+      "state": "▲",
+      "light": "green",
+      "note": "叙事稳定，市场预期可预测",
       "confidence": "★★",
       "name_cn": "叙事共识",
       "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.27,
+      "score": -0.18,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
-      "confidence": "★★",
+      "confidence": "★",
       "name_cn": "技术动能",
-      "status": "stressed"
+      "status": "neutral"
     }
   },
   "attractor": {
@@ -124,8 +124,8 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "TECH_DOM",
-    "safety_margin": 0.267,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.433,
     "early_warning": "无"
   },
   "extremes": {
@@ -134,27 +134,22 @@
   },
   "opportunities": [],
   "contradiction": {
-    "type": "state_change",
-    "title": "系统状态改善：从轻度承压进入稳定期",
-    "thesis": "系统从轻度承压变为稳定期。主要拖累来自技术动能（-0.28），支撑来自制度稳定（+0.36）。",
-    "metaphor": "雨过天晴"
+    "type": "dimension_shift",
+    "title": "「市场协调」本周剧烈改善",
+    "thesis": "市场协调维度从+0.00变为+0.65，单周变化0.65，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "合唱在修复"
   },
   "allocation": {
     "short_term": "情绪面相对平稳，正常操作即可。",
-    "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
+    "mid_term": "谨慎。信用层出现压力，这意味着问题不只是情绪面的。减少风险敞口，增加防御性配置。",
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 17.1,
+      "value": 16.7,
       "percentile": 50,
       "desc": "市场情绪正常"
-    },
-    "credit_spread": {
-      "value": 3.29,
-      "percentile": 50,
-      "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     }
   }
 }

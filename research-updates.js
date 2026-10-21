@@ -76,7 +76,7 @@
     const panel = document.createElement('aside');
     panel.className = 'ru-panel ru-inline';
     panel.setAttribute('aria-label','专题研究时效与跟踪');
-    panel.innerHTML = `${heading(t)}<p><strong>以下原页面仍保留历史底稿。新证据不会自动重算旧表格、估值或排名。</strong></p><details class="ru-detail"${['robotics','woge','glass','sa','pvc','tsmc','power','optical','cips','capex-hub','capex-revenue'].includes(t.id) ? ' open' : ''}><summary>查看本次跟踪、待办与更新频率</summary>${details(t)}</details><p><a href="research-schedule.html#topic-${esc(t.id)}">查看全部专题更新计划</a></p>`;
+    panel.innerHTML = `${heading(t)}<p><strong>以下原页面仍保留历史底稿。新证据不会自动重算旧表格、估值或排名。</strong></p><details class="ru-detail"${['robotics','woge','glass','sa','pvc','tsmc','power','optical','cips','capex-hub','capex-revenue','ai-pharma','credit','mythos'].includes(t.id) ? ' open' : ''}><summary>查看本次跟踪、待办与更新频率</summary>${details(t)}</details><p><a href="research-schedule.html#topic-${esc(t.id)}">查看全部专题更新计划</a></p>`;
     document.body.prepend(panel);
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = {esc,status,sorted,today};

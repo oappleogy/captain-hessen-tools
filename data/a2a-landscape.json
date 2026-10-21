@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-20",
-  "last_checked_at": "2026-10-20T02:07:49.550261+00:00",
+  "as_of": "2026-10-21",
+  "last_checked_at": "2026-10-21T04:56:27.640026+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -768,6 +768,23 @@
       ],
       "checked_at": "2026-10-19",
       "adoption": "官方 Beta API 文档基线；未执行真实交易或验证生产规模"
+    },
+    {
+      "id": "adyen-agentic",
+      "name": "Adyen Agentic",
+      "participant": "Adyen",
+      "layer": "commerce",
+      "stage": "有接入文档",
+      "scope": "相邻：商户商品、结账与支付接入",
+      "capability": "像把商家的货架、购物车和收银台接给助手：已有 Feed、Cart 和 Payments 资料及商户接入指南。",
+      "source": "https://docs.adyen.com/online-payments/agentic-commerce/merchant",
+      "gap": "模块准入、地区、协议细项、专门费率和退款责任仍需逐项核验；未做真实交易实测。",
+      "related": [
+        "ucp",
+        "acp-commerce"
+      ],
+      "checked_at": "2026-10-21",
+      "adoption": "官方产品页引用 Sézane 部署评价；仅为厂商刊载客户证言，缺交易量、复购与净收入证据。"
     }
   ],
   "events": [
@@ -973,7 +990,7 @@
     {
       "name": "Circle / Stripe / Adyen / Checkout.com / Tempo",
       "layer": "payment",
-      "question": "Circle、Stripe、Checkout.com 已补公告/API基线；Checkout.com 标 Beta。准入、费率、退款与采用待查；Adyen 已发现官方产品文章，具体API与范围待查，Tempo独立产品继续排队。"
+      "question": "Circle、Stripe、Checkout.com、Adyen 已补公告/文档基线；Checkout.com 标 Beta。Adyen 已核验商户接入入口，模块准入、地区、API细项、费率与真实采用继续查；Tempo独立产品仍待核验。"
     },
     {
       "name": "OpenTelemetry / Langfuse / Phoenix / AgentOps",
@@ -1005,6 +1022,11 @@
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-21",
+      "status": "部分核验",
+      "note": "部分核验：比较10月20日记录，检索近7天支付与国内生态线索；A2A发布页Latest仍v1.0.1。补核Adyen 6月16日文章、产品页及商户文档，将其纳入参与者地图；文档无发布日期，不作为当日发布。厂商刊载客户证言不等于独立交易规模。未形成需通知的新重大事件，其他协议、SDK、国内平台与队列未全量核验。"
+    },
     {
       "date": "2026-10-20",
       "status": "部分核验与证据修订",
@@ -1187,7 +1209,8 @@
         "acp-commerce",
         "nevermined",
         "skyfire",
-        "stripe-machine"
+        "stripe-machine",
+        "adyen-agentic"
       ]
     }
   ],
@@ -1334,9 +1357,9 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。",
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。",
       "source": "",
-      "checked_at": "2026-10-16"
+      "checked_at": "2026-10-21"
     }
   ]
 }

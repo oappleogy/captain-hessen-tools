@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-21",
-  "last_checked_at": "2026-10-21T04:56:27.640026+00:00",
+  "as_of": "2026-10-22",
+  "last_checked_at": "2026-10-22T04:18:45.679467+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -785,6 +785,22 @@
       ],
       "checked_at": "2026-10-21",
       "adoption": "官方产品页引用 Sézane 部署评价；仅为厂商刊载客户证言，缺交易量、复购与净收入证据。"
+    },
+    {
+      "id": "0x-agent-payments",
+      "name": "0x 按次付费 API",
+      "participant": "0x",
+      "layer": "commerce",
+      "stage": "有接入文档",
+      "scope": "相邻：付费数字服务",
+      "capability": "像按次购买一份报价：助手可用 x402 或 MPP 付费取得兑换价格与报价数据，官方文档标价每请求 0.01 美元。",
+      "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments",
+      "gap": "API请求费用不等于兑换手续费或交易总成本；付费客户数、失败退款、净收入和利润未知，未执行实付。",
+      "related": [
+        "x402"
+      ],
+      "checked_at": "2026-10-22",
+      "adoption": "官方文档列出主网付费端点：x402 使用 Base/Solana USDC，MPP 使用 Tempo USDC.e；文档不等于已核实真实需求。"
     }
   ],
   "events": [
@@ -970,7 +986,7 @@
     {
       "name": "Higress / Spring AI Alibaba / AgentScope",
       "layer": "network",
-      "question": "HiMarket 上架指南已核验；Higress A2A 1.0 网关 PR #4650 当前仍 Open，跟踪合并、发布和兼容实测，不视为正式可用。"
+      "question": "HiMarket 上架指南已核验；Higress PR #4650 规范仓库缓存页仍Open（缓存10月20日），自述未发布镜像；实时合并状态、发布与兼容实测仍待核验。"
     },
     {
       "name": "支付宝 / Ant International",
@@ -1019,9 +1035,20 @@
       "layer": "operations",
       "question": "已读正文与方法：同一网址当前引用日期为10月19日，与此前10月18日索引快照不同；观测窗口、指纹口径有变化。蜜罐请求不等于真实攻击意图，暴露服务不等于受攻击；原始数据与独立复现待查。",
       "source": "https://research.opena2a.org/reports/state-of-ai-agent-security-2026-10"
+    },
+    {
+      "name": "0x 付费API与其他数字服务",
+      "layer": "commerce",
+      "question": "0x 已补主网端点与每请求价格文档；退款、失败重试计费、客户原文和持续付费量待查。新发现 Metaplex x402、Taria Pay 文档线索，尚未核验正文，不计入已核实项目。",
+      "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments"
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-22",
+      "status": "部分核验",
+      "note": "部分核验：比较10月21日记录，检索近7天支付与国内线索。A2A发布页仍Latest v1.0.1；AP2 FAQ存在SDK措辞不同段落，未据此推断新版本。补0x官方按次付费API及每请求$0.01价格，不是交易总成本或收入；发布日期未知，不作为今日发布。Higress旧组织路径读取失败，改读规范仓库缓存页仍为Open（缓存10月20日），PR自述未发布镜像，不视为正式可用。其他协议、SDK、国内平台与队列未全量覆盖；未确认需通知的新重大事件。"
+    },
     {
       "date": "2026-10-21",
       "status": "部分核验",
@@ -1210,7 +1237,8 @@
         "nevermined",
         "skyfire",
         "stripe-machine",
-        "adyen-agentic"
+        "adyen-agentic",
+        "0x-agent-payments"
       ]
     }
   ],
@@ -1357,9 +1385,9 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。",
-      "source": "",
-      "checked_at": "2026-10-21"
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。",
+      "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments",
+      "checked_at": "2026-10-22"
     }
   ]
 }

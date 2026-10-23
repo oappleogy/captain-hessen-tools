@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-10-21",
+  "inventory_checked_at": "2026-10-23",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -268,7 +268,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": "2026-10-16",
       "next_due": "2026-10-23",
       "review_state": "partial",
@@ -338,6 +338,10 @@
         {
           "date": "2026-10-21",
           "result": "线上仍为10月16日发布的W41，观察截至10月15日23:59 CST；下期10月23日未到期，不重复生成。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "线上仍为10月16日发布W41，观察截至10月15日23:59 CST；当前为23日上午，既有18:30独立任务尚未到运行时点，不重复生成或提前验收。"
         }
       ]
     },
@@ -349,7 +353,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-06",
-      "last_checked": "2026-10-16",
+      "last_checked": "2026-10-23",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -372,6 +376,17 @@
         {
           "date": "2026-10-16",
           "result": "公开机器人股吧可读，但检索返回旧缓存，日期缺年且非本周；未获得固定时间窗多标的去重样本，旧6月情绪分数不更新，不用搜索数量替代样本。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "新易盛公开列表可读到10月23日标题，含普通发帖、资讯、转载与旧置顶混排；最后更新时间不是原始发帖时间。尚未完成固定时间窗、多标的去重和作者分层，不据首页情绪替换6月评分。",
+          "sources": [
+            {
+              "title": "新易盛公开股吧列表",
+              "url": "https://guba.eastmoney.com/list,300502.html",
+              "date": "动态列表，无单一公告日"
+            }
+          ]
         }
       ]
     },
@@ -383,7 +398,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-06",
-      "last_checked": "2026-10-16",
+      "last_checked": "2026-10-23",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -405,6 +420,17 @@
         {
           "date": "2026-10-16",
           "result": "公开机器人搜索页未返回可解析内容；未获得有效本周样本，不绕过访问限制，不据此断言Cookie过期。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "公开机器人搜索页读取仍无可解析正文；没有可比评论样本，旧6月比例不更新；未绕过登录/风控，也不推断Cookie原因。",
+          "sources": [
+            {
+              "title": "公开机器人检索入口",
+              "url": "https://www.douyin.com/search/%E6%9C%BA%E5%99%A8%E4%BA%BA",
+              "date": "动态页面"
+            }
+          ]
         }
       ]
     },
@@ -417,8 +443,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-24",
-      "last_checked": "2026-10-20",
-      "last_research_update": "2026-10-20",
+      "last_checked": "2026-10-23",
+      "last_research_update": "2026-10-23",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -429,7 +455,7 @@
         "quarterly": "财报后2日：逐公司滚动替换Q1底稿；当季20日检查披露日历"
       },
       "pending": [
-        "已补VRT、ETN、GEV、BE的Q2实际；VST、CEG及其余公司、四家后续财季仍待跟进。GEV/BE公告日历不能代替Q3实际结果。",
+        "新增BE Q3，其余三家公司仍为Q2；VRT Q3计划10月28日、ETN 11月3日盘前（美国当地日期），GEV既有日历10月28日。VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
         "机构一致预期、原Q1评分、SA持仓及估值未重算；新证据不是20多家公司全量更新，截止日保持可见。"
       ],
       "updates": [
@@ -491,6 +517,21 @@
               "date": "2026-10-12"
             }
           ]
+        },
+        {
+          "date": "2026-10-23",
+          "title": "Bloom Q3已披露：收入增长与回款分化",
+          "body": "新增Q3初步业绩行，保留四条Q2历史。单季收入增长但经营现金流转负，应收/合同资产占款与客户定金分列；全年指引不是实际结果，未核一致预期，不重排旧评分。",
+          "source_period": "2026年7—9月；10月22日美国当地公告；10月23日核验",
+          "sources": [
+            {
+              "title": "Bloom Q3官方初步业绩及单季现金流表",
+              "url": "https://investor.bloomenergy.com/press-releases/press-release-details/2026/Bloom-Energy-Reports-Record-Third-Quarter-2026-Financial-Results-and-Raises-Full-Year-2026-Guidance/default.aspx",
+              "date": "2026-10-22"
+            }
+          ],
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-22"
         }
       ],
       "checks": [
@@ -507,6 +548,22 @@
               "title": "Bloom Q3日历：10月22日盘后",
               "url": "https://www.bloomenergy.com/news/bloom-energy-to-announce-third-quarter-2026-financial-results-on-october-22-2026/",
               "date": "2026-10-12"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-23",
+          "result": "已核Bloom新季报及表内单季口径；VRT/ETN仅核未来披露日历，不把Q2行检查日整体刷新。",
+          "sources": [
+            {
+              "title": "Vertiv Q3计划10月28日盘前",
+              "url": "https://investors.vertiv.com/news/news-details/2026/Vertiv-Announces-Date-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/",
+              "date": "2026-10-14"
+            },
+            {
+              "title": "Eaton Q3计划11月3日盘前",
+              "url": "https://origin-edge.eaton.com/us/en-us/company/investor-relations/financial-presentations-webcasts.html",
+              "date": "网页未标发布日期"
             }
           ]
         }
@@ -661,7 +718,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -704,6 +761,10 @@
         {
           "date": "2026-10-21",
           "result": "21日01:20UTC产物与线上一致；本轮只验收发布，不重审交易真实性、统计窗或来源方法。原指标核验积压保留。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "23日01:20UTC产物已上线；累计指标as_of仍21日02:28UTC，滚动30日未给精确截止。发布新不等于交易窗新，付费真实性与目录旧值仍待核，原截止不动。"
         }
       ]
     },
@@ -716,9 +777,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": null,
-      "next_due": "2026-10-22",
+      "next_due": "2026-10-24",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -759,6 +820,10 @@
         {
           "date": "2026-10-21",
           "result": "21日独立产物及部分核验记录与线上一致：新增Adyen公开材料，不把历史文章当今日发布；只完成运行/发布验收，SDK、国内平台及生产采用仍非全量覆盖。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "23日独立产物及部分核验记录与线上一致：补Metaplex历史文档，未证实实时价格、实付或退款；只完成独立任务运行与发布验收，不宣称全部协议/生产采用已核。"
         }
       ]
     },
@@ -863,8 +928,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-20",
-      "last_research_update": "2026-10-20",
+      "last_checked": "2026-10-23",
+      "last_research_update": "2026-10-23",
       "next_due": "2026-10-13",
       "review_state": "partial",
       "owner": "专题维护",
@@ -876,7 +941,7 @@
       },
       "pending": [
         "旧四巨头模型及压力测试未完整重算；新证据不能与旧总量直接相加。",
-        "事件跟进：Meta 10月21日、微软10月28日、Amazon10月29日（美国当地日期），各自发布后2日核对；未完成的旧任务不被此日历替代。"
+        "Meta Q3已核；微软10月28日、Amazon10月29日（美国当地日）披露后2日跟进。旧全量模型未重算，10月13日积压不顺延。"
       ],
       "updates": [
         {
@@ -909,6 +974,21 @@
               "date": "2026-07-29"
             }
           ]
+        },
+        {
+          "date": "2026-10-23",
+          "title": "Meta Q3现金投入超过经营现金流",
+          "body": "单位百万美元：PP&E支付33942，加融资租赁本金964，合计Capex 34906；经营现金流32786，自由现金流-2120。全年Capex指引收窄至1350—1450亿美元，非全年实际。分析：现金支出压力增加，但支出非全部AI、亦非全部已投运；不与其他巨头异口径总量相加。",
+          "source_period": "2026年7—9月实际；全年为预测；10月21日公告",
+          "sources": [
+            {
+              "title": "Meta Q3官方业绩及现金流调节表",
+              "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+              "date": "2026-10-21"
+            }
+          ],
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-21"
         }
       ],
       "checks": [
@@ -943,8 +1023,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-03",
-      "last_checked": "2026-10-20",
-      "last_research_update": "2026-10-20",
+      "last_checked": "2026-10-23",
+      "last_research_update": "2026-10-23",
       "next_due": "2026-10-13",
       "review_state": "partial",
       "owner": "专题维护",
@@ -955,7 +1035,7 @@
       },
       "pending": [
         "旧页面的总投入和模型公司收入仍是历史假设；应先重建可比口径再重算倍数。",
-        "事件跟进：Meta 10月21日、微软10月28日、Amazon10月29日（美国当地日期），各自发布后2日核对；未完成的旧任务不被此日历替代。"
+        "Meta Q3已核；微软10月28日、Amazon10月29日（美国当地日）披露后2日跟进。旧全量模型未重算，10月13日积压不顺延。"
       ],
       "updates": [
         {
@@ -988,6 +1068,21 @@
               "date": "2026-07-29"
             }
           ]
+        },
+        {
+          "date": "2026-10-23",
+          "title": "Meta收入兑现不等于AI单独回报率",
+          "body": "Q3营收646.01亿美元，同比26%；营业利润129.88亿美元、利润率20%，包含98.9亿美元诉讼费用。广告/推荐改善不能全部归为可独立计量的AI收入。分析：收入增长与现金消耗同时存在，诉讼费用也不能当AI经营成本；旧投入/收入倍数不重算，尚缺可归属AI收入、生命周期成本及其他公司可比口径。",
+          "source_period": "2026年7—9月；公告10月21日，未经审计季报新闻稿",
+          "sources": [
+            {
+              "title": "Meta Q3官方业绩及现金流调节表",
+              "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+              "date": "2026-10-21"
+            }
+          ],
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-21"
         }
       ],
       "checks": [
@@ -1043,7 +1138,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": "2026-10-21",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1131,6 +1226,10 @@
         {
           "date": "2026-10-21",
           "result": "21日新闻产物可读，最新事件18日为公共利益基金，不是Cyber Mission发布日；本轮核验三项原文，未全审时间轴。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "23日产物可用，时间轴最新事件18日；本次未重审事件原文，研究日保留21日。"
         }
       ]
     },
@@ -1254,7 +1353,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": "2026-10-08",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -1322,6 +1421,10 @@
         {
           "date": "2026-10-21",
           "result": "产物10月20日、检查21日；正式讨论10月8日，ONI JAS26，SST 14OCT2026，SOI仍五月、MEI仍AM2026。外层新不代表四指标全新，未改旧窗口与概率。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "外层内容日期20日、检查23日；discussion仍8日，ONI JAS26、SST14OCT2026、SOI五月、MEI四至五月各自保留。概率forecast_as_of为空，不用外层新时间掩盖内层旧值。"
         }
       ]
     },
@@ -1333,7 +1436,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-20",
+      "last_checked": "2026-10-23",
       "last_research_update": "2026-10-08",
       "next_due": "2026-10-19",
       "review_state": "partial",
@@ -1343,7 +1446,7 @@
         "quarterly": "季度：支付、融资与储备份额分别复核"
       },
       "pending": [
-        "本轮找到九月报告（统计八月），未完整重建历史序列；旧四月图表仍标历史。"
+        "十月期已见官方索引，PDF正文/统计窗未核；需补新期数据与历史序列，原四月图表保持历史。"
       ],
       "updates": [
         {
@@ -1376,6 +1479,17 @@
               "date": "2026-09-17"
             }
           ]
+        },
+        {
+          "date": "2026-10-23",
+          "result": "官方搜索索引已出现十月期、标10月22日更新；直接读取目录返回403，解析缓存仍是九月。未取得十月PDF正文与统计窗，不能称未发布，也不补造九月占比；保留旧研究日及10月19日截止。",
+          "sources": [
+            {
+              "title": "SWIFT十月期已见官方搜索索引，正文待取",
+              "url": "https://www.swift.com/products/global-currency-tracker/document-centre?sort%5Bfield_last_updated%5D=DESC&tl=en",
+              "date": "索引标2026-10-22"
+            }
+          ]
         }
       ]
     },
@@ -1387,8 +1501,8 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-20",
-      "last_research_update": "2026-10-20",
+      "last_checked": "2026-10-23",
+      "last_research_update": "2026-10-23",
       "next_due": "2026-10-19",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1397,7 +1511,7 @@
         "quarterly": "季度：参与者、网络扩展与制度变化"
       },
       "pending": [
-        "已补八月底参与者；九月运营统计、当前参与者与旧地域分布仍待复核，不能把八月数改称今日。"
+        "已补九月运营统计及日均口径；当前参与者、旧地域分布与历史图表仍未完整重建，10月19日截止保留。"
       ],
       "updates": [
         {
@@ -1425,6 +1539,26 @@
               "date": "2026-09-04"
             }
           ]
+        },
+        {
+          "date": "2026-10-23",
+          "title": "九月月报补齐：总量增长不等于日均笔数增长",
+          "body": "九月865045笔、225893.6亿元；日均37611笔、9821.5亿元，官方工作日23天。相比八月21天，金额环比约16.43%，日均金额约6.31%，日均笔数约-0.18%（按表内舍入值计算）。1—9月官网概况为688.8万笔/162.3万亿元。分析：需剔除工作日数量影响，不能据总量推人民币全球份额；当前参与者及地域分布仍未补齐。",
+          "source_period": "2026-09对比2026-08；官网未标首次发布日期，10月23日核验；PDF目录2025-12不是报告观察期",
+          "sources": [
+            {
+              "title": "CIPS官方业务概况（九月统计）",
+              "url": "https://www.cips.com.cn/kjjqgs/cipsfw/",
+              "date": "首次发布日期未标"
+            },
+            {
+              "title": "CIPS当年统计表（官网当前链接，单位笔/亿元）",
+              "url": "https://www.cips.com.cn/kjjqgs/articleFileDir/2025-12/05/c1ed77e02af749fb87cfb17484f9efb6.pdf",
+              "date": "首次发布日期未标；URL目录不是统计年份"
+            }
+          ],
+          "event_date": "2026-09-30",
+          "announced_on": null
         }
       ],
       "checks": [
@@ -1442,7 +1576,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": "2026-10-21",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1502,6 +1636,10 @@
         {
           "date": "2026-10-21",
           "result": "21日新闻产物可读，最新新闻事件仍10月2日；本轮另补ARCC Q2原文，其他事件不冒称已补。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "23日产物可用，时间轴最新事件仍2日；21日ARCC季度补核不等于新闻流恢复，本次不推进研究日或截止。"
         }
       ]
     },
@@ -1551,7 +1689,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1594,6 +1732,10 @@
         {
           "date": "2026-10-21",
           "result": "21日自动产物与线上一致；仅运行检查，内部报价及库存分别按原记录日期阅读，未重估全部价差。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "23日产物HTTP可用且与当前公开仓一致；未逐品种核验报价和库存观察期，不将产物时间算成全专题研究更新。"
         }
       ]
     },
@@ -1670,8 +1812,8 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-05-05",
-      "last_checked": "2026-10-16",
-      "last_research_update": "2026-10-16",
+      "last_checked": "2026-10-23",
+      "last_research_update": "2026-10-23",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1682,9 +1824,9 @@
         "quarterly": "财报披露后2日：正式NAV、组合退出与现金流；初步估计单列，不能充当最终财报"
       },
       "pending": [
-        "ARKVX Class D与XOVR有效NAV、USVC更晚交易NAV仍缺；VCX/DXYZ/NSLR本轮未重新更新，不称九只最新净值已齐。",
-        "补各基金实际费用、份额稀释、回购执行及底层退出；披露日未确认者保持空值。",
-        "观察日不同不横比套利；RONB显示值舍入导致复算0.00%与官网-0.01%不同，保留差异说明。"
+        "ARKVX/XOVR有效NAV与USVC更晚交易NAV仍缺，RVI等四项本轮未重审；不称九只最新净值已齐。",
+        "VCX/DXYZ缺更新同日价格及NAV；NSLR待正式Q3与可比价格，初估不替代已报NAV。",
+        "补费用、份额稀释、回购执行及底层退出；异日不横比套利、舍入值不是无风险价差。"
       ],
       "updates": [
         {
@@ -1747,6 +1889,36 @@
               "date": "首次披露日未确认；10月16日读取"
             }
           ]
+        },
+        {
+          "date": "2026-10-23",
+          "title": "两只ETF日净值更新，并补NSLR退出亏损",
+          "body": "RONB/AGIX同日净值和价格更新至10月22日，旧快照存档；NSLR初估保持独立提示，新增Learneo退出亏损及流动资产口径。VCX仍保留9月8日SEC快照，DXYZ官网仍指向6月底。缺失不填0，不用自媒体估算NAV刷新折溢价。",
+          "source_period": "ETF日值2026-10-22；NSLR退出9月21日、公告10月5日；其他基金各行日期保留",
+          "sources": [
+            {
+              "title": "RONB官方日净值/价格及分日期持仓",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+              "date": "首次披露日未标；日值2026-10-22"
+            },
+            {
+              "title": "AGIX官方日净值与市场价",
+              "url": "https://kraneshares.com/etf/agix/",
+              "date": "首次披露日未标；日值2026-10-22"
+            },
+            {
+              "title": "NSLR Q3初步组合更新与退出明细",
+              "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-announces-third-quarter-2026-preliminary",
+              "date": "2026-10-05"
+            },
+            {
+              "title": "DXYZ官网：明确截至六月底的报告口径",
+              "url": "https://destiny.xyz/tech100",
+              "date": "页面未标首次发布日期"
+            }
+          ],
+          "event_date": null,
+          "announced_on": null
         }
       ]
     },
@@ -1884,7 +2056,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "原页静态快照",
-      "last_checked": "2026-10-16",
+      "last_checked": "2026-10-23",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -1908,6 +2080,22 @@
         {
           "date": "2026-10-16",
           "result": "10月16日OKX/Bitget的TSLA公开资金费率接口成功；OKX相邻结算时间差8小时、Bitget明确返回fundingRateInterval=8。仅单品种抽查，不是全市场验证；Binance此前地区限制本轮未绕过或重试，静态8小时默认值仍待全量处理。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "10月23日02:35UTC单品种抽查：OKX TSLA响应ts=02:35:31Z，相邻结算时间间隔8小时；Bitget返回fundingRateInterval=8、请求时间02:35:42Z。HTTP及业务码成功。仅验证两个接口，未全量核上市名单、保证金及浏览器CORS；Binance既有地区限制未绕过。",
+          "sources": [
+            {
+              "title": "OKX TSLA公开资金费率",
+              "url": "https://www.okx.com/api/v5/public/funding-rate?instId=TSLA-USDT-SWAP",
+              "date": "2026-10-23快照"
+            },
+            {
+              "title": "Bitget TSLA公开资金费率",
+              "url": "https://api.bitget.com/api/v2/mix/market/current-fund-rate?productType=USDT-FUTURES&symbol=TSLAUSDT",
+              "date": "2026-10-23快照"
+            }
+          ]
         }
       ]
     },
@@ -1961,7 +2149,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-10-15已审计快照",
-      "last_checked": "2026-10-21",
+      "last_checked": "2026-10-23",
       "last_research_update": null,
       "next_due": "2026-10-19",
       "review_state": "pipeline",
@@ -1989,6 +2177,10 @@
         {
           "date": "2026-10-21",
           "result": "线上仍为10月14日生成/观测，覆盖40702/463417，约8.78%；未取得更新后的完整观测。保留10月19日截止，不把可访问当采集恢复。"
+        },
+        {
+          "date": "2026-10-23",
+          "result": "公开摘要仍14日生成、观察截止14日20:54UTC；本次只验可访问与仓库一致，未完成周一完整复核，19日积压保持。"
         }
       ]
     }

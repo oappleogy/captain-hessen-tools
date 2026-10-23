@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "earnings",
   "title": "供电链财报增量：实际兑现与指引分开",
-  "checked_on": "2026-10-20",
-  "scope": "四家Q2实际结果，不是10月经营实况。VRT/ETN保留10月9日核验，新增GEV/BE于10月20日复核。营收与现金流：百万美元；EPS：美元/股。GEV摘要为十亿美元取整后换算，EPS缺失不填0；机构预期未核，不计算双超预期分数。",
+  "checked_on": "2026-10-23",
+  "scope": "四家公司、五条财季记录：新增Bloom Q3初步实际结果，原四条Q2保留各自核验日，历史行中的预测仅代表当时认知。营收/现金流为百万美元，EPS为美元/股；缺机构一致预期，不算双超预期或新排名。",
   "columns": [
     {
       "key": "label",
@@ -175,10 +175,41 @@
           "date": "2026-10-12"
         }
       ]
+    },
+    {
+      "id": "BE-2026Q3",
+      "label": "BE · Bloom Energy（Q3初步）",
+      "period_end": "2026-09-30",
+      "period": "2026-07-01至2026-09-30",
+      "announced": "2026-10-22",
+      "checked_on": "2026-10-23",
+      "stage": "公司初步、未经审计季度实际；非完整10-Q",
+      "currency": "USD",
+      "unit": "million",
+      "revenue_musd": 1235.837,
+      "revenue_yoy_pct": 138.1,
+      "organic_yoy_pct": null,
+      "gaap_eps": 0.78,
+      "adjusted_eps": 0.94,
+      "operating_cash_flow_musd": -27.147,
+      "contract_assets_cashflow_musd": -430.348,
+      "accounts_receivable_cashflow_musd": -175.235,
+      "deferred_revenue_customer_deposits_cashflow_musd": 309.333,
+      "known": "单季经营现金流-27.147百万美元；应收与合同资产分别占用175.235/430.348百万，递延收入及定金贡献309.333百万。原表千美元已除1000。",
+      "guidance": "全年收入4400—4600百万美元、非GAAP EPS 3.10—3.40是10月22日指引，不是实现值。",
+      "unknown": "结果为初步且未经审计；合同资产转回款、客户验收、取消条款与机构一致预期仍未核全。",
+      "impact": "收入增长不代表现金同步回收。相较Q2正现金流，本季营运资本压力增加；继续验证回款，不据收入增速上调旧全链评分。",
+      "sources": [
+        {
+          "title": "Bloom Q3官方初步业绩及单季现金流表",
+          "url": "https://investor.bloomenergy.com/press-releases/press-release-details/2026/Bloom-Energy-Reports-Record-Third-Quarter-2026-Financial-Results-and-Raises-Full-Year-2026-Guidance/default.aspx",
+          "date": "2026-10-22"
+        }
+      ]
     }
   ],
   "pending": [
-    "本表仅4家公司Q2。VST、CEG及其余原表公司仍待补；VRT/ETN未在本轮重审，Q3发布后逐家补实际值，旧10月9日积压不因未来日历而顺延。",
+    "新增BE Q3，其余三家公司仍为Q2；VRT Q3计划10月28日、ETN 11月3日盘前（美国当地日期），GEV既有日历10月28日。VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
     "旧Q1评分、SA基金持仓、目标空间及历史市值未重算，移入历史区；本表不是新的全链排名。",
     "各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。"
   ]

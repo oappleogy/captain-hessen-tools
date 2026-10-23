@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "nav",
   "title": "已核验的 NAV 与同日价格快照",
-  "checked_on": "2026-10-16",
-  "scope": "九只产品均列出核验状态，不等于九只净值都已更新。VCX/DXYZ/NSLR保留10月9日核验快照；本轮补RVI、USVC历史披露及RONB/AGIX日值，ARKVX/XOVR数值缺失。金额美元/份，报价与净值同日才计算折溢价；四舍五入可能与官方高精度结果不同。披露日未知留空，不拿检查日代替。",
+  "checked_on": "2026-10-23",
+  "scope": "九只产品分行保留观察期及检查日。RONB/AGIX更新至10月22日；VCX/DXYZ/NSLR本轮复核仍为历史NAV，NSLR另有Q3初估与退出明细。RVI/ARKVX/USVC/XOVR保留10月16日状态，不能称九只均已更新。仅同日有效价格/NAV计算折溢价，披露日未知留空。",
   "columns": [
     {
       "key": "label",
@@ -53,7 +53,7 @@
       "announced": "2026-09-09",
       "current_price": null,
       "known": "9月9日招股补充文件同时披露9月8日每份NAV和收盘价。10亿美元ATM是可发行上限，不是已募集金额。",
-      "unknown": "本轮未核验10月8日收盘价、更晚NAV及ATM实际发行数量。",
+      "unknown": "10月23日重读9月9日SEC补充文件，未取得更新NAV及可比同日价格，保留9月8日快照；不能以自媒体前瞻NAV或异日行情替代。",
       "impact": "原页626%溢价不能再作为当前结论；本表约75.67%也是9月8日的历史快照，不能据此推断今日套利空间。",
       "sources": [
         {
@@ -61,7 +61,7 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1867090/000121390026098534/ea0303702-01_424b2.htm"
         }
       ],
-      "checked_on": "2026-10-09"
+      "checked_on": "2026-10-23"
     },
     {
       "id": "DXYZ",
@@ -74,7 +74,7 @@
       "announced": "2026-08-28",
       "current_price": null,
       "known": "半年报列示6月30日NAV 34.30与期末市价25.76；期初NAV为19.93，修正旧底稿19.97的记录。财务报表为未经审计半年报。",
-      "unknown": "尚未核验10月行情及9月末完整NAV；私募资产估值不等于可立即退出的现金。",
+      "unknown": "10月23日官网仍明确NAV及组合截至6月30日，行情栏为0.00占位，不视作市价归零；本轮未取得九月底正式NAV与同日价格。",
       "impact": "6月30日为约24.90%折价，不是五月底稿的89%溢价；两者不是同一观察期，不可拼成同日横向套利。",
       "sources": [
         {
@@ -84,9 +84,14 @@
         {
           "title": "SEC 申报日期与观察期",
           "url": "https://www.sec.gov/Archives/edgar/data/1843974/000121390026095201/0001213900-26-095201-index.html"
+        },
+        {
+          "title": "DXYZ官网：明确截至六月底的报告口径",
+          "url": "https://destiny.xyz/tech100",
+          "date": "页面未标首次发布日期"
         }
       ],
-      "checked_on": "2026-10-09"
+      "checked_on": "2026-10-23"
     },
     {
       "id": "NSLR",
@@ -105,9 +110,9 @@
         "announced": "2026-10-05",
         "status": "management_estimate"
       },
-      "known": "SuRo于7月1日更名Neostellar，代码由SSSS变NSLR；7月15日起改为外部管理。Q2已披露NAV 13.44；Q3管理层初估12.25—12.75，正式结果预计11月公布。",
-      "unknown": "Q3初估未经审计、审阅或会计师程序，不是正式结果；本轮缺少匹配价格，不计算折溢价。",
-      "impact": "旧SSSS代码及5月12日催化已过时。应跟踪外部管理费用、融资稀释、估值变动与退出回款，不把旧13—15预测当成已实现NAV。",
+      "known": "Q2 NAV 13.44保留；Q3 12.25—12.75为管理层初估。10月5日公告另披露9月21日Learneo退出净回款940万美元、已实现亏损560万美元；季末流动资产4220万美元包含现金及不受限制上市证券，并非全为现金。",
+      "unknown": "Q3初估未经审计或审阅，公告预计11月给正式结果；缺少同日价格及更晚完整估值。",
+      "impact": "新增真实退出亏损的反证：有退出不等于盈利，组合估值不等于现金回收；不把初估写入正式NAV或清除旧积压。",
       "sources": [
         {
           "title": "公司更名及管理结构公告 · 2026-07-21",
@@ -122,7 +127,7 @@
           "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-announces-third-quarter-2026-preliminary"
         }
       ],
-      "checked_on": "2026-10-09"
+      "checked_on": "2026-10-23"
     },
     {
       "id": "RVI",
@@ -223,49 +228,97 @@
     {
       "id": "RONB",
       "label": "RONB · Baron First Principles ETF",
-      "nav": 24.58,
-      "nav_date": "2026-10-15",
+      "nav": 24.73,
+      "nav_date": "2026-10-22",
       "nav_status": "reported",
-      "price": 24.58,
-      "price_date": "2026-10-15",
+      "price": 24.74,
+      "price_date": "2026-10-22",
       "announced": null,
-      "known": "官网10月15日NAV及市场价均四舍五入为24.58；其高精度折溢价栏为-0.01%。另列持仓观察日10月14日，Space Exploration Technologies为40.25%，Tesla为8.56%；净资产规模观察期为9月30日。",
-      "unknown": "未获取未四舍五入NAV和价格，不能把复算0.00%解释为完全平价；持仓与价格不是同日，不由此反推买卖行为。",
-      "impact": "旧SpaceX 7.7%、Tesla 14.4%与23.18价格不能继续当当前敞口；关注集中度变化，但不能只凭权重推断主动增持或基金收益。",
+      "known": "10月22日NAV/市价24.73/24.74美元，官网溢价0.04%。持仓为10月21日：Space Exploration Technologies 40.39%、Tesla 8.61%；净资产规模仍为9月30日。",
+      "unknown": "显示价格经过舍入；不同日期的规模、持仓与价格不能拼算交易量或主动增减持。",
+      "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
       "sources": [
         {
-          "title": "RONB官方净值、价格及持仓分日期页面",
-          "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb"
+          "title": "RONB官方日净值/价格及分日期持仓",
+          "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+          "date": "首次披露日未标；日值2026-10-22"
         }
       ],
-      "checked_on": "2026-10-16",
-      "current_price": null
+      "checked_on": "2026-10-23",
+      "current_price": null,
+      "history": [
+        {
+          "id": "RONB",
+          "label": "RONB · Baron First Principles ETF",
+          "nav": 24.58,
+          "nav_date": "2026-10-15",
+          "nav_status": "reported",
+          "price": 24.58,
+          "price_date": "2026-10-15",
+          "announced": null,
+          "known": "官网10月15日NAV及市场价均四舍五入为24.58；其高精度折溢价栏为-0.01%。另列持仓观察日10月14日，Space Exploration Technologies为40.25%，Tesla为8.56%；净资产规模观察期为9月30日。",
+          "unknown": "未获取未四舍五入NAV和价格，不能把复算0.00%解释为完全平价；持仓与价格不是同日，不由此反推买卖行为。",
+          "impact": "旧SpaceX 7.7%、Tesla 14.4%与23.18价格不能继续当当前敞口；关注集中度变化，但不能只凭权重推断主动增持或基金收益。",
+          "sources": [
+            {
+              "title": "RONB官方净值、价格及持仓分日期页面",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb"
+            }
+          ],
+          "checked_on": "2026-10-16",
+          "current_price": null
+        }
+      ]
     },
     {
       "id": "AGIX",
       "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
-      "nav": 45.73,
-      "nav_date": "2026-10-14",
+      "nav": 43.14,
+      "nav_date": "2026-10-22",
       "nav_status": "reported",
-      "price": 45.53,
-      "price_date": "2026-10-14",
+      "price": 42.91,
+      "price_date": "2026-10-22",
       "announced": null,
-      "known": "官网日值观察日10月14日，NAV 45.73、市场价45.53；按显示值复算折价约0.44%，不是旧表默认0%。月度/季度收益观察日9月30日，不能和日值混为一期。",
-      "unknown": "本轮未核验10月15日/16日更新及全部私募持仓估值；官网历史溢折价天数表存在季度天数异常，不采纳该统计。",
-      "impact": "由“数据待补”恢复一个有明确日期的官方报价快照；不将约0.44%折价视作无风险套利或未来收益。",
+      "known": "10月22日NAV/市价43.14/42.91美元，按显示值复算折价约0.53%；季度收益观察日仍9月30日。",
+      "unknown": "历史折溢价天数表仍含异常季度天数，不采纳；全部底层私募资产估值未逐项核验。",
+      "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
       "sources": [
         {
-          "title": "AGIX官方日净值与市场价格",
-          "url": "https://kraneshares.com/etf/agix/"
+          "title": "AGIX官方日净值与市场价",
+          "url": "https://kraneshares.com/etf/agix/",
+          "date": "首次披露日未标；日值2026-10-22"
         }
       ],
-      "checked_on": "2026-10-16",
-      "current_price": null
+      "checked_on": "2026-10-23",
+      "current_price": null,
+      "history": [
+        {
+          "id": "AGIX",
+          "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
+          "nav": 45.73,
+          "nav_date": "2026-10-14",
+          "nav_status": "reported",
+          "price": 45.53,
+          "price_date": "2026-10-14",
+          "announced": null,
+          "known": "官网日值观察日10月14日，NAV 45.73、市场价45.53；按显示值复算折价约0.44%，不是旧表默认0%。月度/季度收益观察日9月30日，不能和日值混为一期。",
+          "unknown": "本轮未核验10月15日/16日更新及全部私募持仓估值；官网历史溢折价天数表存在季度天数异常，不采纳该统计。",
+          "impact": "由“数据待补”恢复一个有明确日期的官方报价快照；不将约0.44%折价视作无风险套利或未来收益。",
+          "sources": [
+            {
+              "title": "AGIX官方日净值与市场价格",
+              "url": "https://kraneshares.com/etf/agix/"
+            }
+          ],
+          "checked_on": "2026-10-16",
+          "current_price": null
+        }
+      ]
     }
   ],
   "pending": [
-    "ARKVX Class D与XOVR有效NAV、USVC更晚交易NAV仍缺；VCX/DXYZ/NSLR本轮未重新更新，不称九只最新净值已齐。",
-    "补各基金实际费用、份额稀释、回购执行及底层退出；披露日未确认者保持空值。",
-    "观察日不同不横比套利；RONB显示值舍入导致复算0.00%与官网-0.01%不同，保留差异说明。"
+    "ARKVX/XOVR有效NAV与USVC更晚交易NAV仍缺，RVI等四项本轮未重审；不称九只最新净值已齐。",
+    "VCX/DXYZ缺更新同日价格及NAV；NSLR待正式Q3与可比价格，初估不替代已报NAV。",
+    "补费用、份额稀释、回购执行及底层退出；异日不横比套利、舍入值不是无风险价差。"
   ]
 }

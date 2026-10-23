@@ -1,238 +1,273 @@
 {
-  "last_updated": "2026-10-22 08:16",
-  "date": "2026-10-22",
+  "last_updated": "2026-10-23 08:16",
+  "date": "2026-10-23",
   "source_counts": {
     "wallstreetcn": 0,
-    "cls": 19,
+    "cls": 17,
     "google_news": 25,
     "weibo": 20
   },
   "keywords": [
     {
-      "keyword": "Meta财报超预期",
+      "keyword": "韩国股市暴跌",
       "heat": 95,
       "category": "finance",
-      "summary": "Meta第三季度营收与指引超预期，股价盘后上涨3%。",
+      "summary": "韩国KOSPI指数跌幅扩大至4%，三星电子等主要股票大幅下跌。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-22 08:14",
-          "text": "【Meta财报带来惊喜：营收及指引双超预期 Muse北美用户破千万】财联社10月22日电，美东时间周三盘后，Meta发布了第三季度财报，营收与当期指引双双超出华尔街预期。财报出炉后，公司盘后股价上涨约3%。第四季度营收指引落在730亿至760亿美元区间，中值也高于华尔街分析师预期。扎克伯格透露，过去一个半月内，美国和加拿大已有超过1000万人\"创建了Muse个人智能体\"。"
-        }
-      ]
-    },
-    {
-      "keyword": "美国对伊朗战争风险",
-      "heat": 90,
-      "category": "geo",
-      "summary": "伊朗最高领袖讨论美国以色列战争影响，局势紧张。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-22 08:09",
-          "text": "【伊朗最高领袖会见议长 讨论战争影响】财联社10月22日电，据伊朗最高领袖网站消息，最高领袖穆杰塔巴21日会见了伊朗伊斯兰议会议长卡利巴夫，评估美国、以色列针对伊朗战争引发的最新局势，并讨论了如何增强国家韧性。"
-        }
-      ]
-    },
-    {
-      "keyword": "原油价格持续上涨",
-      "heat": 85,
-      "category": "industry",
-      "summary": "WTI原油期货涨1%，现报98.12美元/桶，创近期新高。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-22 08:04",
-          "text": "财联社10月22日电，WTI原油期货日内涨1%，现报98.12美元/桶。"
-        }
-      ]
-    },
-    {
-      "keyword": "AI+产业融合加速",
-      "heat": 80,
-      "category": "ai-tech",
-      "summary": "中办、国办发布意见，推动人工智能赋能各行业。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-22 08:01",
-          "text": "【财联社10月22日早间新闻精选】\n1、10月21日下午，国务院总理李强在圣彼得堡会见俄罗斯总统普京。李强指出，中方愿同俄方更好发挥经济互补优势，维护当前双方合作的良好发展态势，加强能源资源、经贸投资、交通运输等务实合作，取得更多积极成果，促进两国共同繁荣。\n2、中办、国办发布关于推动科技创新和产业创新深度融合的意见。其中提出，全面实施“人工智能+”行动，推动人工智能全方位赋能千行百业；推动集成电"
+          "time": "10-23 08:09",
+          "text": "财联社10月23日电，韩国KOSPI指数跌幅扩大至4%，SK海力士跌近4%，三星电子跌超5%。"
         }
       ]
     },
     {
       "keyword": "日本国债收益率下跌",
+      "heat": 90,
+      "category": "macro",
+      "summary": "日本20年期、10年期和5年期国债收益率均出现显著下跌。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-23 08:12",
+          "text": "财联社10月23日电，日本20年期国债收益率下跌6个基点至3.62%。"
+        },
+        {
+          "source": "财联社",
+          "time": "10-23 08:06",
+          "text": "财联社10月23日电，日本5年期国债收益率下跌6.5个基点至2.225%。"
+        },
+        {
+          "source": "财联社",
+          "time": "10-23 08:01",
+          "text": "财联社10月23日电，日本10年期国债收益率下跌7个基点至2.81%。"
+        }
+      ]
+    },
+    {
+      "keyword": "OpenAI估值下调",
+      "heat": 85,
+      "category": "ai-tech",
+      "summary": "OpenAI融资估值目标从1.4万亿美元下调至1.25万亿美元。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-23 07:49",
+          "text": "【OpenAI融资磋商进入尾声 估值目标据悉下调至1.25万亿美元】财联社10月23日电，据报道，知情人士透露，OpenAI的融资磋商进入最后阶段，估值目标下调至1.25万亿美元。这家美国AI巨头寻求融资约300亿美元。知情人士称，OpenAI在融资谈判中讨论的估值已从1.4万亿美元下调了1500亿美元。融资谈判仍在进行，相关细节仍可能发生变化。OpenAI最近一次融资是在今年3月份，当时以852"
+        }
+      ]
+    },
+    {
+      "keyword": "香港引进重点企业",
+      "heat": 80,
+      "category": "industry",
+      "summary": "香港引进18家重点企业，涵盖AI、新能源等多个领域，总市值超千亿港元。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-23 07:35",
+          "text": "【香港新引进18家重点企业】财联社10月23日电，据香港特区政府新闻公报，10月22日，引进重点企业办公室（引进办）举行重点企业伙伴签署仪式，欢迎新一批18家重点企业在香港设立或扩展业务。当中多家企业的市值或估值超过1000亿港元。这批企业涵盖先进制造、新能源、人工智能（AI）、生命健康科技、金融科技，以及文化创意科技等多个领域。随着新一批重点企业加入，引进办至今合共引进142家重点企业。这些企业"
+        }
+      ]
+    },
+    {
+      "keyword": "西藏7级地震",
       "heat": 75,
-      "category": "finance",
-      "summary": "日本10年期国债收益率下跌2个基点至2.87%。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-22 08:08",
-          "text": "财联社10月22日电，日本10年期国债收益率下跌2个基点至2.87%。"
-        }
-      ]
-    },
-    {
-      "keyword": "加拿大产业援助计划",
-      "heat": 70,
-      "category": "industry",
-      "summary": "加拿大宣布87亿加元援助计划，应对美国关税冲击。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-22 07:23",
-          "text": "【加拿大宣布战略产业援助计划应对美国关税冲击】财联社10月22日电，加拿大总理马克·卡尼与安大略省省长道格·福特21日联合宣布一系列战略产业援助计划，支持受美国关税影响的工人和企业，并推动长期经济增长。根据加总理官网新闻稿，这些计划总额达87亿加元（约合62亿美元），聚焦于保护安大略省的钢铁、汽车和关键矿产等产业，包括设立联合钢铁行动基金、支持汽车制造商升级生产线、建设道路基础设施和打造该省北部关"
-        }
-      ]
-    },
-    {
-      "keyword": "烧碱价格持续下跌",
-      "heat": 65,
-      "category": "industry",
-      "summary": "烧碱期货主力合约跌逾2%，创挂牌以来新低。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-22 07:15",
-          "text": "【业内人士：短期内烧碱供需宽松格局难发生实质性扭转】财联社10月22日电，昨日，国内烧碱期货主力合约进一步下行，收盘跌逾2%，盘中跌破1700元/吨，创出该合约品种挂牌以来新低。行情数据显示，国内烧碱主连合约年内累计跌幅已超过30%。近期烧碱价格“跌跌不休”，产业链公司影响不一，上游企业利润承压，下游企业利润则有望边际修复。烧碱价格的下跌受行业供需矛盾影响。受访业内人士认为，短期1—2个月内，烧碱"
-        }
-      ]
-    },
-    {
-      "keyword": "轮胎行业盈利承压",
-      "heat": 60,
-      "category": "industry",
-      "summary": "轮胎企业提价难抵原料涨势，盈利压力增大。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-22 07:35",
-          "text": "【产品提价难抵原料涨势 轮胎行业盈利承压】财联社10月22日电，不完全统计发现，9月以来，已有80余家企业累计发布超100份涨价函，调价覆盖全钢胎、半钢胎、工程胎等品类，主流涨幅位于2%至5%区间，部分规格涨幅达6%。这已是轮胎行业年内掀起的第四轮涨价潮。中国橡胶工业协会副秘书长朱红表示，2026年原材料涨价对橡胶行业形成冲击。天然橡胶、合成橡胶、炭黑三大主要原料价格同步冲高，合计占轮胎成本超过6"
-        }
-      ]
-    },
-    {
-      "keyword": "中东地缘政治紧张",
-      "heat": 55,
       "category": "geo",
-      "summary": "沙特机场遇袭致1死8伤，伊朗南部传出爆炸声。",
+      "summary": "西藏发生7级地震，造成16人死亡，46人受伤。",
+      "sources": [
+        "微博热搜",
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / AP News",
+          "time": "10-23 04:40",
+          "text": "A 7.0 earthquake hits China’s Tibet, killing 16 and injuring 32 - AP News"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "西藏地震已致16死46伤"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "西藏7级地震"
+        }
+      ]
+    },
+    {
+      "keyword": "AI龙头股未现强平潮",
+      "heat": 70,
+      "category": "finance",
+      "summary": "网传AI龙头股强平潮被证伪，仅个别股票出现小额平仓。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-22 07:14",
-          "text": "【伊朗媒体称锡里克传出数次爆炸声】财联社10月22日电，据伊朗法尔斯通讯社当地时间10月21日报道，伊朗南部霍尔木兹甘省沿海地区、紧邻霍尔木兹海峡的锡里克当晚传出数次爆炸声，目前这些声音的性质和来源尚不清楚。"
+          "time": "10-23 08:00",
+          "text": "【财联社10月23日早间新闻精选】\n1、昨日，易方达基金、华夏基金、富国基金、汇添富基金等多家基金公司陆续公告，分别以固有资金2亿元认购旗下主动ETF。此前，摩根基金率先公告了高达5亿元的自购计划。至此，在首批主动ETF募集环节，五家基金公司拟自购金额合计达13亿元。\n2、网传“部分AI龙头股发生大额强制平仓，产生连锁反应”。记者获悉，昨日深市AI龙头股未出现网传的连锁强平现象，仅个别股票小额平仓"
+        }
+      ]
+    },
+    {
+      "keyword": "美股科技股大跌",
+      "heat": 65,
+      "category": "finance",
+      "summary": "美股科技股普遍下跌，引发投资者对科技行业的担忧。",
+      "sources": [
+        "微博热搜"
+      ],
+      "evidence": [
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "美股科技股大跌"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "美股"
+        }
+      ],
+      "tool": {
+        "href": "s2-battle.html",
+        "label": "S2 战场"
+      }
+    },
+    {
+      "keyword": "日经225指数下跌",
+      "heat": 60,
+      "category": "finance",
+      "summary": "日经225指数跌幅扩大至2%，日经225指数期货早盘下跌1.5%。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-23 08:09",
+          "text": "财联社10月23日电，日经225指数跌幅扩大至2%。"
         },
         {
           "source": "财联社",
-          "time": "10-22 07:07",
-          "text": "【沙特达曼国际机场遭袭 致1死8伤】财联社10月22日电，沙特阿拉伯民航总局22日凌晨发表声明说，位于该国东部城市达曼的法赫德国王国际机场21日晚遭到袭击，造成一人死亡、8人受伤。声明说，死者为外籍公民。伤者已被送往医院接受治疗。袭击还造成一些财产损失。"
-        },
+          "time": "10-23 07:52",
+          "text": "财联社10月23日电，日经225指数期货早盘下跌1.5%。"
+        }
+      ]
+    },
+    {
+      "keyword": "阿里云域名调价",
+      "heat": 55,
+      "category": "industry",
+      "summary": "阿里云宣布.com域名价格上调，首年注册费90元，续费99元。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-23 07:43",
+          "text": "【阿里云宣布.com域名调价】财联社10月23日电，阿里云10月22日宣布，因.com域名上游注册局成本上调，经慎重考虑，现决定于2026年11月1日零时，将域名调整为以下价格：.com英文域名首年注册价格为90元，续费价格为99元，转入价格为90元。"
+        }
+      ]
+    },
+    {
+      "keyword": "法国抗议活动升级",
+      "heat": 50,
+      "category": "geo",
+      "summary": "法国总统马克龙加强抗议活动限制，指责极左翼引发动荡。",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
         {
           "source": "Google News / Reuters",
-          "time": "10-22 06:21",
-          "text": "Saudi civil aviation says one killed, eight injured in attack on King Fahd airport - Reuters"
+          "time": "10-23 03:19",
+          "text": "France's Macron tightens curbs on protests, blaming hard left for unrest - Reuters"
         }
       ]
     },
     {
-      "keyword": "AI与机器人技术发展",
-      "heat": 50,
+      "keyword": "美国中期选举动态",
+      "heat": 45,
+      "category": "geo",
+      "summary": "共和党在北卡罗来纳州退缩，特朗普承认民主党可能赢得参议院席位。",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / NBC News",
+          "time": "10-23 06:03",
+          "text": "Republicans retreat from North Carolina as Trump admits Democrats are likely to win the Senate seat - NBC News"
+        }
+      ],
+      "tool": {
+        "href": "america.html",
+        "label": "美国仪表盘"
+      }
+    },
+    {
+      "keyword": "AI医疗应用进展",
+      "heat": 40,
       "category": "ai-tech",
-      "summary": "腾讯发行18亿美元及人民币260亿元票据，AI与机器人技术合作深化。",
+      "summary": "微软高管称其AI在复杂病例中表现优于医生，追逐医疗超级智能。",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / TechCrunch",
+          "time": "10-23 02:43",
+          "text": "Microsoft’s Mustafa Suleyman says its AI outperforms doctors on hard cases as he chases ‘medical superintelligence’ - TechCrunch"
+        }
+      ]
+    },
+    {
+      "keyword": "iPhone折叠屏上市",
+      "heat": 35,
+      "category": "industry",
+      "summary": "苹果iPhone折叠屏手机开始销售，目标是重塑折叠屏市场。",
+      "sources": [
+        "Google News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Reuters",
+          "time": "10-23 07:29",
+          "text": "Apple bets iPhone Duo can remake foldable market as sales begin - Reuters"
+        }
+      ]
+    },
+    {
+      "keyword": "台风应急响应升级",
+      "heat": 30,
+      "category": "geo",
+      "summary": "温州提升防台风应急响应至Ⅲ级，加强监测预警和人员转移。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-22 07:47",
-          "text": "①物理AI+具身智能，在物理AI的自动驾驶领域展开布局，与几家头部机器人本体公司建立了长期稳定的合作关系，这家公司探索PEEK材料在机器人关节件、结构件上的应用；\n②液冷散热+侧端AI，中标头部CSP客户液冷产品订单，这家公司是消费电子散热材料领先企业，持续加力拓展新的消费电子终端客户。"
-        },
-        {
-          "source": "财联社",
-          "time": "10-22 07:39",
-          "text": "财联社10月22日电，腾讯控股在港交所公告，根据全球中期票据计划完成发行18亿美元及人民币260亿元票据。"
-        }
-      ]
-    },
-    {
-      "keyword": "英国脱欧后贸易政策",
-      "heat": 45,
-      "category": "macro",
-      "summary": "英国与欧盟就未来贸易关系展开新一轮谈判。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Axios",
-          "time": "10-22 04:49",
-          "text": "Putin tells Witkoff he is ready to resume direct peace talks, Russia releases U.S. detainee - Axios"
-        }
-      ]
-    },
-    {
-      "keyword": "美国对中东政策调整",
-      "heat": 40,
-      "category": "geo",
-      "summary": "美国和以色列计划对伊朗进行新一轮打击。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / The New York Times",
-          "time": "10-22 06:41",
-          "text": "U.S. and Israel Draw Up Plans for Renewed Strikes on Iran After Elections - The New York Times"
-        },
-        {
-          "source": "Google News / NBC News",
-          "time": "10-22 05:24",
-          "text": "U.S. troops and diplomats evacuating Middle East posts, sources say - NBC News"
-        }
-      ]
-    },
-    {
-      "keyword": "科技股市场波动",
-      "heat": 35,
-      "category": "finance",
-      "summary": "苹果iPhone新品发布，股价波动引发市场关注。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / MacRumors",
-          "time": "10-21 22:10",
-          "text": "Apple Stores Will Have 'Limited' Availability of iPhone Duo for Walk-In Customers - MacRumors"
+          "time": "10-23 08:13",
+          "text": "【浙江温州提升防台风应急响应为Ⅲ级】财联社10月23日电，根据《温州市防汛防台抗旱应急预案》，经会商研判，市防指决定于10月23日08时起将防台风应急响应提升为Ⅲ级。请各地各部门密切关注台风发展变化，高效运行“1833”联合指挥体系，及时调整应急响应，进一步做好监测预警预报、风险研判和管控、人员避险转移、社会面宣传引导等各项工作，切实保障人民群众生命财产安全。"
         }
       ]
     }

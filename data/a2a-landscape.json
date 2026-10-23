@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-22",
-  "last_checked_at": "2026-10-22T04:18:45.679467+00:00",
+  "as_of": "2026-10-23",
+  "last_checked_at": "2026-10-23T01:03:12.194723+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -96,9 +96,11 @@
         "gateway",
         "coinbase"
       ],
-      "checked_at": "2026-10-08",
+      "checked_at": "2026-10-23",
       "adoption": "未在本轮独立核验生产规模",
-      "participant": "MCP 社区"
+      "participant": "MCP 社区",
+      "protocol_version": "2026-07-28",
+      "version_source": "https://github.com/modelcontextprotocol/modelcontextprotocol/releases"
     },
     {
       "id": "anp",
@@ -801,6 +803,22 @@
       ],
       "checked_at": "2026-10-22",
       "adoption": "官方文档列出主网付费端点：x402 使用 Base/Solana USDC，MPP 使用 Tempo USDC.e；文档不等于已核实真实需求。"
+    },
+    {
+      "id": "metaplex-x402",
+      "name": "Metaplex x402 / Mech",
+      "participant": "Metaplex",
+      "layer": "commerce",
+      "stage": "有接入文档",
+      "scope": "相邻：x402付费数字服务，非原生A2A接口",
+      "capability": "像按次购买一项服务：提供付费推理、图片生成和Solana数据查询，以USDC结算；文档提供三种钱包/委托付款模式。",
+      "source": "https://www.metaplex.com/docs/agents/x402",
+      "gap": "未验证真实付费规模、退款与失败重试计费。文档价格为快照，实时价目未读取成功；旧Nori原型的A2A接口不属于此服务。",
+      "related": [
+        "x402"
+      ],
+      "checked_at": "2026-10-23",
+      "adoption": "9月8日更新的官方文档；公开客户端、托管服务端未公开，未实付或独立核验收入。"
     }
   ],
   "events": [
@@ -1039,11 +1057,16 @@
     {
       "name": "0x 付费API与其他数字服务",
       "layer": "commerce",
-      "question": "0x 已补主网端点与每请求价格文档；退款、失败重试计费、客户原文和持续付费量待查。新发现 Metaplex x402、Taria Pay 文档线索，尚未核验正文，不计入已核实项目。",
+      "question": "0x、Metaplex已读官方付费服务文档，继续查退款、失败重试计费与持续付费量。Metaplex实时价目未成功读取。Taria Pay已读集成页，x402 v2/直达收款钱包与代付gas为厂商描述；费率、退款和采用未查，不计入已核实项目。",
       "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments"
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-23",
+      "status": "部分核验",
+      "note": "部分核验：从10月22日检查并回看近7天线索；A2A发布页Latest v1.0.1，MCP规范Latest 2026-07-28（非SDK）。补读Metaplex 9月8日文档并收录服务，旧Nori A2A接口不属于现服务；Taria Pay集成正文已读，仍留队列。Metaplex实时价目未读取成功，不认定当前价格；无实付、独立采用或退款验证。其他协议、SDK、国内平台及队列未全量覆盖，未确认需通知的新重大事件。"
+    },
     {
       "date": "2026-10-22",
       "status": "部分核验",
@@ -1238,7 +1261,8 @@
         "skyfire",
         "stripe-machine",
         "adyen-agentic",
-        "0x-agent-payments"
+        "0x-agent-payments",
+        "metaplex-x402"
       ]
     }
   ],

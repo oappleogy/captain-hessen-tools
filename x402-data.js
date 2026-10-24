@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-10-23T01:20:07.584856Z",
+  "generated_utc": "2026-10-24T01:20:06.845468Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 192194706,
-    "volume_usd": 41941021.0,
-    "as_of": "2026-10-21T02:28:05.98431Z",
+    "transactions": 194802049,
+    "volume_usd": 42206946.0,
+    "as_of": "2026-10-23T02:27:34.366601Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -108,18 +108,18 @@ window.X402_DATA = {
     },
     {
       "date": "2026-09-01",
-      "transactions": 189730905,
-      "volume_usd": 41850417.0,
-      "period_transactions": 11859643,
-      "period_volume_usd": 263863.0,
+      "transactions": 190874568,
+      "volume_usd": 42003587.0,
+      "period_transactions": 13003306,
+      "period_volume_usd": 417033.0,
       "kind": "monthly_backfill"
     },
     {
       "date": "2026-10-01",
-      "transactions": 192194706,
-      "volume_usd": 41941021.0,
-      "period_transactions": 2463801,
-      "period_volume_usd": 90604.0,
+      "transactions": 194802049,
+      "volume_usd": 42206946.0,
+      "period_transactions": 3927481,
+      "period_volume_usd": 203359.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -561,13 +561,15 @@ window.X402_DATA = {
       "transactions": 192194706,
       "volume_usd": 41941021.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-10-24",
+      "transactions": 194802049,
+      "volume_usd": 42206946.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-08-23",
-      "txs": 584062
-    },
     {
       "day": "2026-08-24",
       "txs": 238890
@@ -662,147 +664,151 @@ window.X402_DATA = {
     },
     {
       "day": "2026-09-16",
-      "txs": 192768
+      "txs": 230518
     },
     {
       "day": "2026-09-17",
-      "txs": 195569
+      "txs": 250693
     },
     {
       "day": "2026-09-18",
-      "txs": 46539
+      "txs": 100378
     },
     {
       "day": "2026-09-19",
-      "txs": 13342
+      "txs": 80646
     },
     {
       "day": "2026-09-20",
-      "txs": 9654
+      "txs": 87059
     },
     {
       "day": "2026-09-21",
-      "txs": 42285
+      "txs": 87984
     },
     {
       "day": "2026-09-22",
-      "txs": 133851
+      "txs": 214727
     },
     {
       "day": "2026-09-23",
-      "txs": 198108
+      "txs": 443052
     },
     {
       "day": "2026-09-24",
-      "txs": 196768
+      "txs": 255634
     },
     {
       "day": "2026-09-25",
-      "txs": 195302
+      "txs": 244040
     },
     {
       "day": "2026-09-26",
-      "txs": 193267
+      "txs": 259051
     },
     {
       "day": "2026-09-27",
-      "txs": 196288
+      "txs": 292992
     },
     {
       "day": "2026-09-28",
-      "txs": 191215
+      "txs": 258919
     },
     {
       "day": "2026-09-29",
-      "txs": 192445
+      "txs": 270833
     },
     {
       "day": "2026-09-30",
-      "txs": 190811
+      "txs": 256414
     },
     {
       "day": "2026-10-01",
-      "txs": 192815
+      "txs": 243293
     },
     {
       "day": "2026-10-02",
-      "txs": 194182
+      "txs": 243535
     },
     {
       "day": "2026-10-03",
-      "txs": 196282
+      "txs": 263744
     },
     {
       "day": "2026-10-04",
-      "txs": 197957
+      "txs": 294295
     },
     {
       "day": "2026-10-05",
-      "txs": 201839
+      "txs": 242248
     },
     {
       "day": "2026-10-06",
-      "txs": 204850
+      "txs": 254788
     },
     {
       "day": "2026-10-07",
-      "txs": 199638
+      "txs": 262789
     },
     {
       "day": "2026-10-08",
-      "txs": 198340
+      "txs": 280321
     },
     {
       "day": "2026-10-09",
-      "txs": 195806
+      "txs": 248997
     },
     {
       "day": "2026-10-10",
-      "txs": 197146
+      "txs": 252254
     },
     {
       "day": "2026-10-11",
-      "txs": 191634
+      "txs": 262165
     },
     {
       "day": "2026-10-12",
-      "txs": 87186
+      "txs": 152549
     },
     {
       "day": "2026-10-13",
-      "txs": 14766
+      "txs": 85584
     },
     {
       "day": "2026-10-14",
-      "txs": 1611
+      "txs": 60534
     },
     {
       "day": "2026-10-15",
-      "txs": 1772
+      "txs": 53826
     },
     {
       "day": "2026-10-16",
-      "txs": 11062
+      "txs": 83821
     },
     {
       "day": "2026-10-17",
-      "txs": 11631
+      "txs": 81957
     },
     {
       "day": "2026-10-18",
-      "txs": 44652
+      "txs": 106039
     },
     {
       "day": "2026-10-19",
-      "txs": 29753
+      "txs": 90084
     },
     {
       "day": "2026-10-20",
-      "txs": 16566
+      "txs": 73844
     },
     {
       "day": "2026-10-21",
-      "txs": 31
+      "txs": 100981
+    },
+    {
+      "day": "2026-10-22",
+      "txs": 96665
     }
   ],
   "market_24h": {
@@ -810,10 +816,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 3084146,
-    "volume_usd": 1556703.95,
-    "buyers": 35386,
-    "sellers": 38557
+    "transactions": 2950426,
+    "volume_usd": 1628237.71,
+    "buyers": 35162,
+    "sellers": 14139
   },
   "leader": {
     "name": "BlockRun",
@@ -833,6 +839,6 @@ window.X402_DATA = {
   },
   "source_status": {
     "official_30d": "live",
-    "cumulative": "stale_fallback"
+    "cumulative": "live"
   }
 };

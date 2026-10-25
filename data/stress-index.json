@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 103.44,
+      "current": 103.27,
       "base": 75,
-      "deviation_pct": 37.9,
+      "deviation_pct": 37.7,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 287.3
+      "contribution": 284.3
     },
     {
       "variable": "credit_spread",
@@ -47,7 +47,7 @@
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 101.75,
+      "current": 101.81,
       "base": 100,
       "deviation_pct": 1.8,
       "weight": 0.15,
@@ -59,9 +59,9 @@
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 93.3,
+      "current": 93.85,
       "base": 35,
-      "deviation_pct": 166.6,
+      "deviation_pct": 168.2,
       "direction": "偏高",
       "level": "极端偏离"
     },
@@ -75,9 +75,9 @@
     },
     {
       "name": "WTI油价",
-      "current": 103.44,
+      "current": 103.27,
       "base": 75,
-      "deviation_pct": 37.9,
+      "deviation_pct": 37.7,
       "direction": "偏高",
       "level": "显著偏离"
     },
@@ -90,5 +90,5 @@
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-10-24 08:15"
+  "timestamp": "2026-10-25 08:15"
 }

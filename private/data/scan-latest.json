@@ -1,5 +1,5 @@
 {
-  "scan_date": "2026-10-19",
+  "scan_date": "2026-10-26",
   "market": "US",
   "market_label": "美股",
   "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
@@ -12,30 +12,14 @@
     {
       "type": "regime_mismatch",
       "sector": "科技/AI",
-      "signal": "体制=easing + 科技/AI景气=36 + 预期区间=[50, 70] + 偏离=14点 + 宏观: 利率中性(45)/风险中性(48)/能源中性(54)",
-      "direction": "看多美股科技/AI（景气36低于体制'easing'预期下界50）",
+      "signal": "体制=easing + 科技/AI景气=35 + 预期区间=[50, 70] + 偏离=15点 + 宏观: 利率中性(44)/风险中性(49)/能源中性(54)",
+      "direction": "看多美股科技/AI（景气35低于体制'easing'预期下界50）",
       "confidence": {
-        "gear_model": 0.45,
+        "gear_model": 0.5,
         "regime_hmm": 0.6,
         "consensus": "1/3模型支撑"
       },
-      "deviation_points": 13.5,
-      "caveats": [
-        "体制预期区间基于历史经验设定，非统计拟合"
-      ],
-      "model_limitations": "传导系数v2.0，部分行业验证集R²<0.15"
-    },
-    {
-      "type": "regime_mismatch",
-      "sector": "地产/REITs",
-      "signal": "体制=easing + 地产/REITs景气=44 + 预期区间=[55, 80] + 偏离=11点 + 宏观: 利率中性(45)/风险中性(48)/能源中性(54)",
-      "direction": "看多美股地产/REITs（景气44低于体制'easing'预期下界55）",
-      "confidence": {
-        "gear_model": 0.35,
-        "regime_hmm": 0.6,
-        "consensus": "1/3模型支撑"
-      },
-      "deviation_points": 10.6,
+      "deviation_points": 15.0,
       "caveats": [
         "体制预期区间基于历史经验设定，非统计拟合"
       ],
@@ -47,7 +31,7 @@
       "signal": "齿轮景气=33 + 体制=easing(conf=0.60)",
       "direction": "看空美股银行/金融",
       "confidence": {
-        "gear_model": -0.34,
+        "gear_model": -0.35,
         "regime_hmm": 0.6,
         "consensus": "2/3模型一致"
       },
@@ -62,9 +46,10 @@
   "no_signal_sectors": [
     "军工/防务",
     "出口制造",
+    "地产/REITs",
     "消费/零售",
     "能源",
     "黄金/大宗"
   ],
-  "scan_summary": "发现2个体制错配, 1个多模型共识，5个行业无信号"
+  "scan_summary": "发现1个体制错配, 1个多模型共识，6个行业无信号"
 }

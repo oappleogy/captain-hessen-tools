@@ -1,23 +1,23 @@
 {
-  "timestamp": "2026-10-26T07:32:13",
-  "data_as_of": "2026-10-23",
-  "data_lag_days": 3,
+  "timestamp": "2026-10-26T21:04:28",
+  "data_as_of": "2026-10-26",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "STRESSED_SEVERE",
-    "label": "严重承压",
-    "color": "#f97316",
-    "level": 3,
-    "score": -0.333,
-    "action": "系统显著承压。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.167,
+    "action": "系统轻度承压。建议仓位≤35%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
   },
-  "regime_label": "STRESSED",
-  "red_count": 2,
+  "regime_label": "WATCH",
+  "red_count": 1,
   "dim_lights": {
     "R": "yellow",
-    "I": "yellow",
+    "I": "green",
     "F": "yellow",
-    "C": "red",
-    "N": "yellow",
+    "C": "yellow",
+    "N": "green",
     "T": "red"
   },
   "dimensions": {
@@ -33,17 +33,17 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.28,
-      "state": "►",
-      "light": "yellow",
-      "note": "政策不确定性上升，规则可预测性下降",
+      "score": 0.31,
+      "state": "▲",
+      "light": "green",
+      "note": "政策路径清晰，制度运行稳定",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.05,
+      "score": -0.1,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,27 +53,27 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.4,
-      "state": "▼",
-      "light": "red",
-      "note": "跨市场严重背离，系统内部矛盾激化",
-      "confidence": "★★★",
-      "name_cn": "市场协调",
-      "status": "stressed"
-    },
-    "N": {
-      "name": "N｜叙事",
       "score": 0.0,
       "state": "►",
       "light": "yellow",
-      "note": "叙事出现分化或转向迹象",
-      "confidence": "★★",
-      "name_cn": "叙事共识",
+      "note": "部分信号出现分化，协调性下降",
+      "confidence": "⚠",
+      "name_cn": "市场协调",
       "status": "neutral"
+    },
+    "N": {
+      "name": "N｜叙事",
+      "score": 0.3,
+      "state": "▲",
+      "light": "green",
+      "note": "叙事稳定，市场预期可预测",
+      "confidence": "★",
+      "name_cn": "叙事共识",
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.79,
+      "score": -0.66,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -125,14 +125,12 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": -0.233,
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
-    "count": 1,
-    "categories": [
-      "Nasdaq波动率(VXN)=28.3 (历史93%分位)"
-    ]
+    "count": 0,
+    "categories": []
   },
   "opportunities": [],
   "contradiction": {
@@ -147,10 +145,10 @@
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 1,
+    "extreme_count": 0,
     "vix": {
-      "value": 19.5,
-      "percentile": 81,
+      "value": 19.2,
+      "percentile": 80,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {

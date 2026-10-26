@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-23",
-  "last_checked_at": "2026-10-23T01:03:12.194723+00:00",
+  "as_of": "2026-10-26",
+  "last_checked_at": "2026-10-26T11:21:48.232212+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -819,9 +819,48 @@
       ],
       "checked_at": "2026-10-23",
       "adoption": "9月8日更新的官方文档；公开客户端、托管服务端未公开，未实付或独立核验收入。"
+    },
+    {
+      "id": "a2a-go",
+      "name": "A2A Go SDK",
+      "participant": "A2A 项目",
+      "layer": "runtime",
+      "stage": "有公开实现",
+      "scope": "核心：Agent2Agent SDK",
+      "capability": "v2.7.0 校验输入类型和通信版本，改善错误响应、任务状态及时间记录，帮助开发者更明确地发现接入问题。",
+      "source": "https://github.com/a2aproject/a2a-go/releases/tag/v2.7.0",
+      "gap": "SDK版本不是协议版本；未执行跨厂商兼容测试，实际失败率及生产采用未知。",
+      "related": [
+        "a2a",
+        "tck"
+      ],
+      "checked_at": "2026-10-26",
+      "adoption": "官方10月21日发布记录；未独立验证生产规模"
     }
   ],
   "events": [
+    {
+      "id": "a2a-go-v270-20261021",
+      "date": "2026-10-21",
+      "observed_at": "2026-10-26",
+      "announced_at": "2026-10-21",
+      "title": "A2A Go SDK v2.7.0",
+      "type": "SDK发布",
+      "summary": "新增输入模式校验、拒绝不支持的A2A-Version，以及内容类型协商和错误处理修复。",
+      "impact": "有助更早暴露通信不兼容；未证明端到端办事成功率提升。",
+      "source": "https://github.com/a2aproject/a2a-go/releases/tag/v2.7.0",
+      "projects": [
+        "a2a-go"
+      ],
+      "notify": false,
+      "reader_title": "帮手听不懂要求时，更明确地报出问题",
+      "reader_summary": "Go开发工具更新了输入、通信版本和错误检查，减少把不兼容请求含糊处理的情况。",
+      "reader_impact": "像先核对订单格式再接单；这只是开发工具更新，仍需验证不同商家的助手是否配合顺畅。",
+      "previous_state": "已有Go SDK，本轮未完整重建此前版本差异",
+      "new_state": "v2.7.0官方已发布",
+      "evidence_type": "官方GitHub Release",
+      "next_step": "验证跨SDK兼容及错误恢复，核验真实使用"
+    },
     {
       "id": "a2a-map-20261008",
       "date": "2026-10-08",
@@ -1059,9 +1098,20 @@
       "layer": "commerce",
       "question": "0x、Metaplex已读官方付费服务文档，继续查退款、失败重试计费与持续付费量。Metaplex实时价目未成功读取。Taria Pay已读集成页，x402 v2/直达收款钱包与代付gas为厂商描述；费率、退款和采用未查，不计入已核实项目。",
       "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments"
+    },
+    {
+      "name": "A2A Go SDK 兼容性",
+      "layer": "runtime",
+      "question": "v2.7.0发布已核验；输入校验、版本拒绝和错误映射的跨语言互操作、升级兼容及生产证据待查。",
+      "source": "https://github.com/a2aproject/a2a-go/releases/tag/v2.7.0"
     }
   ],
   "checks": [
+    {
+      "date": "2026-10-26",
+      "status": "部分核验",
+      "note": "部分核验：最近成功检查10月23日；10月24日至25日无完成记录。本轮回看近7天，补核10月21日A2A Go SDK v2.7.0官方发布，单独区别SDK和协议版本，非今日发布。支付检索出现P2Flux等官方资料线索，正文及采用尚未核验；其他协议、SDK、国内平台及队列未全量覆盖。未确认需通知的重大变化。"
+    },
     {
       "date": "2026-10-23",
       "status": "部分核验",
@@ -1204,7 +1254,8 @@
         "crewai",
         "a2a-cli",
         "agentscope",
-        "spring-alibaba"
+        "spring-alibaba",
+        "a2a-go"
       ]
     },
     {

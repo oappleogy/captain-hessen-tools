@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-27T07:33:06",
-  "data_as_of": "2026-10-26",
-  "data_lag_days": 1,
+  "timestamp": "2026-10-27T21:04:43",
+  "data_as_of": "2026-10-27",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
-    "score": -0.167,
-    "action": "系统轻度承压。建议仓位≤30%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "score": 0.0,
+    "action": "系统轻度承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -16,7 +16,7 @@
     "R": "yellow",
     "I": "yellow",
     "F": "yellow",
-    "C": "yellow",
+    "C": "green",
     "N": "yellow",
     "T": "red"
   },
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.25,
+      "score": 0.29,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -43,50 +43,50 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": 0.03,
+      "score": -0.1,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★★★",
+      "confidence": "★★",
       "name_cn": "情绪反馈",
       "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.14,
-      "state": "►",
-      "light": "yellow",
-      "note": "部分信号出现分化，协调性下降",
-      "confidence": "★★★",
+      "score": 0.65,
+      "state": "▲",
+      "light": "green",
+      "note": "各维度信号一致，系统协调运行",
+      "confidence": "⚠",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.08,
+      "score": 0.15,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.74,
+      "score": -0.7,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
-      "confidence": "★★",
+      "confidence": "★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -124,8 +124,8 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "TECH_DOM",
-    "safety_margin": -0.067,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.1,
     "early_warning": "无"
   },
   "extremes": {
@@ -147,19 +147,14 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 18.4,
-      "percentile": 73,
-      "desc": "市场恐惧情绪偏高"
+      "value": 17.7,
+      "percentile": 50,
+      "desc": "市场情绪正常"
     },
     "credit_spread": {
       "value": 3.38,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
-    },
-    "consumer": {
-      "value": 48.1,
-      "percentile": 6,
-      "desc": "普通人的消费信心接近三年最低，非常悲观"
     }
   }
 }

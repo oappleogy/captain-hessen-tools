@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-10-27T01:20:06.556607Z",
+  "generated_utc": "2026-10-28T01:20:01.974827Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,8 +11,8 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 195192324,
-    "volume_usd": 42227387.0,
+    "transactions": 195285436,
+    "volume_usd": 42233145.0,
     "as_of": "2026-10-26T02:13:29.32078Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
@@ -116,10 +116,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-10-01",
-      "transactions": 195192324,
-      "volume_usd": 42227387.0,
-      "period_transactions": 4317756,
-      "period_volume_usd": 223800.0,
+      "transactions": 195285436,
+      "volume_usd": 42233145.0,
+      "period_transactions": 4410868,
+      "period_volume_usd": 229558.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -585,6 +585,12 @@ window.X402_DATA = {
       "transactions": 195192324,
       "volume_usd": 42227387.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-10-28",
+      "transactions": 195285436,
+      "volume_usd": 42233145.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
@@ -834,10 +840,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 3108643,
-    "volume_usd": 1626625.72,
-    "buyers": 34787,
-    "sellers": 13851
+    "transactions": 3137880,
+    "volume_usd": 1602440.56,
+    "buyers": 34793,
+    "sellers": 13829
   },
   "leader": {
     "name": "BlockRun",
@@ -856,7 +862,7 @@ window.X402_DATA = {
     "unproven_manufactured_upper_bound_usd": 20258746.09
   },
   "source_status": {
-    "official_30d": "live",
+    "official_30d": "stale_fallback",
     "cumulative": "live"
   }
 };

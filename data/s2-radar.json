@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-29T07:32:42",
-  "data_as_of": "2026-10-28",
-  "data_lag_days": 1,
+  "timestamp": "2026-10-29T21:03:47",
+  "data_as_of": "2026-10-29",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
     "score": 0.0,
-    "action": "系统轻度承压。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统轻度承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.01,
+      "score": -0.0,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -147,8 +147,8 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 16.9,
-      "percentile": 58,
+      "value": 17.1,
+      "percentile": 60,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

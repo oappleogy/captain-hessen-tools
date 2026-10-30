@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-10-29 08:15",
-  "date": "2026-10-29",
+  "last_updated": "2026-10-30 08:16",
+  "date": "2026-10-30",
   "source_counts": {
     "wallstreetcn": 0,
     "cls": 19,
@@ -9,266 +9,242 @@
   },
   "keywords": [
     {
-      "keyword": "美联储维持利率不变",
+      "keyword": "韩国股市大幅下跌",
       "heat": 95,
-      "category": "macro",
-      "summary": "美联储10月会议决定维持利率不变，符合市场预期。",
+      "category": "finance",
+      "summary": "韩国KOSPI指数跌幅扩大至4%，主要科技股领跌。",
       "sources": [
-        "财联社",
-        "Google News"
+        "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-29 08:06",
-          "text": "【财联社10月29日早间新闻精选】 \n1、从国开行、进出口银行、农发行三家政策性银行获悉，截至10月28日，2026年新型政策性金融工具全部完成投放，共计8000亿元。\n2、美联储以10比2的投票结果决定将基准利率维持在3.75%-4%的区间，符合市场普遍预期。\n3、中国人民银行统计，2026年三季度末，人民币房地产贷款余额50.08万亿元，同比下降5.2%，前三季度减少1.90万亿元。个人住房贷"
-        },
-        {
-          "source": "Google News / Axios",
-          "time": "10-29 05:29",
-          "text": "Fed leaves rates steady as governor Lisa Cook dissents - Axios"
+          "time": "10-30 08:10",
+          "text": "财联社10月30日电，韩国KOSPI指数跌幅扩大至4%，SK海力士跌超7%，三星电子跌逾4%。"
         }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
+      ]
     },
     {
-      "keyword": "微软Azure收入激增",
+      "keyword": "日本股市下跌",
       "heat": 90,
-      "category": "ai-tech",
-      "summary": "微软财报显示Azure云业务收入同比增长48%，远超预期。",
+      "category": "finance",
+      "summary": "日经225指数失守64000点，日内跌幅1.2%。",
       "sources": [
-        "财联社",
-        "Google News"
+        "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-29 07:23",
-          "text": "【AI商业化兑现？微软财报亮眼：Azure同比猛增48% 现金流缩水但仍为正】财联社10月29日电，美东时间周三盘后，微软公布2027财年第一财季（截至9月）业绩。得益于其Azure云业务营收同比激增增长48%，整体财报全面超预期。值得注意的是，微软首次在财报声明中以美元披露Azure云收入，本季度为331.7亿美元，增长48%。StreetAccount调查的分析师此前预期为323.2亿美元，即"
-        },
+          "time": "10-30 08:07",
+          "text": "财联社10月30日电，日经225指数失守64000点，日内跌幅1.2%。"
+        }
+      ]
+    },
+    {
+      "keyword": "布伦特原油价格突破110美元",
+      "heat": 85,
+      "category": "industry",
+      "summary": "布伦特原油期货价格向上触及110美元/桶，反映能源市场波动。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-30 08:00",
+          "text": "财联社10月30日电，布伦特原油期货向上触及110美元/桶，最新报111.625美元/桶，日内上涨0.74%。"
+        }
+      ]
+    },
+    {
+      "keyword": "软银集团股价下跌",
+      "heat": 80,
+      "category": "finance",
+      "summary": "软银集团股价下跌5.7%，引发投资者对科技股前景的担忧。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-30 08:11",
+          "text": "财联社10月30日电，软银集团股价下跌5.7%。"
+        }
+      ]
+    },
+    {
+      "keyword": "日本芯片设备制造商股价下跌",
+      "heat": 75,
+      "category": "ai-tech",
+      "summary": "爱德万测试股价下跌5.6%，反映芯片行业需求疲软。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-30 08:09",
+          "text": "财联社10月30日电，日本芯片测试设备制造商爱德万测试（Advantest）股价下跌5.6%。"
+        }
+      ]
+    },
+    {
+      "keyword": "美国经济强劲增长",
+      "heat": 70,
+      "category": "macro",
+      "summary": "美国第三季度GDP增长强劲，AI相关投资和消费支出是主要推动力。",
+      "sources": [
+        "Google News / Reuters"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Reuters",
+          "time": "10-30 04:29",
+          "text": "Robust consumer spending, AI-related investment power US economy in third quarter - Reuters"
+        }
+      ]
+    },
+    {
+      "keyword": "英特尔业绩预警",
+      "heat": 65,
+      "category": "ai-tech",
+      "summary": "英特尔因PC市场放缓发布业绩预警，股价暴跌21%。",
+      "sources": [
+        "Google News / CNBC"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / CNBC",
+          "time": "10-30 04:04",
+          "text": "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance - CNBC"
+        }
+      ]
+    },
+    {
+      "keyword": "亚马逊财报不及预期",
+      "heat": 60,
+      "category": "finance",
+      "summary": "亚马逊财报不及预期，股价下跌，反映云计算增长放缓。",
+      "sources": [
+        "Google News / WSJ"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / WSJ",
+          "time": "10-30 06:13",
+          "text": "Amazon Stock Drops on Wall Street Miss, Despite Biggest Cloud Growth in Years - WSJ"
+        }
+      ]
+    },
+    {
+      "keyword": "美国AI投资热潮",
+      "heat": 55,
+      "category": "ai-tech",
+      "summary": "AI相关投资推动美国经济增长，AI领域持续受关注。",
+      "sources": [
+        "Google News / Reuters"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Reuters",
+          "time": "10-30 04:29",
+          "text": "Robust consumer spending, AI-related investment power US economy in third quarter - Reuters"
+        }
+      ]
+    },
+    {
+      "keyword": "日本9月零售额低于预期",
+      "heat": 50,
+      "category": "macro",
+      "summary": "日本9月零售额同比增长2.3%，低于预期的3.3%，显示消费疲软。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-30 07:51",
+          "text": "财联社10月30日电，日本9月份零售额同比增长2.3%，预估为3.3%。"
+        }
+      ]
+    },
+    {
+      "keyword": "日本工业产值增长",
+      "heat": 45,
+      "category": "industry",
+      "summary": "日本9月工业产值同比增长1.9%，高于预期的1.5%。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-30 07:51",
+          "text": "财联社10月30日电，日本9月份工业产值同比增长1.9%，预估1.5%。"
+        }
+      ]
+    },
+    {
+      "keyword": "美国科技股波动",
+      "heat": 40,
+      "category": "finance",
+      "summary": "华尔街对AI资本支出担忧加剧，科技股承压。",
+      "sources": [
+        "Google News / Yahoo Finance"
+      ],
+      "evidence": [
         {
           "source": "Google News / Yahoo Finance",
-          "time": "10-29 04:59",
-          "text": "Microsoft earnings live: Microsoft beats Q1 expectations on top and bottom line on AI growth - Yahoo Finance"
+          "time": "10-30 04:29",
+          "text": "Wall Street ends lower as Alphabet revenue miss revives AI capex jitters - Yahoo Finance"
         }
       ]
     },
     {
-      "keyword": "西班牙列车相撞事故",
-      "heat": 85,
-      "category": "geo",
-      "summary": "西班牙发生严重列车相撞事故，已造成68人死亡。",
-      "sources": [
-        "Google News",
-        "微博热搜"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / CNN",
-          "time": "10-29 06:09",
-          "text": "Spain train crash kills at least 68 as witnesses describe devastating scenes - CNN"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "西班牙列车相撞已致68死"
-        }
-      ]
-    },
-    {
-      "keyword": "台达电营收增长",
-      "heat": 80,
-      "category": "industry",
-      "summary": "台达电前三季度营收5396.7亿台币，净利润691.9亿台币。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-29 08:15",
-          "text": "财联社10月29日电，台达电9个月营收5396.7亿元台币，净利润691.9亿元台币。"
-        }
-      ]
-    },
-    {
-      "keyword": "SK海力士股价上涨",
-      "heat": 75,
-      "category": "industry",
-      "summary": "SK海力士股价上涨3%，受市场对半导体行业乐观情绪推动。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-29 08:05",
-          "text": "财联社10月29日电，SK海力士涨幅扩大至3%。"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "歌礼制药新药研发进展",
-      "heat": 70,
-      "category": "industry",
-      "summary": "歌礼制药GLP-1受体激动剂ASC30治疗2型糖尿病II期研究取得积极结果。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-29 08:02",
-          "text": "【歌礼制药：ASC30治疗2型糖尿病的美国II期研究取得积极顶线结果】财联社10月29日电，歌礼制药公告，其评估口服小分子GLP-1受体(GLP-1R)激动剂ASC30治疗2型糖尿病的美国II期研究取得积极顶线结果。该II期研究是一项为期13周的美国研究，旨在评估每日一次口服小分子GLP-1R激动剂ASC30片在100例糖尿病受试者中的疗效、安全性和耐受性。主要终点方面，与安慰剂相比，ASC30在"
-        }
-      ]
-    },
-    {
-      "keyword": "中金公司对美联储政策展望",
-      "heat": 65,
-      "category": "macro",
-      "summary": "中金公司预计美联储12月再加息一次，随后进入观望期。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-29 07:43",
-          "text": "【中金：美联储加息未结束 但不必急于行动】财联社10月29日电，中金公司研报指出，美联储10月按兵不动，决策者抗通胀立场坚定，但也认为政策可以保持耐心。部分鹰派官员转向观望，表明连续加息的紧迫性下降。自9月加息后，美国金融条件边际收紧，通胀溢价有所回落，美联储可以等待政策效果进一步显现。展望未来，我们预计12月再加息一次，随后继续观望。本轮加息更可能是一轮温和的、渐进式调整，而非激进紧缩。此外，沃"
-        }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "苹果发布新款MacBook Pro",
-      "heat": 60,
-      "category": "ai-tech",
-      "summary": "苹果发布带触摸屏的MacBook Pro，逆转乔布斯长期坚持的设计理念。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Bloomberg",
-          "time": "10-29 02:17",
-          "text": "Apple Unveils Touch-Screen MacBook Pro, Reversing Long-Held Jobs Stance - Bloomberg"
-        }
-      ]
-    },
-    {
-      "keyword": "英国财政预算案",
-      "heat": 55,
-      "category": "macro",
-      "summary": "英国公布新预算案，旨在应对能源成本上升，提供经济缓冲空间。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / The New York Times",
-          "time": "10-29 00:40",
-          "text": "A U.K. Budget With ‘Breathing Space’ in a Time of Rising Energy Costs - The New York Times"
-        }
-      ]
-    },
-    {
-      "keyword": "美伊重启谈判可能性",
-      "heat": 50,
-      "category": "geo",
-      "summary": "美国副总统万斯致信伊朗官员，试图重启谈判以结束冲突。",
-      "sources": [
-        "财联社",
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-29 07:04",
-          "text": "【万斯致信伊朗安全高官试图重启谈判】财联社10月29日电，据美国《华尔街日报》28日报道，美国副总统万斯已致信伊朗最高国家安全委员会秘书穆赫辛·雷扎伊，试图重启谈判。报道援引知情人士的话说，这封信是在美国总统特朗普授意下发出的，特朗普本人也知晓此次接触。万斯的信件以及随后美伊官员之间的讨论并未涉及和平方案的具体细节，而是侧重于探讨可能的谈判框架。报道说，万斯此举旨在探寻美伊之间能否找到足够的共同点"
-        },
-        {
-          "source": "Google News / Reuters",
-          "time": "10-29 04:37",
-          "text": "Iran sees only unacceptable ideas in latest mediation to end war, official says - Reuters"
-        }
-      ]
-    },
-    {
-      "keyword": "AI融资状况",
-      "heat": 45,
-      "category": "ai-tech",
-      "summary": "美国财政部长表示AI基础设施融资状况良好，对AI相关债务收益率上升并不担忧。",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "10-29 07:34",
-          "text": "【贝森特称AI融资仍在推进 强劲增长下美联储加息未必有错】财联社10月29日电，美国财政部长斯科特·贝森特表示，他和团队正在密切关注AI基础设施建设的融资状况，并淡化近期出现的担忧迹象。“我们会监测所有这些情况，”贝森特周三接受CNBC采访时表示。当被问及部分AI相关债务的收益率开始升至两位数时，他说：“我完全不认为这是个问题，因为我们看到，新云服务商在整个生态系统中只占很小一部分。”所谓新云服务"
-        }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "新西兰选举结果不明",
-      "heat": 40,
-      "category": "geo",
-      "summary": "新西兰选举结果仍无明确赢家，选举进程继续。",
-      "sources": [
-        "Google News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Reuters",
-          "time": "10-29 05:30",
-          "text": "Election polls in New Zealand continue to show no clear outcome - Reuters"
-        }
-      ]
-    },
-    {
-      "keyword": "日本外资买进日债",
+      "keyword": "中国东海军事演习",
       "heat": 35,
-      "category": "finance",
-      "summary": "日本外资买进日债433亿日元，显示出对日本债券市场的兴趣。",
+      "category": "geo",
+      "summary": "东海部分海域进行军事演练，禁止驶入，引发地缘政治关注。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-29 07:51",
-          "text": "财联社10月29日电，日本至10月23日当周外资买进日债433亿日元，前值由14542亿日元修正为14543亿日元。"
+          "time": "10-30 08:15",
+          "text": "【航行警告！东海海域军事演习】财联社10月30日电，据中国海事局网站消息，宁波海事局发布航行警告，10月30日8时至18时，东海部分海域进行军事演练，禁止驶入。"
         }
       ]
     },
     {
-      "keyword": "三星SDI业绩超预期",
+      "keyword": "币安用户资金安全",
       "heat": 30,
-      "category": "industry",
-      "summary": "三星SDI第三季度销售额和净利润均超预期，显示出强劲增长。",
+      "category": "finance",
+      "summary": "币安承诺承担黑客攻击损失，强调用户资金安全。",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "10-29 07:59",
-          "text": "财联社10月29日电，三星SDI第三季度销售额为4.69万亿韩元，预期为4.09万亿韩元；第三季度净利润为2946亿韩元，预期为2027.2亿韩元。"
+          "time": "10-30 08:12",
+          "text": "财联社10月30日电，币安联合创始人何一表示，用户资金安全，币安将承担所有黑客攻击损失。"
+        }
+      ]
+    },
+    {
+      "keyword": "欧洲央行行长人选讨论",
+      "heat": 25,
+      "category": "macro",
+      "summary": "欧元区领导人将讨论欧洲央行行长人选，影响货币政策走向。",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "10-30 08:08",
+          "text": "财联社10月30日电，欧元区领导人将于11月26-27日开会讨论欧洲央行行长人选。"
         }
       ]
     }

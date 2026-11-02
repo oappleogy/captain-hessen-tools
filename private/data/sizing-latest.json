@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-26",
+  "date": "2026-11-02",
   "market": "US",
   "market_label": "美股",
   "regime_position_cap": {
@@ -12,21 +12,6 @@
     "reasoning": "降息初期，观察"
   },
   "opportunity_sizing": [
-    {
-      "opportunity": "看多美股科技/AI（景气35低于体制'easing'预期下界50）",
-      "sector": "科技/AI",
-      "type": "regime_mismatch",
-      "win_rate": 0.6,
-      "win_rate_source": "保守默认值（待vault/decisions积累后替换）",
-      "payoff_ratio": 1.5,
-      "payoff_source": "默认1.5",
-      "kelly_raw": 0.3333,
-      "kelly_safe": 0.1667,
-      "suggested_size": "16.7%",
-      "suggested_size_pct": 16.7,
-      "cap_binding": "25%单笔上限未触发",
-      "viable": true
-    },
     {
       "opportunity": "看空美股银行/金融",
       "sector": "银行/金融",
@@ -45,35 +30,21 @@
   ],
   "portfolio_risk": {
     "factor_concentration": {
-      "利率": {
+      "风险(VIX)": {
         "level": "低",
         "count": 1,
         "sectors": [
-          "科技/AI"
-        ],
-        "details": [
-          "科技/AI(高(r=+15))"
-        ]
-      },
-      "风险(VIX)": {
-        "level": "高",
-        "count": 2,
-        "sectors": [
-          "科技/AI",
           "银行/金融"
         ],
         "details": [
-          "科技/AI(高(v=+12))",
           "银行/金融(高(v=+15))"
         ]
       }
     },
     "warnings": [
-      "风险(VIX)因子集中度偏高（2个持仓: 科技/AI, 银行/金融），考虑对冲或减仓",
-      "注意: 风险(VIX)因子上有方向对冲——可能降低净暴露但增加交易成本"
+      "因子分散度良好，无集中风险"
     ],
     "involved_sectors": [
-      "科技/AI",
       "银行/金融"
     ]
   },

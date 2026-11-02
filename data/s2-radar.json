@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-11-02T21:06:23",
+  "timestamp": "2026-11-03T07:31:49",
   "data_as_of": "2026-11-02",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
     "color": "#eab308",
     "level": 2,
-    "score": 0.5,
-    "action": "系统轻度承压。建议仓位≤55%（趋势↑），增加对冲，缩短持仓周期。"
+    "score": 0.167,
+    "action": "系统轻度承压。建议仓位≤55%（趋势↓），增加对冲，缩短持仓周期。"
   },
-  "regime_label": "WATCH",
-  "red_count": 1,
+  "regime_label": "STABLE",
+  "red_count": 0,
   "dim_lights": {
     "R": "green",
-    "I": "green",
+    "I": "yellow",
     "F": "yellow",
-    "C": "green",
-    "N": "green",
-    "T": "red"
+    "C": "yellow",
+    "N": "yellow",
+    "T": "yellow"
   },
   "dimensions": {
     "R": {
@@ -33,60 +33,60 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.39,
-      "state": "▲",
-      "light": "green",
-      "note": "政策路径清晰，制度运行稳定",
+      "score": 0.24,
+      "state": "►",
+      "light": "yellow",
+      "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.11,
+      "score": -0.02,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★★",
+      "confidence": "★★★",
       "name_cn": "情绪反馈",
       "status": "neutral"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.72,
-      "state": "▲",
-      "light": "green",
-      "note": "各维度信号一致，系统协调运行",
-      "confidence": "⚠",
+      "score": 0.22,
+      "state": "►",
+      "light": "yellow",
+      "note": "部分信号出现分化，协调性下降",
+      "confidence": "★★★",
       "name_cn": "市场协调",
       "status": "healthy"
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.42,
-      "state": "▲",
-      "light": "green",
-      "note": "叙事稳定，市场预期可预测",
-      "confidence": "⚠",
+      "score": -0.16,
+      "state": "►",
+      "light": "yellow",
+      "note": "叙事出现分化或转向迹象",
+      "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "healthy"
+      "status": "neutral"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.57,
-      "state": "▼",
-      "light": "red",
-      "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
+      "score": -0.29,
+      "state": "►",
+      "light": "yellow",
+      "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 54.5
+        "pct": 60.0
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 45.5
+        "pct": 40.0
       },
       {
         "key": "TECH_DOM",
@@ -124,20 +124,25 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "停滞",
-    "safety_margin": 0.6,
+    "moving_toward": "崩塌",
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
-    "count": 0,
-    "categories": []
+    "count": 4,
+    "categories": [
+      "OVX原油波动率=62.7 (历史91%分位)",
+      "政策不确定性(EPU)=647 (历史97%分位)",
+      "地缘交叉验证(OVX)=62.7 (历史91%分位) [仅验证，不计分]",
+      "Nasdaq波动率(VXN)=30.9 (历史97%分位)"
+    ]
   },
   "opportunities": [],
   "contradiction": {
-    "type": "state_change",
-    "title": "系统状态改善：从轻度承压进入稳定期",
-    "thesis": "系统从轻度承压变为稳定期。主要拖累来自技术动能（-0.20），支撑来自信用韧性（+0.51）。",
-    "metaphor": "雨过天晴"
+    "type": "dimension_shift",
+    "title": "「叙事共识」本周剧烈恶化",
+    "thesis": "叙事共识维度从+0.42变为-0.16，单周变化0.58，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "共识出现裂缝"
   },
   "allocation": {
     "short_term": "情绪面相对平稳，正常操作即可。",
@@ -145,14 +150,14 @@
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 0,
+    "extreme_count": 4,
     "vix": {
-      "value": 19.4,
-      "percentile": 80,
+      "value": 21.1,
+      "percentile": 88,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {
-      "value": 3.26,
+      "value": 3.44,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

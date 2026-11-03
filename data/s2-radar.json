@@ -1,24 +1,24 @@
 {
-  "timestamp": "2026-11-03T07:31:49",
-  "data_as_of": "2026-11-02",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-03T21:02:37",
+  "data_as_of": "2026-11-03",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "STRESSED_MILD",
-    "label": "轻度承压",
-    "color": "#eab308",
-    "level": 2,
-    "score": 0.167,
-    "action": "系统轻度承压。建议仓位≤55%（趋势↓），增加对冲，缩短持仓周期。"
+    "state": "STRESSED_SEVERE",
+    "label": "严重承压",
+    "color": "#f97316",
+    "level": 3,
+    "score": 0.0,
+    "action": "系统显著承压。建议仓位≤50%（趋势↓），增加对冲，缩短持仓周期。"
   },
-  "regime_label": "STABLE",
-  "red_count": 0,
+  "regime_label": "WATCH",
+  "red_count": 1,
   "dim_lights": {
     "R": "green",
     "I": "yellow",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
-    "T": "yellow"
+    "T": "red"
   },
   "dimensions": {
     "R": {
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.16,
+      "score": -0.17,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,20 +73,20 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.29,
-      "state": "►",
-      "light": "yellow",
-      "note": "技术-制度出现摩擦，部分行业承压",
+      "score": -0.82,
+      "state": "▼",
+      "light": "red",
+      "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
       "confidence": "★★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -125,7 +125,7 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": 0.267,
+    "safety_margin": 0.1,
     "early_warning": "无"
   },
   "extremes": {
@@ -152,7 +152,7 @@
   "key_metrics": {
     "extreme_count": 4,
     "vix": {
-      "value": 21.1,
+      "value": 21.3,
       "percentile": 88,
       "desc": "市场恐惧情绪偏高"
     },

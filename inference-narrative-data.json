@@ -1,52 +1,52 @@
 {
-  "asOf": "2026-10-15 23:59 CST",
-  "week": "2026-W41",
-  "totalScore": 78,
-  "verdict": {"title": "海外采用高位分化，硬件收入待验证", "detail": "OpenRouter 最新完整日多个中国模型的 Token/请求变化为正，DeepSeek 官方 HF 仓滚动30日下载反弹；Kimi、GLM 继续回落。国内 Token、利用率、订单、验收及推理收入仍无可审计周度证据。"},
-  "scores": {"domestic": 34, "adoption": 31, "social": 13},
+  "asOf": "2026-10-22 23:59 CST",
+  "week": "2026-W42",
+  "totalScore": 77,
+  "verdict": {"title": "海外采用高位分化，硬件收入待验证", "detail": "OpenRouter 最近完整周 DeepSeek、GLM 仍处高位，vLLM 持续加入中国开源模型支持；四个官方 HF 仓的滚动30日下载均较上期下行。国内 Token、利用率、订单、验收及推理收入仍无可审计周度证据。"},
+  "scores": {"domestic": 34, "adoption": 30, "social": 13},
   "narrativeMetrics": [
-    {"label": "叙事再生产率 Rₙ", "value": "严格不可算｜观测 0.75", "note": "3/4；搜索覆盖与样本不足，不据此判断收缩", "tone": "neutral"},
+    {"label": "叙事再生产率 Rₙ", "value": "严格不可算｜观测 0.67", "note": "2/3；搜索覆盖与样本不足，不据此判断收缩", "tone": "neutral"},
     {"label": "叙事半衰期", "value": "无法计算", "note": "缺逐日去重强度及统一发布峰值", "tone": "neutral"},
     {"label": "跨圈层扩散", "value": "3 / 6 层", "note": "开发者、开源部署者、普通用户到达；独立企业生产验证缺失", "tone": "gold"},
-    {"label": "载体多样性", "value": "3 作者｜1 平台｜1 语言", "note": "X/TikTok/YouTube 样本缺失，地区信息不足", "tone": "red"},
-    {"label": "叙事变异率", "value": "67%（2/3）", "note": "小样本方向性编码，转向免费端质量与 Agent 安全", "tone": "gold"},
-    {"label": "行为转化率", "value": "100%（3/3）", "note": "均有调用、部署或测试语境；不能代替芯片订单转化", "tone": "blue"},
-    {"label": "反叙事强度", "value": "67% 作者占比", "note": "安全/质量主题；互动份额不可严格拆分", "tone": "red"}
+    {"label": "载体多样性", "value": "2 作者｜1 平台｜1 语言", "note": "X/TikTok/YouTube 样本缺失，地区信息不足", "tone": "red"},
+    {"label": "叙事变异率", "value": "50%（1/2）", "note": "小样本方向性编码，转向 Agent 安全", "tone": "gold"},
+    {"label": "行为转化率", "value": "100%（2/2）", "note": "均有本地部署或实跑语境；不能代替芯片订单转化", "tone": "blue"},
+    {"label": "反叙事强度", "value": "50% 作者占比", "note": "安全主题由高互动单源主导；互动份额不可严格拆分", "tone": "red"}
   ],
   "narratives": [
-    {"type": "positive", "strength": 94, "title": "OpenRouter 中国模型使用量保持扩张", "carrier": "OpenRouter → 开发者 API", "evidence": "最新完整日 DeepSeek V4.1 Flash 4.29T Token/90.7万请求（change +55.3%）；GLM 5.3 Flash 12.95T/6.74亿（+19.4%）；Kimi K3 2.53T/3,877万（+37.4%）", "risk": "仅公开聚合流量；模型变体不可相加，不等于全球份额、营收或底层国产 GPU"},
-    {"type": "positive", "strength": 84, "title": "DeepSeek 官方 HF 仓滚动下载反弹", "carrier": "HF → 开源开发者部署", "evidence": "DeepSeek-V4-Pro-0813 滚动30日下载 157,814，较上期 +80.2%；likes +33", "risk": "滚动窗口不是本周新增或累计采用，且该仓不等于 Flash 全量使用"},
-    {"type": "positive", "strength": 78, "title": "国产 GPU 保留软件生态与生产线索", "carrier": "厂商披露 → 开源工具链/产业客户", "evidence": "沐曦既有 llm-d/LMCache 适配、MXMACA 合入 LMCache 与 Token 工厂生产环境披露", "risk": "无客户独立验收、卡型、利用率、P99、合同或收入披露"},
-    {"type": "counter", "strength": 86, "title": "Kimi、GLM 滚动下载继续回落", "carrier": "HF → 开发者选择", "evidence": "较上期 Kimi -10.9%、GLM -27.0%；Qwen -1.7%", "risk": "滚动30日窗口置换可放大短期波动，且与 OpenRouter 口径不同"},
+    {"type": "positive", "strength": 92, "title": "OpenRouter 中国模型仍居高位", "carrier": "OpenRouter → 开发者 API", "evidence": "最近完整周 DeepSeek V4.1 Flash 32.8T Token（-20%）；GLM 5.3 Flash 12.2T（0%）、GLM 5.3 5.19T（+37%）", "risk": "仅公开聚合流量；模型变体不可相加，不等于全球份额、营收或底层国产 GPU"},
+    {"type": "positive", "strength": 80, "title": "vLLM 持续扩展中国开源模型支持", "carrier": "vLLM → 开源部署工具链", "evidence": "发布说明列出 Kimi K3 NVFP4 checkpoints，并持续优化 DeepSeek V4/V4.1、GLM 5.3 与 Qwen", "risk": "代码兼容不代表拉取、生产部署、订单或收入"},
+    {"type": "positive", "strength": 76, "title": "国产 GPU 新增功能验证线索", "carrier": "厂商披露 → 推理生态", "evidence": "沐曦披露 SpecBlock 在其 GPU 平台复现；壁仞披露 Step 5 Preview 的 vLLM 功能/精度验证", "risk": "无客户独立验收、卡型、利用率、P99、合同或收入披露"},
+    {"type": "counter", "strength": 88, "title": "四个官方 HF 仓滚动下载均回落", "carrier": "HF → 开发者选择", "evidence": "较上期 Kimi -25.8%、GLM -44.0%、DeepSeek -3.8%、Qwen -18.4%", "risk": "滚动30日窗口置换可放大短期波动，且与 OpenRouter 口径不同"},
     {"type": "counter", "strength": 85, "title": "DeepSeek Flash 出现 Agent 安全反叙事", "carrier": "Reddit 开发者 → 调用/部署选择", "evidence": "一位作者的 DeepSWE/Pier sandbox 测试称 33% 运行尝试取得 key、11% 成功；附日志但无独立复现", "risk": "C级单源，跨版转发已去重；不能推断普遍漏洞或采用影响"},
     {"type": "counter", "strength": 78, "title": "推理盈利闭环仍缺关键数据", "carrier": "模型采用 → 芯片收入", "evidence": "未取得国产卡推理订单、交付、利用率、ASP、毛利、回款或收入拆分的本周可审计披露", "risk": "模型热度可能主要由海外 GPU/云承接"}
   ],
   "hardSignals": [
-    {"value": "4.29T / 12.95T / 2.53T", "label": "OpenRouter 中国模型 Token", "change": "DeepSeek V4.1 Flash +55.3% / GLM 5.3 Flash +19.4% / Kimi K3 +37.4%；最新完整日 10月15日", "grade": "A", "source": "OpenRouter Rankings", "url": "https://openrouter.ai/rankings/"},
-    {"value": "90.7万 / 6.74亿 / 3,877万", "label": "OpenRouter 模型请求", "change": "DeepSeek / GLM / Kimi；按模型变体，不能相加为厂商总量", "grade": "A", "source": "OpenRouter Rankings", "url": "https://openrouter.ai/rankings/"},
-    {"value": "15.8 万", "label": "DeepSeek V4 Pro HF 下载", "change": "滚动 30 日 +80.2%；897 likes，非累计下载", "grade": "A", "source": "Hugging Face API", "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro-0813"},
-    {"value": "105.3 万 / 48.0 万", "label": "Kimi / GLM HF 下载", "change": "滚动30日 -10.9% / -27.0%；非累计下载", "grade": "A", "source": "Hugging Face API", "url": "https://huggingface.co/api/models/moonshotai/Kimi-K3"},
+    {"value": "32.8T / 12.2T / 5.19T", "label": "OpenRouter 中国模型 Token", "change": "DeepSeek V4.1 Flash -20% / GLM 5.3 Flash 0% / GLM 5.3 +37%；最近完整周截至10月19日", "grade": "A", "source": "OpenRouter Rankings", "url": "https://openrouter.ai/rankings/"},
+    {"value": "3.61T / 2.8T / 1.74T", "label": "OpenRouter 最新日 Token", "change": "DeepSeek V4.1 Flash 1017 +19% / V4.1 Flash +7% / GLM 5.3 Flash +22%；模型变体不能相加", "grade": "A", "source": "OpenRouter Rankings", "url": "https://openrouter.ai/rankings/"},
+    {"value": "15.2 万", "label": "DeepSeek V4 Pro HF 下载", "change": "滚动30日 -3.8%；909 likes，非累计下载", "grade": "A", "source": "Hugging Face API", "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro-0813"},
+    {"value": "78.2 万 / 26.9 万", "label": "Kimi / GLM HF 下载", "change": "滚动30日 -25.8% / -44.0%；非累计下载", "grade": "A", "source": "Hugging Face API", "url": "https://huggingface.co/api/models/moonshotai/Kimi-K3"},
     {"value": "万卡生产环境", "label": "沐曦与魔形智能 Token 工厂", "change": "既有厂商披露已投入生产；未披露客户独立验收、卡数、利用率或收入", "grade": "A", "source": "MetaX News", "url": "https://www.metax-tech.com/news/ndetail/ndetail/img/join2.html"},
     {"value": "llm-d / LMCache", "label": "国产推理软件生态", "change": "沐曦披露 llm-d 适配、MXMACA 合入 LMCache；本周统一代码/部署增量缺失", "grade": "A", "source": "MetaX News", "url": "https://www.metax-tech.com/en/ndetail/12650.html"}
   ],
   "social": {
     "Reddit": [
-      {"tone": "positive", "title": "免费 Flash 用户仍计划继续使用 API", "engagement": "普通用户｜英语｜主题帖 +8", "detail": "含 200k 上下文与实际调用体验；单案例，非基准测试。", "url": "https://www.reddit.com/r/DeepSeek/comments/1x6g4c0/deepseek_v41_flash_is_now_free/"},
-      {"tone": "positive", "title": "用户报告本地运行 GLM-5.3-Flash 满意", "engagement": "普通用户｜英语｜评论 +5", "detail": "含本地运行语境；低互动单案例。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x3n6be/removed/"},
-      {"tone": "negative", "title": "Sandbox 测试提出 API key 风险", "engagement": "普通用户/开发者｜英语｜去重主题帖 +310", "detail": "DeepSWE/Pier 测试声明 33% 尝试、11% 成功；附日志但无独立复现。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x32vhx/psa_deepseek_v41_flash_habitually_exfiltrates_api/"},
-      {"tone": "negative", "title": "免费 Flash 的质量和重复输出疑虑", "engagement": "普通用户｜英语｜评论 +2", "detail": "主观称更笨并出现符号重复；单案例。", "url": "https://www.reddit.com/r/DeepSeek/comments/1x6g4c0/deepseek_v41_flash_is_now_free/"}
+      {"tone": "positive", "title": "本地用户报告 DeepSeek Flash 1017 约40 tok/s", "engagement": "普通用户｜英语｜主题帖 +3", "detail": "144GB VRAM + 128GB RAM 的单一硬件案例；非可比基准。", "url": "https://www.reddit.com/r/LocalLLM/comments/1xdg5z7/deepseek_v41_flash_1017_running_at_up_to_40_toks/"},
+      {"tone": "positive", "title": "用户报告 GLM/Qwen 集群实跑", "engagement": "普通用户｜英语｜主题帖｜互动未稳定取得", "detail": "2x M5U 集群中 GLM 5.3 Flash Q6 约50 tok/s；作者称因速度转用 Qwen Flash Next。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfybhu/datapoint_2x_m5u_cluster_glmqwen/"},
+      {"tone": "negative", "title": "Sandbox 测试提出 API key 风险", "engagement": "普通用户/开发者｜英语｜去重主题帖 +310", "detail": "DeepSWE/Pier 测试声明33%尝试、11%成功；附日志但无独立复现。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x32vhx/psa_deepseek_v41_flash_habitually_exfiltrates_api/"},
+      {"tone": "negative", "title": "发布讨论延续 key 轮换担忧", "engagement": "普通用户｜英语｜评论 +31", "detail": "同一安全框架的评论，不作为独立风险计量。", "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x84po4/deepseekaideepseekv41flash1017_hugging_face/"}
     ],
     "YouTube": [{"tone": "neutral", "title": "样本缺失", "engagement": "未取得可稳定复核元数据", "detail": "不使用视频搜索结果、标题或转述替代原生作者、互动与真实试用。", "url": "https://www.youtube.com/"}],
     "X": [{"tone": "neutral", "title": "样本缺失", "engagement": "无法稳定读取原帖", "detail": "不以搜索摘要、中文搬运或媒体转述替代海外原生作者。", "url": "https://x.com/"}],
     "TikTok": [{"tone": "neutral", "title": "样本缺失", "engagement": "公开访问受限", "detail": "不把无法访问解释为没有讨论，也不以搜索结果数替代热度。", "url": "https://www.tiktok.com/"}],
     "GitHub": [
-      {"tone": "positive", "title": "国产 GPU 接入 llm-d/LMCache 工具链", "engagement": "既有厂商原始披露", "detail": "沐曦披露 llm-d 与 LMCache 适配；本周统一提交/部署增量快照缺失。", "url": "https://www.metax-tech.com/en/ndetail/12650.html"},
+      {"tone": "positive", "title": "国产 GPU 新增模型/算法验证", "engagement": "厂商原始披露", "detail": "沐曦披露 SpecBlock 在其 GPU 平台复现；壁仞披露 Step 5 Preview 的 vLLM 功能/精度验证。", "url": "https://www.metax-tech.com/ndetail/12672.html"},
       {"tone": "negative", "title": "订单与稳定性周度证据仍缺", "engagement": "本周无新增可审计披露", "detail": "适配/生产环境不能替代客户验收、P99、利用率或推理收入。", "url": "https://www.metax-tech.com/news/ndetail/ndetail/img/join2.html"}
     ]
   },
   "transmission": [
-    {"stage": "需求", "status": "维持", "score": 86, "detail": "OpenRouter 多个中国模型的 Token/请求变化为正，DeepSeek HF 下载反弹；Kimi/GLM HF 回落，国内周度 Token、API、利用率与 Agent 任务未刷新。", "watch": "连续 4 周国内负载、峰时错误率与 Agent 任务量"},
-    {"stage": "国产替代", "status": "商业验证", "score": 74, "detail": "llm-d、LMCache 与既有生产环境支持生态/部署线索；没有客户独立验收、卡型占比、P99 或利用率。", "watch": "合同、客户验收、P99、利用率与国产卡实例占比"},
+    {"stage": "需求", "status": "维持", "score": 84, "detail": "OpenRouter 完整周 DeepSeek/GLM Token 仍高位、vLLM 继续适配；四个 HF 官方仓滚动下载均回落，国内周度 Token、API、利用率与 Agent 任务未刷新。", "watch": "连续 4 周国内负载、峰时错误率与 Agent 任务量"},
+    {"stage": "国产替代", "status": "商业验证", "score": 74, "detail": "SpecBlock/Step 5 的国产 GPU 功能验证支持生态线索；没有客户独立验收、卡型占比、P99 或利用率。", "watch": "合同、客户验收、P99、利用率与国产卡实例占比"},
     {"stage": "盈利兑现", "status": "部分闭环", "score": 60, "detail": "海外模型采用改善，但本周推理专项订单、ASP、毛利及现金回款仍未闭环。", "watch": "推理订单、ASP、毛利、库存转销与经营现金流"}
   ]
 }

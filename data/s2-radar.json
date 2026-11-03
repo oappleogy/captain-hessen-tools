@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-11-03T21:02:37",
+  "timestamp": "2026-11-04T07:31:42",
   "data_as_of": "2026-11-03",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
     "color": "#f97316",
     "level": 3,
     "score": 0.0,
-    "action": "系统显著承压。建议仓位≤50%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统显著承压。建议仓位≤45%（趋势↓），增加对冲，缩短持仓周期。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -23,7 +23,7 @@
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.51,
+      "score": 0.52,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.24,
+      "score": 0.27,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.02,
+      "score": -0.16,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.22,
+      "score": 0.11,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.17,
+      "score": -0.14,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.82,
+      "score": -0.53,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -129,35 +129,34 @@
     "early_warning": "无"
   },
   "extremes": {
-    "count": 4,
+    "count": 3,
     "categories": [
-      "OVX原油波动率=62.7 (历史91%分位)",
-      "政策不确定性(EPU)=647 (历史97%分位)",
-      "地缘交叉验证(OVX)=62.7 (历史91%分位) [仅验证，不计分]",
-      "Nasdaq波动率(VXN)=30.9 (历史97%分位)"
+      "OVX原油波动率=61.7 (历史90%分位)",
+      "地缘交叉验证(OVX)=61.7 (历史90%分位) [仅验证，不计分]",
+      "Nasdaq波动率(VXN)=30.5 (历史97%分位)"
     ]
   },
   "opportunities": [],
   "contradiction": {
     "type": "dimension_shift",
-    "title": "「叙事共识」本周剧烈恶化",
-    "thesis": "叙事共识维度从+0.42变为-0.16，单周变化0.58，超过异动阈值。需要判断这是噪音还是趋势的开始。",
-    "metaphor": "共识出现裂缝"
+    "title": "「技术动能」本周剧烈改善",
+    "thesis": "技术动能维度从-0.82变为-0.53，单周变化0.29，超过异动阈值。需要判断这是噪音还是趋势的开始。",
+    "metaphor": "引擎在修复"
   },
   "allocation": {
-    "short_term": "情绪面相对平稳，正常操作即可。",
+    "short_term": "可以小幅试探性加仓，但不要一次性打满。情绪还在波动，留足应对空间。",
     "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 4,
+    "extreme_count": 3,
     "vix": {
-      "value": 21.3,
-      "percentile": 88,
+      "value": 20.8,
+      "percentile": 87,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {
-      "value": 3.44,
+      "value": 3.43,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

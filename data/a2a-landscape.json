@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-26",
-  "last_checked_at": "2026-10-26T11:21:48.232212+00:00",
+  "as_of": "2026-11-03",
+  "last_checked_at": "2026-11-03T04:32:39.595844+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -455,8 +455,9 @@
         "mcp"
       ],
       "checked_at": "2026-10-08",
-      "adoption": "未在本轮独立核验生产规模",
-      "participant": "Coinbase"
+      "adoption": "2026-11-03核验Q3财报第14页：CDP TPV明确排除x402微支付，不能用此指标推断Agent付费需求；真实采用规模仍待查。",
+      "participant": "Coinbase",
+      "adoption_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf"
     },
     {
       "id": "mastercard",
@@ -1108,6 +1109,11 @@
   ],
   "checks": [
     {
+      "date": "2026-11-03",
+      "status": "部分核验",
+      "note": "部分补查：从10月26日记录及近7天线索检索；恢复Page访问并确认上次Go SDK内容已保存。A2A发布页搜索缓存仍列v1.0.1，缓存非实时保证。核验Coinbase Q3财报第14页CDP TPV排除x402的统计口径；不据此推断真实Agent交易量。其他协议、SDK、国内平台和队列未全量覆盖，缺失日期不补造成功记录。"
+    },
+    {
       "date": "2026-10-26",
       "status": "部分核验",
       "note": "部分核验：最近成功检查10月23日；10月24日至25日无完成记录。本轮回看近7天，补核10月21日A2A Go SDK v2.7.0官方发布，单独区别SDK和协议版本，非今日发布。支付检索出现P2Flux等官方资料线索，正文及采用尚未核验；其他协议、SDK、国内平台及队列未全量覆盖。未确认需通知的重大变化。"
@@ -1448,9 +1454,10 @@
       "model": "按成功处理笔数或交易额；另有网络等费用",
       "judgment": "可量化单价，规模待证明",
       "moat": "可靠结算、合规接入、风控与分发",
-      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。",
+      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。",
       "source": "https://www.coinbase.com/developer-platform/discover/launches/x402facilitator-polygon",
-      "checked_at": "2026-10-08"
+      "checked_at": "2026-10-08",
+      "evidence_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf"
     },
     {
       "layer": "commerce",

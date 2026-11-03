@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-10-20",
+  "checked_on": "2026-11-03",
   "title": "客户部署：合同、工时与准确率不是一回事",
-  "scope": "四条不同阶段证据，逐行列检查日：2024合同、2025客户试点、2026年9月厂商累计值及10月电池合作。只有后者为近期新公告；未来电池目标不是客户实测。不重算117家公司历史分数。",
+  "scope": "六条分阶段证据：新增GXO客户侧两站扩展协议及厂商未具名付费项目。2027年初新部署仍是计划；原累计工时/搬箱数不重复算增量。117家公司旧评分不变。",
   "columns": [
     {
       "key": "label",
@@ -114,11 +114,50 @@
           "date": "2026-10-15"
         }
       ]
+    },
+    {
+      "id": "gxo-expansion-20261026",
+      "label": "GXO / Digit 两站扩展协议",
+      "event_date": "2026-10-26",
+      "period": "2026-10-26公告；计划2027年初开始新站部署",
+      "announced": "2026-10-26",
+      "checked_on": "2026-11-03",
+      "stage": "客户确认扩展协议；未到新站验收",
+      "known": "GXO确认Statesville与Lebanon两站扩展协议，拟先用Digit 4，Digit 5商业可用后迁移。老站累计超过10万箱由客户原文确认，属于对既有数字的补证。",
+      "unknown": "未披露新增台数、合同金额、验收条件、当期收入、逐班有效工时、安全事故及维修成本。6.5万小时仍为跨客户累计。",
+      "impact": "从单站历史合同推进到客户确认的多站扩展计划；不能计为两站已交付，也不把重复累计值当本月新增产出。",
+      "sources": [
+        {
+          "title": "GXO客户原文：新增两站商业协议",
+          "url": "https://gxo.com/news_article/gxo-and-agility-robotics-expand-partnership-to-accelerate-deployment-of-humanoids-in-u-s-operations/",
+          "date": "2026-10-26"
+        }
+      ]
+    },
+    {
+      "id": "agility-paid-programs-20261026",
+      "label": "Agility / 三家未具名付费项目",
+      "event_date": "2026-10-26",
+      "period": "截至10月26日厂商所述；项目起始/付款期未披露",
+      "announced": "2026-10-26",
+      "checked_on": "2026-11-03",
+      "stage": "厂商披露付费项目，客户独立核验缺失",
+      "known": "厂商称三家制造业客户参与付费项目，另有30多个潜在客户。未具名客户分别涉及整车、汽车技术零部件和消费品。",
+      "unknown": "没有客户独立确认、合同金额、收款、重复付费、毛利或供应商归属收入。潜在客户不是订单。",
+      "impact": "比演示多一层商业线索，但不据此增加三个已验收样本或给旧117家公司加分；与GXO同日稿不重复计客户。",
+      "sources": [
+        {
+          "title": "Agility：三家未具名付费项目与潜在客户",
+          "url": "https://www.agilityrobotics.com/content/agility-robotics-highlights-commercial-momentum-and-growing-enterprise-demand-for-digit-humanoid-robot",
+          "date": "2026-10-26"
+        }
+      ]
     }
   ],
   "pending": [
     "核对客户持续付费、有效工时、人工干预、停机维修和安全记录。",
     "Digit 5附条件订单不计入收入；安全合作备忘录不等于独立认证；未来交付计划不等于当前交付。",
-    "BMW缺逐班故障/干预、付费与验收；Nyobolt缺衰减、安全运维、客户负载测试和可归属收入，2027H1早期供货仍为计划。"
+    "BMW缺逐班故障/干预、付费与验收；Nyobolt缺衰减、安全运维、客户负载测试和可归属收入，2027H1早期供货仍为计划。",
+    "追踪GXO两站2027年初实际上线、合同/验收与安全运维；三家匿名项目须客户或监管文件独立交叉核验。"
   ]
 }

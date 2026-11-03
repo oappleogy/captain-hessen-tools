@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "nav",
   "title": "已核验的 NAV 与同日价格快照",
-  "checked_on": "2026-10-23",
-  "scope": "九只产品分行保留观察期及检查日。RONB/AGIX更新至10月22日；VCX/DXYZ/NSLR本轮复核仍为历史NAV，NSLR另有Q3初估与退出明细。RVI/ARKVX/USVC/XOVR保留10月16日状态，不能称九只均已更新。仅同日有效价格/NAV计算折溢价，披露日未知留空。",
+  "checked_on": "2026-11-03",
+  "scope": "九只产品保留独立日期。本轮RONB至11月2日、AGIX至10月30日、RVI至9月30日季度NAV；其余六只本轮未重审。仅有效同日NAV/价格计算历史折溢价，不混用净值、季度估值或占位零。",
   "columns": [
     {
       "key": "label",
@@ -132,27 +132,56 @@
     {
       "id": "RVI",
       "label": "RVI · Robinhood Ventures Fund I",
-      "nav": 25.02,
-      "nav_date": "2026-06-30",
+      "nav": 29.2,
+      "nav_date": "2026-09-30",
       "nav_status": "reported",
       "price": null,
       "price_date": null,
       "announced": null,
-      "known": "官方产品页显示6月30日NAV 25.02；Q2更新确认当季完成OpenAI、Canva、SpaceX投资及Stripe追加投资。上市封闭式基金可在交易所买卖，但无投资者按NAV赎回权。",
-      "unknown": "本轮未确认该季度更新的首次发布日期、10月同日NAV/价格及Crusoe、Whatnot新增投资权重；官网称新配置将在下一季披露。",
-      "impact": "旧3月24.70及28—30预测不能继续充当最新已披露净值；基金新增投资不等于标的已上市、盈利或基金已实现退出。",
+      "known": "官网9月30日每份NAV29.20美元；季度摘要净资产796百万美元，非每份价格。Whatnot/Crusoe/Cognition本期公允价值30/25/8百万美元；Cognition交易跨季，余下部分按估值政策在12月底反映。",
+      "unknown": "官网/摘要未标首次发布日期；不是完整审计财报。未取得同日市场价、完整估值桥及回购执行，不能将净资产增长当已实现收益。",
+      "impact": "用已披露9月底NAV替换6月底25.02，旧快照保留。缺同日市价不算溢价；上市交易不等于可按NAV赎回。",
       "sources": [
         {
-          "title": "RVI官方产品页（6月30日净值）",
-          "url": "https://robinhood.com/us/en/ventures/rvi/"
+          "title": "RVI官方产品页：9月底NAV",
+          "url": "https://robinhood.com/us/en/ventures/rvi/",
+          "date": "首次发布日期未标明"
         },
         {
-          "title": "Q2官方更新（观察期6月30日）",
-          "url": "https://cdn.robinhood.com/app_assets/rhv/updates/rvi_q2_26_update.pdf"
+          "title": "RVI Q3组合更新，观察期9月30日",
+          "url": "https://cdn.robinhood.com/app_assets/rhv/updates/rvi_q3_2026_update.pdf",
+          "date": "首次发布日期未标明"
         }
       ],
-      "checked_on": "2026-10-16",
-      "current_price": null
+      "checked_on": "2026-11-03",
+      "current_price": null,
+      "history": [
+        {
+          "id": "RVI",
+          "label": "RVI · Robinhood Ventures Fund I",
+          "nav": 25.02,
+          "nav_date": "2026-06-30",
+          "nav_status": "reported",
+          "price": null,
+          "price_date": null,
+          "announced": null,
+          "known": "官方产品页显示6月30日NAV 25.02；Q2更新确认当季完成OpenAI、Canva、SpaceX投资及Stripe追加投资。上市封闭式基金可在交易所买卖，但无投资者按NAV赎回权。",
+          "unknown": "本轮未确认该季度更新的首次发布日期、10月同日NAV/价格及Crusoe、Whatnot新增投资权重；官网称新配置将在下一季披露。",
+          "impact": "旧3月24.70及28—30预测不能继续充当最新已披露净值；基金新增投资不等于标的已上市、盈利或基金已实现退出。",
+          "sources": [
+            {
+              "title": "RVI官方产品页（6月30日净值）",
+              "url": "https://robinhood.com/us/en/ventures/rvi/"
+            },
+            {
+              "title": "Q2官方更新（观察期6月30日）",
+              "url": "https://cdn.robinhood.com/app_assets/rhv/updates/rvi_q2_26_update.pdf"
+            }
+          ],
+          "checked_on": "2026-10-16",
+          "current_price": null
+        }
+      ]
     },
     {
       "id": "ARKVX",
@@ -228,23 +257,23 @@
     {
       "id": "RONB",
       "label": "RONB · Baron First Principles ETF",
-      "nav": 24.73,
-      "nav_date": "2026-10-22",
+      "nav": 24.53,
+      "nav_date": "2026-11-02",
       "nav_status": "reported",
-      "price": 24.74,
-      "price_date": "2026-10-22",
+      "price": 24.58,
+      "price_date": "2026-11-02",
       "announced": null,
-      "known": "10月22日NAV/市价24.73/24.74美元，官网溢价0.04%。持仓为10月21日：Space Exploration Technologies 40.39%、Tesla 8.61%；净资产规模仍为9月30日。",
-      "unknown": "显示价格经过舍入；不同日期的规模、持仓与价格不能拼算交易量或主动增减持。",
+      "known": "11月2日NAV/市价24.53/24.58美元，显示值复算溢价约0.20%，官方高精度栏0.21%。持仓观察日10月30日，SPCX36.72%、TSLA9.33%；规模仍为9月30日。",
+      "unknown": "舍入导致复算与官方折溢价小幅不同；不把不同观察期混成同日，也不从权重变化推断净买卖。",
       "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
       "sources": [
         {
-          "title": "RONB官方日净值/价格及分日期持仓",
+          "title": "RONB官方日净值/价格",
           "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
-          "date": "首次披露日未标；日值2026-10-22"
+          "date": "首次发布日期未标明"
         }
       ],
-      "checked_on": "2026-10-23",
+      "checked_on": "2026-11-03",
       "current_price": null,
       "history": [
         {
@@ -267,29 +296,51 @@
           ],
           "checked_on": "2026-10-16",
           "current_price": null
+        },
+        {
+          "id": "RONB",
+          "label": "RONB · Baron First Principles ETF",
+          "nav": 24.73,
+          "nav_date": "2026-10-22",
+          "nav_status": "reported",
+          "price": 24.74,
+          "price_date": "2026-10-22",
+          "announced": null,
+          "known": "10月22日NAV/市价24.73/24.74美元，官网溢价0.04%。持仓为10月21日：Space Exploration Technologies 40.39%、Tesla 8.61%；净资产规模仍为9月30日。",
+          "unknown": "显示价格经过舍入；不同日期的规模、持仓与价格不能拼算交易量或主动增减持。",
+          "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
+          "sources": [
+            {
+              "title": "RONB官方日净值/价格及分日期持仓",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+              "date": "首次披露日未标；日值2026-10-22"
+            }
+          ],
+          "checked_on": "2026-10-23",
+          "current_price": null
         }
       ]
     },
     {
       "id": "AGIX",
       "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
-      "nav": 43.14,
-      "nav_date": "2026-10-22",
+      "nav": 41.88,
+      "nav_date": "2026-10-30",
       "nav_status": "reported",
-      "price": 42.91,
-      "price_date": "2026-10-22",
+      "price": 41.62,
+      "price_date": "2026-10-30",
       "announced": null,
-      "known": "10月22日NAV/市价43.14/42.91美元，按显示值复算折价约0.53%；季度收益观察日仍9月30日。",
-      "unknown": "历史折溢价天数表仍含异常季度天数，不采纳；全部底层私募资产估值未逐项核验。",
+      "known": "10月30日NAV/市价41.88/41.62美元，复算折价约0.62%；并非11月2日行情。费用与季度收益仍按官网各自口径。",
+      "unknown": "季度溢折价天数表仍有异常，未采纳；底层私募估值未逐项核验。",
       "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
       "sources": [
         {
-          "title": "AGIX官方日净值与市场价",
+          "title": "AGIX官方日净值/价格",
           "url": "https://kraneshares.com/etf/agix/",
-          "date": "首次披露日未标；日值2026-10-22"
+          "date": "首次发布日期未标明"
         }
       ],
-      "checked_on": "2026-10-23",
+      "checked_on": "2026-11-03",
       "current_price": null,
       "history": [
         {
@@ -312,12 +363,34 @@
           ],
           "checked_on": "2026-10-16",
           "current_price": null
+        },
+        {
+          "id": "AGIX",
+          "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
+          "nav": 43.14,
+          "nav_date": "2026-10-22",
+          "nav_status": "reported",
+          "price": 42.91,
+          "price_date": "2026-10-22",
+          "announced": null,
+          "known": "10月22日NAV/市价43.14/42.91美元，按显示值复算折价约0.53%；季度收益观察日仍9月30日。",
+          "unknown": "历史折溢价天数表仍含异常季度天数，不采纳；全部底层私募资产估值未逐项核验。",
+          "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
+          "sources": [
+            {
+              "title": "AGIX官方日净值与市场价",
+              "url": "https://kraneshares.com/etf/agix/",
+              "date": "首次披露日未标；日值2026-10-22"
+            }
+          ],
+          "checked_on": "2026-10-23",
+          "current_price": null
         }
       ]
     }
   ],
   "pending": [
-    "ARKVX/XOVR有效NAV与USVC更晚交易NAV仍缺，RVI等四项本轮未重审；不称九只最新净值已齐。",
+    "ARKVX/XOVR有效NAV与USVC更晚交易NAV仍缺；VCX/DXYZ/NSLR等六项本轮未重审，不称九只最新净值齐全。",
     "VCX/DXYZ缺更新同日价格及NAV；NSLR待正式Q3与可比价格，初估不替代已报NAV。",
     "补费用、份额稀释、回购执行及底层退出；异日不横比套利、舍入值不是无风险价差。"
   ]

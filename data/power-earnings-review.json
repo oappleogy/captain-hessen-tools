@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "earnings",
   "title": "供电链财报增量：实际兑现与指引分开",
-  "checked_on": "2026-10-23",
-  "scope": "四家公司、五条财季记录：新增Bloom Q3初步实际结果，原四条Q2保留各自核验日，历史行中的预测仅代表当时认知。营收/现金流为百万美元，EPS为美元/股；缺机构一致预期，不算双超预期或新排名。",
+  "checked_on": "2026-11-03",
+  "scope": "四家公司、七条财季记录。新增VRT/GEV Q3实际；旧五行及各自核验日不变。金额为百万美元，EPS为美元/股；GEV仅官方摘要取整值，缺少值留空。未核全机构预期，不据增长重排旧榜。",
   "columns": [
     {
       "key": "label",
@@ -206,11 +206,72 @@
           "date": "2026-10-22"
         }
       ]
+    },
+    {
+      "id": "VRT-2026Q3",
+      "label": "VRT · Vertiv（Q3）",
+      "period_end": "2026-09-30",
+      "period": "2026-07-01至2026-09-30",
+      "announced": "2026-10-28",
+      "checked_on": "2026-11-03",
+      "stage": "公司未经审计季度实际",
+      "currency": "USD",
+      "unit": "million",
+      "revenue_musd": 4312.8,
+      "revenue_yoy_pct": 61,
+      "organic_yoy_pct": 55,
+      "gaap_eps": 1.95,
+      "adjusted_eps": 2.21,
+      "operating_cash_flow_musd": 794,
+      "adjusted_free_cash_flow_musd": 652.2,
+      "known": "单季经营现金流794，资本开支139.1及资本化软件2.7，复算调整后自由现金流652.2百万美元；不是九个月现金流2660.6。",
+      "guidance": "2026全年收入14650百万美元、调整后EPS7.15为10月28日指引中值，非实际结果。",
+      "unknown": "订单兑现、取消条款、统一机构预期仍待核；并购贡献不能全部当有机增长。",
+      "impact": "补上Q3收入与正现金流证据，但不能据此称全链双超预期或刷新旧估值。",
+      "sources": [
+        {
+          "title": "Vertiv Q3官方业绩及单季现金流",
+          "url": "https://investors.vertiv.com/news/news-details/2026/Vertiv-Reports-Strong-Third-Quarter-2026-with-Net-Sales-Growth-of-61-Organic-Orders-Growth-over-100-and-Diluted-EPS-Growth-of-91-Adjusted-Diluted-EPS-Growth-of-78-Raises-Full-Year-2026-Guidance-Across-All-Key-Metrics/default.aspx",
+          "date": "2026-10-28"
+        }
+      ]
+    },
+    {
+      "id": "GEV-2026Q3",
+      "label": "GEV · GE Vernova（Q3摘要）",
+      "period_end": "2026-09-30",
+      "period": "2026-07-01至2026-09-30",
+      "announced": "2026-10-28",
+      "checked_on": "2026-11-03",
+      "stage": "公司季度实际摘要；金额按十亿美元取整",
+      "currency": "USD",
+      "unit": "million",
+      "revenue_musd": 12600,
+      "revenue_yoy_pct": 27,
+      "organic_yoy_pct": 18,
+      "gaap_eps": null,
+      "adjusted_eps": null,
+      "operating_cash_flow_musd": 6100,
+      "orders_musd": 29000,
+      "rpo_musd": 197000,
+      "gas_backlog_and_slots_gw": 122,
+      "known": "官方摘要：单季经营现金流约6100、自由现金流约5400、订单29000、RPO197000百万美元；燃机设备积压及预留档期合计122GW。",
+      "guidance": "年末至少130GW及积压超过2000亿美元是管理层预期，不是季末已交付或已确认收入。",
+      "unknown": "本轮未抽取完整EPS、现金流来源及取消条款；摘要取整值不冒充精确报表。",
+      "impact": "订单和收入继续增加，但档期、履约义务与收入分层，不能将122GW计成已交付电力容量。",
+      "sources": [
+        {
+          "title": "GE Vernova Q3官方结果摘要",
+          "url": "https://www.gevernova.com/news/ge-vernova-reports-strong-third-quarter-2026-financial-performance",
+          "date": "2026-10-28"
+        }
+      ]
     }
   ],
   "pending": [
-    "新增BE Q3，其余三家公司仍为Q2；VRT Q3计划10月28日、ETN 11月3日盘前（美国当地日期），GEV既有日历10月28日。VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
+    "BE、VRT、GEV的Q3已补，ETN仍为Q2，按11月3日美国盘前日历后续跟进；VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
     "旧Q1评分、SA基金持仓、目标空间及历史市值未重算，移入历史区；本表不是新的全链排名。",
-    "各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。"
+    "各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。",
+    "VRT/GEV Q3已补；ETN按官方日历11月3日美国盘前，当前北京时间午间尚未到时点，不预填实际结果。其余公司、完整现金来源与预期差仍待核。"
   ]
 }

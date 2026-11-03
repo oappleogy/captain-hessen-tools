@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-10-23",
+  "inventory_checked_at": "2026-11-03",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -22,8 +22,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05-15",
-      "last_checked": "2026-10-20",
-      "last_research_update": "2026-10-20",
+      "last_checked": "2026-11-03",
+      "last_research_update": "2026-11-03",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -37,7 +37,8 @@
         "117家公司旧评分和5月14日市值尚未重算；不能用于当前排名。",
         "绿的谐波、汇川H1财报已完成本轮拆分；人形可归属收入、良率和客户验收仍未单列，不用公司总收入代替。",
         "GXO历史合同与Agility累计工时已分来源核验；客户本期付费、有效工时、干预率与维修费用仍待补，本周验收不宣称完整。",
-        "核验 Tesla 10月21日业绩会的最新里程碑，不把过去路线图当作已投产。"
+        "核验 Tesla 10月21日业绩会的最新里程碑，不把过去路线图当作已投产。",
+        "10月31日绿的谐波Q3及11月3日更正报告已发现公开索引，尚未取交易所更正原文逐表核验；不从转载数字升级评分。"
       ],
       "updates": [
         {
@@ -152,6 +153,26 @@
               "date": "2026-10-15"
             }
           ]
+        },
+        {
+          "date": "2026-11-03",
+          "title": "客户确认跨站扩展，但新站部署仍在2027年",
+          "body": "GXO客户原文确认两个新增站点的协议及未来启动安排；既有10万箱和6.5万小时为旧累计补证，不计本月增量。另列厂商三家匿名付费项目，未独立确认，30多个潜在客户不算订单。不改117家旧分数。",
+          "source_period": "10月26日公告；新站计划2027年初；累计值达到日未披露",
+          "sources": [
+            {
+              "title": "GXO客户原文：新增两站商业协议",
+              "url": "https://gxo.com/news_article/gxo-and-agility-robotics-expand-partnership-to-accelerate-deployment-of-humanoids-in-u-s-operations/",
+              "date": "2026-10-26"
+            },
+            {
+              "title": "Agility：三家未具名付费项目与潜在客户",
+              "url": "https://www.agilityrobotics.com/content/agility-robotics-highlights-commercial-momentum-and-growing-enterprise-demand-for-digit-humanoid-robot",
+              "date": "2026-10-26"
+            }
+          ],
+          "event_date": "2026-10-26",
+          "announced_on": "2026-10-26"
         }
       ]
     },
@@ -268,9 +289,9 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-10-23",
-      "last_research_update": "2026-10-16",
-      "next_due": "2026-10-23",
+      "last_checked": "2026-11-03",
+      "last_research_update": "2026-11-03",
+      "next_due": "2026-11-06",
       "review_state": "partial",
       "owner": "既有推理周报任务",
       "schedule": {
@@ -280,7 +301,7 @@
         "quarterly": "财报后：需求、国产替代与盈利分别验证"
       },
       "pending": [
-        "周五周报已发布；国内Token、利用率、国产卡验收/推理收入仍缺可审计周度数据；X/TikTok/YouTube原生样本缺失，保持未知。"
+        "W45于11月3日实际发布，不能补写成之前周五按时完成；国内Token、利用率、国产卡验收/推理收入仍缺可审计周度数据；X/TikTok/YouTube原生样本缺失。"
       ],
       "updates": [
         {
@@ -306,6 +327,20 @@
               "title": "已发布独立周报，非本轮新一手来源",
               "url": "https://tools.basealpha.ai/inference-narrative.html",
               "date": "2026-10-16"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-03",
+          "title": "独立W45周报已上线，观察截至11月2日",
+          "body": "本次验收独立任务现有产物，不重新生成样本或评分。报告保留HF滚动窗口、公开聚合流量与真实国产卡订单的区别；海外有效社交作者不足，不把传播热度当硬件收入。缺失周不补造成功记录。",
+          "source_period": "独立产物W45，观察截至2026-11-02 23:59 CST；实际发布2026-11-03",
+          "announced_on": "2026-11-03",
+          "sources": [
+            {
+              "title": "公开W45周报数据",
+              "url": "https://tools.basealpha.ai/inference-narrative-data.json",
+              "date": "2026-11-03"
             }
           ]
         }
@@ -342,6 +377,10 @@
         {
           "date": "2026-10-23",
           "result": "线上仍为10月16日发布W41，观察截至10月15日23:59 CST；当前为23日上午，既有18:30独立任务尚未到运行时点，不重复生成或提前验收。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "独立周报W45已于11月3日12:36北京时间发布，观察截至11月2日23:59，HTTP与公开提交064f6f8一致。保留其海外样本不足、国产订单/验收及推理收入缺失；仅验收，不重复评分或触发任务。W42同日补发不是10月23日已按时发布。"
         }
       ]
     },
@@ -443,8 +482,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-24",
-      "last_checked": "2026-10-23",
-      "last_research_update": "2026-10-23",
+      "last_checked": "2026-11-03",
+      "last_research_update": "2026-11-03",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -455,7 +494,7 @@
         "quarterly": "财报后2日：逐公司滚动替换Q1底稿；当季20日检查披露日历"
       },
       "pending": [
-        "新增BE Q3，其余三家公司仍为Q2；VRT Q3计划10月28日、ETN 11月3日盘前（美国当地日期），GEV既有日历10月28日。VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
+        "BE、VRT、GEV的Q3已补，ETN仍为Q2，按11月3日美国盘前日历后续跟进；VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
         "机构一致预期、原Q1评分、SA持仓及估值未重算；新证据不是20多家公司全量更新，截止日保持可见。"
       ],
       "updates": [
@@ -532,6 +571,26 @@
           ],
           "event_date": "2026-09-30",
           "announced_on": "2026-10-22"
+        },
+        {
+          "date": "2026-11-03",
+          "title": "补上VRT/GEV三季度实际，订单不当收入",
+          "body": "财报表新增VRT与GEV Q3两行，保留原Q2和BloomQ3。Vertiv单季经营现金流、资本开支与软件投资单独核对；GEV摘要金额保留取整，燃机积压含预留档期，不作已交付量。旧一致预期、估值与全链排名未重算。",
+          "source_period": "2026-07-01至09-30；10月28日公告",
+          "sources": [
+            {
+              "title": "Vertiv Q3官方业绩及单季现金流",
+              "url": "https://investors.vertiv.com/news/news-details/2026/Vertiv-Reports-Strong-Third-Quarter-2026-with-Net-Sales-Growth-of-61-Organic-Orders-Growth-over-100-and-Diluted-EPS-Growth-of-91-Adjusted-Diluted-EPS-Growth-of-78-Raises-Full-Year-2026-Guidance-Across-All-Key-Metrics/default.aspx",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "GE Vernova Q3官方结果摘要",
+              "url": "https://www.gevernova.com/news/ge-vernova-reports-strong-third-quarter-2026-financial-performance",
+              "date": "2026-10-28"
+            }
+          ],
+          "event_date": null,
+          "announced_on": "2026-10-28"
         }
       ],
       "checks": [
@@ -566,6 +625,17 @@
               "date": "网页未标发布日期"
             }
           ]
+        },
+        {
+          "date": "2026-11-03",
+          "result": "Eaton官方计划11月3日美国盘前披露；本轮北京时间午间未到该时点，不填Q3实际。已补两家公司不等于全链季检完成。",
+          "sources": [
+            {
+              "title": "Eaton Q3披露日历",
+              "url": "https://www.eaton.com/us/en-us/company/news-insights/news-releases/2026/eaton-to-announce-third-quarter-2026-earnings-on-november-3--202.html",
+              "date": "2026-10-20"
+            }
+          ]
         }
       ]
     },
@@ -577,7 +647,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-10-20",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-16",
       "next_due": "2026-11-11",
       "review_state": "partial",
@@ -636,6 +706,17 @@
               "date": "2026-10-15"
             }
           ]
+        },
+        {
+          "date": "2026-11-03",
+          "result": "官方投资者入口仍列9月月报及10月15日Q3，不把11月巡检日当十月营收；新月报未在本次入口出现，不宣称所有渠道均未发布。旧产能、配额、良率模型未重算。",
+          "sources": [
+            {
+              "title": "TSMC官方投资者页，最新月报与季报入口",
+              "url": "https://investor.tsmc.com/english",
+              "date": "首次发布日期未标明"
+            }
+          ]
         }
       ]
     },
@@ -648,7 +729,7 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-10-20",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-16",
       "next_due": "2026-10-13",
       "review_state": "partial",
@@ -707,6 +788,17 @@
               "date": "2026-03-06"
             }
           ]
+        },
+        {
+          "date": "2026-11-03",
+          "result": "SEC submissions本次可读，recent列表最新13F-HR仍为8月14日、观察6月底；该返回列表没有13F-HR/A或Q3申报，files为空。不能由此补造Q3持仓或把13D/A当13F修订。前季股数对照与完整性仍待补，研究日期/原截止不变。",
+          "sources": [
+            {
+              "title": "SEC公司申报索引：13F及修订类型",
+              "url": "https://data.sec.gov/submissions/CIK0002045724.json",
+              "date": "首次发布日期未标明"
+            }
+          ]
         }
       ]
     },
@@ -718,7 +810,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -765,6 +857,10 @@
         {
           "date": "2026-10-23",
           "result": "23日01:20UTC产物已上线；累计指标as_of仍21日02:28UTC，滚动30日未给精确截止。发布新不等于交易窗新，付费真实性与目录旧值仍待核，原截止不动。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "11月3日01:20UTC产物已HTTP对齐，累计源as_of为11月2日03:15UTC；rolling_30_days未给精确截止。发布成功不等于所有交易清洗、目录和收入均已独立核验。"
         }
       ]
     },
@@ -777,9 +873,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": null,
-      "next_due": "2026-10-24",
+      "next_due": "2026-11-04",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -824,6 +920,10 @@
         {
           "date": "2026-10-23",
           "result": "23日独立产物及部分核验记录与线上一致：补Metaplex历史文档，未证实实时价格、实付或退款；只完成独立任务运行与发布验收，不宣称全部协议/生产采用已核。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "独立任务11月3日04:32UTC产物已HTTP对齐；本次仅部分核验，内容明确CDP TPV排除x402及其他协议缺口。完成日验收，不把部分覆盖写成全市场核完，也不补造中断日期。"
         }
       ]
     },
@@ -928,8 +1028,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-23",
-      "last_research_update": "2026-10-23",
+      "last_checked": "2026-11-03",
+      "last_research_update": "2026-11-03",
       "next_due": "2026-10-13",
       "review_state": "partial",
       "owner": "专题维护",
@@ -941,7 +1041,7 @@
       },
       "pending": [
         "旧四巨头模型及压力测试未完整重算；新证据不能与旧总量直接相加。",
-        "Meta Q3已核；微软10月28日、Amazon10月29日（美国当地日）披露后2日跟进。旧全量模型未重算，10月13日积压不顺延。"
+        "Meta Q3及微软10月28日、Amazon10月29日公布的新季度已补；全公司可比口径、旧模型与压力测试未完整重建，10月13日积压不顺延。"
       ],
       "updates": [
         {
@@ -989,6 +1089,31 @@
           ],
           "event_date": "2026-09-30",
           "announced_on": "2026-10-21"
+        },
+        {
+          "date": "2026-11-03",
+          "title": "微软新财季与Amazon Q3：统一观察期，区分租赁和现金",
+          "body": "微软FY2027Q1（自然年7至9月）现金流表：经营现金58000、PP&E现金39367，差额18633百万美元。业绩会报告Capex45200、融资租赁7400为另一口径，不能再把租赁重复加到45200上；约四分之三短寿命资产含CPU/GPU，不全是AI。部分第三方容量延迟不等于需求消失。FY27自由现金流为正及自然年Capex约1700亿美元仍是指引。 Amazon Q3现金流表：经营现金42422、PP&E采购77259、出售/补贴1381百万美元，按官方定义复算单季自由现金流-33456；滚动十二个月经营现金168300、净PP&E210657、自由现金流-42357，不能把TTM损耗当单季。全年现金Capex约2200亿美元为指引，非全为AI支出。",
+          "source_period": "微软FY2027Q1、Amazon2026Q3均截至9月30日；Amazon另列TTM；公告10月28/29日",
+          "sources": [
+            {
+              "title": "Microsoft FY2027Q1官方财务报表",
+              "url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2027-Q1/press-release-webcast",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Microsoft FY2027Q1官方业绩会",
+              "url": "https://www.microsoft.com/en-us/Investor/events/fy-2027/earnings-fy-2027-q1",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Amazon Q3官方业绩及现金流",
+              "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
+              "date": "2026-10-29"
+            }
+          ],
+          "event_date": null,
+          "announced_on": "2026-10-28 / 2026-10-29"
         }
       ],
       "checks": [
@@ -1023,8 +1148,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-03",
-      "last_checked": "2026-10-23",
-      "last_research_update": "2026-10-23",
+      "last_checked": "2026-11-03",
+      "last_research_update": "2026-11-03",
       "next_due": "2026-10-13",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1035,7 +1160,7 @@
       },
       "pending": [
         "旧页面的总投入和模型公司收入仍是历史假设；应先重建可比口径再重算倍数。",
-        "Meta Q3已核；微软10月28日、Amazon10月29日（美国当地日）披露后2日跟进。旧全量模型未重算，10月13日积压不顺延。"
+        "Meta Q3及微软10月28日、Amazon10月29日公布的新季度已补；全公司可比口径、旧模型与压力测试未完整重建，10月13日积压不顺延。"
       ],
       "updates": [
         {
@@ -1083,6 +1208,51 @@
           ],
           "event_date": "2026-09-30",
           "announced_on": "2026-10-21"
+        },
+        {
+          "date": "2026-11-03",
+          "title": "微软新财季与Amazon Q3：统一观察期，区分租赁和现金",
+          "body": "微软FY2027Q1（自然年7至9月）现金流表：经营现金58000、PP&E现金39367，差额18633百万美元。业绩会报告Capex45200、融资租赁7400为另一口径，不能再把租赁重复加到45200上；约四分之三短寿命资产含CPU/GPU，不全是AI。部分第三方容量延迟不等于需求消失。FY27自由现金流为正及自然年Capex约1700亿美元仍是指引。 Amazon Q3现金流表：经营现金42422、PP&E采购77259、出售/补贴1381百万美元，按官方定义复算单季自由现金流-33456；滚动十二个月经营现金168300、净PP&E210657、自由现金流-42357，不能把TTM损耗当单季。全年现金Capex约2200亿美元为指引，非全为AI支出。",
+          "source_period": "微软FY2027Q1、Amazon2026Q3均截至9月30日；Amazon另列TTM；公告10月28/29日",
+          "sources": [
+            {
+              "title": "Microsoft FY2027Q1官方财务报表",
+              "url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2027-Q1/press-release-webcast",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Microsoft FY2027Q1官方业绩会",
+              "url": "https://www.microsoft.com/en-us/Investor/events/fy-2027/earnings-fy-2027-q1",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Amazon Q3官方业绩及现金流",
+              "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
+              "date": "2026-10-29"
+            }
+          ],
+          "event_date": null,
+          "announced_on": "2026-10-28 / 2026-10-29"
+        },
+        {
+          "date": "2026-11-03",
+          "title": "云业务增长不是可归属AI净回报",
+          "body": "微软Cloud收入639亿美元、Azure同比48%；Amazon AWS收入460亿美元、经营利润178亿美元。它们均含非AI业务；微软OpenAI投资收益与Amazon上年Anthropic投资收益影响净利可比性。云增长和负自由现金流可以同时存在，不据此证明AI投资必然回本或全行业亏损。",
+          "source_period": "2026-07-01至09-30；不同公司业务边界保留",
+          "sources": [
+            {
+              "title": "Microsoft FY2027Q1官方财务报表",
+              "url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2027-Q1/press-release-webcast",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Amazon Q3官方业绩及现金流",
+              "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
+              "date": "2026-10-29"
+            }
+          ],
+          "event_date": null,
+          "announced_on": null
         }
       ],
       "checks": [
@@ -1138,7 +1308,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-21",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1230,6 +1400,10 @@
         {
           "date": "2026-10-23",
           "result": "23日产物可用，时间轴最新事件18日；本次未重审事件原文，研究日保留21日。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "文件11月3日，时间轴最新事件10月26日；仅完成发布和日期检查，未将管线新闻当独立核验，不推进研究日期。"
         }
       ]
     },
@@ -1309,7 +1483,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-20",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-08",
       "next_due": "2026-10-13",
       "review_state": "partial",
@@ -1342,6 +1516,17 @@
         {
           "date": "2026-10-20",
           "result": "定向检索日本经济产业省LNG库存只获得较旧索引，未取得10月公司库存天数、停工或替代成本的可核数值；不从总量能源冲突推断日韩公司停产，不重算旧模型，10月13日积压保留."
+        },
+        {
+          "date": "2026-11-03",
+          "result": "已追查日本最新发电用LNG库存原始PDF，但官方入口403；二手网页215万吨、周窗10月25日尚未从官方原图核验，不写入当前库存事实。日韩公司库存天数、停工及替代成本仍缺。",
+          "sources": [
+            {
+              "title": "日本资源能源厅发电用LNG库存原始入口",
+              "url": "https://www.enecho.meti.go.jp/category/electricity_and_gas/electricity_measures/pdf/denryoku_LNG_stock.pdf",
+              "date": "首次发布日期未标明"
+            }
+          ]
         }
       ]
     },
@@ -1353,7 +1538,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-08",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -1425,6 +1610,10 @@
         {
           "date": "2026-10-23",
           "result": "外层内容日期20日、检查23日；discussion仍8日，ONI JAS26、SST14OCT2026、SOI五月、MEI四至五月各自保留。概率forecast_as_of为空，不用外层新时间掩盖内层旧值。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "产物/检查11月3日；discussion_as_of仍10月8日、下期11月12日，ONI JAS26、SST28OCT2026、SOI五月、MEI四至五月分开。forecast_as_of为空，不能以新外层日期给旧内层指标背书。"
         }
       ]
     },
@@ -1436,7 +1625,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-08",
       "next_due": "2026-10-19",
       "review_state": "partial",
@@ -1490,6 +1679,22 @@
               "date": "索引标2026-10-22"
             }
           ]
+        },
+        {
+          "date": "2026-11-03",
+          "result": "十月报告目录及PDF文字已可读，目录日期10月22日、报告统计为九月。直接下载403，浏览器无法显示PDF，图形左右列对应尚未完成视觉核验；不把提取顺序当全球/国际口径，也不发布未经核对的新占比。",
+          "sources": [
+            {
+              "title": "SWIFT十月报告目录",
+              "url": "https://www.swift.com/products/global-currency-tracker/document-centre?sort%5Bfield_last_updated%5D=DESC&tl=en",
+              "date": "2026-10-22"
+            },
+            {
+              "title": "SWIFT十月报告公开下载入口",
+              "url": "https://www.swift.com/swift-resource/252611/download",
+              "date": "2026-10-22"
+            }
+          ]
         }
       ]
     },
@@ -1501,7 +1706,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-23",
       "next_due": "2026-10-19",
       "review_state": "partial",
@@ -1565,6 +1770,17 @@
         {
           "date": "2026-10-20",
           "result": "本次可解析服务页未重现旧八月业务统计，不冒称重新核过该数值；保留原观察期，待取得新一期官方统计。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "官网业务统计仍为九月86.5万笔/22.6万亿元、1至9月688.8万笔/162.3万亿元，与已记录期相同；没有十月增量，不推进研究日期。",
+          "sources": [
+            {
+              "title": "CIPS官方业务统计",
+              "url": "https://www.cips.com.cn/kjjqgs/cipsfw/",
+              "date": "首次发布日期未标明"
+            }
+          ]
         }
       ]
     },
@@ -1576,7 +1792,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": "2026-10-21",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1640,6 +1856,10 @@
         {
           "date": "2026-10-23",
           "result": "23日产物可用，时间轴最新事件仍2日；21日ARCC季度补核不等于新闻流恢复，本次不推进研究日或截止。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "文件11月3日，时间轴最新事件10月23日；季度NAV/违约与原始公告未全部复核，只有管线检查，保持原研究日期和积压。"
         }
       ]
     },
@@ -1689,7 +1909,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1736,6 +1956,10 @@
         {
           "date": "2026-10-23",
           "result": "23日产物HTTP可用且与当前公开仓一致；未逐品种核验报价和库存观察期，不将产物时间算成全专题研究更新。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "11月3日00:15UTC产物已HTTP对齐；报价多为11月2日，苯乙烯库存日期10月30日且值为0，原始口径未核不得解释成真实清库。未改研究日期或重算模型。"
         }
       ]
     },
@@ -1812,8 +2036,8 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-05-05",
-      "last_checked": "2026-10-23",
-      "last_research_update": "2026-10-23",
+      "last_checked": "2026-11-03",
+      "last_research_update": "2026-11-03",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1824,7 +2048,7 @@
         "quarterly": "财报披露后2日：正式NAV、组合退出与现金流；初步估计单列，不能充当最终财报"
       },
       "pending": [
-        "ARKVX/XOVR有效NAV与USVC更晚交易NAV仍缺，RVI等四项本轮未重审；不称九只最新净值已齐。",
+        "RVI已补9月底NAV，RONB/AGIX已补新日值；ARKVX/XOVR有效NAV与USVC更晚交易NAV仍缺，其余六项本轮未重审。",
         "VCX/DXYZ缺更新同日价格及NAV；NSLR待正式Q3与可比价格，初估不替代已报NAV。",
         "补费用、份额稀释、回购执行及底层退出；异日不横比套利、舍入值不是无风险价差。"
       ],
@@ -1915,6 +2139,36 @@
               "title": "DXYZ官网：明确截至六月底的报告口径",
               "url": "https://destiny.xyz/tech100",
               "date": "页面未标首次发布日期"
+            }
+          ],
+          "event_date": null,
+          "announced_on": null
+        },
+        {
+          "date": "2026-11-03",
+          "title": "补RVI三季度NAV及两只ETF同日快照",
+          "body": "RVI官网确认9月底NAV29.20，季报组合摘要796百万美元净资产；Cognition跨季交易仅按已入账部分列示。RONB更新11月2日、AGIX更新10月30日，同日价差按舍入值计算；三者旧快照存history，其余六只不跟着刷新检查日。",
+          "source_period": "RVI09-30；RONB11-02；AGIX10-30；首次发布时间未标",
+          "sources": [
+            {
+              "title": "RVI官方产品页：9月底NAV",
+              "url": "https://robinhood.com/us/en/ventures/rvi/",
+              "date": "首次发布日期未标明"
+            },
+            {
+              "title": "RVI Q3组合更新，观察期9月30日",
+              "url": "https://cdn.robinhood.com/app_assets/rhv/updates/rvi_q3_2026_update.pdf",
+              "date": "首次发布日期未标明"
+            },
+            {
+              "title": "RONB官方日净值/价格",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+              "date": "首次发布日期未标明"
+            },
+            {
+              "title": "AGIX官方日净值/价格",
+              "url": "https://kraneshares.com/etf/agix/",
+              "date": "首次发布日期未标明"
             }
           ],
           "event_date": null,
@@ -2149,7 +2403,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-10-15已审计快照",
-      "last_checked": "2026-10-23",
+      "last_checked": "2026-11-03",
       "last_research_update": null,
       "next_due": "2026-10-19",
       "review_state": "pipeline",
@@ -2181,6 +2435,10 @@
         {
           "date": "2026-10-23",
           "result": "公开摘要仍14日生成、观察截止14日20:54UTC；本次只验可访问与仓库一致，未完成周一完整复核，19日积压保持。"
+        },
+        {
+          "date": "2026-11-03",
+          "result": "摘要/观察仍10月14日UTC，历史完整队列40702/463417，约8.78%；422715待回补。月末已过不自动将十月partial转完整；开源活动不替代真实部署，原截止10月19日保留。"
         }
       ]
     }

@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-11-02T01:20:07.343675Z",
+  "generated_utc": "2026-11-03T01:20:03.836061Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 195970380,
-    "volume_usd": 42278255.0,
-    "as_of": "2026-11-01T03:05:43.92497Z",
+    "transactions": 196254391,
+    "volume_usd": 42286214.0,
+    "as_of": "2026-11-02T03:15:39.59713Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -124,10 +124,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-11-01",
-      "transactions": 195970380,
-      "volume_usd": 42278255.0,
-      "period_transactions": 8000,
-      "period_volume_usd": 447.0,
+      "transactions": 196254391,
+      "volume_usd": 42286214.0,
+      "period_transactions": 292011,
+      "period_volume_usd": 8406.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -629,13 +629,15 @@ window.X402_DATA = {
       "transactions": 195970380,
       "volume_usd": 42278255.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-11-03",
+      "transactions": 196254391,
+      "volume_usd": 42286214.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-09-02",
-      "txs": 1453415
-    },
     {
       "day": "2026-09-03",
       "txs": 1124974
@@ -871,6 +873,10 @@ window.X402_DATA = {
     {
       "day": "2026-10-31",
       "txs": 124217
+    },
+    {
+      "day": "2026-11-01",
+      "txs": 273631
     }
   ],
   "market_24h": {
@@ -878,10 +884,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 3668834,
-    "volume_usd": 1451080.85,
-    "buyers": 32120,
-    "sellers": 13466
+    "transactions": 3776966,
+    "volume_usd": 1533733.12,
+    "buyers": 32869,
+    "sellers": 13320
   },
   "leader": {
     "name": "BlockRun",

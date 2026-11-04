@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-11-03T01:20:03.836061Z",
+  "generated_utc": "2026-11-04T01:20:07.418471Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 196254391,
-    "volume_usd": 42286214.0,
-    "as_of": "2026-11-02T03:15:39.59713Z",
+    "transactions": 196471800,
+    "volume_usd": 42352879.0,
+    "as_of": "2026-11-03T04:29:43.944522Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -124,10 +124,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-11-01",
-      "transactions": 196254391,
-      "volume_usd": 42286214.0,
-      "period_transactions": 292011,
-      "period_volume_usd": 8406.0,
+      "transactions": 196471800,
+      "volume_usd": 42352879.0,
+      "period_transactions": 509420,
+      "period_volume_usd": 75071.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -635,13 +635,15 @@ window.X402_DATA = {
       "transactions": 196254391,
       "volume_usd": 42286214.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-11-04",
+      "transactions": 196471800,
+      "volume_usd": 42352879.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-09-03",
-      "txs": 1124974
-    },
     {
       "day": "2026-09-04",
       "txs": 861356
@@ -877,6 +879,10 @@ window.X402_DATA = {
     {
       "day": "2026-11-01",
       "txs": 273631
+    },
+    {
+      "day": "2026-11-02",
+      "txs": 178519
     }
   ],
   "market_24h": {
@@ -884,10 +890,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 3776966,
-    "volume_usd": 1533733.12,
-    "buyers": 32869,
-    "sellers": 13320
+    "transactions": 3995770,
+    "volume_usd": 1593321.65,
+    "buyers": 33577,
+    "sellers": 13476
   },
   "leader": {
     "name": "BlockRun",

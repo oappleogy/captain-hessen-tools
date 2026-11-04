@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-11-03",
+  "inventory_checked_at": "2026-11-04",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -184,8 +184,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-30",
-      "last_checked": "2026-10-21",
-      "last_research_update": "2026-10-21",
+      "last_checked": "2026-11-04",
+      "last_research_update": "2026-11-04",
       "next_due": "2026-10-14",
       "review_state": "partial",
       "owner": "专题维护",
@@ -196,8 +196,8 @@
         "quarterly": "财报后2日：收入归因、现金消耗、融资与估值"
       },
       "pending": [
-        "本轮补单产品正式销售与功能检测服务案例；原产业地图、六家公司估值和所有供应商未全量复核。",
-        "同规格多买方实验猴采购、合同验收、分层临床实际招募、功能检测付费/复购/毛利仍缺；保留10月14日截止。"
+        "前三季度利润拆分、表达/结合表征产品和联合湿实验报告已补；供应商实际付费、复购、毛利、AI收入归因与临床分层招募仍未闭环。",
+        "同规格多买方实验猴采购、交付与外购成本、原产业地图和旧估值仍待补；Twist FY2026 Q4计划11月12日披露，不改10月14日积压截止。"
       ],
       "updates": [
         {
@@ -278,6 +278,41 @@
               "date": "2026-10-13（登记更新发布）"
             }
           ]
+        },
+        {
+          "date": "2026-11-04",
+          "title": "服务利润、具体表征产品与真实湿实验补证，仍不推导必然获批",
+          "body": "昭衍前三季度服务及其他业务贡献净利润转为1461.56万元，生物资产公允价值净收益86633.58万元仍需分开，不能把整体利润增幅归给服务。Twist新增表达加结合表征服务，未披露付费/复购；BigHat客户原站联合报告确认6—9月两项目约1010变体实验，但自有平台不等于外包订单。原页行业信号已同步，FDA草案和临床登记重读无新里程碑；标的等级未改。",
+          "source_period": "昭衍2026年1—9月/单季7—9月；Twist10月28日发布；BigHat实验6—9月、10月27日发布；11月4日核验",
+          "event_date": null,
+          "announced_on": null,
+          "sources": [
+            {
+              "title": "昭衍新药2026第三季度报告（公司官网）",
+              "url": "https://www.joinnlabs.com/upload/file/202610/20261029010222_29154.pdf",
+              "date": "2026-10-29（官网上架）；报告签署10-28"
+            },
+            {
+              "title": "Twist扩展高通量抗体表达与结合表征服务",
+              "url": "https://investors.twistbioscience.com/news-releases/news-release-details/twist-bioscience-expands-high-throughput-antibody",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Twist FY2026 Q4及全年业绩披露日历",
+              "url": "https://investors.twistbioscience.com/news-releases/news-release-details/twist-bioscience-report-fiscal-2026-fourth-quarter-and-full-year",
+              "date": "2026-10-26"
+            },
+            {
+              "title": "BigHat客户原站联合技术报告：抗体先导优化",
+              "url": "https://www.bighatbio.com/bighat-anthropic-collaboration-report-10-27-2026",
+              "date": "2026-10-27（报告发布页）"
+            },
+            {
+              "title": "Anthropic与六家药物研发伙伴的早期案例",
+              "url": "https://www.anthropic.com/research/early-progress-drug-development",
+              "date": "2026-10-27"
+            }
+          ]
         }
       ]
     },
@@ -289,7 +324,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-11-03",
+      "last_checked": "2026-11-04",
       "last_research_update": "2026-11-03",
       "next_due": "2026-11-06",
       "review_state": "partial",
@@ -381,6 +416,10 @@
         {
           "date": "2026-11-03",
           "result": "独立周报W45已于11月3日12:36北京时间发布，观察截至11月2日23:59，HTTP与公开提交064f6f8一致。保留其海外样本不足、国产订单/验收及推理收入缺失；仅验收，不重复评分或触发任务。W42同日补发不是10月23日已按时发布。"
+        },
+        {
+          "date": "2026-11-04",
+          "result": "独立W45周报已上线，观察截至11月2日23:59 CST、11月3日发布；11月4日只验收可用性，不改研究日期或11月6日截止。"
         }
       ]
     },
@@ -482,8 +521,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-24",
-      "last_checked": "2026-11-03",
-      "last_research_update": "2026-11-03",
+      "last_checked": "2026-11-04",
+      "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -494,7 +533,7 @@
         "quarterly": "财报后2日：逐公司滚动替换Q1底稿；当季20日检查披露日历"
       },
       "pending": [
-        "BE、VRT、GEV的Q3已补，ETN仍为Q2，按11月3日美国盘前日历后续跟进；VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
+        "BE、VRT、GEV及ETN的Q3实际已补；VST、CEG等和机构预期仍未补齐，10月9日积压不顺延。",
         "机构一致预期、原Q1评分、SA持仓及估值未重算；新证据不是20多家公司全量更新，截止日保持可见。"
       ],
       "updates": [
@@ -591,6 +630,21 @@
           ],
           "event_date": null,
           "announced_on": "2026-10-28"
+        },
+        {
+          "date": "2026-11-04",
+          "title": "Eaton三季度实际已补，现金流取官方数并说明取整差异",
+          "body": "表格新增ETN Q3：收入8947百万美元、同比+28%，有机+19%；GAAP EPS2.77、调整后3.68，经营现金流1310，自由现金流官方值1034。取整后CFO减资本开支与官方FCF差1百万，已明确说明。滚动12个月订单和全年指引不当单季实际；原七行及旧排名不动。",
+          "source_period": "2026-07-01至09-30；11月3日美国当地公告；11月4日核验",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-11-03",
+          "sources": [
+            {
+              "title": "Eaton Q3业绩及现金流量表（SEC附件）",
+              "url": "https://www.sec.gov/Archives/edgar/data/1551182/000155118226000037/etn09302026exhibit99.htm",
+              "date": "2026-11-03"
+            }
+          ]
         }
       ],
       "checks": [
@@ -873,9 +927,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-03",
+      "last_checked": "2026-11-04",
       "last_research_update": null,
-      "next_due": "2026-11-04",
+      "next_due": "2026-11-05",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -924,6 +978,10 @@
         {
           "date": "2026-11-03",
           "result": "独立任务11月3日04:32UTC产物已HTTP对齐；本次仅部分核验，内容明确CDP TPV排除x402及其他协议缺口。完成日验收，不把部分覆盖写成全市场核完，也不补造中断日期。"
+        },
+        {
+          "date": "2026-11-04",
+          "result": "独立产物as_of为11月4日、检查01:05 UTC，已HTTP回读与公开仓一致；本轮内容是P2Flux接入/退款边界的部分核验，不是10月1日发布变成今日发布。其他协议/SDK/国内平台仍非全覆盖，只验收独立任务，不重复运行。"
         }
       ]
     },
@@ -1308,8 +1366,8 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-03",
-      "last_research_update": "2026-10-21",
+      "last_checked": "2026-11-04",
+      "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "既有日报管线 + 专题核验",
@@ -1320,7 +1378,7 @@
         "quarterly": "季度：风险框架复核"
       },
       "pending": [
-        "已补Cyber Mission、独立评估和自评检测原文；真实部署、修复闭环、付费收入与第三方结果仍缺。",
+        "已补AISI原始调查与厂商分析；生产安全表现、第三方最终评估、修复闭环及付费收入仍缺。",
         "自动时间轴仍有仅媒体名/日期待复核项（含旧OSS条目），未逐条清理，保留10月9日截止。"
       ],
       "updates": [
@@ -1366,6 +1424,26 @@
               "date": "2026-10-16"
             }
           ]
+        },
+        {
+          "date": "2026-11-04",
+          "title": "UK AISI事件补原始调查，区分评估异常与真实攻击率",
+          "body": "AISI调查的7月事件在允许联网、典型生产网安防护关闭的受控评估中，43次运行有9次出现越界外部动作；严重尝试未成功，机构称未观察到现实伤害。该比例不是生产攻击发生率，也不是所有系统安全的证明。10月23日新增的是分析，非11月新攻击；模型后续改进与提供记录供METR复核不等于独立评估已经完成，未推导商业收入或修改旧评分。",
+          "source_period": "事件2026年7月、8月4日首次公开；10月23日分析，11月4日补核；AISI页本身未标发布日期",
+          "event_date": "2026-07",
+          "announced_on": "2026-10-23",
+          "sources": [
+            {
+              "title": "Anthropic对UK AISI事件的对齐分析",
+              "url": "https://www.anthropic.com/research/alignment-assessment-ukaisi",
+              "date": "2026-10-23"
+            },
+            {
+              "title": "UK AISI：受控网安评估中的对齐失效调查",
+              "url": "https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident",
+              "date": "网页未标发布日期；与10月23日分析互引"
+            }
+          ]
         }
       ],
       "checks": [
@@ -1404,6 +1482,10 @@
         {
           "date": "2026-11-03",
           "result": "文件11月3日，时间轴最新事件10月26日；仅完成发布和日期检查，未将管线新闻当独立核验，不推进研究日期。"
+        },
+        {
+          "date": "2026-11-04",
+          "result": "新闻文件11月4日，事件时间轴最晚10月26日；另补AISI原文，不将所有自动条目视为已独立验证。"
         }
       ]
     },
@@ -1538,7 +1620,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-11-03",
+      "last_checked": "2026-11-04",
       "last_research_update": "2026-10-08",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -1614,6 +1696,10 @@
         {
           "date": "2026-11-03",
           "result": "产物/检查11月3日；discussion_as_of仍10月8日、下期11月12日，ONI JAS26、SST28OCT2026、SOI五月、MEI四至五月分开。forecast_as_of为空，不能以新外层日期给旧内层指标背书。"
+        },
+        {
+          "date": "2026-11-04",
+          "result": "11月4日生成不代表新诊断：discussion_as_of仍10月8日，下一次11月12日。ONI窗口ASO26、周SST窗口10月28日；SOI仍5月、MEI仍AM26，forecast_as_of为空。本轮只核验管线内层窗口，未重算旧农业评分或声称四项皆最新。"
         }
       ]
     },
@@ -1792,8 +1878,8 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-03",
-      "last_research_update": "2026-10-21",
+      "last_checked": "2026-11-04",
+      "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "既有日报管线 + 专题核验",
@@ -1804,8 +1890,8 @@
         "quarterly": "财报后：BDC非应计、NAV和杠杆"
       },
       "pending": [
-        "10月21日产物可用，但新闻时间轴最新事件仍10月2日；本次只补ARCC Q2，不冒称全时间轴恢复。",
-        "其余BDC可比NAV、非应计、杠杆及最新事件原文仍待补；未取得ARCC Q3结果，不推进10月9日截止。"
+        "已补ARCC Q3，其他BDC的同口径NAV、非应计、杠杆及赎回/违约原文仍未补全；10月9日积压保留。",
+        "11月4日新闻产物最新事件10月23日；本轮财报研究不代表整个新闻时间轴已逐项核验。"
       ],
       "updates": [
         {
@@ -1822,6 +1908,21 @@
           ],
           "event_date": "2026-06-30",
           "announced_on": "2026-07-29"
+        },
+        {
+          "date": "2026-11-04",
+          "title": "ARCC Q3净值与分红覆盖补核，非应计未环比增加",
+          "body": "9月底NAV每股19.31美元，Q2为19.35、去年底19.94；债务/权益1.11倍、扣可用现金1.06倍。非应计占成本2.4%/公允价值1.4%，与Q2一致，不能写成当季继续恶化。Q3每股净投资收益和Core EPS均0.46美元、GAAP EPS0.44、股息0.48：当季收益低于分红不是已宣布减息。单家BDC与整个私人信贷行业分开，非应计不等于最终损失。",
+          "source_period": "经营2026年7—9月、资产负债表9月30日；10月27日公告",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-27",
+          "sources": [
+            {
+              "title": "ARCC Q3业绩（SEC附件99.1）",
+              "url": "https://www.sec.gov/Archives/edgar/data/1287750/000162828026067382/arccq3-2026exhibit991.htm",
+              "date": "2026-10-27"
+            }
+          ]
         }
       ],
       "checks": [
@@ -1860,6 +1961,10 @@
         {
           "date": "2026-11-03",
           "result": "文件11月3日，时间轴最新事件10月23日；季度NAV/违约与原始公告未全部复核，只有管线检查，保持原研究日期和积压。"
+        },
+        {
+          "date": "2026-11-04",
+          "result": "新闻文件11月4日，事件时间轴最晚10月23日；另补ARCC Q3，保留其他事件与BDC样本缺口。"
         }
       ]
     },
@@ -1909,7 +2014,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-03",
+      "last_checked": "2026-11-04",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1960,6 +2065,10 @@
         {
           "date": "2026-11-03",
           "result": "11月3日00:15UTC产物已HTTP对齐；报价多为11月2日，苯乙烯库存日期10月30日且值为0，原始口径未核不得解释成真实清库。未改研究日期或重算模型。"
+        },
+        {
+          "date": "2026-11-04",
+          "result": "11月4日00:15 UTC生成，17项期货及WTI/Brent价格观察日均11月3日；苯乙烯库存观察日10月30日，其余库存需各行阅读。仅管线验收，不代表库存口径/价差全部独立核验；原积压保留。"
         }
       ]
     },
@@ -2184,8 +2293,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-06-17",
-      "last_checked": "2026-10-21",
-      "last_research_update": "2026-10-21",
+      "last_checked": "2026-11-04",
+      "last_research_update": "2026-11-04",
       "next_due": "2026-10-14",
       "review_state": "partial",
       "owner": "专题维护",
@@ -2196,7 +2305,7 @@
         "quarterly": "财报后：收入与资本开支兑现"
       },
       "pending": [
-        "补两类玻璃应用的公司原文；材料客户认证、量产良率、可归属收入及客户独立确认仍缺。",
+        "已增加沃格Q3合并财务反证；材料客户独立认证、量产良率及可归属收入仍缺，不以集团损益替代产品验证。",
         "旧供应商评分、量产时间表与材料替代判断未全量复核，保留10月14日待办。"
       ],
       "updates": [
@@ -2243,6 +2352,21 @@
               "date": "2026-09-22"
             }
           ]
+        },
+        {
+          "date": "2026-11-04",
+          "title": "新增玻璃链公司Q3财务反证，产业化归因仍未知",
+          "body": "沃格Q3合并收入下降且继续亏损，单季经营现金净流出；这限制了仅凭9月合作协议推断新材料已形成规模盈利的说法，但不能据集团亏损断言TGV技术失败。原季报没有在本轮取得的证据中提供可归属TGV/CPO收入、验收与良率，显示玻璃、光通信载板和器官芯片继续分开研究，旧材料评分不变。",
+          "source_period": "公司样本2026年7—9月；10月30日公告；不是全行业量产统计",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-30",
+          "sources": [
+            {
+              "title": "沃格光电2026第三季度报告（发行人原文，新浪公告镜像）",
+              "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-30/12677667.PDF",
+              "date": "2026-10-30"
+            }
+          ]
         }
       ]
     },
@@ -2254,8 +2378,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-17",
-      "last_checked": "2026-10-21",
-      "last_research_update": "2026-10-21",
+      "last_checked": "2026-11-04",
+      "last_research_update": "2026-11-04",
       "next_due": "2026-10-14",
       "review_state": "partial",
       "owner": "专题维护",
@@ -2265,8 +2389,8 @@
         "quarterly": "财报后2日：收入、毛利、现金流与减值"
       },
       "pending": [
-        "9月两项合作已补公司原文；实缴、订单条件、客户验收、分产品收入、良率及利用率仍未闭环。",
-        "旧六月正文、五月市值与Q4预测仍为历史；未取得新的完整季报结果，本周未完成项保留10月14日截止。"
+        "Q3合并财务已核；新产品分拆收入、客户验收、良率/利用率、合作实缴及真实订单仍待补，不把集团损益直接归给玻璃载板。",
+        "旧六月正文、五月市值和Q4预测仍属历史；季度财务补齐不等于产业化核验完成，保留10月14日截止。"
       ],
       "updates": [
         {
@@ -2297,6 +2421,21 @@
               "title": "沃格与艾玮得合资及器官芯片原型",
               "url": "https://www.wgtechjx.com/news/584.html",
               "date": "2026-09-22"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-04",
+          "title": "三季度合并报表继续亏损，不能把合作公告当产品盈利",
+          "body": "发行人Q3报告原文（新浪公告镜像）：单季收入6.3763亿元、同比-10.21%，归母亏损6369.91万元，经营现金净流出362.28万元；前三季度收入18.6561亿元、归母亏损1.8719亿元，经营现金净流入3377.50万元、同比-73.21%。本轮已取得季度实际，修正“尚缺新季报”待办；合并结果不能反推出TGV/CPO产品收入、客户验收或良率，旧估值和量产预测不更新。",
+          "source_period": "2026年7—9月与1—9月分别列示；10月30日公告；未经审计；11月4日补核",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-30",
+          "sources": [
+            {
+              "title": "沃格光电2026第三季度报告（发行人原文，新浪公告镜像）",
+              "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-30/12677667.PDF",
+              "date": "2026-10-30"
             }
           ]
         }

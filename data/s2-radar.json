@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-11-04T07:31:42",
-  "data_as_of": "2026-11-03",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-04T21:02:35",
+  "data_as_of": "2026-11-04",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "STRESSED_SEVERE",
-    "label": "严重承压",
-    "color": "#f97316",
-    "level": 3,
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
     "score": 0.0,
-    "action": "系统显著承压。建议仓位≤45%（趋势↓），增加对冲，缩短持仓周期。"
+    "action": "系统轻度承压。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
   },
   "regime_label": "WATCH",
   "red_count": 1,
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.27,
+      "score": 0.29,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.16,
+      "score": 0.01,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.11,
+      "score": 0.22,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.14,
+      "score": 0.04,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.53,
+      "score": -0.65,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
@@ -83,10 +83,10 @@
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -151,8 +151,8 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 20.8,
-      "percentile": 87,
+      "value": 18.4,
+      "percentile": 73,
       "desc": "市场恐惧情绪偏高"
     },
     "credit_spread": {

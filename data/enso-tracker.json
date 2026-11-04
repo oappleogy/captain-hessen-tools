@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-03",
+  "last_updated": "2026-11-04",
   "next_update": "2026-11-12",
-  "data_window": "ONI: JAS 26; weekly SST: 28OCT2026; SOI/MEI: historical unless separately updated",
+  "data_window": "ONI: ASO 26; weekly SST: 28OCT2026; SOI/MEI: historical unless separately updated",
   "current_state": {
     "label": "厄尔尼诺继续增强 · El Niño Advisory",
     "phase": "el_nino",
@@ -15,24 +15,24 @@
       "code": "ONI",
       "name": "Oceanic Niño Index",
       "name_zh": "海洋尼诺指数",
-      "value": 2.16,
+      "value": 2.46,
       "unit": "°C",
-      "window": "JAS 26",
+      "window": "ASO 26",
       "trend": [
-        0.11,
         0.46,
         0.95,
         1.39,
         1.8,
-        2.16
+        2.16,
+        2.46
       ],
       "trend_labels": [
-        "FMA 26",
         "MAM 26",
         "AMJ 26",
         "MJJ 26",
         "JJA 26",
-        "JAS 26"
+        "JAS 26",
+        "ASO 26"
       ],
       "thresholds": {
         "el_nino": 0.5,
@@ -206,7 +206,7 @@
       "label": "观察南美作物、东南亚降水、北美冬季需求；影响并非确定"
     }
   ],
-  "last_checked_at": "2026-11-03T08:26:19+08:00",
+  "last_checked_at": "2026-11-04T08:20:44+08:00",
   "discussion_as_of": "2026-10-08",
   "discussion_source": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
   "forecast_as_of": null,

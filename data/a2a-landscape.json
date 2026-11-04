@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-03",
-  "last_checked_at": "2026-11-03T04:32:39.595844+00:00",
+  "as_of": "2026-11-04",
+  "last_checked_at": "2026-11-04T01:05:03.393942+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -837,6 +837,22 @@
       ],
       "checked_at": "2026-10-26",
       "adoption": "官方10月21日发布记录；未独立验证生产规模"
+    },
+    {
+      "id": "p2flux",
+      "name": "P2Flux x402 facilitator",
+      "participant": "P2Flux",
+      "layer": "payment",
+      "stage": "有接入文档",
+      "scope": "相邻：x402结算服务",
+      "capability": "帮助服务商按次或按用量收USDC；官方文档描述Base主网结算、签名校验和预付模式。",
+      "source": "https://p2flux.com/docs/agents.html",
+      "gap": "真实客户与净收入未核验；通用退款API须商户转账并自行防重复，适用于x402订单的完整路径待验证。",
+      "related": [
+        "x402"
+      ],
+      "checked_at": "2026-11-04",
+      "adoption": "厂商文档称10月1日起主网运行，未实付或独立核验交易规模。"
     }
   ],
   "events": [
@@ -1105,9 +1121,20 @@
       "layer": "runtime",
       "question": "v2.7.0发布已核验；输入校验、版本拒绝和错误映射的跨语言互操作、升级兼容及生产证据待查。",
       "source": "https://github.com/a2aproject/a2a-go/releases/tag/v2.7.0"
+    },
+    {
+      "name": "P2Flux退款与经济性",
+      "layer": "payment",
+      "question": "核验x402与通用退款接口的对应关系、重复付款/退款处理、真实付费客户及净收入。",
+      "source": "https://p2flux.com/docs/refunds.html"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-04",
+      "status": "部分核验",
+      "note": "部分核验：读取11月3日底稿并回看近7天检索线索。补核P2Flux官方集成与通用退款文档，按次/预付费用分开；通用退款接口防重复由商户实现，x402适用路径未验证。厂商主网上线日期为10月1日，不作为今日新发布。其他协议、SDK、国内平台与队列未全量覆盖；公开站点核验仍待完成。"
+    },
     {
       "date": "2026-11-03",
       "status": "部分核验",
@@ -1300,7 +1327,8 @@
         "safe",
         "circle-nanopayments",
         "stripe-machine",
-        "checkout-acp"
+        "checkout-acp",
+        "p2flux"
       ]
     },
     {
@@ -1454,10 +1482,11 @@
       "model": "按成功处理笔数或交易额；另有网络等费用",
       "judgment": "可量化单价，规模待证明",
       "moat": "可靠结算、合规接入、风控与分发",
-      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。",
+      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。",
       "source": "https://www.coinbase.com/developer-platform/discover/launches/x402facilitator-polygon",
       "checked_at": "2026-10-08",
-      "evidence_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf"
+      "evidence_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf",
+      "p2flux_pricing_source": "https://p2flux.com/docs/agents.html"
     },
     {
       "layer": "commerce",

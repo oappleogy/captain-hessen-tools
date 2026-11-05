@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-11-05T07:33:07",
-  "data_as_of": "2026-11-04",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-05T21:03:58",
+  "data_as_of": "2026-11-05",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "STRESSED_MILD",
-    "label": "轻度承压",
-    "color": "#eab308",
-    "level": 2,
-    "score": 0.0,
-    "action": "系统轻度承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "state": "STABLE",
+    "label": "系统稳定",
+    "color": "#22c55e",
+    "level": 1,
+    "score": 0.167,
+    "action": "系统健康。建议仓位≤40%（趋势↑），增加对冲，缩短持仓周期。"
   },
-  "regime_label": "WATCH",
-  "red_count": 1,
+  "regime_label": "STABLE",
+  "red_count": 0,
   "dim_lights": {
     "R": "green",
     "I": "yellow",
     "F": "yellow",
     "C": "yellow",
     "N": "yellow",
-    "T": "red"
+    "T": "yellow"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.54,
+      "score": 0.51,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.27,
+      "score": 0.28,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": 0.02,
+      "score": -0.01,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,10 +73,10 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.92,
-      "state": "▼",
-      "light": "red",
-      "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
+      "score": -0.26,
+      "state": "►",
+      "light": "yellow",
+      "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
       "status": "stressed"
@@ -125,7 +125,7 @@
       }
     ],
     "moving_toward": "TECH_DOM",
-    "safety_margin": 0.1,
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
@@ -147,8 +147,8 @@
   "key_metrics": {
     "extreme_count": 0,
     "vix": {
-      "value": 16.6,
-      "percentile": 54,
+      "value": 17.0,
+      "percentile": 59,
       "desc": "市场情绪正常"
     },
     "credit_spread": {

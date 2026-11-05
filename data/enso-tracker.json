@@ -1,14 +1,14 @@
 {
-  "last_updated": "2026-11-04",
+  "last_updated": "2026-11-05",
   "next_update": "2026-11-12",
-  "data_window": "ONI: ASO 26; weekly SST: 28OCT2026; SOI/MEI: historical unless separately updated",
+  "data_window": "ONI: ASO 26; N34_SST: 28OCT2026; SOI: 30-day to 2026-10-25; MEI_V2: AS 2026 双月",
   "current_state": {
     "label": "厄尔尼诺继续增强 · El Niño Advisory",
     "phase": "el_nino",
     "intensity": "CPC预计强至很强事件持续至2027年初（预测）",
     "alert": "El Niño Advisory",
     "alert_note": "2026-10-08诊断：预计增强至年末。强度概率针对RONI，不能与ONI或ENSO类别发生概率混用。",
-    "summary": "CPC十月诊断已确认海气耦合仍支持厄尔尼诺。周度原始表9月30日Niño3.4为+3.2°C，ONI JAS为+2.16°C；诊断文字另述Niño3.4为+2.1°C，两者差异尚待官方口径核实。本页分别展示来源和观察期，不将任一数值称作今日实时海温。天气风险上升不等于农产品必然涨价，仍需核对地区、作物生长期、库存和需求。"
+    "summary": "正式诊断仍为CPC 2026-10-08，下一期计划11月12日。本次补核：ONI ASO26为+2.46°C，周度Niño3.4截至10月28日为+3.4°C；BoM截至10月25日30天SOI为-16.6，NOAA MEI.v2八至九月为+2.37（无量纲）。这些指标支持继续跟踪海气耦合，但观察期不同，不能称为今日实时值。十月CPC文字另述Niño3.4为+2.1°C，与原始周表差异尚未获官方解释；不混用周度海温、ONI、RONI和预测概率。天气风险需结合地区、生长期、库存与需求，不等于农产品必然上涨。"
   },
   "indicators": [
     {
@@ -75,59 +75,70 @@
       "code": "SOI",
       "name": "Southern Oscillation Index",
       "name_zh": "南方涛动指数",
-      "value": -4.5,
+      "value": -16.6,
       "unit": "",
-      "window": "30-day · 2026-05",
+      "window": "30-day to 2026-10-25",
       "trend": [
-        2.5,
-        1.6,
-        0.4,
-        -0.2,
-        -1.1,
-        -1.9,
-        -2.3,
-        -2.6,
-        -3,
-        -3.2,
-        -3.8,
-        -4.5
+        -16.6
       ],
       "thresholds": {
         "el_nino": -7,
         "la_nina": 7
       },
-      "note": "历史数据，尚未更新；不用于当前信号。负值偏向厄尔尼诺，正值偏向拉尼娜",
-      "source": "BoM Australia 30-day SOI",
-      "stale": true
+      "note": "BoM 10月27日公告：截至10月25日30天SOI为-16.6。仅核验此点，不接续旧无日期曲线；直连403，公开页面可读，本项仍需人工核验。",
+      "source": "BoM Southern Hemisphere Monitoring · 2026-10-27发布",
+      "stale": false,
+      "trend_labels": [
+        "30-day to 2026-10-25"
+      ],
+      "source_url": "https://www.bom.gov.au/climate/enso/",
+      "announced_on": "2026-10-27",
+      "observation_end": "2026-10-25"
     },
     {
       "code": "MEI_V2",
       "name": "Multivariate ENSO Index v2",
       "name_zh": "多变量 ENSO 指数 v2",
-      "value": 0.7,
+      "value": 2.37,
       "unit": "",
-      "window": "AM 2026 双月",
+      "window": "AS 2026 双月",
       "trend": [
-        -0.5,
-        -0.4,
-        -0.2,
-        -0.1,
-        0,
-        0.1,
-        0.2,
-        0.3,
-        0.3,
-        0.4,
-        0.5,
-        0.7
+        -1.19,
+        -1.06,
+        -0.77,
+        -0.76,
+        -0.95,
+        -1.03,
+        -0.64,
+        0.27,
+        1.52,
+        2.41,
+        2.54,
+        2.37
       ],
       "thresholds": {
         "el_nino": 0.5,
         "la_nina": -0.5
       },
       "source": "NOAA PSL · MEI.v2",
-      "stale": true,
-      "note": "历史数据，尚未更新；不用于当前信号。"
+      "stale": false,
+      "note": "NOAA官方双月标准化指数，无量纲；不是海温°C或预测概率。缺测值-999已排除；文件未列公告日。",
+      "observation_end_month": "2026-09",
+      "trend_labels": [
+        "SO 2025 双月",
+        "ON 2025 双月",
+        "ND 2025 双月",
+        "DJ 2026 双月",
+        "JF 2026 双月",
+        "FM 2026 双月",
+        "MA 2026 双月",
+        "AM 2026 双月",
+        "MJ 2026 双月",
+        "JJ 2026 双月",
+        "JA 2026 双月",
+        "AS 2026 双月"
+      ],
+      "source_url": "https://psl.noaa.gov/enso/mei/data/meiv2.data"
     }
   ],
   "forecast": [],
@@ -191,9 +202,9 @@
   ],
   "watch_windows": [
     {
-      "date": "2026-10-10",
+      "date": "2026-11-11",
       "tag": "供需",
-      "label": "北京时间00:00：USDA十月WASDE计划发布，复核库存与供需"
+      "label": "北京时间01:00：USDA十一月WASDE计划发布（美东11月10日12:00）；十月报告已披露，不能把下一期计划当事实"
     },
     {
       "date": "2026-11-12",
@@ -206,7 +217,7 @@
       "label": "观察南美作物、东南亚降水、北美冬季需求；影响并非确定"
     }
   ],
-  "last_checked_at": "2026-11-05T08:23:35+08:00",
+  "last_checked_at": "2026-11-05T19:03:09+08:00",
   "discussion_as_of": "2026-10-08",
   "discussion_source": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
   "forecast_as_of": null,

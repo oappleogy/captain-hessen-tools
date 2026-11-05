@@ -19,8 +19,8 @@
 const RC={"无":"#16a34a","间接":"#d97706","部分":"#d97706","高度依赖":"#dc2626","极高":"#dc2626","极低":"#16a34a","低-中等":"#22c55e","中等":"#d97706"};
 
 const BENCHMARKS = [
-  {name:"ICE Brent (BFOET)",cur:"USD",settle:"EFP+现金结算",origin:"北海(英+挪)+WTI Midland",quality:"轻质低硫",api:38,sulfur:0.4,buyers:"全球78%出口原油以此定价",storage:"Sullom Voe/Hound Point/挪威+浮仓",route:"北海→欧洲 | 好望角→亚洲",hormuz:"间接",note:"Dated Brent现货$141 vs 期货$109",color:"#0ea5e9",exchange:"洲际交易所欧洲 (ICE Futures Europe)"},
-  {name:"NYMEX WTI",cur:"USD",settle:"物理交割(库欣)",origin:"美国二叠纪/Bakken/Eagle Ford",quality:"轻质低硫",api:39.6,sulfur:0.24,buyers:"国内炼厂+出口400万桶/日",storage:"库欣OK—9100万桶储罐",route:"管道→库欣→墨西哥湾出口",hormuz:"无",note:"2015年解禁后接入全球；当前获安全溢价",color:"#ef4444",exchange:"纽约商品交易所 (NYMEX/CME集团)"},
+  {name:"ICE Brent (BFOET)",cur:"USD",settle:"EFP+现金结算",origin:"北海(英+挪)+WTI Midland",quality:"轻质低硫",api:38,sulfur:0.4,buyers:"全球78%出口原油以此定价",storage:"Sullom Voe/Hound Point/挪威+浮仓",route:"北海→欧洲 | 好望角→亚洲",hormuz:"间接",note:"原2026年4月记录：Dated Brent现货$141 vs 期货$109；对应报价日与合约月份未复核，不作当前报价或价差。",color:"#0ea5e9",exchange:"洲际交易所欧洲 (ICE Futures Europe)"},
+  {name:"NYMEX WTI",cur:"USD",settle:"物理交割(库欣)",origin:"美国二叠纪/Bakken/Eagle Ford",quality:"轻质低硫",api:39.6,sulfur:0.24,buyers:"国内炼厂+出口400万桶/日（原4月量级，非本周出口）",storage:"库欣OK—9100万桶储罐（原容量口径，非实际库存）",route:"管道→库欣→墨西哥湾出口",hormuz:"无",note:"EIA 11月4日发布、截至10月30日一周：美国商业原油库存4.098亿桶，环比减少90万桶，低于五年同期均值4%；不含SPR，也不是库欣库存。炼厂利用率94.5%。库存偏低支持关注缓冲，但不能据此确认WTI安全溢价或上涨方向。",source:"https://www.eia.gov/petroleum/supply/weekly/archive/2026/2026_11_04/download/summary.txt",color:"#ef4444",exchange:"纽约商品交易所 (NYMEX/CME集团)"},
   {name:"DME Oman (OQD)",cur:"USD",settle:"物理交割(FOB)",origin:"阿曼~85万桶/日",quality:"中质中硫",api:31,sulfur:0.8,buyers:"沙特/科威特/阿曼/巴林均采用",storage:"Mina al Fahal港(阿曼湾)",route:"阿曼湾→直航亚洲",hormuz:"无(海峡外)",note:"定价520万桶/日；不受OPEC配额",color:"#f59e0b",exchange:"海湾商品交易所 (GME, 原迪拜商品交易所)"},
   {name:"ICE Murban",cur:"USD",settle:"物理交割(FOB Fujairah)",origin:"阿联酋Abu Dhabi陆上",quality:"轻质低硫",api:40,sulfur:0.8,buyers:"亚洲:中日韩印",storage:"Fujairah港(ADCOP管道)",route:"ADCOP→Fujairah→亚洲",hormuz:"部分",note:"2021上线；海上油田仍依赖海峡",color:"#22c55e",exchange:"洲际交易所阿布扎比 (ICE Futures Abu Dhabi)"},
   {name:"Dubai/Platts",cur:"USD",settle:"现金结算(Platts评估)",origin:"迪拜(产量极低)",quality:"中质含硫",api:31,sulfur:2,buyers:"亚洲炼厂传统基准",storage:"无固定交割地",route:"波斯湾→霍尔木兹→亚洲",hormuz:"高度依赖",note:"正被Oman和Murban替代",color:"#a855f7",exchange:"场外市场 (普氏能源Platts窗口评估)"},
@@ -91,7 +91,7 @@ function App(){
         <h1 style={{fontSize:17,fontWeight:900,margin:"4px 0",color:"#f0f9ff"}}>全球原油基准与供应链图谱</h1>
         <div style={{display:"inline-flex",alignItems:"center",gap:4,padding:"2px 10px",borderRadius:12,background:"#ff475720",border:"1px solid #ff475733",marginTop:4}}>
           <span style={{width:5,height:5,borderRadius:"50%",background:"#ff4757"}}/>
-          <span style={{fontSize:9,color:"#fca5a5",fontWeight:600}}>2026.04 霍尔木兹海峡受阻中</span>
+          <span style={{fontSize:9,color:"#fca5a5",fontWeight:600}}>11月核验：航运安全风险仍在；原4月情景与评分保留</span>
         </div>
       </header>
 
@@ -144,14 +144,14 @@ function App(){
                   <div><span style={{color:"#94a3b8",fontSize:10}}>交割仓储</span><br/>{b.storage}</div>
                   <div style={{gridColumn:"span 2"}}><span style={{color:"#94a3b8",fontSize:10}}>航运线路</span><br/>{b.route}</div>
                 </div>
-                <div style={{marginTop:4,padding:"5px 8px",background:"#f0f4f8",borderRadius:5,color:b.color,fontSize:10,fontWeight:600,borderLeft:`2px solid ${b.color}`}}>{b.note}</div>
+                <div style={{marginTop:4,padding:"5px 8px",background:"#f0f4f8",borderRadius:5,color:b.color,fontSize:10,fontWeight:600,borderLeft:`2px solid ${b.color}`}}>{b.note} {b.source&&<a href={b.source} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()}>EIA原文 · 11月5日复核</a>}</div>
               </div>}
             </div>;})}
         </div>}
 
         {/* ═══ EXPORT ═══ */}
         {tab==="export"&&<div style={{animation:"fu .4s"}}>
-          <div style={{fontSize:11,color:"#64748b",marginBottom:8}}>全球前11大原油出口国 · 出口量/全球占比/主要买家/航运线</div>
+          <div style={{fontSize:11,color:"#64748b",marginBottom:8}}>全球前11大原油出口国 · 出口量/全球占比/主要买家/航运线（原2026年4月汇总，当前量及份额未复核）</div>
           {/* Top 5 share bar */}
           <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:10,border:"1px solid #e2e8f0"}}>
             <div style={{fontSize:10,color:"#94a3b8",marginBottom:4}}>前5大出口国占全球52%以上</div>
@@ -189,7 +189,7 @@ function App(){
         {/* ═══ COUNTRY ═══ */}
         {tab==="country"&&<div style={{animation:"fu .4s"}}>
           <div style={{background:"#fff",borderRadius:10,padding:12,marginBottom:10,border:"1px solid #e2e8f0"}}>
-            <div style={{fontSize:11,color:"#64748b",fontWeight:600,marginBottom:6}}>霍尔木兹脆弱度评分</div>
+            <div style={{fontSize:11,color:"#64748b",fontWeight:600,marginBottom:6}}>霍尔木兹脆弱度评分（原2026年4月情景，国家数据及分数未重算）</div>
             {sorted.map(c=><div key={c.name} style={{display:"flex",alignItems:"center",gap:5,marginBottom:4}}>
               <span style={{fontSize:13,width:20}}>{c.f}</span>
               <span style={{width:26,fontSize:10,color:"#64748b",fontWeight:600}}>{c.name}</span>
@@ -246,7 +246,7 @@ function App(){
                 <span style={{flex:1,fontSize:11,color:"#334155"}}>{p.n}</span>
                 <span style={{fontSize:10,color:"#94a3b8",fontFamily:"monospace"}}>容量{p.cap} | 闲置{p.spare} 百万桶/日</span>
               </div>)}
-            <div style={{marginTop:6,padding:8,background:"#fef2f2",borderRadius:6,fontSize:11,color:"#dc2626",fontWeight:600}}>海峡2000万桶/日 → 最大绕行~500万 → 缺口至少1500万桶/日</div>
+            <div style={{marginTop:6,padding:8,background:"#fef2f2",borderRadius:6,fontSize:11,color:"#dc2626",fontWeight:600}}>2026年4月原压力情景：海峡2000万桶/日 → 最大绕行~500万 → 假设缺口至少1500万桶/日。当前绕行量及可用能力未复核，不是今日实测缺口。<br/><a href="https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-highlighted-incidents.aspx" target="_blank" rel="noopener noreferrer">IMO 11月3日清单</a>确认中东及海峡累计128起事件、24名海员死亡；最新事件11月1日。事件统计不等于停运率，不能直接给供需或农业瓶颈加分。</div>
           </div>
         </div>}
 

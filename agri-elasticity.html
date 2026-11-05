@@ -2448,9 +2448,9 @@
 </div>
 
 <!-- TABS -->
-<p class="disclosure" style="padding:14px;display:block">本期新增：10月9日 USDA 年度供需预测。下列旧矩阵、双锁/三锁评分和股票候选未重算，不代表当前排名；请先看“本期供需核验”。</p>
+<p class="disclosure" style="padding:14px;display:block">原20品种矩阵、七维评分及双锁/三锁模型继续保留，分数仍为原观察期的情景评分，未重算为当前排名。供需数字已在原筛选说明中按10月9日 WASDE 回填；11月报告计划11月10日发布，不能提前当作已披露。</p>
 <div class="tabs" role="tablist">
-  <button class="tab-btn active" data-tab="evidence" role="tab">
+  <button class="tab-btn" data-tab="evidence" role="tab">
     <span class="tab-num">00 · VERIFIED</span>
     <span>本期供需核验<span class="tab-count">10月 WASDE</span></span>
   </button>
@@ -2458,7 +2458,7 @@
     <span class="tab-num">01 · FRAMEWORK</span>
     <span>框架</span>
   </button>
-  <button class="tab-btn" data-tab="matrix" role="tab">
+  <button class="tab-btn active" data-tab="matrix" role="tab">
     <span class="tab-num">02 · MATRIX</span>
     <span>矩阵<span class="tab-count">20 品种</span></span>
   </button>
@@ -2497,7 +2497,7 @@
 </div>
 
 <!-- PANEL: FRAMEWORK -->
-<div class="tab-panel active" id="panel-evidence">
+<div class="tab-panel" id="panel-evidence">
   <section class="research-evidence" data-evidence="data/agri-wasde-review.json" aria-label="十月农产品供需证据">
     <h2>本期供需证据加载中</h2>
     <p>公告日2026-10-09；观察口径为2026/27年度预测，核验日2026-10-10。不是今日实测库存。</p>
@@ -2568,7 +2568,7 @@
 </div><!-- /panel-framework -->
 
 <!-- PANEL: MATRIX -->
-<div class="tab-panel" id="panel-matrix">
+<div class="tab-panel active" id="panel-matrix">
 <div class="section">
   <div class="section-head">
     <span class="section-num">02</span>
@@ -2936,7 +2936,7 @@
   <div class="screening-intro">
     <div class="screening-intro-head">Method Rewrite · 从叙事到筛选器</div>
     <p>这里不再只看“ENSO 会不会发生”，而是把刚才文章里的核心逻辑拆成可评分的筛选器: <b>天气冲击滞后 4–8 个月</b>、<b>玉米/小麦供需缺口</b>、<b>库存缓冲</b>、<b>油价与化肥成本抬升</b>、<b>ABCD 粮商更偏好油籽</b>，以及最后最关键的一条: <span class="hl">交易工具是否足够大、足够深、足够能承接题材资金</span>。</p>
-    <p>所以这页不是“谁基本面最差谁排第一”，而是“谁最可能在未来 4–8 个月里，成为可交易、可放大的主战场”。同样也因此，<b>玉米/小麦虽然缺口存在，但库存缓冲更厚</b>;真正更像优先解的是 <b>油籽链 + 原糖</b>。</p>
+    <p>原筛选逻辑仍用于比较传导与交易工具，但文章中的4–8个月时滞、ABCD偏好和“油籽链+原糖优先”尚不能当作本期已验证结论。<a href="https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf" target="_blank" rel="noopener noreferrer">10月9日 WASDE</a>的2026/27年度预测显示：玉米、小麦仍有产量低于消费的差额，玉米库存预测却较九月上修；大豆产量略高于消费。需区分棕榈油与大豆，不把油脂风险推广成所有油籽紧缺。原评分保留，未据这几项数据自动重排。</p>
   </div>
 
   <div class="logic-grid" id="articleLogicGrid"></div>
@@ -4182,15 +4182,15 @@ const articleLogicPillars = [
   {
     code:'L2',
     tag:'Gap',
-    title:'玉米 / 小麦缺口在放大',
-    detail:'文中给出的核心判断是: 玉米约 1.8%、小麦约 0.8% 的供需缺口，已经来到近十多年偏高位置。',
+    title:'玉米 / 小麦：年度缺口与边际修正分开看',
+    detail:'USDA 2026-10-09 WASDE（2026/27年度预测）：玉米产量1293.75、消费1320.47百万吨，缺口率2.02%；小麦822.39、827.90百万吨，缺口率0.67%。替换文章旧1.8%/0.8%口径；未核验“近16年最大”。来源：WASDE-676第8/23页，11月5日复核。',
     use:'对应 S1 与 S3: 有缺口不等于立刻最强，仍要看库存缓冲是否够厚。'
   },
   {
     code:'L3',
     tag:'Buffer',
     title:'库存高位会吸收一部分冲击',
-    detail:'大米、小麦等库存并不低，这意味着“方向对”不等于“弹性最大”。库存厚的品种更容易被延后、被钝化。',
+    detail:'同一份十月预测的全球库消比：小麦33.34%、玉米21.24%、碾米36.84%、大豆28.11%；均非今日实测或可出口库存。玉米库存预测较九月上修8.34百万吨，不能仅凭年度缺口称当月更紧。来源：WASDE-676第8/23/28页。',
     use:'对应 S3: 把“库存缓冲”单独拿出来，避免只按减产故事排序。'
   },
   {
@@ -4250,13 +4250,13 @@ const futuresScreeners = [
   {
     rank:6, code:'ZW', name:'小麦', bias:'watch', biasLabel:'观察',
     scores:[3,5,2,4,2,5], total:21,
-    thesis:'<b>主逻辑:</b> 0.8% 缺口是支持项，但库存缓冲更厚，真正爆发仍需黑海或印度政策共振。<br><b>观察:</b> 澳洲天气、俄出口配额、印度禁运。<br><b>风险:</b> 库存释放会钝化天气逻辑。',
+    thesis:'<b>主逻辑:</b> <a href="https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=8" target="_blank" rel="noopener noreferrer">十月 WASDE</a>预测2026/27全球生产缺口率0.67%、库消比33.34%，不是今日现货缺口；旧0.8%已替换，原评分未重算。<br><b>观察:</b> 澳洲天气、出口政策与可动用库存。<br><b>风险:</b> 全球库存不全可出口，不能直接推导行情强度。',
     matrixCode:'ZW'
   },
   {
     rank:7, code:'ZC', name:'玉米', bias:'watch', biasLabel:'观察',
     scores:[2,5,2,4,2,5], total:20,
-    thesis:'<b>主逻辑:</b> 1.8% 缺口最大，但 El Niño 对美玉米授粉期反而偏友好，近端并不天然最强。<br><b>观察:</b> WASDE、乙醇利润、黑海与南非供给。<br><b>风险:</b> 近月天气利空，库存缓冲未尽。',
+    thesis:'<b>主逻辑:</b> <a href="https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf#page=23" target="_blank" rel="noopener noreferrer">十月 WASDE</a>预测2026/27全球生产缺口率2.02%、库消比21.24%；期末库存较九月上修834万吨，年度缺口与边际宽松并存。原评分未重算。<br><b>观察:</b> 已过美国授粉期，继续查收获、乙醇需求与南半球播种天气。<br><b>风险:</b> 不把全球年度差额、地域天气或库存修正重复计分。',
     matrixCode:'ZC'
   },
   {

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   const cadenceNames = {daily: '每日', weekly: '每周', monthly: '每月', quarterly: '每季'};
-  const states = {partial: '已补增量 · 底稿待复核', needs_research: '待补研究', pipeline: '管线运行 · 指标仍需核验', backfill: '已补发旧期 · 后续待补', archive: '历史档案 / 情景模型'};
+  const states = {partial: '部分字段已更新 · 其余待复核', needs_research: '待补研究', pipeline: '管线运行 · 指标仍需核验', backfill: '已补发旧期 · 后续待补', archive: '历史档案 / 情景模型'};
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function today() {
     const p = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
@@ -17,7 +17,7 @@
   }
   function sourceLink(s) {
     if (!/^https:\/\//.test(s.url)) return esc(s.title);
-    return `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a> <small>(${esc(s.date)})</small>`;
+    return `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a> <small>(${esc(s.date || '来源未列公告日')})</small>`;
   }
   function details(t) {
     const updates = [...t.updates].sort((a,b)=>b.date.localeCompare(a.date)).map(n => `<article class="ru-note"><h4>${esc(n.title)}</h4><p>${esc(n.body)}</p><p class="ru-meta">复核 ${esc(n.date)} · 证据观察期 ${esc(n.source_period)}</p><div class="ru-sources">${n.sources.map(sourceLink).join(' · ')}</div></article>`).join('');
@@ -76,7 +76,7 @@
     const panel = document.createElement('aside');
     panel.className = 'ru-panel ru-inline';
     panel.setAttribute('aria-label','专题研究时效与跟踪');
-    panel.innerHTML = `${heading(t)}<p><strong>以下原页面仍保留历史底稿。新证据不会自动重算旧表格、估值或排名。</strong></p><details class="ru-detail"${['robotics','woge','glass','sa','pvc','tsmc','power','optical','cips','capex-hub','capex-revenue','ai-pharma','credit','mythos'].includes(t.id) ? ' open' : ''}><summary>查看本次跟踪、待办与更新频率</summary>${details(t)}</details><p><a href="research-schedule.html#topic-${esc(t.id)}">查看全部专题更新计划</a></p>`;
+    panel.innerHTML = `${heading(t)}<p><strong>原页面持续按字段维护，请以各字段标注的观察期为准。未核验的数值、估值和评分保留原口径，不随巡检日期自动更新。</strong></p><details class="ru-detail"${['robotics','woge','glass','sa','pvc','tsmc','power','optical','cips','capex-hub','capex-revenue','ai-pharma','credit','mythos'].includes(t.id) ? ' open' : ''}><summary>查看本次跟踪、待办与更新频率</summary>${details(t)}</details><p><a href="research-schedule.html#topic-${esc(t.id)}">查看全部专题更新计划</a></p>`;
     document.body.prepend(panel);
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = {esc,status,sorted,today};

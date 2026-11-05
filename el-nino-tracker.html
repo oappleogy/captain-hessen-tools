@@ -651,7 +651,7 @@ footer .disc {
               <span class="ind-state ${ind.stale ? 'neut' : stUsed.cls}">${esc(ind.stale ? '历史值 · 待补' : stUsed.label)}</span>
             </div>
             ${sparkline(ind.trend, { width: 240, height: 32, stroke: stroke, fill: fill, thresholds: ind.thresholds })}
-            <div class="ind-foot">${esc(ind.note || ind.source || '')}</div>
+            <div class="ind-foot">${esc(ind.note || ind.source || '')}${ind.source_url ? ` <a href="${esc(ind.source_url)}" target="_blank" rel="noopener noreferrer">原始来源</a>` : ''}${ind.source_error ? ` · 本次采集失败，保留上次观察：${esc(ind.source_error)}` : ''}</div>
           </div>`;
         }).join('')}
       </div>
@@ -824,11 +824,11 @@ footer .disc {
       tag: 'SUPPLY GAP',
       summary: '把天气冲击、需求韧性与库存缓冲放在一起看，真正脆弱的不是“所有粮食一起涨”，而是缺口更大、库存更薄、成本传导更硬的品类。',
       items: [
-        { name: '玉米', metric: '缺口约 1.8%', note: '新增产量落后需求最明显，饲料、工业用粮与天气冲击叠加，属于本轮脆弱度最高的一档。' },
-        { name: '小麦', metric: '缺口约 0.8%', note: '供需也已转紧，但高库存仍提供缓冲，价格弹性更多取决于天气与出口政策共振。' },
-        { name: '大米', metric: '库存高位缓冲', note: '更敏感的是季风偏弱与出口管制预期，而不是立刻出现硬缺口，政策变量大于静态供需表。' }
+        { name: '玉米', metric: '年度生产缺口率 2.02%', note: '十月WASDE的2026/27预测：产量1293.75、消费1320.47百万吨，库消比21.24%；期末库存较九月上修834万吨。年度缺口不代表本月边际收紧。' },
+        { name: '小麦', metric: '年度生产缺口率 0.67%', note: '同口径预测产量822.39、消费827.90百万吨，库消比33.34%；全球库存不等于随时可出口库存，也不是今日现货缺口。' },
+        { name: '大米', metric: '库消比 36.84%（碾米口径）', note: '同口径预测期末库存198.50百万吨，较九月上修151万吨；出口政策、国别库存和品级仍待核验。' }
       ],
-      foot: '这组排序不是简单看产量，而是看“缺口大小 × 库存缓冲 × 政策弹性”的综合脆弱度。'
+      foot: '来源：USDA WASDE-676（10月9日），第8/23页；11月5日复核。缺口率=(消费−产量)/消费，库消比=期末库存/消费。原排列保留，综合脆弱度未重算；十一月报告计划11月10日发布。'
     },
     {
       title: 'ABCD 粮商偏好排名',
@@ -909,7 +909,7 @@ footer .disc {
     <section>
       <div class="sec-head">
         <h2><span class="icon">🧭</span>旧文章逻辑与瓶颈假设（待供需数据重估）</h2>
-        <span class="tag">0.8% / 1.8%缺口及旧排序未在本轮核验，不是当前排名</span>
+        <span class="tag">供需数值已回填十月预测；其他旧文章判断及综合排序未重估。<a href="https://www.usda.gov/oce/commodity/wasde/wasde1026.pdf" target="_blank" rel="noopener noreferrer">USDA原文</a></span>
       </div>
       <div class="rank-grid">
         ${bottleneckCards.map(card => `

@@ -158,9 +158,9 @@ function DamageTab() {
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 8 }}>
         {[
-          { n: "150+", l: "攻击次数", c: RED },
-          { n: "44+", l: "设施受损", c: ORANGE },
-          { n: "$340-580亿", l: "修复成本(Rystad est.)", c: GOLD },
+          { n: "150+", l: "攻击次数（4月旧统计，待复核）", c: RED },
+          { n: "44+", l: "设施受损（4月旧统计，待复核）", c: ORANGE },
+          { n: "$340-580亿", l: "修复成本（4月Rystad估计）", c: GOLD },
         ].map((s, i) => (
           <div key={i} style={{ background: CARD, borderRadius: 8, padding: "16px 12px", textAlign: "center", border: `1px solid ${BORDER}` }}>
             <div style={{ fontFamily: "monospace", fontSize: 24, fontWeight: 700, color: s.c }}>{s.n}</div>
@@ -172,11 +172,15 @@ function DamageTab() {
         fontSize: 11, color: TEXT_DIM, padding: "6px 10px", marginBottom: 2,
         background: "rgba(255,255,255,0.02)", borderRadius: 4, lineHeight: 1.6,
       }}>
-        <span style={{ color: TEXT, fontWeight: 500 }}>单位说明</span>
+        <span style={{ color: TEXT, fontWeight: 500 }}>设施数据观察期：2026年4月，损伤及修复状态尚未逐项复核，不代表当前停产。单位说明</span>
         　万桶/天 = 日产量（万桶）　·　万吨/年 = LNG年产能（万吨）　·
         <span style={{ color: RED }}>●</span> 停产
         <span style={{ color: ORANGE }}>●</span> 减产
         <span style={{ color: GREEN }}>●</span> 已恢复
+        <div style={{ marginTop: 8 }}>
+          <a href="https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-highlighted-incidents.aspx" target="_blank" rel="noopener noreferrer" style={{ color: GOLD }}>IMO核验至2026-11-03</a>：中东及霍尔木兹累计确认128起船舶事件、24名海员死亡。最新列示11月1日LARGO ATOM与SELAT STORM受损；后者污染情况未知。11月5日复核。相比10月9日旧核验的100起，累计增加28起，但不代表28艘不同船舶或全部发生在海峡。
+          安全风险仍在；没有通航量、保险和设施复产新证据，不能将船舶事件数换算成封锁率或覆盖上方设施损失。
+        </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
         {facilities.map((f, i) => (
@@ -714,7 +718,7 @@ function JpKrTab() {
         background: RED_BG, borderRadius: 8, padding: 14,
         borderLeft: `3px solid ${RED}`, fontSize: 13, color: TEXT, lineHeight: 1.7,
       }}>
-        <strong style={{ color: RED }}>结构性矛盾：</strong>
+        <strong style={{ color: RED }}>2026年4月原情景（指数、库存与应对状态未复核）：</strong>
         {country === "jp"
           ? "日经225创历史新高(59,691) · 但95%原油依赖中东 · LNG库存仅够发电2-3周 · 战略储备已释放8000万桶 · 公共债务260% GDP补贴空间几乎为零"
           : "KOSPI历史新高(6,388) · 半导体出口+180%驱动 · 但77%石脑油进口来自中东 · LG Chem裂解装置已因断供关停 · 政府宣布经济战时状态"

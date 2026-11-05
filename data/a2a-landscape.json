@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-04",
-  "last_checked_at": "2026-11-04T01:05:03.393942+00:00",
+  "as_of": "2026-11-05",
+  "last_checked_at": "2026-11-05T10:43:17.054381+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -431,15 +431,16 @@
       "stage": "规范已发布",
       "capability": "通过 HTTP 402 请求付费访问数字服务。",
       "source": "https://x402.org/",
-      "gap": "需区分测试、自交易、补贴与真实付费调用。",
+      "gap": "A2A支付扩展v0.2与x402核心版本分别核验，示例仍用x402Version:1；支付失败后的任务状态由商户实现决定，退款与交付补偿仍待查。",
       "scope": "核心",
       "related": [
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-10-16",
+      "checked_at": "2026-11-05",
       "adoption": "未在本轮独立核验生产规模",
-      "participant": "x402 项目 / Coinbase"
+      "participant": "x402 项目 / Coinbase",
+      "extension_source": "https://github.com/google-agentic-commerce/a2a-x402/blob/main/spec/v0.2/spec.md"
     },
     {
       "id": "coinbase",
@@ -1127,9 +1128,26 @@
       "layer": "payment",
       "question": "核验x402与通用退款接口的对应关系、重复付款/退款处理、真实付费客户及净收入。",
       "source": "https://p2flux.com/docs/refunds.html"
+    },
+    {
+      "name": "A2A x402扩展兼容与失败恢复",
+      "layer": "payment",
+      "question": "已读扩展v0.2正文，示例x402Version:1；继续核验其与现行AP2/x402数据结构兼容、失败任务恢复和退款实现，不将扩展版本当核心协议版本。",
+      "source": "https://github.com/google-agentic-commerce/a2a-x402/blob/main/spec/v0.2/spec.md"
+    },
+    {
+      "name": "PCM消息证明研究",
+      "layer": "identity",
+      "question": "10月29日预印本，11月5日发现并核验摘要页与提交日期；全文、模型假设、代码和复现待查，不视为生产协议漏洞或已部署产品。",
+      "source": "https://arxiv.org/abs/2610.39109"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-05",
+      "status": "部分核验",
+      "note": "部分核验：比较11月4日记录并回看近7天检索；补读A2A x402扩展v0.2正文，区分扩展与核心版本，记录回执和失败后任务状态边界；无发布日期证据，不记为今日新发布。PCM 10月29日预印本进入待查，未复现实验。其他协议、SDK、国内平台与队列未全量覆盖，未确认需通知的新重大事件。"
+    },
     {
       "date": "2026-11-04",
       "status": "部分核验",
@@ -1337,7 +1355,7 @@
       "analogy": "像订单中心、退款和售后",
       "now": "已经有结账、计费和结算方案，试图把助手办事接到商家的业务里。",
       "status": "部分环节已有方案",
-      "gap": "跨多家商户的取消、退款、对账和责任划分，仍缺少统一可比较的落地证据。",
+      "gap": "付款回执不等于办事完成；跨商户取消、退款、对账和责任划分，仍缺少统一可比较的落地证据。",
       "next": "要看到完整订单从下单到售后的长期运行记录。",
       "projects": [
         "ucp",

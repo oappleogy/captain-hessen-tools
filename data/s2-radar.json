@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-11-06T07:31:38",
-  "data_as_of": "2026-11-05",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-06T21:04:37",
+  "data_as_of": "2026-11-06",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "STRESSED_MILD",
-    "label": "轻度承压",
-    "color": "#eab308",
-    "level": 2,
-    "score": 0.0,
-    "action": "系统轻度承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "state": "STRESSED_SEVERE",
+    "label": "严重承压",
+    "color": "#f97316",
+    "level": 3,
+    "score": -0.167,
+    "action": "系统显著承压。建议仓位≤30%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
-  "regime_label": "WATCH",
-  "red_count": 1,
+  "regime_label": "STRESSED",
+  "red_count": 2,
   "dim_lights": {
     "R": "green",
     "I": "yellow",
     "F": "red",
-    "C": "yellow",
+    "C": "red",
     "N": "yellow",
     "T": "yellow"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.5,
+      "score": 0.62,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.25,
+      "score": 0.28,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.39,
+      "score": -0.61,
       "state": "▼",
       "light": "red",
       "note": "负反馈信号，情绪极端或波动剧烈",
@@ -53,17 +53,17 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.29,
-      "state": "►",
-      "light": "yellow",
-      "note": "部分信号出现分化，协调性下降",
+      "score": -0.34,
+      "state": "▼",
+      "light": "red",
+      "note": "跨市场严重背离，系统内部矛盾激化",
       "confidence": "★★★",
       "name_cn": "市场协调",
       "status": "stressed"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.25,
+      "score": -0.2,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,20 +73,20 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.16,
+      "score": 0.0,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
-      "confidence": "★★",
+      "confidence": "⚠",
       "name_cn": "技术动能",
-      "status": "healthy"
+      "status": "neutral"
     }
   },
   "attractor": {
-    "captured": "STABLE",
-    "captured_name": "稳态吸引子",
-    "captured_emoji": "🔵",
-    "captured_color": "#3b82f6",
+    "captured": "STAGNANT",
+    "captured_name": "停滞吸引子",
+    "captured_emoji": "🟡",
+    "captured_color": "#f59e0b",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 60.0
+        "pct": 50.0
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 40.0
+        "pct": 50.0
       },
       {
         "key": "TECH_DOM",
@@ -125,13 +125,13 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": 0.1,
+    "safety_margin": -0.067,
     "early_warning": "无"
   },
   "extremes": {
     "count": 1,
     "categories": [
-      "VIX恐慌指数=28.2 (历史98%分位)"
+      "VIX恐慌指数=27.2 (历史97%分位)"
     ]
   },
   "opportunities": [],
@@ -149,8 +149,8 @@
   "key_metrics": {
     "extreme_count": 1,
     "vix": {
-      "value": 28.2,
-      "percentile": 98,
+      "value": 27.2,
+      "percentile": 97,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {

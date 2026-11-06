@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-05",
+  "last_updated": "2026-11-06",
   "next_update": "2026-11-12",
-  "data_window": "ONI: ASO 26; N34_SST: 28OCT2026; SOI: 30-day to 2026-10-25; MEI_V2: AS 2026 双月",
+  "data_window": "ONI: ASO 26; N34_SST: 28OCT2026; SOI: 30-day to 2026-10-25; MEI_V2: SO 2026 双月",
   "current_state": {
     "label": "厄尔尼诺继续增强 · El Niño Advisory",
     "phase": "el_nino",
@@ -99,11 +99,10 @@
       "code": "MEI_V2",
       "name": "Multivariate ENSO Index v2",
       "name_zh": "多变量 ENSO 指数 v2",
-      "value": 2.37,
+      "value": 2.53,
       "unit": "",
-      "window": "AS 2026 双月",
+      "window": "SO 2026 双月",
       "trend": [
-        -1.19,
         -1.06,
         -0.77,
         -0.76,
@@ -114,7 +113,8 @@
         1.52,
         2.41,
         2.54,
-        2.37
+        2.37,
+        2.53
       ],
       "thresholds": {
         "el_nino": 0.5,
@@ -123,9 +123,8 @@
       "source": "NOAA PSL · MEI.v2",
       "stale": false,
       "note": "NOAA官方双月标准化指数，无量纲；不是海温°C或预测概率。缺测值-999已排除；文件未列公告日。",
-      "observation_end_month": "2026-09",
+      "observation_end_month": "2026-10",
       "trend_labels": [
-        "SO 2025 双月",
         "ON 2025 双月",
         "ND 2025 双月",
         "DJ 2026 双月",
@@ -136,7 +135,8 @@
         "MJ 2026 双月",
         "JJ 2026 双月",
         "JA 2026 双月",
-        "AS 2026 双月"
+        "AS 2026 双月",
+        "SO 2026 双月"
       ],
       "source_url": "https://psl.noaa.gov/enso/mei/data/meiv2.data"
     }
@@ -217,7 +217,7 @@
       "label": "观察南美作物、东南亚降水、北美冬季需求；影响并非确定"
     }
   ],
-  "last_checked_at": "2026-11-05T19:03:09+08:00",
+  "last_checked_at": "2026-11-06T08:20:19+08:00",
   "discussion_as_of": "2026-10-08",
   "discussion_source": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
   "forecast_as_of": null,

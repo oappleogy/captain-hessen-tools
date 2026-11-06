@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-05",
-  "last_checked_at": "2026-11-05T10:43:17.054381+00:00",
+  "as_of": "2026-11-06",
+  "last_checked_at": "2026-11-06T01:01:32.723175+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-10-16",
+      "checked_at": "2026-11-06",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -96,7 +96,7 @@
         "gateway",
         "coinbase"
       ],
-      "checked_at": "2026-10-23",
+      "checked_at": "2026-11-06",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "MCP 社区",
       "protocol_version": "2026-07-28",
@@ -437,10 +437,11 @@
         "coinbase",
         "nevermined"
       ],
-      "checked_at": "2026-11-05",
-      "adoption": "未在本轮独立核验生产规模",
-      "participant": "x402 项目 / Coinbase",
-      "extension_source": "https://github.com/google-agentic-commerce/a2a-x402/blob/main/spec/v0.2/spec.md"
+      "checked_at": "2026-11-06",
+      "adoption": "历史官网统计不等于真实Agent需求；11月6日官网读取未见旧交易面板，当前规模仍待独立核验。基金会成员不等于付费客户。",
+      "participant": "x402 Foundation / Linux Foundation；Coinbase贡献协议",
+      "extension_source": "https://github.com/google-agentic-commerce/a2a-x402/blob/main/spec/v0.2/spec.md",
+      "governance_source": "https://x402.org/linux-foundation-announces-operational-launch-of-x402-foundation-to-standardize-internet-native-payments-for-ai-agents-and-applications/"
     },
     {
       "id": "coinbase",
@@ -1055,6 +1056,28 @@
       "reader_title": "让 AI 花钱前，先留下你同意的凭据",
       "reader_summary": "Google 公布 AP2 v0.2 和向 FIDO Alliance 移交的计划，重点包括用户预先授权后的付款。",
       "reader_impact": "就像委托别人代买时先写清预算和条件；撤销授权、异常和争议处理仍是观察重点。"
+    },
+    {
+      "id": "x402-foundation-operational-20260714",
+      "date": "2026-07-14",
+      "announced_at": "2026-07-14",
+      "observed_at": "2026-11-06",
+      "title": "x402基金会正式运营（历史补录）",
+      "type": "治理进展",
+      "summary": "官方公告宣布基金会运营启动，Coinbase完成协议贡献；11月6日补录，非当日发布。",
+      "impact": "开放治理有助多方协作制定支付标准，成员名单不能证明真实交易需求。",
+      "source": "https://x402.org/linux-foundation-announces-operational-launch-of-x402-foundation-to-standardize-internet-native-payments-for-ai-agents-and-applications/",
+      "projects": [
+        "x402"
+      ],
+      "notify": false,
+      "reader_title": "支付规则有了多方共同维护的组织",
+      "reader_summary": "像不同商家一起制定收银规则：7月公告基金会开始正式运营，本次补入地图。",
+      "reader_impact": "有助减少各家支付接口各行其是；不代表出游订房、维修付款和退款已经全程互通。",
+      "previous_state": "4月宣布筹建意向（7月公告回述）",
+      "new_state": "7月14日官方宣布运营启动并完成协议贡献",
+      "evidence_type": "基金会官方公告",
+      "next_step": "跟踪实际规范交付、跨厂商兼容和独立付费采用"
     }
   ],
   "watchlist": [
@@ -1140,9 +1163,20 @@
       "layer": "identity",
       "question": "10月29日预印本，11月5日发现并核验摘要页与提交日期；全文、模型假设、代码和复现待查，不视为生产协议漏洞或已部署产品。",
       "source": "https://arxiv.org/abs/2610.39109"
+    },
+    {
+      "name": "A2A Registry支付发现",
+      "layer": "discovery",
+      "source": "https://www.a2a-registry.org/resources/guide/payment",
+      "question": "11月6日读项目自有文档，按协议、结算网络和收付方向筛选；属于能力声明，实际支付互通、维护主体、官方规范归属及收入待核验，不计入已核实项目。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-06",
+      "status": "部分核验",
+      "note": "部分核验：比较11月5日记录，回看近7天支付及国内生态检索；A2A Latest仍v1.0.1，MCP当前2026-07-28。补核x402基金会7月14日运营启动公告（历史补录），当前官网读取未见旧交易面板，不推断交易下降。Higress PR仅取得两周前缓存，不作为实时合并状态。A2A Registry支付发现文档进入待查；其他SDK、平台、支付及论文队列未全量覆盖，未确认当日重大新增。"
+    },
     {
       "date": "2026-11-05",
       "status": "部分核验",

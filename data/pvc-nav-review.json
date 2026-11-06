@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "nav",
   "title": "已核验的 NAV 与同日价格快照",
-  "checked_on": "2026-11-03",
-  "scope": "九只产品保留独立日期。本轮RONB至11月2日、AGIX至10月30日、RVI至9月30日季度NAV；其余六只本轮未重审。仅有效同日NAV/价格计算历史折溢价，不混用净值、季度估值或占位零。",
+  "checked_on": "2026-11-06",
+  "scope": "原九基金主表原位维护。NSLR为9月30日正式Q3；RONB日值11月5日、AGIX11月4日；其他行各自观察期保留。未核字段不填0，异日不计算当前溢价。",
   "columns": [
     {
       "key": "label",
@@ -53,7 +53,7 @@
       "announced": "2026-09-09",
       "current_price": null,
       "known": "9月9日招股补充文件同时披露9月8日每份NAV和收盘价。10亿美元ATM是可发行上限，不是已募集金额。",
-      "unknown": "10月23日重读9月9日SEC补充文件，未取得更新NAV及可比同日价格，保留9月8日快照；不能以自媒体前瞻NAV或异日行情替代。",
+      "unknown": "11月6日官网可读绩效仍为3月31日，未取到更新可比NAV/价格；保留9月8日SEC快照，不从绩效百分比反推NAV。",
       "impact": "原页626%溢价不能再作为当前结论；本表约75.67%也是9月8日的历史快照，不能据此推断今日套利空间。",
       "sources": [
         {
@@ -61,7 +61,7 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1867090/000121390026098534/ea0303702-01_424b2.htm"
         }
       ],
-      "checked_on": "2026-10-23"
+      "checked_on": "2026-11-06"
     },
     {
       "id": "DXYZ",
@@ -74,7 +74,7 @@
       "announced": "2026-08-28",
       "current_price": null,
       "known": "半年报列示6月30日NAV 34.30与期末市价25.76；期初NAV为19.93，修正旧底稿19.97的记录。财务报表为未经审计半年报。",
-      "unknown": "10月23日官网仍明确NAV及组合截至6月30日，行情栏为0.00占位，不视作市价归零；本轮未取得九月底正式NAV与同日价格。",
+      "unknown": "11月6日官网仍明确34.30及组合截至6月30日；0.00行情是占位符，不更新为零。未取得Q3正式NAV及同日价格。",
       "impact": "6月30日为约24.90%折价，不是五月底稿的89%溢价；两者不是同一观察期，不可拼成同日横向套利。",
       "sources": [
         {
@@ -91,43 +91,74 @@
           "date": "页面未标首次发布日期"
         }
       ],
-      "checked_on": "2026-10-23"
+      "checked_on": "2026-11-06"
     },
     {
       "id": "NSLR",
       "label": "NSLR · 原 SSSS",
-      "nav": 13.44,
-      "nav_date": "2026-06-30",
+      "nav": 12.64,
+      "nav_date": "2026-09-30",
       "nav_status": "reported",
-      "price": null,
-      "price_date": null,
-      "announced": "2026-08-05",
+      "price": 7.69,
+      "price_date": "2026-09-30",
+      "announced": "2026-11-03",
       "current_price": null,
       "preliminary": {
         "nav_low": 12.25,
         "nav_high": 12.75,
         "period_end": "2026-09-30",
         "announced": "2026-10-05",
-        "status": "management_estimate"
+        "status": "superseded_by_reported_q3"
       },
-      "known": "Q2 NAV 13.44保留；Q3 12.25—12.75为管理层初估。10月5日公告另披露9月21日Learneo退出净回款940万美元、已实现亏损560万美元；季末流动资产4220万美元包含现金及不受限制上市证券，并非全为现金。",
-      "unknown": "Q3初估未经审计或审阅，公告预计11月给正式结果；缺少同日价格及更晚完整估值。",
-      "impact": "新增真实退出亏损的反证：有退出不等于盈利，组合估值不等于现金回收；不把初估写入正式NAV或清除旧积压。",
+      "known": "11月3日正式Q3公告：9月30日NAV12.64、期末市价7.69美元，净资产334.69848百万美元、期末26473222股。单季已实现投资亏损770万美元、未实现减值940万美元。",
+      "unknown": "季度财务表未经审计；缺更晚可比净值/价格。10月28日延长股票回购授权、剩余额度2500万美元不等于已经回购；完整费用与执行流水待核。",
+      "impact": "正式数替代12.25—12.75初估，旧初估保留历史。NAV较Q2下降5.95%；季末折价约39.16%，不是今日折价或保证回归。",
       "sources": [
         {
-          "title": "公司更名及管理结构公告 · 2026-07-21",
-          "url": "https://investors.neostellar.vc/news-releases/news-release-details/suro-capital-team-and-magnetar-launch-neostellar-advisors"
-        },
-        {
-          "title": "Q2正式业绩公告 · 2026-08-05",
-          "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-reports-second-quarter-2026-financial"
-        },
-        {
-          "title": "Q3初步组合更新 · 2026-10-05",
-          "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-announces-third-quarter-2026-preliminary"
+          "title": "NSLR正式Q3业绩及财务摘要",
+          "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-reports-third-quarter-2026-financial",
+          "date": "2026-11-03"
         }
       ],
-      "checked_on": "2026-10-23"
+      "checked_on": "2026-11-06",
+      "history": [
+        {
+          "id": "NSLR",
+          "label": "NSLR · 原 SSSS",
+          "nav": 13.44,
+          "nav_date": "2026-06-30",
+          "nav_status": "reported",
+          "price": null,
+          "price_date": null,
+          "announced": "2026-08-05",
+          "current_price": null,
+          "preliminary": {
+            "nav_low": 12.25,
+            "nav_high": 12.75,
+            "period_end": "2026-09-30",
+            "announced": "2026-10-05",
+            "status": "management_estimate"
+          },
+          "known": "Q2 NAV 13.44保留；Q3 12.25—12.75为管理层初估。10月5日公告另披露9月21日Learneo退出净回款940万美元、已实现亏损560万美元；季末流动资产4220万美元包含现金及不受限制上市证券，并非全为现金。",
+          "unknown": "Q3初估未经审计或审阅，公告预计11月给正式结果；缺少同日价格及更晚完整估值。",
+          "impact": "新增真实退出亏损的反证：有退出不等于盈利，组合估值不等于现金回收；不把初估写入正式NAV或清除旧积压。",
+          "sources": [
+            {
+              "title": "公司更名及管理结构公告 · 2026-07-21",
+              "url": "https://investors.neostellar.vc/news-releases/news-release-details/suro-capital-team-and-magnetar-launch-neostellar-advisors"
+            },
+            {
+              "title": "Q2正式业绩公告 · 2026-08-05",
+              "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-reports-second-quarter-2026-financial"
+            },
+            {
+              "title": "Q3初步组合更新 · 2026-10-05",
+              "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-announces-third-quarter-2026-preliminary"
+            }
+          ],
+          "checked_on": "2026-10-23"
+        }
+      ]
     },
     {
       "id": "RVI",
@@ -139,7 +170,7 @@
       "price_date": null,
       "announced": null,
       "known": "官网9月30日每份NAV29.20美元；季度摘要净资产796百万美元，非每份价格。Whatnot/Crusoe/Cognition本期公允价值30/25/8百万美元；Cognition交易跨季，余下部分按估值政策在12月底反映。",
-      "unknown": "官网/摘要未标首次发布日期；不是完整审计财报。未取得同日市场价、完整估值桥及回购执行，不能将净资产增长当已实现收益。",
+      "unknown": "11月6日官网仍列9月30日NAV29.20；未核首次发布日期、更晚完整估值桥及同日市场价，不计算异日溢价。",
       "impact": "用已披露9月底NAV替换6月底25.02，旧快照保留。缺同日市价不算溢价；上市交易不等于可按NAV赎回。",
       "sources": [
         {
@@ -153,7 +184,7 @@
           "date": "首次发布日期未标明"
         }
       ],
-      "checked_on": "2026-11-03",
+      "checked_on": "2026-11-06",
       "current_price": null,
       "history": [
         {
@@ -193,7 +224,7 @@
       "price_date": null,
       "announced": null,
       "known": "官网将ARKVX标为Class D；为区间型封闭式基金，份额不在交易所上市。官网列净费用2.90%、总费用3.49%，依据2025-10-28招股说明书，豁免可按条件终止；不能把不同类别费用/NAV混用。",
-      "unknown": "本轮可读官网的NAV及日期栏为空；Class D本期净值、最新正式费用文件、赎回窗口实际接受量仍待核验。",
+      "unknown": "11月6日Class D官方可读页的NAV及日期仍为空；保留缺失，不能混入其他类别净值。最新费用及实际赎回接受量未完整核验。",
       "impact": "无市场报价不等于0%溢价；净值申购不提供随时退出保障，旧单一3.49%费用说法需要区分总费率和豁免后费率。",
       "sources": [
         {
@@ -201,7 +232,7 @@
           "url": "https://www.ark-funds.com/funds/arkvx"
         }
       ],
-      "checked_on": "2026-10-16",
+      "checked_on": "2026-11-06",
       "current_price": null
     },
     {
@@ -214,7 +245,7 @@
       "price_date": null,
       "announced": "2026-07-28",
       "known": "7月28日SEC文件列3月31日财务报告NAV 20.39。基金按下一计算NAV接受申购；顾问拟在正常条件下建议每季回购不超过净资产5%，董事会可不发起回购，投资者无自主赎回权。",
-      "unknown": "日净值网页返回占位符，未取得更晚有效NAV；财务报告NAV含GAAP调整，可能不同于投资者交易NAV。实际回购量及最新底层估值仍未知。",
+      "unknown": "11月6日官方日NAV仍为$--.--占位符；保留3月财报20.39，不写成11月交易NAV。完整回购执行待核。",
       "impact": "撤销“季度赎回≤5%”容易造成的保证赎回印象；20.39是3月财报数，绝不能标成10月日净值，也不能计算市场溢价。",
       "sources": [
         {
@@ -226,7 +257,7 @@
           "url": "https://usvc.com/nav"
         }
       ],
-      "checked_on": "2026-10-16",
+      "checked_on": "2026-11-06",
       "current_price": null
     },
     {
@@ -239,7 +270,7 @@
       "price_date": null,
       "announced": null,
       "known": "官方说明SpaceX敞口经SPV持有；底层公司上市后，SPV可继续持有直到满足分配公开股票的条件。ETF份额每日交易不等于SPV资产立即可变现。",
-      "unknown": "官方嵌入式基金数据在本次读取中仅返回0.00及空日期，视作无效占位符，不当作净值归零；最新份额、估值和完整费用待核验。",
+      "unknown": "11月6日嵌入基金数据未取得有效NAV/日期，旧报价18.74及旧权重保留原观察期，不当作当前净值或平价。",
       "impact": "旧SpaceX 22.3%权重与18.74报价保持历史；未取得有效同日数据不计算溢价，不采信“ETF不会有溢价”的营销概括。",
       "sources": [
         {
@@ -251,29 +282,29 @@
           "url": "https://ershares.ssnc.cloud/fund-data/xovr"
         }
       ],
-      "checked_on": "2026-10-16",
+      "checked_on": "2026-11-06",
       "current_price": null
     },
     {
       "id": "RONB",
       "label": "RONB · Baron First Principles ETF",
-      "nav": 24.53,
-      "nav_date": "2026-11-02",
+      "nav": 23.27,
+      "nav_date": "2026-11-05",
       "nav_status": "reported",
-      "price": 24.58,
-      "price_date": "2026-11-02",
+      "price": 23.24,
+      "price_date": "2026-11-05",
       "announced": null,
-      "known": "11月2日NAV/市价24.53/24.58美元，显示值复算溢价约0.20%，官方高精度栏0.21%。持仓观察日10月30日，SPCX36.72%、TSLA9.33%；规模仍为9月30日。",
-      "unknown": "舍入导致复算与官方折溢价小幅不同；不把不同观察期混成同日，也不从权重变化推断净买卖。",
-      "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
+      "known": "11月5日NAV/市价23.27/23.24美元，复算折价约0.13%，官方栏为-0.13%。持仓观察日11月4日：SPCX36.18%、TSLA8.74%；规模335.89百万美元仍为9月30日。",
+      "unknown": "显示价格经舍入，持仓与报价不是同日；其余旧敞口未逐项复核，不由权重变化推断净买卖。",
+      "impact": "11月2日约0.20%溢价变为11月5日约0.13%折价；只是不同日历史快照，不代表无风险套利。",
       "sources": [
         {
-          "title": "RONB官方日净值/价格",
+          "title": "RONB官方分日期净值、价格与持仓",
           "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
           "date": "首次发布日期未标明"
         }
       ],
-      "checked_on": "2026-11-03",
+      "checked_on": "2026-11-06",
       "current_price": null,
       "history": [
         {
@@ -318,29 +349,51 @@
           ],
           "checked_on": "2026-10-23",
           "current_price": null
+        },
+        {
+          "id": "RONB",
+          "label": "RONB · Baron First Principles ETF",
+          "nav": 24.53,
+          "nav_date": "2026-11-02",
+          "nav_status": "reported",
+          "price": 24.58,
+          "price_date": "2026-11-02",
+          "announced": null,
+          "known": "11月2日NAV/市价24.53/24.58美元，显示值复算溢价约0.20%，官方高精度栏0.21%。持仓观察日10月30日，SPCX36.72%、TSLA9.33%；规模仍为9月30日。",
+          "unknown": "舍入导致复算与官方折溢价小幅不同；不把不同观察期混成同日，也不从权重变化推断净买卖。",
+          "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
+          "sources": [
+            {
+              "title": "RONB官方日净值/价格",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+              "date": "首次发布日期未标明"
+            }
+          ],
+          "checked_on": "2026-11-03",
+          "current_price": null
         }
       ]
     },
     {
       "id": "AGIX",
       "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
-      "nav": 41.88,
-      "nav_date": "2026-10-30",
+      "nav": 40.86,
+      "nav_date": "2026-11-04",
       "nav_status": "reported",
-      "price": 41.62,
-      "price_date": "2026-10-30",
+      "price": 40.69,
+      "price_date": "2026-11-04",
       "announced": null,
-      "known": "10月30日NAV/市价41.88/41.62美元，复算折价约0.62%；并非11月2日行情。费用与季度收益仍按官网各自口径。",
-      "unknown": "季度溢折价天数表仍有异常，未采纳；底层私募估值未逐项核验。",
-      "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
+      "known": "11月4日NAV/市价40.86/40.69美元，复算折价约0.42%；同日净资产680.383915百万美元、份额16650002。",
+      "unknown": "不是11月5日行情；底层私募估值尚未逐项核实，不采用异常季度折溢价天数统计。",
+      "impact": "原表回填新的同日快照，不能与其他产品不同日数据直接比较套利；旧预测不因此变为新预测。",
       "sources": [
         {
-          "title": "AGIX官方日净值/价格",
+          "title": "AGIX官方日净值与市场价",
           "url": "https://kraneshares.com/etf/agix/",
           "date": "首次发布日期未标明"
         }
       ],
-      "checked_on": "2026-11-03",
+      "checked_on": "2026-11-06",
       "current_price": null,
       "history": [
         {
@@ -385,13 +438,35 @@
           ],
           "checked_on": "2026-10-23",
           "current_price": null
+        },
+        {
+          "id": "AGIX",
+          "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
+          "nav": 41.88,
+          "nav_date": "2026-10-30",
+          "nav_status": "reported",
+          "price": 41.62,
+          "price_date": "2026-10-30",
+          "announced": null,
+          "known": "10月30日NAV/市价41.88/41.62美元，复算折价约0.62%；并非11月2日行情。费用与季度收益仍按官网各自口径。",
+          "unknown": "季度溢折价天数表仍有异常，未采纳；底层私募估值未逐项核验。",
+          "impact": "用同日官方快照替代上一周报价；这是估值偏离而非无风险套利，不刷新旧持仓预测或目标价。",
+          "sources": [
+            {
+              "title": "AGIX官方日净值/价格",
+              "url": "https://kraneshares.com/etf/agix/",
+              "date": "首次发布日期未标明"
+            }
+          ],
+          "checked_on": "2026-11-03",
+          "current_price": null
         }
       ]
     }
   ],
   "pending": [
-    "ARKVX/XOVR有效NAV与USVC更晚交易NAV仍缺；VCX/DXYZ/NSLR等六项本轮未重审，不称九只最新净值齐全。",
-    "VCX/DXYZ缺更新同日价格及NAV；NSLR待正式Q3与可比价格，初估不替代已报NAV。",
-    "补费用、份额稀释、回购执行及底层退出；异日不横比套利、舍入值不是无风险价差。"
+    "ARKVX/XOVR有效NAV、USVC更晚交易NAV仍缺；VCX/DXYZ较新可比NAV与价格未取得。",
+    "NSLR已核正式Q3与季末价格，但不是今日NAV/报价；RVI仍缺同日市场价。",
+    "完整费用、份额稀释、回购执行及底层退出仍待逐项核验；保留原逾期，不宣称全部最新。"
   ]
 }

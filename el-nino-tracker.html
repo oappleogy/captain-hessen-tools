@@ -596,6 +596,7 @@ footer .disc {
           <span class="pill"><span class="dot"></span>${esc(cs.alert || 'ENSO STATUS')}</span>
           <div class="state-title">${esc(cs.label || '—')}</div>
           <div class="state-summary">${esc(cs.summary || '')}</div>
+          <div class="state-summary">${esc(data.observation_summary || '')}</div>
           ${cs.alert_note ? `<div class="alert-note"><b>${esc(cs.alert || '')}</b> · ${esc(cs.alert_note)}</div>` : ''}
         </div>
         <div class="meter-wrap">

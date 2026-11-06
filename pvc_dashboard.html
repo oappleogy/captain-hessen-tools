@@ -365,8 +365,6 @@
 </style>
 <link rel="stylesheet" href="research-updates.css?v=20261008">
 <script src="research-updates.js?v=20261009" defer></script>
-<link rel="stylesheet" href="research-evidence.css?v=20261009">
-<script src="research-evidence.js?v=20261009" defer></script>
 </head>
 <body>
 <div class="watermark">黑森船长</div>
@@ -381,28 +379,26 @@
       分开核验净值、市场价格、资产结构与赎回约束；不同观察日的溢价不能直接比较，更不代表无风险套利。
     </div>
     <div class="meta-row">
-      <div>增量复核 <b>2026-10-16</b></div>
+      <div>字段复核 <b>2026-11-06</b></div>
       <div>覆盖状态 <b>9只已列明；2只NAV缺失</b></div>
       <div>结构 <b>CEF · BDC · Interval · Non-traded · ETF</b></div>
       <div>报价状态 <b>不同观察日；非实时全量</b></div>
     </div>
   </section>
 
-  <section id="latest-evidence" class="research-evidence" data-evidence="data/pvc-nav-review.json"><h2>正在加载已核验净值</h2><p>没有实时价格时不计算当前溢价。<a href="data/pvc-nav-review.json">查看证据数据</a></p></section>
-  <details class="research-archive" id="historical-may"><summary>展开2026-05-05历史档案：旧报价、旧代码、旧预测与图表（未重算）</summary><p>以下“当前”均指当时底稿，不是今日。原SSSS现为NSLR；旧预测不是实际净值。历史敞口、催化日历及相对价值判断保留供复盘。</p>
   <!-- 1. Master Table -->
   <section class="card">
     <div class="card-title">1. 主表格 · 9只标的核心数据</div>
-    <div class="card-sub">按结构分组。溢价梯度：&gt;200% 红 / 50–200% 琥珀 / -20%~50% 灰 / &lt;-20% 绿。</div>
+    <div class="card-sub">原表按结构分组，已核验值直接回填。报价、NAV、规模分别标观察期；同日才复算折溢价，不同基金日期不同。Forward 及未复核敞口保留2026-05-05旧假设，不是当前预测。溢价梯度不变：&gt;200% 红 / 50–200% 琥珀 / -20%~50% 灰 / &lt;-20% 绿。<a href="data/pvc-nav-review.json">逐项证据与旧快照</a></div>
     <div class="table-wrap">
       <table id="master-table">
         <thead>
           <tr>
             <th title="Ticker / 代码">标的</th>
             <th title="基金名称">名称</th>
-            <th title="旧底稿价格，非当前行情 (USD)">历史价格</th>
+            <th title="各行独立价格观察日，非实时全量 (USD)">已核价格 / 旧值</th>
             <th title="末次披露NAV / share (USD)">末次NAV</th>
-            <th title="旧底稿未重算，非当前折溢价">历史溢价</th>
+            <th title="(同日price/NAV - 1) × 100；异日不重算，旧值明确标历史">该日折溢价</th>
             <th title="Forward NAV 区间预测 (低 - 高)">Forward NAV</th>
             <th title="Forward NAV下的溢价区间，用最高NAV算最低溢价、最低NAV算最高溢价">Forward溢价</th>
             <th title="AUM 或 市值 (US$M)">AUM/市值</th>
@@ -417,22 +413,22 @@
 
   <!-- 2. Premium Comparison Chart -->
   <section class="card">
-    <div class="card-title">2. 溢价对比：当前 vs Forward NAV</div>
-    <div class="card-sub">Y轴对数刻度（VCX 626% 量级）。当前溢价 vs forward中位数溢价。</div>
+    <div class="card-title">2. 溢价对比：已核快照 vs 历史 Forward NAV</div>
+    <div class="card-sub">原对数刻度保留，负值映射0.5仅用于绘图，悬停看真实负值。每根柱各自日期见标签；Forward仍为2026-05-05旧情景，未随新报价重估，不能视作当前预测或同日横比。</div>
     <div class="chart-box"><canvas id="chart-premium"></canvas></div>
   </section>
 
   <!-- 3. Big-3 Exposure -->
   <section class="card">
     <div class="card-title">3. 三巨头权重敞口</div>
-    <div class="card-sub">OpenAI · Anthropic · SpaceX · xAI 占基金NAV的%。</div>
+    <div class="card-sub">OpenAI · Anthropic · SpaceX · xAI 原敞口图。仅RONB的SpaceX字段核至2026-11-04（36.18%）；其余字段仍为2026-05-05底稿，口径与持股关系未重审。不同观察期不能相加成今日总敞口；悬停看各项日期。</div>
     <div class="chart-box"><canvas id="chart-exposure"></canvas></div>
   </section>
 
   <!-- 4. VCX-SSSS Pair Trade -->
   <section class="card">
     <div class="card-title">4. VCX–SSSS Pair Trade · 同OpenAI不同船</div>
-    <div class="card-sub">Textbook closed-end fund pair trade：相同底层资产，截然不同的P/NAV定价。</div>
+    <div class="card-sub">2026-05-05原配对情景保留，以下旧价格/Forward和倍数未重估，不是现时交易建议。SSSS已更名NSLR；正式Q3 NAV12.64与季末市价7.69见原主表，不能与VCX异日值拼成当前价差。</div>
     <div class="pair-grid">
       <div class="pair-col">
         <h4>溢价异常端 / SHORT</h4>
@@ -473,7 +469,7 @@
   <!-- 5. VCX Scenarios -->
   <section class="card">
     <div class="card-title">5. VCX 12个月情景预测</div>
-    <div class="card-sub">三个情景 · 触发条件 · 概率加权。当前价 $137.79，after-hours $147.84。</div>
+    <div class="card-sub">2026-05-05历史情景 · 原触发条件与概率未重估。当时价格 $137.79、盘后 $147.84；不是今日价格，最新已核快照见原主表。</div>
     <div class="scenarios">
       <div class="sc sc-bear">
         <div class="sc-head"><div class="label">🔴 熊</div><div class="sc-prob">概率 35%</div></div>
@@ -496,7 +492,7 @@
   <!-- 6. Catalyst Timeline -->
   <section class="card">
     <div class="card-title">6. 催化时间轴 · 2026 H2</div>
-    <div class="card-sub">未来 12 个月已知重大事件。</div>
+    <div class="card-sub">2026-05-05原计划时间轴（未逐项复核，不代表已兑现或仍属未来）；NSLR正式Q3观察期9月30日、公告11月3日，已在原主表回填。</div>
     <div class="tl">
       <div class="tl-event hot">
         <div class="tl-date">2026 / 05 / 12</div>
@@ -538,7 +534,7 @@
       <div class="insight">
         <div class="insight-num">02</div>
         <div class="insight-title">SSSS 旧假设已需重做</div>
-        <div class="insight-body">旧催化与预测NAV不能代替披露结果。新的NSLR净值、管理结构及未知项见上方核验区；分配安排与基金结构本身不保证价值实现。</div>
+        <div class="insight-body">NSLR正式Q3 NAV为12.64美元，较Q2下降5.95%；季末价格7.69美元，对应约39.16%折价。旧初估与五月Forward不能替代正式数，季末折价也不是今日折价。回购剩余额度不等于已经执行。</div>
       </div>
       <div class="insight">
         <div class="insight-num">03</div>
@@ -548,11 +544,10 @@
     </div>
   </section>
 
-  </details>
   <!-- Footer -->
   <footer>
     <div><b>captain-hessen.com</b> · 公开私募VC基金溢价跟踪 · 各数值观察期见表</div>
-    <div style="margin-top:6px;">本轮来源为SEC与基金官方披露，逐项链接见核验区。五月forward NAV仅属历史假设，未延用为当前预测。</div>
+    <div style="margin-top:6px;">本轮来源为SEC与基金官方披露，逐项链接见原主表下方说明。五月forward NAV仅属历史假设，未延用为当前预测。</div>
     <div style="margin-top:6px;">本面板仅供个人投资跟踪与思路记录，不构成投资建议。</div>
     <div class="legend-tags">
       <span>🟢 SEC 实际披露</span>
@@ -564,72 +559,400 @@
 
 <script>
 const DATA = {
-  as_of: "2026-05-05",
-  funds: [
-    { ticker:"VCX", name:"Fundrise Innovation Fund", structure:"CEF", exchange:"NYSE",
-      price_current:137.79, price_tag:"🟢", price_after_hours:147.84,
-      nav_last_reported:18.97, nav_date:"2026-03-19 (IPO)", nav_tag:"🟡",
-      nav_forward_low:28, nav_forward_high:32, nav_forward_tag:"🔴",
-      premium_current_pct:626, premium_forward_low_pct:330, premium_forward_high_pct:390,
-      aum_or_mcap_musd:3260,
-      weight_openai_pct:10, weight_anthropic_pct:20, weight_spacex_pct:5, weight_xai_pct:0,
-      notes:"IPO首日NAV $18.97; Citron已发空头报告; 6mo lockup 9月到期; 4/1参与OpenAI $122B round at $852B" },
-    { ticker:"DXYZ", name:"Destiny Tech100", structure:"CEF", exchange:"NYSE",
-      price_current:37.65, price_tag:"🟢",
-      nav_last_reported:19.97, nav_date:"2025-12-31 (Q4)", nav_tag:"🟡",
-      nav_forward_low:25, nav_forward_high:30, nav_forward_tag:"🔴",
-      premium_current_pct:89, premium_forward_low_pct:25, premium_forward_high_pct:50,
-      aum_or_mcap_musd:641,
-      weight_openai_pct:5, weight_anthropic_pct:4, weight_spacex_pct:16.2, weight_xai_pct:3.5,
-      notes:"老牌2024上市; SpaceX权重最高; NAV从Q1'24 $5.07涨到Q4'25 $19.97" },
-    { ticker:"SSSS", name:"SuRo Capital Corp", structure:"BDC", exchange:"NASDAQ",
-      price_current:13.22, price_tag:"🟡", price_date:"2026-04-27",
-      nav_last_reported:8.09, nav_date:"2025-12-31 (Q4)", nav_tag:"🟢",
-      nav_forward_low:13, nav_forward_high:15, nav_forward_tag:"🟡",
-      premium_current_pct:63, premium_forward_low_pct:-12, premium_forward_high_pct:2,
-      aum_or_mcap_musd:298,
-      weight_openai_pct:11, weight_anthropic_pct:0, weight_spacex_pct:0, weight_xai_pct:0,
-      notes:"BDC必须分配90%+收益; CoreWeave(已IPO)/Plaid/WHOOP/VastData/TensorWave; mgmt指引Q1 mark-up +$4/share; 5/12 Q1 NAV报告" },
-    { ticker:"RVI", name:"Robinhood Ventures Fund I", structure:"CEF", exchange:"NYSE",
-      price_current:25.45, price_tag:"🟡", price_date:"2026-04-10",
-      nav_last_reported:24.70, nav_date:"2026-03-04", nav_tag:"🟡",
-      nav_forward_low:28, nav_forward_high:30, nav_forward_tag:"🔴",
-      premium_current_pct:3, premium_forward_low_pct:-15, premium_forward_high_pct:-10,
-      aum_or_mcap_musd:311,
-      weight_openai_pct:6, weight_anthropic_pct:0, weight_spacex_pct:0, weight_xai_pct:0,
-      notes:"Stripe/Databricks/ElevenLabs/Mercor/Ramp/Revolut/Oura/Airwallex/Boom; 4/22加OpenAI $75M; 大股东注册14.2M secondary待resale" },
-    { ticker:"ARKVX", name:"ARK Venture Fund", structure:"Interval", exchange:"OTC (mutual fund)",
-      price_current:null, price_note:"NAV pricing only",
-      premium_current_pct:0, aum_or_mcap_musd:378,
-      weight_openai_pct:11, weight_anthropic_pct:4, weight_spacex_pct:17, weight_xai_pct:3,
-      notes:"interval fund季度赎回; SoFi/Titan零售可购; 1Y return 67%; expense 3.49%" },
-    { ticker:"USVC", name:"AngelList USVC", structure:"Non-traded CEF", exchange:"Off-exchange",
-      price_current:null, price_note:"NAV pricing only",
-      premium_current_pct:0,
-      weight_openai_pct:0, weight_anthropic_pct:0, weight_spacex_pct:0, weight_xai_pct:null,
-      notes:"Naval Ravikant主席; xAI最大权重; Anthropic/OpenAI/Sierra/Vercel/Crusoe/Legora; 0% carry; 季度赎回≤5%; min $500" },
-    { ticker:"XOVR", name:"ERShares Private-Public Crossover ETF", structure:"ETF", exchange:"NASDAQ",
-      price_current:18.74, price_tag:"🟢",
-      premium_current_pct:0, aum_or_mcap_musd:1060,
-      weight_openai_pct:0, weight_anthropic_pct:0, weight_spacex_pct:22.3, weight_xai_pct:0,
-      notes:"SpaceX通过SPV; Nvidia 9.79%/Alphabet 6.30%/Meta 5.23%; 赎回潮被动放大私募权重; 已有2x杠杆版XOVL" },
-    { ticker:"RONB", name:"Baron First Principles ETF", structure:"ETF", exchange:"NYSE",
-      price_current:23.18, price_tag:"🟢",
-      premium_current_pct:0, aum_or_mcap_musd:384,
-      weight_openai_pct:0, weight_anthropic_pct:0, weight_spacex_pct:7.7, weight_xai_pct:5.4,
-      notes:"Ron Baron管理; SpaceX直接持股(非SPV); Tesla 14.4%; Musk生态合计~28%; SpaceX权重已从14-22%被inflows稀释到7.7%" },
-    { ticker:"AGIX", name:"KraneShares AI & Technology ETF", structure:"ETF", exchange:"NASDAQ",
-      price_current:null, price_note:"数据待补",
-      premium_current_pct:0,
-      weight_openai_pct:0, weight_anthropic_pct:null, weight_spacex_pct:0, weight_xai_pct:null,
-      notes:"公开AI股Nvidia/MSFT/Meta/Google + 私募sleeve(Anthropic+xAI直接持股); 数据需后续补全" }
+  "as_of": "2026-11-06",
+  "funds": [
+    {
+      "ticker": "VCX",
+      "name": "Fundrise Innovation Fund",
+      "structure": "CEF",
+      "exchange": "NYSE",
+      "price_current": 38.12,
+      "price_tag": "官方同日快照",
+      "price_after_hours": 147.84,
+      "nav_last_reported": 21.7,
+      "nav_date": "2026-09-08",
+      "nav_tag": "官方披露",
+      "nav_forward_low": 28,
+      "nav_forward_high": 32,
+      "nav_forward_tag": "🔴",
+      "premium_current_pct": 75.6682,
+      "premium_forward_low_pct": 330,
+      "premium_forward_high_pct": 390,
+      "aum_or_mcap_musd": 3260,
+      "weight_openai_pct": 10,
+      "weight_anthropic_pct": 20,
+      "weight_spacex_pct": 5,
+      "weight_xai_pct": 0,
+      "notes": "9月9日招股补充文件同时披露9月8日每份NAV和收盘价。10亿美元ATM是可发行上限，不是已募集金额。 11月6日官网可读绩效仍为3月31日，未取到更新可比NAV/价格；保留9月8日SEC快照，不从绩效百分比反推NAV。 原页626%溢价不能再作为当前结论；本表约75.67%也是9月8日的历史快照，不能据此推断今日套利空间。",
+      "historical_notes": "IPO首日NAV $18.97; Citron已发空头报告; 6mo lockup 9月到期; 4/1参与OpenAI $122B round at $852B",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": "2026-09-09",
+        "sources": [
+          {
+            "title": "SEC 424(b)(2) · 2026-09-09",
+            "url": "https://www.sec.gov/Archives/edgar/data/1867090/000121390026098534/ea0303702-01_424b2.htm"
+          }
+        ],
+        "known": "9月9日招股补充文件同时披露9月8日每份NAV和收盘价。10亿美元ATM是可发行上限，不是已募集金额。",
+        "unknown": "11月6日官网可读绩效仍为3月31日，未取到更新可比NAV/价格；保留9月8日SEC快照，不从绩效百分比反推NAV。",
+        "impact": "原页626%溢价不能再作为当前结论；本表约75.67%也是9月8日的历史快照，不能据此推断今日套利空间。"
+      },
+      "price_date": "2026-09-08",
+      "aum_date": "2026-05-05底稿；原规模口径未复核",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-09-08",
+      "comparable_pair": true
+    },
+    {
+      "ticker": "DXYZ",
+      "name": "Destiny Tech100",
+      "structure": "CEF",
+      "exchange": "NYSE",
+      "price_current": 25.76,
+      "price_tag": "官方同日快照",
+      "nav_last_reported": 34.3,
+      "nav_date": "2026-06-30",
+      "nav_tag": "官方披露",
+      "nav_forward_low": 25,
+      "nav_forward_high": 30,
+      "nav_forward_tag": "🔴",
+      "premium_current_pct": -24.898,
+      "premium_forward_low_pct": 25,
+      "premium_forward_high_pct": 50,
+      "aum_or_mcap_musd": 641,
+      "weight_openai_pct": 5,
+      "weight_anthropic_pct": 4,
+      "weight_spacex_pct": 16.2,
+      "weight_xai_pct": 3.5,
+      "notes": "半年报列示6月30日NAV 34.30与期末市价25.76；期初NAV为19.93，修正旧底稿19.97的记录。财务报表为未经审计半年报。 11月6日官网仍明确34.30及组合截至6月30日；0.00行情是占位符，不更新为零。未取得Q3正式NAV及同日价格。 6月30日为约24.90%折价，不是五月底稿的89%溢价；两者不是同一观察期，不可拼成同日横向套利。",
+      "historical_notes": "老牌2024上市; SpaceX权重最高; NAV从Q1'24 $5.07涨到Q4'25 $19.97",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": "2026-08-28",
+        "sources": [
+          {
+            "title": "SEC N-CSRS · 2026-08-28",
+            "url": "https://www.sec.gov/Archives/edgar/data/1843974/000121390026095201/ea0302101-01_ncsrs.htm"
+          },
+          {
+            "title": "SEC 申报日期与观察期",
+            "url": "https://www.sec.gov/Archives/edgar/data/1843974/000121390026095201/0001213900-26-095201-index.html"
+          },
+          {
+            "title": "DXYZ官网：明确截至六月底的报告口径",
+            "url": "https://destiny.xyz/tech100",
+            "date": "页面未标首次发布日期"
+          }
+        ],
+        "known": "半年报列示6月30日NAV 34.30与期末市价25.76；期初NAV为19.93，修正旧底稿19.97的记录。财务报表为未经审计半年报。",
+        "unknown": "11月6日官网仍明确34.30及组合截至6月30日；0.00行情是占位符，不更新为零。未取得Q3正式NAV及同日价格。",
+        "impact": "6月30日为约24.90%折价，不是五月底稿的89%溢价；两者不是同一观察期，不可拼成同日横向套利。"
+      },
+      "price_date": "2026-06-30",
+      "aum_date": "2026-05-05底稿；原规模口径未复核",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-06-30",
+      "comparable_pair": true
+    },
+    {
+      "ticker": "NSLR",
+      "name": "Neostellar Capital Corp (原 SuRo)",
+      "structure": "BDC",
+      "exchange": "NASDAQ",
+      "price_current": 7.69,
+      "price_tag": "官方同日快照",
+      "price_date": "2026-09-30",
+      "nav_last_reported": 12.64,
+      "nav_date": "2026-09-30",
+      "nav_tag": "官方披露",
+      "nav_forward_low": 13,
+      "nav_forward_high": 15,
+      "nav_forward_tag": "🟡",
+      "premium_current_pct": -39.1614,
+      "premium_forward_low_pct": -12,
+      "premium_forward_high_pct": 2,
+      "aum_or_mcap_musd": 334.69848,
+      "weight_openai_pct": 11,
+      "weight_anthropic_pct": 0,
+      "weight_spacex_pct": 0,
+      "weight_xai_pct": 0,
+      "notes": "11月3日正式Q3公告：9月30日NAV12.64、期末市价7.69美元，净资产334.69848百万美元、期末26473222股。单季已实现投资亏损770万美元、未实现减值940万美元。 季度财务表未经审计；缺更晚可比净值/价格。10月28日延长股票回购授权、剩余额度2500万美元不等于已经回购；完整费用与执行流水待核。 正式数替代12.25—12.75初估，旧初估保留历史。NAV较Q2下降5.95%；季末折价约39.16%，不是今日折价或保证回归。",
+      "historical_notes": "BDC必须分配90%+收益; CoreWeave(已IPO)/Plaid/WHOOP/VastData/TensorWave; mgmt指引Q1 mark-up +$4/share; 5/12 Q1 NAV报告",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": "2026-11-03",
+        "sources": [
+          {
+            "title": "NSLR正式Q3业绩及财务摘要",
+            "url": "https://investors.neostellar.vc/news-releases/news-release-details/neostellar-capital-corp-reports-third-quarter-2026-financial",
+            "date": "2026-11-03"
+          }
+        ],
+        "known": "11月3日正式Q3公告：9月30日NAV12.64、期末市价7.69美元，净资产334.69848百万美元、期末26473222股。单季已实现投资亏损770万美元、未实现减值940万美元。",
+        "unknown": "季度财务表未经审计；缺更晚可比净值/价格。10月28日延长股票回购授权、剩余额度2500万美元不等于已经回购；完整费用与执行流水待核。",
+        "impact": "正式数替代12.25—12.75初估，旧初估保留历史。NAV较Q2下降5.95%；季末折价约39.16%，不是今日折价或保证回归。"
+      },
+      "aum_date": "2026-09-30净资产；非市值",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-09-30",
+      "comparable_pair": true
+    },
+    {
+      "ticker": "RVI",
+      "name": "Robinhood Ventures Fund I",
+      "structure": "CEF",
+      "exchange": "NYSE",
+      "price_current": 25.45,
+      "price_tag": "🟡",
+      "price_date": "2026-04-10",
+      "nav_last_reported": 29.2,
+      "nav_date": "2026-09-30",
+      "nav_tag": "官方披露",
+      "nav_forward_low": 28,
+      "nav_forward_high": 30,
+      "nav_forward_tag": "🔴",
+      "premium_current_pct": 3,
+      "premium_forward_low_pct": -15,
+      "premium_forward_high_pct": -10,
+      "aum_or_mcap_musd": 796,
+      "weight_openai_pct": 6,
+      "weight_anthropic_pct": 0,
+      "weight_spacex_pct": 0,
+      "weight_xai_pct": 0,
+      "notes": "官网9月30日每份NAV29.20美元；季度摘要净资产796百万美元，非每份价格。Whatnot/Crusoe/Cognition本期公允价值30/25/8百万美元；Cognition交易跨季，余下部分按估值政策在12月底反映。 11月6日官网仍列9月30日NAV29.20；未核首次发布日期、更晚完整估值桥及同日市场价，不计算异日溢价。 用已披露9月底NAV替换6月底25.02，旧快照保留。缺同日市价不算溢价；上市交易不等于可按NAV赎回。",
+      "historical_notes": "Stripe/Databricks/ElevenLabs/Mercor/Ramp/Revolut/Oura/Airwallex/Boom; 4/22加OpenAI $75M; 大股东注册14.2M secondary待resale",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": null,
+        "sources": [
+          {
+            "title": "RVI官方产品页：9月底NAV",
+            "url": "https://robinhood.com/us/en/ventures/rvi/",
+            "date": "首次发布日期未标明"
+          },
+          {
+            "title": "RVI Q3组合更新，观察期9月30日",
+            "url": "https://cdn.robinhood.com/app_assets/rhv/updates/rvi_q3_2026_update.pdf",
+            "date": "首次发布日期未标明"
+          }
+        ],
+        "known": "官网9月30日每份NAV29.20美元；季度摘要净资产796百万美元，非每份价格。Whatnot/Crusoe/Cognition本期公允价值30/25/8百万美元；Cognition交易跨季，余下部分按估值政策在12月底反映。",
+        "unknown": "11月6日官网仍列9月30日NAV29.20；未核首次发布日期、更晚完整估值桥及同日市场价，不计算异日溢价。",
+        "impact": "用已披露9月底NAV替换6月底25.02，旧快照保留。缺同日市价不算溢价；上市交易不等于可按NAV赎回。"
+      },
+      "aum_date": "2026-09-30净资产；非市值",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-05-05历史值；未核同日性",
+      "comparable_pair": false
+    },
+    {
+      "ticker": "ARKVX",
+      "name": "ARK Venture Fund",
+      "structure": "Interval",
+      "exchange": "OTC (mutual fund)",
+      "price_current": null,
+      "price_note": "NAV pricing only",
+      "premium_current_pct": 0,
+      "aum_or_mcap_musd": 378,
+      "weight_openai_pct": 11,
+      "weight_anthropic_pct": 4,
+      "weight_spacex_pct": 17,
+      "weight_xai_pct": 3,
+      "notes": "官网将ARKVX标为Class D；为区间型封闭式基金，份额不在交易所上市。官网列净费用2.90%、总费用3.49%，依据2025-10-28招股说明书，豁免可按条件终止；不能把不同类别费用/NAV混用。 11月6日Class D官方可读页的NAV及日期仍为空；保留缺失，不能混入其他类别净值。最新费用及实际赎回接受量未完整核验。 无市场报价不等于0%溢价；净值申购不提供随时退出保障，旧单一3.49%费用说法需要区分总费率和豁免后费率。",
+      "historical_notes": "interval fund季度赎回; SoFi/Titan零售可购; 1Y return 67%; expense 3.49%",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": null,
+        "sources": [
+          {
+            "title": "ARK Venture官方Class D页面",
+            "url": "https://www.ark-funds.com/funds/arkvx"
+          }
+        ],
+        "known": "官网将ARKVX标为Class D；为区间型封闭式基金，份额不在交易所上市。官网列净费用2.90%、总费用3.49%，依据2025-10-28招股说明书，豁免可按条件终止；不能把不同类别费用/NAV混用。",
+        "unknown": "11月6日Class D官方可读页的NAV及日期仍为空；保留缺失，不能混入其他类别净值。最新费用及实际赎回接受量未完整核验。",
+        "impact": "无市场报价不等于0%溢价；净值申购不提供随时退出保障，旧单一3.49%费用说法需要区分总费率和豁免后费率。"
+      },
+      "price_date": "2026-05-05底稿；行情日未核",
+      "aum_date": "2026-05-05底稿；原规模口径未复核",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-05-05历史值；未核同日性",
+      "comparable_pair": false
+    },
+    {
+      "ticker": "USVC",
+      "name": "AngelList USVC",
+      "structure": "Non-traded CEF",
+      "exchange": "Off-exchange",
+      "price_current": null,
+      "price_note": "NAV pricing only",
+      "premium_current_pct": 0,
+      "weight_openai_pct": 0,
+      "weight_anthropic_pct": 0,
+      "weight_spacex_pct": 0,
+      "weight_xai_pct": null,
+      "notes": "7月28日SEC文件列3月31日财务报告NAV 20.39。基金按下一计算NAV接受申购；顾问拟在正常条件下建议每季回购不超过净资产5%，董事会可不发起回购，投资者无自主赎回权。 11月6日官方日NAV仍为$--.--占位符；保留3月财报20.39，不写成11月交易NAV。完整回购执行待核。 撤销“季度赎回≤5%”容易造成的保证赎回印象；20.39是3月财报数，绝不能标成10月日净值，也不能计算市场溢价。",
+      "historical_notes": "Naval Ravikant主席; xAI最大权重; Anthropic/OpenAI/Sierra/Vercel/Crusoe/Legora; 0% carry; 季度赎回≤5%; min $500",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": "2026-07-28",
+        "sources": [
+          {
+            "title": "SEC 2026-07-28招股文件及财务摘要",
+            "url": "https://www.sec.gov/Archives/edgar/data/1858660/000199937126016261/usvc-486bpos_072826.htm"
+          },
+          {
+            "title": "USVC官方日净值入口（本次未读到数值）",
+            "url": "https://usvc.com/nav"
+          }
+        ],
+        "known": "7月28日SEC文件列3月31日财务报告NAV 20.39。基金按下一计算NAV接受申购；顾问拟在正常条件下建议每季回购不超过净资产5%，董事会可不发起回购，投资者无自主赎回权。",
+        "unknown": "11月6日官方日NAV仍为$--.--占位符；保留3月财报20.39，不写成11月交易NAV。完整回购执行待核。",
+        "impact": "撤销“季度赎回≤5%”容易造成的保证赎回印象；20.39是3月财报数，绝不能标成10月日净值，也不能计算市场溢价。"
+      },
+      "price_date": "2026-05-05底稿；行情日未核",
+      "aum_date": "2026-05-05底稿；原规模口径未复核",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-05-05历史值；未核同日性",
+      "comparable_pair": false,
+      "nav_last_reported": 20.39,
+      "nav_date": "2026-03-31",
+      "nav_tag": "官方披露"
+    },
+    {
+      "ticker": "XOVR",
+      "name": "ERShares Private-Public Crossover ETF",
+      "structure": "ETF",
+      "exchange": "NASDAQ",
+      "price_current": 18.74,
+      "price_tag": "🟢",
+      "premium_current_pct": 0,
+      "aum_or_mcap_musd": 1060,
+      "weight_openai_pct": 0,
+      "weight_anthropic_pct": 0,
+      "weight_spacex_pct": 22.3,
+      "weight_xai_pct": 0,
+      "notes": "官方说明SpaceX敞口经SPV持有；底层公司上市后，SPV可继续持有直到满足分配公开股票的条件。ETF份额每日交易不等于SPV资产立即可变现。 11月6日嵌入基金数据未取得有效NAV/日期，旧报价18.74及旧权重保留原观察期，不当作当前净值或平价。 旧SpaceX 22.3%权重与18.74报价保持历史；未取得有效同日数据不计算溢价，不采信“ETF不会有溢价”的营销概括。",
+      "historical_notes": "SpaceX通过SPV; Nvidia 9.79%/Alphabet 6.30%/Meta 5.23%; 赎回潮被动放大私募权重; 已有2x杠杆版XOVL",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": null,
+        "sources": [
+          {
+            "title": "XOVR官方结构与SPV说明",
+            "url": "https://entrepreneurshares.com/xovr-etf/"
+          },
+          {
+            "title": "官网嵌入的基金数据（本次占位值）",
+            "url": "https://ershares.ssnc.cloud/fund-data/xovr"
+          }
+        ],
+        "known": "官方说明SpaceX敞口经SPV持有；底层公司上市后，SPV可继续持有直到满足分配公开股票的条件。ETF份额每日交易不等于SPV资产立即可变现。",
+        "unknown": "11月6日嵌入基金数据未取得有效NAV/日期，旧报价18.74及旧权重保留原观察期，不当作当前净值或平价。",
+        "impact": "旧SpaceX 22.3%权重与18.74报价保持历史；未取得有效同日数据不计算溢价，不采信“ETF不会有溢价”的营销概括。"
+      },
+      "price_date": "2026-05-05底稿；行情日未核",
+      "aum_date": "2026-05-05底稿；原规模口径未复核",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-05-05历史值；未核同日性",
+      "comparable_pair": false
+    },
+    {
+      "ticker": "RONB",
+      "name": "Baron First Principles ETF",
+      "structure": "ETF",
+      "exchange": "NYSE",
+      "price_current": 23.24,
+      "price_tag": "官方同日快照",
+      "premium_current_pct": -0.1289,
+      "aum_or_mcap_musd": 335.89,
+      "weight_openai_pct": 0,
+      "weight_anthropic_pct": 0,
+      "weight_spacex_pct": 36.18,
+      "weight_xai_pct": 5.4,
+      "notes": "11月5日NAV/市价23.27/23.24美元，复算折价约0.13%，官方栏为-0.13%。持仓观察日11月4日：SPCX36.18%、TSLA8.74%；规模335.89百万美元仍为9月30日。 显示价格经舍入，持仓与报价不是同日；其余旧敞口未逐项复核，不由权重变化推断净买卖。 11月2日约0.20%溢价变为11月5日约0.13%折价；只是不同日历史快照，不代表无风险套利。",
+      "historical_notes": "Ron Baron管理; SpaceX直接持股(非SPV); Tesla 14.4%; Musk生态合计~28%; SpaceX权重已从14-22%被inflows稀释到7.7%",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": null,
+        "sources": [
+          {
+            "title": "RONB官方分日期净值、价格与持仓",
+            "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+            "date": "首次发布日期未标明"
+          }
+        ],
+        "known": "11月5日NAV/市价23.27/23.24美元，复算折价约0.13%，官方栏为-0.13%。持仓观察日11月4日：SPCX36.18%、TSLA8.74%；规模335.89百万美元仍为9月30日。",
+        "unknown": "显示价格经舍入，持仓与报价不是同日；其余旧敞口未逐项复核，不由权重变化推断净买卖。",
+        "impact": "11月2日约0.20%溢价变为11月5日约0.13%折价；只是不同日历史快照，不代表无风险套利。"
+      },
+      "price_date": "2026-11-05",
+      "aum_date": "2026-09-30净资产",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-11-05",
+      "comparable_pair": true,
+      "nav_last_reported": 23.27,
+      "nav_date": "2026-11-05",
+      "nav_tag": "官方披露",
+      "spacex_date": "2026-11-04；SPCX权重，其他敞口仍旧底稿"
+    },
+    {
+      "ticker": "AGIX",
+      "name": "KraneShares AI & Technology ETF",
+      "structure": "ETF",
+      "exchange": "NASDAQ",
+      "price_current": 40.69,
+      "price_note": "数据待补",
+      "premium_current_pct": -0.4161,
+      "weight_openai_pct": 0,
+      "weight_anthropic_pct": null,
+      "weight_spacex_pct": 0,
+      "weight_xai_pct": null,
+      "notes": "11月4日NAV/市价40.86/40.69美元，复算折价约0.42%；同日净资产680.383915百万美元、份额16650002。 不是11月5日行情；底层私募估值尚未逐项核实，不采用异常季度折溢价天数统计。 原表回填新的同日快照，不能与其他产品不同日数据直接比较套利；旧预测不因此变为新预测。",
+      "historical_notes": "公开AI股Nvidia/MSFT/Meta/Google + 私募sleeve(Anthropic+xAI直接持股); 数据需后续补全",
+      "review": {
+        "checked_on": "2026-11-06",
+        "announced": null,
+        "sources": [
+          {
+            "title": "AGIX官方日净值与市场价",
+            "url": "https://kraneshares.com/etf/agix/",
+            "date": "首次发布日期未标明"
+          }
+        ],
+        "known": "11月4日NAV/市价40.86/40.69美元，复算折价约0.42%；同日净资产680.383915百万美元、份额16650002。",
+        "unknown": "不是11月5日行情；底层私募估值尚未逐项核实，不采用异常季度折溢价天数统计。",
+        "impact": "原表回填新的同日快照，不能与其他产品不同日数据直接比较套利；旧预测不因此变为新预测。"
+      },
+      "price_date": "2026-11-04",
+      "aum_date": "2026-11-04净资产",
+      "forward_date": "2026-05-05历史假设；未重估",
+      "exposure_date": "2026-05-05底稿；未复核",
+      "premium_snapshot_date": "2026-11-04",
+      "comparable_pair": true,
+      "nav_last_reported": 40.86,
+      "nav_date": "2026-11-04",
+      "nav_tag": "官方披露",
+      "price_tag": "官方同日快照",
+      "aum_or_mcap_musd": 680.383915
+    }
   ]
 };
 
 // ----- Helpers -----
 const fmt = (v, dec=2) => v == null ? '—' : Number(v).toLocaleString('en-US', {minimumFractionDigits:dec, maximumFractionDigits:dec});
 const fmtMoney = v => v == null ? '<span class="num-na">—</span>' : '$' + fmt(v, 2);
-const fmtPct = v => v == null ? '<span class="num-na">—</span>' : (v >= 0 ? '+' : '') + fmt(v, 0) + '%';
+const fmtPct = v => v == null ? '<span class="num-na">—</span>' : (v >= 0 ? '+' : '') + fmt(v, 2) + '%';
+const stamp = text => `<br><small style="color:#60758d;font-size:10px;white-space:normal">${text || '观察期缺失；未核验'}</small>`;
 const fmtAum = v => v == null ? '<span class="num-na">—</span>' : '$' + (v >= 1000 ? (v/1000).toFixed(2)+'B' : v.toFixed(0)+'M');
 
 function premClass(p) {
@@ -670,12 +993,12 @@ groupOrder.forEach(group => {
     tr.innerHTML = `
       <td>${f.ticker}</td>
       <td>${f.name}<br><span style="font-size:11px;color:#7a8da3">${f.exchange}</span></td>
-      <td>${f.price_current != null ? fmtMoney(f.price_current) + ' <span class="tag">'+(f.price_tag||'')+'</span>' : '<span class="num-na">'+(f.price_note||'—')+'</span>'}</td>
-      <td>${f.nav_last_reported != null ? fmtMoney(f.nav_last_reported) + ' <span class="tag">'+(f.nav_tag||'')+'</span>' : '<span class="num-na">—</span>'}</td>
-      <td class="${premClass(f.premium_current_pct)}">${f.price_current != null && f.nav_last_reported != null ? fmtPct(f.premium_current_pct) : '<span class="num-na">n/a</span>'}</td>
-      <td>${fwdRange(f)} <span class="tag">${f.nav_forward_tag||''}</span></td>
-      <td class="${premClass(fwdMid)}">${fwdPremRange(f)}</td>
-      <td>${fmtAum(f.aum_or_mcap_musd)}</td>
+      <td>${f.price_current != null ? fmtMoney(f.price_current) + stamp(f.price_date) : '<span class="num-na">'+(f.price_note||'—')+'</span>'}</td>
+      <td>${f.nav_last_reported != null ? fmtMoney(f.nav_last_reported) + stamp(f.nav_date) : '<span class="num-na">缺失，未核验</span>'}</td>
+      <td class="${premClass(f.premium_current_pct)}">${f.comparable_pair ? fmtPct(f.premium_current_pct) + stamp(f.premium_snapshot_date) : '<span class="num-na">不可算当前值</span>'+stamp('原值 '+fmtPct(f.premium_current_pct)+'；'+f.premium_snapshot_date)}</td>
+      <td>${fwdRange(f)} <span class="tag">${f.nav_forward_tag||''}</span>${stamp(f.forward_date)}</td>
+      <td class="${premClass(fwdMid)}">${fwdPremRange(f)}${stamp(f.forward_date)}</td>
+      <td>${fmtAum(f.aum_or_mcap_musd)}${stamp(f.aum_date)}</td>
       <td style="text-align:center;font-size:14px;">${[f.price_tag, f.nav_tag, f.nav_forward_tag].filter(Boolean).join(' ')}</td>
     `;
     tbody.appendChild(tr);
@@ -685,12 +1008,12 @@ groupOrder.forEach(group => {
 // Notes list
 const notesList = document.getElementById('notes-list');
 notesList.innerHTML = DATA.funds.map(f =>
-  `<div style="margin-bottom:6px;"><b>${f.ticker}</b> · ${f.notes}</div>`
+  `<div style="margin-bottom:14px;"><b>${f.ticker}</b> · ${f.notes}<br><small>核验 ${f.review.checked_on}；公告 ${f.review.announced || '首次日期未列'} · ${f.review.sources.map(s=>`<a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.title}</a>`).join(' / ')}</small><br><small style="color:#60758d">2026-05-05原说明（未复核部分保留，不代表当前事实）：${f.historical_notes}</small></div>`
 ).join('');
 
 // ----- Spread calculation -----
 const vcx = DATA.funds.find(f=>f.ticker==='VCX');
-const ssss = DATA.funds.find(f=>f.ticker==='SSSS');
+const ssss = DATA.funds.find(f=>f.ticker==='NSLR');
 const vcxFwdMid = (vcx.premium_forward_low_pct + vcx.premium_forward_high_pct)/2 / 100;
 const ssssFwdMid = (ssss.premium_forward_low_pct + ssss.premium_forward_high_pct)/2 / 100;
 const spread = (1 + vcxFwdMid) / (1 + ssssFwdMid);
@@ -702,7 +1025,7 @@ Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "PingFang SC", 
 Chart.defaults.color = '#1e3a5f';
 
 const tradedFunds = DATA.funds.filter(f => f.price_current != null && f.premium_current_pct !== 0);
-const premLabels = tradedFunds.map(f => f.ticker);
+const premLabels = tradedFunds.map(f => [f.ticker, f.premium_snapshot_date]);
 const premCurrent = tradedFunds.map(f => f.premium_current_pct);
 const premForwardMid = tradedFunds.map(f => {
   if (f.premium_forward_low_pct == null) return null;
@@ -717,10 +1040,10 @@ new Chart(document.getElementById('chart-premium').getContext('2d'), {
   data: {
     labels: premLabels,
     datasets: [
-      { label: '当前溢价 %', data: toLogSafe(premCurrent),
+      { label: '各自日期快照溢价 %（含标注旧值）', data: toLogSafe(premCurrent),
         backgroundColor: PALETTE.gold, borderRadius: 4,
         rawValues: premCurrent },
-      { label: 'Forward 溢价中位 %', data: toLogSafe(premForwardMid),
+      { label: '2026-05-05历史 Forward 溢价中位 %', data: toLogSafe(premForwardMid),
         backgroundColor: PALETTE.ink, borderRadius: 4,
         rawValues: premForwardMid }
     ]
@@ -749,7 +1072,7 @@ new Chart(document.getElementById('chart-premium').getContext('2d'), {
 });
 
 // ----- Chart 2: Big-3 Exposure (stacked bar) -----
-const expFunds = ['VCX','DXYZ','ARKVX','XOVR','RONB','RVI','SSSS'];
+const expFunds = ['VCX','DXYZ','ARKVX','XOVR','RONB','RVI','NSLR'];
 const expData = expFunds.map(t => DATA.funds.find(f=>f.ticker===t));
 
 new Chart(document.getElementById('chart-exposure').getContext('2d'), {
@@ -774,7 +1097,11 @@ new Chart(document.getElementById('chart-exposure').getContext('2d'), {
     plugins: {
       legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } },
       tooltip: {
-        callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '%' }
+        callbacks: { label: ctx => {
+          const f = expData[ctx.dataIndex];
+          const period = ctx.dataset.label === 'SpaceX' && f.spacex_date ? f.spacex_date : f.exposure_date;
+          return ctx.dataset.label + ': ' + ctx.parsed.y + '% · ' + period;
+        } }
       }
     }
   }

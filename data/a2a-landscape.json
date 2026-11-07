@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-06",
-  "last_checked_at": "2026-11-06T01:01:32.723175+00:00",
+  "as_of": "2026-11-07",
+  "last_checked_at": "2026-11-07T00:57:31.264640+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -215,9 +215,10 @@
       "gap": "身份验证并不单独完成支付与争议处理。",
       "scope": "支付相关",
       "related": [],
-      "checked_at": "2026-10-08",
-      "adoption": "未在本轮独立核验生产规模",
-      "participant": "Visa"
+      "checked_at": "2026-11-07",
+      "adoption": "10月20日联合公告披露BILL/Billtrust在运行发票付款试点；规模与独立验证未知。",
+      "participant": "Visa",
+      "adoption_source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html"
     },
     {
       "id": "adk",
@@ -855,6 +856,38 @@
       ],
       "checked_at": "2026-11-04",
       "adoption": "厂商文档称10月1日起主网运行，未实付或独立核验交易规模。"
+    },
+    {
+      "id": "bill-billtrust-pilot",
+      "name": "BILL / Billtrust 发票付款试点",
+      "participant": "BILL / Billtrust / Visa",
+      "layer": "commerce",
+      "stage": "厂商披露在运行试点",
+      "scope": "相邻：企业支付",
+      "capability": "买方批准发票后，BILL助手通过Visa身份与付款凭证，在Billtrust供应商门户执行付款。",
+      "source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
+      "gap": "未披露参与客户数、交易量、收费、退款争议和独立审计；不代表通用A2A协议互操作。",
+      "related": [
+        "visa"
+      ],
+      "checked_at": "2026-11-07",
+      "adoption": "10月20日联合公告称正在处理参与买卖双方的端到端交易；BILL转载同一公告，不算独立验证。"
+    },
+    {
+      "id": "a2a-python",
+      "name": "A2A Python SDK",
+      "participant": "A2A项目",
+      "layer": "runtime",
+      "stage": "SDK已发布",
+      "scope": "核心",
+      "capability": "v1.3.0提供中断任务可配置超时释放，并修复错误响应与任务状态恢复。",
+      "source": "https://github.com/a2aproject/a2a-python/releases/tag/v1.3.0",
+      "gap": "SDK版本不等于协议版本；未实测跨语言兼容和生产完成率。",
+      "related": [
+        "a2a"
+      ],
+      "checked_at": "2026-11-07",
+      "adoption": "官方release证据，非实际生产规模证据。"
     }
   ],
   "events": [
@@ -1078,6 +1111,51 @@
       "new_state": "7月14日官方宣布运营启动并完成协议贡献",
       "evidence_type": "基金会官方公告",
       "next_step": "跟踪实际规范交付、跨厂商兼容和独立付费采用"
+    },
+    {
+      "id": "visa-bill-billtrust-pilot-20261020",
+      "date": "2026-10-20",
+      "announced_at": "2026-10-20",
+      "observed_at": "2026-11-07",
+      "title": "Visa、BILL、Billtrust发票付款试点（历史补录）",
+      "type": "实际试点披露",
+      "summary": "联合公告称正在处理参与企业的端到端发票付款，仅执行买方已批准的合格付款。",
+      "impact": "将身份识别、授权和供应商门户付款连起来；未披露规模与售后表现。",
+      "source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
+      "projects": [
+        "visa",
+        "bill-billtrust-pilot"
+      ],
+      "notify": true,
+      "reader_title": "账单批准后，助手开始代办最后一步付款",
+      "reader_summary": "10月20日公告披露企业付款试点，助手按已批准指令替企业向供应商付款；11月7日补录。",
+      "reader_impact": "减少人工登录填付款信息；目前是企业试点，不能推及普通用户订房、维修或家电采购的全流程。",
+      "previous_state": "本地图此前仅收录Visa可信Agent身份协议",
+      "new_state": "补入厂商披露在运行的跨平台发票付款试点",
+      "evidence_type": "参与厂商联合公告，未独立审计",
+      "next_step": "核验正式准入、真实付费规模、费率与退款争议"
+    },
+    {
+      "id": "a2a-python-v130-20261027",
+      "date": "2026-10-27",
+      "announced_at": "2026-10-27",
+      "observed_at": "2026-11-07",
+      "title": "A2A Python SDK v1.3.0",
+      "type": "SDK发布",
+      "summary": "增加中断任务超时释放，修复错误响应和任务状态恢复。",
+      "impact": "改进异常处理；未实测办事成功率。",
+      "source": "https://github.com/a2aproject/a2a-python/releases/tag/v1.3.0",
+      "projects": [
+        "a2a-python"
+      ],
+      "notify": false,
+      "reader_title": "办事卡住后，开发工具增加超时处理",
+      "reader_summary": "10月27日Python工具更新，11月7日补录；不是A2A协议版本升级。",
+      "reader_impact": "帮助服务处理等待和错误，仍需验证不同助手配合是否可靠。",
+      "previous_state": "此前研究记录Python v1.2.2",
+      "new_state": "官方Latest v1.3.0",
+      "evidence_type": "官方GitHub Release",
+      "next_step": "验证跨版本兼容与恢复行为"
     }
   ],
   "watchlist": [
@@ -1168,10 +1246,21 @@
       "name": "A2A Registry支付发现",
       "layer": "discovery",
       "source": "https://www.a2a-registry.org/resources/guide/payment",
-      "question": "11月6日读项目自有文档，按协议、结算网络和收付方向筛选；属于能力声明，实际支付互通、维护主体、官方规范归属及收入待核验，不计入已核实项目。"
+      "question": "11月6日读项目自有文档，按协议、结算网络和收付方向筛选；属于能力声明，实际支付互通、维护主体、官方规范归属及收入待核验，不计入已核实项目。 11月7日About页仅有使命与能力描述，仍未核实维护主体及官方归属。"
+    },
+    {
+      "name": "BILL / Billtrust试点规模与售后",
+      "layer": "commerce",
+      "source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
+      "question": "追踪正式可用范围、参与客户、实付量、退款争议、费率；联合公告不能代替独立客户证据。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-07",
+      "status": "部分核验",
+      "note": "部分核验：比较11月6日并检索近7天线索，补漏10月20日Visa/BILL/Billtrust在运行发票付款试点及10月27日Python SDK v1.3.0。均为历史补录；试点仅执行买方已批准付款，非全面商用，未披露交易量与退款表现。A2A Registry About页未解决维护主体/官方归属疑问；其余协议、国内平台及队列未全量覆盖。"
+    },
     {
       "date": "2026-11-06",
       "status": "部分核验",
@@ -1548,9 +1637,10 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。",
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。 11月7日补核BILL/Billtrust试点：执行已批准发票付款，收费、退款成本与交易规模未披露；平台总客户/交易量不作为试点规模。",
       "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments",
-      "checked_at": "2026-10-22"
+      "checked_at": "2026-10-22",
+      "pilot_source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html"
     }
   ]
 }

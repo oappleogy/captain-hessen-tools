@@ -36,25 +36,19 @@ a{color:inherit;text-decoration:none}
 </style>
 <link rel="stylesheet" href="research-updates.css?v=20261008">
 <script src="research-updates.js?v=20261009" defer></script>
-<link rel="stylesheet" href="research-evidence.css?v=20261009">
-<script src="research-evidence.js?v=20261009" defer></script>
 </head>
 <body>
-<h1 style="font-family:'Noto Serif SC',serif;font-size:26px;color:var(--accent)">供电链：从订单到利润与现金流</h1>
-<section id="latest-evidence" class="research-evidence" data-evidence="data/power-earnings-review.json"><h2>正在加载已核验财报增量</h2><p>旧Q1底稿已归档，不能当成当前评分。<a href="data/power-earnings-review.json">查看证据数据</a></p></section>
-<details class="research-archive" id="historical-q1"><summary>展开历史档案：Q1 2026研究与未重算模型（最后修改2026-06-24）</summary><p>以下原表的“超预期”、机构持仓、瓶颈排名和上涨空间尚未重新核验。仅保留研究沿革，不代表当前结论。</p>
 <div style="margin-bottom:20px">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
     <div style="width:4px;height:24px;background:linear-gradient(180deg,var(--accent),var(--accentDim));border-radius:2px"></div>
-    <h1 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px">Q1 2026 · 业绩超预期研究</h1>
+    <h1 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:1px">供电链 · 业绩超预期研究</h1>
   </div>
-  <p style="color:var(--dim);font-size:11px;margin:6px 0 0 12px;line-height:1.5">Q1 财报季 20+家「营收+利润双超机构预期」的公司，沿 AI 算力→供电→发电全栈拆解，共同指向什么？<span style="color:var(--accent)">　·　2026-06-24 新增 MRVL / CRDO / ETN / GEV</span></p>
-  <p style="color:var(--dim);font-size:10px;margin:4px 0 0 12px;opacity:.7">更新日期：2026-06-24</p>
+  <p style="color:var(--dim);font-size:11px;margin:6px 0 0 12px;line-height:1.5">沿用 AI 算力→供电→发电原研究。已核财报回填公司原行及瓶颈卡片；超预期幅度、股价反应、分组和估值仍为2026年Q1财报季底稿，未重算，不代表当前排名。</p>
+  <p id="financial-status" style="color:var(--dim);font-size:10px;margin:4px 0 0 12px">正在读取各公司财报观察期；原模型最后修改2026-06-24。</p>
 </div>
 
 <div class="tab-bar" id="tabBar"></div>
 <div id="tabContainer"></div>
-</details>
 <div class="watermark">黑森船长</div>
 
 <script>
@@ -104,6 +98,26 @@ function mono(text,color,size){return '<span class="mono" style="color:'+(color|
 
 var currentTab="beats";
 var expanded=null;
+var POWER_REVIEW={};
+function safeText(value){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function financialText(row){
+  return '观察期 '+(row.period||('财季截至'+row.period_end))+'；公告 '+row.announced+'；收入 '+row.revenue_musd+' 百万美元，同比 '+Number(row.revenue_yoy_pct.toFixed(2))+'%（有机 '+(row.organic_yoy_pct==null?'未核':row.organic_yoy_pct+'%')+'）；GAAP / 调整后EPS '+(row.gaap_eps==null?'未核':row.gaap_eps)+' / '+(row.adjusted_eps==null?'未核':row.adjusted_eps)+' 美元/股；经营现金流 '+row.operating_cash_flow_musd+' 百万美元。'+row.known+' '+row.guidance+' 未知（本条核验日 '+row.checked_on+'）：'+row.unknown;
+}
+function financialSources(row){
+  return (row.sources||[]).filter(function(s){return /^https:\/\//.test(s.url);}).map(function(s){return '<a href="'+safeText(s.url)+'" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">'+safeText(s.title)+'</a>';}).join(' · ');
+}
+function loadFinancialReview(){
+  return fetch('data/power-earnings-review.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(data){
+    data.rows.forEach(function(row){var ticker=row.id.split('-')[0];if(!POWER_REVIEW[ticker]||row.period_end>POWER_REVIEW[ticker].period_end)POWER_REVIEW[ticker]=row;});
+    CHAIN.forEach(function(layer){layer.companies.forEach(function(c){var row=POWER_REVIEW[c.t];if(!row)return;
+      if(c.historicalNote==null)c.historicalNote=c.note;c.rev='$'+row.revenue_musd+'M';c.yoy='同比 '+Number(row.revenue_yoy_pct.toFixed(2))+'%';
+      c.dc=row.ongoing_adjusted_ebitda_musd!=null?'持续经营调整EBITDA $'+row.ongoing_adjusted_ebitda_musd+'M（Q3，非单列AI收入）':c.dc+'（原Q1字段，未复核）';
+      c.note=financialText(row);c.review=row;
+    });});
+    document.getElementById('financial-status').textContent='财报字段：五家公司已核至2026Q3，各条保留公告日。CEG等未核字段仍为原期；机构预期、旧评分和估值未更新。数据维护2026-11-07。';
+    renderContent();
+  }).catch(function(){document.getElementById('financial-status').textContent='财报数据读取失败，已有字段保留其显示观察期，不表示本轮更新成功；请重试。';});
+}
 
 function renderTabs(){
   var bar=document.getElementById("tabBar");
@@ -173,11 +187,13 @@ function renderBeats(){
   h+='<p style="font-size:10px;color:'+C.dim+';line-height:1.7">'+mono("基本面超预期",C.green,10)+' = 实际EPS/Rev vs 一致预期(consensus)。买方真正在意的信号。<br>'+mono("市场超预期",C.orange,10)+' = 财报后股价反应。反映的是定位差(positioning gap)，不是基本面差。<br>两者可以完全背离：VRT beat +15%但Q2指引略低于whisper \u2192 股价先跌后涨。</p></div>';
 
   tiers.forEach(function(tier){
-    h+='<div class="card"><div style="font-size:12px;font-weight:700;margin-bottom:8px">'+tier.tier+'</div>';
+    h+='<div class="card"><div style="font-size:12px;font-weight:700;margin-bottom:8px">'+tier.tier+'（原Q1分类，未重评）</div>';
     h+='<div style="font-size:10px;color:'+C.muted+';margin-bottom:10px">'+tier.desc+'</div>';
     tier.items.forEach(function(item,j){
       var priceColor=item.price.indexOf("-")>=0?C.red:C.green;
-      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;'+(j<tier.items.length-1?'border-bottom:1px solid '+C.border:'')+'">'+mono(item.t,C.cyan,11)+(item.cn?'<span style="font-size:10px;color:'+C.dim+'">'+item.cn+'</span>':'')+tag("EPS "+item.epsBeat,C.green)+tag("Rev "+item.revBeat,C.blue)+tag(item.price,priceColor)+'<div style="font-size:9px;color:'+C.muted+';flex:1;text-align:right">'+item.why+'</div></div>';
+      var row=POWER_REVIEW[item.t];
+      var why=row?safeText(financialText(row))+'<br>'+financialSources(row)+'<br><span style="color:'+C.muted+'">原Q1说明（保留）：'+safeText(item.why)+'</span>':safeText(item.why)+'（原Q1观察期，后续待核）';
+      h+='<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;'+(j<tier.items.length-1?'border-bottom:1px solid '+C.border:'')+'">'+mono(item.t,C.cyan,11)+(item.cn?'<span style="font-size:10px;color:'+C.dim+'">'+item.cn+'</span>':'')+tag("Q1 EPS "+item.epsBeat,C.green)+tag("Q1 Rev "+item.revBeat,C.blue)+tag('Q1股价 '+item.price,priceColor)+'<div style="font-size:10px;color:'+C.dim+';flex-basis:100%;line-height:1.8">'+why+'</div></div>';
     });
     h+='</div>';
   });
@@ -189,7 +205,7 @@ function renderBeats(){
 /* ===== TAB: CHAIN ===== */
 function renderChain(){
   var h='<div class="card" style="border-color:'+C.accent+'30;background:linear-gradient(135deg,'+C.card+',#1a1f35)">';
-  h+='<div style="font-size:12px;font-weight:700;color:'+C.accent+';margin-bottom:6px">面板交叉验证后的发现</div>';
+  h+='<div style="font-size:12px;font-weight:700;color:'+C.accent+';margin-bottom:6px">原Q1横向观察（未按Q3重排）；下方公司字段按各自观察期更新</div>';
   h+='<p style="font-size:11px;color:'+C.dim+';line-height:1.7">把上一页这些公司按产业链位置重新排列，一个反直觉的规律浮现：'+mono("增速最猛的不是GPU层(AMD DC+57%)，而是电源层(TXN DC+90%)、输配电层(ETN数据中心订单+240%、GEV订单+71%)和发电层(BE+130%)",C.green)+'。越远离计算核心、越靠近物理基础设施，业绩增速反而越高。这指向一个架构级变化：'+mono("AI算力的瓶颈正在从计算端向供电/输配电端迁移",C.accent)+'。</p></div>';
 
   CHAIN.forEach(function(layer,i){
@@ -202,9 +218,9 @@ function renderChain(){
     if(isOpen){
       h+='<div class="layer-body" style="border-color:'+layer.color+'40">';
       layer.companies.forEach(function(c,j){
-        h+='<div style="padding:10px 0;'+(j<layer.companies.length-1?'border-bottom:1px solid '+C.border:'')+'"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div>'+mono(c.t)+(c.beat?tag(c.beat,C.green):'')+(c.price?tag(c.price,c.price.charAt(0)==='-'?C.red:C.green):'')+'</div>'+(c.yoy?mono(c.yoy,C.green,14):'')+'</div>';
+        h+='<div style="padding:10px 0;'+(j<layer.companies.length-1?'border-bottom:1px solid '+C.border:'')+'"><div style="font-size:10px;color:'+C.dim+'">'+(c.review?'财季截至 '+safeText(c.review.period_end):'原Q1/2026-06-24字段，待核')+'</div><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div>'+mono(c.t)+(c.beat?tag('Q1 '+c.beat,C.green):'')+(c.price?tag('Q1股价 '+c.price,c.price.charAt(0)==='-'?C.red:C.green):'')+'</div>'+(c.yoy?mono(c.yoy,C.green,14):'')+'</div>';
         h+='<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:6px">'+(c.rev?'<div><div style="font-size:10px;color:'+C.muted+'">Rev</div><div style="font-size:11px;font-weight:600">'+c.rev+'</div></div>':'')+(c.dc?'<div><div style="font-size:10px;color:'+C.muted+'">DC信号</div><div style="font-size:11px;font-weight:600;color:'+C.accent+'">'+c.dc+'</div></div>':'')+'</div>';
-        h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.6">'+c.note+'</div></div>';
+        h+='<div style="font-size:10px;color:'+C.dim+';line-height:1.6">'+safeText(c.note)+(c.review?'<br>'+financialSources(c.review)+'<br>原Q1说明（保留）：'+safeText(c.historicalNote):'')+'</div></div>';
       });
       if(layer.saNote){
         h+='<div class="sa-box" style="background:'+C.purple+'08"><div style="font-size:9px;color:'+C.purple+';font-weight:600;margin-bottom:2px">\u{1F52E} SA Thesis关联</div><div style="font-size:10px;color:'+C.muted+';line-height:1.6">'+layer.saNote+'</div></div>';
@@ -335,6 +351,7 @@ document.getElementById("tabContainer").insertAdjacentHTML("afterend",
 
 renderTabs();
 renderContent();
+loadFinancialReview();
 </script>
 </body>
 </html>

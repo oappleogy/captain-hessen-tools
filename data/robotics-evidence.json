@@ -1,35 +1,115 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-10-12",
-  "title": "供应商半年报：增长不等于人形机器人收入",
-  "scope": "补核已披露的2026年1—6月财报，不是10月经营数据。金额统一为人民币百万元；均为公司合并口径，未经本次审计。人形收入未单列不等于零。毛利率按(收入−成本)/收入计算，不据此更新历史评级。",
+  "checked_on": "2026-11-07",
+  "title": "供应商财报：增长不等于人形机器人收入",
+  "scope": "绿的谐波更新至1—9月，汇川仍为1—6月；人民币百万元、合并口径，毛利率沿用(收入−成本)/收入。单季与累计分别标注，人形收入未单列不等于零。",
   "columns": [
-    {"key": "label", "label": "公司"},
-    {"key": "period", "label": "观察期"},
-    {"key": "announced", "label": "披露日"},
-    {"key": "revenue", "label": "合并收入 / 百万元", "format": "number"},
-    {"key": "revenue_yoy", "label": "收入同比", "format": "pct"},
-    {"key": "net_income", "label": "归母净利 / 百万元", "format": "number"},
-    {"key": "operating_cash_flow", "label": "经营现金流 / 百万元", "format": "number"},
-    {"key": "gross_margin", "label": "合并毛利率", "format": "pct"},
-    {"key": "humanoid_revenue", "label": "单列人形收入 / 百万元", "format": "number"}
+    {
+      "key": "label",
+      "label": "公司"
+    },
+    {
+      "key": "period",
+      "label": "观察期"
+    },
+    {
+      "key": "announced",
+      "label": "披露日"
+    },
+    {
+      "key": "revenue",
+      "label": "合并收入 / 百万元",
+      "format": "number"
+    },
+    {
+      "key": "revenue_yoy",
+      "label": "收入同比",
+      "format": "pct"
+    },
+    {
+      "key": "net_income",
+      "label": "归母净利 / 百万元",
+      "format": "number"
+    },
+    {
+      "key": "operating_cash_flow",
+      "label": "经营现金流 / 百万元",
+      "format": "number"
+    },
+    {
+      "key": "gross_margin",
+      "label": "合并毛利率",
+      "format": "pct"
+    },
+    {
+      "key": "humanoid_revenue",
+      "label": "单列人形收入 / 百万元",
+      "format": "number"
+    }
   ],
   "rows": [
     {
       "label": "绿的谐波 688017",
-      "period": "2026-01-01 至 2026-06-30",
-      "announced": "2026-08-27",
-      "revenue": 348.5491881,
-      "cost": 236.10994032,
-      "revenue_yoy": 38.64,
-      "net_income": 70.10922656,
-      "operating_cash_flow": -17.41570754,
-      "gross_margin": 32.259220,
+      "period": "2026-01-01 至 2026-09-30",
+      "announced": "2026-11-03",
+      "revenue": 590.88104896,
+      "cost": 397.59544806,
+      "revenue_yoy": 45.3,
+      "net_income": 122.08129673,
+      "operating_cash_flow": -71.32483737,
+      "gross_margin": 32.711423,
       "humanoid_revenue": null,
-      "known": "产品收入：谐波减速器及金属部件288.15百万元，机电一体化54.74百万元。公司称机器人相关业务增长；现金流转负主要涉及票据结算和长期资产购置安排，不能简单等同销售未回款。",
-      "unknown": "未单列人形机器人收入、客户验收量、量产良率或人形业务利润。",
-      "impact": "从概念关联推进到可核实的产品收入；仍不能把全部减速器收入归为人形机器人，不据此上调旧评分。",
-      "sources": [{"title": "2026半年报：第6—7、23、145页", "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225513912.PDF"}]
+      "known": "Q3单季收入242.331861、归母净利51.972070、扣非46.510037百万元，收入/归母同比+56.10%/+29.12%。上表为1—9月累计，不是单季。公司将增长归因工业机器人份额及具身业务增长、效率和扩产；现金流减少涉及票据背书购长期资产及应付票据到期兑付。11月3日仅更正无限售股东表，不改变财务数据。H1产品拆分288.15/54.74百万元保留为半年口径，不能当Q3拆分。",
+      "unknown": "未单列人形机器人收入、利润、现金流、验收量及量产良率；单季CFO在主要指标表为不适用，本次不填估计值。管理层增长说明不能替代客户确认或订单条款。",
+      "impact": "收入及扣非利润增长有报表依据，但累计经营现金流为负，不能直接等同人形业务收入兑现或销售未回款；不调整117家旧分数。",
+      "sources": [
+        {
+          "title": "公司2026Q3更正后原始报告（公开镜像，第1、3、8—9、11页）",
+          "date": "2026-11-03",
+          "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-11/2026-11-03/12687992.PDF"
+        },
+        {
+          "title": "公司更正公告：仅更正无限售股东表，其他内容不变",
+          "date": "2026-11-03",
+          "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-11/2026-11-03/12687990.PDF"
+        }
+      ],
+      "original_announced": "2026-10-31",
+      "event_date": "2026-09-30",
+      "checked_on": "2026-11-07",
+      "quarter": {
+        "period": "2026-07-01 至 2026-09-30",
+        "revenue": 242.33186086,
+        "revenue_yoy": 56.1,
+        "net_income": 51.97207017,
+        "net_income_yoy": 29.12,
+        "adjusted_net_income": 46.51003724,
+        "eps": 0.2835,
+        "operating_cash_flow": null
+      },
+      "history": [
+        {
+          "label": "绿的谐波 688017",
+          "period": "2026-01-01 至 2026-06-30",
+          "announced": "2026-08-27",
+          "revenue": 348.5491881,
+          "cost": 236.10994032,
+          "revenue_yoy": 38.64,
+          "net_income": 70.10922656,
+          "operating_cash_flow": -17.41570754,
+          "gross_margin": 32.25922,
+          "humanoid_revenue": null,
+          "known": "产品收入：谐波减速器及金属部件288.15百万元，机电一体化54.74百万元。公司称机器人相关业务增长；现金流转负主要涉及票据结算和长期资产购置安排，不能简单等同销售未回款。",
+          "unknown": "未单列人形机器人收入、客户验收量、量产良率或人形业务利润。",
+          "impact": "从概念关联推进到可核实的产品收入；仍不能把全部减速器收入归为人形机器人，不据此上调旧评分。",
+          "sources": [
+            {
+              "title": "2026半年报：第6—7、23、145页",
+              "url": "https://static.cninfo.com.cn/finalpage/2026-08-27/1225513912.PDF"
+            }
+          ]
+        }
+      ]
     },
     {
       "label": "汇川技术 300124",
@@ -45,11 +125,17 @@
       "known": "新兴产业收入1467.12百万元、毛利率28.38%，包含智能机器人与数字能源，非纯机器人。公司披露无框电机小批量应用、仿生臂客户验证，泛人形方案仍在试机；归母净利同比−5.35%、经营现金流−34.60%。",
       "unknown": "未单列人形收入、利润、现金流和量产良率；定点、验证与小批量不能等同大规模验收。",
       "impact": "业务已有分阶段进展，但混合板块收入不可直接给人形业务估值；使用重述后的同比口径，旧评级不变。",
-      "sources": [{"title": "2026半年报：第8、24—28页", "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225524610.PDF"}]
+      "sources": [
+        {
+          "title": "2026半年报：第8、24—28页",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225524610.PDF"
+        }
+      ]
     }
   ],
   "pending": [
     "117家公司旧评分与2026-05-14市值未重算；其余公司仍待逐季核验。",
     "两家公司的人形收入、客户验收、良率及维护成本继续保留未知，不用总收入替代。"
-  ]
+  ],
+  "last_updated": "2026-11-07"
 }

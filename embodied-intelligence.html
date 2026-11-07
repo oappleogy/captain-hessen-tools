@@ -147,8 +147,7 @@ tr:hover{background:var(--card2)}
 <div class="tab-wrap" id="tabWrap">
 <div class="tab-hint" id="tabHint" onclick="document.getElementById('tabBar').scrollBy({left:200,behavior:'smooth'})">&rsaquo;</div>
 <div class="tab-bar" id="tabBar">
-  <div class="tab active" onclick="showTab('evidence',event)">业绩与部署核验</div>
-  <div class="tab" onclick="showTab('overview',event)">历史产业概览</div>
+  <div class="tab active" onclick="showTab('overview',event)">产业概览</div>
   <div class="tab" onclick="showTab('chain',event)">产业链地图</div>
   <div class="tab" onclick="showTab('bom',event)">价值量拆解</div>
   <div class="tab" onclick="showTab('competition',event)">竞争格局</div>
@@ -157,16 +156,17 @@ tr:hover{background:var(--card2)}
   <div class="tab" onclick="showTab('timeline',event)">时间轴</div>
   <div class="tab" onclick="showTab('companies',event)">公司图谱</div>
   <div class="tab" onclick="showTab('quality',event)">数据质量</div>
+  <div class="tab" onclick="showTab('evidence',event)">业绩与部署核验</div>
 </div>
 </div>
 
 <!-- ===== TAB: 产业概览 ===== -->
-<div class="content tab-content" id="tab-evidence">
-  <section class="research-evidence" data-evidence="data/robotics-evidence.json"><h2>供应商半年报核验</h2><p>正在加载证据。财报观察期不是检查日，缺失收入不按零处理。</p></section>
+<div class="content tab-content hidden" id="tab-evidence">
+  <section class="research-evidence" data-evidence="data/robotics-evidence.json"><h2>供应商财报核验</h2><p>正在加载证据。财报观察期不是检查日，缺失收入不按零处理。</p></section>
   <section class="research-evidence" data-evidence="data/robotics-deployment-review.json"><h2>客户部署与工时核验</h2><p>正在加载证据。合同、有效工时、准确率与盈利分别核验。</p></section>
-  <p>其余页签为2026年5月历史底稿；117家公司评分、市值与模拟参数未重算，不是当前推荐。</p>
+  <p>已核财报同时回填原公司详情；其余字段保留各自观察期。117家公司评分、2026年5月市值与模拟参数未重算，不是当前推荐。</p>
 </div>
-<div class="content tab-content hidden" id="tab-overview">
+<div class="content tab-content" id="tab-overview">
   <div class="stats">
     <div class="stat-card"><div class="num" style="color:var(--accent)">1.8万</div><div class="label">2025全球出货量(台)</div><div class="change" style="color:var(--green)">YoY +508%</div></div>
     <div class="stat-card"><div class="num" style="color:var(--yellow)">2400亿</div><div class="label">2030中国市场规模(元)</div><div class="change" style="color:var(--green)">CAGR 85%</div></div>
@@ -966,6 +966,11 @@ function showBetaDetail(code) {
     if (value && !['未提取','未提及','','nan','undefined'].includes(String(value)))
       html += '<div class="modal-field"><div class="mfl">'+label+'</div><div class="mfv">'+value+'</div></div>';
   });
+  if (d.financial_sources) {
+    const escape = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    html += '<div class="modal-field"><div class="mfl">财报来源与观察期</div><div class="mfv">'+escape(d.financial_observation_period)+'；核验 '+escape(d.financial_checked_on)+'<br>'+
+      d.financial_sources.filter(s => /^https:\/\//.test(s.url)).map(s => '<a href="'+escape(s.url)+'" target="_blank" rel="noopener noreferrer">'+escape(s.title)+'</a>').join('<br>')+'</div></div>';
+  }
   modal.innerHTML = html;
   document.getElementById('modalOverlay').classList.add('show');
 }

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "kind": "earnings",
-  "title": "供电链财报增量：实际兑现与指引分开",
-  "checked_on": "2026-11-04",
-  "scope": "四家公司、八条财季记录。新增ETN Q3实际，保留原七行及各自核验日。金额为百万美元，EPS为美元/股；GEV摘要仍保留约数，未核全机构预期，不重排旧榜。",
+  "title": "供电链财报记录：原公司字段的数据来源",
+  "checked_on": "2026-11-07",
+  "scope": "五家公司、九条财季记录。最新已核字段回填原公司卡片；旧季度记录保留。百万美元与EPS美元/股分开，机构一致预期未核，不重排旧榜。",
   "columns": [
     {
       "key": "label",
@@ -296,12 +296,63 @@
           "date": "2026-11-03"
         }
       ]
+    },
+    {
+      "id": "VST-2026Q3",
+      "label": "VST · Vistra（Q3）",
+      "period_end": "2026-09-30",
+      "period": "2026-07-01至2026-09-30",
+      "event_date": "2026-09-30",
+      "announced": "2026-11-06",
+      "checked_on": "2026-11-07",
+      "stage": "公司未经审计季度实际；现金流单季值由累计原表相减",
+      "currency": "USD",
+      "unit": "million",
+      "revenue_musd": 6347,
+      "revenue_yoy_pct": 27.6805,
+      "organic_yoy_pct": null,
+      "gaap_eps": null,
+      "adjusted_eps": null,
+      "net_income_musd": 1140,
+      "net_income_common_musd": 1092,
+      "unrealized_hedge_gain_musd": 559,
+      "ongoing_adjusted_ebitda_musd": 2378,
+      "operating_cash_flow_musd": 2108,
+      "capital_expenditures_musd": 747,
+      "cash_flow_derivation": {
+        "nine_months_cfo_musd": 4330,
+        "six_months_cfo_musd": 2222,
+        "nine_months_capex_musd": 2319,
+        "six_months_capex_musd": 1572
+      },
+      "known": "Q3净利润1140百万美元中含未实现套保收益559百万；持续经营调整EBITDA2378百万，同比增长约50.4%。单季CFO=九个月4330减六个月2222=2108；同口径资本开支含核燃料与LTSA预付款，单季2319−1572=747。差额1361只是算术值，不称公司调整后FCFbG。",
+      "guidance": "2026持续经营调整EBITDA指引7100—7500、调整FCFbG4300—4700百万美元；2027分别7700—8500与4300—5100，均为预测。",
+      "unknown": "本轮公告未抽出EPS和统一机构一致预期；有机增长及AI客户可归属收入未知。PPA不等于当季收入，单季现金流受营运资本影响。",
+      "impact": "从原Q1叙事推进至Q3收入和现金流实际，但套保、收购与电价/容量价格均影响可比性，不能把全部增长归于AI，也不改旧超预期档位。",
+      "sources": [
+        {
+          "title": "Vistra Q3正式公告及九个月现金流表",
+          "date": "2026-11-06",
+          "url": "https://investor.vistracorp.com/2026-11-06-Vistra-Reports-Third-Quarter-2026-Results"
+        },
+        {
+          "title": "Vistra Q2正式公告及六个月现金流表",
+          "date": "2026-08-07",
+          "url": "https://investor.vistracorp.com/2026-08-07-Vistra-Reports-Second-Quarter-2026-Results"
+        },
+        {
+          "title": "SEC 8-K财报附件与提交日",
+          "date": "2026-11-06",
+          "url": "https://www.sec.gov/Archives/edgar/data/1692819/000169281926000023/0001692819-26-000023-index.htm"
+        }
+      ]
     }
   ],
   "pending": [
-    "BE、VRT、GEV及ETN的Q3实际已补；VST、CEG等与机构预期仍未补齐，10月9日积压不顺延。",
-    "旧Q1评分、SA基金持仓、目标空间及历史市值未重算，移入历史区；本表不是新的全链排名。",
+    "BE、VRT、GEV、ETN和VST已有Q3实际；CEG计划11月9日披露，其余公司与机构预期未补齐，10月9日积压不顺延。",
+    "原Q1超预期分类、SA持仓、估值和目标空间未重算，保留原页原位并标明历史观察期；不是当前排名。",
     "各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。",
     "各公司旧行保留当时未知项和各自核验日，后续已补结果另列新行；其余公司、完整现金来源与预期差仍待核。"
-  ]
+  ],
+  "last_updated": "2026-11-07"
 }

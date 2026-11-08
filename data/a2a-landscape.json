@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-07",
-  "last_checked_at": "2026-11-07T00:57:31.264640+00:00",
+  "as_of": "2026-11-08",
+  "last_checked_at": "2026-11-08T01:05:55.374496+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -888,6 +888,40 @@
       ],
       "checked_at": "2026-11-07",
       "adoption": "官方release证据，非实际生产规模证据。"
+    },
+    {
+      "id": "alchemy-agentpay",
+      "name": "Alchemy AgentPay",
+      "participant": "Alchemy",
+      "layer": "payment",
+      "stage": "有接入文档及定价",
+      "scope": "相邻：收费代理",
+      "capability": "x402验证结算后转发到商家后端；支持按次付款，批量结算单独标预览。",
+      "source": "https://agentpay.alchemy.com/docs/x402",
+      "gap": "后端失败仍返回结算回执，自动退款未核验；真实付费规模、失败请求计费和网络等总费用待查。",
+      "related": [
+        "x402",
+        "circle-nanopayments"
+      ],
+      "checked_at": "2026-11-08",
+      "adoption": "官方文档与价格证据，未实付、未核验独立客户采用。"
+    },
+    {
+      "id": "cloudflare-agent-payments",
+      "name": "Cloudflare Agents 支付接入",
+      "participant": "Cloudflare",
+      "layer": "runtime",
+      "stage": "有SDK接入文档",
+      "scope": "相邻：HTTP与MCP支付",
+      "capability": "官方文档介绍x402与MPP接入、MCP付费工具和可选人工批准。",
+      "source": "https://developers.cloudflare.com/agents/tools/payments/",
+      "gap": "未实测跨协议兼容、退款、预算和撤销；不据此认定原生A2A互操作或生产采用。",
+      "related": [
+        "mcp",
+        "x402"
+      ],
+      "checked_at": "2026-11-08",
+      "adoption": "页面标注8月5日更新，11月8日补核；不是今日发布。"
     }
   ],
   "events": [
@@ -1253,9 +1287,20 @@
       "layer": "commerce",
       "source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
       "question": "追踪正式可用范围、参与客户、实付量、退款争议、费率；联合公告不能代替独立客户证据。"
+    },
+    {
+      "name": "Alchemy / Cloudflare支付失败与退款",
+      "layer": "payment",
+      "source": "https://agentpay.alchemy.com/docs/x402",
+      "question": "Alchemy先付款后请求的退款与补偿、失败请求计费、总费用；Cloudflare预算/撤销及跨协议兼容实测、真实采用待查。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-08",
+      "status": "部分核验",
+      "note": "部分核验：比较11月7日并检索近7天支付与国内生态线索；补Alchemy AgentPay接入、套餐和失败处理文档，以及Cloudflare Agents支付文档。属于存量资料，未核实发布日期或新重大采用。其他协议、SDK、国内平台及待查队列未全量覆盖；昨天试点通知不重发。"
+    },
     {
       "date": "2026-11-07",
       "status": "部分核验",
@@ -1469,7 +1514,8 @@
         "circle-nanopayments",
         "stripe-machine",
         "checkout-acp",
-        "p2flux"
+        "p2flux",
+        "alchemy-agentpay"
       ]
     },
     {
@@ -1478,7 +1524,7 @@
       "analogy": "像订单中心、退款和售后",
       "now": "已经有结账、计费和结算方案，试图把助手办事接到商家的业务里。",
       "status": "部分环节已有方案",
-      "gap": "付款回执不等于办事完成；跨商户取消、退款、对账和责任划分，仍缺少统一可比较的落地证据。",
+      "gap": "付款回执不等于办事完成；例如Alchemy文档明确先结算再调用服务，后端失败仍有回执，自动退款尚未核验。跨商户取消、退款与责任划分仍需逐项验证。",
       "next": "要看到完整订单从下单到售后的长期运行记录。",
       "projects": [
         "ucp",
@@ -1623,11 +1669,12 @@
       "model": "按成功处理笔数或交易额；另有网络等费用",
       "judgment": "可量化单价，规模待证明",
       "moat": "可靠结算、合规接入、风控与分发",
-      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。",
+      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。 Alchemy AgentPay价目（2026-11-08核验）：Growth每月$20含2万请求，超量$1.50/千请求；Free仅测试资金100请求/月。请求不等于成功交易，此处不是支付网络等全部费用或净收入。",
       "source": "https://www.coinbase.com/developer-platform/discover/launches/x402facilitator-polygon",
       "checked_at": "2026-10-08",
       "evidence_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf",
-      "p2flux_pricing_source": "https://p2flux.com/docs/agents.html"
+      "p2flux_pricing_source": "https://p2flux.com/docs/agents.html",
+      "alchemy_pricing_source": "https://agentpay.alchemy.com/pricing"
     },
     {
       "layer": "commerce",

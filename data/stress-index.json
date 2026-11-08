@@ -1,5 +1,5 @@
 {
-  "score": 56.4,
+  "score": 56.6,
   "level": "yellow",
   "label": "组合风险",
   "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 90.34,
+      "current": 90.83,
       "base": 75,
-      "deviation_pct": 20.5,
+      "deviation_pct": 21.1,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 84.1
+      "contribution": 89.0
     },
     {
       "variable": "credit_spread",
@@ -37,17 +37,17 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 157.5,
+      "current": 158.43,
       "base": 145,
-      "deviation_pct": 8.6,
+      "deviation_pct": 9.3,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 7.4
+      "contribution": 8.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 102.28,
+      "current": 102.3,
       "base": 100,
       "deviation_pct": 2.3,
       "weight": 0.15,
@@ -59,9 +59,9 @@
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 85.98,
+      "current": 85.59,
       "base": 35,
-      "deviation_pct": 145.7,
+      "deviation_pct": 144.5,
       "direction": "偏高",
       "level": "极端偏离"
     },
@@ -83,12 +83,12 @@
     },
     {
       "name": "WTI油价",
-      "current": 90.34,
+      "current": 90.83,
       "base": 75,
-      "deviation_pct": 20.5,
+      "deviation_pct": 21.1,
       "direction": "偏高",
       "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-11-07 08:15"
+  "timestamp": "2026-11-08 08:15"
 }

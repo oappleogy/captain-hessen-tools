@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-11-07",
+  "inventory_checked_at": "2026-11-08",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -23,8 +23,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05-15",
-      "last_checked": "2026-11-07",
-      "last_research_update": "2026-11-07",
+      "last_checked": "2026-11-08",
+      "last_research_update": "2026-11-08",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -36,10 +36,10 @@
       },
       "pending": [
         "117家公司旧评分和5月14日市值尚未重算；不能用于当前排名。",
-        "绿的谐波已核更正后Q3及1—9月，汇川仍为H1；人形可归属收入、良率及客户验收未单列，不用公司总收入替代。",
+        "绿的谐波与汇川主表均已核至1—9月；人形可归属收入、良率及客户验收未单列，不用公司总收入替代。",
         "GXO历史合同与Agility累计工时已分来源核验；客户本期付费、有效工时、干预率与维修费用仍待补，本周验收不宣称完整。",
         "核验 Tesla 10月21日业绩会的最新里程碑，不把过去路线图当作已投产。",
-        "已核绿的谐波11月3日更正原始PDF公开镜像，更正范围仅股东表；汇川Q3、其他供应商季度收入与客户侧验证待补。"
+        "两家核心供应商Q3财报已回填；其余供应商、Tesla实际里程碑及客户有效工时/验收/运维仍待，原逾期不顺延。"
       ],
       "updates": [
         {
@@ -194,6 +194,19 @@
               "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-11/2026-11-03/12687990.PDF"
             }
           ]
+        },
+        {
+          "date": "2026-11-08",
+          "title": "汇川Q3回填原字段：扣非与现金流不能被归母增长遮蔽",
+          "body": "原供应商表及公司详情更新汇川10月27日三季报：单季收入13280.977274、归母1588.567825、扣非1151.369423百万元，同比+19.08%/+23.55%/−5.37%。主表为1—9月，CFO895.481500百万元，同比−77.22%；备货和应收占用为公司解释。新兴业务约21亿元含智能机器人与数字能源，不等于人形收入。旧H1完整保留，绿的谐波昨日数据不变，117评分不变。",
+          "source_period": "Q3为2026-07-01至09-30，原主表为1—9月；披露2026-10-27；未经审计",
+          "sources": [
+            {
+              "title": "汇川2026三季报原文，第2—5、9—11页",
+              "date": "2026-10-27",
+              "url": "https://static.cninfo.com.cn/finalpage/2026-10-27/1225623209.PDF"
+            }
+          ]
         }
       ]
     },
@@ -345,7 +358,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": "2026-11-03",
       "next_due": "2026-11-06",
       "review_state": "partial",
@@ -453,6 +466,10 @@
         {
           "date": "2026-11-07",
           "result": "11月6日18:34:31北京时间提交c4ef0d7，线上W45确有新研究并与公开仓一致；但asOf写11月6日23:59，比提交晚5小时24分。内层OpenRouter截至11月2日、信通院为六月，不能当统一周末快照。发布成功与统计窗验收分开，本轮不改独立任务评分，不推进11月6日截止，待校正时间语义。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "线上仍W45、asOf11月6日23:59 CST，与昨天相同；已核实际提交时间11月6日18:34北京，截止晚于发布的问题未修正。保持next_due11月6日及研究日11月3日，不重新评分或重复执行独立周报。"
         }
       ]
     },
@@ -957,7 +974,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1020,6 +1037,10 @@
         {
           "date": "2026-11-07",
           "result": "线上generated仍11月4日01:20UTC，累计源截至11月3日04:29UTC，目录19337；滚动30日/24h精确结束时间仍缺。没有按今日任务日志改写原统计窗，发布未跟进和源刷新缺口保留。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "线上generated仍11月4日01:20:07UTC，目录19337，累计观察仍11月3日；今日已有任务日志再次止于发布工作树分叉，没有新成功回读。滚动30日/24h截止仍缺，本轮不造新统计或重复创建任务。"
         }
       ]
     },
@@ -1032,9 +1053,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": null,
-      "next_due": "2026-11-08",
+      "next_due": "2026-11-09",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -1099,6 +1120,10 @@
         {
           "date": "2026-11-07",
           "result": "11月7日00:57:31UTC独立产物已发布，HTTP与最新公开仓一致；仅验收已有任务的部分覆盖，不把标准、接入或目录当实际付费与交付。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "独立产物as_of11月8日，last_checked_at01:05:55UTC，线上与当前main一致；仅完成日频产物验收，仍是部分覆盖，不重复任务、不改研究日。"
         }
       ]
     },
@@ -1110,8 +1135,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-10-20",
-      "last_research_update": "2026-10-20",
+      "last_checked": "2026-11-08",
+      "last_research_update": "2026-11-08",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1122,8 +1147,9 @@
         "quarterly": "财报后2日：收入、毛利和资本开支"
       },
       "pending": [
-        "本轮补Lumentum季度业绩及ECOC技术公告；800G/1.6T/CPO单列收入、客户验收和量产良率仍未补齐，10月12日本周待办不顺延。",
-        "旧产业图、速率渗透率、公司订单与估值未全量复核；演示、初始订单、指引不视作收入。"
+        "两家公司九月财季已回填；800G/1.6T/CPO收入、客户验收、采购取消条款和良率仍缺，不推进10月12日积压截止。",
+        "旧产业图、速率渗透率、公司订单与估值未全量复核；演示、初始订单、指引不视作收入。",
+        "Lumentum单季CFO/完整10-Q、Coherent官方PDF图像复核及拟议并购审批继续跟踪；已核公开表格文本不代替未取得的图像或产品拆分。"
       ],
       "updates": [
         {
@@ -1185,6 +1211,34 @@
               "title": "Lumentum新厂与预计爬坡时间",
               "url": "https://investor.lumentum.com/financial-news-releases/news-details/2026/Lumentum-Announces-New-U-S--Manufacturing-Facility-to-Produce-Advanced-Lasers-for-the-Worlds-Largest-AI-Data-Centers/default.aspx",
               "date": "2026-03-26"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-08",
+          "title": "九月财季替换原表，并购和采购承诺仍非已兑现收入",
+          "body": "Lumentum/Coherent原两行更新FY2027Q1收入1262.6/2370.3百万美元及毛利、利润；Lumentum GAAP净利360.3，Coherent合并381.6/归属384.7，后者CFO−92.7。50亿美元NPO/CPO采购承诺不当当季收入。Marvell收购协议11月1日签、2日公告，固定换股4.5，预计2028H1交割仍附股东/监管条件。原产业链说明同步，市场预测、等级和其他公司未改。",
+          "source_period": "财季分别截至2026-09-26/09-30，公告11月2日/4日；并购签署11月1日，预计交割不是实际",
+          "sources": [
+            {
+              "title": "Lumentum FY2027 Q1公司公告PDF，第1—2页",
+              "date": "2026-11-02",
+              "url": "https://s21.q4cdn.com/377324469/files/doc_news/Lumentum-Announces-First-Quarter-of-Fiscal-Year-2027-Financial-Results-2026.pdf"
+            },
+            {
+              "title": "Coherent FY2027 Q1官方公告，表1—5",
+              "date": "2026-11-04",
+              "url": "https://ir.coherent.com/news-releases/news-release-details/coherent-corp-reports-first-quarter-fiscal-2027-results"
+            },
+            {
+              "title": "Marvell/Lumentum联合公告：拟议交易及交割条件",
+              "date": "2026-11-02",
+              "url": "https://investor.marvell.com/news-events/press-releases/detail/1040/marvell-and-lumentum-to-combine-creating-a-category-leader-in-ai-connectivity"
+            },
+            {
+              "title": "Marvell 8-K：协议于11月1日签署",
+              "date": "2026-11-02",
+              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-442717/d352474d8k.htm"
             }
           ]
         }
@@ -1483,7 +1537,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1615,6 +1669,10 @@
         {
           "date": "2026-11-07",
           "result": "线上产物11月6日、事件最新10月26日；mini7日产物尚未同步。运行/发布成功与新增事件核验分开，不从文件日期推断新研究。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "线上产物11月8日已跟进，事件最新仍10月26日；日生成与事件发生日分开，未宣称新增第三方评估或全量周研究。"
         }
       ]
     },
@@ -1768,7 +1826,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": "2026-11-06",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -1904,6 +1962,10 @@
         {
           "date": "2026-11-07",
           "result": "线上正式诊断仍10月8日、下期11月12日。ONI ASO26=2.46、周SST10月28日=3.4、SOI截至10月25日30天=-16.6、MEI SO2026=2.53分别保留；外层11月6日，本轮无新增指标核验，不改研究日期。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "线上last_checked11月8日08:21北京，但正式discussion仍10月8日，next11月12日。ONI ASO2.46、SST28OCT3.4、SOI30日截至10月25日−16.6、MEI SO2.53各窗不变；没有以新检查日冒充新诊断。"
         }
       ]
     },
@@ -2082,7 +2144,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -2181,6 +2243,10 @@
         {
           "date": "2026-11-07",
           "result": "线上产物11月6日、事件最新10月23日；mini7日产物尚未同步。未重新核完季度NAV与违约数据，保留既有研究日期及逾期。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "线上产物11月8日已跟进，事件最新仍10月23日；保留已核ARCC Q3及原缺口，不以文件日改变贷款/NAV观察期。"
         }
       ]
     },
@@ -2251,7 +2317,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -2318,6 +2384,10 @@
         {
           "date": "2026-11-07",
           "result": "线上产物仍11月6日00:15:48UTC，mini已生成7日但健康检查显示发布滞后；逐项报价及库存窗口不随外层改日，苯乙烯库存零值未核为真实耗尽。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "线上产物已至11月8日00:15:35UTC，与main一致，较昨日观察到的发布滞后已有恢复；各报价/库存观察窗仍独立，苯乙烯旧零库存未核为真实耗尽。"
         }
       ]
     },
@@ -2840,7 +2910,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-10-15已审计快照",
-      "last_checked": "2026-11-07",
+      "last_checked": "2026-11-08",
       "last_research_update": null,
       "next_due": "2026-10-19",
       "review_state": "pipeline",
@@ -2888,6 +2958,10 @@
         {
           "date": "2026-11-07",
           "result": "线上生成仍10月14日21:16UTC、观察20:54UTC；历史覆盖40702/463417约8.78%，待补422715。未将不完整十月升级完整月报，10月19日积压保留。"
+        },
+        {
+          "date": "2026-11-08",
+          "result": "线上生成10月14日21:16UTC、观察20:54UTC，仍未推进；40702/463417回补约8.78%，不能把未完整十月当月报，原积压保持。"
         }
       ]
     }

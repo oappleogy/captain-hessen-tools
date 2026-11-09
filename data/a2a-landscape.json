@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-08",
-  "last_checked_at": "2026-11-08T01:05:55.374496+00:00",
+  "as_of": "2026-11-09",
+  "last_checked_at": "2026-11-09T01:02:35.764420+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -600,11 +600,12 @@
       "participant": "支付宝（中国业务）",
       "capability": "接口文档提供 alipay.trade.agent.pay，生成含商户信息的签名串，用于调起支付宝。",
       "source": "https://aipay.alipay.com/docs/agent-pay/api-list/agent-pay.html",
-      "gap": "该接口不等于付款已完成；KYA agent_id 需申请，准入、费率及退款范围待核验。",
+      "gap": "签名准备不等于扣款；基础网页收款退款文档要求同次退款重试保持请求号，code=10000不证明退款成功。Agent订单适用范围、准入与费率仍待核验。",
       "related": [],
       "scope": "核心",
-      "checked_at": "2026-10-09",
-      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+      "checked_at": "2026-11-09",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模",
+      "refund_source": "https://aipay.alipay.com/docs/vibe-pay/ai-web-app-payment-qianyi/api-list/alipay-trade-refund.html"
     },
     {
       "id": "ant-amp",
@@ -1201,7 +1202,7 @@
     {
       "name": "支付宝 / Ant International",
       "layer": "payment",
-      "question": "国内 Agent 支付接口和国际 AMP 分开收录；继续核验准入、费率、退款和保障条款。"
+      "question": "国内Agent签名接口已复核；基础网页退款文档已读，Agent订单适用性仍待查。继续核验国内准入/费率，以及国际AMP保障条款，分开记录。"
     },
     {
       "name": "腾讯 / 华为 / 百度 / 字节",
@@ -1293,9 +1294,20 @@
       "layer": "payment",
       "source": "https://agentpay.alchemy.com/docs/x402",
       "question": "Alchemy先付款后请求的退款与补偿、失败请求计费、总费用；Cloudflare预算/撤销及跨协议兼容实测、真实采用待查。"
+    },
+    {
+      "name": "Internet of Agentics架构研究",
+      "layer": "protocol",
+      "source": "https://arxiv.org/abs/2611.03066",
+      "question": "11月2日预印本，11月9日核验摘要与日期；全文、引用与架构判断待查，不作为产品发布或生产采用证据。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-09",
+      "status": "部分核验",
+      "note": "部分核验：比较11月8日并检索近7天线索。重读支付宝Agent签名准备接口，补核基础网页收款退款文档的幂等与状态判断；不推定所有Agent订单适用。11月2日IoA架构预印本只核验摘要，加入待查。未确认重大新增；其他协议、SDK、国内平台和队列未全量覆盖。"
+    },
     {
       "date": "2026-11-08",
       "status": "部分核验",
@@ -1684,10 +1696,11 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。 11月7日补核BILL/Billtrust试点：执行已批准发票付款，收费、退款成本与交易规模未披露；平台总客户/交易量不作为试点规模。",
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。 11月7日补核BILL/Billtrust试点：执行已批准发票付款，收费、退款成本与交易规模未披露；平台总客户/交易量不作为试点规模。 2026-11-09核验支付宝基础网页收款退款文档：请求成功不等于退款成功，重试需保持退款请求号；Agent订单适用性与售后成本未核验。",
       "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments",
       "checked_at": "2026-10-22",
-      "pilot_source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html"
+      "pilot_source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
+      "alipay_refund_source": "https://aipay.alipay.com/docs/vibe-pay/ai-web-app-payment-qianyi/api-list/alipay-trade-refund.html"
     }
   ]
 }

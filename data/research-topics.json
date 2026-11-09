@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-11-08",
+  "inventory_checked_at": "2026-11-09",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -23,8 +23,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05-15",
-      "last_checked": "2026-11-08",
-      "last_research_update": "2026-11-08",
+      "last_checked": "2026-11-09",
+      "last_research_update": "2026-11-09",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -38,8 +38,8 @@
         "117家公司旧评分和5月14日市值尚未重算；不能用于当前排名。",
         "绿的谐波与汇川主表均已核至1—9月；人形可归属收入、良率及客户验收未单列，不用公司总收入替代。",
         "GXO历史合同与Agility累计工时已分来源核验；客户本期付费、有效工时、干预率与维修费用仍待补，本周验收不宣称完整。",
-        "核验 Tesla 10月21日业绩会的最新里程碑，不把过去路线图当作已投产。",
-        "两家核心供应商Q3财报已回填；其余供应商、Tesla实际里程碑及客户有效工时/验收/运维仍待，原逾期不顺延。"
+        "Tesla Q3报告已核为加州早期爬坡、得州建设中；实际产量、稳定产能和客户验收未知，不把百万台路线图当产量。",
+        "两家供应商Q3及Tesla工厂状态已回填；其余供应商、AGCO试点交付、本期客户有效工时/验收/运维仍待，原逾期不顺延。"
       ],
       "updates": [
         {
@@ -207,6 +207,26 @@
               "url": "https://static.cninfo.com.cn/finalpage/2026-10-27/1225623209.PDF"
             }
           ]
+        },
+        {
+          "date": "2026-11-09",
+          "title": "原时间轴补Tesla早期爬坡，客户表补AGCO未来试点",
+          "body": "Tesla Q3第6页将加州Optimus列为早期爬坡、得州为建设中，年产能未列；原Q3时间轴原位更新，具体投产日、实际产量与百万台目标仍未知。AGCO客户原文确认商业协议，Hesston试点预计2027年，非当前验收。沿用原部署表列结构及117家公司旧评分，不把厂商产线、未来试点或重复累计工时算作新增收入。",
+          "source_period": "Tesla截至9月30日季度，10月21日披露；AGCO10月20日公告，试点目标2027年；具体启动/签约日未给出",
+          "event_date": null,
+          "announced_on": null,
+          "sources": [
+            {
+              "title": "Tesla Q3 2026 Update，第6页产能与生产状态",
+              "date": "2026-10-21",
+              "url": "https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q3-2026-Update.pdf"
+            },
+            {
+              "title": "AGCO客户原文：Hesston商业协议及2027年试点计划",
+              "date": "2026-10-20",
+              "url": "https://news.agcocorp.com/2026-10-20-AGCO-and-Agility-Robotics-Advance-Smart-Manufacturing-with-Humanoid-Robot-Pilot-in-Hesston%2C-Kansas%2C-Facility"
+            }
+          ]
         }
       ]
     },
@@ -358,7 +378,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": "2026-11-03",
       "next_due": "2026-11-06",
       "review_state": "partial",
@@ -470,6 +490,10 @@
         {
           "date": "2026-11-08",
           "result": "线上仍W45、asOf11月6日23:59 CST，与昨天相同；已核实际提交时间11月6日18:34北京，截止晚于发布的问题未修正。保持next_due11月6日及研究日11月3日，不重新评分或重复执行独立周报。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "线上仍W45，asOf11月6日23:59 CST；相对已核6日18:34北京的实际发布仍为未来截止，问题未修。保持研究日11月3日、next_due6日，不重复任务或改评分。"
         }
       ]
     },
@@ -974,7 +998,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1041,6 +1065,10 @@
         {
           "date": "2026-11-08",
           "result": "线上generated仍11月4日01:20:07UTC，目录19337，累计观察仍11月3日；今日已有任务日志再次止于发布工作树分叉，没有新成功回读。滚动30日/24h截止仍缺，本轮不造新统计或重复创建任务。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "既有任务9日01:22UTC生成并成功发布，HTTP与main一致；累计观察至8日03:12UTC。目录19337仍为缓存，滚动30日无精确截止；日志有单源解析失败与目录超时，发布恢复不代表全部来源新鲜或交易质量已核，旧到期保持。"
         }
       ]
     },
@@ -1053,9 +1081,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": null,
-      "next_due": "2026-11-09",
+      "next_due": "2026-11-10",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -1124,6 +1152,10 @@
         {
           "date": "2026-11-08",
           "result": "独立产物as_of11月8日，last_checked_at01:05:55UTC，线上与当前main一致；仅完成日频产物验收，仍是部分覆盖，不重复任务、不改研究日。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "独立产物as_of11月9日、last_checked_at01:02:35UTC，线上与当前main一致；仅完成既有任务产物验收，仍partial coverage，不重复运行或改研究日期。"
         }
       ]
     },
@@ -1135,8 +1167,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-11-08",
-      "last_research_update": "2026-11-08",
+      "last_checked": "2026-11-09",
+      "last_research_update": "2026-11-09",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1149,7 +1181,7 @@
       "pending": [
         "两家公司九月财季已回填；800G/1.6T/CPO收入、客户验收、采购取消条款和良率仍缺，不推进10月12日积压截止。",
         "旧产业图、速率渗透率、公司订单与估值未全量复核；演示、初始订单、指引不视作收入。",
-        "Lumentum单季CFO/完整10-Q、Coherent官方PDF图像复核及拟议并购审批继续跟踪；已核公开表格文本不代替未取得的图像或产品拆分。"
+        "Lumentum 10-Q单季CFO及现金资本开支已核；Coherent官方PDF图像、产品拆分和拟议并购审批继续跟踪，不把整体现金流当CPO收入。"
       ],
       "updates": [
         {
@@ -1239,6 +1271,21 @@
               "title": "Marvell 8-K：协议于11月1日签署",
               "date": "2026-11-02",
               "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-442717/d352474d8k.htm"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-09",
+          "title": "Lumentum原行补现金流：现金余额下降不等于经营现金流为负",
+          "body": "11月3日10-Q截至9月26日单季经营现金流267.7、现金购置固定资产229.8百万美元回填原公司行；现金及等价物减少771.3不能替代CFO。原收入、利润、财季及Coherent行不变，原未补现金流版本完整留history。采购承诺、CPO产品收入、验收与并购审批仍待，不改等级。",
+          "source_period": "FY2027 Q1，截至2026-09-26的三个月，未经审计；10-Q签署2026-11-03",
+          "event_date": "2026-09-26",
+          "announced_on": "2026-11-03",
+          "sources": [
+            {
+              "title": "Lumentum FY2027 Q1 10-Q，第5—6、58页现金流及11月3日签署页",
+              "date": "2026-11-03",
+              "url": "https://www.sec.gov/Archives/edgar/data/1633978/000162828026069615/lite-20260926.htm"
             }
           ]
         }
@@ -1537,7 +1584,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1673,6 +1720,10 @@
         {
           "date": "2026-11-08",
           "result": "线上产物11月8日已跟进，事件最新仍10月26日；日生成与事件发生日分开，未宣称新增第三方评估或全量周研究。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "线上外层11月9日，但时间轴最新事件10月26日；未获得新的第三方评估或完成全量周研究，不改研究日。"
         }
       ]
     },
@@ -1826,7 +1877,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": "2026-11-06",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -1966,6 +2017,10 @@
         {
           "date": "2026-11-08",
           "result": "线上last_checked11月8日08:21北京，但正式discussion仍10月8日，next11月12日。ONI ASO2.46、SST28OCT3.4、SOI30日截至10月25日−16.6、MEI SO2.53各窗不变；没有以新检查日冒充新诊断。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "检查9日08:19北京，内容日仍6日；discussion_as_of10月8日、下期11月12日。ONI ASO26=2.46、SST28OCT=3.4、SOI30日截至10月25日=-16.6、MEI SO2026=2.53分别保留，未将新检查日写成新诊断。"
         }
       ]
     },
@@ -2144,7 +2199,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -2247,6 +2302,10 @@
         {
           "date": "2026-11-08",
           "result": "线上产物11月8日已跟进，事件最新仍10月23日；保留已核ARCC Q3及原缺口，不以文件日改变贷款/NAV观察期。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "线上外层11月9日，最新事件仍10月23日；已核ARCC Q3与其他BDC缺口保持，不用文件日更新NAV/违约观察期。"
         }
       ]
     },
@@ -2317,7 +2376,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -2388,6 +2447,10 @@
         {
           "date": "2026-11-08",
           "result": "线上产物已至11月8日00:15:35UTC，与main一致，较昨日观察到的发布滞后已有恢复；各报价/库存观察窗仍独立，苯乙烯旧零库存未核为真实耗尽。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "线上产物9日00:15:36UTC与main一致；仅验收管线，各价格/库存观察窗不随生成日改变，旧零库存仍未逐源核验为真实耗尽。"
         }
       ]
     },
@@ -2910,7 +2973,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-10-15已审计快照",
-      "last_checked": "2026-11-08",
+      "last_checked": "2026-11-09",
       "last_research_update": null,
       "next_due": "2026-10-19",
       "review_state": "pipeline",
@@ -2962,6 +3025,10 @@
         {
           "date": "2026-11-08",
           "result": "线上生成10月14日21:16UTC、观察20:54UTC，仍未推进；40702/463417回补约8.78%，不能把未完整十月当月报，原积压保持。"
+        },
+        {
+          "date": "2026-11-09",
+          "result": "周一核对公开summary与audit：仍10月14日生成/观察；固定队列回溯40702/463417约8.78%，待补422715；queries_complete=false，查询fetching4/pending1578，issues空不代表完成。未定位到可核验的最新采集日志或重新抽样原始记录，不声称周检闭环或完整十月月报，保留10月19日逾期。"
         }
       ]
     }

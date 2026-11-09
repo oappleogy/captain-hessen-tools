@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-11-03",
+  "checked_on": "2026-11-09",
   "title": "客户部署：合同、工时与准确率不是一回事",
-  "scope": "六条分阶段证据：新增GXO客户侧两站扩展协议及厂商未具名付费项目。2027年初新部署仍是计划；原累计工时/搬箱数不重复算增量。117家公司旧评分不变。",
+  "scope": "原表八条分阶段证据：补Tesla自有产线早期爬坡与AGCO客户确认的2027年试点协议。产线状态不是客户验收，未来试点不是当前交付；原累计工时/搬箱数不重复计增量，117家公司旧评分不变。",
   "columns": [
     {
       "key": "label",
@@ -152,12 +152,63 @@
           "date": "2026-10-26"
         }
       ]
+    },
+    {
+      "id": "tesla-optimus-q3-2026",
+      "label": "Tesla / Optimus 自有产线进度",
+      "event_date": null,
+      "period": "Q3截至2026-09-30；报告10月21日披露，具体启动日未给出",
+      "announced": "2026-10-21",
+      "checked_on": "2026-11-09",
+      "stage": "厂商季度生产状态，非客户验收",
+      "known": "Tesla季度报告列加州Optimus为早期爬坡（Early Ramp）、得州为建设中（Construction）；公司称Fremont产线开始生产。两地年产能栏均未给数值。",
+      "unknown": "未披露实际产量、稳定产能、客户付费与验收、逐班有效工时、安全运维、良率和可归属收入。公司对产品质量的描述不等于独立验收。",
+      "impact": "原Q3时间轴由未取得投产证据更新为厂商确认的早期爬坡，但不能确认7—8月具体投产日或百万台目标兑现；不能给117家供应商评分加分。",
+      "sources": [
+        {
+          "title": "Tesla Q3 2026 Update，第6页产能与生产状态",
+          "date": "2026-10-21",
+          "url": "https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q3-2026-Update.pdf"
+        }
+      ],
+      "metrics": {
+        "annual_capacity": null,
+        "actual_production": null,
+        "customer_accepted_units": null,
+        "recognized_revenue": null
+      }
+    },
+    {
+      "id": "agco-digit-pilot-20261020",
+      "label": "AGCO / Digit Hesston试点协议",
+      "event_date": null,
+      "period": "10月20日公告已签协议，签约日未单列；试点预计2027年",
+      "announced": "2026-10-20",
+      "checked_on": "2026-11-09",
+      "stage": "客户确认商业协议；未来试点",
+      "known": "AGCO确认与Agility签署商业协议，拟在美国Hesston工厂于2027年开展Digit试点，初始任务为零件分拣/堆叠和周转箱入库摆放。",
+      "unknown": "未披露台数、合同金额、期限、验收条件、当期付款和收入；效率、安全性为目标，未提供该工厂实测工时或运维结果。",
+      "impact": "新增具名客户侧合同证据，不把合作写成已交付；厂商跨客户6.5万累计小时不归给AGCO，也不把该具名项目擅自并入三个匿名项目计数。",
+      "sources": [
+        {
+          "title": "AGCO客户原文：Hesston商业协议及2027年试点计划",
+          "date": "2026-10-20",
+          "url": "https://news.agcocorp.com/2026-10-20-AGCO-and-Agility-Robotics-Advance-Smart-Manufacturing-with-Humanoid-Robot-Pilot-in-Hesston%2C-Kansas%2C-Facility"
+        }
+      ],
+      "metrics": {
+        "delivered_units": null,
+        "contract_value": null,
+        "customer_operating_hours": null,
+        "recognized_revenue": null
+      }
     }
   ],
   "pending": [
     "核对客户持续付费、有效工时、人工干预、停机维修和安全记录。",
     "Digit 5附条件订单不计入收入；安全合作备忘录不等于独立认证；未来交付计划不等于当前交付。",
     "BMW缺逐班故障/干预、付费与验收；Nyobolt缺衰减、安全运维、客户负载测试和可归属收入，2027H1早期供货仍为计划。",
-    "追踪GXO两站2027年初实际上线、合同/验收与安全运维；三家匿名项目须客户或监管文件独立交叉核验。"
+    "追踪GXO两站2027年初实际上线、合同/验收与安全运维；三家匿名项目须客户或监管文件独立交叉核验。",
+    "Tesla仍缺实际产量、客户验收与供应商收入；AGCO待2027年试点启动、合同条件及客户实测，不把自有产线与外部客户部署混计。"
   ]
 }

@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-11-09T07:33:23",
-  "data_as_of": "2026-11-06",
-  "data_lag_days": 3,
+  "timestamp": "2026-11-09T21:07:26",
+  "data_as_of": "2026-11-09",
+  "data_lag_days": 0,
   "system_state": {
     "state": "CRITICAL",
     "label": "系统临界",
     "color": "#ef4444",
     "level": 4,
-    "score": 0.0,
-    "action": "系统临界。建议仓位≤30%（趋势→），加大对冲比例，仅保留高确信度仓位。"
+    "score": -0.183,
+    "action": "系统临界。建议仓位≤25%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
-  "regime_label": "STRESSED",
-  "red_count": 2,
+  "regime_label": "CRITICAL",
+  "red_count": 3,
   "dim_lights": {
     "R": "green",
     "I": "green",
     "F": "red",
-    "C": "yellow",
+    "C": "red",
     "N": "yellow",
     "T": "red"
   },
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.32,
+      "score": 0.45,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.31,
+      "score": -0.61,
       "state": "▼",
       "light": "red",
       "note": "负反馈信号，情绪极端或波动剧烈",
@@ -53,31 +53,31 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.14,
-      "state": "►",
-      "light": "yellow",
-      "note": "部分信号出现分化，协调性下降",
-      "confidence": "★★★",
+      "score": -0.35,
+      "state": "▼",
+      "light": "red",
+      "note": "跨市场严重背离，系统内部矛盾激化",
+      "confidence": "⚠",
       "name_cn": "市场协调",
-      "status": "neutral"
+      "status": "stressed"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.18,
+      "score": 0.23,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.4,
+      "score": -0.9,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
-      "confidence": "★★",
+      "confidence": "★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
@@ -124,15 +124,14 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "黄金",
-    "safety_margin": 0.1,
+    "moving_toward": "停滞",
+    "safety_margin": -0.083,
     "early_warning": "无"
   },
   "extremes": {
-    "count": 2,
+    "count": 1,
     "categories": [
-      "VIX恐慌指数=25.6 (历史96%分位)",
-      "Nasdaq波动率(VXN)=34.0 (历史99%分位)"
+      "VIX恐慌指数=28.2 (历史98%分位)"
     ]
   },
   "opportunities": [],
@@ -148,10 +147,10 @@
     "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 2,
+    "extreme_count": 1,
     "vix": {
-      "value": 25.6,
-      "percentile": 96,
+      "value": 28.2,
+      "percentile": 98,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {

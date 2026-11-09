@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-11-09",
+  "modes": [
+    {
+      "id": "event",
+      "name": "事件与集中换币",
+      "state": "部分实时",
+      "desc": "从被迫卖出与集中买入两端，观察局部价格冲击。",
+      "watch": "交易所盘口、ETH 链上报价；地址资金流尚未接入。",
+      "link": "#markets",
+      "label": "查看市场观察"
+    },
+    {
+      "id": "liquidity",
+      "name": "抵押与流动性约束",
+      "state": "部分实时",
+      "desc": "资产可以买到，不代表能立即赎回、调拨或变现。",
+      "watch": "Aave ETH 借贷状态；机构身份、持仓、健康因子与变现路径待核。",
+      "link": "#chain",
+      "label": "查看借贷与链上"
+    },
+    {
+      "id": "stocks",
+      "name": "代币股与资金费率",
+      "state": "已有页面",
+      "desc": "代币股现货、合约与资金费率，沿用原专题。",
+      "watch": "原币安 / OKX / Bitget 页面独立维护；接入不等于保证每个接口可用。",
+      "link": "../crypto-stocks-tracker.html",
+      "label": "打开原监控"
+    },
+    {
+      "id": "redemption",
+      "name": "赎回与资产凭证",
+      "state": "研究框架",
+      "desc": "观察凭证与可赎回底层资产的折价，以及兑现所需时间。",
+      "watch": "待接入赎回队列、兑换率、费用及暂停状态。",
+      "link": "#framework",
+      "label": "查看验证清单"
+    },
+    {
+      "id": "crosschain",
+      "name": "跨链与交割价差",
+      "state": "研究框架",
+      "desc": "同一资产不同网络的库存与可达性不一致。",
+      "watch": "待核桥接机制、资产合约身份、到账时间和充提路径。",
+      "link": "#framework",
+      "label": "查看验证清单"
+    },
+    {
+      "id": "liquidation",
+      "name": "清算与强制变现",
+      "state": "研究框架",
+      "desc": "追加保证金、赎回压力和清算拍卖可能形成折价。",
+      "watch": "待接入清算事件、拍卖规则及可执行退出报价。",
+      "link": "#framework",
+      "label": "查看验证清单"
+    }
+  ]
+}

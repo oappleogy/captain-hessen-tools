@@ -379,7 +379,7 @@
       分开核验净值、市场价格、资产结构与赎回约束；不同观察日的溢价不能直接比较，更不代表无风险套利。
     </div>
     <div class="meta-row">
-      <div>字段复核 <b>2026-11-06</b></div>
+      <div>字段复核 <b>2026-11-10（仅AGIX；其余各自日期）</b></div>
       <div>覆盖状态 <b>9只已列明；2只NAV缺失</b></div>
       <div>结构 <b>CEF · BDC · Interval · Non-traded · ETF</b></div>
       <div>报价状态 <b>不同观察日；非实时全量</b></div>
@@ -559,7 +559,7 @@
 
 <script>
 const DATA = {
-  "as_of": "2026-11-06",
+  "as_of": "2026-11-10",
   "funds": [
     {
       "ticker": "VCX",
@@ -910,40 +910,40 @@ const DATA = {
       "name": "KraneShares AI & Technology ETF",
       "structure": "ETF",
       "exchange": "NASDAQ",
-      "price_current": 40.69,
-      "price_note": "数据待补",
-      "premium_current_pct": -0.4161,
+      "price_current": 40.07,
+      "price_note": "官方同日快照；不是实时行情",
+      "premium_current_pct": 0.3758,
       "weight_openai_pct": 0,
       "weight_anthropic_pct": null,
       "weight_spacex_pct": 0,
       "weight_xai_pct": null,
-      "notes": "11月4日NAV/市价40.86/40.69美元，复算折价约0.42%；同日净资产680.383915百万美元、份额16650002。 不是11月5日行情；底层私募估值尚未逐项核实，不采用异常季度折溢价天数统计。 原表回填新的同日快照，不能与其他产品不同日数据直接比较套利；旧预测不因此变为新预测。",
+      "notes": "11月9日同日NAV/市价39.92/40.07美元，按显示值复算溢价约0.38%；净资产397.191058百万美元、份额9950002。 不是11月10日即时行情；底层私募估值未逐项核实，份额与资产变化不直接归为投资盈亏。不采用异常季度折溢价天数统计。 原主表及图表回填同日快照，较11月4日约0.42%折价转为约0.38%溢价；这不是无风险套利或旧预测得到验证。",
       "historical_notes": "公开AI股Nvidia/MSFT/Meta/Google + 私募sleeve(Anthropic+xAI直接持股); 数据需后续补全",
       "review": {
-        "checked_on": "2026-11-06",
+        "checked_on": "2026-11-10",
         "announced": null,
         "sources": [
           {
-            "title": "AGIX官方日净值与市场价",
-            "url": "https://kraneshares.com/etf/agix/",
-            "date": "首次发布日期未标明"
+            "title": "AGIX官方日净值、市场价与净资产",
+            "date": "首次发布时间未标；观察日2026-11-09",
+            "url": "https://kraneshares.com/etf/agix/"
           }
         ],
-        "known": "11月4日NAV/市价40.86/40.69美元，复算折价约0.42%；同日净资产680.383915百万美元、份额16650002。",
-        "unknown": "不是11月5日行情；底层私募估值尚未逐项核实，不采用异常季度折溢价天数统计。",
-        "impact": "原表回填新的同日快照，不能与其他产品不同日数据直接比较套利；旧预测不因此变为新预测。"
+        "known": "11月9日同日NAV/市价39.92/40.07美元，按显示值复算溢价约0.38%；净资产397.191058百万美元、份额9950002。",
+        "unknown": "不是11月10日即时行情；底层私募估值未逐项核实，份额与资产变化不直接归为投资盈亏。不采用异常季度折溢价天数统计。",
+        "impact": "原主表及图表回填同日快照，较11月4日约0.42%折价转为约0.38%溢价；这不是无风险套利或旧预测得到验证。"
       },
-      "price_date": "2026-11-04",
-      "aum_date": "2026-11-04净资产",
+      "price_date": "2026-11-09",
+      "aum_date": "2026-11-09净资产",
       "forward_date": "2026-05-05历史假设；未重估",
       "exposure_date": "2026-05-05底稿；未复核",
-      "premium_snapshot_date": "2026-11-04",
+      "premium_snapshot_date": "2026-11-09",
       "comparable_pair": true,
-      "nav_last_reported": 40.86,
-      "nav_date": "2026-11-04",
+      "nav_last_reported": 39.92,
+      "nav_date": "2026-11-09",
       "nav_tag": "官方披露",
       "price_tag": "官方同日快照",
-      "aum_or_mcap_musd": 680.383915
+      "aum_or_mcap_musd": 397.191058
     }
   ]
 };

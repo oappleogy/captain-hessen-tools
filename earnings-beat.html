@@ -114,7 +114,7 @@ function loadFinancialReview(){
       c.dc=row.ongoing_adjusted_ebitda_musd!=null?'持续经营调整EBITDA $'+row.ongoing_adjusted_ebitda_musd+'M（Q3，非单列AI收入）':c.dc+'（原Q1字段，未复核）';
       c.note=financialText(row);c.review=row;
     });});
-    document.getElementById('financial-status').textContent='财报字段：五家公司已核至2026Q3，各条保留公告日。CEG等未核字段仍为原期；机构预期、旧评分和估值未更新。数据维护2026-11-07。';
+    document.getElementById('financial-status').textContent='财报字段：六家公司已核至2026Q3，CEG新增11月9日公告，各条保留观察期。其余公司、机构预期、旧评分和估值未更新。数据维护2026-11-10。';
     renderContent();
   }).catch(function(){document.getElementById('financial-status').textContent='财报数据读取失败，已有字段保留其显示观察期，不表示本轮更新成功；请重试。';});
 }

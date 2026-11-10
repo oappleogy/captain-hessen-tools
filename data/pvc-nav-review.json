@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "nav",
   "title": "已核验的 NAV 与同日价格快照",
-  "checked_on": "2026-11-06",
-  "scope": "原九基金主表原位维护。NSLR为9月30日正式Q3；RONB日值11月5日、AGIX11月4日；其他行各自观察期保留。未核字段不填0，异日不计算当前溢价。",
+  "checked_on": "2026-11-10",
+  "scope": "原九基金主表原位维护。AGIX日值11月9日；NSLR为9月30日正式Q3，RONB日值11月5日；其他行各自观察期保留。未核字段不填0，异日不计算当前溢价。",
   "columns": [
     {
       "key": "label",
@@ -377,23 +377,23 @@
     {
       "id": "AGIX",
       "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
-      "nav": 40.86,
-      "nav_date": "2026-11-04",
+      "nav": 39.92,
+      "nav_date": "2026-11-09",
       "nav_status": "reported",
-      "price": 40.69,
-      "price_date": "2026-11-04",
+      "price": 40.07,
+      "price_date": "2026-11-09",
       "announced": null,
-      "known": "11月4日NAV/市价40.86/40.69美元，复算折价约0.42%；同日净资产680.383915百万美元、份额16650002。",
-      "unknown": "不是11月5日行情；底层私募估值尚未逐项核实，不采用异常季度折溢价天数统计。",
-      "impact": "原表回填新的同日快照，不能与其他产品不同日数据直接比较套利；旧预测不因此变为新预测。",
+      "known": "11月9日同日NAV/市价39.92/40.07美元，按显示值复算溢价约0.38%；净资产397.191058百万美元、份额9950002。",
+      "unknown": "不是11月10日即时行情；底层私募估值未逐项核实，份额与资产变化不直接归为投资盈亏。不采用异常季度折溢价天数统计。",
+      "impact": "原主表及图表回填同日快照，较11月4日约0.42%折价转为约0.38%溢价；这不是无风险套利或旧预测得到验证。",
       "sources": [
         {
-          "title": "AGIX官方日净值与市场价",
-          "url": "https://kraneshares.com/etf/agix/",
-          "date": "首次发布日期未标明"
+          "title": "AGIX官方日净值、市场价与净资产",
+          "date": "首次发布时间未标；观察日2026-11-09",
+          "url": "https://kraneshares.com/etf/agix/"
         }
       ],
-      "checked_on": "2026-11-06",
+      "checked_on": "2026-11-10",
       "current_price": null,
       "history": [
         {
@@ -459,6 +459,28 @@
             }
           ],
           "checked_on": "2026-11-03",
+          "current_price": null
+        },
+        {
+          "id": "AGIX",
+          "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
+          "nav": 40.86,
+          "nav_date": "2026-11-04",
+          "nav_status": "reported",
+          "price": 40.69,
+          "price_date": "2026-11-04",
+          "announced": null,
+          "known": "11月4日NAV/市价40.86/40.69美元，复算折价约0.42%；同日净资产680.383915百万美元、份额16650002。",
+          "unknown": "不是11月5日行情；底层私募估值尚未逐项核实，不采用异常季度折溢价天数统计。",
+          "impact": "原表回填新的同日快照，不能与其他产品不同日数据直接比较套利；旧预测不因此变为新预测。",
+          "sources": [
+            {
+              "title": "AGIX官方日净值与市场价",
+              "url": "https://kraneshares.com/etf/agix/",
+              "date": "首次发布日期未标明"
+            }
+          ],
+          "checked_on": "2026-11-06",
           "current_price": null
         }
       ]

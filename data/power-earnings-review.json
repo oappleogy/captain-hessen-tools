@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "earnings",
   "title": "供电链财报记录：原公司字段的数据来源",
-  "checked_on": "2026-11-07",
-  "scope": "五家公司、九条财季记录。最新已核字段回填原公司卡片；旧季度记录保留。百万美元与EPS美元/股分开，机构一致预期未核，不重排旧榜。",
+  "checked_on": "2026-11-10",
+  "scope": "六家公司、十条财季记录。最新已核字段回填原公司卡片；旧季度记录保留。百万美元与EPS美元/股分开，机构一致预期未核，不重排旧榜。",
   "columns": [
     {
       "key": "label",
@@ -346,13 +346,55 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1692819/000169281926000023/0001692819-26-000023-index.htm"
         }
       ]
+    },
+    {
+      "id": "CEG-2026Q3",
+      "label": "CEG · Constellation（Q3）",
+      "period_end": "2026-09-30",
+      "period": "2026-07-01至2026-09-30",
+      "event_date": "2026-09-30",
+      "announced": "2026-11-09",
+      "checked_on": "2026-11-10",
+      "stage": "公司未经审计季度实际；单季现金流由同一母公司累计原表相减",
+      "currency": "USD",
+      "unit": "million",
+      "revenue_musd": 9550,
+      "revenue_yoy_pct": 45.3577,
+      "organic_yoy_pct": null,
+      "gaap_eps": 5.19,
+      "adjusted_eps": 5.06,
+      "net_income_common_musd": 1835,
+      "operating_cash_flow_musd": 3426,
+      "capital_expenditures_musd": 940,
+      "cash_flow_derivation": {
+        "nine_months_cfo_musd": 4979,
+        "six_months_cfo_musd": 1553,
+        "nine_months_capex_musd": 3461,
+        "six_months_capex_musd": 2521
+      },
+      "known": "单季CFO=九个月4979减六个月1553=3426；资本开支3461−2521=940百万美元，差额2486不是公司调整后自由现金流。同比收入基数6570百万；2026含Calpine并表，不是纯有机或纯AI增长。核电产量46677GWh含持有的Salem/STP份额，97.2%容量因子不含两站，分母不同。",
+      "guidance": "全年调整后EPS12.50—12.80是指引。Amazon 690MW PPA对应新增190MW目标2030—2032；Google约890MW扩容首批目标2028，另2700MW为金融供能协议，不能相加当新增已投产容量。DOE最多50亿美元为附条件融资，RISEC收购尚待审批。",
+      "unknown": "机构一致预期、有机增长、AI可归属收入及合同完整取消/验收条款未核；未来PPA不是本季已交付收入，不改旧超预期档位和估值。",
+      "impact": "把原CEG公司字段推进至Q3实际，并拆分现金兑现、并购影响与未来扩容；收入增长不代表瓶颈已经解除。",
+      "sources": [
+        {
+          "title": "CEG Q3正式业绩、九个月现金流及合同条件（SEC附件）",
+          "date": "2026-11-09",
+          "url": "https://www.sec.gov/Archives/edgar/data/1868275/000186827526000116/ceg-20261109991.htm"
+        },
+        {
+          "title": "CEG Q2 10-Q：同一母公司六个月现金流",
+          "date": "2026-08-06",
+          "url": "https://investors.constellationenergy.com/node/10191/xbrl-viewer"
+        }
+      ]
     }
   ],
   "pending": [
-    "BE、VRT、GEV、ETN和VST已有Q3实际；CEG计划11月9日披露，其余公司与机构预期未补齐，10月9日积压不顺延。",
+    "BE、VRT、GEV、ETN、VST和CEG已有Q3实际；其余公司与机构预期未补齐，10月9日积压不顺延。",
     "原Q1超预期分类、SA持仓、估值和目标空间未重算，保留原页原位并标明历史观察期；不是当前排名。",
     "各公司自由现金流及非GAAP调整定义不同，不能未经调节直接比较利润质量。",
     "各公司旧行保留当时未知项和各自核验日，后续已补结果另列新行；其余公司、完整现金来源与预期差仍待核。"
   ],
-  "last_updated": "2026-11-07"
+  "last_updated": "2026-11-10"
 }

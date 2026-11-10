@@ -1,0 +1,971 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot_id": "2026-11-10-v1",
+  "generated_at": "2026-11-10T07:09:06.490950+00:00",
+  "mode": "reviewed_public_disclosure_snapshot",
+  "coverage": "5机构/信托/基金会 + 1未归属大额地址候选；非全市场、非实时持仓",
+  "sources": [
+    {
+      "id": "sbet-q3",
+      "title": "Sharplink Q3 2026 Form 10-Q",
+      "url": "https://www.sec.gov/Archives/edgar/data/1981535/000149315226050483/form10-q.htm",
+      "published_at": "2026-11-06",
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "Notes: staking, custody, commitments; Liquidity and Capital Resources",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "sbet-release",
+      "title": "Sharplink Q3 results / ETH composition",
+      "url": "https://www.globenewswire.com/de/news-release/2026/11/09/3398374/0/en/sharplink-reports-third-quarter-2026-financial-and-operating-results.html",
+      "published_at": "2026-11-09",
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "Ethereum Treasury and Operational Highlights; footnote 2",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "sbet-ef",
+      "title": "Sharplink purchase agreement with Ethereum Foundation",
+      "url": "https://www.sec.gov/Archives/edgar/data/1981535/000164117225018680/form8-k.htm",
+      "published_at": "2025-07-11",
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "Item 1.01 ETH Sale and Purchase Agreement",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "bmnr",
+      "title": "Bitmine holdings update",
+      "url": "https://www.prnewswire.com/news-releases/bitmine-immersion-technologies-bmnr-announces-eth-holdings-reach-6-07-million-tokens-and-total-crypto-and-total-cash--marketable-securities-holdings-of-14-3-billion-302932890.html",
+      "published_at": "2026-11-09",
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "As of November 8, 2026; total staked ETH",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "bitgo",
+      "title": "BitGo FY2025 results",
+      "url": "https://investors.bitgo.com/news/news-details/2026/BitGo-Holdings-Announces-Fourth-Quarter-and-Full-Year-2025-Financial-Results/default.aspx",
+      "published_at": "2026-03-26",
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "Business and Operational Highlights: partnership only",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "mstr",
+      "title": "Strategy issuer dashboard",
+      "url": "https://www.strategy.com/",
+      "published_at": null,
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "BTC holdings; market data timestamp is not the holding effective date",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "etha-csv",
+      "title": "ETHA official holdings CSV",
+      "url": "https://www.ishares.com/us/products/337614/ishares-ethereum-trust-etf/latest-holdings.csv",
+      "published_at": null,
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "Fund Holdings as of Nov 06, 2026; ETH Quantity",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "etha-prospectus",
+      "title": "ETHA prospectus 2026-08-06 + 2026-10-06 supplement",
+      "url": "https://www.ishares.com/literature/prospectus/p-ishares-ethereum-trust-etf-12-31.pdf",
+      "published_at": "2026-10-06",
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "PDF pages 8, 51, 106–109, 124–127 (1-based UI page index may differ)",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "ef-policy",
+      "title": "Ethereum Foundation Treasury Policy",
+      "url": "https://blog.ethereum.org/2025/06/04/ef-treasury-policy",
+      "published_at": "2025-06-04",
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "read",
+      "locator": "2.1 Ether Sales; 2.2 Ether Deployments",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "whale-label",
+      "title": "dePortfolio third-party address label",
+      "url": "https://deportfolio.live/token/eth/0xc00e94cb662c3520282e6f5717214004a7f26888",
+      "published_at": null,
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "C",
+      "access_status": "read",
+      "locator": "Address row 0x28a55…; page reports old sync age, balances rejected",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    },
+    {
+      "id": "whale-rpc",
+      "title": "PublicNode finalized-block balance attempt",
+      "url": "https://ethereum-rpc.publicnode.com",
+      "published_at": null,
+      "retrieved_at": "2026-11-10T07:09:06.490950+00:00",
+      "evidence_level": "A",
+      "access_status": "failed",
+      "locator": "eth_chainId request returned HTTP 403; no balance obtained",
+      "version": "observed-2026-11-10",
+      "snapshot_kind": "research_notes_only",
+      "independent_reproduction": "unverified"
+    }
+  ],
+  "entities": [
+    {
+      "id": "sharplink",
+      "name": "Sharplink · SBET",
+      "kind": "上市公司",
+      "asset": "ETH",
+      "summary": "持仓拆成原生币、质押凭证与基金敞口；不能把 ETH 等值总额当即时卖量。"
+    },
+    {
+      "id": "bitmine",
+      "name": "Bitmine · BMNR",
+      "kind": "上市公司",
+      "asset": "ETH / BTC",
+      "summary": "大量 ETH 已质押；验证者服务商、托管商和成交对手方分别核验。"
+    },
+    {
+      "id": "strategy",
+      "name": "Strategy · MSTR",
+      "kind": "上市公司",
+      "asset": "BTC",
+      "summary": "官方总量可核验；不将 BTC 持仓映射成 WBTC/DEX 库存。"
+    },
+    {
+      "id": "etha",
+      "name": "iShares Ethereum Trust · ETHA",
+      "kind": "基金 / 信托",
+      "asset": "ETH",
+      "summary": "信托受益资产不是 BlackRock 自营资产；赎回方式影响卖压是否发生。"
+    },
+    {
+      "id": "ef",
+      "name": "Ethereum Foundation",
+      "kind": "基金会",
+      "asset": "ETH",
+      "summary": "已有直接协议出售历史，也有链上兑换政策；不能固定归类为单一渠道。"
+    },
+    {
+      "id": "whale-28a5",
+      "name": "大额地址候选 · 0x28a5…a6b0",
+      "kind": "大户候选（未归属）",
+      "asset": "ETH / COMP 待核",
+      "summary": "第三方标为7 Siblings；身份、集群与当前持仓均未验证，不进入已证实机构汇总。"
+    }
+  ],
+  "facts": [
+    {
+      "id": "sharplink-composition",
+      "entity_id": "sharplink",
+      "key": "composition",
+      "title": "持仓口径",
+      "value": "895,117 ETH 等值；其中原生 ETH 603,953，其余为 LsETH / weETH / wstETH 折算。",
+      "source_ids": [
+        "sbet-release"
+      ],
+      "as_of": "2026-11-02",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-counterparty",
+      "entity_id": "sharplink",
+      "key": "counterparty",
+      "title": "已披露购币对手方",
+      "value": "2025-07-10 完成向 Ethereum Foundation 购买 10,000 ETH。仅此笔，不代表全部采购。",
+      "source_ids": [
+        "sbet-ef"
+      ],
+      "as_of": "2025-07-10",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-settlement",
+      "entity_id": "sharplink",
+      "key": "settlement",
+      "title": "成交与交割",
+      "value": "协议购币、Ethereum 主网交割；链上转账不等于 DEX Swap。",
+      "source_ids": [
+        "sbet-ef"
+      ],
+      "as_of": "2025-07-10",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-custody",
+      "entity_id": "sharplink",
+      "key": "custody",
+      "title": "托管安排",
+      "value": "披露 Anchorage Digital Bank N.A. 与 Coinbase Inc.；ETH/weETH 在 Ethereum、Linea 由 Anchorage 以公司名义持有。",
+      "source_ids": [
+        "sbet-q3"
+      ],
+      "as_of": "2026-09-30",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-restrictions",
+      "entity_id": "sharplink",
+      "key": "restrictions",
+      "title": "可变现限制",
+      "value": "Lido 配置于 2026-09-28 完成，wstETH 约定持有一年；Linea weETH 有初始24个月安排。",
+      "source_ids": [
+        "sbet-q3"
+      ],
+      "as_of": "2026-09-30",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-fund",
+      "entity_id": "sharplink",
+      "key": "fund",
+      "title": "间接持有",
+      "value": "8,054 wstETH 已贡献给 Galaxy Sharplink Onchain Yield Fund；属于经济敞口，不再由公司直接托管，不另加到总额。",
+      "source_ids": [
+        "sbet-q3"
+      ],
+      "as_of": "2026-11-02",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-loan",
+      "entity_id": "sharplink",
+      "key": "loan",
+      "title": "借款与抵押",
+      "value": "2026-10-14 设 Galaxy / Anchorage 抵押隔离账户；截至财报出具时尚未提款。账户建立不等于已有债务。",
+      "source_ids": [
+        "sbet-q3"
+      ],
+      "as_of": "2026-11-06",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-liquidity",
+      "entity_id": "sharplink",
+      "key": "liquidity",
+      "title": "管理层退出估计",
+      "value": "公司估计相当部分质押资产约30日、整体约90日可退出变现；是当时估计，非承诺。",
+      "source_ids": [
+        "sbet-q3"
+      ],
+      "as_of": "2026-11-06",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "sharplink-addresses",
+      "entity_id": "sharplink",
+      "key": "addresses",
+      "title": "全量地址与即时可卖量",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "没有经独立核对的完整地址集、账户余量、即时退出报价；原生ETH也不等于未质押。",
+      "supersedes": null
+    },
+    {
+      "id": "bitmine-holdings",
+      "entity_id": "bitmine",
+      "key": "holdings",
+      "title": "持仓披露",
+      "value": "6,070,092 ETH、216 BTC；已质押 ETH 5,227,037，属于总持仓子集。",
+      "source_ids": [
+        "bmnr"
+      ],
+      "as_of": "2026-11-08",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "bitmine-staking",
+      "entity_id": "bitmine",
+      "key": "staking",
+      "title": "资产状态",
+      "value": "部分 ETH 在 MAVAN 质押，其余与质押伙伴有关；不能由平台名推出私钥托管方。",
+      "source_ids": [
+        "bmnr"
+      ],
+      "as_of": "2026-11-08",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "bitmine-partner",
+      "entity_id": "bitmine",
+      "key": "partner",
+      "title": "已披露服务关系",
+      "value": "BitGo 披露与 Bitmine 合作；这条证据不证明目前全部 ETH 都由 BitGo 托管。",
+      "source_ids": [
+        "bitgo"
+      ],
+      "as_of": "2026-03-26",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "bitmine-counterparty",
+      "entity_id": "bitmine",
+      "key": "counterparty",
+      "title": "逐笔购币对手方",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "本轮证据不足；总量减质押量不能直接当可卖库存。",
+      "supersedes": null
+    },
+    {
+      "id": "bitmine-custody",
+      "entity_id": "bitmine",
+      "key": "custody",
+      "title": "当前托管分配／冷热钱包形式",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "本轮证据不足；总量减质押量不能直接当可卖库存。",
+      "supersedes": null
+    },
+    {
+      "id": "bitmine-addresses",
+      "entity_id": "bitmine",
+      "key": "addresses",
+      "title": "完整归属地址集",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "本轮证据不足；总量减质押量不能直接当可卖库存。",
+      "supersedes": null
+    },
+    {
+      "id": "bitmine-free",
+      "entity_id": "bitmine",
+      "key": "free",
+      "title": "未质押部分的可自由出售量",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "本轮证据不足；总量减质押量不能直接当可卖库存。",
+      "supersedes": null
+    },
+    {
+      "id": "strategy-holdings",
+      "entity_id": "strategy",
+      "key": "holdings",
+      "title": "官网观测总量",
+      "value": "850,364 BTC；本轮读取官网数字，页面未明确该字段独立生效时点。",
+      "source_ids": [
+        "mstr"
+      ],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "观测日2026-11-10，不能用行情更新时间替代持仓日期。",
+      "supersedes": null
+    },
+    {
+      "id": "strategy-counterparty",
+      "entity_id": "strategy",
+      "key": "counterparty",
+      "title": "逐笔卖方/执行经纪",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "未在本轮一手证据中完成核验，不沿用旧报道比例。",
+      "supersedes": null
+    },
+    {
+      "id": "strategy-custody",
+      "entity_id": "strategy",
+      "key": "custody",
+      "title": "当前各托管商分配与形式",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "未在本轮一手证据中完成核验，不沿用旧报道比例。",
+      "supersedes": null
+    },
+    {
+      "id": "strategy-addresses",
+      "entity_id": "strategy",
+      "key": "addresses",
+      "title": "经核验完整地址集",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "未在本轮一手证据中完成核验，不沿用旧报道比例。",
+      "supersedes": null
+    },
+    {
+      "id": "strategy-free",
+      "entity_id": "strategy",
+      "key": "free",
+      "title": "实际自由处置量与借贷限制",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "未在本轮一手证据中完成核验，不沿用旧报道比例。",
+      "supersedes": null
+    },
+    {
+      "id": "etha-holdings",
+      "entity_id": "etha",
+      "key": "holdings",
+      "title": "官方CSV持仓",
+      "value": "2,940,032.71050 ETH，数据截至2026-11-06；不能与11月9日NAV拼成同日快照。",
+      "source_ids": [
+        "etha-csv"
+      ],
+      "as_of": "2026-11-06",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "etha-owner",
+      "entity_id": "etha",
+      "key": "owner",
+      "title": "所有权口径",
+      "value": "ETH属于信托资产，股份代表受益权益；不记为BlackRock公司的自有ETH。",
+      "source_ids": [
+        "etha-prospectus"
+      ],
+      "as_of": "2026-08-06",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "etha-custody",
+      "entity_id": "etha",
+      "key": "custody",
+      "title": "托管与交易账户",
+      "value": "Coinbase Custody 的 Vault 为隔离钱包、冷存私钥；Coinbase Inc. Trading Balance为综合账户。",
+      "source_ids": [
+        "etha-prospectus"
+      ],
+      "as_of": "2026-08-06",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "etha-backup",
+      "entity_id": "etha",
+      "key": "backup",
+      "title": "备用托管资格",
+      "value": "Anchorage 为可用额外托管方；招股书当时未计划迁入。不等于当日已有持币。",
+      "source_ids": [
+        "etha-prospectus"
+      ],
+      "as_of": "2026-08-06",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "etha-execution",
+      "entity_id": "etha",
+      "key": "execution",
+      "title": "交易与赎回渠道",
+      "value": "现金申赎可向 Ether Trading Counterparties 询价或经 Prime Execution Agent 执行；另有实物申赎。",
+      "source_ids": [
+        "etha-prospectus"
+      ],
+      "as_of": "2026-08-06",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "etha-addresses",
+      "entity_id": "etha",
+      "key": "addresses",
+      "title": "各账户实时分配及最终成交场所",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "制度性渠道可证实，不能据此断言每笔都在Coinbase订单簿成交。",
+      "supersedes": null
+    },
+    {
+      "id": "ef-sale",
+      "entity_id": "ef",
+      "key": "sale",
+      "title": "已核历史出售",
+      "value": "2025-07-10 向 Sharplink 协议出售10,000 ETH并在主网交割；对手方由其8-K确认。",
+      "source_ids": [
+        "sbet-ef"
+      ],
+      "as_of": "2025-07-10",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "ef-policy",
+      "entity_id": "ef",
+      "key": "policy",
+      "title": "公开变现政策",
+      "value": "定期根据运营储备缺口决定出售量；政策包括法币出口及链上换成法币计价资产。",
+      "source_ids": [
+        "ef-policy"
+      ],
+      "as_of": "2025-06-04",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "ef-deployment",
+      "entity_id": "ef",
+      "key": "deployment",
+      "title": "政策中的资产部署",
+      "value": "原生质押与向借贷协议供应WETH；政策提及可能借稳定币，不代表当前已借款。",
+      "source_ids": [
+        "ef-policy"
+      ],
+      "as_of": "2025-06-04",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "disclosed",
+      "note": "",
+      "supersedes": null
+    },
+    {
+      "id": "ef-holdings",
+      "entity_id": "ef",
+      "key": "holdings",
+      "title": "当前全量资产/负债",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "历史政策与历史成交不更新为当前余额。",
+      "supersedes": null
+    },
+    {
+      "id": "ef-custody",
+      "entity_id": "ef",
+      "key": "custody",
+      "title": "完整托管与多签控制图",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "历史政策与历史成交不更新为当前余额。",
+      "supersedes": null
+    },
+    {
+      "id": "ef-addresses",
+      "entity_id": "ef",
+      "key": "addresses",
+      "title": "完整已核地址集",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "历史政策与历史成交不更新为当前余额。",
+      "supersedes": null
+    },
+    {
+      "id": "whale-28a5-address",
+      "entity_id": "whale-28a5",
+      "key": "address",
+      "title": "公开地址线索",
+      "value": "0x28a55c4b4f9615fde3cdaddf6cc01fcf2e38a6b0",
+      "source_ids": [
+        "whale-label"
+      ],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "lead",
+      "note": "仅用于定位链上研究对象，不推断自然人身份。",
+      "supersedes": null
+    },
+    {
+      "id": "whale-28a5-label",
+      "entity_id": "whale-28a5",
+      "key": "label",
+      "title": "第三方标签",
+      "value": "7 Siblings",
+      "source_ids": [
+        "whale-label"
+      ],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "lead",
+      "note": "标签不是本人声明；页面同步时间陈旧，未采用其余额。",
+      "supersedes": null
+    },
+    {
+      "id": "whale-28a5-balance",
+      "entity_id": "whale-28a5",
+      "key": "balance",
+      "title": "同区块余额核验",
+      "value": null,
+      "source_ids": [
+        "whale-rpc"
+      ],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "failed",
+      "note": "公开RPC请求HTTP403；没有取得余额，不填0，不采用缓存估值。",
+      "supersedes": null
+    },
+    {
+      "id": "whale-28a5-liabilities",
+      "entity_id": "whale-28a5",
+      "key": "liabilities",
+      "title": "抵押、负债和清算距离",
+      "value": null,
+      "source_ids": [],
+      "as_of": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "status": "unknown",
+      "note": "需同区块查询协议头寸、预言机与债务，再判断清算路径。",
+      "supersedes": null
+    }
+  ],
+  "holdings": [
+    {
+      "id": "sharplink-ETH_TOTAL-eth_equivalent-2026-11-02",
+      "entity_id": "sharplink",
+      "asset": "ETH_TOTAL",
+      "quantity": "895117",
+      "unit": "ETH equivalent",
+      "basis": "eth_equivalent",
+      "as_of": "2026-11-02",
+      "source_id": "sbet-release",
+      "parent_group": "sbet-total-20261102",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "sharplink-ETH-token_units-2026-11-02",
+      "entity_id": "sharplink",
+      "asset": "ETH",
+      "quantity": "603953",
+      "unit": "ETH",
+      "basis": "token_units",
+      "as_of": "2026-11-02",
+      "source_id": "sbet-release",
+      "parent_group": "sbet-total-20261102",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "sharplink-LsETH-eth_equivalent-2026-11-02",
+      "entity_id": "sharplink",
+      "asset": "LsETH",
+      "quantity": "135868",
+      "unit": "ETH equivalent",
+      "basis": "eth_equivalent",
+      "as_of": "2026-11-02",
+      "source_id": "sbet-release",
+      "parent_group": "sbet-total-20261102",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "sharplink-weETH-eth_equivalent-2026-11-02",
+      "entity_id": "sharplink",
+      "asset": "weETH",
+      "quantity": "73601",
+      "unit": "ETH equivalent",
+      "basis": "eth_equivalent",
+      "as_of": "2026-11-02",
+      "source_id": "sbet-release",
+      "parent_group": "sbet-total-20261102",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "sharplink-wstETH-eth_equivalent-2026-11-02",
+      "entity_id": "sharplink",
+      "asset": "wstETH",
+      "quantity": "81695",
+      "unit": "ETH equivalent",
+      "basis": "eth_equivalent",
+      "as_of": "2026-11-02",
+      "source_id": "sbet-release",
+      "parent_group": "sbet-total-20261102",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "bitmine-ETH-token_units-2026-11-08T19:00:00Z",
+      "entity_id": "bitmine",
+      "asset": "ETH",
+      "quantity": "6070092",
+      "unit": "ETH",
+      "basis": "token_units",
+      "as_of": "2026-11-08T19:00:00Z",
+      "source_id": "bmnr",
+      "parent_group": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "bitmine-BTC-token_units-2026-11-08T19:00:00Z",
+      "entity_id": "bitmine",
+      "asset": "BTC",
+      "quantity": "216",
+      "unit": "BTC",
+      "basis": "token_units",
+      "as_of": "2026-11-08T19:00:00Z",
+      "source_id": "bmnr",
+      "parent_group": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "bitmine-ETH_STAKED-subset_of_ETH-2026-11-08",
+      "entity_id": "bitmine",
+      "asset": "ETH_STAKED",
+      "quantity": "5227037",
+      "unit": "ETH_STAKED",
+      "basis": "subset_of_ETH",
+      "as_of": "2026-11-08",
+      "source_id": "bmnr",
+      "parent_group": "bitmine-ETH",
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "strategy-BTC-token_units-None",
+      "entity_id": "strategy",
+      "asset": "BTC",
+      "quantity": "850364",
+      "unit": "BTC",
+      "basis": "token_units",
+      "as_of": null,
+      "source_id": "mstr",
+      "parent_group": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    },
+    {
+      "id": "etha-ETH-token_units-2026-11-06",
+      "entity_id": "etha",
+      "asset": "ETH",
+      "quantity": "2940032.71050",
+      "unit": "ETH",
+      "basis": "token_units",
+      "as_of": "2026-11-06",
+      "source_id": "etha-csv",
+      "parent_group": null,
+      "observed_at": "2026-11-10T07:09:06.490950+00:00",
+      "freely_disposable_quantity": null
+    }
+  ],
+  "routes": [
+    {
+      "id": "sharplink-route",
+      "entity_id": "sharplink",
+      "path": "先按质押/托管/基金权限解锁 → 比较凭证二级市场、赎回及经纪执行；不能直接假定全仓 DEX 抛售。",
+      "evidence_fact_ids": [
+        "sharplink-custody",
+        "sharplink-restrictions",
+        "sharplink-fund",
+        "sharplink-liquidity"
+      ],
+      "classification": "conditional_inference",
+      "probability": null,
+      "watch": "提款公告、质押退出、赎回请求、实际Swap与经纪成交；LST/ETH折价和队列。",
+      "missing": "具体卖方账户、可自由处置规模、经纪商与最终场所未知。",
+      "scenario_id": "collateral"
+    },
+    {
+      "id": "bitmine-route",
+      "entity_id": "bitmine",
+      "path": "质押退出或已有流动库存 → 托管/经纪/OTC 或 DEX；现有事实不足以排序。",
+      "evidence_fact_ids": [
+        "bitmine-holdings",
+        "bitmine-staking",
+        "bitmine-partner"
+      ],
+      "classification": "conditional_inference",
+      "probability": null,
+      "watch": "质押净退出、官方减仓披露、托管移动后实际成交；必须分清内部调拨。",
+      "missing": "剩余资产限制、实际交易场所与出售意图未知。",
+      "scenario_id": "institution-dex"
+    },
+    {
+      "id": "strategy-route",
+      "entity_id": "strategy",
+      "path": "先核采购/变现政策及经纪渠道；原生 BTC 上的转移不能直接解释为以太坊 DEX 卖压。",
+      "evidence_fact_ids": [
+        "strategy-holdings"
+      ],
+      "classification": "conditional_inference",
+      "probability": null,
+      "watch": "公司持仓变动披露、现金需求、实际处置公告；若涉及包装BTC另核铸造/赎回。",
+      "missing": "目前不支持CEX或OTC或DEX概率排序。",
+      "scenario_id": "institution-cex"
+    },
+    {
+      "id": "etha-route",
+      "entity_id": "etha",
+      "path": "现金赎回 → 指定对手方/Prime 执行；实物赎回 → ETH交付AP，后续卖出须另证实。",
+      "evidence_fact_ids": [
+        "etha-execution",
+        "etha-custody",
+        "etha-owner"
+      ],
+      "classification": "conditional_inference",
+      "probability": null,
+      "watch": "区分现金与实物赎回、份额与持币变化、AP后续实际成交；不能把ETF二级卖出等同即时卖ETH。",
+      "missing": "AP收到币后的交易路由和每笔现金/实物占比未知。",
+      "scenario_id": "redemption"
+    },
+    {
+      "id": "ef-route",
+      "entity_id": "ef",
+      "path": "运营资金需求 → 协议出售/法币出口/链上换币三分支；看实际成交再决定池价冲击。",
+      "evidence_fact_ids": [
+        "ef-sale",
+        "ef-policy"
+      ],
+      "classification": "conditional_inference",
+      "probability": null,
+      "watch": "官方销售披露、授权地址交易、Swap路由、退出/借款实际事件。",
+      "missing": "当前储备缺口、金额、时间和地址集未完成核验。",
+      "scenario_id": "institution-dex"
+    },
+    {
+      "id": "whale-28a5-route",
+      "entity_id": "whale-28a5",
+      "path": "归属与头寸均未核验，暂不生成变现方向结论。",
+      "evidence_fact_ids": [
+        "whale-28a5-address",
+        "whale-28a5-balance"
+      ],
+      "classification": "conditional_inference",
+      "probability": null,
+      "watch": "先复核地址、同区块资产负债；再按真实Swap/清算/还款分类。",
+      "missing": "禁止从标签或大额Transfer直接推断卖出。",
+      "scenario_id": "liquidation"
+    }
+  ],
+  "events": [
+    {
+      "id": "sbet-ef-20250710",
+      "buyer_entity_id": "sharplink",
+      "seller_entity_id": "ef",
+      "asset": "ETH",
+      "quantity": "10000",
+      "consideration_usd": "25723680",
+      "trade_form": "bilateral_agreement",
+      "settlement_chain": "Ethereum mainnet",
+      "settled_at": "2025-07-10",
+      "source_ids": [
+        "sbet-ef"
+      ],
+      "transaction_hash": null,
+      "note": "历史购买事件，不额外累加至当前持仓。"
+    }
+  ],
+  "rules": [
+    "来源等级与事实状态分开；官方披露不等于链上独立复核",
+    "历史数据按as_of保留；缺失值null，不填零",
+    "总额、子集、ETH等值、凭证单位、基金经济敞口禁止重复相加",
+    "链上转账≠DEX成交；托管方≠交易对手方≠最终场所",
+    "未来渠道均为条件推断，无校准概率；无正在抛售的结论"
+  ]
+}

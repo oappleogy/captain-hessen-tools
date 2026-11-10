@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-09",
-  "last_checked_at": "2026-11-09T01:02:35.764420+00:00",
+  "as_of": "2026-11-10",
+  "last_checked_at": "2026-11-10T06:22:30.263292+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-11-06",
+      "checked_at": "2026-11-10",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -168,14 +168,15 @@
       "name": "Nacos A2A Registry",
       "layer": "discovery",
       "stage": "有接入文档",
-      "capability": "Nacos 3.1.0 起支持 Agent 注册、发现、隔离与版本管理。",
+      "capability": "3.3.0正式版增加协议中立Agent管理、RAD发现、运行端点和Java SDK Watch/Push；3.1起已有A2A注册。",
       "source": "https://www.alibabacloud.com/help/en/mse/user-guide/agent-management",
-      "gap": "企业采用与跨注册中心互通。",
+      "gap": "正式版能力以release为据；Next文档描述目录与实际调用分离，迁移兼容、搜索质量和客户采用未实测。",
       "scope": "核心",
       "related": [],
-      "checked_at": "2026-10-08",
+      "checked_at": "2026-11-10",
       "adoption": "未在本轮独立核验生产规模",
-      "participant": "阿里云 / Nacos"
+      "participant": "阿里云 / Nacos",
+      "release_source": "https://github.com/alibaba/nacos/releases"
     },
     {
       "id": "identity-agntcy",
@@ -201,7 +202,7 @@
       "gap": "标准状态、女巫攻击与声誉质量。",
       "scope": "核心",
       "related": [],
-      "checked_at": "2026-10-09",
+      "checked_at": "2026-11-10",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "ERC-8004 社区"
     },
@@ -1191,13 +1192,35 @@
       "new_state": "官方Latest v1.3.0",
       "evidence_type": "官方GitHub Release",
       "next_step": "验证跨版本兼容与恢复行为"
+    },
+    {
+      "id": "nacos-330-20261029",
+      "date": "2026-10-29",
+      "announced_at": "2026-10-29",
+      "observed_at": "2026-11-10",
+      "title": "Nacos 3.3.0正式发布（历史补录）",
+      "type": "产品发布",
+      "summary": "协议中立Agent管理、RAD发现、运行端点及Watch/Push进入正式版本；11月10日补核。",
+      "impact": "提升服务发现与地址更新能力，不等于实际业务调用或支付完成。",
+      "source": "https://github.com/alibaba/nacos/releases",
+      "projects": [
+        "nacos"
+      ],
+      "notify": false,
+      "reader_title": "找帮手的通讯录能管理更多类型的服务",
+      "reader_summary": "目录可以记录怎样联系服务，并跟踪服务地址变化；这是10月29日发布的历史补录。",
+      "reader_impact": "有助找到能接单的助手；是否能顺利订房、维修、付款仍要验证实际协作。",
+      "previous_state": "地图仅记录3.1起A2A注册发现基线",
+      "new_state": "已核验3.3.0正式发布说明",
+      "evidence_type": "官方GitHub Release",
+      "next_step": "核验版本迁移、端点更新及跨框架实际调用"
     }
   ],
   "watchlist": [
     {
       "name": "Higress / Spring AI Alibaba / AgentScope",
       "layer": "network",
-      "question": "HiMarket 上架指南已核验；Higress PR #4650 规范仓库缓存页仍Open（缓存10月20日），自述未发布镜像；实时合并状态、发布与兼容实测仍待核验。"
+      "question": "HiMarket 上架指南已核验；Higress PR #4650 规范仓库缓存页仍Open（缓存10月20日），自述未发布镜像；实时合并状态、发布与兼容实测仍待核验。 11月10日补核Nacos 3.3.0正式发布；RAD迁移与跨框架实测继续查。"
     },
     {
       "name": "支付宝 / Ant International",
@@ -1287,7 +1310,8 @@
       "name": "BILL / Billtrust试点规模与售后",
       "layer": "commerce",
       "source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
-      "question": "追踪正式可用范围、参与客户、实付量、退款争议、费率；联合公告不能代替独立客户证据。"
+      "question": "追踪正式可用范围、参与客户、实付量、退款争议、费率；联合公告不能代替独立客户证据。 Visa另一介绍页标10月16日更新，与10月20日公告不一致，先保留新闻稿日期并核查。",
+      "date_check_source": "https://www.visa.com/en-us/thought-leadership/innovation/first-live-pilot-for-ai-payments"
     },
     {
       "name": "Alchemy / Cloudflare支付失败与退款",
@@ -1303,6 +1327,11 @@
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-10",
+      "status": "部分核验",
+      "note": "部分核验：比较11月9日并回看近7天检索；A2A Latest仍v1.0.1，ERC-8004仍Draft。补核Nacos 10月29日3.3.0正式发布，协议中立Agent管理、RAD发现及运行端点；Next文档单独标注，v3.3文档地址读取失败不等于产品不可用。Visa试点另一页面标10月16日更新，与10月20日新闻稿口径不一致，日期待核，不重发。其他协议、SDK、支付及队列未全量覆盖。"
+    },
     {
       "date": "2026-11-09",
       "status": "部分核验",

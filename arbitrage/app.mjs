@@ -1,3 +1,4 @@
+import {chainRows} from './chain-rows.mjs';
 import {ASSETS,VENUES,loadBook,fill,fresh,compare} from './market.mjs';
 import {collectChain} from './chain.bundle.mjs';
 const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -17,6 +18,7 @@ function render(){
 }
 function metric(label,value,note){return `<div class="metric"><span>${label}</span><b>${value}</b><small>${note}</small></div>`;}
 function renderChain(){
+ $('chain-rows').innerHTML=chainRows(chain,books,chainQ).map(r=>`<tr><td><strong>${r.venue}</strong><small>${r.direction==='dex-sell'?'CEX 买 → DEX 卖':'DEX 买 → CEX 卖'} · ${chainQ} ETH</small></td><td>${num(r.input)}</td><td>${num(r.output)}</td><td class="${r.gross>0?'positive':''}">${num(r.gross)}<small>${num(r.bps)} bps</small></td><td>${r.valid?`${r.block}<small>${clock(r.cexTime)} · ${esc(r.cexTimeKind)}</small>`:'—'}</td><td>${esc(r.reason)}</td></tr>`).join('');
  const ok=chain&&Date.now()-chain.blockTime<=60000&&Date.now()-chain.blockTime>=-5000&&Date.now()-chain.receivedAt<=45000;
  $('chain-status').textContent=chainError?`RPC 覆盖缺口：${chainError}`:chain?`${ok?'报价有效':'报价已过期'} · 区块 ${chain.block} · 区块时间 ${clock(chain.blockTime)} 北京时间 · ${chainQ} ETH`:'正在读取公共 RPC…';
  const a=ok?chain.aave:null,venues=books.filter(b=>ok&&b.asset==='ETH'&&b.quote==='USDT'&&fresh(b)&&Math.abs((b.marketAt??b.receivedAt)-chain.blockTime)<=30000);

@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-10T07:32:43",
-  "data_as_of": "2026-11-09",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-10T21:07:15",
+  "data_as_of": "2026-11-10",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.24,
+      "score": 0.28,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -43,41 +43,41 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.11,
+      "score": -0.21,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
-      "confidence": "★★★",
+      "confidence": "★★",
       "name_cn": "情绪反馈",
-      "status": "neutral"
+      "status": "stressed"
     },
     "C": {
       "name": "C｜协调",
-      "score": 0.05,
+      "score": -0.05,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
-      "confidence": "★★★",
+      "confidence": "⚠",
       "name_cn": "市场协调",
       "status": "neutral"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.08,
+      "score": 0.18,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
-      "confidence": "★★",
+      "confidence": "⚠",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "healthy"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.84,
+      "score": -0.81,
       "state": "▼",
       "light": "red",
       "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
-      "confidence": "★★",
+      "confidence": "★",
       "name_cn": "技术动能",
       "status": "stressed"
     }
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 50.0
+        "pct": 40.0
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 50.0
+        "pct": 60.0
       },
       {
         "key": "TECH_DOM",
@@ -129,10 +129,8 @@
     "early_warning": "无"
   },
   "extremes": {
-    "count": 1,
-    "categories": [
-      "Nasdaq波动率(VXN)=29.1 (历史94%分位)"
-    ]
+    "count": 0,
+    "categories": []
   },
   "opportunities": [],
   "contradiction": {
@@ -147,9 +145,9 @@
     "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
   },
   "key_metrics": {
-    "extreme_count": 1,
+    "extreme_count": 0,
     "vix": {
-      "value": 19.9,
+      "value": 20.1,
       "percentile": 83,
       "desc": "市场恐惧情绪偏高"
     },

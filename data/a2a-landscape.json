@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-10",
-  "last_checked_at": "2026-11-10T06:22:30.263292+00:00",
+  "as_of": "2026-11-11",
+  "last_checked_at": "2026-11-11T01:02:56.836050+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -415,16 +415,17 @@
       "stage": "规范已发布",
       "capability": "提供结账与付款授权凭证；有 A2A、UCP 扩展。",
       "source": "https://ap2-protocol.org/",
-      "gap": "预授权、撤销与争议证据；v0.2 不等于生产规模。",
+      "gap": "实现文档建议管理长期授权、限制有效期并通知用户；外部可信界面的委托管理不在该规范范围内。预算、撤销和争议需验证具体实现。",
       "scope": "核心",
       "related": [
         "a2a",
         "ucp",
         "x402"
       ],
-      "checked_at": "2026-10-16",
+      "checked_at": "2026-11-11",
       "adoption": "未在本轮独立核验生产规模",
-      "participant": "AP2 项目 / Google"
+      "participant": "AP2 项目 / Google",
+      "implementation_source": "https://ap2-protocol.org/ap2/implementation_considerations/"
     },
     {
       "id": "x402",
@@ -484,16 +485,17 @@
       "stage": "规范已发布",
       "capability": "商务流程互操作，声明支持 AP2、A2A、MCP。",
       "source": "https://ucp.dev/",
-      "gap": "商户采用、履约和售后闭环。",
+      "gap": "订房能力入口为草案；取消会话是完成前操作，不等于已确认订单退款。草案要求用户在可信界面审核完成；真实商户接入和售后实测待查。",
       "scope": "核心",
       "related": [
         "ap2",
         "a2a",
         "mcp"
       ],
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-11-11",
       "adoption": "未在本轮独立核验生产规模",
-      "participant": "Google / Shopify 等共同建设"
+      "participant": "Google / Shopify 等共同建设",
+      "booking_source": "https://ucp.dev/draft/specification/lodging/booking/"
     },
     {
       "id": "acp-commerce",
@@ -1324,9 +1326,20 @@
       "layer": "protocol",
       "source": "https://arxiv.org/abs/2611.03066",
       "question": "11月2日预印本，11月9日核验摘要与日期；全文、引用与架构判断待查，不作为产品发布或生产采用证据。"
+    },
+    {
+      "name": "UCP订房草案与AP2授权管理",
+      "layer": "commerce",
+      "source": "https://ucp.dev/draft/specification/lodging/booking/",
+      "question": "11月11日已读草案，核验正式发布、用户确认、已完成预订的取消退款、AP2授权撤销及商户真实采用；不将示例当上线。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-11",
+      "status": "部分核验",
+      "note": "部分核验：比较11月10日并检索近7天线索，读取AP2/UCP及实现细节。UCP订房入口为draft，取消会话限定完成前；草案要求可信界面供用户审核完成。AP2授权管理建议不等于已验证撤销实现。未确认新增重大发布或采用；其他协议、SDK、国内平台及队列未全量覆盖。"
+    },
     {
       "date": "2026-11-10",
       "status": "部分核验",
@@ -1591,9 +1604,9 @@
         "说明人数、日期、预算和老人孩子的需要。",
         "把订房要求送到酒店，把行程变化通知接送方。",
         "让订票、订房和订餐的帮手协调时间。",
-        "告诉你哪些已确认、哪些还在等回复。",
+        "分清正在订、已确认和需你审核；UCP订房草案要求在可信界面核对并完成。",
         "只为你同意的项目付款，总额不能超预算。",
-        "酒店取消了，车票和餐厅能否一起调整或退款？"
+        "取消未完成的订房流程不等于退掉已订酒店；车票、酒店退款仍要分别确认。"
       ]
     },
     {

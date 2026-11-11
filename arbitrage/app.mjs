@@ -1,3 +1,4 @@
+import {rowCosts,initCosts,costSnapshot} from './cost-ui.mjs';
 import {chainRows} from './chain-rows.mjs';
 import {ASSETS,VENUES,loadBook,fill,fresh,compare} from './market.mjs';
 import {collectChain} from './chain.bundle.mjs';
@@ -20,7 +21,7 @@ function render(){
 function metric(label,value,note){return `<div class="metric"><span>${label}</span><b>${value}</b><small>${note}</small></div>`;}
 function renderChain(){
  if(!$('chain-rows'))return;
- $('chain-rows').innerHTML=chainRows(chain,books,chainQ).map(r=>`<tr><td><strong>${r.venue}</strong><small>${r.direction==='dex-sell'?'CEX 买 → DEX 卖':'DEX 买 → CEX 卖'} · ${chainQ} ETH</small></td><td>${num(r.input)}</td><td>${num(r.output)}</td><td class="${r.gross>0?'positive':''}">${num(r.gross)}</td><td>${num(r.bps)}</td><td>${r.valid?`${r.block}<small>${clock(r.cexTime)} · ${esc(r.cexTimeKind)}</small>`:'—'}</td><td>${esc(r.reason)}</td></tr>`).join('');
+ $('chain-rows').innerHTML=chainRows(chain,books,chainQ).map(r=>{const cost=rowCosts(r);return `<tr><td><strong>${r.venue}</strong><small>${r.direction==='dex-sell'?'CEX 买 → DEX 卖':'DEX 买 → CEX 卖'} · ${chainQ} ETH</small><button type="button" data-cost-venue="${r.venue}" data-cost-direction="${r.direction}">设置费用</button></td><td>${num(r.input)}</td><td>${num(r.output)}</td><td class="${r.gross>0?'positive':''}">${num(r.gross)}</td><td>${num(r.bps)}</td><td>${num(cost.total)}</td><td>${num(cost.net)}</td><td>${num(cost.netBps)}</td><td>${num(cost.stressNet)}</td><td>${r.valid?`${r.block}<small>${clock(r.cexTime)} · ${esc(r.cexTimeKind)}</small>`:'—'}</td><td>${esc(r.reason)}<small>${esc(cost.status)}</small></td></tr>`;}).join('');
  const ok=chain&&Date.now()-chain.blockTime<=60000&&Date.now()-chain.blockTime>=-5000&&Date.now()-chain.receivedAt<=45000;
  $('chain-status').textContent=chainError?`RPC 覆盖缺口：${chainError}`:chain?`${ok?'报价有效':'报价已过期'} · 区块 ${chain.block} · 区块时间 ${clock(chain.blockTime)} 北京时间 · ${chainQ} ETH`:'正在读取公共 RPC…';
  const a=ok?chain.aave:null,venues=books.filter(b=>ok&&b.asset==='ETH'&&b.quote==='USDT'&&fresh(b)&&Math.abs((b.marketAt??b.receivedAt)-chain.blockTime)<=30000);
@@ -37,5 +38,5 @@ $('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'恢复巡�
 $('refresh').onclick=()=>{refresh();refreshChain();};if($('asset'))$('asset').onchange=()=>{selected=$('asset').value;render();};
 if($('summary'))$('summary').onclick=e=>{const b=e.target.closest('[data-asset]');if(b){selected=b.dataset.asset;$('asset').value=selected;render();document.querySelector('.detail-head').scrollIntoView({behavior:'smooth',block:'start'});}};
 if($('chain-size'))$('chain-size').onchange=()=>{chain=null;chainError='';chainQ=Number($('chain-size').value);renderChain();if(!paused){if(chainBusy){$('chain-status').textContent='等待当前 RPC 完成后刷新新规模';}else refreshChain();}};
-$('export').onclick=()=>{const payload={exportedAt:new Date().toISOString(),roundAt,mode:'browser_poll',scope:'public_market_only',costs:'unknown',channels:'unknown',books,chain,chainQuantity:chainQ};const u=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='basealpha-arbitrage-snapshot.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
-render();refresh();refreshChain();setInterval(()=>{refresh();refreshChain();},30000);setInterval(render,1000);
+$('export').onclick=()=>{const payload={exportedAt:new Date().toISOString(),roundAt,mode:'browser_poll',scope:'public_market_only',costs:{kind:'manual_budget_not_verified',profiles:costSnapshot()},channels:'unknown',books,chain,chainQuantity:chainQ};const u=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='basealpha-arbitrage-snapshot.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
+initCosts(renderChain);render();refresh();refreshChain();setInterval(()=>{refresh();refreshChain();},30000);setInterval(render,1000);

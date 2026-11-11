@@ -1,0 +1,2 @@
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+fetch('./modes.json').then(r=>{if(!r.ok)throw Error();return r.json();}).then(d=>{$('mode-list').innerHTML=d.modes.map(m=>`<article><span class="tag ${m.state==='研究框架'?'pending':''}">${esc(m.state)}</span><h3>${esc(m.name)}</h3><p>${esc(m.desc)}</p><p class="watch">${esc(m.watch)}</p><a href="${esc(m.link)}">${esc(m.label)} →</a></article>`).join('');}).catch(()=>{$('mode-list').textContent='模式库加载失败，请刷新页面重试。';});

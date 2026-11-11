@@ -1,0 +1,2 @@
+export function numericValue(text){const s=String(text).trim().replaceAll(',','');const m=s.match(/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)/);return m&&Number.isFinite(Number(m[0]))?Number(m[0]):null;}
+export function sortedIndices(values,direction='desc'){return values.map((v,i)=>({v,i})).sort((a,b)=>{if(a.v==null&&b.v==null)return a.i-b.i;if(a.v==null)return 1;if(b.v==null)return -1;const cmp=typeof a.v==='number'&&typeof b.v==='number'?a.v-b.v:String(a.v).localeCompare(String(b.v),'zh-CN',{numeric:true});return (direction==='asc'?cmp:-cmp)||a.i-b.i;}).map(x=>x.i);}

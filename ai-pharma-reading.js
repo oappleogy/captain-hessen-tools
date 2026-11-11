@@ -11,3 +11,13 @@ document.querySelectorAll('[data-buyer]').forEach(b=>b.addEventListener('click',
 const target=document.getElementById('reading-updates');
 fetch('data/research-topics.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(data=>{const t=data.topics.find(t=>t.id==='ai-pharma');if(!t)throw Error();target.replaceChildren();for(const n of [...t.updates].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3)){const row=document.createElement('div');row.className='reading-update';const h=document.createElement('h3');h.textContent=n.title;const p=document.createElement('p');p.textContent=n.body;const meta=document.createElement('small');meta.textContent=`研究记录 ${n.date} · 观察期 ${n.source_period}`;row.append(h,p,meta);target.append(row)}}).catch(()=>{target.textContent='更新记录暂时无法读取；正文的来源日期仍可查阅，完整维护记录见下方入口。';target.className='reading-updates-error'});
 })();
+
+// Company deep links remain usable after a stage or text filter is applied.
+document.querySelectorAll('.tracking-jumps a').forEach(a=>a.addEventListener('click',()=>{
+  const input=document.getElementById('candidate-search');
+  input.value='';
+  input.dispatchEvent(new Event('input',{bubbles:true}));
+  document.querySelector('[data-screen="0"]').click();
+  const card=document.querySelector(a.getAttribute('href'));
+  if(card) requestAnimationFrame(()=>card.scrollIntoView({block:'start'}));
+}));

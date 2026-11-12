@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-12T11:03:21.722030+00:00",
-  "last_research_at": "2026-11-12T11:03:21.722030+00:00",
+  "updated_at": "2026-11-12T12:09:16.858568+00:00",
+  "last_research_at": "2026-11-12T12:09:16.858568+00:00",
   "last_market_observation_at": "2026-11-12T11:01:26+00:00",
-  "status": "首次预注册观察已独立对账；两方向费后边际均为负，该试点结束",
+  "status": "转入资金费/基差机制：已核现金流时钟与独立反例；本轮无新行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -54,13 +54,13 @@
     "低延迟服务未部署，离线门禁不代表实时监控"
   ],
   "recent": [
-    "Scout：8/8固定块读取，实际采集及区块时间位于预注册窗口。",
-    "Risk/Postmortem：精确有理数复算两方向均≤0，冻结假设获这一次观察支持；二元误差0，不是盈利或策略准确率。",
-    "较便宜池已由3000池变为500池；旧方向不能当作当前机会。"
+    "Mechanism：官方规则区分资金费计提、权益及可提现时间；不能拿尚不可提现的收益去假设另一场所已获保证金。",
+    "Risk/Quant：新合成反例中资金费净收+0.50 TEST_USDC，基差扩大和成本后净值−0.25；不是实际交易亏损。",
+    "Deribit已受阻API继续停止；当前资金费候选无规模报价，净收益未知。"
   ],
   "next": [
-    "结束此Base观察试点，不按新日期反复采样。",
-    "Mechanism/Scout：转独立币圈资金费/基差机制，先核现金流和结算条件，遵守停止清单。"
+    "Scout/Execution：独立Kraken ETH现货/永续至多8读预检与数据包，具体标识/端点先核；不照搬Deribit规则。",
+    "下轮第12个实际轮次完成项目审查，评估数据缺口和继续/转向。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -72,10 +72,11 @@
   "collection_started_at": "2026-11-12T11:01:25.294762+00:00",
   "collection_completed_at": "2026-11-12T11:01:30.499040+00:00",
   "current_round": {
-    "task_id": "OOS-FEE-BOUND-01",
-    "market_collection": true,
-    "source_time": "2026-11-12T11:01:26+00:00",
-    "external_market_requests": 8
+    "task_id": "FUNDING-MECHANISM-01",
+    "market_collection": false,
+    "source_time": null,
+    "external_market_requests": 0,
+    "public_document_reads": 3
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",

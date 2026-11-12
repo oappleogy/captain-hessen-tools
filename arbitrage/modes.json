@@ -150,11 +150,21 @@
       "trigger": "预计费率、已结算费率、基差与盘口",
       "verification": "完整开平仓及逐期现金流、保证金",
       "risks": "费率翻转、基差扩大、ADL/清算",
-      "status": "已有历史费率研究；完整持有期未核验",
+      "status": "资金费计提/结算/可提现分层已核文档并通过合成反例；当前候选与全成本未知",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
+      "next": "独立Kraken ETH现货/永续有界数据预检；先核停止清单，不沿用Deribit结算时钟",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "Deribit文档：计入权益与可提现现金不同；独立合成反例不代表市场收益。",
+      "sources": [
+        {
+          "label": "Deribit Support D-FUNDING",
+          "url": "https://support.deribit.com/hc/en-us/articles/31424939178397-Funding-Specifications"
+        },
+        {
+          "label": "Deribit Support D-LINEAR",
+          "url": "https://support.deribit.com/hc/en-us/articles/31424969384605-Linear-Perpetual"
+        }
+      ]
     },
     {
       "id": "MECH-008",

@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-12T10:05:34.212060+00:00",
-  "last_research_at": "2026-11-12T10:05:34.212060+00:00",
-  "last_market_observation_at": "2026-11-12T08:02:08+00:00",
-  "status": "完成样本与前瞻链路对账；本轮未采新行情，下一次观察已预注册",
+  "updated_at": "2026-11-12T11:03:21.722030+00:00",
+  "last_research_at": "2026-11-12T11:03:21.722030+00:00",
+  "last_market_observation_at": "2026-11-12T11:01:26+00:00",
+  "status": "首次预注册观察已独立对账；两方向费后边际均为负，该试点结束",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -13,14 +13,14 @@
       "asset": "WETH / 原生USDC（Circle文档地址匹配）",
       "pool": "0xd0b53d9277642d899df5c87a3966a349a798f224",
       "fee_input": "500 / 1,000,000",
-      "status": "固定块56400765边际价格 2049.36895 USDC/WETH；不是规模成交报价"
+      "status": "固定块56454553边际价格 2043.08797 USDC/WETH；非规模成交报价"
     },
     {
       "network": "Base",
       "asset": "WETH / 原生USDC（Circle文档地址匹配）",
       "pool": "0x6c561b446416e1a00e8e93e221854d6ea4171372",
       "fee_input": "3000 / 1,000,000",
-      "status": "固定块56400765边际价格 2044.28673 USDC/WETH；不是规模成交报价"
+      "status": "固定块56454553边际价格 2045.27145 USDC/WETH；非规模成交报价"
     }
   ],
   "candidates": [
@@ -34,22 +34,33 @@
       "unknown_costs": "gas、借贷、失败成本及全成本净收益未知；毛24.86058bp，交易费后边际−10.21140bp",
       "expires_at": "仅此固定块；历史样本，不可当前下单",
       "risks": "标准独立V3语义为条件；不能外推未来或全市场"
+    },
+    {
+      "id": "BASE-WETH-USDC-56454553",
+      "status": "REJECTED｜条件费后边际为负，历史时点样本",
+      "direction": "500池买WETH → 3000池卖WETH",
+      "observed_at": "2026-11-12 19:01:26 北京时间；块56454553",
+      "size": "边际检验；未做有限规模报价",
+      "net_edge": null,
+      "unknown_costs": "毛10.68715bp；交易费后边际−24.33523bp；gas/借贷/失败成本未知",
+      "expires_at": "仅此固定块，已过期，不可当前下单",
+      "risks": "标准独立V3语义为条件；未验证部署代码、最终性和全成本"
     }
   ],
   "gaps": [
-    "无连续历史事件采集；仅一次价格状态样本",
-    "有限规模报价未执行：本块负上界已足以否决",
-    "部署语义、最终性及全成本仍存在未知",
-    "门禁仅单线程离线；并发、队列容量、链状态真实性及实时延迟未验收"
+    "仅两个离散价格时点，无持续历史事件采集",
+    "本块负边际必要条件终止，未进行有限规模报价",
+    "部署代码、最终性、全成本未知；无实际交易收益",
+    "低延迟服务未部署，离线门禁不代表实时监控"
   ],
   "recent": [
-    "Postmortem/Risk：前8轮3批链上读取、18个成功RPC响应，仅形成1个双池价格样本和1个条件性拒绝，不能当成18个机会。",
-    "前8轮冻结预测0、关联后验0，覆盖率未知（分母0），不是漏采或收益率。",
-    "新预注册：19:00–19:20北京时间只观察一次两方向费后边际是否仍≤0；失败与错过单列，不代表可交易机会。"
+    "Scout：8/8固定块读取，实际采集及区块时间位于预注册窗口。",
+    "Risk/Postmortem：精确有理数复算两方向均≤0，冻结假设获这一次观察支持；二元误差0，不是盈利或策略准确率。",
+    "较便宜池已由3000池变为500池；旧方向不能当作当前机会。"
   ],
   "next": [
-    "Scout：在预注册窗口独立采集，超过窗口记录MISSED，不补采。",
-    "Postmortem/Risk：按冻结条件对账一次，结束Base试点；后续转独立资金费/基差数据路径。"
+    "结束此Base观察试点，不按新日期反复采样。",
+    "Mechanism/Scout：转独立币圈资金费/基差机制，先核现金流和结算条件，遵守停止清单。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -58,19 +69,20 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-12T08:02:07.391740+00:00",
-  "collection_completed_at": "2026-11-12T08:02:13.486209+00:00",
+  "collection_started_at": "2026-11-12T11:01:25.294762+00:00",
+  "collection_completed_at": "2026-11-12T11:01:30.499040+00:00",
   "current_round": {
-    "task_id": "OUTCOME-COVERAGE-01",
-    "market_collection": false,
-    "source_time": null,
-    "external_market_requests": 0
+    "task_id": "OOS-FEE-BOUND-01",
+    "market_collection": true,
+    "source_time": "2026-11-12T11:01:26+00:00",
+    "external_market_requests": 8
   },
   "outcome_coverage": {
-    "scope": "round1–8",
-    "frozen_predictions": 0,
-    "matched_outcomes": 0,
-    "ratio": null,
-    "new_pending_forecast": "OOS-FEE-BOUND-01"
+    "scope": "one registered conditional forecast",
+    "frozen_predictions": 1,
+    "matched_outcomes": 1,
+    "ratio": 1,
+    "pending": 0,
+    "note": "覆盖1/1不是策略成功率"
   }
 }

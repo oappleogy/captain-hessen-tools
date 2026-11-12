@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-11",
-  "last_checked_at": "2026-11-11T01:02:56.836050+00:00",
+  "as_of": "2026-11-12",
+  "last_checked_at": "2026-11-12T03:04:39.298524+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -79,7 +79,7 @@
         "crewai",
         "a2a-cli"
       ],
-      "checked_at": "2026-11-10",
+      "checked_at": "2026-11-12",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "A2A 项目 / Linux Foundation"
     },
@@ -694,10 +694,11 @@
       "scope": "相邻：通用观测工具",
       "source": "https://langfuse.com/docs/observability/best-practices",
       "capability": "按步骤、任务和会话组织追踪，提供任务树、Agent 图及模型调用成本记录。",
-      "gap": "原生 A2A 跨服务上下文传播、端到端归因和业务交付正确性未核验；图示不等于协议互通。",
+      "gap": "原生A2A跨服务传播和业务交付正确性未核验。Python导出阶段脱敏可覆盖第三方埋点；脱敏函数异常或返回整体无效会丢弃该批追踪，单条补丁无效只丢对应记录。需实测脱敏覆盖与日志完整性。",
       "adoption": "官方通用观测文档；未独立核验 A2A 生产采用",
       "related": [],
-      "checked_at": "2026-10-12"
+      "checked_at": "2026-11-12",
+      "masking_source": "https://langfuse.com/docs/observability/features/masking"
     },
     {
       "id": "safe",
@@ -1247,7 +1248,7 @@
     {
       "name": "OpenTelemetry / Langfuse / Phoenix / AgentOps",
       "layer": "operations",
-      "question": "GenAI 旧文档已迁移至 open-telemetry/semantic-conventions-genai；已找到新仓库，字段稳定性与原生 A2A 支持仍待核验，其他工具继续排队。"
+      "question": "11月12日读GenAI新仓库README/CHANGELOG，涉及GenAI与MCP，CHANGELOG为Unreleased；字段稳定性及原生A2A待查。Langfuse导出脱敏文档已读，覆盖、异常丢批及实际日志完整性待实测；Phoenix、AgentOps继续排队。"
     },
     {
       "name": "托管支付 / 结果验收 / 退款争议",
@@ -1332,9 +1333,19 @@
       "layer": "commerce",
       "source": "https://ucp.dev/draft/specification/lodging/booking/",
       "question": "11月11日已读草案，核验正式发布、用户确认、已完成预订的取消退款、AP2授权撤销及商户真实采用；不将示例当上线。"
+    },
+    {
+      "name": "PayAI Network",
+      "layer": "payment",
+      "question": "11月12日近7天检索发现第三方目录线索；官方协议支持、费率、退款与真实采用均待核验，不计入已核实项目。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-12",
+      "status": "部分核验",
+      "note": "部分核验：对照11月11日并检索近7天线索；A2A发布页仍为v1.0.1，coinbase/x402发布页未列Release，不能据此判断协议无变化。补读Langfuse脱敏文档与OpenTelemetry GenAI新仓库README/CHANGELOG；后者为Unreleased，原生A2A和字段稳定性继续待查。未确认重大新增；其他支付网络、国内平台与队列未全量覆盖。"
+    },
     {
       "date": "2026-11-11",
       "status": "部分核验",
@@ -1537,7 +1548,7 @@
       "analogy": "像查物流、留回执和质检",
       "now": "已有查看任务过程、测试通信是否符合规则的工具。",
       "status": "已有过程检查",
-      "gap": "看到“执行成功”还不够，仍要检查结果是否符合你的要求。",
+      "gap": "看到“执行成功”还不够，仍要检查结果是否符合要求。留办事记录时也要遮住敏感信息；日志处理出错可能漏记，不能把没有记录当成没有发生。",
       "next": "要能追到哪个环节出了错，保存交付证据，并把问题讲给你听。",
       "projects": [
         "observe",

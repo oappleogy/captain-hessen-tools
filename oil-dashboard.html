@@ -19,7 +19,7 @@
 const RC={"无":"#16a34a","间接":"#d97706","部分":"#d97706","高度依赖":"#dc2626","极高":"#dc2626","极低":"#16a34a","低-中等":"#22c55e","中等":"#d97706"};
 
 const BENCHMARKS = [
-  {name:"ICE Brent (BFOET)",cur:"USD",settle:"EFP+现金结算",origin:"北海(英+挪)+WTI Midland",quality:"轻质低硫",api:38,sulfur:0.4,buyers:"全球78%出口原油以此定价",storage:"Sullom Voe/Hound Point/挪威+浮仓",route:"北海→欧洲 | 好望角→亚洲",hormuz:"间接",note:"原2026年4月记录：Dated Brent现货$141 vs 期货$109；对应报价日与合约月份未复核，不作当前报价或价差。",color:"#0ea5e9",exchange:"洲际交易所欧洲 (ICE Futures Europe)"},
+  {name:"ICE Brent (BFOET)",cur:"USD",settle:"EFP+现金结算",origin:"北海(英+挪)+WTI Midland",quality:"轻质低硫",api:38,sulfur:0.4,buyers:"全球78%出口原油以此定价",storage:"Sullom Voe/Hound Point/挪威+浮仓",route:"北海→欧洲 | 好望角→亚洲",hormuz:"间接",note:"原2026年4月记录：Dated Brent现货$141 vs 期货$109；对应报价日与合约月份未复核，不作当前报价或价差。11月10日EIA STEO（输入截至11月5日）预测2026年余下时间Brent近100美元/桶、2027年Q4均价77美元/桶，条件是中东除伊朗外多数产量在2027年中恢复战前水平；这是情景预测，不是今日报价。较旧四月快照，新增证据支持短期运输约束但不支持把高价永久外推，实时价差仍待核。",source:"https://www.eia.gov/outlooks/steo/report/",source_checked_on:"11月12日",color:"#0ea5e9",exchange:"洲际交易所欧洲 (ICE Futures Europe)"},
   {name:"NYMEX WTI",cur:"USD",settle:"物理交割(库欣)",origin:"美国二叠纪/Bakken/Eagle Ford",quality:"轻质低硫",api:39.6,sulfur:0.24,buyers:"国内炼厂+出口400万桶/日（原4月量级，非本周出口）",storage:"库欣OK—9100万桶储罐（原容量口径，非实际库存）",route:"管道→库欣→墨西哥湾出口",hormuz:"无",note:"EIA 11月4日发布、截至10月30日一周：美国商业原油库存4.098亿桶，环比减少90万桶，低于五年同期均值4%；不含SPR，也不是库欣库存。炼厂利用率94.5%。库存偏低支持关注缓冲，但不能据此确认WTI安全溢价或上涨方向。",source:"https://www.eia.gov/petroleum/supply/weekly/archive/2026/2026_11_04/download/summary.txt",color:"#ef4444",exchange:"纽约商品交易所 (NYMEX/CME集团)"},
   {name:"DME Oman (OQD)",cur:"USD",settle:"物理交割(FOB)",origin:"阿曼~85万桶/日",quality:"中质中硫",api:31,sulfur:0.8,buyers:"沙特/科威特/阿曼/巴林均采用",storage:"Mina al Fahal港(阿曼湾)",route:"阿曼湾→直航亚洲",hormuz:"无(海峡外)",note:"定价520万桶/日；不受OPEC配额",color:"#f59e0b",exchange:"海湾商品交易所 (GME, 原迪拜商品交易所)"},
   {name:"ICE Murban",cur:"USD",settle:"物理交割(FOB Fujairah)",origin:"阿联酋Abu Dhabi陆上",quality:"轻质低硫",api:40,sulfur:0.8,buyers:"亚洲:中日韩印",storage:"Fujairah港(ADCOP管道)",route:"ADCOP→Fujairah→亚洲",hormuz:"部分",note:"2021上线；海上油田仍依赖海峡",color:"#22c55e",exchange:"洲际交易所阿布扎比 (ICE Futures Abu Dhabi)"},
@@ -144,7 +144,7 @@ function App(){
                   <div><span style={{color:"#94a3b8",fontSize:10}}>交割仓储</span><br/>{b.storage}</div>
                   <div style={{gridColumn:"span 2"}}><span style={{color:"#94a3b8",fontSize:10}}>航运线路</span><br/>{b.route}</div>
                 </div>
-                <div style={{marginTop:4,padding:"5px 8px",background:"#f0f4f8",borderRadius:5,color:b.color,fontSize:10,fontWeight:600,borderLeft:`2px solid ${b.color}`}}>{b.note} {b.source&&<a href={b.source} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()}>EIA原文 · 11月5日复核</a>}</div>
+                <div style={{marginTop:4,padding:"5px 8px",background:"#f0f4f8",borderRadius:5,color:b.color,fontSize:10,fontWeight:600,borderLeft:`2px solid ${b.color}`}}>{b.note} {b.source&&<a href={b.source} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()}>EIA原文 · {o.source_checked_on || "11月5日"}复核</a>}</div>
               </div>}
             </div>;})}
         </div>}

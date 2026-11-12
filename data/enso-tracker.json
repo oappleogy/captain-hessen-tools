@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-10",
+  "last_updated": "2026-11-12",
   "next_update": "2026-11-12",
-  "data_window": "ONI: ASO 26; N34_SST: 04NOV2026; SOI: 30-day to 2026-10-25; MEI_V2: SO 2026 双月",
+  "data_window": "ONI: ASO 26; N34_SST: 04NOV2026; SOI: 30-day to 2026-11-08; MEI_V2: SO 2026 双月",
   "current_state": {
     "label": "厄尔尼诺继续增强 · El Niño Advisory",
     "phase": "el_nino",
@@ -75,25 +75,28 @@
       "code": "SOI",
       "name": "Southern Oscillation Index",
       "name_zh": "南方涛动指数",
-      "value": -16.6,
+      "value": -14.4,
       "unit": "",
-      "window": "30-day to 2026-10-25",
+      "window": "30-day to 2026-11-08",
       "trend": [
-        -16.6
+        -16.6,
+        -14.4
       ],
       "thresholds": {
         "el_nino": -7,
         "la_nina": 7
       },
-      "note": "BoM 10月27日公告：截至10月25日30天SOI为-16.6。仅核验此点，不接续旧无日期曲线；直连403，公开页面可读，本项仍需人工核验。",
-      "source": "BoM Southern Hemisphere Monitoring · 2026-10-27发布",
+      "note": "BoM 11月10日公告：截至11月8日30天SOI为-14.4，较此前已核验10月25日的-16.6负值减小，但仍低于-7；不能仅据两点宣称事件结束或确定地区降水。11月12日人工读取公告顶部当期摘要；不混用页面后部旧年份说明。",
+      "source": "BoM Southern Hemisphere Monitoring · 2026-11-10发布",
       "stale": false,
       "trend_labels": [
-        "30-day to 2026-10-25"
+        "30-day to 2026-10-25",
+        "30-day to 2026-11-08"
       ],
       "source_url": "https://www.bom.gov.au/climate/enso/",
-      "announced_on": "2026-10-27",
-      "observation_end": "2026-10-25"
+      "announced_on": "2026-11-10",
+      "observation_end": "2026-11-08",
+      "checked_on": "2026-11-12"
     },
     {
       "code": "MEI_V2",
@@ -202,9 +205,10 @@
   ],
   "watch_windows": [
     {
-      "date": "2026-11-11",
+      "date": "2026-11-10",
       "tag": "供需",
-      "label": "北京时间01:00：USDA十一月WASDE计划发布（美东11月10日12:00）；十月报告已披露，不能把下一期计划当事实"
+      "label": "USDA十一月WASDE已发布（美东11月10日）；11月12日核验全球四品种年度预测并回填农产品原表，棕榈油仍保留十月待核。",
+      "source_url": "https://esmis.nal.usda.gov/sites/default/release-files/796142/wasde1126.pdf"
     },
     {
       "date": "2026-11-12",
@@ -275,5 +279,5 @@
     "SOI、MEI各按原观察窗解读，不当作今日实时值；旧模型未重算。",
     "原三分类概率表未核验发布期，已归档。"
   ],
-  "observation_summary": "ONI: 2.46（ASO 26）；N34_SST: 3.3（04NOV2026）；SOI: -16.6（30-day to 2026-10-25）；MEI_V2: 2.53（SO 2026 双月）"
+  "observation_summary": "ONI: 2.46（ASO 26）；N34_SST: 3.3（04NOV2026）；SOI: -14.4（30-day to 2026-11-08）；MEI_V2: 2.53（SO 2026 双月）"
 }

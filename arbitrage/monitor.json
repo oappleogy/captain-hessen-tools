@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-12T06:05:01.984211+00:00",
-  "last_research_at": "2026-11-12T06:05:01.984211+00:00",
+  "updated_at": "2026-11-12T06:59:43.126982+00:00",
+  "last_research_at": "2026-11-12T06:59:43.126982+00:00",
   "last_market_observation_at": null,
-  "status": "已完成一个固定区块的双池元数据采样；尚无已核验套利机会",
+  "status": "双池元数据阶段完成；进入价格与流动性采样，尚无已核验机会",
   "pool_addresses": 2,
   "verified_pairs": 0,
   "two_leg_quotes": 0,
@@ -10,34 +10,36 @@
   "markets": [
     {
       "network": "Base",
-      "asset": "WETH / 候选 USDC（第二资产身份待核）",
+      "asset": "WETH / 原生USDC（Circle文档地址匹配）",
       "pool": "0xd0b53d9277642d899df5c87a3966a349a798f224",
       "fee_input": "500 / 1,000,000",
-      "status": "固定块token0/token1/fee已读取并独立复核；发行人身份、精度及价格待核"
+      "status": "固定块token及fee已核；发行人文档地址匹配；精度/流动性/价格待核"
     },
     {
       "network": "Base",
-      "asset": "WETH / 候选 USDC（第二资产身份待核）",
+      "asset": "WETH / 原生USDC（Circle文档地址匹配）",
       "pool": "0x6c561b446416e1a00e8e93e221854d6ea4171372",
       "fee_input": "3000 / 1,000,000",
-      "status": "固定块token0/token1/fee已读取并独立复核；发行人身份、精度及价格待核"
+      "status": "固定块token及fee已核；发行人文档地址匹配；精度/流动性/价格待核"
     }
   ],
   "candidates": [],
   "gaps": [
-    "第二资产发行人身份、精度、池代码仍待核",
-    "尚无流动性、价格、双腿规模报价及全成本净收益",
-    "单个固定块元数据快照不是持续历史事件采集；latest块最终性未核",
-    "下游刷新队列领取/完成时版本门禁尚未实现"
+    "精度、池代码、流动性及价格尚未取得",
+    "双腿规模报价及全成本净收益未知",
+    "单次元数据快照不等于持续历史采集；最终性未核",
+    "来源身份核对保存摘要，未归档Circle原始HTTP全文",
+    "刷新队列领取/完成版本门禁待实现"
   ],
   "recent": [
-    "Scout：8/8 RPC成功；Base链号8453，区块56365236，两池绑定同一hash。",
-    "Risk：原件哈希、ABI、费率500/3000及精确请求时点核验通过；仅元数据验收。"
+    "Mechanism：Circle当前目录及上线公告记录的Base原生USDC地址与两池token1一致。",
+    "Risk：仅本地摘要交叉审核；D01限定元数据阶段完成，不表示赎回资格或净收益核验。",
+    "第6轮审查：双腿报价仍0，优先实际价格与流动性采样，暂缓扩链扩池和数据库设施。"
   ],
   "next": [
-    "Mechanism：核定第二资产发行人身份及可比权利",
-    "Scout/Execution：独立预检后取得固定块精度、价格与流动性",
-    "Orchestrator：第6轮复核实际候选漏斗和数据闭环缺口"
+    "Scout：已审8RPC固定块精度、价格、流动性采样",
+    "Quant/Execution：一个方向一个规模双腿报价，或明确终态拒绝",
+    "Execution：generation消费门禁；不扩链扩池"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {

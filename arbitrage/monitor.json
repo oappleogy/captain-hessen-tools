@@ -1,0 +1,44 @@
+{
+  "updated_at": "2026-11-12T03:20:05.973293+00:00",
+  "last_research_at": "2026-11-12T03:00:46.189910Z",
+  "last_market_observation_at": null,
+  "status": "目录采样阶段；持续行情采集未启动",
+  "pool_addresses": 2,
+  "verified_pairs": 0,
+  "two_leg_quotes": 0,
+  "verified_opportunities": 0,
+  "markets": [
+    {
+      "network": "Base",
+      "asset": "WETH / 候选 USDC（第二资产身份待核）",
+      "pool": "0xd0b53d9277642d899df5c87a3966a349a798f224",
+      "fee_input": "500 / 1,000,000",
+      "status": "已取得 factory 返回地址；池身份待核"
+    },
+    {
+      "network": "Base",
+      "asset": "WETH / 候选 USDC（第二资产身份待核）",
+      "pool": "0x6c561b446416e1a00e8e93e221854d6ea4171372",
+      "fee_input": "3000 / 1,000,000",
+      "status": "已取得 factory 返回地址；池身份待核"
+    }
+  ],
+  "candidates": [],
+  "gaps": [
+    "尚无固定区块、完整代币身份及池状态核验",
+    "尚无价格、深度、双腿规模报价和全成本净收益",
+    "历史事件序列、连续采集及低延迟探测器未启动",
+    "首轮请求精确时间缺失；两次 latest 查询不能视为同块",
+    "首轮新鲜独立前置审核未完成；后续采样必须先补审核"
+  ],
+  "recent": [
+    "Scout：保存两个池地址原始响应，独立审核部分接受，未完成身份验收。",
+    "Mechanism / Quant：完成两腿手续费门槛模型；35.1078 bp仅为特定费率下的必要条件，不是市场价差。",
+    "Risk：模型复算通过；机会判断仍为VETO。"
+  ],
+  "next": [
+    "Execution：离线事件路由器及去重、乱序、无前视测试",
+    "Scout：前置审核后补固定块身份和池状态采样",
+    "Risk：独立验收，证据不足保持未知"
+  ]
+}

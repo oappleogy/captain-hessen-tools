@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-12T12:09:16.858568+00:00",
-  "last_research_at": "2026-11-12T12:09:16.858568+00:00",
-  "last_market_observation_at": "2026-11-12T11:01:26+00:00",
-  "status": "转入资金费/基差机制：已核现金流时钟与独立反例；本轮无新行情",
+  "updated_at": "2026-11-12T13:13:39.197391+00:00",
+  "last_research_at": "2026-11-12T13:13:39.197391+00:00",
+  "last_market_observation_at": null,
+  "status": "已取得Kraken ETH现货/永续盘口；不同步且关键成本未知，不能升级机会",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -21,6 +21,20 @@
       "pool": "0x6c561b446416e1a00e8e93e221854d6ea4171372",
       "fee_input": "3000 / 1,000,000",
       "status": "固定块56454553边际价格 2045.27145 USDC/WETH；非规模成交报价"
+    },
+    {
+      "network": "Kraken",
+      "asset": "ETH/USD spot",
+      "pool": "XETHZUSD / ETHUSD",
+      "fee_input": "unknown",
+      "status": "0.1ETH显示买价199.19USD，事后选规模；非成交"
+    },
+    {
+      "network": "Kraken Futures",
+      "asset": "ETH/USD linear perp",
+      "pool": "PF_ETHUSD",
+      "fee_input": "unknown",
+      "status": "0.1ETH显示卖价198.85USD；资金费/账户结算未知"
     }
   ],
   "candidates": [
@@ -45,22 +59,32 @@
       "unknown_costs": "毛10.68715bp；交易费后边际−24.33523bp；gas/借贷/失败成本未知",
       "expires_at": "仅此固定块，已过期，不可当前下单",
       "risks": "标准独立V3语义为条件；未验证部署代码、最终性和全成本"
+    },
+    {
+      "id": "KRAKEN-ETHUSD-PF-20261112T131015Z",
+      "status": "RESEARCH_ONLY｜不同步/成本缺失；非已核验机会",
+      "direction": "现货多+永续空；反向需借币",
+      "observed_at": "接收时点约2026-11-12 21:10北京时间；统一源时间未知",
+      "size": "0.1ETH事后诊断，未预注册",
+      "net_edge": null,
+      "unknown_costs": "入场基差−0.34USD；反向+0.1181USD不等利润。借贷、资金费路径、手续费、退出未知",
+      "expires_at": "历史独立盘口快照，已过期；不可当前下单",
+      "risks": "接收间隔3.88575秒不证明同步；Risk禁止升级机会"
     }
   ],
   "gaps": [
-    "仅两个离散价格时点，无持续历史事件采集",
-    "本块负边际必要条件终止，未进行有限规模报价",
-    "部署代码、最终性、全成本未知；无实际交易收益",
-    "低延迟服务未部署，离线门禁不代表实时监控"
+    "连续历史/事件采集与低延迟服务未部署",
+    "Kraken资金费路径、账户费率、借币、退出与同步性未知",
+    "两个Base历史样本已否决，试点终止；不能据此推断全市场无机会"
   ],
   "recent": [
-    "Mechanism：官方规则区分资金费计提、权益及可提现时间；不能拿尚不可提现的收益去假设另一场所已获保证金。",
-    "Risk/Quant：新合成反例中资金费净收+0.50 TEST_USDC，基差扩大和成本后净值−0.25；不是实际交易亏损。",
-    "Deribit已受阻API继续停止；当前资金费候选无规模报价，净收益未知。"
+    "Scout：5次公开API成功及1次官方规范局部读取，取得独立场所两腿盘口。",
+    "Risk：独立复算显示深度；0.1ETH事后选择未满足事前规模验收，接收相差3.88575秒。",
+    "第12轮复盘：实质采样有所推进，但连续采集与全成本候选仍未完成。"
   ],
   "next": [
-    "Scout/Execution：独立Kraken ETH现货/永续至多8读预检与数据包，具体标识/端点先核；不照搬Deribit规则。",
-    "下轮第12个实际轮次完成项目审查，评估数据缺口和继续/转向。"
+    "限定一次4读资金费/成本证据包；仍缺关键证据则终止此分支，转兑换赎回/预测份额。",
+    "只有经济条件可核时再事前声明新规模和同步时限，不重用旧盘口。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -69,14 +93,13 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-12T11:01:25.294762+00:00",
-  "collection_completed_at": "2026-11-12T11:01:30.499040+00:00",
+  "collection_started_at": "2026-11-12T13:09:48.267224+00:00",
+  "collection_completed_at": "2026-11-12T13:10:30.101819+00:00",
   "current_round": {
-    "task_id": "FUNDING-MECHANISM-01",
-    "market_collection": false,
+    "task_id": "FUNDING-DATA-PREFLIGHT-01",
+    "market_collection": true,
     "source_time": null,
-    "external_market_requests": 0,
-    "public_document_reads": 3
+    "external_reads": 6
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -85,5 +108,6 @@
     "ratio": 1,
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
-  }
+  },
+  "last_market_observation_note": "本轮统一源快照时间未知；旧Base区块时间仅见历史候选。"
 }

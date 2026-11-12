@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-11-11 08:16",
-  "date": "2026-11-11",
+  "last_updated": "2026-11-12 08:16",
+  "date": "2026-11-12",
   "generation_model": "MiniMax-M2.5",
   "source_counts": {
     "wallstreetcn": 0,
@@ -10,24 +10,57 @@
   },
   "keywords": [
     {
-      "keyword": "英伟达黄仁勋调查",
-      "heat": 96,
-      "category": "ai-tech",
-      "summary": "英伟达就黄仁勋事件启动独立调查，并聘请前检察官参与",
+      "keyword": "中东军事冲突",
+      "heat": 99,
+      "category": "geo",
+      "summary": "胡塞袭击沙特机场与油站，伊朗相关冲突推升能源及航运风险",
       "sources": [
         "财联社",
-        "ABC News"
+        "CBS News",
+        "Reuters"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-11 08:09",
-          "text": "【英伟达独立董事聘请前检察官与华尔街顶级律所 就黄仁勋事件展开调查】财联社11月11日电，据11月10日声明，英伟达独立董事已聘请美国纽约南区前代理联邦检察官Joon H. Kim及其所在的沃奇尔·立普顿律师事务所开展独立调查。英伟达董事会此前于11月8日宣布启动一项独立调查，此次调查将由一个独立董事委员会负责监督，并获外部独立法律顾问协助。"
+          "time": "11-12 07:15",
+          "text": "【内塔尼亚胡被曝遭埃森科特警告不要对伊动武】财联社11月12日电，据以色列媒体11日报道，正谋求组建新政府的以正直党领导人加迪·埃森科特和以色列国防军总参谋长扎米尔，均反对看守政府总理内塔尼亚胡近期对伊朗采取军事行动的计划。《以色列时报》11日报道说，埃森科特当天致信内塔尼亚胡，敦促后者不要在没有受到直接威胁的情况下部署部队。埃森科特警告说，在当前政府过渡时期这样做可能会对以色列民主造成“毁灭性后"
         },
         {
-          "source": "Google News / ABC News - Breaking News, Latest News and Videos",
-          "time": "11-11 06:17",
-          "text": "House Republicans consider issuing subpoena to Nvidia CEO Jensen Huang - ABC News - Breaking News, Latest News and Videos"
+          "source": "财联社",
+          "time": "11-12 07:09",
+          "text": "【也门胡塞武装称袭击沙特利雅得机场等设施】财联社11月12日电，也门胡塞武装11日称，该组织向位于沙特阿拉伯首都利雅得的哈立德国王国际机场发射了3枚巡航导弹，并使用无人机袭击了沙特西部一座石油泵站，两次行动均告成功。胡塞武装军事发言人叶海亚·萨雷亚当天在社交媒体上说，该组织使用3枚巡航导弹袭击了哈立德国王国际机场，另有一架无人机袭击了沙特红海沿岸重要石油枢纽延布地区的11号石油泵站。"
+        },
+        {
+          "source": "Google News / CBS News",
+          "time": "11-12 05:52",
+          "text": "Live Updates: Trump says Iran war will be over \"when we want to end it\" - CBS News"
+        },
+        {
+          "source": "Google News / Reuters",
+          "time": "11-12 01:59",
+          "text": "Iran attacks shipping navigation systems on Oman's Didamar island, sources say - Reuters"
+        }
+      ]
+    },
+    {
+      "keyword": "AI算力交易升温",
+      "heat": 93,
+      "category": "finance",
+      "summary": "CoreWeave大涨24.7%带动纳斯达克反弹，AI算力交易再受关注",
+      "sources": [
+        "财联社",
+        "CNBC"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 08:13",
+          "text": "①IBM发布下一代量子处理器Nighthawk r3，计划2027年实现超1000量子比特系统，分析师看好行业正处于从实验室走向产业化的关键拐点，这家公司已实现量子计算机商业化交付；\n②创下单波1.6T传输最长纪录！中国移动光传输技术试验实现新突破，分析师看好具备核心技术储备、头部客户认证及规模交付能力的产业链企业有望优先受益，这家公司的产品可应用于光通信用激光器；\n③CoreWeave涨24.7"
+        },
+        {
+          "source": "Google News / CNBC",
+          "time": "11-12 05:22",
+          "text": "Nasdaq gains more than 1% as CoreWeave spike revitalizes AI trade - CNBC"
         }
       ],
       "tool": {
@@ -36,330 +69,314 @@
       }
     },
     {
-      "keyword": "美防长弹劾争议",
-      "heat": 92,
-      "category": "geo",
-      "summary": "赫格塞思为自身军事政策辩护，并反击共和党人士的弹劾行动",
+      "keyword": "AI光通信",
+      "heat": 89,
+      "category": "ai-tech",
+      "summary": "中国1.6T光传输取得突破，但行业砍单传闻引发分化",
       "sources": [
-        "财联社",
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 08:13",
+          "text": "①IBM发布下一代量子处理器Nighthawk r3，计划2027年实现超1000量子比特系统，分析师看好行业正处于从实验室走向产业化的关键拐点，这家公司已实现量子计算机商业化交付；\n②创下单波1.6T传输最长纪录！中国移动光传输技术试验实现新突破，分析师看好具备核心技术储备、头部客户认证及规模交付能力的产业链企业有望优先受益，这家公司的产品可应用于光通信用激光器；\n③CoreWeave涨24.7"
+        },
+        {
+          "source": "财联社",
+          "time": "11-12 07:27",
+          "text": "【光通信行业“砍单”传闻不断 有上市公司回应称“近期市场并没有不利变化”】财联社11月12日电，作为AI赛道主线之一，11月11日，包括“易中天”、剑桥科技、源杰科技等在内的多只光通信龙头股涨停或大涨超过10%，引起市场广泛关注。近期市场上有关光通信行业“砍单”的传闻不断，有上市公司高管对记者表示“近期市场并没有不利变化”。与此同时，多家上市公司正积极“跨界”入局，切入AI光互联、光芯片、光器件等"
+        }
+      ]
+    },
+    {
+      "keyword": "日本生产者通胀",
+      "heat": 85,
+      "category": "macro",
+      "summary": "日本10月生产者价格同比升7.1%，高于预期并加剧通胀担忧",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 07:51",
+          "text": "财联社11月12日电，日本10月生产者价格同比增长7.1%，预估为6.5%；环比增长0.7%; 预估为0.3%。"
+        }
+      ]
+    },
+    {
+      "keyword": "美国AI芯片限制",
+      "heat": 83,
+      "category": "geo",
+      "summary": "美国国会议员再度呼吁限制中国获取先进人工智能芯片",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 08:00",
+          "text": "【财联社11月12日早间新闻精选】 \n1、外交部长王毅11日同美国国务卿鲁比奥通电话。双方就中美关系及两国元首互动深入交换意见，通话是积极和建设性的。\n2、外交部发言人郭嘉昆昨日主持例行记者会。路透社记者提问，在涉及英伟达首席执行官黄仁勋的相关指控出现后，美国国会议员周二再次呼吁收紧对中国获取先进人工智能（AI）芯片的限制。郭嘉昆表示，中方在美国输华芯片问题上的立场是一贯的。\n3、央行发布2026"
+        }
+      ]
+    },
+    {
+      "keyword": "中美高层沟通",
+      "heat": 81,
+      "category": "geo",
+      "summary": "王毅与鲁比奥通话讨论中美关系及元首互动，释放积极信号",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 08:00",
+          "text": "【财联社11月12日早间新闻精选】 \n1、外交部长王毅11日同美国国务卿鲁比奥通电话。双方就中美关系及两国元首互动深入交换意见，通话是积极和建设性的。\n2、外交部发言人郭嘉昆昨日主持例行记者会。路透社记者提问，在涉及英伟达首席执行官黄仁勋的相关指控出现后，美国国会议员周二再次呼吁收紧对中国获取先进人工智能（AI）芯片的限制。郭嘉昆表示，中方在美国输华芯片问题上的立场是一贯的。\n3、央行发布2026"
+        }
+      ]
+    },
+    {
+      "keyword": "英伟达CEO接班",
+      "heat": 79,
+      "category": "ai-tech",
+      "summary": "据报英伟达正与外部公司物色潜在新任首席执行官",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 07:39",
+          "text": "财联社11月12日电，据报道，英伟达与外部公司合作，寻找可能的新任首席执行官。"
+        }
+      ],
+      "tool": {
+        "href": "ai-capex.html",
+        "label": "AI CapEx"
+      }
+    },
+    {
+      "keyword": "量子处理器升级",
+      "heat": 77,
+      "category": "ai-tech",
+      "summary": "IBM公布新一代量子处理器，计划2027年迈向千比特系统",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 08:13",
+          "text": "①IBM发布下一代量子处理器Nighthawk r3，计划2027年实现超1000量子比特系统，分析师看好行业正处于从实验室走向产业化的关键拐点，这家公司已实现量子计算机商业化交付；\n②创下单波1.6T传输最长纪录！中国移动光传输技术试验实现新突破，分析师看好具备核心技术储备、头部客户认证及规模交付能力的产业链企业有望优先受益，这家公司的产品可应用于光通信用激光器；\n③CoreWeave涨24.7"
+        }
+      ]
+    },
+    {
+      "keyword": "A股限售股解禁",
+      "heat": 75,
+      "category": "finance",
+      "summary": "13家公司限售股解禁，市值合计138.63亿元，A股供给压力受关注",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 07:32",
+          "text": "【A股限售股解禁一览：138.63亿元市值限售股今日解禁】财联社11月12日电，Wind数据显示，周四（11月12日），共有13家公司限售股解禁，合计解禁量为12.76亿股，按最新收盘价计算，合计解禁市值为138.63亿元。从解禁量来看，电投水电、华瓷股份、森泰股份解禁量居前，解禁股数分别为11.84亿股、3837.34万股、2202.95万股。从解禁市值来看，电投水电、华瓷股份、华海诚科解禁市值"
+        }
+      ]
+    },
+    {
+      "keyword": "券商科技调研",
+      "heat": 73,
+      "category": "finance",
+      "summary": "券商11月密集调研328家公司，电子与机械设备板块获偏爱",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 07:29",
+          "text": "【11月券商调研热度升温 青睐电子、机械设备等行业】财联社11月12日电，券商研究所迎来调研忙碌期。数据显示，11月以来，券商累计调研328家上市公司，调研标的集中于电子、机械设备、医药生物等行业。同期，券商调整18家上市公司评级，数量已接近10月全月水平。投资策略方面，多家券商在近期策略会上，仍看好科技长期叙事，认为前期回调幅度较大的双创板块存在估值修复机会。"
+        }
+      ]
+    },
+    {
+      "keyword": "产业并购基金",
+      "heat": 72,
+      "category": "finance",
+      "summary": "年内上市公司披露产业并购基金393单，同比增长逾三成",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 07:22",
+          "text": "【上市公司“链”上发力深度参与产业并购基金】财联社11月12日电，今年以来，上市公司参与设立产业并购基金的热情持续升温。据统计，截至11月11日，年内上市公司披露参与设立产业并购基金393单，同比增长超30%。从人工智能到具身智能、生物医药，一批链主企业正以产业并购基金为支点，把资本的触角延伸到产业链上下游。记者梳理发现，年内产业并购基金投向更聚焦，“组团”出资的情况更多，持有周期更长，耐心资本特"
+        }
+      ]
+    },
+    {
+      "keyword": "新能源重卡",
+      "heat": 71,
+      "category": "industry",
+      "summary": "10月新能源重卡单月渗透率突破50%，重卡电动化进入新阶段",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 07:12",
+          "text": "【中国汽车工业协会：10月份新能源重卡渗透率突破50%】财联社11月12日电，中国汽车工业协会昨天发布数据，10月份我国新能源重卡单月渗透率突破50%，这标志着过去以能耗高为主要短板的重卡行业迈入电动化发展的新阶段。"
+        }
+      ]
+    },
+    {
+      "keyword": "日股外资转卖",
+      "heat": 69,
+      "category": "finance",
+      "summary": "日经高开后转跌，外资周度净卖出1052亿日元",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 08:12",
+          "text": "财联社11月12日电，日经225指数回吐涨幅，最新下跌0.26%。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-12 08:00",
+          "text": "财联社11月12日电，韩国KOSPI指数开盘上涨0.2%；日经225指数高开0.37%。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-12 07:53",
+          "text": "财联社11月12日电，日经225指数期货早盘上涨0.33%。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-12 07:51",
+          "text": "财联社11月12日电，日本至11月6日当周外资买进日股-1052亿日元，前值11293亿日元。"
+        }
+      ]
+    },
+    {
+      "keyword": "日产利润承压",
+      "heat": 67,
+      "category": "industry",
+      "summary": "日产第二季度利润不及预期，股价一度下跌4.1%",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 08:08",
+          "text": "财联社11月12日电，日产汽车一度下跌4.1%，之前公布的第二季度利润不及预期。"
+        }
+      ]
+    },
+    {
+      "keyword": "马岛油开发争端",
+      "heat": 64,
+      "category": "geo",
+      "summary": "阿根廷申请阻止英国开发马岛附近油田，海上能源争端升级",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-12 07:07",
+          "text": "【阿根廷再次向国际海洋法法庭申请临时措施 阻止马岛附近油田开发】财联社11月12日电，阿根廷政府当地时间11月11日表示，已在国际海洋法法庭结束第二轮陈述，再次请求法庭采取紧急临时措施，阻止英国在马尔维纳斯群岛（简称马岛，英国称福克兰群岛）附近启动海上石油开采项目。阿根廷总统府当天发表声明称，阿方在陈述中反驳了英国提出的论据，并强调法庭有权审理此案，阿根廷所主张的权利具有合理依据。同时指出，如果英"
+        }
+      ]
+    },
+    {
+      "keyword": "俄乌安全谈判",
+      "heat": 61,
+      "category": "geo",
+      "summary": "俄乌谈判转向战后安全架构，但最终未取得突破",
+      "sources": [
         "BBC"
       ],
       "evidence": [
         {
-          "source": "财联社",
-          "time": "11-11 08:02",
-          "text": "【美防长称对其弹劾是政治作秀】财联社11月11日电，美国国防部长赫格塞思11月10日表示，美国共和党众议员托马斯·梅西推动对他弹劾是一场打击美国总统特朗普的“政治作秀”。\n赫格塞思当天在五角大楼举行的新闻发布会上说，梅西出于个人不满和政治分歧提出弹劾，试图在离任前损害特朗普政府及美军利益。他表示，美国历史上从未有国防部长因执行合法军事行动而遭到弹劾，政策分歧应通过立法、辩论或选举解决。赫格塞思表示"
-        },
-        {
           "source": "Google News / BBC",
-          "time": "11-11 07:48",
-          "text": "Live updates: Pete Hegseth defends record after Republican begins impeachment effort - BBC"
+          "time": "11-12 02:04",
+          "text": "Russia-Ukraine talks turn to post-war security but end without breakthrough - BBC"
         }
       ]
     },
     {
-      "keyword": "CoreWeave业绩超预期",
-      "heat": 90,
+      "keyword": "航空禁用AI代理",
+      "heat": 58,
       "category": "ai-tech",
-      "summary": "CoreWeave业绩超过市场预期，缓解投资者对人工智能算力需求的担忧",
+      "summary": "联合航空禁止AI代理代客订票，触发航司自动化规则讨论",
       "sources": [
-        "Barron's"
+        "CBS News"
       ],
       "evidence": [
         {
-          "source": "Google News / Barron's",
-          "time": "11-11 07:03",
-          "text": "CoreWeave Earnings Beat Expectations, Assuaging Market Nervousness - Barron's"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "安思睿克IPO套现",
-      "heat": 88,
-      "category": "ai-tech",
-      "summary": "七名安思睿克创始人在IPO中合计套现规模受到市场关注",
-      "sources": [
-        "TechCrunch"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / TechCrunch",
-          "time": "11-11 03:57",
-          "text": "All 7 Anthropic founders will each cash out about $250M in IPO - TechCrunch"
+          "source": "Google News / CBS News",
+          "time": "11-12 03:37",
+          "text": "United Airlines bans AI agents from booking flights on behalf of travelers - CBS News"
         }
       ]
     },
     {
-      "keyword": "保尔森再释鹰派信号",
-      "heat": 87,
+      "keyword": "星舰双飞船回收",
+      "heat": 55,
+      "category": "ai-tech",
+      "summary": "SpaceX星舰第15次飞行将尝试首次双飞船着陆",
+      "sources": [
+        "Space"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Space",
+          "time": "11-12 00:30",
+          "text": "SpaceX Starship Flight 15 live updates: T-2 days to SpaceX's 1st-ever double Starship landing attempt - Space"
+        }
+      ]
+    },
+    {
+      "keyword": "美国汽油降价",
+      "heat": 52,
       "category": "macro",
-      "summary": "保尔森称服务业通胀未下降，潜在通胀仍处高位并支持进一步加息",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 07:44",
-          "text": "财联社11月11日电，美联储保罗森称，CPI数据所反映出的通胀情况令人感到有些不安。服务业通胀未下降。"
-        },
-        {
-          "source": "财联社",
-          "time": "11-11 07:32",
-          "text": "财联社11月11日电，美联储保罗森称，鉴于通胀高企，进一步“渐进”加息是合适的。"
-        },
-        {
-          "source": "财联社",
-          "time": "11-11 07:30",
-          "text": "财联社11月11日电，美联储官员保尔森表示，潜在通胀率维持在2.5%至3%之间。"
-        }
-      ]
-    },
-    {
-      "keyword": "美俄乌阿布扎比会谈",
-      "heat": 86,
-      "category": "geo",
-      "summary": "俄罗斯与乌克兰在美国斡旋下举行近四小时谈判",
-      "sources": [
-        "AP News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / AP News",
-          "time": "11-11 02:23",
-          "text": "Russia and Ukraine hold nearly 4 hours of US-mediated talks in Abu Dhabi - AP News"
-        }
-      ]
-    },
-    {
-      "keyword": "韩国芯片出口激增",
-      "heat": 84,
-      "category": "industry",
-      "summary": "韩国前十日半导体出口同比大增331.2%，显示科技需求强劲",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 08:05",
-          "text": "财联社11月11日电，韩国11月1-10日出口同比增长111.9%，进口增长45.0%。1-10日半导体出口同比增长331.2%。"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "西芒du北部投产",
-      "heat": 82,
-      "category": "industry",
-      "summary": "西芒杜北部矿山、铁路和港口全产业链全面建成投产",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 07:58",
-          "text": "【中国宝武：西芒杜北部矿山项目全面建成投产】财联社11月11日电，据中国宝武消息，当地时间11月6日，在宝赢西芒杜矿山一系列投产一周年之际，项目二系列最后一道关键工序——CS区下运胶带系统全线重负荷试车成功。宝赢西芒杜矿山二系列建成投产，标志着西芒杜北部矿山项目矿山、铁路、港口全产业链的全面建成投产，是其由生产建设阶段全面转入生产运营阶段的里程碑。"
-        }
-      ]
-    },
-    {
-      "keyword": "谷歌发布智能体集群",
-      "heat": 81,
-      "category": "ai-tech",
-      "summary": "谷歌发布Gemini 4 Carbon，新增多智能体协同的集群功能",
-      "sources": [
-        "The Verge"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / The Verge",
-          "time": "11-11 00:00",
-          "text": "Google releases Gemini 4 Carbon with agent ‘swarm’ feature - The Verge"
-        }
-      ]
-    },
-    {
-      "keyword": "降糖药眼病警示",
-      "heat": 79,
-      "category": "industry",
-      "summary": "美国药监局要求GLP-1类降糖药增加可能致永久失明的风险警示",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 08:04",
-          "text": "【美药管局警示GLP-1类降糖药可能增加眼病风险】财联社11月11日电，美国食品药品监督管理局11月9日发布通告说，使用胰高血糖素样肽-1（GLP-1）受体激动剂类药物可能增加患一种较罕见但可能导致永久视力丧失的眼部疾病风险，并要求所有相关药物的上市申请持有者在药品说明书中增加风险警示信息。涉及药物包括司美格鲁肽、利拉鲁肽和替尔泊肽等。"
-        }
-      ]
-    },
-    {
-      "keyword": "日本长债收益率上行",
-      "heat": 78,
-      "category": "finance",
-      "summary": "日本十年期国债收益率上升5.5个基点至2.745%",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 08:16",
-          "text": "财联社11月11日电，日本10年期国债收益率上升5.5个基点至2.745%。"
-        }
-      ]
-    },
-    {
-      "keyword": "美国汽油价格回落",
-      "heat": 76,
-      "category": "industry",
-      "summary": "美国汽油价格降至每加仑4美元以下，但整体通胀仍具黏性",
+      "summary": "美国汽油价格跌破每加仑4美元，能源通胀预期再受讨论",
       "sources": [
         "NPR"
       ],
       "evidence": [
         {
           "source": "Google News / NPR",
-          "time": "11-10 22:35",
-          "text": "Gas prices dip below $4 but inflation remains stubbornly high - NPR"
+          "time": "11-12 03:59",
+          "text": "Why is gasoline suddenly under $4 a gallon? - NPR"
         }
       ]
     },
     {
-      "keyword": "A股限售股解禁",
-      "heat": 74,
-      "category": "finance",
-      "summary": "十家A股公司合计约53.87亿元限售股迎来解禁",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 07:34",
-          "text": "【A股限售股解禁一览：53.87亿元市值限售股今日解禁】财联社11月11日电，Wind数据显示，周三（11月11日），共有10家公司限售股解禁，合计解禁量为2.48亿股，按最新收盘价计算，合计解禁市值为53.87亿元。从解禁量来看，友车科技、龙蟠科技、中国化学解禁量居前，解禁股数分别为1.15亿股、9311.54万股、1697.52万股。从解禁市值来看，友车科技、龙蟠科技、富特科技解禁市值居前，解"
-        }
-      ]
-    },
-    {
-      "keyword": "中美元首沟通",
-      "heat": 73,
-      "category": "geo",
-      "summary": "外交部回应中美双方就两国元首年内安排保持沟通",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 08:08",
-          "text": "【财联社11月11日早间新闻精选】 \n1、中共中央政治局委员、国务院副总理张国清9日至10日在上海调研。他强调，要扎实推进科技创新和产业创新深度融合，持续提升产业创新能力，更好服务支撑经济高质量发展。\n2、外交部发言人郭嘉昆昨日主持例行记者会。法新社记者就中俄美元首会晤的有关情况提问，郭嘉昆表示，中方就中俄美元首会晤同相关方保持着沟通。另有记者就中美元首会晤提问，郭嘉昆表示，中美双方就两国元首年内"
-        }
-      ]
-    },
-    {
-      "keyword": "AMD新芯性能评测",
-      "heat": 71,
-      "category": "ai-tech",
-      "summary": "评测称AMD EPYC 9996凭借256个核心展现突出计算性能",
-      "sources": [
-        "Phoronix"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Phoronix",
-          "time": "11-11 01:00",
-          "text": "AMD EPYC 9996 Benchmarks Show Unparalleled Performance With 256 Zen 6C Cores Review - Phoronix"
-        }
-      ]
-    },
-    {
-      "keyword": "软银股价重挫",
-      "heat": 69,
-      "category": "finance",
-      "summary": "软银集团股价单日下跌8%，科技资产估值波动受关注",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-11 08:12",
-          "text": "财联社11月11日电，软银集团股价下跌8%。"
-        }
-      ]
-    },
-    {
-      "keyword": "美军涉俄情报案",
-      "heat": 68,
-      "category": "geo",
-      "summary": "一名美国陆军高级军士在英国被捕，涉嫌协助俄罗斯情报机构",
-      "sources": [
-        "NBC News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / NBC News",
-          "time": "11-11 06:45",
-          "text": "Senior U.S. Army soldier arrested in U.K. on suspicion of assisting Russian intelligence - NBC News"
-        }
-      ]
-    },
-    {
-      "keyword": "欧洲防空警报",
-      "heat": 66,
-      "category": "geo",
-      "summary": "拉脱维亚和立陶宛警告白俄罗斯附近空域存在安全威胁",
-      "sources": [
-        "Reuters"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Reuters",
-          "time": "11-11 06:30",
-          "text": "Latvia, Lithuania warn of threat in airspace near Belarus - Reuters"
-        }
-      ]
-    },
-    {
-      "keyword": "英国空军基地恐袭案",
-      "heat": 64,
-      "category": "geo",
-      "summary": "美国检方起诉三人策划恐袭，行动包括袭击英国空军基地",
-      "sources": [
-        "AP News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / AP News",
-          "time": "11-11 07:11",
-          "text": "US charges 3 men with plotting terror attacks, including planned assault on UK airbase - AP News"
-        }
-      ]
-    },
-    {
-      "keyword": "日本货币增速放缓",
-      "heat": 61,
+      "keyword": "西班牙住房总罢工",
+      "heat": 49,
       "category": "macro",
-      "summary": "日本十月广义货币供应量同比增长1.7%，低于前值2%",
+      "summary": "西班牙住房危机引发14年来首次全国性总罢工",
       "sources": [
-        "财联社"
+        "DW.com"
       ],
       "evidence": [
         {
-          "source": "财联社",
-          "time": "11-11 07:51",
-          "text": "财联社11月11日电，日本10月货币供应M2同比增长1.7%，前值2.00%。"
+          "source": "Google News / DW.com",
+          "time": "11-12 05:44",
+          "text": "Spain: Housing crisis prompts first general strike in 14 years, before hundreds of thousands join protest - DW.com"
         }
       ]
     }

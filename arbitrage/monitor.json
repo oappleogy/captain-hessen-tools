@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-11-12T06:59:43.126982+00:00",
-  "last_research_at": "2026-11-12T06:59:43.126982+00:00",
-  "last_market_observation_at": null,
-  "status": "双池元数据阶段完成；进入价格与流动性采样，尚无已核验机会",
+  "updated_at": "2026-11-12T08:03:43.509813+00:00",
+  "last_research_at": "2026-11-12T08:03:43.509813+00:00",
+  "last_market_observation_at": "2026-11-12T08:02:08+00:00",
+  "status": "首个双池价格样本已取得；本固定块候选因手续费门槛被否决",
   "pool_addresses": 2,
-  "verified_pairs": 0,
+  "verified_pairs": 1,
   "two_leg_quotes": 0,
   "verified_opportunities": 0,
   "markets": [
@@ -13,33 +13,43 @@
       "asset": "WETH / 原生USDC（Circle文档地址匹配）",
       "pool": "0xd0b53d9277642d899df5c87a3966a349a798f224",
       "fee_input": "500 / 1,000,000",
-      "status": "固定块token及fee已核；发行人文档地址匹配；精度/流动性/价格待核"
+      "status": "固定块56400765边际价格 2049.36895 USDC/WETH；不是规模成交报价"
     },
     {
       "network": "Base",
       "asset": "WETH / 原生USDC（Circle文档地址匹配）",
       "pool": "0x6c561b446416e1a00e8e93e221854d6ea4171372",
       "fee_input": "3000 / 1,000,000",
-      "status": "固定块token及fee已核；发行人文档地址匹配；精度/流动性/价格待核"
+      "status": "固定块56400765边际价格 2044.28673 USDC/WETH；不是规模成交报价"
     }
   ],
-  "candidates": [],
+  "candidates": [
+    {
+      "id": "BASE-WETH-USDC-56400765",
+      "status": "REJECTED｜条件模型费后边际上界为负；非实际交易亏损",
+      "direction": "3000池买WETH → 500池卖WETH",
+      "observed_at": "2026-11-12 16:02:08 北京时间；块56400765",
+      "size": "边际筛选，无有限规模报价",
+      "net_edge": null,
+      "unknown_costs": "gas、借贷、失败成本及全成本净收益未知；毛24.86058bp，交易费后边际−10.21140bp",
+      "expires_at": "仅此固定块；历史样本，不可当前下单",
+      "risks": "标准独立V3语义为条件；不能外推未来或全市场"
+    }
+  ],
   "gaps": [
-    "精度、池代码、流动性及价格尚未取得",
-    "双腿规模报价及全成本净收益未知",
-    "单次元数据快照不等于持续历史采集；最终性未核",
-    "来源身份核对保存摘要，未归档Circle原始HTTP全文",
-    "刷新队列领取/完成版本门禁待实现"
+    "无连续历史事件采集；仅一次价格状态样本",
+    "有限规模报价未执行：本块负上界已足以否决",
+    "部署语义、最终性及全成本仍存在未知",
+    "刷新任务generation消费门禁待实现"
   ],
   "recent": [
-    "Mechanism：Circle当前目录及上线公告记录的Base原生USDC地址与两池token1一致。",
-    "Risk：仅本地摘要交叉审核；D01限定元数据阶段完成，不表示赎回资格或净收益核验。",
-    "第6轮审查：双腿报价仍0，优先实际价格与流动性采样，暂缓扩链扩池和数据库设施。"
+    "Scout：8/8固定块读取，取得18/6精度、两池slot0及活跃流动性。",
+    "Quant/Risk：独立精确复算毛24.86058bp，小于35.10782bp手续费必要门槛；本块候选终止，无需再花请求做规模报价。"
   ],
   "next": [
-    "Scout：已审8RPC固定块精度、价格、流动性采样",
-    "Quant/Execution：一个方向一个规模双腿报价，或明确终态拒绝",
-    "Execution：generation消费门禁；不扩链扩池"
+    "Execution：完成generation领取/完成门禁",
+    "Scout：新时点或独立策略取得新证据，不重算已拒绝固定块",
+    "Postmortem：保留负样本与失败分母，不记实际亏损"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -48,6 +58,6 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-12T06:03:41.597502+00:00",
-  "collection_completed_at": "2026-11-12T06:03:46.627089+00:00"
+  "collection_started_at": "2026-11-12T08:02:07.391740+00:00",
+  "collection_completed_at": "2026-11-12T08:02:13.486209+00:00"
 }

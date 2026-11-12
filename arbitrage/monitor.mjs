@@ -6,7 +6,7 @@ async function refresh(){
  const r=await fetch('./monitor.json',{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();
  el('load').textContent=d.status;
  const age=(Date.now()-Date.parse(d.updated_at))/3600000;
- el('freshness').textContent=`页面快照生成：${time(d.updated_at)}；最近研究审核：${time(d.last_research_at)}；最近可靠行情时间：${time(d.last_market_observation_at)}。${age>2?'快照超过2小时未更新，请按陈旧状态阅读。':'页面更新时间不等于行情时间。'}`;
+ el('freshness').textContent=`页面快照生成：${time(d.updated_at)}；最近研究审核：${time(d.last_research_at)}；固定块元数据时间：${time(d.last_metadata_at)}；最近可靠行情时间：${time(d.last_market_observation_at)}。${age>2?'快照超过2小时未更新，请按陈旧状态阅读。':'页面更新时间不等于行情时间。'}`;
  el('summary').replaceChildren();const metrics=text('div','');metrics.className='metrics';
  for(const [key,label]of [['pool_addresses','目录池地址'],['verified_pairs','身份核验池对'],['two_leg_quotes','双腿规模报价'],['verified_opportunities','已核验机会']]){const a=text('p',label);a.prepend(text('strong',d[key]??'未知'));metrics.append(a);}el('summary').append(metrics);
  el('markets').replaceChildren(...d.markets.map(m=>{const a=text('article','');a.append(text('h3',m.network+' · '+m.asset),text('p',m.pool),text('p','factory 查询费率输入：'+m.fee_input),text('p',m.status));return a;}));

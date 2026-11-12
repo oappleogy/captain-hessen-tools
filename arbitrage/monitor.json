@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-12T09:05:57.420441+00:00",
-  "last_research_at": "2026-11-12T09:05:57.420441+00:00",
+  "updated_at": "2026-11-12T10:05:34.212060+00:00",
+  "last_research_at": "2026-11-12T10:05:34.212060+00:00",
   "last_market_observation_at": "2026-11-12T08:02:08+00:00",
-  "status": "刷新任务失效拦截已通过离线独立验收；本轮未采新行情，连续服务尚未部署",
+  "status": "完成样本与前瞻链路对账；本轮未采新行情，下一次观察已预注册",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -43,13 +43,13 @@
     "门禁仅单线程离线；并发、队列容量、链状态真实性及实时延迟未验收"
   ],
   "recent": [
-    "Execution：增加领取与返回两处generation核验，阻断失效或冲突旧任务。",
-    "Risk：23项回归及11项独立反例通过；仅单线程离线范围。",
-    "本轮市场采集0；保留16:02:08北京时间的历史价格及否决样本，不作为新行情。"
+    "Postmortem/Risk：前8轮3批链上读取、18个成功RPC响应，仅形成1个双池价格样本和1个条件性拒绝，不能当成18个机会。",
+    "前8轮冻结预测0、关联后验0，覆盖率未知（分母0），不是漏采或收益率。",
+    "新预注册：19:00–19:20北京时间只观察一次两方向费后边际是否仍≤0；失败与错过单列，不代表可交易机会。"
   ],
   "next": [
-    "Postmortem：核对首个拒绝样本与尚缺的前瞻结果链，明确下一独立验证任务。",
-    "Scout：后续新增采样须绑定新时点与预注册问题，不重算已拒绝固定块。"
+    "Scout：在预注册窗口独立采集，超过窗口记录MISSED，不补采。",
+    "Postmortem/Risk：按冻结条件对账一次，结束Base试点；后续转独立资金费/基差数据路径。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -61,9 +61,16 @@
   "collection_started_at": "2026-11-12T08:02:07.391740+00:00",
   "collection_completed_at": "2026-11-12T08:02:13.486209+00:00",
   "current_round": {
-    "task_id": "DETECTOR-03-QUEUE-GATE",
+    "task_id": "OUTCOME-COVERAGE-01",
     "market_collection": false,
     "source_time": null,
     "external_market_requests": 0
+  },
+  "outcome_coverage": {
+    "scope": "round1–8",
+    "frozen_predictions": 0,
+    "matched_outcomes": 0,
+    "ratio": null,
+    "new_pending_forecast": "OOS-FEE-BOUND-01"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-12",
-  "last_checked_at": "2026-11-12T03:04:39.298524+00:00",
+  "as_of": "2026-11-13",
+  "last_checked_at": "2026-11-13T06:48:03.396060+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -927,6 +927,21 @@
       ],
       "checked_at": "2026-11-08",
       "adoption": "页面标注8月5日更新，11月8日补核；不是今日发布。"
+    },
+    {
+      "id": "payai",
+      "name": "PayAI x402 Facilitator",
+      "participant": "PayAI Network",
+      "layer": "payment",
+      "stage": "有官方服务文档",
+      "scope": "核心",
+      "capability": "代商户验证并结算x402稳定币付款，资金直接到商户地址；厂商称不托管商户余额。",
+      "source": "https://facilitator.payai.network/about",
+      "pricing_source": "https://facilitator.payai.network/pricing",
+      "checked_at": "2026-11-13",
+      "gap": "不提供银行卡、法币出款、银行转账或订阅计费；动态网络单价、退款争议和实付互通待查。",
+      "adoption": "官方生产服务声明；未独立核验客户与真实付费量",
+      "related": []
     }
   ],
   "events": [
@@ -1337,10 +1352,16 @@
     {
       "name": "PayAI Network",
       "layer": "payment",
-      "question": "11月12日近7天检索发现第三方目录线索；官方协议支持、费率、退款与真实采用均待核验，不计入已核实项目。"
+      "question": "11月13日已读官方能力与计价页，纳入文档基线；动态网络单价未读取，退款、失败计费、真实采用与互通继续核验。",
+      "source": "https://facilitator.payai.network/pricing"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-13",
+      "status": "部分核验",
+      "note": "部分核验：对照11月12日并检索近7天线索，补PayAI官方能力与计价基线；动态网络单价未读取，退款、真实采用待查。未确认重大新增事件；其他协议、支付网络、国内平台和队列未全量覆盖。"
+    },
     {
       "date": "2026-11-12",
       "status": "部分核验",
@@ -1734,12 +1755,13 @@
       "model": "按成功处理笔数或交易额；另有网络等费用",
       "judgment": "可量化单价，规模待证明",
       "moat": "可靠结算、合规接入、风控与分发",
-      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。 Alchemy AgentPay价目（2026-11-08核验）：Growth每月$20含2万请求，超量$1.50/千请求；Free仅测试资金100请求/月。请求不等于成功交易，此处不是支付网络等全部费用或净收入。",
+      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。 Alchemy AgentPay价目（2026-11-08核验）：Growth每月$20含2万请求，超量$1.50/千请求；Free仅测试资金100请求/月。请求不等于成功交易，此处不是支付网络等全部费用或净收入。 2026-11-13核验PayAI：按网络每笔消耗积分，1美元=1000积分，首次1000积分免费；网络gas加价每日更新，不按金额抽成。动态单价表未加载，不能套用单一费率估收入。",
       "source": "https://www.coinbase.com/developer-platform/discover/launches/x402facilitator-polygon",
       "checked_at": "2026-10-08",
       "evidence_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf",
       "p2flux_pricing_source": "https://p2flux.com/docs/agents.html",
-      "alchemy_pricing_source": "https://agentpay.alchemy.com/pricing"
+      "alchemy_pricing_source": "https://agentpay.alchemy.com/pricing",
+      "payai_source": "https://facilitator.payai.network/pricing"
     },
     {
       "layer": "commerce",

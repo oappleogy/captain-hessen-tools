@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-12T13:13:39.197391+00:00",
-  "last_research_at": "2026-11-12T13:13:39.197391+00:00",
+  "updated_at": "2026-11-13T06:50:55.031977+00:00",
+  "last_research_at": "2026-11-13T06:50:55.031977+00:00",
   "last_market_observation_at": null,
-  "status": "已取得Kraken ETH现货/永续盘口；不同步且关键成本未知，不能升级机会",
+  "status": "运行空档后恢复；Kraken成本证据不足已停止，独立转向本轮亦无增量",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -62,7 +62,7 @@
     },
     {
       "id": "KRAKEN-ETHUSD-PF-20261112T131015Z",
-      "status": "RESEARCH_ONLY｜不同步/成本缺失；非已核验机会",
+      "status": "BLOCKED_DATA｜历史过期；最终成本证据包不足，分支停止",
       "direction": "现货多+永续空；反向需借币",
       "observed_at": "接收时点约2026-11-12 21:10北京时间；统一源时间未知",
       "size": "0.1ETH事后诊断，未预注册",
@@ -73,18 +73,19 @@
     }
   ],
   "gaps": [
-    "连续历史/事件采集与低延迟服务未部署",
-    "Kraken资金费路径、账户费率、借币、退出与同步性未知",
-    "两个Base历史样本已否决，试点终止；不能据此推断全市场无机会"
+    "无本轮新行情；现有候选均历史过期",
+    "Kraken资金费实际历史、适用费用等仍未知；该候选停止",
+    "预测结果集/tokenID/转换与盘口完整证据未取得",
+    "连续采集与低延迟服务尚未部署"
   ],
   "recent": [
-    "Scout：5次公开API成功及1次官方规范局部读取，取得独立场所两腿盘口。",
-    "Risk：独立复算显示深度；0.1ETH事后选择未满足事前规模验收，接收相差3.88575秒。",
-    "第12轮复盘：实质采样有所推进，但连续采集与全成本候选仍未完成。"
+    "距上一轮实际开始约17小时39分；无此期间执行回执，不回填行情，持续调度未修复。",
+    "Kraken最终4读仅取得文档，费用页工具失败；历史资金费API未请求，不能称其不可访问。分支已停止。",
+    "独立预测市场转向2读：原文工具失败且机制已有记录，无新数据或新结论。"
   ],
   "next": [
-    "限定一次4读资金费/成本证据包；仍缺关键证据则终止此分支，转兑换赎回/预测份额。",
-    "只有经济条件可核时再事前声明新规模和同步时限，不重用旧盘口。"
+    "只选择具名赎回/预测标的与未停止原始数据入口；先本地排重，避免再次泛读文档。",
+    "若没有可验证的数据路径，明确升级数据能力缺口，不声称全市场无机会。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -96,10 +97,11 @@
   "collection_started_at": "2026-11-12T13:09:48.267224+00:00",
   "collection_completed_at": "2026-11-12T13:10:30.101819+00:00",
   "current_round": {
-    "task_id": "FUNDING-DATA-PREFLIGHT-01",
-    "market_collection": true,
+    "task_id": "KRAKEN-FUNDING-COST-01",
+    "market_collection": false,
     "source_time": null,
-    "external_reads": 6
+    "external_market_requests": 0,
+    "public_reads": 6
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -109,5 +111,19 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮统一源快照时间未知；旧Base区块时间仅见历史候选。"
+  "last_market_observation_note": "本轮统一源快照时间未知；旧Base区块时间仅见历史候选。",
+  "failures": [
+    {
+      "task": "KRAKEN-FUNDING-COST-01",
+      "status": "blocked_data",
+      "history_api": "not_requested",
+      "fee_page": "tool_InternalError",
+      "reopen": "actual new funding/cost evidence or legal access change"
+    },
+    {
+      "task": "PREDICTION-UNIVERSE-PIVOT-01",
+      "status": "no_increment",
+      "reason": "unread original plus previously known mechanism"
+    }
+  ]
 }

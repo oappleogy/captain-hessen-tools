@@ -150,9 +150,9 @@
       "trigger": "预计费率、已结算费率、基差与盘口",
       "verification": "完整开平仓及逐期现金流、保证金",
       "risks": "费率翻转、基差扩大、ADL/清算",
-      "status": "资金费计提/结算/可提现分层已核文档并通过合成反例；当前候选与全成本未知",
+      "status": "机制与合成反例已核；Kraken候选因资金费/成本证据不足停止",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "独立Kraken ETH现货/永续有界数据预检；先核停止清单，不沿用Deribit结算时钟",
+      "next": "仅新实际资金费/费用证据或合法访问条件变化可重开；不重复接口研究",
       "net_return": null,
       "evidence_note": "Deribit文档：计入权益与可提现现金不同；独立合成反例不代表市场收益。",
       "sources": [

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-11-12",
+  "inventory_checked_at": "2026-11-13",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -238,8 +238,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-30",
-      "last_checked": "2026-11-12",
-      "last_research_update": "2026-11-11",
+      "last_checked": "2026-11-13",
+      "last_research_update": "2026-11-13",
       "next_due": "2026-10-14",
       "review_state": "partial",
       "owner": "专题维护",
@@ -251,7 +251,7 @@
       },
       "pending": [
         "前三季度利润拆分、表达/结合表征产品和联合湿实验报告已补；供应商实际付费、复购、毛利、AI收入归因与临床分层招募仍未闭环。",
-        "同规格多买方实验猴采购、交付与外购成本、原产业地图和旧估值仍待补；Twist FY2026 Q4计划11月12日披露，不改10月14日积压截止。"
+        "同规格多买方实验猴采购、外购成本、原产业地图和旧估值仍待补；Twist Q4业绩已核，10-K全年/Q4现金桥接待预计11月16日披露，不改10月14日积压截止。"
       ],
       "updates": [
         {
@@ -395,6 +395,21 @@
               "date": "2026-11-05"
             }
           ]
+        },
+        {
+          "date": "2026-11-13",
+          "title": "Twist Q4调整后利润节点兑现，现金与指引分开",
+          "body": "SEC 11月12日附件确认Q4 DSPS收入6100万美元、集团毛利率53.1%、调整后EBITDA +215.5万美元，但普通EBITDA -1714.6万美元、净亏损2062.3万美元。原候选4项指标及原证据表、signals回填；9月底现金和短投5.81907亿美元，全年股权及ATM融资约4.25亿美元，不能当经营现金。附件无现金流表，10-K预计11月16日；FY27 AI收入1亿美元及资本开支7500万美元仍为指引。经营证据增强、现金自给未证实，其他五家日期/分组/估值不动。",
+          "source_period": "FY26 Q4为2026年7—9月；全年截至9月30日；FY27为预测；旧现金流截至6月30日",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-11-12",
+          "sources": [
+            {
+              "title": "Twist FY26 Q4及全年SEC附件，全文及财务摘要已读",
+              "url": "https://www.sec.gov/Archives/edgar/data/1581280/000158128026000053/twst-2026930xex991.htm",
+              "date": "2026-11-12"
+            }
+          ]
         }
       ],
       "checks": [
@@ -417,6 +432,22 @@
         {
           "date": "2026-11-12",
           "result": "保留11月11日原页阅读整理及六家24项档案。实际读取Twist官方日历：FY26Q4电话会为11月12日08:00EST（北京时间21:00），本轮上午早于该节点，未填实际结果。慧博仅公开搜索索引出现新候选，目录打开结果与索引时点不一致；会员全文及完整关键词/分页未覆盖，不能写无新研报或完成周更。没有据摘要改动六家等级、估值或研究日期。"
+        },
+        {
+          "date": "2026-11-13",
+          "result": "慧博实际读取行业公开目录首屏，发现东吴11月13日in vivo TCE、华医11月12日园区生态两个线索；详情打开失败，仅目录截断摘要，未全文或下载。会员浏览器访问受限，未验证登录，11月9日起完整关键词/分页与会员全文仍未覆盖，完整成功游标不推进，不称没有新研报。Twist更新依据SEC原文而非研报摘要。",
+          "sources": [
+            {
+              "title": "东吴证券：制药行业in vivo TCE，自免率先兑现，中国资产领跑（仅目录）",
+              "date": "2026-11-13",
+              "url": "https://www.hibor.com.cn/data/a978a70f0e529cefd9f4efc4332e0d4b.html"
+            },
+            {
+              "title": "华医研究院：长三角生物医药行业创新生态案例（仅目录）",
+              "date": "2026-11-12",
+              "url": "https://www.hibor.com.cn/data/ba2d30a4b0c01cd02f86159729142bff.html"
+            }
+          ]
         }
       ]
     },
@@ -428,7 +459,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-11-12",
+      "last_checked": "2026-11-13",
       "last_research_update": "2026-11-03",
       "next_due": "2026-11-06",
       "review_state": "partial",
@@ -552,6 +583,10 @@
         {
           "date": "2026-11-12",
           "result": "独立周报线上为2026-W45、asOf11月6日23:59CST；其提交时间为6日18:34，截止晚于实际提交的问题未解决。文件和原页均可读且与main一致，不验收整个未来截止窗口；11月6日积压保留，不重复周报任务。"
+        },
+        {
+          "date": "2026-11-13",
+          "result": "当前线上仍W45，asOf11月6日23:59CST，原提交为6日18:34，未来截止问题未解决。本轮在周五18:30任务前检查，不把今日尚未到时写作失败，也不验收上期整窗；旧11月6日积压保留，不重复周报。"
         }
       ]
     },
@@ -563,7 +598,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-06",
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-13",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -607,6 +642,16 @@
               "url": "https://guba.eastmoney.com/list,300502.html"
             }
           ]
+        },
+        {
+          "date": "2026-11-13",
+          "result": "本次读取新易盛公开列表，末次更新时间主要11月13日，混有资讯、跨股转帖、评论更新及个人观点。未取得同口径固定发帖窗口及完整去重作者样本，不据列表或传闻重算原67分/500及2145样本；六月观察期保留。",
+          "sources": [
+            {
+              "title": "东方财富新易盛公开列表",
+              "url": "https://guba.eastmoney.com/list,300502.html"
+            }
+          ]
         }
       ]
     },
@@ -618,7 +663,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-06",
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-13",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -655,6 +700,16 @@
         {
           "date": "2026-11-06",
           "result": "公开人形机器人搜索本轮未取得可访问正文；不绕过登录、不编造视频样本或重算旧分数，仍未完成周检。",
+          "sources": [
+            {
+              "title": "抖音公开搜索",
+              "url": "https://www.douyin.com/search/%E4%BA%BA%E5%BD%A2%E6%9C%BA%E5%99%A8%E4%BA%BA"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-13",
+          "result": "公开人形机器人搜索本次无法读取正文；不绕过登录、不编造视频样本，原六月样本及评分不变，周频采集仍未完成。",
           "sources": [
             {
               "title": "抖音公开搜索",
@@ -1101,7 +1156,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-10",
+      "last_checked": "2026-11-13",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1176,6 +1231,10 @@
         {
           "date": "2026-11-10",
           "result": "线上generated_utc11月9日01:22:19、累计观察截止11月8日03:12:45UTC；official_30d仍stale_fallback，不把目录缓存或30日缺口当全源实时数据；旧到期保持。"
+        },
+        {
+          "date": "2026-11-13",
+          "result": "产物generated_utc为11月13日01:20:10，累计观察截止11月12日04:48:55UTC；source_status累计live、official_30d仍stale_fallback。仅确认管线产物上线，滚动窗原始截止与真实付费去重未完成，不推进周五研究截止。"
         }
       ]
     },
@@ -1188,7 +1247,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-12",
+      "last_checked": "2026-11-13",
       "last_research_update": null,
       "next_due": "2026-11-13",
       "review_state": "pipeline",
@@ -1275,6 +1334,10 @@
         {
           "date": "2026-11-12",
           "result": "本轮期间独立任务发布新产物：as_of11月12日，last_checked_at03:04:39UTC；11:19北京时间再次HTTP回读与新main一致。验收今日运行/发布成功，补正本轮较早尚未出现今日产物的检查；仍为部分协议/运维核验，不冒称全覆盖。仅日验收next_due推进11月13日，研究日期不动，未重复任务。"
+        },
+        {
+          "date": "2026-11-13",
+          "result": "线上与本轮main一致，但as_of及last_checked_at仍11月12日（03:04:39UTC），未见13日产物；只能确认昨日部分覆盖，不能验收今日成功。保留11月13日待验收，不重复运行独立任务。"
         }
       ]
     },
@@ -1735,7 +1798,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-12",
+      "last_checked": "2026-11-13",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1883,6 +1946,10 @@
         {
           "date": "2026-11-12",
           "result": "线上产物last_updated为2026-11-12，与main一致；事件日期最大为2026-10-26。仅核对独立管线生成/发布和内层日期，未逐条补齐原始公告，不改研究日期与原截止。"
+        },
+        {
+          "date": "2026-11-13",
+          "result": "线上JSON外层last_updated为11月13日且与本轮main相符；这是独立产物可用性检查，不等于内部事件、原始证据与旧估值全部更新，未改研究日期。"
         }
       ]
     },
@@ -2050,20 +2117,20 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-11-12",
-      "last_research_update": "2026-11-12",
+      "last_checked": "2026-11-13",
+      "last_research_update": "2026-11-13",
       "next_due": "2026-11-13",
       "review_state": "partial",
       "owner": "专题维护",
       "schedule": {
         "daily": "天气重大异常触发；检查数据源失败",
         "weekly": "每周四：NOAA海温序列与区域降水",
-        "monthly": "CPC正式诊断后1日；下一份11月12日",
+        "monthly": "CPC正式诊断后1日；下一份计划12月10日，未完成地区核验另保留积压",
         "quarterly": "季节切换：地区影响与反证复核"
       },
       "pending": [
-        "SOI人工已核至11月8日30天窗；区域降水和作物关键期尚未完成，三分类概率未核，不改变原模型或评分。CPC十一月诊断待美国实际发布后核验。",
-        "CPC十月文字与周海温原始表差异仍待官方释疑；最新三分类概率未核实，不改模型或历史评分。"
+        "十一月诊断已核；SOI至11月8日30天窗。区域降水、作物关键期和三分类概率尚未完成，不改变模型与历史评分，也不推进11月13日未完成截止。",
+        "十一月诊断Niño3.4 +2.5°C与周表04NOV +3.3°C差异尚未释清，不自行认定换算关系。"
       ],
       "updates": [
         {
@@ -2150,6 +2217,21 @@
               "title": "CPC正式诊断（读取时仍十月版）",
               "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
               "date": "2026-10-08"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-13",
+          "title": "十一月CPC诊断已发布，强度概率不混入原三分类表",
+          "body": "正式诊断日11月12日，下一次计划12月10日。强至超强持续至2027年1—3月概率>79%；OND/NDJ三个月RONI≥2.5°C概率约60%，均为强度预测。原状态卡翻译核对并更新下一节点；观测ONI ASO26、SST04NOV、SOI30天至11月8日、MEI SO2026各窗不变。正文Niño3.4 +2.5与周表+3.3仍分列待释疑，地区影响不保证、农业评分不变；尚未完成地区降水与作物核验，不推进原截止。",
+          "source_period": "诊断2026-11-12；预测OND2026、NDJ2026/27及JFM2027；观测各自窗口",
+          "event_date": "2026-11-12",
+          "announced_on": "2026-11-12",
+          "sources": [
+            {
+              "title": "CPC十一月ENSO正式诊断全文",
+              "url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml",
+              "date": "2026-11-12"
             }
           ]
         }
@@ -2400,7 +2482,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-12",
+      "last_checked": "2026-11-13",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -2515,6 +2597,10 @@
         {
           "date": "2026-11-12",
           "result": "线上产物last_updated为2026-11-12，与main一致；事件日期最大为2026-10-23。仅核对独立管线生成/发布和内层日期，未逐条补齐原始公告，不改研究日期与原截止。"
+        },
+        {
+          "date": "2026-11-13",
+          "result": "线上JSON外层last_updated为11月13日且与本轮main相符；这是独立产物可用性检查，不等于内部事件、原始证据与旧估值全部更新，未改研究日期。"
         }
       ]
     },
@@ -2604,7 +2690,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-12",
+      "last_checked": "2026-11-13",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -2687,6 +2773,10 @@
         {
           "date": "2026-11-12",
           "result": "线上产物11月12日00:15UTC且与main一致；油价及多数品种价格标11月11日。PX库存0的原始含义与开工率/库存来源尚未独立核验，不能以生成时间或0值证明无库存；周四价格序列、价差和开工核验仍未完成，原截止不动。"
+        },
+        {
+          "date": "2026-11-13",
+          "result": "原页及data/chem-latest.json可读且与main一致，运行机健康检查列11月13日产物；本轮未新增逐指标原始数据核验，不能当行业供需研究完成，原截止与研究日保留。"
         }
       ]
     },
@@ -2786,8 +2876,8 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-05-05",
-      "last_checked": "2026-11-10",
-      "last_research_update": "2026-11-10",
+      "last_checked": "2026-11-13",
+      "last_research_update": "2026-11-13",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -2963,6 +3053,26 @@
               "url": "https://kraneshares.com/etf/agix/"
             }
           ]
+        },
+        {
+          "date": "2026-11-13",
+          "title": "RONB与AGIX净值、同日市价回填原表和图",
+          "body": "11月12日RONB NAV/市价24.89/24.94美元，显示值复算约0.20%溢价，官网另列0.19%；SPCX权重36.96%为11月11日，规模仍9月30日。AGIX NAV/市价40.23/40.29、约0.15%溢价，净资产374.144185百万美元、9300002份。保留前期快照，旧Forward不重估。ARKVX/USVC仍为空值或占位符，DXYZ仍六月底NAV；未核基金不刷新日期，费用/回购/完整稀释和退出仍未完成。",
+          "source_period": "净值/价格2026-11-12；RONB SPCX持仓11月11日、规模9月30日",
+          "event_date": "2026-11-12",
+          "announced_on": null,
+          "sources": [
+            {
+              "title": "RONB官方分日期数据",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+              "date": "日值11月12日；首次发布时间未标"
+            },
+            {
+              "title": "AGIX官方数据",
+              "url": "https://kraneshares.com/etf/agix/",
+              "date": "日值11月12日；首次发布时间未标"
+            }
+          ]
         }
       ],
       "checks": [
@@ -3136,7 +3246,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "原页静态快照",
-      "last_checked": "2026-11-06",
+      "last_checked": "2026-11-13",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "needs_research",
@@ -3187,6 +3297,20 @@
             },
             {
               "title": "Bitget公开TSLA费率",
+              "url": "https://api.bitget.com/api/v2/mix/market/current-fund-rate?productType=USDT-FUTURES&symbol=TSLAUSDT"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-13",
+          "result": "OKX TSLA与Bitget TSLA公开接口业务状态成功，响应时间戳分别1794553049901及1794553062296毫秒；本期费率均0，结算周期均8小时。仅两个样本的接口核验，不是全品种或浏览器CORS测试，不把瞬时费率固化为长期报价；合约清单/权利/下架规则全量周检仍待。",
+          "sources": [
+            {
+              "title": "okx公开TSLA费率接口",
+              "url": "https://www.okx.com/api/v5/public/funding-rate?instId=TSLA-USDT-SWAP"
+            },
+            {
+              "title": "bitget公开TSLA费率接口",
               "url": "https://api.bitget.com/api/v2/mix/market/current-fund-rate?productType=USDT-FUTURES&symbol=TSLAUSDT"
             }
           ]

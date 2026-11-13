@@ -6,9 +6,9 @@
     "label": "El Niño Advisory",
     "alert": "El Niño Advisory",
     "phase": "el_nino",
-    "intensity": "以官方强度定义为准，不从海温单值外推",
-    "alert_note": "新一期官方摘要；概率与观测量须分口径阅读。",
-    "summary": "CPC 2026-11-12 官方原文摘要（未由模型扩写）：El Niño continues to strengthen, with a strong-to-very strong El Niño likely through January-March 2027 (remaining greater than a 79% chance)."
+    "intensity": "强至超强为预测，不是由单个海温值认定",
+    "alert_note": "11月12日正式诊断；强度概率与三分类概率、实测指标分别阅读。",
+    "summary": "CPC 11月12日诊断认为厄尔尼诺仍在增强，强至超强状态延续至2027年1—3月的概率高于79%；10—12月及11—1月三个月RONI达到或超过2.5°C的概率约60%。这是强度预测，不是已实现历史最强，也不是原三分类概率表。中东太平洋降水增强、印尼受抑是本期诊断；各地区影响并非保证，不能据此直接给农业评分加分。"
   },
   "indicators": [
     {
@@ -211,9 +211,10 @@
       "source_url": "https://esmis.nal.usda.gov/sites/default/release-files/796142/wasde1126.pdf"
     },
     {
-      "date": "2026-11-12",
+      "date": "2026-12-10",
       "tag": "气候",
-      "label": "CPC下一期诊断计划发布；发布时间与数据观察期分开记录"
+      "label": "11月12日CPC正式诊断已核；下一期计划12月10日发布，不提前标成已发布。",
+      "source_url": "https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml"
     },
     {
       "date": "2026-11-15",
@@ -275,10 +276,11 @@
   },
   "forecast_note": "新诊断已到，最新三分类概率尚未独立核验；不把强度概率填入此表。",
   "quality_notes": [
-    "CPC 10月诊断文字与周度表Niño3.4值不一致，未解释为已证实的口径转换。",
+    "11月诊断正文Niño3.4为+2.5°C，周度原表截至11月4日为+3.3°C；观察期及指标差异尚未释清，分别保留，不擅自认定换算关系。",
     "SOI、MEI各按原观察窗解读，不当作今日实时值；旧模型未重算。",
-    "原三分类概率表未核验发布期，已归档。"
+    "原三分类概率未核验发布期；不拿79%或60%的强度预测填成三分类值。"
   ],
   "observation_summary": "ONI: 2.46（ASO 26）；N34_SST: 3.3（04NOV2026）；SOI: -14.4（30-day to 2026-11-08）；MEI_V2: 2.53（SO 2026 双月）",
-  "narrative_origin": "official_excerpt"
+  "narrative_origin": "manual_review",
+  "discussion_checked_on": "2026-11-13"
 }

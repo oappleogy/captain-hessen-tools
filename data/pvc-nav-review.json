@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "nav",
   "title": "已核验的 NAV 与同日价格快照",
-  "checked_on": "2026-11-10",
-  "scope": "原九基金主表原位维护。AGIX日值11月9日；NSLR为9月30日正式Q3，RONB日值11月5日；其他行各自观察期保留。未核字段不填0，异日不计算当前溢价。",
+  "checked_on": "2026-11-13",
+  "scope": "原九基金主表原位维护：RONB/AGIX净值与市价至11月12日；RONB的SPCX持仓为11月11日、规模仍9月30日。其余各自观察期保留，缺失不填零，不算异日溢价。",
   "columns": [
     {
       "key": "label",
@@ -74,7 +74,7 @@
       "announced": "2026-08-28",
       "current_price": null,
       "known": "半年报列示6月30日NAV 34.30与期末市价25.76；期初NAV为19.93，修正旧底稿19.97的记录。财务报表为未经审计半年报。",
-      "unknown": "11月6日官网仍明确34.30及组合截至6月30日；0.00行情是占位符，不更新为零。未取得Q3正式NAV及同日价格。",
+      "unknown": "11月13日官网仍明确34.30及组合截至6月30日；0.00行情是占位符，不更新为零。未取得Q3正式NAV及同日价格。",
       "impact": "6月30日为约24.90%折价，不是五月底稿的89%溢价；两者不是同一观察期，不可拼成同日横向套利。",
       "sources": [
         {
@@ -91,7 +91,7 @@
           "date": "页面未标首次发布日期"
         }
       ],
-      "checked_on": "2026-11-06"
+      "checked_on": "2026-11-13"
     },
     {
       "id": "NSLR",
@@ -224,7 +224,7 @@
       "price_date": null,
       "announced": null,
       "known": "官网将ARKVX标为Class D；为区间型封闭式基金，份额不在交易所上市。官网列净费用2.90%、总费用3.49%，依据2025-10-28招股说明书，豁免可按条件终止；不能把不同类别费用/NAV混用。",
-      "unknown": "11月6日Class D官方可读页的NAV及日期仍为空；保留缺失，不能混入其他类别净值。最新费用及实际赎回接受量未完整核验。",
+      "unknown": "11月13日Class D官方可读页的NAV及日期仍为空；保留缺失，不能混入其他类别净值。最新费用及实际赎回接受量未完整核验。",
       "impact": "无市场报价不等于0%溢价；净值申购不提供随时退出保障，旧单一3.49%费用说法需要区分总费率和豁免后费率。",
       "sources": [
         {
@@ -232,7 +232,7 @@
           "url": "https://www.ark-funds.com/funds/arkvx"
         }
       ],
-      "checked_on": "2026-11-06",
+      "checked_on": "2026-11-13",
       "current_price": null
     },
     {
@@ -245,7 +245,7 @@
       "price_date": null,
       "announced": "2026-07-28",
       "known": "7月28日SEC文件列3月31日财务报告NAV 20.39。基金按下一计算NAV接受申购；顾问拟在正常条件下建议每季回购不超过净资产5%，董事会可不发起回购，投资者无自主赎回权。",
-      "unknown": "11月6日官方日NAV仍为$--.--占位符；保留3月财报20.39，不写成11月交易NAV。完整回购执行待核。",
+      "unknown": "11月13日官方日NAV仍为$--.--占位符；保留3月财报20.39，不写成11月交易NAV。完整回购执行待核。",
       "impact": "撤销“季度赎回≤5%”容易造成的保证赎回印象；20.39是3月财报数，绝不能标成10月日净值，也不能计算市场溢价。",
       "sources": [
         {
@@ -257,7 +257,7 @@
           "url": "https://usvc.com/nav"
         }
       ],
-      "checked_on": "2026-11-06",
+      "checked_on": "2026-11-13",
       "current_price": null
     },
     {
@@ -288,23 +288,23 @@
     {
       "id": "RONB",
       "label": "RONB · Baron First Principles ETF",
-      "nav": 23.27,
-      "nav_date": "2026-11-05",
+      "nav": 24.89,
+      "nav_date": "2026-11-12",
       "nav_status": "reported",
-      "price": 23.24,
-      "price_date": "2026-11-05",
+      "price": 24.94,
+      "price_date": "2026-11-12",
       "announced": null,
-      "known": "11月5日NAV/市价23.27/23.24美元，复算折价约0.13%，官方栏为-0.13%。持仓观察日11月4日：SPCX36.18%、TSLA8.74%；规模335.89百万美元仍为9月30日。",
-      "unknown": "显示价格经舍入，持仓与报价不是同日；其余旧敞口未逐项复核，不由权重变化推断净买卖。",
-      "impact": "11月2日约0.20%溢价变为11月5日约0.13%折价；只是不同日历史快照，不代表无风险套利。",
+      "known": "11月12日NAV/市价24.89/24.94美元，显示值复算溢价约0.20%，官网单列0.19%。11月11日SPCX权重36.96%；规模335.89百万美元仍为9月30日。",
+      "unknown": "未取得未舍入价格，复算与官网百分比有差异；其他底层敞口未全量复核，不把不同日期的持仓、规模与报价拼成同日。",
+      "impact": "原净值、市价、溢价及SPCX字段回填；较11月5日约0.13%折价转为约0.20%溢价，仅历史快照，不是无风险套利或净买卖证据。",
       "sources": [
         {
           "title": "RONB官方分日期净值、价格与持仓",
           "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
-          "date": "首次发布日期未标明"
+          "date": "首次发布时间未标；净值和价格观察日2026-11-12"
         }
       ],
-      "checked_on": "2026-11-06",
+      "checked_on": "2026-11-13",
       "current_price": null,
       "history": [
         {
@@ -371,29 +371,51 @@
           ],
           "checked_on": "2026-11-03",
           "current_price": null
+        },
+        {
+          "id": "RONB",
+          "label": "RONB · Baron First Principles ETF",
+          "nav": 23.27,
+          "nav_date": "2026-11-05",
+          "nav_status": "reported",
+          "price": 23.24,
+          "price_date": "2026-11-05",
+          "announced": null,
+          "known": "11月5日NAV/市价23.27/23.24美元，复算折价约0.13%，官方栏为-0.13%。持仓观察日11月4日：SPCX36.18%、TSLA8.74%；规模335.89百万美元仍为9月30日。",
+          "unknown": "显示价格经舍入，持仓与报价不是同日；其余旧敞口未逐项复核，不由权重变化推断净买卖。",
+          "impact": "11月2日约0.20%溢价变为11月5日约0.13%折价；只是不同日历史快照，不代表无风险套利。",
+          "sources": [
+            {
+              "title": "RONB官方分日期净值、价格与持仓",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+              "date": "首次发布日期未标明"
+            }
+          ],
+          "checked_on": "2026-11-06",
+          "current_price": null
         }
       ]
     },
     {
       "id": "AGIX",
       "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
-      "nav": 39.92,
-      "nav_date": "2026-11-09",
+      "nav": 40.23,
+      "nav_date": "2026-11-12",
       "nav_status": "reported",
-      "price": 40.07,
-      "price_date": "2026-11-09",
+      "price": 40.29,
+      "price_date": "2026-11-12",
       "announced": null,
-      "known": "11月9日同日NAV/市价39.92/40.07美元，按显示值复算溢价约0.38%；净资产397.191058百万美元、份额9950002。",
-      "unknown": "不是11月10日即时行情；底层私募估值未逐项核实，份额与资产变化不直接归为投资盈亏。不采用异常季度折溢价天数统计。",
-      "impact": "原主表及图表回填同日快照，较11月4日约0.42%折价转为约0.38%溢价；这不是无风险套利或旧预测得到验证。",
+      "known": "11月12日NAV/市价40.23/40.29美元，复算溢价约0.15%；净资产374.144185百万美元、份额9300002。",
+      "unknown": "不是11月13日实时行情；底层私募估值仍待核，资产与份额变化不直接归为投资盈亏。季度溢价天数异常统计不采用。",
+      "impact": "原净值、价格、规模与溢价图表更新；较11月9日约0.38%溢价收窄，不证明旧预测兑现或可无风险退出。",
       "sources": [
         {
           "title": "AGIX官方日净值、市场价与净资产",
-          "date": "首次发布时间未标；观察日2026-11-09",
+          "date": "首次发布时间未标；净值和价格观察日2026-11-12",
           "url": "https://kraneshares.com/etf/agix/"
         }
       ],
-      "checked_on": "2026-11-10",
+      "checked_on": "2026-11-13",
       "current_price": null,
       "history": [
         {
@@ -481,6 +503,28 @@
             }
           ],
           "checked_on": "2026-11-06",
+          "current_price": null
+        },
+        {
+          "id": "AGIX",
+          "label": "AGIX · KraneShares Public-Private AI & Technology ETF",
+          "nav": 39.92,
+          "nav_date": "2026-11-09",
+          "nav_status": "reported",
+          "price": 40.07,
+          "price_date": "2026-11-09",
+          "announced": null,
+          "known": "11月9日同日NAV/市价39.92/40.07美元，按显示值复算溢价约0.38%；净资产397.191058百万美元、份额9950002。",
+          "unknown": "不是11月10日即时行情；底层私募估值未逐项核实，份额与资产变化不直接归为投资盈亏。不采用异常季度折溢价天数统计。",
+          "impact": "原主表及图表回填同日快照，较11月4日约0.42%折价转为约0.38%溢价；这不是无风险套利或旧预测得到验证。",
+          "sources": [
+            {
+              "title": "AGIX官方日净值、市场价与净资产",
+              "date": "首次发布时间未标；观察日2026-11-09",
+              "url": "https://kraneshares.com/etf/agix/"
+            }
+          ],
+          "checked_on": "2026-11-10",
           "current_price": null
         }
       ]

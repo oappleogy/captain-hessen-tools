@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-13T06:50:55.031977+00:00",
-  "last_research_at": "2026-11-13T06:50:55.031977+00:00",
+  "updated_at": "2026-11-13T07:56:16.624992+00:00",
+  "last_research_at": "2026-11-13T07:56:16.624992+00:00",
   "last_market_observation_at": null,
-  "status": "运行空档后恢复；Kraken成本证据不足已停止，独立转向本轮亦无增量",
+  "status": "具名数据路径受阻：本轮完成有限资格审查，无新行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -79,13 +79,13 @@
     "连续采集与低延迟服务尚未部署"
   ],
   "recent": [
-    "距上一轮实际开始约17小时39分；无此期间执行回执，不回填行情，持续调度未修复。",
-    "Kraken最终4读仅取得文档，费用页工具失败；历史资金费API未请求，不能称其不可访问。分支已停止。",
-    "独立预测市场转向2读：原文工具失败且机制已有记录，无新数据或新结论。"
+    "Scout审查5条已保存线索，0条满足当前具名数据包条件；Risk独立复核。",
+    "恢复预检命中已保存目录HTTP403；本轮未请求、未重试，未恢复采集。",
+    "同一数据能力缺口连续两轮未取得增量，停止重复清单与目录检查；非全部产品或全市场结论。"
   ],
   "next": [
-    "只选择具名赎回/预测标的与未停止原始数据入口；先本地排重，避免再次泛读文档。",
-    "若没有可验证的数据路径，明确升级数据能力缺口，不声称全市场无机会。"
+    "转向独立跨链库存机制问题，先确认未停止的具名官方来源与可证伪交付；尚未执行。",
+    "原具名数据分支仅凭新身份/独立合法原始数据路径或访问条件变化重开。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -97,11 +97,15 @@
   "collection_started_at": "2026-11-12T13:09:48.267224+00:00",
   "collection_completed_at": "2026-11-12T13:10:30.101819+00:00",
   "current_round": {
-    "task_id": "KRAKEN-FUNDING-COST-01",
+    "task_id": "NAMED-REDEMPTION-DISCOVERY-01",
     "market_collection": false,
     "source_time": null,
+    "collection_started_at": null,
+    "collection_completed_at": null,
     "external_market_requests": 0,
-    "public_reads": 6
+    "public_reads": 0,
+    "scope": "5 saved leads; offline eligibility audit",
+    "substantive_increment": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -111,7 +115,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮统一源快照时间未知；旧Base区块时间仅见历史候选。",
+  "last_market_observation_note": "本轮无新行情；collection_started_at/completed_at为上次历史采集时间，非本轮。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -124,6 +128,13 @@
       "task": "PREDICTION-UNIVERSE-PIVOT-01",
       "status": "no_increment",
       "reason": "unread original plus previously known mechanism"
+    },
+    {
+      "task": "NAMED-REDEMPTION-DISCOVERY-01",
+      "status": "blocked_data",
+      "reason": "5 assessed leads lack qualified current evidence package; known catalog has saved403",
+      "http_request_this_round": false,
+      "reopen": "new independent stop-clear canonical data path or lawful access change"
     }
   ]
 }

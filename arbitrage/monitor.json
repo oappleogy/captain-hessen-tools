@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-13T07:56:16.624992+00:00",
-  "last_research_at": "2026-11-13T07:56:16.624992+00:00",
+  "updated_at": "2026-11-13T08:54:48.551294+00:00",
+  "last_research_at": "2026-11-13T08:54:48.551294+00:00",
   "last_market_observation_at": null,
-  "status": "具名数据路径受阻：本轮完成有限资格审查，无新行情",
+  "status": "跨链动作终态约束已独立验证；本轮无行情采集",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -79,13 +79,11 @@
     "连续采集与低延迟服务尚未部署"
   ],
   "recent": [
-    "Scout审查5条已保存线索，0条满足当前具名数据包条件；Risk独立复核。",
-    "恢复预检命中已保存目录HTTP403；本轮未请求、未重试，未恢复采集。",
-    "同一数据能力缺口连续两轮未取得增量，停止重复清单与目录检查；非全部产品或全市场结论。"
+    "Mechanism读取Circle原文：CCTP核心不执行hooks，动作由集成方处理。",
+    "Risk独立6个合成轨迹通过：mint与应用动作/对冲终态分开；实际适配器尚未核验。"
   ],
   "next": [
-    "转向独立跨链库存机制问题，先确认未停止的具名官方来源与可证伪交付；尚未执行。",
-    "原具名数据分支仅凭新身份/独立合法原始数据路径或访问条件变化重开。"
+    "实现限定离线消息/收款人/资产/数量门禁，再独立验收；不称实时监控。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -97,15 +95,16 @@
   "collection_started_at": "2026-11-12T13:09:48.267224+00:00",
   "collection_completed_at": "2026-11-12T13:10:30.101819+00:00",
   "current_round": {
-    "task_id": "NAMED-REDEMPTION-DISCOVERY-01",
+    "task_id": "CCTP-HOOK-TERMINAL-01",
     "market_collection": false,
     "source_time": null,
     "collection_started_at": null,
     "collection_completed_at": null,
+    "public_reads": 3,
     "external_market_requests": 0,
-    "public_reads": 0,
-    "scope": "5 saved leads; offline eligibility audit",
-    "substantive_increment": false
+    "synthetic_cases": 6,
+    "substantive_increment": true,
+    "execution_veto": true
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",

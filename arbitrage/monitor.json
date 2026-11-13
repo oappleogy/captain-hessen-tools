@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-13T08:54:48.551294+00:00",
-  "last_research_at": "2026-11-13T08:54:48.551294+00:00",
+  "updated_at": "2026-11-13T09:50:18.629754+00:00",
+  "last_research_at": "2026-11-13T09:50:18.629754+00:00",
   "last_market_observation_at": null,
-  "status": "跨链动作终态约束已独立验证；本轮无行情采集",
+  "status": "跨链动作终态离线门禁通过独立验收；持续采集未部署",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -79,11 +79,12 @@
     "连续采集与低延迟服务尚未部署"
   ],
   "recent": [
-    "Mechanism读取Circle原文：CCTP核心不执行hooks，动作由集成方处理。",
-    "Risk独立6个合成轨迹通过：mint与应用动作/对冲终态分开；实际适配器尚未核验。"
+    "Execution完成单意图离线门禁，12项针对性测试通过。",
+    "Risk另写30项对抗测试通过；消息/链域/收款人/资产/数量与失效旧证据均检查。",
+    "只验证调用方提供的标准化断言；尚无原始链上证明认证、实际适配器或实时服务。"
   ],
   "next": [
-    "实现限定离线消息/收款人/资产/数量门禁，再独立验收；不称实时监控。"
+    "审查近轮真实数据覆盖与停滞原因，安排独立可验证市场数据任务；不重复门禁演练。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -95,14 +96,15 @@
   "collection_started_at": "2026-11-12T13:09:48.267224+00:00",
   "collection_completed_at": "2026-11-12T13:10:30.101819+00:00",
   "current_round": {
-    "task_id": "CCTP-HOOK-TERMINAL-01",
+    "task_id": "CCTP-OFFLINE-GATE-01",
     "market_collection": false,
     "source_time": null,
     "collection_started_at": null,
     "collection_completed_at": null,
-    "public_reads": 3,
+    "public_reads": 0,
     "external_market_requests": 0,
-    "synthetic_cases": 6,
+    "implementation_tests": 12,
+    "independent_tests": 30,
     "substantive_increment": true,
     "execution_veto": true
   },

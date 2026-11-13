@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_on": "2026-11-13T08:54:48.551294+00:00",
+  "updated_on": "2026-11-13T09:50:18.629754+00:00",
   "modes": [
     {
       "id": "event",
@@ -272,11 +272,11 @@
       "trigger": "通道费用、额度、延迟与价格",
       "verification": "源扣除—证明—目标执行—可用到账",
       "risks": "异步价格变化、限流暂停、最终性",
-      "status": "CCTP目的链动作终态约束经独立合成反例核验；尚未部署",
+      "status": "CCTP动作终态离线门禁完成；12项测试与30项独立反例通过，未部署",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "限定离线状态门禁：绑定消息、收款人、资产与最低输出；实际适配器原子性仍须另核",
+      "next": "停止重复门禁演练；真实接入需具名适配器及已验证链上证据，先审查数据覆盖缺口",
       "net_return": null,
-      "evidence_note": "Circle官方Hooks说明结合6个独立Python合成轨迹：mint不证明兑换/对冲完成；原子回滚与独立动作失败须分开。非真实协议执行、非行情，净收益未知。",
+      "evidence_note": "离线输入绑定消息/链域/收款人/资产/最低输出及当前generation；mint不等应用或对冲完成。输入仍是调用方断言，不是链上证明认证；无行情和全成本收益。",
       "sources": [
         {
           "label": "Circle CCTP technical guide — Hooks",

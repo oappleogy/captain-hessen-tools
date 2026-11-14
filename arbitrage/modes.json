@@ -227,14 +227,14 @@
       "net_return": null,
       "evidence_note": "原始产品与盘口分别采集于不同日期；数量单位和时间语义未齐，未计算跨场所净收益。",
       "monitor": {
-        "state": "间歇采样 · 比较受阻",
+        "state": "已部署只读采集 · 运行见心跳",
         "markets": [
           "Coinbase Exchange",
           "Gemini"
         ],
         "candidates": [],
         "sample": "Coinbase 11月13日18:51；Gemini 11月14日22:29北京时间接收。两者异时，Gemini源时间语义未知。",
-        "review": "两份单场所原始盘口获数据级验收；没有匹配的新双腿，未形成机会。",
+        "review": "当前Mac已启动BTC/USD公开原始盘口采集；是否持续可用以独立运行心跳为准。数量/成本未齐，不升级机会。",
         "missing": [
           "双方数量单位及时间语义原文",
           "同规模匹配的新双腿深度",

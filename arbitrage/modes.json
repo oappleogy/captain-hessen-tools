@@ -223,18 +223,18 @@
       "risks": "部分成交、提充暂停、对手方",
       "status": "Coinbase/Gemini单场所原件已取得；两场所比较受阻",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "仅在新增单位/时间原文证据与匹配新盘口后重开比较，不拼接历史双腿。",
+      "next": "保留熔断；仅在新恢复证据后独立审查重开，不把进程存活当双源健康。",
       "net_return": null,
       "evidence_note": "原始产品与盘口分别采集于不同日期；数量单位和时间语义未齐，未计算跨场所净收益。",
       "monitor": {
-        "state": "已部署只读采集 · 运行见心跳",
+        "state": "采集降级 · Coinbase停源",
         "markets": [
           "Coinbase Exchange",
           "Gemini"
         ],
         "candidates": [],
         "sample": "Coinbase 11月13日18:51；Gemini 11月14日22:29北京时间接收。两者异时，Gemini源时间语义未知。",
-        "review": "当前Mac已启动BTC/USD公开原始盘口采集；是否持续可用以独立运行心跳为准。数量/成本未齐，不升级机会。",
+        "review": "归档独立核验：173原件完整，171盘口请求164传输成功/7失败。约49.5分钟空档；Coinbase连续3失败停源，Gemini仍采集。原始数量/成本未知，非机会。",
         "missing": [
           "双方数量单位及时间语义原文",
           "同规模匹配的新双腿深度",

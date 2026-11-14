@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-14T15:37:54.366742+00:00",
-  "last_research_at": "2026-11-14T15:37:54.366742+00:00",
+  "updated_at": "2026-11-14T17:30:47.439864+00:00",
+  "last_research_at": "2026-11-14T17:30:47.439864+00:00",
   "last_market_observation_at": null,
-  "status": "跨链库存合成反例完成；BTC/USD连续原始采集独立运行，尚无已核验交易机会",
+  "status": "采集降级：Coinbase连续失败停源，Gemini仍在采集；归档发现约49.5分钟空档",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -88,18 +88,18 @@
   ],
   "gaps": [
     "Gemini数量单位及时间语义、Coinbase数量单位证据未齐",
-    "连续双场所原始盘口已有；单位语义、规模报价与完整成本仍待核验",
+    "Coinbase连续3次失败已停源；最后成功为北京时间11月15日00:31:31，旧报价过期",
     "全成本、资格、库存、退出及报价有效期未知",
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Mechanism完成预置库存/在途/扣费合成实验；Risk独立复算3组净值。",
-    "延迟3个抽象tick且扣费1USDC时，4次100USDC信号仅2次满足库存；非真实市场容量。",
-    "当前Mac持续原始采集另列心跳；本轮不计为新行情采样。"
+    "冻结173份原件，独立哈希/字节/时间顺序核验通过。",
+    "171次盘口请求164次传输成功、7次失败；传输成功不等于可交易。",
+    "北京时间00:31至01:21附近出现约49.5分钟请求空档；原因未知。"
   ],
   "next": [
-    "依据具体适配器或新反例选择工程任务；不重复已完成库存扫描。",
-    "真实跨链费用、到账延迟、现金与库存闭环证据未齐，保持执行VETO。"
+    "保留Coinbase熔断，需新恢复证据与独立审查才重开。",
+    "Gemini继续按已有边界采集；双源报价/全成本未知，不升级机会。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -111,7 +111,7 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "CCTP-INVENTORY-ECONOMICS-01",
+    "task_id": "BTCUSD-ARCHIVE-QUALITY-01",
     "market_collection": false,
     "source_time": null,
     "public_reads": 0,
@@ -119,7 +119,7 @@
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_SYNTHETIC_MECHANISM_ONLY"
+    "risk_decision": "ACCEPT_ARCHIVE_AUDIT_WITH_SERVICE_DEGRADATION"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -129,7 +129,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本研究轮仅离线合成验证；连续采集的实际接收时间见独立运行心跳。",
+  "last_market_observation_note": "本轮独立审计冻结原件；最新市场接收时间以运行心跳为准，空档未回填。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -155,6 +155,12 @@
       "status": "comparison_blocked",
       "reason": "官方文档跳转后仅目录；未证实单位/时间，4次读取预算用尽",
       "reopen": "new original quantity/time evidence and fresh matched legs"
+    },
+    {
+      "task": "BTCUSD-COLLECTOR-GAP-20261114T163130Z",
+      "status": "partial_service_coinbase_stopped",
+      "reason": "约49.5分钟请求空档，随后Coinbase连续3次HTTP0；原因未知",
+      "reopen": "new recovery evidence and independent review; no automatic circuit reset"
     }
   ],
   "learning": [
@@ -189,6 +195,14 @@
       "evidence": "合成初始200USDC，每笔100；延迟3tick、扣费1USDC，4信号中2次被库存限制。Risk独立核验。",
       "unknown": "真实桥费、延迟、资格、双腿价格与现金闭环；模型不是市场收益。",
       "next": "有新的真实费用/延迟证据后再验证。"
+    },
+    {
+      "category": "工程 / 真实归档审核",
+      "title": "程序还在运行，为什么监控已经降级？",
+      "takeaway": "进程心跳、每个来源是否成功、报价是否过期必须分别看。",
+      "evidence": "冻结173份原件完整，但发现约49.5分钟空档及Coinbase三次连续失败。",
+      "unknown": "空档和网络失败原因；净收益未知。",
+      "next": "保留旧报价时点与停源标记，不能用旧腿拼接新腿。"
     }
   ]
 }

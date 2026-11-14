@@ -1,18 +1,12 @@
-const el=id=>document.getElementById(id);
-const text=(tag,value)=>{const n=document.createElement(tag);n.textContent=value;return n;};
-const time=v=>v?new Date(v).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false})+' 北京时间':'未知（未采得可靠时间）';
-async function refresh(){
- try{
- const r=await fetch('./monitor.json',{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();
- el('load').textContent=d.status;
- const age=(Date.now()-Date.parse(d.updated_at))/3600000;
- el('freshness').textContent=`页面快照生成：${time(d.updated_at)}；最近研究审核：${time(d.last_research_at)}；固定块元数据时间：${time(d.last_metadata_at)}；最近可靠行情时间：${time(d.last_market_observation_at)}。${age>2?'快照超过2小时未更新，请按陈旧状态阅读。':'页面更新时间不等于行情时间。'}`;
- el('summary').replaceChildren();const metrics=text('div','');metrics.className='metrics';
- for(const [key,label]of [['pool_addresses','目录池地址'],['verified_pairs','身份核验池对'],['two_leg_quotes','双腿规模报价'],['verified_opportunities','已核验机会']]){const a=text('p',label);a.prepend(text('strong',d[key]??'未知'));metrics.append(a);}el('summary').append(metrics);
- el('markets').replaceChildren(...d.markets.map(m=>{const a=text('article','');a.append(text('h3',m.network+' · '+m.asset),text('p',m.pool),text('p','factory 查询费率输入：'+m.fee_input),text('p',m.status));return a;}));
- el('candidates').replaceChildren();if(!d.candidates.length)el('candidates').append(text('p','尚无具备双腿报价的候选。数据不足，不等于全市场没有机会；当前净收益：未知。'));
- else for(const c of d.candidates){const a=text('article','');for(const [label,key]of [['候选','id'],['状态','status'],['方向','direction'],['观察时间','observed_at'],['研究规模','size'],['净边际','net_edge'],['缺失成本','unknown_costs'],['有效期','expires_at'],['失效风险','risks']])a.append(text('p',label+'：'+(c[key]??'未知')));el('candidates').append(a);}
- for(const k of ['gaps','recent','next'])el(k).replaceChildren(...d[k].map(v=>text('li',v)));
- }catch(e){el('load').textContent='监控快照读取失败；下方如有数据为上次已显示内容，不能视为最新。';}
-}
-el('refresh').addEventListener('click',refresh);refresh();setInterval(refresh,60000);
+const el=id=>document.getElementById(id);const node=(tag,value,cls)=>{const n=document.createElement(tag);n.textContent=value??'未知';if(cls)n.className=cls;return n};
+const time=v=>v&&Number.isFinite(Date.parse(v))?new Date(v).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false}):'未知';
+let data=null,busy=false;
+function marketCards(){const list=(data?.markets??[]).filter(m=>el('venue').value==='all'||m.network===el('venue').value);el('markets').replaceChildren(...list.map(m=>{const a=node('article','');a.append(node('div',m.network,'label'),node('h3',m.asset),node('p',m.pool,'muted'),node('p',m.status),node('p','费用 / 参数：'+(m.fee_input??'未知'),'muted'));return a}));}
+function render(d){el('status').textContent=d.status;el('snapshot').textContent=time(d.updated_at);el('received').textContent=time(d.collection_completed_at);el('source').textContent=time(d.current_round?.source_time??null);el('quotes').textContent=d.two_leg_quotes??'未知';el('opportunities').textContent=d.verified_opportunities??'未知';el('risk').textContent=d.current_round?.execution_veto?'独立风控：未放行执行':'审核结论以本轮证据为准';const age=Date.now()-Date.parse(d.collection_completed_at);el('age').textContent=`最近采集距今${Number.isFinite(age)?Math.max(0,Math.floor(age/60000))+'分钟':'未知'}。${age>7200000?'采集记录已超过2小时，请按历史数据阅读。':'这是一份离散采样记录，不保证报价仍有效。'} 页面每60秒同步已发布快照，不会启动行情采集。`;
+for(const k of ['gaps','next'])el(k).replaceChildren(...(d[k]??[]).map(v=>node('li',v)));el('recent').replaceChildren(...(d.recent??[]).map(v=>node('p',v)));
+const selected=el('venue').value;el('venue').replaceChildren(new Option('全部场所','all'),...[...new Set((d.markets??[]).map(x=>x.network))].map(v=>new Option(v,v)));if([...el('venue').options].some(o=>o.value===selected))el('venue').value=selected;marketCards();
+el('candidates').replaceChildren(...(d.candidates??[]).map(c=>{const a=node('details','');a.append(node('summary',c.id+' · '+c.status));const dl=node('dl','');for(const [label,key]of [['方向','direction'],['观察时间','observed_at'],['研究规模','size'],['净边际','net_edge'],['成本缺口','unknown_costs'],['有效期','expires_at'],['风险','risks']])dl.append(node('dt',label),node('dd',c[key]));a.append(dl);return a}));if(!(d.candidates??[]).length)el('candidates').append(node('p','尚无保存的候选。数据不足不代表全市场没有机会。'));
+el('failures').replaceChildren(...(d.failures??[]).map(f=>{const a=node('details','');a.append(node('summary',f.task+' · '+f.status),node('p',f.reason??f.fee_page??'证据不足'),node('p','恢复条件：'+(f.reopen??'新的原始证据')));return a}));
+el('lessons').replaceChildren(...(d.learning??[]).map(l=>{const a=node('article','');a.append(node('div',l.category,'label'),node('h3',l.title),node('p',l.takeaway));const det=node('details','');det.append(node('summary','展开：依据与下一步'),node('p','已知：'+l.evidence),node('p','仍未知：'+l.unknown),node('p','下一步：'+l.next));a.append(det);return a}));}
+async function refresh(){if(busy)return;busy=true;el('refresh').disabled=true;const control=new AbortController(),timer=setTimeout(()=>control.abort(),15000);try{const r=await fetch('./monitor.json',{cache:'no-store',signal:control.signal});if(!r.ok)throw Error('HTTP '+r.status);const d=await r.json();if(!Array.isArray(d.markets)||!d.updated_at)throw Error('快照格式不完整');data=d;render(d);el('error').hidden=true;el('connection').textContent='已读取发布快照';el('checked').textContent='本次读取：'+time(new Date().toISOString());}catch(e){el('error').hidden=false;el('error').textContent='同步失败：'+e.message+'。'+(data?'以下保留上次成功读取的数据，请勿视为最新。':'当前没有读到快照，请稍后重试。');el('connection').textContent='同步异常';}finally{clearTimeout(timer);busy=false;el('refresh').disabled=false;}}
+el('refresh').addEventListener('click',refresh);el('venue').addEventListener('change',marketCards);setInterval(()=>{if(el('auto').checked&&!document.hidden)refresh()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&el('auto').checked)refresh()});refresh();

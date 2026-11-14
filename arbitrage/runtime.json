@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-14T16:29:34.069573+00:00",
-  "last_cycle_at": "2026-11-14T16:29:29.814835+00:00",
-  "last_success_at": "2026-11-14T16:29:34.064656+00:00",
-  "cycle_count": 80,
-  "status": "collecting",
+  "updated_at": "2026-11-14T17:23:29.793823+00:00",
+  "last_cycle_at": "2026-11-14T17:22:54.380330+00:00",
+  "last_success_at": "2026-11-14T17:23:29.787529+00:00",
+  "cycle_count": 85,
+  "status": "partial_or_starting",
   "interval_seconds": 60,
   "venues": [
     {
       "id": "coinbase",
       "venue": "Coinbase Exchange",
       "symbol": "BTC-USD",
-      "circuit": "closed",
-      "consecutive_failures": 0,
+      "circuit": "stopped",
+      "consecutive_failures": 3,
       "cooldown_until": 0,
       "identity": {
         "symbol": "BTC-USD",
@@ -21,23 +21,27 @@
         "type": "spot"
       },
       "identity_observed_at": "2026-11-14T15:10:55.237879+00:00",
-      "last_success_at": "2026-11-14T16:29:31.522823+00:00",
-      "last_error": null,
+      "last_success_at": "2026-11-14T16:31:31.336781+00:00",
+      "last_error": {
+        "at": "2026-11-14T17:23:14.543218+00:00",
+        "http_status": 0,
+        "reason": "ValueError: HTTP 0"
+      },
       "observation": {
-        "raw_bid_price": "65308.34",
-        "raw_bid_amount": "0.13142771",
-        "raw_ask_price": "65308.35",
-        "raw_ask_amount": "0.05683497",
-        "bid_levels": 12978,
-        "ask_levels": 23848,
-        "source_time": "2026-11-14T16:29:29.852303155Z",
+        "raw_bid_price": "65311.64",
+        "raw_bid_amount": "0.03915156",
+        "raw_ask_price": "65311.65",
+        "raw_ask_amount": "0.04685443",
+        "bid_levels": 12928,
+        "ask_levels": 23924,
+        "source_time": "2026-11-14T16:31:28.522268226Z",
         "source_time_semantics_verified": false,
         "quantity_units_verified": false,
         "size_quotes": null,
         "net_return": null,
-        "request_started_at": "2026-11-14T16:29:29.815674+00:00",
-        "received_at": "2026-11-14T16:29:31.522823+00:00",
-        "raw_sha256": "e33e2ffe69c9dafbb6185672a882554900e3a3ed2f47f3f663ef7b037911f3bf"
+        "request_started_at": "2026-11-14T16:31:30.146846+00:00",
+        "received_at": "2026-11-14T16:31:31.336781+00:00",
+        "raw_sha256": "cb1c3b30144f422cddad11493e75fe82b33e0be467848507ef4d0abec586c879"
       }
     },
     {
@@ -54,13 +58,13 @@
         "type": "spot"
       },
       "identity_observed_at": "2026-11-14T15:10:58.720031+00:00",
-      "last_success_at": "2026-11-14T16:29:34.064656+00:00",
+      "last_success_at": "2026-11-14T17:23:29.787529+00:00",
       "last_error": null,
       "observation": {
-        "raw_bid_price": "65323.46",
-        "raw_bid_amount": "0.03064021",
-        "raw_ask_price": "65323.47",
-        "raw_ask_amount": "0.19531111",
+        "raw_bid_price": "65308.82",
+        "raw_bid_amount": "0.06177523",
+        "raw_ask_price": "65308.83",
+        "raw_ask_amount": "0.0390816",
         "bid_levels": 50,
         "ask_levels": 50,
         "source_time": null,
@@ -68,9 +72,9 @@
         "quantity_units_verified": false,
         "size_quotes": null,
         "net_return": null,
-        "request_started_at": "2026-11-14T16:29:31.634169+00:00",
-        "received_at": "2026-11-14T16:29:34.064656+00:00",
-        "raw_sha256": "d8858fd236de85db8f0d5a068f886240746a9abb07b0b3e8bc450c6a927703ea"
+        "request_started_at": "2026-11-14T17:23:14.546937+00:00",
+        "received_at": "2026-11-14T17:23:29.787529+00:00",
+        "raw_sha256": "4ba4df392e35bf0329ef840114ad62502e9b2f46bb531a468c93b664b51d164a"
       }
     }
   ],
@@ -78,6 +82,6 @@
   "execution_veto": true,
   "net_return": null,
   "note": "Read-only raw observations. Receive time is not market source time; units/fees/exit unverified. No executable opportunities.",
-  "published_snapshot_at": "2026-11-14T16:29:34.094880+00:00",
+  "published_snapshot_at": "2026-11-14T17:23:29.816407+00:00",
   "publication_interval_seconds": 300
 }

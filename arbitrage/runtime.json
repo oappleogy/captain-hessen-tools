@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-14T15:23:25.471387+00:00",
-  "last_cycle_at": "2026-11-14T15:23:22.169548+00:00",
-  "last_success_at": "2026-11-14T15:23:25.466441+00:00",
-  "cycle_count": 14,
+  "updated_at": "2026-11-14T15:29:25.348357+00:00",
+  "last_cycle_at": "2026-11-14T15:29:22.620577+00:00",
+  "last_success_at": "2026-11-14T15:29:25.341685+00:00",
+  "cycle_count": 20,
   "status": "collecting",
   "interval_seconds": 60,
   "venues": [
@@ -21,23 +21,23 @@
         "type": "spot"
       },
       "identity_observed_at": "2026-11-14T15:10:55.237879+00:00",
-      "last_success_at": "2026-11-14T15:23:24.318429+00:00",
+      "last_success_at": "2026-11-14T15:29:23.817003+00:00",
       "last_error": null,
       "observation": {
-        "raw_bid_price": "65419.33",
-        "raw_bid_amount": "0.03099248",
-        "raw_ask_price": "65419.34",
-        "raw_ask_amount": "0.43710077",
-        "bid_levels": 12749,
-        "ask_levels": 23816,
-        "source_time": "2026-11-14T15:23:20.768767028Z",
+        "raw_bid_price": "65138.42",
+        "raw_bid_amount": "0.00498389",
+        "raw_ask_price": "65139.87",
+        "raw_ask_amount": "0.0196013",
+        "bid_levels": 12604,
+        "ask_levels": 23868,
+        "source_time": "2026-11-14T15:29:20.520511522Z",
         "source_time_semantics_verified": false,
         "quantity_units_verified": false,
         "size_quotes": null,
         "net_return": null,
-        "request_started_at": "2026-11-14T15:23:22.170755+00:00",
-        "received_at": "2026-11-14T15:23:24.318429+00:00",
-        "raw_sha256": "f5a3e2807d1b3042a3564d42ddc99b4f9dff8ea5fa9307d3077b07b3aff8d8d7"
+        "request_started_at": "2026-11-14T15:29:22.621451+00:00",
+        "received_at": "2026-11-14T15:29:23.817003+00:00",
+        "raw_sha256": "7aa45e4c8e7a371cd9ef25ef6d82cf77301de9169da1378954bbf288b22a8d0d"
       }
     },
     {
@@ -54,13 +54,13 @@
         "type": "spot"
       },
       "identity_observed_at": "2026-11-14T15:10:58.720031+00:00",
-      "last_success_at": "2026-11-14T15:23:25.466441+00:00",
+      "last_success_at": "2026-11-14T15:29:25.341685+00:00",
       "last_error": null,
       "observation": {
-        "raw_bid_price": "65409.9",
-        "raw_bid_amount": "0.04712327",
-        "raw_ask_price": "65409.91",
-        "raw_ask_amount": "0.00764462",
+        "raw_bid_price": "65149.33",
+        "raw_bid_amount": "0.05371243",
+        "raw_ask_price": "65153.79",
+        "raw_ask_amount": "0.01694432",
         "bid_levels": 50,
         "ask_levels": 50,
         "source_time": null,
@@ -68,9 +68,9 @@
         "quantity_units_verified": false,
         "size_quotes": null,
         "net_return": null,
-        "request_started_at": "2026-11-14T15:23:24.424964+00:00",
-        "received_at": "2026-11-14T15:23:25.466441+00:00",
-        "raw_sha256": "2a9b972e8731637b38ac411afca06942be09093d78c4fe78a3e5df86ae6a2212"
+        "request_started_at": "2026-11-14T15:29:23.922821+00:00",
+        "received_at": "2026-11-14T15:29:25.341685+00:00",
+        "raw_sha256": "edf8d0981f1ba36d22b548ce39b95496acb3453a364eb71bc7e7f9dfb6f80727"
       }
     }
   ],
@@ -78,6 +78,6 @@
   "execution_veto": true,
   "net_return": null,
   "note": "Read-only raw observations. Receive time is not market source time; units/fees/exit unverified. No executable opportunities.",
-  "published_snapshot_at": "2026-11-14T15:23:25.493997+00:00",
+  "published_snapshot_at": "2026-11-14T15:29:25.376080+00:00",
   "publication_interval_seconds": 300
 }

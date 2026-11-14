@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-13T09:50:18.629754+00:00",
-  "last_research_at": "2026-11-13T09:50:18.629754+00:00",
-  "last_market_observation_at": null,
-  "status": "跨链动作终态离线门禁通过独立验收；持续采集未部署",
+  "updated_at": "2026-11-14T06:33:40.466426+00:00",
+  "last_research_at": "2026-11-13T10:53:35.572362+00:00",
+  "last_market_observation_at": "2026-11-13T10:51:45.329614356Z",
+  "status": "补齐中断轮次回执；Coinbase历史单场所数据已保存，今日未采集新行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -35,6 +35,13 @@
       "pool": "PF_ETHUSD",
       "fee_input": "unknown",
       "status": "0.1ETH显示卖价198.85USD；资金费/账户结算未知"
+    },
+    {
+      "network": "Coinbase Exchange",
+      "asset": "BTC/USD spot",
+      "pool": "BTC-USD",
+      "fee_input": "unknown",
+      "status": "历史单场所L2快照：2026-11-13 18:51:45北京时间；非套利候选，单位解释待直接证据"
     }
   ],
   "candidates": [
@@ -73,18 +80,18 @@
     }
   ],
   "gaps": [
-    "无本轮新行情；现有候选均历史过期",
-    "Kraken资金费实际历史、适用费用等仍未知；该候选停止",
-    "预测结果集/tokenID/转换与盘口完整证据未取得",
-    "连续采集与低延迟服务尚未部署"
+    "旧盘口已过期，本次恢复未采集新行情",
+    "Coinbase数量单位直接文档证据及第二场所身份/深度未齐",
+    "手续费、资格、库存和退出成本未知",
+    "持续采集与低延迟服务尚未部署；Mac mini未接管"
   ],
   "recent": [
-    "Execution完成单意图离线门禁，12项针对性测试通过。",
-    "Risk另写30项对抗测试通过；消息/链域/收款人/资产/数量与失效旧证据均检查。",
-    "只验证调用方提供的标准化断言；尚无原始链上证明认证、实际适配器或实时服务。"
+    "Postmortem确认此前连续4轮没有行情；机制和代码增量不等于市场证据。",
+    "Scout于11月13日18:51北京时间取得Coinbase BTC-USD产品与L2盘口；Risk仅通过数据级验收，数量单位解释仍有条件。",
+    "当前仅恢复中断的汇总与发布；不能把旧盘口当新行情，Mac mini尚未接管采集。"
   ],
   "next": [
-    "审查近轮真实数据覆盖与停滞原因，安排独立可验证市场数据任务；不重复门禁演练。"
+    "两场所比较前先核明双方单位及身份，并采集新的两腿盘口；预算不足则停止比较。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -93,19 +100,16 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-12T13:09:48.267224+00:00",
-  "collection_completed_at": "2026-11-12T13:10:30.101819+00:00",
+  "collection_started_at": "2026-11-13T10:51:45.244701+00:00",
+  "collection_completed_at": "2026-11-13T10:51:48.541339+00:00",
   "current_round": {
-    "task_id": "CCTP-OFFLINE-GATE-01",
+    "task_id": "DATA-COVERAGE-DECISION-01",
+    "recovery": true,
     "market_collection": false,
-    "source_time": null,
-    "collection_started_at": null,
-    "collection_completed_at": null,
-    "public_reads": 0,
-    "external_market_requests": 0,
-    "implementation_tests": 12,
-    "independent_tests": 30,
-    "substantive_increment": true,
+    "original_market_collection": true,
+    "source_time": "2026-11-13T10:51:45.329614356Z",
+    "public_reads_during_original_round": 3,
+    "public_reads_during_recovery": 0,
     "execution_veto": true
   },
   "outcome_coverage": {
@@ -116,7 +120,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮无新行情；collection_started_at/completed_at为上次历史采集时间，非本轮。",
+  "last_market_observation_note": "Coinbase响应time字段；撮合语义/时钟未独立核验。页面更新时间不是行情时间。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-14T14:31:28.374096+00:00",
-  "last_research_at": "2026-11-14T14:31:28.374096+00:00",
+  "updated_at": "2026-11-14T15:37:54.366742+00:00",
+  "last_research_at": "2026-11-14T15:37:54.366742+00:00",
   "last_market_observation_at": null,
-  "status": "取得Gemini单场所原始盘口；两场所比较受阻，未形成可核验机会",
+  "status": "跨链库存合成反例完成；BTC/USD连续原始采集独立运行，尚无已核验交易机会",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -88,18 +88,18 @@
   ],
   "gaps": [
     "Gemini数量单位及时间语义、Coinbase数量单位证据未齐",
-    "未采集新Coinbase腿，不将历史盘口拼接比较",
+    "连续双场所原始盘口已有；单位语义、规模报价与完整成本仍待核验",
     "全成本、资格、库存、退出及报价有效期未知",
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Scout取得Gemini产品与原始盘口；Risk仅接受原始数据级增量。",
-    "最近6轮中2轮取得新行情，0个完整双腿候选；不代表全市场无机会。",
-    "实际启动较计划延迟约6小时29分钟；自上次关闭约7小时52分钟空档，未回填。"
+    "Mechanism完成预置库存/在途/扣费合成实验；Risk独立复算3组净值。",
+    "延迟3个抽象tick且扣费1USDC时，4次100USDC信号仅2次满足库存；非真实市场容量。",
+    "当前Mac持续原始采集另列心跳；本轮不计为新行情采样。"
   ],
   "next": [
-    "转向具名跨链库存/再平衡独立机制问题；停止已完成gate和coverage重复派单。",
-    "BTCUSD比较仅在新增单位/时间原文证据及匹配新盘口时重开。"
+    "依据具体适配器或新反例选择工程任务；不重复已完成库存扫描。",
+    "真实跨链费用、到账延迟、现金与库存闭环证据未齐，保持执行VETO。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -108,22 +108,18 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-14T14:29:11.592605+00:00",
-  "collection_completed_at": "2026-11-14T14:29:14.168262+00:00",
+  "collection_started_at": null,
+  "collection_completed_at": null,
   "current_round": {
-    "task_id": "BTCUSD-INDEPENDENT-SECOND-VENUE-01",
-    "market_collection": true,
+    "task_id": "CCTP-INVENTORY-ECONOMICS-01",
+    "market_collection": false,
     "source_time": null,
-    "public_reads": 4,
+    "public_reads": 0,
     "execution_veto": true,
-    "research_sizes_btc": [
-      "0.001",
-      "0.01"
-    ],
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_RAW_DATA_ONLY_COMPARISON_BLOCKED"
+    "risk_decision": "ACCEPT_SYNTHETIC_MECHANISM_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -133,7 +129,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮Gemini源时间语义未知；实际接收北京时间2026-11-14 22:29:14。updated_at不是行情时间。",
+  "last_market_observation_note": "本研究轮仅离线合成验证；连续采集的实际接收时间见独立运行心跳。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -185,6 +181,14 @@
       "evidence": "Execution离线实现12项测试、Risk独立30项测试通过。",
       "unknown": "规模报价、完整成本、实测端到端延迟与纸面闭环尚未通过；只读采集运行见上方独立心跳。",
       "next": "持续检查采集与发布回执，不能把原始盘口当作交易机会。"
+    },
+    {
+      "category": "机制 / 合成验证",
+      "title": "在途资金为什么不能继续卖？",
+      "takeaway": "目标链没有足额可用库存时，即使桥上有资金，也不能完成下一笔卖出。",
+      "evidence": "合成初始200USDC，每笔100；延迟3tick、扣费1USDC，4信号中2次被库存限制。Risk独立核验。",
+      "unknown": "真实桥费、延迟、资格、双腿价格与现金闭环；模型不是市场收益。",
+      "next": "有新的真实费用/延迟证据后再验证。"
     }
   ]
 }

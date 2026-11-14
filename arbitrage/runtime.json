@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-14T17:23:29.793823+00:00",
-  "last_cycle_at": "2026-11-14T17:22:54.380330+00:00",
-  "last_success_at": "2026-11-14T17:23:29.787529+00:00",
-  "cycle_count": 85,
+  "updated_at": "2026-11-14T17:35:06.164728+00:00",
+  "last_cycle_at": "2026-11-14T17:34:55.974114+00:00",
+  "last_success_at": "2026-11-14T17:34:07.189456+00:00",
+  "cycle_count": 97,
   "status": "partial_or_starting",
   "interval_seconds": 60,
   "venues": [
@@ -49,7 +49,7 @@
       "venue": "Gemini",
       "symbol": "BTCUSD",
       "circuit": "closed",
-      "consecutive_failures": 0,
+      "consecutive_failures": 1,
       "cooldown_until": 0,
       "identity": {
         "symbol": "BTCUSD",
@@ -58,13 +58,17 @@
         "type": "spot"
       },
       "identity_observed_at": "2026-11-14T15:10:58.720031+00:00",
-      "last_success_at": "2026-11-14T17:23:29.787529+00:00",
-      "last_error": null,
+      "last_success_at": "2026-11-14T17:34:07.189456+00:00",
+      "last_error": {
+        "at": "2026-11-14T17:35:06.132008+00:00",
+        "http_status": 0,
+        "reason": "ValueError: HTTP 0"
+      },
       "observation": {
-        "raw_bid_price": "65308.82",
-        "raw_bid_amount": "0.06177523",
-        "raw_ask_price": "65308.83",
-        "raw_ask_amount": "0.0390816",
+        "raw_bid_price": "65633.87",
+        "raw_bid_amount": "0.24761893",
+        "raw_ask_price": "65633.88",
+        "raw_ask_amount": "0.03890545",
         "bid_levels": 50,
         "ask_levels": 50,
         "source_time": null,
@@ -72,9 +76,9 @@
         "quantity_units_verified": false,
         "size_quotes": null,
         "net_return": null,
-        "request_started_at": "2026-11-14T17:23:14.546937+00:00",
-        "received_at": "2026-11-14T17:23:29.787529+00:00",
-        "raw_sha256": "4ba4df392e35bf0329ef840114ad62502e9b2f46bb531a468c93b664b51d164a"
+        "request_started_at": "2026-11-14T17:33:55.822718+00:00",
+        "received_at": "2026-11-14T17:34:07.189456+00:00",
+        "raw_sha256": "3b3c52cd4a60342e38dc8a937fbb2e899b51dea6db411abdc98bdb627ccde47b"
       }
     }
   ],
@@ -82,6 +86,6 @@
   "execution_veto": true,
   "net_return": null,
   "note": "Read-only raw observations. Receive time is not market source time; units/fees/exit unverified. No executable opportunities.",
-  "published_snapshot_at": "2026-11-14T17:23:29.816407+00:00",
+  "published_snapshot_at": "2026-11-14T17:35:06.199797+00:00",
   "publication_interval_seconds": 300
 }

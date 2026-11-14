@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-14T06:33:40.466426+00:00",
-  "last_research_at": "2026-11-13T10:53:35.572362+00:00",
-  "last_market_observation_at": "2026-11-13T10:51:45.329614356Z",
-  "status": "补齐中断轮次回执；Coinbase历史单场所数据已保存，今日未采集新行情",
+  "updated_at": "2026-11-14T14:31:28.374096+00:00",
+  "last_research_at": "2026-11-14T14:31:28.374096+00:00",
+  "last_market_observation_at": null,
+  "status": "取得Gemini单场所原始盘口；两场所比较受阻，未形成可核验机会",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -42,6 +42,13 @@
       "pool": "BTC-USD",
       "fee_input": "unknown",
       "status": "历史单场所L2快照：2026-11-13 18:51:45北京时间；非套利候选，单位解释待直接证据"
+    },
+    {
+      "network": "Gemini",
+      "asset": "BTC/USD spot",
+      "pool": "BTCUSD",
+      "fee_input": "unknown",
+      "status": "2026-11-14 22:29北京时间接收50档双边原始盘口；数量单位与源时间语义未知，未计算规模报价"
     }
   ],
   "candidates": [
@@ -80,18 +87,19 @@
     }
   ],
   "gaps": [
-    "旧盘口已过期，本次恢复未采集新行情",
-    "Coinbase数量单位直接文档证据及第二场所身份/深度未齐",
-    "手续费、资格、库存和退出成本未知",
+    "Gemini数量单位及时间语义、Coinbase数量单位证据未齐",
+    "未采集新Coinbase腿，不将历史盘口拼接比较",
+    "全成本、资格、库存、退出及报价有效期未知",
     "持续采集与低延迟服务尚未部署；Mac mini未接管"
   ],
   "recent": [
-    "Postmortem确认此前连续4轮没有行情；机制和代码增量不等于市场证据。",
-    "Scout于11月13日18:51北京时间取得Coinbase BTC-USD产品与L2盘口；Risk仅通过数据级验收，数量单位解释仍有条件。",
-    "当前仅恢复中断的汇总与发布；不能把旧盘口当新行情，Mac mini尚未接管采集。"
+    "Scout取得Gemini产品与原始盘口；Risk仅接受原始数据级增量。",
+    "最近6轮中2轮取得新行情，0个完整双腿候选；不代表全市场无机会。",
+    "实际启动较计划延迟约6小时29分钟；自上次关闭约7小时52分钟空档，未回填。"
   ],
   "next": [
-    "两场所比较前先核明双方单位及身份，并采集新的两腿盘口；预算不足则停止比较。"
+    "转向具名跨链库存/再平衡独立机制问题；停止已完成gate和coverage重复派单。",
+    "BTCUSD比较仅在新增单位/时间原文证据及匹配新盘口时重开。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -100,17 +108,22 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-13T10:51:45.244701+00:00",
-  "collection_completed_at": "2026-11-13T10:51:48.541339+00:00",
+  "collection_started_at": "2026-11-14T14:29:11.592605+00:00",
+  "collection_completed_at": "2026-11-14T14:29:14.168262+00:00",
   "current_round": {
-    "task_id": "DATA-COVERAGE-DECISION-01",
-    "recovery": true,
-    "market_collection": false,
-    "original_market_collection": true,
-    "source_time": "2026-11-13T10:51:45.329614356Z",
-    "public_reads_during_original_round": 3,
-    "public_reads_during_recovery": 0,
-    "execution_veto": true
+    "task_id": "BTCUSD-INDEPENDENT-SECOND-VENUE-01",
+    "market_collection": true,
+    "source_time": null,
+    "public_reads": 4,
+    "execution_veto": true,
+    "research_sizes_btc": [
+      "0.001",
+      "0.01"
+    ],
+    "size_quotes": null,
+    "all_costs": null,
+    "expires_at": null,
+    "risk_decision": "ACCEPT_RAW_DATA_ONLY_COMPARISON_BLOCKED"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -120,7 +133,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "Coinbase响应time字段；撮合语义/时钟未独立核验。页面更新时间不是行情时间。",
+  "last_market_observation_note": "本轮Gemini源时间语义未知；实际接收北京时间2026-11-14 22:29:14。updated_at不是行情时间。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -140,6 +153,12 @@
       "reason": "5 assessed leads lack qualified current evidence package; known catalog has saved403",
       "http_request_this_round": false,
       "reopen": "new independent stop-clear canonical data path or lawful access change"
+    },
+    {
+      "task": "BTCUSD-INDEPENDENT-SECOND-VENUE-01",
+      "status": "comparison_blocked",
+      "reason": "官方文档跳转后仅目录；未证实单位/时间，4次读取预算用尽",
+      "reopen": "new original quantity/time evidence and fresh matched legs"
     }
   ]
 }

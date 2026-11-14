@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_on": "2026-11-13T09:50:18.629754+00:00",
+  "updated_on": "2026-11-14T14:57:20.314241+00:00",
   "modes": [
     {
       "id": "event",
@@ -70,7 +70,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "身份、精度、池型、双腿规模报价",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-001",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-002",
@@ -84,7 +100,28 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "本次Base试点终止；其他样本须有新决策价值与独立验证",
       "net_return": null,
-      "evidence_note": "Base固定块56454553，2026-11-12 19:01:26北京时间；一次事前冻结后的独立观察支持费后非正假设，不代表可交易收益。"
+      "evidence_note": "Base固定块56454553，2026-11-12 19:01:26北京时间；一次事前冻结后的独立观察支持费后非正假设，不代表可交易收益。",
+      "monitor": {
+        "state": "历史观察已结束",
+        "markets": [
+          "Base"
+        ],
+        "candidates": [
+          "BASE-WETH-USDC-56400765",
+          "BASE-WETH-USDC-56454553"
+        ],
+        "sample": "2026-11-12 19:01:26 北京时间 · 固定块56454553",
+        "review": "两个固定块条件费后边际为负；一次预注册后验观察完成，试点已结束。",
+        "missing": [
+          "新样本与新决策价值",
+          "同状态有限规模双腿报价",
+          "gas、最终性与全成本"
+        ],
+        "priority": "首批接入评估",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-002",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-003",
@@ -98,7 +135,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "精确逐跳报价、共享池顺序模拟",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-003",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-004",
@@ -112,7 +165,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "当时可见信息、排序、组合仿真、竞价",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-004",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-005",
@@ -126,7 +195,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "逐tick/bin整数计算、动态费用",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-005",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-006",
@@ -136,11 +221,40 @@
       "trigger": "双场所盘口变化",
       "verification": "同资产、两腿深度、费用与库存",
       "risks": "部分成交、提充暂停、对手方",
-      "status": "待具名同步候选",
+      "status": "Coinbase/Gemini单场所原件已取得；两场所比较受阻",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
+      "next": "仅在新增单位/时间原文证据与匹配新盘口后重开比较，不拼接历史双腿。",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "原始产品与盘口分别采集于不同日期；数量单位和时间语义未齐，未计算跨场所净收益。",
+      "monitor": {
+        "state": "间歇采样 · 比较受阻",
+        "markets": [
+          "Coinbase Exchange",
+          "Gemini"
+        ],
+        "candidates": [],
+        "sample": "Coinbase 11月13日18:51；Gemini 11月14日22:29北京时间接收。两者异时，Gemini源时间语义未知。",
+        "review": "两份单场所原始盘口获数据级验收；没有匹配的新双腿，未形成机会。",
+        "missing": [
+          "双方数量单位及时间语义原文",
+          "同规模匹配的新双腿深度",
+          "手续费、资格、库存与退出成本"
+        ],
+        "priority": "首批接入评估",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-006",
+        "net_return": null
+      },
+      "sources": [
+        {
+          "label": "Coinbase BTC-USD产品公开入口",
+          "url": "https://api.exchange.coinbase.com/products/BTC-USD"
+        },
+        {
+          "label": "Gemini BTCUSD产品公开入口",
+          "url": "https://api.gemini.com/v1/symbols/details/btcusd"
+        }
+      ]
     },
     {
       "id": "MECH-007",
@@ -164,7 +278,28 @@
           "label": "Deribit Support D-LINEAR",
           "url": "https://support.deribit.com/hc/en-us/articles/31424969384605-Linear-Perpetual"
         }
-      ]
+      ],
+      "monitor": {
+        "state": "暂停 · 数据证据不足",
+        "markets": [
+          "Kraken",
+          "Kraken Futures"
+        ],
+        "candidates": [
+          "KRAKEN-ETHUSD-PF-20261112T131015Z"
+        ],
+        "sample": "2026-11-12 21:10北京时间接收；源时间一致性未核验",
+        "review": "取得历史盘口，但0.1ETH规模事后选择，资金费与全成本缺失；有限证据包已关闭。",
+        "missing": [
+          "实际资金费路径及费用",
+          "预注册规模和时间对齐",
+          "保证金、借币及退出成本"
+        ],
+        "priority": "首批接入评估",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-007",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-008",
@@ -178,7 +313,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "单位、乘数、两地保证金及实际结算",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-008",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-009",
@@ -192,7 +343,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "交割权利、费用、融资与持有期",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-009",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-010",
@@ -206,7 +373,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "资格、储备、费用、额度、到账",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-010",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-011",
@@ -220,7 +403,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "份额兑换、等待、对冲与实际到账",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-011",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-012",
@@ -234,7 +433,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "固定版本权利、收益索引和兑换路径",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-012",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-013",
@@ -248,7 +463,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "condition/抵押品/结果空间/规模/费用",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-013",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-014",
@@ -262,7 +493,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "资产权利、双腿时点、再平衡成本",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-014",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-015",
@@ -282,7 +529,23 @@
           "label": "Circle CCTP technical guide — Hooks",
           "url": "https://developers.circle.com/cctp/references/technical-guide"
         }
-      ]
+      ],
+      "monitor": {
+        "state": "未接入 · 仅离线验证",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "CCTP终态门禁12项实现测试、30项独立测试通过；合成/离线证据不证明真实链上到账。",
+        "missing": [
+          "具名目标适配器",
+          "经过验证的真实链上证据",
+          "延迟、容量和再平衡成本"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-015",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-016",
@@ -296,7 +559,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "可清算条件、债务成本、抵押物退出",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-016",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-017",
@@ -310,7 +589,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "库存损益、逆向选择、兑现资格",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-017",
+        "net_return": null
+      }
     },
     {
       "id": "MECH-018",
@@ -324,7 +619,23 @@
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
       "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。"
+      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "monitor": {
+        "state": "未接入",
+        "markets": [],
+        "candidates": [],
+        "sample": null,
+        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "missing": [
+          "固定版本、不变量、正常反例、隔离重放",
+          "具名资产/场所与可访问数据源",
+          "规模报价、完整成本及独立Risk验收"
+        ],
+        "priority": "研究准备",
+        "continuous": false,
+        "url": "./mode.html?id=MECH-018",
+        "net_return": null
+      }
     }
   ]
 }

@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-15T02:57:08.218413+00:00",
-  "last_research_at": "2026-11-15T02:57:08.218413+00:00",
+  "updated_at": "2026-11-15T04:04:29.712601+00:00",
+  "last_research_at": "2026-11-15T04:04:29.712601+00:00",
   "last_market_observation_at": null,
-  "status": "错误分类已接入采集器代码并独立验收；两路仍停采，未恢复行情",
+  "status": "完整份额部分成交反例完成；两路BTC/USD行情仍停采",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -93,13 +93,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Execution完成传输诊断接入；Risk39项隔离检查通过。",
-    "HTTP200传输失败、403/451、进程超时与信号分别保留脱敏类别；历史原因不能倒填。",
-    "第19–24轮审查完成：关闭诊断支线，恢复独立机制研究；未有完整交易机会。"
+    "Mechanism与Risk验证完整份额一腿部分成交后的现金和剩余结果风险。",
+    "合成模型补腿净值−7.40、退出−14.60，单位为归一化抵押品；不是实际亏损。",
+    "按入场价标记的正值不是锁定利润；真实报价、资格、成本仍未知。"
   ],
   "next": [
-    "停止重复诊断测试，恢复被延后的独立机制问题。",
-    "两源恢复仍需新的合法恢复证据及独立审核，不自动清除熔断。"
+    "该有限反例已结束，避免重复模拟；新数据才推进完整份额候选。",
+    "BTC/USD两源熔断保留；实际恢复须新增证据及独立审查。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -111,7 +111,7 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "TRANSPORT-ADAPTER-01",
+    "task_id": "COMPLETESET-REPAIR-ECONOMICS-01",
     "market_collection": false,
     "source_time": null,
     "public_reads": 0,
@@ -119,7 +119,7 @@
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_CODE_INTEGRATION_OFFLINE_ONLY"
+    "risk_decision": "ACCEPT_SYNTHETIC_ECONOMIC_COUNTEREXAMPLE_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -129,7 +129,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮隔离适配器验证，无真实网络请求；未解除两路熔断。",
+  "last_market_observation_note": "本轮离线合成经济学实验，无新行情或成交。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -215,6 +215,14 @@
       "evidence": "冻结173份原件完整，但发现约49.5分钟空档及Coinbase三次连续失败。",
       "unknown": "空档和网络失败原因；净收益未知。",
       "next": "保留旧报价时点与停源标记，不能用旧腿拼接新腿。"
+    },
+    {
+      "category": "机制 / 合成反例",
+      "title": "完整份额有折价，为何仍可能亏损？",
+      "takeaway": "一条腿只成交部分时，只能合并匹配份额，余下份额继续承担结果风险。",
+      "evidence": "D级模型独立核验补腿−7.40、退出−14.60；不是市场收益。",
+      "unknown": "具名市场权益、双腿成交、补腿深度和全成本。",
+      "next": "用真实净成交数量与可执行补腿报价验证。"
     }
   ]
 }

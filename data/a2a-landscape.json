@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-13",
-  "last_checked_at": "2026-11-13T06:48:03.396060+00:00",
+  "as_of": "2026-11-15",
+  "last_checked_at": "2026-11-15T01:02:41.330137+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -1232,6 +1232,26 @@
       "new_state": "已核验3.3.0正式发布说明",
       "evidence_type": "官方GitHub Release",
       "next_step": "核验版本迁移、端点更新及跨框架实际调用"
+    },
+    {
+      "id": "visa-shopping-benchmark-20261105",
+      "date": "2026-11-05",
+      "observed_at": "2026-11-15",
+      "announcement_date": "2026-11-05",
+      "type": "研究发布（历史补录）",
+      "title": "Visa发布购物决策基准",
+      "summary": "22个模型、15种购物场景，总体通过率57.2%；失败运行中54%仍作出购买决定。结账、支付、下单测试尚属后续计划。",
+      "impact": "评估需同时检查需求是否问清、是否应该买，不能用付款成功替代购买正确。",
+      "source": "https://investor.visa.com/news/news-details/2026/Visa-Releases-First-of-Its-Kind-Industry-Benchmark-for-AI-Shopping-Almost-Half-of-Test-Runs-Fail/",
+      "projects": [
+        "visa"
+      ],
+      "notify": false,
+      "reader_title": "买家电前，助手还要问清你真正需要什么",
+      "reader_summary": "这项11月5日公布的测试发现，助手可能在没问清需求时仍决定购买；不是实际支付损失统计。",
+      "reader_impact": "购买前核对预算与关键需求；不合适时应选择不买。",
+      "evidence_type": "厂商研究公告",
+      "next_step": "白皮书方法、场景复现与独立评估待核验。"
     }
   ],
   "watchlist": [
@@ -1354,9 +1374,20 @@
       "layer": "payment",
       "question": "11月13日已读官方能力与计价页，纳入文档基线；动态网络单价未读取，退款、失败计费、真实采用与互通继续核验。",
       "source": "https://facilitator.payai.network/pricing"
+    },
+    {
+      "name": "Visa购物决策基准",
+      "layer": "operations",
+      "source": "https://investor.visa.com/news/news-details/2026/Visa-Releases-First-of-Its-Kind-Industry-Benchmark-for-AI-Shopping-Almost-Half-of-Test-Runs-Fail/",
+      "question": "11月15日核验11月5日公告；白皮书、评分方法、复现与独立评估待查，后续结账付款覆盖不可提前视为完成。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-15",
+      "status": "部分核验",
+      "note": "部分核验：对照11月13日成功记录并检索近期线索，补核11月5日Visa购物基准公告。22个模型、15种场景，测试购买决策与需求发现；结账、付款、订单测试是后续计划，不是实付成功率。11月14日未找到完成记录，不补记成功。其他队列未全量覆盖。"
+    },
     {
       "date": "2026-11-13",
       "status": "部分核验",
@@ -1570,7 +1601,7 @@
       "now": "已有查看任务过程、测试通信是否符合规则的工具。",
       "status": "已有过程检查",
       "gap": "看到“执行成功”还不够，仍要检查结果是否符合要求。留办事记录时也要遮住敏感信息；日志处理出错可能漏记，不能把没有记录当成没有发生。",
-      "next": "要能追到哪个环节出了错，保存交付证据，并把问题讲给你听。",
+      "next": "除了追查出错环节，还要验证助手是否问清需求、是否应该购买；Visa购物基准属于决策测试，不能当真实付款成功率。",
       "projects": [
         "observe",
         "inspector",

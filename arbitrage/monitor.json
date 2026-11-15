@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-14T17:30:47.439864+00:00",
-  "last_research_at": "2026-11-14T17:30:47.439864+00:00",
+  "updated_at": "2026-11-15T00:56:38.834107+00:00",
+  "last_research_at": "2026-11-15T00:56:38.834107+00:00",
   "last_market_observation_at": null,
-  "status": "采集降级：Coinbase连续失败停源，Gemini仍在采集；归档发现约49.5分钟空档",
+  "status": "两路行情仍停采；独立赎回原文读取受阻，未形成可核验机会",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -88,18 +88,18 @@
   ],
   "gaps": [
     "Gemini数量单位及时间语义、Coinbase数量单位证据未齐",
-    "Coinbase连续3次失败已停源；最后成功为北京时间11月15日00:31:31，旧报价过期",
+    "两源均熔断；旧报价过期，无法进行当前跨场所比较",
     "全成本、资格、库存、退出及报价有效期未知",
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "冻结173份原件，独立哈希/字节/时间顺序核验通过。",
-    "171次盘口请求164次传输成功、7次失败；传输成功不等于可交易。",
-    "北京时间00:31至01:21附近出现约49.5分钟请求空档；原因未知。"
+    "Lido部分下载超时，HTTP200不代表完整原文。",
+    "Rocket Pool返回文档首页，仅入口线索。",
+    "两份原件与失败独立验收，无合格候选，仅限本包。"
   ],
   "next": [
-    "保留Coinbase熔断，需新恢复证据与独立审查才重开。",
-    "Gemini继续按已有边界采集；双源报价/全成本未知，不升级机会。"
+    "停止重复审核相同故障，转独立候选发现。",
+    "保留熔断；后续有限工程补充脱敏传输错误分类，恢复须新增证据及独立审查。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -111,15 +111,15 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "BTCUSD-ARCHIVE-QUALITY-01",
+    "task_id": "INDEPENDENT-REDEMPTION-DISCOVERY-02",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 0,
+    "public_reads": 2,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_ARCHIVE_AUDIT_WITH_SERVICE_DEGRADATION"
+    "risk_decision": "ACCEPT_BOUNDED_FAILURE_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -129,7 +129,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮独立审计冻结原件；最新市场接收时间以运行心跳为准，空档未回填。",
+  "last_market_observation_note": "本轮仅官方资料读取，无新行情；失败不是全市场无机会。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -161,6 +161,18 @@
       "status": "partial_service_coinbase_stopped",
       "reason": "约49.5分钟请求空档，随后Coinbase连续3次HTTP0；原因未知",
       "reopen": "new recovery evidence and independent review; no automatic circuit reset"
+    },
+    {
+      "task": "BTCUSD-DUAL-SOURCE-OUTAGE-01",
+      "status": "both_sources_stopped",
+      "reason": "Gemini新增连续3次HTTP0；底层returncode/stderr未留存，原因未知",
+      "reopen": "new recovery evidence independently reviewed; no circuit reset"
+    },
+    {
+      "task": "INDEPENDENT-REDEMPTION-DISCOVERY-02",
+      "status": "blocked_data",
+      "reason": "Lido partial timeout;Rocket Pool index_only",
+      "reopen": "new complete original evidence or access change"
     }
   ],
   "learning": [

@@ -1,7 +1,7 @@
 {
   "week_label": "2026-W46",
-  "generated_at": "2026-11-14 08:15",
-  "data_time": "2026-11-14T00:15:23Z",
+  "generated_at": "2026-11-15 08:15",
+  "data_time": "2026-11-15T00:15:23Z",
   "regime": {
     "name": "宽松放水",
     "emoji": "🔵",
@@ -39,7 +39,7 @@
       "key": "dxy",
       "name": "DXY",
       "unit": "",
-      "value": 103.411,
+      "value": 103.41,
       "date": "2026-11-13",
       "freshness": "fresh"
     },
@@ -55,7 +55,7 @@
       "key": "oil",
       "name": "WTI油价",
       "unit": "$/b",
-      "value": 88.92,
+      "value": 88.56,
       "date": "2026-11-13",
       "freshness": "fresh"
     },
@@ -63,8 +63,8 @@
       "key": "usd_cny",
       "name": "USD/CNY",
       "unit": "",
-      "value": 6.6704,
-      "date": "2026-11-13",
+      "value": 6.6621,
+      "date": "2026-11-14",
       "freshness": "fresh"
     },
     {
@@ -125,12 +125,12 @@
     },
     {
       "name": "消费/零售",
-      "prosperity": 37.7,
+      "prosperity": 37.2,
       "signal": "看淡"
     },
     {
       "name": "银行/金融",
-      "prosperity": 28.9,
+      "prosperity": 28.7,
       "signal": "看淡"
     }
   ],
@@ -199,17 +199,17 @@
     },
     {
       "name": "消费/零售",
-      "value": 37.7,
+      "value": 37.2,
       "label": "承压"
     },
     {
       "name": "银行/金融",
-      "value": 28.9,
+      "value": 28.7,
       "label": "承压"
     }
   ],
   "stress_index": {
-    "score": 39.8,
+    "score": 39.7,
     "level": "yellow",
     "label": "组合风险",
     "desc": "多变量同时偏离基准，注意组合风险敞口",
@@ -227,12 +227,12 @@
       {
         "variable": "oil",
         "name": "WTI油价",
-        "current": 88.92,
+        "current": 88.56,
         "base": 75,
-        "deviation_pct": 18.6,
+        "deviation_pct": 18.1,
         "weight": 0.2,
         "weight_pct": 20,
-        "contribution": 69.2
+        "contribution": 65.5
       },
       {
         "variable": "credit_spread",
@@ -269,9 +269,9 @@
     "significant_deviations": [
       {
         "name": "天然气TTF",
-        "current": 89.55,
+        "current": 90.95,
         "base": 35,
-        "deviation_pct": 155.8,
+        "deviation_pct": 159.9,
         "direction": "偏高",
         "level": "极端偏离"
       },
@@ -292,14 +292,14 @@
         "level": "显著偏离"
       }
     ],
-    "timestamp": "2026-11-14 08:15"
+    "timestamp": "2026-11-15 08:15"
   },
   "significant_deviations": [
     {
       "name": "天然气TTF",
-      "current": 89.55,
+      "current": 90.95,
       "base": 35,
-      "deviation_pct": 155.8,
+      "deviation_pct": 159.9,
       "direction": "偏高",
       "level": "极端偏离"
     },
@@ -394,14 +394,14 @@
     {
       "regime": "滞胀",
       "met": false,
-      "total_gap": 20.11,
+      "total_gap": 20.47,
       "triggers": [
         {
           "name": "油价",
           "need": ">",
           "threshold": 100,
-          "current": 88.92,
-          "gap": 11.08
+          "current": 88.56,
+          "gap": 11.44
         },
         {
           "name": "Fed利率",
@@ -434,27 +434,27 @@
     "futures": {
       "curve": {
         "2026-11": 3.8775,
-        "2026-12": 4.07,
-        "2027-01": 4.165,
-        "2027-02": 4.32,
-        "2027-03": 4.395,
-        "2027-04": 4.49,
-        "2027-05": 4.57,
-        "2027-06": 4.645,
-        "2027-07": 4.68,
-        "2027-08": 4.715,
-        "2027-09": 4.73,
-        "2027-10": 4.755,
-        "2027-11": 4.74,
-        "2027-12": 4.735,
-        "2028-01": 4.74,
+        "2026-12": 4.075,
+        "2027-01": 4.18,
+        "2027-02": 4.34,
+        "2027-03": 4.42,
+        "2027-04": 4.52,
+        "2027-05": 4.605,
+        "2027-06": 4.675,
+        "2027-07": 4.71,
+        "2027-08": 4.745,
+        "2027-09": 4.765,
+        "2027-10": 4.78,
+        "2027-11": 4.765,
+        "2027-12": 4.75,
+        "2028-01": 4.745,
         "2028-02": 4.715
       },
       "current_rate": 3.8775,
-      "terminal_rate_12m": 4.74,
-      "rate_gap": -0.8625,
-      "cuts_priced_12m": -3.45,
-      "date": "2026-11-14"
+      "terminal_rate_12m": 4.765,
+      "rate_gap": -0.8875,
+      "cuts_priced_12m": -3.55,
+      "date": "2026-11-15"
     }
   },
   "watermark": "黑森船长"

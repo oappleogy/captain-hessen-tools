@@ -1,141 +1,92 @@
 {
-  "last_updated": "2026-11-14 08:15",
-  "date": "2026-11-14",
+  "last_updated": "2026-11-15 08:15",
+  "date": "2026-11-15",
   "generation_model": "MiniMax-M2.5",
   "source_counts": {
     "wallstreetcn": 0,
-    "cls": 18,
+    "cls": 20,
     "google_news": 25,
     "weibo": 20
   },
   "keywords": [
     {
-      "keyword": "美国全国航班停飞",
+      "keyword": "SpaceX首次捕获星舰",
       "heat": 98,
-      "category": "industry",
-      "summary": "美国因航路通信故障实施全国停飞，近7000架次航班延误或取消",
+      "category": "ai-tech",
+      "summary": "星舰上面级首次被发射塔机械臂捕获，快速重复使用取得关键进展",
       "sources": [
         "财联社",
-        "CNN",
+        "Google News / Space",
         "微博热搜"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-14 08:12",
-          "text": "【欧洲航空安全组织暂停成员国赴美航班起飞】财联社11月14日电，欧洲航空安全组织13日晚发布通告说，应美国联邦航空局要求，因技术问题，协调世界时（UTC）13日22时至14日5时（北京时间14日6时至13时），从该组织成员国出发飞往美国机场的所有航班暂停起飞。"
+          "time": "11-15 05:22",
+          "text": "【SpaceX首次实现“筷子夹飞船”】财联社11月15日电，SpaceX星舰第十五次试飞的上面级飞船返回得克萨斯州星港，在完成着陆点火和姿态翻转后，成功被发射塔“筷子”机械臂捕获。这是SpaceX首次成功捕获从地球轨道返回的星舰上面级飞船，为实现星舰完全、快速重复使用迈出关键一步。此次飞船此前已完成26颗第三代星链卫星部署，但超重型助推器回收未能成功，因此本次任务未实现两级全部回收。"
         },
         {
           "source": "财联社",
-          "time": "11-14 07:35",
-          "text": "【美国全国航班停飞令已致7000架次航班延误或取消】财联社11月14日电，美国联邦航空局13日以“特殊情况和安全原因”为由，发布全国范围的航班暂停起飞指令，已导致近7000架次航班延误或取消。美国交通部长肖恩·达菲说：“由于所有航路交通管制中心均受到通信问题影响，联邦航空局已对美国所有机场发布暂停航班起飞指令，技术人员正在调查这一问题。”美联邦航空局称，国际航班将根据具体情况逐一处理。"
+          "time": "11-15 04:42",
+          "text": "财联社11月15日电，SpaceX发布第十五次星舰试飞最新进展称，上面级飞船已成功完成离轨点火，正沿预定轨迹准备再入地球大气层，将按计划在得克萨斯州星际基地尝试发射塔机械臂捕获。"
         },
         {
-          "source": "Google News / CNN",
-          "time": "11-14 08:06",
-          "text": "Live updates: No timeline for resolving nationwide ground stop as flight cancellations climb - CNN"
+          "source": "财联社",
+          "time": "11-15 03:23",
+          "text": "【SpaceX：各团队完成状态确认，均同意星舰飞船返回星际基地发射场】财联社11月15日电，SpaceX在星舰第15次试飞直播中宣布，各团队已完成返回发射场前的状态核查，一致确认可以继续执行返回任务，涉及隔热盾、襟翼、结构、气动、制导导航与控制等系统。发射台及发射塔的现场检查结果正常，发射塔已做好捕获准备。星舰将尝试返回星际基地，由发射塔首次捕获其上面级。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-14 23:52",
+          "text": "【SpaceX：星舰飞船仍有望返回发射场】财联社11月14日电，SpaceX发布“星舰”第十五次试飞最新进展：星舰正在轨道上滑行，目前状态良好，仍有望于今天返回发射场。发射台和塔架系统已准备就绪，可执行捕获操作。"
+        },
+        {
+          "source": "Google News / Space",
+          "time": "11-15 06:04",
+          "text": "'Now everything changes': SpaceX catches Starship upper stage for 1st time ever - Space"
         },
         {
           "source": "微博热搜",
           "time": "",
-          "text": "美全国范围实施地面停飞"
+          "text": "SpaceX首次实现筷子夹飞船"
         }
       ]
     },
     {
-      "keyword": "星舰第十五次试飞",
+      "keyword": "霍尔木兹油轮触雷",
       "heat": 95,
-      "category": "ai-tech",
-      "summary": "星舰进入地球轨道，但助推器未按计划返回发射场",
-      "sources": [
-        "财联社",
-        "微博热搜"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 08:02",
-          "text": "【美“星舰”第15次试飞 助推器未能按计划返回发射场】财联社11月14日电，美国太空探索技术公司重型运载火箭“星舰”于美国中部时间13日下午实施第15次试飞，原计划首次尝试助推器和飞船均返回发射场，由发射塔机械臂实施“捕获”回收，但助推器未能按计划返回发射场。美国中部时间13日16时48分许（北京时间14日6时48分许），“星舰”从位于得克萨斯州南部的发射基地升空。此后，火箭一二级分离。“超级重型"
-        },
-        {
-          "source": "财联社",
-          "time": "11-14 07:17",
-          "text": "财联社11月14日电，SpaceX表示，星舰进入地球轨道。"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "SpaceX星舰开启第15次试飞"
-        }
-      ]
-    },
-    {
-      "keyword": "回购增持再贷款",
-      "heat": 93,
-      "category": "finance",
-      "summary": "专项贷款加速落地，超过50家A股公司披露回购增持承诺函",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 07:44",
-          "text": "【股票回购增持再贷款政策加力推进 A股上市公司专项贷款落地提速】财联社11月14日电，随着股票回购增持再贷款政策加力推进，A股上市公司专项贷款落地提速，多数公司股价同步走强。Wind数据显示，自11月4日上述政策落地后的近10天里，A股披露获得回购增持专项贷款承诺函的上市公司数量已超过50家，节奏明显加快。对比来看，今年9月、10月全月披露该承诺函的公司分别为30余家和40余家。"
-        }
-      ]
-    },
-    {
-      "keyword": "俄军打击乌基础设施",
-      "heat": 92,
       "category": "geo",
-      "summary": "俄军称大规模打击乌克兰能源、港口和铁路等战略设施",
+      "summary": "两艘油轮触雷爆炸并起火，霍尔木兹海峡能源运输风险升高",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-14 07:57",
-          "text": "【俄称打击乌能源和铁路基础设施】财联社11月14日电，俄罗斯国防部13日通报称，俄军当天利用无人机打击了乌方的能源、港口和铁路基础设施。过去一周内，俄军对乌克兰的军工企业、物流中心、能源设施进行2次大规模打击和12次集群打击。俄军还打击了乌方15艘运送武器装备的干货船。过去一天内，俄军控制了哈尔科夫和苏梅地区的两处定居点。乌克兰武装部队总参谋部13日通报称，乌海军于当天凌晨动用“海王星”导弹系统，"
+          "time": "11-15 05:57",
+          "text": "【伊朗称霍尔木兹海峡以南2艘油轮触雷发生爆炸】财联社11月15日电，当地时间15日凌晨，伊朗伊斯兰革命卫队海军表示，稍早前，两艘油轮在霍尔木兹海峡触碰了水雷，引发爆炸并导致火灾。革命卫队称，这两艘油轮当时存在违反相关规定行为，在关闭了导航系统和自动识别系统的情况下，试图秘密通过霍尔木兹海峡。\n\n伊朗伊斯兰革命卫队海军还表示，爆炸发生后，另外两艘同样试图秘密通过该海峡的油轮在收到警告后，调转航向，返"
         }
       ]
     },
     {
-      "keyword": "美国生产者物价",
-      "heat": 90,
-      "category": "macro",
-      "summary": "美国10月生产者价格温和上涨，通胀扩散引发利率预期关注",
-      "sources": [
-        "Reuters"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Reuters",
-          "time": "11-14 01:46",
-          "text": "US producer prices rise moderately in October, but inflation broadens out - Reuters"
-        }
-      ]
-    },
-    {
-      "keyword": "英伟达政策争议",
-      "heat": 88,
+      "keyword": "英伟达董事会风波",
+      "heat": 92,
       "category": "ai-tech",
-      "summary": "特朗普经济顾问就英伟达相关政策处理分歧，科技政治争论升温",
+      "summary": "两名大股东敦促考虑让黄仁勋回归，治理与监管争议叠加",
       "sources": [
-        "The Washington Post",
-        "CNBC"
+        "Google News / CNBC",
+        "Google News / The Hill"
       ],
       "evidence": [
-        {
-          "source": "Google News / The Washington Post",
-          "time": "11-14 07:09",
-          "text": "Trump’s top economic advisers clash over Lutnick’s handling of Nvidia - The Washington Post"
-        },
         {
           "source": "Google News / CNBC",
-          "time": "11-14 05:04",
-          "text": "Nvidia is done with Jensen Huang. The fallout in Washington is just beginning - CNBC"
+          "time": "11-15 01:35",
+          "text": "Nvidia board urged to consider 'potential return of Jensen Huang' by two major investors - CNBC"
+        },
+        {
+          "source": "Google News / The Hill",
+          "time": "11-15 04:33",
+          "text": "Blumenthal says Lutnick ‘must go’ following Nvidia scandal - The Hill"
         }
       ],
       "tool": {
@@ -144,234 +95,252 @@
       }
     },
     {
-      "keyword": "加沙停火磋商",
-      "heat": 87,
+      "keyword": "俄乌打击能源设施",
+      "heat": 90,
       "category": "geo",
-      "summary": "埃及、土耳其和卡塔尔讨论落实加沙停火第一阶段安排",
+      "summary": "俄军称打击乌能源交通及军工目标，乌克兰通报前线持续交战",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-14 07:13",
-          "text": "【埃及、土耳其和卡塔尔情报部门负责人讨论加沙停火】财联社11月14日电，据埃及中东通讯社13日报道，埃及、土耳其和卡塔尔三国情报部门负责人当天在开罗举行三方会议，讨论加沙地带局势最新进展。报道说，三方同意继续落实停火协议第一阶段安排，遵守协议有关条款，增加人道主义援助，以应对恶劣天气带来的影响。三方还呼吁以色列持续违反停火协议的行为立即停止，敦促有关方面不再拖延，采取切实措施，为实现加沙地带持久和"
+          "time": "11-15 07:54",
+          "text": "【俄称打击乌能源和交通基础设施 乌称击退俄军进攻】财联社11月15日电，俄罗斯国防部14日通报称，过去一天，俄军控制了扎波罗热地区一处居民点，并对142处区域的乌军目标实施打击，打击目标包括：能源和交通基础设施、无人机生产车间及储存和发射场地、弹药仓库等。通报还称，俄军继续打击服务于乌军的变电站、铁路机车、港口设施和海上船只。乌克兰武装部队总参谋部14日通报称，过去一天前线地区发生273次战斗，乌"
         }
       ]
     },
     {
-      "keyword": "微软服务中断",
-      "heat": 86,
+      "keyword": "微软全球服务恢复",
+      "heat": 88,
       "category": "ai-tech",
-      "summary": "微软服务中断凸显关键基础设施对单一技术供应商的依赖风险",
+      "summary": "微软称数小时全球服务中断后已全面恢复，云服务稳定性受关注",
       "sources": [
-        "AP News"
+        "Google News / AP News"
       ],
       "evidence": [
         {
           "source": "Google News / AP News",
-          "time": "11-14 06:43",
-          "text": "Microsoft outage shows the risks of relying on a single technology provider for essential services - AP News"
+          "time": "11-14 17:21",
+          "text": "Microsoft says services fully restored after hourslong global outage - AP News"
         }
       ]
     },
     {
-      "keyword": "AI赋能游戏产业",
-      "heat": 84,
-      "category": "ai-tech",
-      "summary": "生成式AI加速进入游戏研发、内容生产和运营推广环节",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 07:51",
-          "text": "【AI应用商业化提速 游戏产业投资机遇凸显】财联社11月14日电，近期，人工智能（AI）技术向应用端落地的步伐明显加快，游戏产业作为数字内容的重要阵地，正迎来技术赋能与产业升级交汇的关键节点。随着生成式AI及大模型能力的持续跃升，AI技术正逐步深入游戏研发、内容生产及运营推广等核心环节。业内人士认为，凭借高度数字化的产业特征及成熟的商业化体系，游戏行业有望成为AI应用率先实现规模化落地的领域，该板"
-        }
-      ]
-    },
-    {
-      "keyword": "封闭式债基提前结募",
-      "heat": 83,
-      "category": "finance",
-      "summary": "多只中长期封闭式债基提前结募，债券配置需求受到关注",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 07:56",
-          "text": "【部分长期封闭式债基提前结募】财联社11月14日电，近期，部分长期封闭式债券基金提前结束募集。其中，东财基金旗下东财悦安63个月封闭式债券基金累计有效认购申请超过80亿元募集规模上限，募集仅两天便提前结束。相关发行动态使中长期债券资产配置需求受到关注。此前，泰信基金、联博基金等公募机构旗下63个月封闭式债券基金也相继宣布提前结束募集。业内人士认为，在利率中枢处于相对低位、市场波动加大的背景下，部分"
-        }
-      ]
-    },
-    {
-      "keyword": "欧洲科技自主",
-      "heat": 81,
-      "category": "geo",
-      "summary": "法国拟联合荷兰召集科技企业，推动欧洲本土科技与AI能力建设",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 07:25",
-          "text": "【马克龙将召集科技企业会议 推动欧洲科技自主】财联社11月14日电，法国总统马克龙当地时间11月13日在社交媒体宣布，他将于下月与荷兰首相耶滕共同在巴黎召集科技企业负责人举行会议，推动政府与行业加强合作，提升欧洲科技自主能力。马克龙谈及当天在爱尔兰首都都柏林举行的欧盟领导人非正式会议时说：“我们的独立自主不能外包，必须在欧洲本土建立起来。”人工智能是当天欧盟领导人非正式会议的重要议题之一。马克龙强"
-        }
-      ]
-    },
-    {
-      "keyword": "AI算力供给瓶颈",
-      "heat": 80,
-      "category": "ai-tech",
-      "summary": "Anthropic首席执行官称算力供给成为核心商业难题",
-      "sources": [
-        "Bloomberg.com"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Bloomberg.com",
-          "time": "11-14 04:16",
-          "text": "Anthropic CEO Calls Computing Power ‘Deepest Business Dilemma’ - Bloomberg.com"
-        }
-      ],
-      "tool": {
-        "href": "mythos-tracker.html",
-        "label": "Mythos 追踪"
-      }
-    },
-    {
-      "keyword": "碳酸锂价格回调",
-      "heat": 79,
+      "keyword": "美国航空运输恢复",
+      "heat": 86,
       "category": "industry",
-      "summary": "碳酸锂期现货价格走弱，供应增长与需求回落预期压制市场",
+      "summary": "全国航班停飞预计当晚恢复，事件暴露空中交通系统结构性弱点",
       "sources": [
-        "财联社"
+        "财联社",
+        "Google News / The New York Times"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-14 07:06",
-          "text": "【锂电产业链公司对中长期发展保持乐观】财联社11月14日电，锂价近日呈现低迷走势。截至11月13日收盘，广期所多个碳酸锂期货合约价格徘徊在9万元/吨左右，相较于年内高位，出现明显回调。现货方面，生意社发布的数据显示，11月13日电池级碳酸锂参考价为9.1万元/吨，工业级碳酸锂参考价为8.8万元/吨，相比月初均有所下降。分析人士普遍认为，碳酸锂市场供应增长、需求阶段性回落的预期引发市场担忧，或是近期"
-        }
-      ]
-    },
-    {
-      "keyword": "私募经理信心回暖",
-      "heat": 78,
-      "category": "finance",
-      "summary": "11月私募基金经理乐观比例回升，超两成受访者计划加仓",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 07:53",
-          "text": "【11月份私募基金经理信心回暖】财联社11月14日电，11月份以来，私募基金经理信心呈现回暖迹象。私募排排网最新公布的11月份“排排网·中国对冲基金经理A股信心指数”报告显示，56.81%的基金经理对11月份市场行情持乐观态度，39.69%的基金经理持中性观点，持谨慎态度的基金经理仅占3.50%。从仓位增减计划看，28.40%的基金经理计划在11月份加仓，66.54%的基金经理倾向于维持现有仓位，"
-        }
-      ],
-      "tool": {
-        "href": "private-credit-tracker.html",
-        "label": "私募信贷追踪"
-      }
-    },
-    {
-      "keyword": "A股机构调研升温",
-      "heat": 74,
-      "category": "finance",
-      "summary": "603家A股公司接受机构调研，超半数被调研个股取得正收益",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 07:46",
-          "text": "【调研热情不减 3家公司本周接受50家以上机构调研】财联社11月14日电，本周（11月9日—13日）机构调研集中度降低，但调研热情仍旧不减，周内共有603家A股上市公司接受机构投资者调研。从赚钱效应看，超半数机构调研个股实现正收益。热门调研标的方面，本周无上市公司接受百家以上机构调研，昊志机电、科锐国际、沃尔德3家公司接受50家以上机构调研，昂利康、沪电股份、天禄科技3家公司接受40家以上机构调研"
-        }
-      ]
-    },
-    {
-      "keyword": "俄罗斯对北约施压",
-      "heat": 73,
-      "category": "geo",
-      "summary": "俄罗斯重新要求北约收缩，以推动解决乌克兰问题",
-      "sources": [
-        "The New York Times"
-      ],
-      "evidence": [
+          "time": "11-15 03:08",
+          "text": "【美联邦航空局局长：全美航空运输预计15日晚恢复正常】财联社11月15日电，美国联邦航空局局长布赖恩·贝德福德14日说，全美航空运输预计15日晚能恢复正常。在全国航班停飞引发航空出行混乱后，贝德福德14日向美国公众道歉，并称“最糟糕的时期已经过去”，全国航空运输预计15日晚能恢复正常。"
+        },
         {
           "source": "Google News / The New York Times",
-          "time": "11-14 04:05",
-          "text": "Russia Revives Demand That NATO Retrench to Secure Ukraine Deal - The New York Times"
+          "time": "11-15 07:14",
+          "text": "Ground Stop Highlights Chronic Vulnerabilities in Air Traffic System - The New York Times"
         }
       ]
     },
     {
-      "keyword": "云南风电扩容",
-      "heat": 68,
+      "keyword": "北交所开市五周年",
+      "heat": 84,
+      "category": "finance",
+      "summary": "北交所上市企业达355家，总市值约8000亿元，市场关注度提升",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-15 07:31",
+          "text": "【北交所开市五周年 总市值约8000亿元】财联社11月15日电，今天，北京证券交易所迎来开市五周年。 截至目前，北交所有上市公司355家，总市值约8000亿元。"
+        }
+      ]
+    },
+    {
+      "keyword": "沙特联军空袭也门",
+      "heat": 82,
+      "category": "geo",
+      "summary": "胡塞称沙特主导联军过去24小时对也门多地发动72次空袭",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-15 01:58",
+          "text": "【胡塞武装：沙特主导的联军对也门发动72次空袭】财联社11月15日电，当地时间11月14日晚，也门胡塞武装发表声明称，过去24小时内，沙特阿拉伯主导的多国联军对也门萨达省、塔伊兹省、拉赫季省和焦夫省的目标发动了72次空袭。声明还称，自也门新一轮军事冲突升级以来，沙特主导的联军发动的空袭和导弹袭击总数已达5020次。\n\n当天晚间，也门胡塞武装控制的马西拉电视台报道称，沙特主导的联军对连接也门塔伊兹省"
+        }
+      ]
+    },
+    {
+      "keyword": "星链规划超十万卫星",
+      "heat": 80,
+      "category": "ai-tech",
+      "summary": "马斯克预计星链通信卫星最终超过10万颗，多数升级至V4或V5",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-15 00:50",
+          "text": "【马斯克：SpaceX通信卫星最终将超10万颗】财联社11月15日电，马斯克在回应“星舰单次发射可增加50 Tbps星链带宽”的评价时表示，这个数据对全球国际带宽总量的实际提升“没有听起来那么好”，因为星链需要在近地轨道部署大量卫星，才能在全球范围内实现这样的带宽提升。不过，他预计，SpaceX通信卫星最终将超过10万颗，其中大多数将为V4或V5版本。（注：星舰第15次试飞搭载26颗第三代星链（V"
+        }
+      ]
+    },
+    {
+      "keyword": "欧盟敦促开放加沙",
+      "heat": 79,
+      "category": "geo",
+      "summary": "欧盟敦促以色列开放加沙全部过境点并保护平民及医疗设施",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-15 00:07",
+          "text": "【欧盟敦促以色列开放加沙所有过境点】财联社11月15日电，当地时间14日，欧盟外交与安全政策高级代表卡拉斯就加沙地带人道主义局势发表声明，对当地持续恶化的人道主义危机深表关切。声明说，加沙地带遭遇的严重洪灾和严寒天气进一步加剧了当地民众的生存困境，敦促以色列立即放行人道主义援助物资。\n\n声明强调，必须尊重国际法和国际人道主义法，切实保护平民、民用基础设施以及医务人员和医疗设施。欧盟敦促以色列立即允"
+        }
+      ]
+    },
+    {
+      "keyword": "美中俄会晤预期",
+      "heat": 78,
+      "category": "geo",
+      "summary": "美中俄领导人拟在亚太经合组织会晤，市场关注地缘政策信号",
+      "sources": [
+        "Google News / Al Jazeera"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Al Jazeera",
+          "time": "11-14 23:27",
+          "text": "Trump-Xi-Putin trilateral meeting at APEC: What to expect - Al Jazeera"
+        }
+      ]
+    },
+    {
+      "keyword": "顿巴斯与北约议题",
+      "heat": 77,
+      "category": "geo",
+      "summary": "美方据报探讨乌割让顿巴斯换取北约成员资格",
+      "sources": [
+        "Google News / BBC"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / BBC",
+          "time": "11-15 06:37",
+          "text": "US has floated Ukraine ceding Donbas for Nato membership, Zelensky says - BBC"
+        }
+      ]
+    },
+    {
+      "keyword": "内塔尼亚胡对伊表态",
+      "heat": 76,
+      "category": "geo",
+      "summary": "内塔尼亚胡称应彻底消除伊朗威胁，中东冲突预期升温",
+      "sources": [
+        "Google News / CBS News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / CBS News",
+          "time": "11-15 06:05",
+          "text": "Live Updates: Netanyahu says it's time to remove Iran threat \"once and for all\" - CBS News"
+        }
+      ]
+    },
+    {
+      "keyword": "以色列组阁争议",
+      "heat": 75,
+      "category": "geo",
+      "summary": "内塔尼亚胡被指败选后推动民族团结政府，以色列政治不确定性增加",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-15 07:32",
+          "text": "【埃森科特：内塔尼亚胡称组建“团结政府”是故弄玄虚】财联社11月15日电，受权组阁的以色列正直党领导人加迪·埃森科特14日在社交媒体发文称，看守政府总理内塔尼亚胡“已经意识到自己在选举中落败”，他呼吁组建“民族团结政府”不过是故弄玄虚的“政治伎俩”。埃森科特表示，内塔尼亚胡明白其将在以色列议会中遭遇“绝大多数人的反对”，一个新政府终将成立。"
+        }
+      ],
+      "tool": {
+        "href": "s2-certainty.html",
+        "label": "确定性引擎"
+      }
+    },
+    {
+      "keyword": "联黎部队安排",
+      "heat": 73,
+      "category": "geo",
+      "summary": "黎巴嫩总统寻求延长联黎部队授权，并讨论联合国框架替代机制",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-15 00:30",
+          "text": "【黎巴嫩总统与联合国副秘书长举行会见 讨论联黎部队未来安排】财联社11月15日电，当地时间14日，黎巴嫩总统约瑟夫·奥恩与联合国常务副秘书长阿明娜·穆罕默德举行会见，双方就黎巴嫩南部局势及联合国驻黎巴嫩临时部队（联黎部队）的未来安排等问题进行了讨论。\n\n奥恩强调，黎巴嫩当前的首要任务仍然是确保联黎部队继续履行职责、延长联黎部队授权。同时，黎方对在联合国框架下建立替代机制持开放态度，以避免黎南部出现"
+        }
+      ]
+    },
+    {
+      "keyword": "十五五储能扩容",
+      "heat": 72,
       "category": "industry",
-      "summary": "云南发改委批复四个风电项目，推动区域清洁能源建设",
+      "summary": "十五五时期储能加码成为产业热搜，新型储能需求受市场关注",
       "sources": [
-        "财联社"
+        "微博热搜"
       ],
       "evidence": [
         {
-          "source": "财联社",
-          "time": "11-14 08:10",
-          "text": "【云南发改委批复同意将建设4个风电项目】财联社11月14日电，据云南发布，近日，云南省发展和改革委员会作出批复，同意建设4个项目，分别为：红河哈尼族彝族自治州个旧市白石岩风电场（一期）项目、玉溪市元江哈尼族彝族傣族自治县大哨山风电场项目、文山壮族苗族自治州丘北县锦屏西风电场（三期）项目、“千乡万村驭风行动”力石村项目。"
+          "source": "微博热搜",
+          "time": "",
+          "text": "十五五时期中国储能新上加新"
         }
       ]
     },
     {
-      "keyword": "美国边境庇护争议",
-      "heat": 66,
-      "category": "geo",
-      "summary": "美国最高法院将审议暂停南部边境庇护访问的行政命令",
+      "keyword": "苹果折叠屏铰链争议",
+      "heat": 64,
+      "category": "ai-tech",
+      "summary": "iPhone Duo铰链约44万次折叠后出现磨损，产品耐用性受关注",
       "sources": [
-        "AP News"
+        "Google News / MacRumors"
       ],
       "evidence": [
         {
-          "source": "Google News / AP News",
-          "time": "11-14 04:56",
-          "text": "Supreme Court will consider Trump’s executive order suspending asylum access at the southern border - AP News"
+          "source": "Google News / AppleInsider",
+          "time": "11-14 03:43",
+          "text": "iPhone Duo hinge wears down after 440,300 folds - AppleInsider"
         }
       ]
     },
     {
-      "keyword": "塔斯社被除名",
-      "heat": 63,
-      "category": "geo",
-      "summary": "欧洲新闻社联盟以多数票将俄罗斯国家通讯社塔斯社除名",
+      "keyword": "新奥尔良港油轮诉讼",
+      "heat": 62,
+      "category": "industry",
+      "summary": "港口就邮轮碰撞向油轮船主索赔100万美元，航运法律风险升温",
       "sources": [
-        "财联社"
+        "Google News / BBC"
       ],
       "evidence": [
         {
-          "source": "财联社",
-          "time": "11-14 08:05",
-          "text": "【欧洲新闻社联盟宣布将塔斯社除名】财联社11月14日电，欧洲新闻社联盟13日宣布将俄罗斯国家通讯社塔斯社除名。当天，在塞浦路斯拉纳卡举行的庆祝欧洲新闻社联盟成立70周年大会上，乌克兰国家通讯社提出相关动议，20个出席会议的成员机构中有19个在无记名投票中投赞成票。"
-        }
-      ]
-    },
-    {
-      "keyword": "巴拉圭柴油降价",
-      "heat": 52,
-      "category": "macro",
-      "summary": "巴拉圭将柴油价格每升下调300瓜拉尼，影响当地能源成本",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-14 07:04",
-          "text": "财联社11月14日电，巴拉圭将把柴油价格每升下调300瓜拉尼。"
+          "source": "Google News / BBC",
+          "time": "11-15 06:27",
+          "text": "New Orleans port sues tanker owners over cruise ship collision for $1m - BBC"
         }
       ]
     }

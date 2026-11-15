@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-11-13",
+  "inventory_checked_at": "2026-11-15",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -238,8 +238,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-30",
-      "last_checked": "2026-11-13",
-      "last_research_update": "2026-11-13",
+      "last_checked": "2026-11-15",
+      "last_research_update": "2026-11-15",
       "next_due": "2026-10-14",
       "review_state": "partial",
       "owner": "专题维护",
@@ -250,7 +250,7 @@
         "quarterly": "财报后2日：收入归因、现金消耗、融资与估值"
       },
       "pending": [
-        "前三季度利润拆分、表达/结合表征产品和联合湿实验报告已补；供应商实际付费、复购、毛利、AI收入归因与临床分层招募仍未闭环。",
+        "Ginkgo Q3收入追补与9M/H1现金桥接已补；设备验收、同批客户付费复购、平台单位利润及公司cash burn附录调节仍缺。其他公司AI收入归因、供应商实际付费与临床分层招募未闭环。",
         "同规格多买方实验猴采购、外购成本、原产业地图和旧估值仍待补；Twist Q4业绩已核，10-K全年/Q4现金桥接待预计11月16日披露，不改10月14日积压截止。"
       ],
       "updates": [
@@ -410,6 +410,31 @@
               "date": "2026-11-12"
             }
           ]
+        },
+        {
+          "date": "2026-11-15",
+          "title": "Ginkgo补齐SEC原文与季度现金桥接，收入追补不当新增需求",
+          "body": "原候选4项指标、原自动化合同证据行及signals同步。Q3集团收入2771.1万美元，含1500万美元前期履约义务的交易价格追补；签约22家ADME客户、20家首次及Novo销售为公司表述，不等于复购或验收。9M减H1推导Q3经营现金-2834.8万美元、固定资产购置200万美元，简单相减-3034.8万美元；ATM净融资650.4万美元分开。公司约2700万美元cash burn调节尚未读取，不混比。商业原文证据增强，但削弱把环比增长全当新增需求的判断；暂缓分组、估值及其他五家公司不变。",
+          "source_period": "Q3为2026年7—9月；9M为1—9月、H1为1—6月；余额截至9月30日",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-11-05（业绩）；2026-11-09（10-Q签署）",
+          "sources": [
+            {
+              "title": "Ginkgo Q3 10-Q：财务表、附注12及相关MD&A已读，非全篇",
+              "url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026072290/dna-20260930.htm",
+              "date": "2026-11-09"
+            },
+            {
+              "title": "Ginkgo H1现金流SEC附件：累计差分基准",
+              "url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026053319/ex991earningspr.htm",
+              "date": "2026-08-05"
+            },
+            {
+              "title": "Ginkgo Q3 SEC业绩公告：公司客户表述",
+              "url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026071022/ex991earningspr.htm",
+              "date": "2026-11-05"
+            }
+          ]
         }
       ],
       "checks": [
@@ -448,6 +473,17 @@
               "url": "https://www.hibor.com.cn/data/ba2d30a4b0c01cd02f86159729142bff.html"
             }
           ]
+        },
+        {
+          "date": "2026-11-15",
+          "result": "慧博实际读取11月15日公开行业目录及部分索引，发现11月13日中邮全球CXO三季报线索。详情在网页工具失败，普通HTTP仅加载壳，未读正文或下载；医药分类链接编码异常空结果不等于没有报告。会员浏览器仍不可用，登录未验证，11月9日起全关键词/分页/会员全文覆盖未完成，不推进完整成功游标。",
+          "sources": [
+            {
+              "title": "中邮全球CXO三季报：仅目录截断标题；完整标题来自搜索索引，正文未读",
+              "url": "https://www.hibor.com.cn/data/2d036c9b816f520513b183acc65fd622.html",
+              "date": "2026-11-13"
+            }
+          ]
         }
       ]
     },
@@ -459,7 +495,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-11-13",
+      "last_checked": "2026-11-15",
       "last_research_update": "2026-11-03",
       "next_due": "2026-11-06",
       "review_state": "partial",
@@ -587,6 +623,10 @@
         {
           "date": "2026-11-13",
           "result": "当前线上仍W45，asOf11月6日23:59CST，原提交为6日18:34，未来截止问题未解决。本轮在周五18:30任务前检查，不把今日尚未到时写作失败，也不验收上期整窗；旧11月6日积压保留，不重复周报。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "W46已上线，原提交时间11月13日18:39:02CST，但asOf为当日23:59CST，仍晚于实际提交。可确认新周报产物，不确认覆盖至该截止；保留11月6日未通过的整窗核验积压，不重跑独立任务、不改其分数或正文。"
         }
       ]
     },
@@ -1065,7 +1105,7 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-11-10",
+      "last_checked": "2026-11-15",
       "last_research_update": "2026-10-16",
       "next_due": "2026-10-13",
       "review_state": "partial",
@@ -1145,6 +1185,17 @@
               "url": "https://data.sec.gov/submissions/CIK0002045724.json"
             }
           ]
+        },
+        {
+          "date": "2026-11-15",
+          "result": "实际读取SEC CIK2045724 submissions：19项recent、files空，当前返回的最新13F-HR仍为8月14日申报、观察6月30日，未见Q3 13F。仅限本次官方返回，不写全市场未披露；不把13D/4或第三方交易推测当季度持仓，旧逐股差分积压和观察期保留。",
+          "sources": [
+            {
+              "title": "SEC Situational Awareness LP官方申报列表",
+              "url": "https://data.sec.gov/submissions/CIK0002045724.json",
+              "date": "2026-11-15查询"
+            }
+          ]
         }
       ]
     },
@@ -1156,7 +1207,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-13",
+      "last_checked": "2026-11-15",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1235,6 +1286,10 @@
         {
           "date": "2026-11-13",
           "result": "产物generated_utc为11月13日01:20:10，累计观察截止11月12日04:48:55UTC；source_status累计live、official_30d仍stale_fallback。仅确认管线产物上线，滚动窗原始截止与真实付费去重未完成，不推进周五研究截止。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "产物generated_utc为11月15日01:20:06UTC，累计观察至11月14日03:58:42UTC；official_30d仍stale_fallback。外层今日不能代表30日滚动窗已重新取证，真实付费去重与旧截止不推进。"
         }
       ]
     },
@@ -1247,9 +1302,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-13",
+      "last_checked": "2026-11-15",
       "last_research_update": null,
-      "next_due": "2026-11-14",
+      "next_due": "2026-11-16",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -1342,6 +1397,10 @@
         {
           "date": "2026-11-13",
           "result": "最终复查补正：独立任务提交5f34384已发布今日产物，as_of11月13日、last_checked_at06:48:03UTC。普通网址HTTP回读与最新main逐字一致；仅验收运行/发布成功，仍部分覆盖，不重复研究或任务。仅已完成的每日验收推进至11月14日，研究日期与其他积压截止不动。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "今日01:02:41UTC独立产物已上线且与main一致；读取本日检查记录，补核Visa11月5日购物基准，22模型/15场景不等于结账付款成功率。任务自述部分覆盖，11月14日无完成记录不补记。只验收今日产物与记录，其他队列不算完成；下一日继续检查，不重复任务。"
         }
       ]
     },
@@ -1802,7 +1861,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-13",
+      "last_checked": "2026-11-15",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1954,6 +2013,10 @@
         {
           "date": "2026-11-13",
           "result": "线上JSON外层last_updated为11月13日且与本轮main相符；这是独立产物可用性检查，不等于内部事件、原始证据与旧估值全部更新，未改研究日期。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "线上产物外层last_updated为11月15日，与本轮main一致；本轮仅可用性检查，未逐条重新核验新闻原文、事件时点及旧估值，不刷新研究日期。"
         }
       ]
     },
@@ -2121,7 +2184,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-11-13",
+      "last_checked": "2026-11-15",
       "last_research_update": "2026-11-13",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -2308,6 +2371,10 @@
         {
           "date": "2026-11-12",
           "result": "BoM 11月10日当期摘要确认30天SOI=-14.4（截至11月8日），较此前已核10月25日-16.6负值减小但仍低于-7。原卡片、带日期两点曲线与摘要同步，不由两点推断地区降水或事件结束。BoM相对Niño3.4不是NOAA绝对SST，未互换。CPC原文仍10月8日，11月12日为计划；ONI ASO26、SST 04NOV2026、MEI SO2026各保留原窗，不用更新日冒充正式新诊断。WASDE计划节点改为已披露事实。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "实际读取内层诊断日11月12日、下期计划12月10日；指标窗口分别ONI ASO26、SST04NOV2026、SOI30天至11月8日、MEI SO2026。last_checked_at11月15日、last_updated11月13日不改写这些窗口；本轮未完成地区降水/作物核验，原11月13日截止保持超期。"
         }
       ]
     },
@@ -2486,7 +2553,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-13",
+      "last_checked": "2026-11-15",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -2605,6 +2672,10 @@
         {
           "date": "2026-11-13",
           "result": "线上JSON外层last_updated为11月13日且与本轮main相符；这是独立产物可用性检查，不等于内部事件、原始证据与旧估值全部更新，未改研究日期。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "线上产物外层last_updated为11月15日，与本轮main一致；本轮仅可用性检查，未逐条重新核验新闻原文、事件时点及旧估值，不刷新研究日期。"
         }
       ]
     },
@@ -2694,7 +2765,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-13",
+      "last_checked": "2026-11-15",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -2781,6 +2852,10 @@
         {
           "date": "2026-11-13",
           "result": "原页及data/chem-latest.json可读且与main一致，运行机健康检查列11月13日产物；本轮未新增逐指标原始数据核验，不能当行业供需研究完成，原截止与研究日保留。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "产物updated_at11月15日00:15:33UTC，原表价格主要仍11月13日；苯乙烯库存观察期10月30日且值为0，真实性未独立核验。不将周末运行日期变为价格日期或把缺失库存判成清零；原供需核验积压保持。"
         }
       ]
     },
@@ -3371,7 +3446,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-10-15已审计快照",
-      "last_checked": "2026-11-10",
+      "last_checked": "2026-11-15",
       "last_research_update": null,
       "next_due": "2026-10-19",
       "review_state": "pipeline",
@@ -3431,6 +3506,10 @@
         {
           "date": "2026-11-10",
           "result": "线上summary生成及末次观察仍10月14日，未获得新一期完整采集产物；仅检查产物，不冒称恢复本周原始样本研究，10月19日逾期保留。"
+        },
+        {
+          "date": "2026-11-15",
+          "result": "线上summary仍生成于10月14日21:16:17UTC，观察至10月14日20:54:26UTC；历史覆盖约8.78%。今日可访问不代表采集恢复，未用开源活动推断真实部署，原截止保持。"
         }
       ]
     }

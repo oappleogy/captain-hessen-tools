@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-15T00:56:38.834107+00:00",
-  "last_research_at": "2026-11-15T00:56:38.834107+00:00",
+  "updated_at": "2026-11-15T02:01:04.050689+00:00",
+  "last_research_at": "2026-11-15T02:01:04.050689+00:00",
   "last_market_observation_at": null,
-  "status": "两路行情仍停采；独立赎回原文读取受阻，未形成可核验机会",
+  "status": "两路行情仍停采；脱敏错误分类工具通过离线验收，尚未接入生产",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -93,13 +93,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Lido部分下载超时，HTTP200不代表完整原文。",
-    "Rocket Pool返回文档首页，仅入口线索。",
-    "两份原件与失败独立验收，无合格候选，仅限本包。"
+    "Execution补充纯函数错误分类，仅输出类别、curl退出码及HTTP状态。",
+    "Risk独立4117检查通过；HTTP200但传输失败不会判为成功。",
+    "尚未接入生产，历史HTTP0原因不能重建；两源仍停采。"
   ],
   "next": [
-    "停止重复审核相同故障，转独立候选发现。",
-    "保留熔断；后续有限工程补充脱敏传输错误分类，恢复须新增证据及独立审查。"
+    "限定接入传输诊断并独立验证，保留403/451、进程信号和外层超时边界。",
+    "机制研究槽保留；不为诊断工具重复派单，不自动解除熔断。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -111,15 +111,15 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "INDEPENDENT-REDEMPTION-DISCOVERY-02",
+    "task_id": "TRANSPORT-DIAGNOSTICS-01",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 2,
+    "public_reads": 0,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_BOUNDED_FAILURE_ONLY"
+    "risk_decision": "ACCEPT_OFFLINE_CLASSIFIER_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -129,7 +129,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮仅官方资料读取，无新行情；失败不是全市场无机会。",
+  "last_market_observation_note": "本轮离线验证，无新行情；生产服务和熔断未改变。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

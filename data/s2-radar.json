@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-11-16T21:04:50",
+  "timestamp": "2026-11-17T07:31:40",
   "data_as_of": "2026-11-16",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
-    "state": "CRITICAL",
-    "label": "系统临界",
-    "color": "#ef4444",
-    "level": 4,
-    "score": -0.167,
-    "action": "系统临界。建议仓位≤40%（趋势↓），增加对冲，缩短持仓周期。"
+    "state": "STRESSED_MILD",
+    "label": "轻度承压",
+    "color": "#eab308",
+    "level": 2,
+    "score": 0.167,
+    "action": "系统轻度承压。建议仓位≤45%（趋势↑），增加对冲，缩短持仓周期。"
   },
-  "regime_label": "CRITICAL",
-  "red_count": 3,
+  "regime_label": "STABLE",
+  "red_count": 0,
   "dim_lights": {
     "R": "green",
-    "I": "green",
-    "F": "red",
-    "C": "red",
+    "I": "yellow",
+    "F": "yellow",
+    "C": "yellow",
     "N": "yellow",
-    "T": "red"
+    "T": "yellow"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.68,
+      "score": 0.64,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -33,60 +33,60 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.44,
-      "state": "▲",
-      "light": "green",
-      "note": "政策路径清晰，制度运行稳定",
+      "score": 0.18,
+      "state": "►",
+      "light": "yellow",
+      "note": "政策不确定性上升，规则可预测性下降",
       "confidence": "★★",
       "name_cn": "制度稳定",
       "status": "healthy"
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.3,
-      "state": "▼",
-      "light": "red",
-      "note": "负反馈信号，情绪极端或波动剧烈",
+      "score": -0.25,
+      "state": "►",
+      "light": "yellow",
+      "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
       "status": "stressed"
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.35,
-      "state": "▼",
-      "light": "red",
-      "note": "跨市场严重背离，系统内部矛盾激化",
-      "confidence": "⚠",
+      "score": -0.28,
+      "state": "►",
+      "light": "yellow",
+      "note": "部分信号出现分化，协调性下降",
+      "confidence": "★★★",
       "name_cn": "市场协调",
       "status": "stressed"
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.16,
+      "score": -0.24,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
       "confidence": "★★",
       "name_cn": "叙事共识",
-      "status": "neutral"
+      "status": "stressed"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.53,
-      "state": "▼",
-      "light": "red",
-      "note": "科技板块显著跑输大盘，创新动能受阻或资本撤离科技",
+      "score": -0.2,
+      "state": "►",
+      "light": "yellow",
+      "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "stressed"
+      "status": "neutral"
     }
   },
   "attractor": {
-    "captured": "STAGNANT",
-    "captured_name": "停滞吸引子",
-    "captured_emoji": "🟡",
-    "captured_color": "#f59e0b",
+    "captured": "STABLE",
+    "captured_name": "稳态吸引子",
+    "captured_emoji": "🔵",
+    "captured_color": "#3b82f6",
     "basin_pct": [
       {
         "key": "GOLDEN",
@@ -100,14 +100,14 @@
         "name": "稳态吸引子",
         "emoji": "🔵",
         "color": "#3b82f6",
-        "pct": 36.4
+        "pct": 40.0
       },
       {
         "key": "STAGNANT",
         "name": "停滞吸引子",
         "emoji": "🟡",
         "color": "#f59e0b",
-        "pct": 63.6
+        "pct": 60.0
       },
       {
         "key": "TECH_DOM",
@@ -125,34 +125,38 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": -0.067,
+    "safety_margin": 0.267,
     "early_warning": "无"
   },
   "extremes": {
-    "count": 0,
-    "categories": []
+    "count": 3,
+    "categories": [
+      "政策不确定性(EPU)=616 (历史96%分位)",
+      "VIX恐慌指数=22.9 (历史91%分位)",
+      "Nasdaq波动率(VXN)=32.9 (历史98%分位)"
+    ]
   },
   "opportunities": [],
   "contradiction": {
     "type": "state_change",
-    "title": "系统状态改善：从轻度承压进入稳定期",
-    "thesis": "系统从轻度承压变为稳定期。主要拖累来自市场协调（-0.25），支撑来自信用韧性（+0.68）。",
+    "title": "系统状态改善：从临界进入轻度承压",
+    "thesis": "系统从临界变为轻度承压。主要拖累来自市场协调（-0.28），支撑来自信用韧性（+0.64）。",
     "metaphor": "雨过天晴"
   },
   "allocation": {
-    "short_term": "情绪面相对平稳，正常操作即可。",
+    "short_term": "可以小幅试探性加仓，但不要一次性打满。情绪还在波动，留足应对空间。",
     "mid_term": "偏乐观。地基没问题，恐慌最终会耗尽。上一次类似组合（2022年Q3（加息周期）），约6个月后市场适应新利率环境，逐步收复。耐心比行动更重要。",
-    "china": "外部压力减轻，国内市场可以回归自身逻辑。关注政策方向和行业催化剂。"
+    "china": "外部恐慌会传导过来，短期继续压制情绪。但国内政策空间仍在。如果美股再跌一波带动A股联动下跌，反而可能是国产替代和内需方向的买入机会。"
   },
   "key_metrics": {
-    "extreme_count": 0,
+    "extreme_count": 3,
     "vix": {
-      "value": 20.5,
-      "percentile": 84,
-      "desc": "市场恐惧情绪偏高"
+      "value": 22.9,
+      "percentile": 91,
+      "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {
-      "value": 3.2,
+      "value": 3.23,
       "percentile": 50,
       "desc": "企业借钱的额外成本几乎没变，处于完全正常水平"
     },

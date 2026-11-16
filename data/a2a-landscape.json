@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-15",
-  "last_checked_at": "2026-11-15T01:02:41.330137+00:00",
+  "as_of": "2026-11-16",
+  "last_checked_at": "2026-11-16T15:21:13.270066+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -1380,9 +1380,20 @@
       "layer": "operations",
       "source": "https://investor.visa.com/news/news-details/2026/Visa-Releases-First-of-Its-Kind-Industry-Benchmark-for-AI-Shopping-Almost-Half-of-Test-Runs-Fail/",
       "question": "11月15日核验11月5日公告；白皮书、评分方法、复现与独立评估待查，后续结账付款覆盖不可提前视为完成。"
+    },
+    {
+      "name": "Circle Anduin信誉研究",
+      "layer": "identity",
+      "source": "https://www.circle.com/blog/sybil-resistance-in-reputations-for-agentic-marketplaces",
+      "question": "11月13日研究、11月16日读正文；支付图排序，约23倍抗操纵成本限特定攻击模型，串通或退款提供商不在模型内。代码、数据清洗、独立复现和生产采用待查，不计入已核实产品。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-16",
+      "status": "部分核验",
+      "note": "部分核验：对照11月15日并检索近7天线索，读Circle 11月13日Anduin研究正文；约23倍操纵成本仅限文中攻击模型，串通或退款提供商不在模型内。历史结算样本不等于真实Agent需求或当前规模。代码与独立复现待查；其他队列未全量覆盖。"
+    },
     {
       "date": "2026-11-15",
       "status": "部分核验",
@@ -1523,7 +1534,7 @@
       "now": "已经有给 AI 助手用的“服务通讯录”，可以登记自己能做什么、到哪里联系。",
       "status": "已有通讯录",
       "gap": "找到名字还不够。哪家真的在线、服务好不好、是否适合你，还需要核实。",
-      "next": "要看到不同平台的助手能互相找到，并持续提供可用服务。",
+      "next": "要看到不同平台的助手能互相找到，并持续提供可用服务；排行榜还需排除刷量，付款次数多不代表服务质量好。",
       "projects": [
         "directory",
         "nacos",

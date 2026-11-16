@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-15T04:04:29.712601+00:00",
-  "last_research_at": "2026-11-15T04:04:29.712601+00:00",
+  "updated_at": "2026-11-16T15:26:58.975657+00:00",
+  "last_research_at": "2026-11-16T15:26:58.975657+00:00",
   "last_market_observation_at": null,
-  "status": "完整份额部分成交反例完成；两路BTC/USD行情仍停采",
+  "status": "报价时效显示修正通过独立离线验收；两源仍停止，未恢复行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -93,13 +93,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Mechanism与Risk验证完整份额一腿部分成交后的现金和剩余结果风险。",
-    "合成模型补腿净值−7.40、退出−14.60，单位为归一化抵押品；不是实际亏损。",
-    "按入场价标记的正值不是锁定利润；真实报价、资格、成本仍未知。"
+    "Execution修正每源报价时效标签，Risk独立11项JS检查通过。",
+    "实际旧页面已提示停源；本次补足历史/过期/未知报价标签。",
+    "运行心跳较新，但最后成功接收仍为2026-11-15 01:37北京时间；不代表市场没有机会。"
   ],
   "next": [
-    "该有限反例已结束，避免重复模拟；新数据才推进完整份额候选。",
-    "BTC/USD两源熔断保留；实际恢复须新增证据及独立审查。"
+    "先取得合法恢复证据，再独立审查停源恢复；不能靠刷新心跳清除熔断。",
+    "本次显示修正终态；不重复离线测试充进度。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -111,7 +111,7 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "COMPLETESET-REPAIR-ECONOMICS-01",
+    "task_id": "BTCUSD-RUNTIME-FRESHNESS-01",
     "market_collection": false,
     "source_time": null,
     "public_reads": 0,
@@ -119,7 +119,7 @@
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_SYNTHETIC_ECONOMIC_COUNTEREXAMPLE_ONLY"
+    "risk_decision": "ACCEPT_OFFLINE_DISPLAY_FIX_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -129,7 +129,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮离线合成经济学实验，无新行情或成交。",
+  "last_market_observation_note": "本轮仅本地运行状态检查与离线渲染验证，无新增行情。最近成功接收2026-11-14T17:37:04Z不是源时间。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -223,6 +223,22 @@
       "evidence": "D级模型独立核验补腿−7.40、退出−14.60；不是市场收益。",
       "unknown": "具名市场权益、双腿成交、补腿深度和全成本。",
       "next": "用真实净成交数量与可执行补腿报价验证。"
+    },
+    {
+      "category": "工程 / 离线验证",
+      "title": "心跳刚更新，为什么报价仍过期？",
+      "takeaway": "进程心跳只说明程序工作过；每个来源的接收时间、源时间和停止状态要分别看。",
+      "evidence": "真实冻结状态双源停止；Risk独立11个JS案例验证时效标签。",
+      "unknown": "源时间语义、完整成本和实际恢复；7分钟只是显示门禁。",
+      "next": "有新恢复证据才审核恢复，旧报价不用于当前跨场所比较。"
     }
-  ]
+  ],
+  "runtime_evidence": {
+    "observed_at": "2026-11-16T15:26:58.975657+00:00",
+    "status": "blocked",
+    "both_sources_stopped": true,
+    "last_success_received_at": "2026-11-14T17:37:04.187913+00:00",
+    "source_time": null,
+    "research_gap_hours": 35.33
+  }
 }

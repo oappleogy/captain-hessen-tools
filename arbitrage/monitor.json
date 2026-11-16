@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-16T18:30:04.532260+00:00",
-  "last_research_at": "2026-11-16T18:29:30.949749+00:00",
+  "updated_at": "2026-11-16T19:26:53.563422+00:00",
+  "last_research_at": "2026-11-16T19:26:53.563422+00:00",
   "last_market_observation_at": null,
-  "status": "Clipper拍卖重置边界已核验；未形成当前机会",
+  "status": "六轮审查：转向真实状态证据；监控未确认恢复",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -93,13 +93,14 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Mechanism读取MakerDAO官方Clipper源码，Risk独立23项整数边界检查通过。",
-    "拍卖需重置时旧低价不能成交；新起价可能升降或不变。",
-    "仅源码与合成条件验证；无现网部署、拍卖行情或净收益证据。"
+    "Execution从官方测试配置定位ETH-A Clipper/calc目标；Risk仅接受配置声明。",
+    "25–30六轮均无新行情或前瞻市场结果；配置、源码、测试不等监控恢复。",
+    "停止重复模型与字段说明，改为实际同块状态及一次有界恢复条件判断。"
   ],
   "next": [
-    "取得具名部署与实际calc/sale状态，才推进精确报价验证。",
-    "本有限边界模型终态，不重复；下一轮完成六轮项目审查。"
+    "核查新具名目标的实际同块链上状态；没有合法未停止路径则一次blocked。",
+    "对旧采集源只做一次本地环境变化判断；无新条件则停放，不循环审计。",
+    "符合数据前提才冻结新候选与后验窗口；不以合成结果替代。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -111,7 +112,7 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "INDEPENDENT-PROTOCOL-INVARIANT-01",
+    "task_id": "CLIPPER-DEPLOYMENT-BINDING-01",
     "market_collection": false,
     "source_time": null,
     "public_reads": 1,
@@ -119,7 +120,7 @@
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_SOURCE_AND_SYNTHETIC_BOUNDARY_ONLY"
+    "risk_decision": "ACCEPT_DOCUMENTARY_TARGETS_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -129,7 +130,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮读取官方源代码并做离线整数边界验证，无新增市场行情。",
+  "last_market_observation_note": "本轮读取官方测试配置，不是行情采集；现网部署和收益未知。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -247,5 +248,19 @@
     "both_sources_stopped": true,
     "last_success_received_at": "2026-11-14T17:37:04.187913+00:00",
     "source_time": null
+  },
+  "project_review": {
+    "rounds": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "market_collection_rounds": 0,
+    "new_prospective_outcomes": 0,
+    "interface_primary_rolling4": 1,
+    "decision": "转向真实时点证据，终止重复离线产物"
   }
 }

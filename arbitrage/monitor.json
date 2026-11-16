@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-16T20:32:07.510035+00:00",
-  "last_research_at": "2026-11-16T20:32:07.510035+00:00",
-  "last_market_observation_at": null,
-  "status": "恢复条件审查终态：旧源停放，无新增行情",
+  "updated_at": "2026-11-16T21:36:00.123556+00:00",
+  "last_research_at": "2026-11-16T21:36:00.123556+00:00",
+  "last_market_observation_at": "2026-11-16T21:34:09.159968+00:00",
+  "status": "取得两份BTC交割合约原始盘口；非可执行套利",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -84,6 +84,46 @@
       "unknown_costs": "入场基差−0.34USD；反向+0.1181USD不等利润。借贷、资金费路径、手续费、退出未知",
       "expires_at": "历史独立盘口快照，已过期；不可当前下单",
       "risks": "接收间隔3.88575秒不证明同步；Risk禁止升级机会"
+    },
+    {
+      "id": "KRAKEN-FF-XBTUSD-261225-270326-20261116T213408Z",
+      "status": "RAW_DATA_ONLY｜历史研究快照；不可当前下单",
+      "direction": "buy FF_XBTUSD_261225 / sell FF_XBTUSD_270326 (research only)",
+      "observed_at": "2026-11-17 05:34:08–09 北京时间（接收时点）",
+      "source_time": null,
+      "size": "0.01BTC事前研究假设；单位未核，无规模成交报价",
+      "net_edge": null,
+      "unknown_costs": "数量/结算/保证金、手续费、退出/展期及全部适用成本未知",
+      "expires_at": "有效期未知；仅历史研究快照，下单前必须重新核验",
+      "risks": "Risk仅接受原始盘口；跨期限风险不闭合，交易VETO",
+      "quotes": [
+        {
+          "symbol": "FF_XBTUSD_261225",
+          "best_bid_raw": "65394",
+          "best_bid_quantity_raw": "1.6509",
+          "best_ask_raw": "65684",
+          "best_ask_quantity_raw": "0.0025",
+          "bid_levels": 25,
+          "ask_levels": 37,
+          "bids_ascending": true,
+          "serverTime_raw": "2026-11-16T21:34:08.489Z",
+          "received_at": "2026-11-16T21:34:08.613515+00:00",
+          "serverTime_semantics_verified": false
+        },
+        {
+          "symbol": "FF_XBTUSD_270326",
+          "best_bid_raw": "66437",
+          "best_bid_quantity_raw": "0.2949",
+          "best_ask_raw": "66455",
+          "best_ask_quantity_raw": "0.2949",
+          "bid_levels": 28,
+          "ask_levels": 20,
+          "bids_ascending": true,
+          "serverTime_raw": "2026-11-16T21:34:09.07Z",
+          "received_at": "2026-11-16T21:34:09.159968+00:00",
+          "serverTime_semantics_verified": false
+        }
+      ]
     }
   ],
   "gaps": [
@@ -93,13 +133,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Execution一次本地条件检查未证明恢复；Risk接受停放决定。",
-    "路由检查失败、进程存在性未知，均不能据此推断机器无网络或进程正常。",
-    "独立ETH状态路径预检仅覆盖3条已知路径，均无可确认的解除停止证据；不代表所有数据源不可用。"
+    "Scout取得两个不同到期BTC合约盘口；Risk22项检查通过，限定原始数据。",
+    "接收相隔0.546453秒，不证明同步；数量单位、结算和成本未知。",
+    "不同到期价差没有自动现金流闭环；旧持续采集源仍未证明恢复。"
   ],
   "next": [
-    "停止每小时重复恢复和路径审计，保留原故障。",
-    "只有具体修复/合法访问条件变化或独立可用原始数据到来，再有界审查。"
+    "核对不同到期现金流与退出风险；无规模/全成本前不升级。",
+    "单次数据包终态，未自动部署持续采集；旧源不重开。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -108,18 +148,18 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": null,
-  "collection_completed_at": null,
+  "collection_started_at": "2026-11-16T21:34:08.073632+00:00",
+  "collection_completed_at": "2026-11-16T21:34:09.159968+00:00",
   "current_round": {
-    "task_id": "COLLECTOR-RECOVERY-DECISION-01",
-    "market_collection": false,
+    "task_id": "INDEPENDENT-NAMED-DATA-32",
+    "market_collection": true,
     "source_time": null,
-    "public_reads": 0,
+    "public_reads": 2,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_PARK_NO_PROBE_CORRECTION_ACCEPTED"
+    "risk_decision": "ACCEPT_RAW_DATED_BOOKS_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -129,7 +169,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮只作本地恢复条件比较及有限路径预检，无行情；无数据不表示无机会。",
+  "last_market_observation_note": "时间为接收时间；serverTime语义未知。一次性历史研究快照，不是当前有效报价。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

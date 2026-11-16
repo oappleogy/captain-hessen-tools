@@ -339,27 +339,37 @@
       "trigger": "到期日、基差和融资条件",
       "verification": "交割权利、费用、融资与持有期",
       "risks": "强平、结算差异、资本占用",
-      "status": "已列队；未通过全成本验证",
+      "status": "补充BTC交割跨期原始盘口观察；未核现货—交割或跨期套利",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
+      "next": "核对具名跨期现金流与可退出条件；不把两期限价差当利润",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "evidence_note": "2026-11-17 05:34北京时间接收两个不同到期BTC合约盘口。Risk22项检查仅接受原始数据；没有现货腿，单位/结算/规模/退出/成本未知，不形成锁定收益。",
       "monitor": {
-        "state": "未接入",
+        "state": "单次原始盘口已取得 · 持续采集未接入",
         "markets": [],
         "candidates": [],
         "sample": null,
-        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "review": "2026-11-17 05:34北京时间接收两个不同到期BTC合约盘口。Risk22项检查仅接受原始数据；没有现货腿，单位/结算/规模/退出/成本未知，不形成锁定收益。",
         "missing": [
-          "交割权利、费用、融资与持有期",
-          "具名资产/场所与可访问数据源",
-          "规模报价、完整成本及独立Risk验收"
+          "当前合约单位/结算及资格",
+          "同规模有效报价和保证金",
+          "费用/退出/跨到期风险"
         ],
         "priority": "研究准备",
         "continuous": false,
         "url": "./mode.html?id=MECH-009",
         "net_return": null
-      }
+      },
+      "sources": [
+        {
+          "label": "Kraken Futures 1 original book",
+          "url": "https://futures.kraken.com/derivatives/api/v3/orderbook?symbol=FF_XBTUSD_261225"
+        },
+        {
+          "label": "Kraken Futures 2 original book",
+          "url": "https://futures.kraken.com/derivatives/api/v3/orderbook?symbol=FF_XBTUSD_270326"
+        }
+      ]
     },
     {
       "id": "MECH-010",

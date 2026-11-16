@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-16T19:26:53.563422+00:00",
-  "last_research_at": "2026-11-16T19:26:53.563422+00:00",
+  "updated_at": "2026-11-16T20:32:07.510035+00:00",
+  "last_research_at": "2026-11-16T20:32:07.510035+00:00",
   "last_market_observation_at": null,
-  "status": "六轮审查：转向真实状态证据；监控未确认恢复",
+  "status": "恢复条件审查终态：旧源停放，无新增行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -93,14 +93,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Execution从官方测试配置定位ETH-A Clipper/calc目标；Risk仅接受配置声明。",
-    "25–30六轮均无新行情或前瞻市场结果；配置、源码、测试不等监控恢复。",
-    "停止重复模型与字段说明，改为实际同块状态及一次有界恢复条件判断。"
+    "Execution一次本地条件检查未证明恢复；Risk接受停放决定。",
+    "路由检查失败、进程存在性未知，均不能据此推断机器无网络或进程正常。",
+    "独立ETH状态路径预检仅覆盖3条已知路径，均无可确认的解除停止证据；不代表所有数据源不可用。"
   ],
   "next": [
-    "核查新具名目标的实际同块链上状态；没有合法未停止路径则一次blocked。",
-    "对旧采集源只做一次本地环境变化判断；无新条件则停放，不循环审计。",
-    "符合数据前提才冻结新候选与后验窗口；不以合成结果替代。"
+    "停止每小时重复恢复和路径审计，保留原故障。",
+    "只有具体修复/合法访问条件变化或独立可用原始数据到来，再有界审查。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -112,15 +111,15 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "CLIPPER-DEPLOYMENT-BINDING-01",
+    "task_id": "COLLECTOR-RECOVERY-DECISION-01",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 1,
+    "public_reads": 0,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_DOCUMENTARY_TARGETS_ONLY"
+    "risk_decision": "ACCEPT_PARK_NO_PROBE_CORRECTION_ACCEPTED"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -130,7 +129,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮读取官方测试配置，不是行情采集；现网部署和收益未知。",
+  "last_market_observation_note": "本轮只作本地恢复条件比较及有限路径预检，无行情；无数据不表示无机会。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -181,6 +180,12 @@
       "reason": "原作者证据未定位；独立SVR官方路径单次404",
       "scope": "仅本轮有限作者查询及一个官方原文入口",
       "reopen": "新明确原文/访问变化；不重复原搜索或路径"
+    },
+    {
+      "task": "COLLECTOR-RECOVERY-DECISION-01",
+      "status": "parked",
+      "reason": "未有可核验新恢复条件；本地路由检查失败且缺历史基线",
+      "reopen": "具体修复或合法访问变化的独立证据，不重复心跳/时间检查"
     }
   ],
   "learning": [

@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-16T21:36:00.123556+00:00",
-  "last_research_at": "2026-11-16T21:36:00.123556+00:00",
+  "updated_at": "2026-11-16T22:33:44.092199+00:00",
+  "last_research_at": "2026-11-16T22:33:44.092199+00:00",
   "last_market_observation_at": "2026-11-16T21:34:09.159968+00:00",
-  "status": "取得两份BTC交割合约原始盘口；非可执行套利",
+  "status": "BTC跨期条件账本核验完成；无新行情或机会",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -95,7 +95,7 @@
       "net_edge": null,
       "unknown_costs": "数量/结算/保证金、手续费、退出/展期及全部适用成本未知",
       "expires_at": "有效期未知；仅历史研究快照，下单前必须重新核验",
-      "risks": "Risk仅接受原始盘口；跨期限风险不闭合，交易VETO",
+      "risks": "Risk仅接受原始盘口及条件残余账本；近月退出或持有远月均有未抵消风险，实际规格未核，交易VETO",
       "quotes": [
         {
           "symbol": "FF_XBTUSD_261225",
@@ -133,13 +133,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Scout取得两个不同到期BTC合约盘口；Risk22项检查通过，限定原始数据。",
-    "接收相隔0.546453秒，不证明同步；数量单位、结算和成本未知。",
-    "不同到期价差没有自动现金流闭环；旧持续采集源仍未证明恢复。"
+    "Mechanism明确近月退出与远月持有两种路径的未抵消参考价风险；Risk17项检查通过。",
+    "仅等单位线性假设下的账本恒等式；不是现行合约认证或实际盈亏。",
+    "原始盘口仍为上轮历史快照，规模、净收益与有效期未知。"
   ],
   "next": [
-    "核对不同到期现金流与退出风险；无规模/全成本前不升级。",
-    "单次数据包终态，未自动部署持续采集；旧源不重开。"
+    "需要实际合约单位/结算和退出证据后才做规模报价。",
+    "两退出模型已终态，不重复代数或新增合成扫参。"
   ],
   "last_metadata_at": "2026-11-12T06:03:42+00:00",
   "metadata_block": {
@@ -148,18 +148,18 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-16T21:34:08.073632+00:00",
-  "collection_completed_at": "2026-11-16T21:34:09.159968+00:00",
+  "collection_started_at": null,
+  "collection_completed_at": null,
   "current_round": {
-    "task_id": "INDEPENDENT-NAMED-DATA-32",
-    "market_collection": true,
+    "task_id": "DATED-BTC-PAYOFF-CLOSURE-01",
+    "market_collection": false,
     "source_time": null,
-    "public_reads": 2,
+    "public_reads": 0,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_RAW_DATED_BOOKS_ONLY"
+    "risk_decision": "ACCEPT_CONDITIONAL_RESIDUAL_ACCOUNTING_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -169,7 +169,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "时间为接收时间；serverTime语义未知。一次性历史研究快照，不是当前有效报价。",
+  "last_market_observation_note": "最近真实盘口仍为上轮05:34北京时间接收。本轮仅条件账本验证，无新行情。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

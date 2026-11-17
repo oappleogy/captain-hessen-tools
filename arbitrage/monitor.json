@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-17T06:53:28.422986+00:00",
-  "last_research_at": "2026-11-17T06:53:28.422986+00:00",
-  "last_market_observation_at": "2026-11-16T21:34:09.159968+00:00",
-  "status": "完成一次研究流程偏差复盘；本轮无新行情，采集恢复未核验",
+  "updated_at": "2026-11-17T07:23:26.046609+00:00",
+  "last_research_at": "2026-11-17T07:23:26.046609+00:00",
+  "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
+  "status": "Bitfinex单场所盘口已取得；无匹配双腿，持续采集恢复未验证",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -49,6 +49,13 @@
       "pool": "BTCUSD",
       "fee_input": "unknown",
       "status": "2026-11-14 22:29北京时间接收50档双边原始盘口；数量单位与源时间语义未知，未计算规模报价"
+    },
+    {
+      "network": "Bitfinex",
+      "asset": "BTC/USD spot（请求身份，响应未回显symbol）",
+      "pool": "tBTCUSD",
+      "fee_input": "unknown",
+      "status": "北京时间2026-11-17 15:20:13接收25买档/25卖档；历史单次观测，非机会"
     }
   ],
   "candidates": [
@@ -162,13 +169,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "复盘旧资料无合格新证据即重开的偏差，独立Risk接受人工事前范围审核要求。",
-    "本轮没有采集行情；旧候选仍过期，净收益未知。",
-    "自动拦截尚未部署；规则未经过后续自然样本验证。"
+    "取得Bitfinex一次25买档/25卖档原始盘口，Risk接受单场所数据。",
+    "近六轮2轮真实盘口采集，完整候选与新增前瞻结果仍为0；净收益未知。",
+    "继续研究，但后续采样先落实第二腿与单位/时间依据，停止堆积孤立盘口。"
   ],
   "next": [
-    "转向独立具名市场/事件原文；不重跑旧单位、恢复检查或决策表。",
-    "下一实际研究轮完成后开展每六轮项目审查。"
+    "下一机制轮研究独立原文中具体权利/现金流变化。",
+    "后续数据任务先落实匹配双腿前提；旧停止源无新恢复证据不重试。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -177,18 +184,18 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": null,
-  "collection_completed_at": null,
+  "collection_started_at": "2026-11-17T07:20:11.926452+00:00",
+  "collection_completed_at": "2026-11-17T07:20:13.649936+00:00",
   "current_round": {
-    "task_id": "REOPEN-DEVIATION-34-POSTMORTEM",
-    "market_collection": false,
+    "task_id": "INDEPENDENT-MARKET-DISCOVERY-36",
+    "market_collection": true,
     "source_time": null,
-    "public_reads": 0,
+    "public_reads": 3,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_MANUAL_SCOPE_REVIEW_PROPOSAL_ONLY"
+    "risk_decision": "ACCEPT_SINGLE_VENUE_RAW_DATA_AND_CONDITIONAL_PROJECT_PIVOT"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -198,7 +205,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮只有离线复盘，无新行情；最后盘口仍是第32轮历史快照。",
+  "last_market_observation_note": "Bitfinex单场所原始盘口一次采样；源时间未知，不是连续采集或双腿机会。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -337,17 +344,18 @@
   },
   "project_review": {
     "rounds": [
-      25,
-      26,
-      27,
-      28,
-      29,
-      30
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
     ],
-    "market_collection_rounds": 0,
+    "market_collection_rounds": 2,
     "new_prospective_outcomes": 0,
+    "complete_candidates": 0,
     "interface_primary_rolling4": 1,
-    "decision": "转向真实时点证据，终止重复离线产物"
+    "decision": "继续有前提的双腿验证或独立机制研究；停放重复孤立采样和元数据支线"
   },
   "research_gap": {
     "previous_actual_end": "2026-11-16T23:38:41.571293+00:00",
@@ -355,5 +363,24 @@
     "initial_start_exact": null,
     "gap_over_90_minutes": true,
     "note": "执行空档已通知；缺失时段没有补造采集记录"
-  }
+  },
+  "observations": [
+    {
+      "id": "BITFINEX-tBTCUSD-20261117T072011Z",
+      "venue": "Bitfinex",
+      "symbol": "tBTCUSD",
+      "received_at": "2026-11-17T07:20:13.649936+00:00",
+      "source_time": null,
+      "best_bid_raw": "64634",
+      "best_ask_raw": "64637",
+      "bid_levels": 25,
+      "ask_levels": 25,
+      "direction": null,
+      "size": null,
+      "net_edge": null,
+      "valid_until": null,
+      "status": "historical_single_venue_only",
+      "risk": "接受原始数据；单位/时间/另一腿/全成本未知，禁止升级机会"
+    }
+  ]
 }

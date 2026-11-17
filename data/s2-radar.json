@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-17T07:31:40",
-  "data_as_of": "2026-11-16",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-17T21:04:03",
+  "data_as_of": "2026-11-17",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_MILD",
     "label": "轻度承压",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.24,
+      "score": -0.23,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -132,7 +132,7 @@
     "count": 3,
     "categories": [
       "政策不确定性(EPU)=616 (历史96%分位)",
-      "VIX恐慌指数=22.9 (历史91%分位)",
+      "VIX恐慌指数=22.8 (历史91%分位)",
       "Nasdaq波动率(VXN)=32.9 (历史98%分位)"
     ]
   },
@@ -151,7 +151,7 @@
   "key_metrics": {
     "extreme_count": 3,
     "vix": {
-      "value": 22.9,
+      "value": 22.8,
       "percentile": 91,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },

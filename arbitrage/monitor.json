@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-16T23:38:19.882710+00:00",
-  "last_research_at": "2026-11-16T23:38:19.882710+00:00",
+  "updated_at": "2026-11-17T06:53:28.422986+00:00",
+  "last_research_at": "2026-11-17T06:53:28.422986+00:00",
   "last_market_observation_at": "2026-11-16T21:34:09.159968+00:00",
-  "status": "FF合约身份元数据已更新；单位/结算未核，规模报价停放",
+  "status": "完成一次研究流程偏差复盘；本轮无新行情，采集恢复未核验",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -162,13 +162,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "取得两份具名FF BTC合约的当前官方身份元数据；未采新盘口。",
-    "contractSize原值1没有单位语义，不能解释为1BTC。",
-    "规格读取失败，数量/结算/规模与净收益未知；停止继续同路径尝试。"
+    "复盘旧资料无合格新证据即重开的偏差，独立Risk接受人工事前范围审核要求。",
+    "本轮没有采集行情；旧候选仍过期，净收益未知。",
+    "自动拦截尚未部署；规则未经过后续自然样本验证。"
   ],
   "next": [
-    "只有新的完整官方单位/结算证据才重开规模报价。",
-    "不重复说明、旧模型或旧报价对账；下一3轮不追加接口主任务。"
+    "转向独立具名市场/事件原文；不重跑旧单位、恢复检查或决策表。",
+    "下一实际研究轮完成后开展每六轮项目审查。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -180,15 +180,15 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "FF-BTC-UNIT-EVIDENCE-01",
+    "task_id": "REOPEN-DEVIATION-34-POSTMORTEM",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 2,
+    "public_reads": 0,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_METADATA_ONLY_WITH_PROCESS_DEVIATION"
+    "risk_decision": "ACCEPT_MANUAL_SCOPE_REVIEW_PROPOSAL_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -198,7 +198,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "新数据仅合约身份元数据；盘口仍是第32轮历史快照。",
+  "last_market_observation_note": "本轮只有离线复盘，无新行情；最后盘口仍是第32轮历史快照。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -261,6 +261,12 @@
       "status": "units_settlement_parked",
       "reason": "官方规格读取传输失败；另取身份元数据不证明单位/结算",
       "reopen": "新完整原文且具名规格适用，旧规格路径不可无条件重试"
+    },
+    {
+      "task": "REOPEN-DEVIATION-34-POSTMORTEM",
+      "status": "historical_process_deviation_reviewed",
+      "reason": "旧资料重开依据不足；现要求事前范围和新证据审核，非自动执行",
+      "reopen": "下一次自然出现的新证据申请或具体反例"
     }
   ],
   "learning": [
@@ -342,5 +348,12 @@
     "new_prospective_outcomes": 0,
     "interface_primary_rolling4": 1,
     "decision": "转向真实时点证据，终止重复离线产物"
+  },
+  "research_gap": {
+    "previous_actual_end": "2026-11-16T23:38:41.571293+00:00",
+    "next_first_persisted_at": "2026-11-17T06:51:04.458870+00:00",
+    "initial_start_exact": null,
+    "gap_over_90_minutes": true,
+    "note": "执行空档已通知；缺失时段没有补造采集记录"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-17T07:23:26.046609+00:00",
-  "last_research_at": "2026-11-17T07:23:26.046609+00:00",
+  "updated_at": "2026-11-17T08:29:11.616638+00:00",
+  "last_research_at": "2026-11-17T08:29:11.616638+00:00",
   "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
-  "status": "Bitfinex单场所盘口已取得；无匹配双腿，持续采集恢复未验证",
+  "status": "Aave局部清算残余条件通过源码与合成验证；本轮无新行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -169,13 +169,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "取得Bitfinex一次25买档/25卖档原始盘口，Risk接受单场所数据。",
-    "近六轮2轮真实盘口采集，完整候选与新增前瞻结果仍为0；净收益未知。",
-    "继续研究，但后续采样先落实第二腿与单位/时间依据，停止堆积孤立盘口。"
+    "Aave v3.3.0局部条件：双方均有残余时，两边剩余估值均须≥门槛。",
+    "Risk独立17项检查通过；默认base单位须另核，不泛化为固定美元门槛。",
+    "无新清算仓位、规模双腿或全成本，净收益未知，持续采集恢复未验证。"
   ],
   "next": [
-    "下一机制轮研究独立原文中具体权利/现金流变化。",
-    "后续数据任务先落实匹配双腿前提；旧停止源无新恢复证据不重试。"
+    "不重复局部边界模型；仅有新部署/状态或具体反例才接续。",
+    "工程任务须绑定具体数据依赖，不能把合成测试当实际监控上线。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -184,18 +184,18 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-17T07:20:11.926452+00:00",
-  "collection_completed_at": "2026-11-17T07:20:13.649936+00:00",
+  "collection_started_at": null,
+  "collection_completed_at": null,
   "current_round": {
-    "task_id": "INDEPENDENT-MARKET-DISCOVERY-36",
-    "market_collection": true,
+    "task_id": "INDEPENDENT-MECHANISM-EVENT-37",
+    "market_collection": false,
     "source_time": null,
-    "public_reads": 3,
+    "public_reads": 1,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_SINGLE_VENUE_RAW_DATA_AND_CONDITIONAL_PROJECT_PIVOT"
+    "risk_decision": "ACCEPT_TAGGED_SOURCE_LOCAL_DUST_BOUNDARY_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -205,7 +205,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "Bitfinex单场所原始盘口一次采样；源时间未知，不是连续采集或双腿机会。",
+  "last_market_observation_note": "最后市场采样仍为第36轮Bitfinex历史单场所快照；本轮只有协议源码读取。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

@@ -565,21 +565,21 @@
       "trigger": "健康度/拍卖状态",
       "verification": "可清算条件、债务成本、抵押物退出",
       "risks": "坏账、竞价、gas、卖出深度",
-      "status": "Clipper源码边界及ETH-A配置地址已核；现网状态未核",
+      "status": "Clipper及Aave局部机制已核；当前部署/规模与收益未核",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "只推进实际同块code/calc/sale证据；停止连续配置与字段研究",
+      "next": "仅新实际部署及同块仓位/价格/单位证据后推进隔离完整仿真；不重复局部模型",
       "net_return": null,
-      "evidence_note": "官方测试配置给出ETH-A Clipper/calc目标；Risk10项检查通过。地址声明不证明现网代码、getter或有效拍卖；源码边界验证仍不等交易机会。",
+      "evidence_note": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。",
       "monitor": {
-        "state": "配置目标已定位 · 实际链上状态未核",
+        "state": "源码机制研究 · 无实际清算候选",
         "markets": [],
         "candidates": [],
         "sample": null,
-        "review": "官方测试配置给出ETH-A Clipper/calc目标；Risk10项检查通过。地址声明不证明现网代码、getter或有效拍卖；源码边界验证仍不等交易机会。",
+        "review": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。",
         "missing": [
-          "同块链ID/区块/hash/代码与calc getter",
-          "实际sale及参数/事件变更",
-          "规模报价、退出与全成本"
+          "精确部署/版本与oracle base单位",
+          "同块仓位、实际偿债和抵押上限、协议费",
+          "完整隔离执行、退出流动性与全成本"
         ],
         "priority": "研究准备",
         "continuous": false,
@@ -594,6 +594,10 @@
         {
           "label": "Sky official test configuration; not live deployment proof",
           "url": "https://raw.githubusercontent.com/sky-ecosystem/spells-mainnet/refs/heads/master/src/test/addresses_mainnet.sol"
+        },
+        {
+          "label": "Aave DAO v3.3.0 LiquidationLogic tagged source;deployment unverified",
+          "url": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/v3.3.0/src/contracts/protocol/libraries/logic/LiquidationLogic.sol"
         }
       ]
     },

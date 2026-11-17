@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-16",
-  "last_checked_at": "2026-11-16T15:21:13.270066+00:00",
+  "as_of": "2026-11-17",
+  "last_checked_at": "2026-11-17T06:48:28.001354+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -942,6 +942,21 @@
       "gap": "不提供银行卡、法币出款、银行转账或订阅计费；动态网络单价、退款争议和实付互通待查。",
       "adoption": "官方生产服务声明；未独立核验客户与真实付费量",
       "related": []
+    },
+    {
+      "id": "apify-agi",
+      "name": "Apify AGI Agent支付",
+      "participant": "Apify",
+      "layer": "commerce",
+      "stage": "实验性",
+      "scope": "相邻：付费工具服务",
+      "capability": "通过x402、MPP、卡或Skyfire购买有支出上限的临时API令牌，用于Actor及MCP调用。",
+      "source": "https://docs.apify.com/agents/payments",
+      "terms_source": "https://agi.apify.com/",
+      "gap": "预付最低1美元、14天到期、余额不退；卡限美国发行。单次代理运行另有结算路径，失败、退款与互通需实测。",
+      "checked_at": "2026-11-17",
+      "adoption": "官方实验性文档；未独立核验付费客户及规模",
+      "related": []
     }
   ],
   "events": [
@@ -1386,9 +1401,20 @@
       "layer": "identity",
       "source": "https://www.circle.com/blog/sybil-resistance-in-reputations-for-agentic-marketplaces",
       "question": "11月13日研究、11月16日读正文；支付图排序，约23倍抗操纵成本限特定攻击模型，串通或退款提供商不在模型内。代码、数据清洗、独立复现和生产采用待查，不计入已核实产品。"
+    },
+    {
+      "name": "Apify AGI结算与退款",
+      "layer": "commerce",
+      "source": "https://agi.apify.com/",
+      "question": "区分预付令牌与Base单次代理运行；核验失败恢复、余额过期、退款及真实付费量，不将目录规模当需求。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-17",
+      "status": "部分核验",
+      "note": "部分核验：对照11月16日并检索近7天线索，读取Apify正式文档与AGI入口；Agent支付明确为实验性，预付余额不退且14天到期，不能与单次代理运行的结算流程混同。新增文档基线，不认定今日发布或真实付费采用；其他队列未全量覆盖。"
+    },
     {
       "date": "2026-11-16",
       "status": "部分核验",
@@ -1813,11 +1839,12 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。 11月7日补核BILL/Billtrust试点：执行已批准发票付款，收费、退款成本与交易规模未披露；平台总客户/交易量不作为试点规模。 2026-11-09核验支付宝基础网页收款退款文档：请求成功不等于退款成功，重试需保持退款请求号；Agent订单适用性与售后成本未核验。",
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。 11月7日补核BILL/Billtrust试点：执行已批准发票付款，收费、退款成本与交易规模未披露；平台总客户/交易量不作为试点规模。 2026-11-09核验支付宝基础网页收款退款文档：请求成功不等于退款成功，重试需保持退款请求号；Agent订单适用性与售后成本未核验。 2026-11-17核验Apify实验性预付令牌：最低1美元，14天到期、余额不退；这是预付门槛，不是单次运行价格或利润。",
       "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments",
       "checked_at": "2026-10-22",
       "pilot_source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
-      "alipay_refund_source": "https://aipay.alipay.com/docs/vibe-pay/ai-web-app-payment-qianyi/api-list/alipay-trade-refund.html"
+      "alipay_refund_source": "https://aipay.alipay.com/docs/vibe-pay/ai-web-app-payment-qianyi/api-list/alipay-trade-refund.html",
+      "apify_source": "https://docs.apify.com/agents/payments"
     }
   ]
 }

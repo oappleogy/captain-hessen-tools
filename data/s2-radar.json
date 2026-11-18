@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-11-18T07:31:54",
-  "data_as_of": "2026-11-17",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-18T21:02:22",
+  "data_as_of": "2026-11-18",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "CRITICAL",
-    "label": "系统临界",
-    "color": "#ef4444",
-    "level": 4,
-    "score": -0.183,
-    "action": "系统临界。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
+    "state": "STRESSED_SEVERE",
+    "label": "严重承压",
+    "color": "#f97316",
+    "level": 3,
+    "score": 0.0,
+    "action": "系统显著承压。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
-  "regime_label": "STRESSED",
-  "red_count": 2,
+  "regime_label": "WATCH",
+  "red_count": 1,
   "dim_lights": {
     "R": "green",
     "I": "yellow",
-    "F": "red",
+    "F": "yellow",
     "C": "red",
     "N": "yellow",
     "T": "yellow"
@@ -43,10 +43,10 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.32,
-      "state": "▼",
-      "light": "red",
-      "note": "负反馈信号，情绪极端或波动剧烈",
+      "score": -0.3,
+      "state": "►",
+      "light": "yellow",
+      "note": "情绪混合，反馈方向尚未确认",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
       "status": "stressed"
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.15,
+      "score": -0.1,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.07,
+      "score": -0.1,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -125,13 +125,13 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": -0.083,
+    "safety_margin": 0.1,
     "early_warning": "无"
   },
   "extremes": {
     "count": 2,
     "categories": [
-      "VIX恐慌指数=25.5 (历史95%分位)",
+      "VIX恐慌指数=24.8 (历史94%分位)",
       "Nasdaq波动率(VXN)=34.4 (历史99%分位)"
     ]
   },
@@ -150,8 +150,8 @@
   "key_metrics": {
     "extreme_count": 2,
     "vix": {
-      "value": 25.5,
-      "percentile": 95,
+      "value": 24.8,
+      "percentile": 94,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {

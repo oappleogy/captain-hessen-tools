@@ -1,124 +1,114 @@
 {
-  "last_updated": "2026-11-19 08:16",
-  "date": "2026-11-19",
+  "last_updated": "2026-11-20 08:16",
+  "date": "2026-11-20",
   "generation_model": "MiniMax-M2.5",
   "source_counts": {
     "wallstreetcn": 0,
-    "cls": 19,
+    "cls": 20,
     "google_news": 25,
     "weibo": 20
   },
   "keywords": [
     {
-      "keyword": "中美元首深圳会晤",
-      "heat": 98,
+      "keyword": "中俄美元首会晤",
+      "heat": 96,
       "category": "geo",
-      "summary": "中美元首深圳会晤并讨论中美关系与亚太合作，全球市场关注战略稳定信号",
+      "summary": "中俄美元首首次聚首并发表和平宣言，重塑全球地缘预期",
       "sources": [
         "财联社",
-        "Google News / Politico",
+        "The Washington Post",
         "微博热搜"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-19 08:01",
-          "text": "【财联社11月19日早间新闻精选】 \n1、11月18日下午，国家主席习近平在深圳宝安国际机场迎接来华出席亚太经合组织领导人非正式会议的美国总统特朗普。习近平表示，我欢迎你再次访华，期待同你就事关中美关系、亚太合作和世界格局的重大问题深入交换意见，推动基于尊重、公平、对等的中美建设性战略稳定关系向前发展。\n2、外交部发言人郭嘉昆主持例行记者会。法新社记者提问，英伟达的临时CEO称，将不再向中国出货H"
+          "time": "11-20 07:59",
+          "text": "【财联社11月20日早间新闻精选】 \n1、11月19日下午，国家主席习近平在深圳同俄罗斯总统普京、美国总统特朗普举行中俄美元首会晤。三国元首围绕“维护世界和平，促进大国关系战略稳定”主题进行深入讨论。习近平指出，中俄美三国最高领导人有史以来首次聚首，具有开创性意义。会后，三国发表《中俄美元首和平宣言》。\n2、11月19日下午，国家主席习近平在深圳会见来华出席亚太经合组织领导人非正式会议的美国总统特"
         },
         {
-          "source": "Google News / Politico",
-          "time": "11-19 04:55",
-          "text": "‘An absolute nightmare’ — Trump’s trilateral with Xi and Putin spooks allies - Politico"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "习近平和彭丽媛为来宾举行欢迎宴会"
+          "source": "Google News / The Washington Post",
+          "time": "11-20 04:24",
+          "text": "At historic summit, Xi and Putin share global stage with weakened Trump - The Washington Post"
         },
         {
           "source": "微博热搜",
           "time": "",
-          "text": "特朗普感受到了深圳市民的热情"
+          "text": "中俄美元首和平宣言"
         },
         {
           "source": "微博热搜",
           "time": "",
-          "text": "普京说俄罗斯也想模仿这种成就"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "APEC会议来宾欢迎宴会大合影"
+          "text": "特朗普离开深圳前与王毅面谈"
         }
       ]
     },
     {
-      "keyword": "英伟达领导层震荡",
-      "heat": 96,
-      "category": "ai-tech",
-      "summary": "黄仁勋退出后临时CEO接任并面临国会审视，股价与政策预期受到扰动",
+      "keyword": "全球股市大跌",
+      "heat": 94,
+      "category": "finance",
+      "summary": "日韩与美股同步下挫，AI股回吐涨幅，风险偏好显著降温",
       "sources": [
         "财联社",
-        "Google News / NPR",
-        "Google News / Yahoo Finance",
-        "Google News / CNBC"
+        "CBS News",
+        "MarketWatch",
+        "微博热搜"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-19 08:01",
-          "text": "【财联社11月19日早间新闻精选】 \n1、11月18日下午，国家主席习近平在深圳宝安国际机场迎接来华出席亚太经合组织领导人非正式会议的美国总统特朗普。习近平表示，我欢迎你再次访华，期待同你就事关中美关系、亚太合作和世界格局的重大问题深入交换意见，推动基于尊重、公平、对等的中美建设性战略稳定关系向前发展。\n2、外交部发言人郭嘉昆主持例行记者会。法新社记者提问，英伟达的临时CEO称，将不再向中国出货H"
+          "time": "11-20 08:13",
+          "text": "财联社11月20日电，日经225指数日内大跌3%，报57591.2点。"
         },
         {
-          "source": "Google News / NPR",
-          "time": "11-18 20:14",
-          "text": "Mary Peltola flips Alaska's Senate seat. And, Nvidia won't reinstate Jensen Huang - NPR"
+          "source": "财联社",
+          "time": "11-20 08:04",
+          "text": "财联社11月20日电，MSCI亚太指数下跌1.1%至239.79点。"
         },
         {
-          "source": "Google News / Yahoo Finance",
-          "time": "11-19 03:28",
-          "text": "Jensen Huang and Howard Lutnick will appear publicly before a powerful Senate panel - Yahoo Finance"
+          "source": "财联社",
+          "time": "11-20 08:00",
+          "text": "财联社11月20日电，韩国KOSPI指数开盘下跌4.08%，SK海力士跌逾6%，三星电子跌逾4%。"
         },
         {
-          "source": "Google News / CNBC",
-          "time": "11-19 03:09",
-          "text": "Nvidia interim CEO Kress tells employees ‘let’s move forward’ at first all-hands meeting since Jensen Huang exit - CNBC"
+          "source": "Google News / CBS News",
+          "time": "11-20 05:25",
+          "text": "Stocks plunge as investors take cover amid growing uncertainty - CBS News"
         },
         {
-          "source": "Google News / Yahoo Finance",
-          "time": "11-18 21:48",
-          "text": "3 numbers explain why Nvidia stock is rising despite no Jensen Huang on the earnings call - Yahoo Finance"
+          "source": "Google News / MarketWatch",
+          "time": "11-20 05:27",
+          "text": "Why Micron, Broadcom and other AI stocks gave up their gains Thursday - MarketWatch"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "美股再度大跌"
         }
       ],
       "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
+        "href": "s2-battle.html",
+        "label": "S2 战场"
       }
     },
     {
-      "keyword": "人工智能公司巨额上市",
-      "heat": 94,
+      "keyword": "人工智能企业上市",
+      "heat": 92,
       "category": "ai-tech",
-      "summary": "Anthropic以813亿美元融资刷新IPO纪录，AI商业化与估值成为焦点",
+      "summary": "Anthropic上市首日大涨，市值达到1.27万亿美元",
       "sources": [
-        "财联社",
-        "Google News / Reuters"
+        "Yahoo Finance",
+        "微博热搜"
       ],
       "evidence": [
         {
-          "source": "财联社",
-          "time": "11-19 08:12",
-          "text": "【Anthropic IPO融资813亿美元 打破SpaceX创造的纪录】财联社11月19日电，Anthropic PBC及其七位联合创始人已通过最终有所扩大的IPO筹得813亿美元，成为首个利用公开市场资助思考机器开发的前沿AI实验室。Anthropic周三发布公告称，该公司出售了9.564亿股股票，联合创始人出售了2,360万股，价格为每股83美元，超过了推介区间。根据备案文件，该公司此前以每"
+          "source": "Google News / Yahoo Finance",
+          "time": "11-20 03:24",
+          "text": "Anthropic IPO live: Anthropic stock closes up 17% from initial price for $1.27T valuation in first day of trading - Yahoo Finance"
         },
         {
-          "source": "财联社",
-          "time": "11-19 08:03",
-          "text": "财联社11月19日电，Anthropic IPO日本部分筹得约30亿美元。"
-        },
-        {
-          "source": "Google News / Reuters",
-          "time": "11-19 07:06",
-          "text": "Anthropic IPO to mint thousands of millionaires - Reuters"
+          "source": "微博热搜",
+          "time": "",
+          "text": "Anthropic总筹资1073亿"
         }
       ],
       "tool": {
@@ -127,38 +117,48 @@
       }
     },
     {
-      "keyword": "美伊战事再度升级",
-      "heat": 92,
-      "category": "geo",
-      "summary": "美伊互袭升级并波及海湾国家和油轮，能源与航运风险溢价升温",
+      "keyword": "国产算力芯片",
+      "heat": 90,
+      "category": "ai-tech",
+      "summary": "阿里称未来多数模型将依赖国产芯片训练，国产替代预期升温",
       "sources": [
-        "Google News / CBS News"
+        "财联社"
       ],
       "evidence": [
         {
-          "source": "Google News / CBS News",
-          "time": "11-19 07:29",
-          "text": "Iran War Updates: Gulf states and tankers under fire as U.S. and Iran ramp back up tit-for-tat strikes - CBS News"
+          "source": "财联社",
+          "time": "11-20 08:13",
+          "text": "伴随性能不断升级，国产算力芯片渗透率有望持续提升，最新整理国产AI芯片市占率等（附表）。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-20 08:12",
+          "text": "①阿里CEO称未来绝大部分模型将完全依赖国产芯片训练，分析师看好平头哥目标将算力贡献占比提升至40%至50%背景下，国产算力供给与资本市场定价将同步推进，这家公司与阿里巴巴集团旗下平头哥达成战略合作共识；\n②得州数据中心审批传出重启消息，分析师认为更严格的环保要求及电网配套成本压力，或促使开发商选择低排放的自备发电方案，这家公司上半年成功中标美国得州变压器扩建项目；\n③Palo Alto Netw"
         }
       ],
       "tool": {
-        "href": "s2-certainty.html",
-        "label": "确定性引擎"
+        "href": "ai-capex.html",
+        "label": "AI CapEx"
       }
     },
     {
-      "keyword": "美联储维持高利率",
-      "heat": 90,
+      "keyword": "美联储加息表态",
+      "heat": 87,
       "category": "macro",
-      "summary": "美联储会议纪要显示12月可能需要更高利率，通胀担忧重新升温",
+      "summary": "保尔森称仍需进一步收紧政策，但未评论近期利率路径",
       "sources": [
-        "Google News / AP News"
+        "财联社"
       ],
       "evidence": [
         {
-          "source": "Google News / AP News",
-          "time": "11-19 03:32",
-          "text": "Fed minutes: Higher interest rates needed in December as inflation worries mount - AP News"
+          "source": "财联社",
+          "time": "11-20 08:04",
+          "text": "财联社11月20日电，美联储保尔森称，还需进一步收紧政策。以审慎的加息步伐推进，可让经济有时间作出调整。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-20 07:42",
+          "text": "财联社11月20日电，美联储保罗森称，不对货币政策近期走向发表看法。"
         }
       ],
       "tool": {
@@ -167,254 +167,218 @@
       }
     },
     {
-      "keyword": "加沙地面行动",
-      "heat": 88,
-      "category": "geo",
-      "summary": "以军罕见越过黄线发动地面行动，加沙局势与地区风险进一步升温",
+      "keyword": "日本国债收益率",
+      "heat": 85,
+      "category": "finance",
+      "summary": "日债各期限收益率普遍下行，曲线反映避险与政策预期变化",
       "sources": [
-        "Google News / BBC"
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-20 08:12",
+          "text": "财联社11月20日电，日本40年期国债收益率下跌2.5个基点至4.155%。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-20 08:09",
+          "text": "财联社11月20日电，日本10年期国债收益率下跌2.0个基点至2.800%。"
+        },
+        {
+          "source": "财联社",
+          "time": "11-20 08:02",
+          "text": "财联社11月20日电，30年期日本国债收益率下降2.5个基点，至3.965%。"
+        }
+      ]
+    },
+    {
+      "keyword": "英伟达芯片调查",
+      "heat": 84,
+      "category": "ai-tech",
+      "summary": "加州总检察长向英伟达发出传票，调查中国芯片违规转运",
+      "sources": [
+        "CNBC"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / CNBC",
+          "time": "11-20 06:49",
+          "text": "California attorney general issues Nvidia subpoena in probe of China chip diversion - CNBC"
+        }
+      ],
+      "tool": {
+        "href": "ai-capex.html",
+        "label": "AI CapEx"
+      }
+    },
+    {
+      "keyword": "俄欧乌谈判",
+      "heat": 82,
+      "category": "geo",
+      "summary": "俄同意欧洲参与多边谈判，但同时拒绝仅限局部停火",
+      "sources": [
+        "财联社",
+        "CBS News"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-20 08:03",
+          "text": "【库什纳称俄罗斯同意欧洲参与多边谈判】财联社11月20日电，美国总统特朗普的女婿库什纳19日在柏林表示，俄罗斯已同意欧洲参加多边谈判机制。在当天举行的“志愿联盟”会议后，库什纳与欧洲多国领导人共同出席记者会时说，重启欧洲与俄罗斯直接对话尤为重要，双方将直接听取彼此的诉求。他说，俄方能够接受乌克兰获得类似《北大西洋公约》第五条集体防御条款的安全保障，同时也表达了不再爆发新冲突的意愿。库什纳强调，相关"
+        },
+        {
+          "source": "Google News / CBS News",
+          "time": "11-20 07:08",
+          "text": "Putin says Russia won't negotiate limited ceasefire with Ukraine after bridge strike - CBS News"
+        }
+      ]
+    },
+    {
+      "keyword": "苹果设备智能代理",
+      "heat": 81,
+      "category": "ai-tech",
+      "summary": "苹果研发可控制设备、应用、浏览与编程的智能代理",
+      "sources": [
+        "Bloomberg.com"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Bloomberg.com",
+          "time": "11-20 05:44",
+          "text": "Apple Is Working on AI Agent for Device Control, Apps, Browsing and Coding - Bloomberg.com"
+        }
+      ]
+    },
+    {
+      "keyword": "伊朗军事风险",
+      "heat": 80,
+      "category": "geo",
+      "summary": "以军情负责人赴美推动重启对伊朗打击，地区冲突风险升温",
+      "sources": [
+        "The Wall Street Journal"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / WSJ",
+          "time": "11-20 07:37",
+          "text": "Israeli Spy Chief Pressed for Renewed Iran Strikes During U.S. Visit - WSJ"
+        }
+      ]
+    },
+    {
+      "keyword": "先进封装量产",
+      "heat": 78,
+      "category": "ai-tech",
+      "summary": "国产高端先进封装实现量产，叠加算力需求拉动产业升级",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-20 07:47",
+          "text": "①先进封装+算力，自主研发的高端先进封装平台已实现规模量产，实现光引擎与交换、运算ASIC芯片共封装，这家公司具备32层堆叠、25μm超薄芯片加工等高端存储封装能力；\n②服务器+半导体，算力服务器电源相关产品处于研发测试阶段，半导体产品随整机设备导入芯片生产企业实现应用，这家公司向其他高端装备赛道多条业务线的电源技术迭代与新品开发。"
+        }
+      ],
+      "tool": {
+        "href": "ai-capex.html",
+        "label": "AI CapEx"
+      }
+    },
+    {
+      "keyword": "得州数据中心电力",
+      "heat": 76,
+      "category": "industry",
+      "summary": "得州数据中心审批或重启，电网与环保约束推升自备电源需求",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-20 08:12",
+          "text": "①阿里CEO称未来绝大部分模型将完全依赖国产芯片训练，分析师看好平头哥目标将算力贡献占比提升至40%至50%背景下，国产算力供给与资本市场定价将同步推进，这家公司与阿里巴巴集团旗下平头哥达成战略合作共识；\n②得州数据中心审批传出重启消息，分析师认为更严格的环保要求及电网配套成本压力，或促使开发商选择低排放的自备发电方案，这家公司上半年成功中标美国得州变压器扩建项目；\n③Palo Alto Netw"
+        }
+      ]
+    },
+    {
+      "keyword": "地产资产见底预期",
+      "heat": 74,
+      "category": "finance",
+      "summary": "中信证券预计房地产相关权益资产价值或在2027年见底回升",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-20 07:55",
+          "text": "【中信证券：房地产相关权益资产价值可能在2027年见底向上】财联社11月20日电，中信证券研报称，预计2027年房价将在更广阔的范围止跌回升，房地产市场的各个细分领域都将走向精细化运营，并为消费者带来更多的价值。房地产相关权益资产价值可能在2027年见底向上。核心资产持有和开发混业的地产企业持续的折价可能逐渐消失。看好减值计提充分、产品力出色的开发企业，也看好市占率不断提升的运营和服务龙头。"
+        }
+      ]
+    },
+    {
+      "keyword": "金融街董事长被留置",
+      "heat": 73,
+      "category": "finance",
+      "summary": "金融街公告称董事长接受调查并被留置，公司称经营正常",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-20 07:59",
+          "text": "财联社11月20日电，金融街证券在港交所公告，公司董事长祝艳辉目前正接受调查并被实施留置措施。于本公告刊发时，本公司未收到任何委员会需要协助调查或提供任何资料的要求，本集团的业务运营正常。"
+        }
+      ]
+    },
+    {
+      "keyword": "缅甸种族罪裁决",
+      "heat": 70,
+      "category": "geo",
+      "summary": "联合国最高法院裁定缅甸对罗兴亚族实施种族灭绝",
+      "sources": [
+        "BBC"
       ],
       "evidence": [
         {
           "source": "Google News / BBC",
-          "time": "11-19 06:34",
-          "text": "Israeli military launches rare ground operation in Gaza beyond Yellow Line - BBC"
+          "time": "11-20 04:07",
+          "text": "Myanmar committed genocide against Rohingya minority, top UN court rules - BBC"
         }
       ]
     },
     {
-      "keyword": "韩国创纪录增持美债",
-      "heat": 85,
-      "category": "finance",
-      "summary": "韩国投资者9月净买入115亿美元美债，规模创有数据以来纪录",
+      "keyword": "水泥行业被动提价",
+      "heat": 68,
+      "category": "industry",
+      "summary": "淡季需求偏弱叠加成本上升，水泥企业被迫提价应对压力",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-19 08:10",
-          "text": "【韩国投资者9月买入创纪录规模美国国债】财联社11月19日电，韩国投资者9月净买入美国国债规模创纪录，今年早些时候他们曾创纪录净卖出美国国债。净买入规模达115亿美元，为1977年有数据以来最高。1-9月的九个月中，韩国投资者有七个月为净卖家，其中2月净卖出规模创纪录。9月净买入102亿美元美国股票，为4月以来最高。"
+          "time": "11-20 07:45",
+          "text": "【行业淡季叠加成本抬升 水泥企业被动提价】财联社11月20日电，1月以来，水泥行业涨价函频发。11月16日，浙江金华、衢州、丽水市场部分主流品牌水泥企业发布通知，计划将P·O42.5散装水泥价格上涨20元/吨。前一日，河南多地水泥企业也陆续发布通知，上调水泥价格。但本轮涨价行情并非由需求端回暖驱动，而是在行业淡季叠加成本抬升的双重压力下，企业无奈被动提价。国盛证券指出，水泥存量产能退出速度难匹配需"
         }
       ]
     },
     {
-      "keyword": "私募密集调研",
-      "heat": 83,
-      "category": "finance",
-      "summary": "月内652家私募调研1951次，电子、机械和医药等五行业受关注",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 07:49",
-          "text": "【月内652家私募机构调研A股公司 五大行业热度较高】财联社11月19日电，私募排排网数据显示，截至11月17日，本月以来共有652家私募机构参与A股公司调研活动，合计调研1951次，调研范围覆盖303只个股。从行业分布看，私募机构调研集中度较高。截至11月17日，本月以来电子、机械设备、医药生物、电力设备、计算机五大行业合计被调研1415次，占总调研次数的72.53%。"
-        }
-      ]
-    },
-    {
-      "keyword": "基金重开大额申购",
-      "heat": 81,
-      "category": "finance",
-      "summary": "热门公募与私募产品重新开放申购，显示机构资金风险偏好有所修复",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 08:01",
-          "text": "【热门基金相继解除限购 机构资金“候场”转“入场”】财联社11月19日电，国金基金11月16日宣布恢复国金量化多因子基金的大额申购，此前该产品5月开始限购。作为全市场关注度最高的量化基金之一，此番“开门迎客”释放出公募机构判断市场风险充分释放的信号。中国证券报记者梳理发现，华商基金、华安基金、博道基金、易方达基金等多家公募机构旗下热门产品纷纷取消限购，同时有私募大佬时隔一年多重启新产品申购。多位基"
-        }
-      ]
-    },
-    {
-      "keyword": "特斯拉机器人演示",
-      "heat": 80,
-      "category": "ai-tech",
-      "summary": "马斯克称Optimus两个月内演示、Grok持续迭代，机器人与AI预期升温",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 07:59",
-          "text": "财联社11月19日电，马斯克称，特斯拉将在未来两个月内进行Optimus机器人演示。SpaceX正在开发AI模型Grok 4.8。"
-        }
-      ]
-    },
-    {
-      "keyword": "委美恢复军事合作",
-      "heat": 78,
+      "keyword": "沙特公共投资基金总部受损",
+      "heat": 66,
       "category": "geo",
-      "summary": "委内瑞拉与美国恢复军事技术合作，训练和装备更新牵动地区安全预期",
+      "summary": "沙特公共投资基金总部据报受损，地区安全与资产风险受关注",
       "sources": [
-        "财联社"
+        "Bloomberg.com"
       ],
       "evidence": [
         {
-          "source": "财联社",
-          "time": "11-19 07:41",
-          "text": "【委内瑞拉同美国签署协议恢复军事技术合作】财联社11月19日电，委内瑞拉代总统德尔西·罗德里格斯18日表示，委内瑞拉和美国恢复军事技术合作，包括军事训练和作战装备更新。据委内瑞拉国家电视台当天报道称，委美两国签署军事合作协议。电视台直播画面显示，罗德里格斯在委总统府会见到访的美国国防部长赫格塞思，双方举行工作会议并签署相关协议。"
-        }
-      ]
-    },
-    {
-      "keyword": "克里米亚大桥遇袭",
-      "heat": 77,
-      "category": "geo",
-      "summary": "克里米亚大桥遇袭可能改变俄乌战线和运输安全，市场关注能源影响",
-      "sources": [
-        "Google News / DW.com"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / DW.com",
-          "time": "11-19 05:18",
-          "text": "What the Crimean bridge attack means for Russia - DW.com"
-        }
-      ]
-    },
-    {
-      "keyword": "可信数据空间试点",
-      "heat": 76,
-      "category": "ai-tech",
-      "summary": "第二批试点启动并强化数据与AI双向赋能，可信数据流通进入扩围阶段",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 08:15",
-          "text": "【国家数据局：开展新一批可信数据空间创新发展试点】财联社11月19日电，记者今天从国家数据局了解到，新一批即第二批可信数据空间创新发展试点工作启动。可信数据空间相当于能让数据规模化流通的“高速公路”，为数据的流通和开发提供一个可控、可管、可计量的安全可信环境；“十五五”规划纲要提出，“实施可信数据空间发展行动计划”。和第一批相比，第二批可信数据空间创新发展试点突出数据与人工智能双向赋能，让更多企业"
-        }
-      ]
-    },
-    {
-      "keyword": "外国资金回流日债",
-      "heat": 75,
-      "category": "finance",
-      "summary": "日本外资当周净买入6501亿日元日债，债券需求与利率走向受关注",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 07:51",
-          "text": "财联社11月19日电，日本至11月13日当周外资买进日债6501亿日元，前值由13711亿日元修正为13709亿日元。"
-        }
-      ]
-    },
-    {
-      "keyword": "国产算力全栈布局",
-      "heat": 74,
-      "category": "ai-tech",
-      "summary": "云服务与国产CPU、GPU项目获产业关注，国产算力全栈路线加速",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 07:36",
-          "text": "①云服务+算力租赁，云服务业务逐步落地开展，提供算力租赁全流程服务，这家公司已在机器人“大小脑”控制器领域获得客户订单；\n②国产算力+国产GPU，拟定增投向CPU关键核心技术及通用GPU研发项目，形成“CPU+GPU”全栈产品矩阵，这家公司联合开展HBM逻辑硅片研发，计划年底至明年初完成设计。"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "菲美贸易协议",
-      "heat": 72,
-      "category": "geo",
-      "summary": "特朗普宣称与菲律宾达成里程碑式贸易协议，亚太贸易格局受到关注",
-      "sources": [
-        "Google News / The Hill"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / The Hill",
-          "time": "11-18 21:07",
-          "text": "Trump touts ‘landmark’ trade deal with Philippines - The Hill"
-        }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "日本机械订单增长",
-      "heat": 70,
-      "category": "macro",
-      "summary": "日本9月核心机械订单同比增长13.4%，略低于预期显示资本品需求分化",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 07:50",
-          "text": "财联社11月19日电，日本9月核心机械订单同比增长13.4%，预期13.7%，前值18.60%。"
-        }
-      ]
-    },
-    {
-      "keyword": "谷歌发布新版模型",
-      "heat": 69,
-      "category": "ai-tech",
-      "summary": "谷歌推出Gemini 4 Neon，主打速度与质量并接入AI Pro订阅",
-      "sources": [
-        "Google News / 9to5Google"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / 9to5Google",
-          "time": "11-19 05:34",
-          "text": "Google launches Gemini 4 Neon with Carbon quality at Flash speeds, live for AI Pro - 9to5Google"
-        }
-      ]
-    },
-    {
-      "keyword": "英伟达迷你电脑",
-      "heat": 67,
-      "category": "ai-tech",
-      "summary": "英伟达RTX Spark迷你电脑由多家厂商推出，边缘AI硬件竞争升温",
-      "sources": [
-        "Google News / The Verge"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / The Verge",
-          "time": "11-19 02:34",
-          "text": "The first Nvidia RTX Spark mini PCs launch today from Asus, Dell, and MSI - The Verge"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "限售股集中解禁",
-      "heat": 64,
-      "category": "finance",
-      "summary": "4家公司20.3亿元限售股解禁，相关个股短期流动性压力受关注",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-19 07:31",
-          "text": "【A股限售股解禁一览：20.3亿元市值限售股今日解禁】财联社11月19日电，Wind数据显示，周四（11月19日），共有4家公司限售股解禁，合计解禁量为4184.05万股，按最新收盘价计算，合计解禁市值为20.3亿元。从解禁量来看，安杰思、特宝生物、盛视科技解禁量居前，解禁股数分别为3956.24万股、189.37万股、21.72万股。从解禁市值来看，安杰思、特宝生物、申菱环境解禁市值居前，解禁市"
+          "source": "Google News / Bloomberg.com",
+          "time": "11-19 23:58",
+          "text": "Saudi Public Investment Fund’s Riyadh Headquarters Damaged - Bloomberg.com"
         }
       ]
     }

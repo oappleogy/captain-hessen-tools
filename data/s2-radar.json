@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-11-20T07:32:03",
-  "data_as_of": "2026-11-19",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-20T21:02:50",
+  "data_as_of": "2026-11-20",
+  "data_lag_days": 0,
   "system_state": {
-    "state": "STRESSED_MILD",
-    "label": "轻度承压",
-    "color": "#eab308",
-    "level": 2,
-    "score": 0.167,
-    "action": "系统轻度承压。建议仓位≤45%（趋势→），增加对冲，缩短持仓周期。"
+    "state": "CRITICAL",
+    "label": "系统临界",
+    "color": "#ef4444",
+    "level": 4,
+    "score": -0.183,
+    "action": "系统临界。建议仓位≤35%（趋势↓），加大对冲比例，仅保留高确信度仓位。"
   },
-  "regime_label": "WATCH",
-  "red_count": 1,
+  "regime_label": "CRITICAL",
+  "red_count": 3,
   "dim_lights": {
     "R": "green",
     "I": "green",
-    "F": "yellow",
+    "F": "red",
     "C": "red",
-    "N": "yellow",
+    "N": "red",
     "T": "yellow"
   },
   "dimensions": {
     "R": {
       "name": "R｜韧性",
-      "score": 0.63,
+      "score": 0.62,
       "state": "▲",
       "light": "green",
       "note": "信用市场平稳，系统有足够缓冲",
@@ -43,17 +43,17 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.29,
-      "state": "►",
-      "light": "yellow",
-      "note": "情绪混合，反馈方向尚未确认",
+      "score": -0.33,
+      "state": "▼",
+      "light": "red",
+      "note": "负反馈信号，情绪极端或波动剧烈",
       "confidence": "★★★",
       "name_cn": "情绪反馈",
       "status": "stressed"
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.32,
+      "score": -0.34,
       "state": "▼",
       "light": "red",
       "note": "跨市场严重背离，系统内部矛盾激化",
@@ -63,23 +63,23 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.3,
-      "state": "►",
-      "light": "yellow",
-      "note": "叙事出现分化或转向迹象",
+      "score": -0.44,
+      "state": "▼",
+      "light": "red",
+      "note": "叙事剧变或严重分裂，市场预期混乱",
       "confidence": "★★",
       "name_cn": "叙事共识",
       "status": "stressed"
     },
     "T": {
       "name": "T｜技术失配",
-      "score": 0.06,
+      "score": 0.19,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
       "confidence": "★★",
       "name_cn": "技术动能",
-      "status": "neutral"
+      "status": "healthy"
     }
   },
   "attractor": {
@@ -125,13 +125,13 @@
       }
     ],
     "moving_toward": "崩塌",
-    "safety_margin": 0.267,
+    "safety_margin": -0.083,
     "early_warning": "无"
   },
   "extremes": {
     "count": 2,
     "categories": [
-      "VIX恐慌指数=28.4 (历史98%分位)",
+      "VIX恐慌指数=30.9 (历史99%分位)",
       "Nasdaq波动率(VXN)=36.5 (历史99%分位)"
     ]
   },
@@ -150,8 +150,8 @@
   "key_metrics": {
     "extreme_count": 2,
     "vix": {
-      "value": 28.4,
-      "percentile": 98,
+      "value": 30.9,
+      "percentile": 99,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {

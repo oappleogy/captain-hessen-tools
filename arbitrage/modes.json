@@ -379,27 +379,35 @@
       "trigger": "脱锚、发行/赎回窗口与限额",
       "verification": "资格、储备、费用、额度、到账",
       "risks": "无资格、暂停、等待与信用损失",
-      "status": "已有机制研究；当前可兑付容量未知",
+      "status": "BOLD赎回分支路径已有源码证据；部署/容量/当前收益未核",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
+      "next": "本次原文发现终止；仅新部署状态或具体反例才接续。未来须核算实际整篮抵押品、费用与全部退出报价。",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "evidence_note": "Liquity官方CollateralRegistry.sol于2026-11-21 20:24北京时间读取；main具体提交未知，SHA256 a6791af1ad62。独立18项核验只接受源码约束，不是EVM或部署验证。用户此入口不能任选分支，分配额与实际赎回额须区分。",
       "monitor": {
-        "state": "未接入",
-        "markets": [],
-        "candidates": [],
-        "sample": null,
-        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
-        "missing": [
-          "资格、储备、费用、额度、到账",
-          "具名资产/场所与可访问数据源",
-          "规模报价、完整成本及独立Risk验收"
+        "state": "源码约束已核 · 未接入行情",
+        "markets": [
+          "Liquity BOLD（源码身份，部署未核）"
         ],
-        "priority": "研究准备",
+        "candidates": [],
+        "sample": "2026-11-21 20:24北京时间原文读取；非行情时点",
+        "review": "正unbacked权重总额可截断请求；零值fallback使用可赎回分支债务权重。实际赎回可小于分配额，最终销毁实际BOLD；TroveManager细节未读。",
+        "missing": [
+          "固定commit与部署绑定",
+          "分支资格、权重、预言机及抵押品到账语义",
+          "同状态规模、BOLD买入与整篮退出报价、全成本"
+        ],
+        "priority": "等待具体新证据",
         "continuous": false,
         "url": "./mode.html?id=MECH-010",
         "net_return": null
-      }
+      },
+      "sources": [
+        {
+          "label": "Liquity BOLD官方Registry源码（main可变）",
+          "url": "https://raw.githubusercontent.com/liquity/bold/main/contracts/src/CollateralRegistry.sol"
+        }
+      ]
     },
     {
       "id": "MECH-011",

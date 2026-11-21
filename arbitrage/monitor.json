@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T19:27:42.135232+00:00",
-  "last_research_at": "2026-11-21T19:27:42.135232+00:00",
+  "updated_at": "2026-11-21T20:35:56.990424+00:00",
+  "last_research_at": "2026-11-21T20:35:56.990424+00:00",
   "last_market_observation_at": "2026-11-21T18:26:59.015975+00:00",
-  "status": "单条删除遗漏反事实已核：末态一致不保证中间盘口正确",
+  "status": "六轮审查：取得真实流输入，但尚无完整候选；转具名经济前提",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -170,13 +170,14 @@
     "Bitfinex已取得一次真实WS输入；源时间、序列/校验和、断流恢复和连续运行仍未验证。"
   ],
   "recent": [
-    "Postmortem冻结规则后仅省略第46轮样本首条删除消息，未搜索最坏情况。",
-    "5个状态深度不同但盘口仍未交叉；第8帧卖一出现差异，第9帧恢复、最终一致。",
-    "Risk18项最终交叉检查通过；这是反事实，不证明真实丢包，不计预测或纸面后验。"
+    "Kalshi历史页面429停止；独立Manifold记录明确play/MANA，不计现金套利候选。",
+    "43–48共14次公开读取，只有46新增真实行情流样本；完整成本候选、新预测和独立前瞻后验均为0。",
+    "继续具名经济前提取证，暂停脱离具体判断的历史资料、孤立采样及重复回放。"
   ],
   "next": [
-    "第48轮执行新发现任务及43–48六轮项目审查。",
-    "停止相同遗漏实验；后续完整性须新独立序列/校验和/恢复证据，当前没有持续服务或机会升级。"
+    "49：核对实际tBTCUSD标的的资产权利、费用承担和退出适用原文；禁止接口字段研究。",
+    "50：接口窗口释放后，仅具体序列/校验和/恢复依赖可触发有界工程；不自动连续采集。",
+    "只有合格双腿、成本、资格与退出证据后才冻结纸面预测。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -185,22 +186,20 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": null,
-  "collection_completed_at": null,
+  "collection_started_at": "2026-11-21T20:30:41.846Z",
+  "collection_completed_at": "2026-11-21T20:31:50.584979+00:00",
   "current_round": {
-    "round": 47,
-    "task_id": "NEW-STREAM-OUTCOME-RISK-47",
+    "round": 48,
+    "task_id": "DISCOVERY-AND-PROJECT-REVIEW-48",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 0,
-    "historical_counterfactual": true,
-    "forecast_frozen": false,
-    "paper_outcome": false,
+    "historical_resolution_time": "2022-08-01T15:54:04.486000+00:00",
+    "public_reads": 4,
     "size_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_ONE_LABELLED_OMISSION_COUNTEREXAMPLE_ONLY"
+    "risk_decision": "ACCEPT_BOUNDED_FAILURE_AND_HISTORICAL_PLAY_RECORD_PLUS_PROJECT_REVIEW_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -210,7 +209,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮没有新行情；保留第46轮末帧接收时间，已结束会话报价不可当前使用。",
+  "last_market_observation_note": "本轮仅历史play结算记录，不是当前行情；保留46末帧接收时间，会话已结束。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -304,6 +303,12 @@
       "status": "linked_receipt_blocked_data",
       "reason": "论文链接的具名Base回执单次403，仅保存拒绝响应",
       "reopen": "合法访问变化或新的已提供原件；不换工具/域名重试"
+    },
+    {
+      "task": "KALSHI-BTC-RESOLVED-ORIGINAL-48",
+      "status": "blocked_data",
+      "reason": "具名历史原始页面单次429；搜索摘要不作结算证据",
+      "reopen": "新的已提供原件或合法访问变化，不换域/工具重试"
     }
   ],
   "learning": [
@@ -387,24 +392,26 @@
   },
   "project_review": {
     "rounds": [
-      37,
-      38,
-      39,
-      40,
-      41,
-      42
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
     ],
-    "market_collection_rounds": 0,
-    "new_prospective_outcomes": 0,
+    "public_reads": 14,
+    "market_collection_rounds": 1,
+    "historical_play_records": 1,
     "complete_candidates": 0,
     "new_predictions": 0,
+    "new_prospective_outcomes": 0,
     "cost_unknown_rate": null,
     "cost_rate_denominator": 0,
     "interface_primary_rounds": [
-      38
+      46
     ],
-    "decision": "暂停无实际输入的源码扩张，转一次具名原件获取；不改小时调度",
-    "next_review_round": 48
+    "decision": "继续具名经济前提取证，暂停无关采集和重复实验",
+    "next_review_round": 54
   },
   "research_gap": {
     "last_execution_artifact_at": "2026-11-17T09:28:54.430355+00:00",

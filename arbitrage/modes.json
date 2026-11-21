@@ -482,17 +482,17 @@
       "trigger": "同条件份额总价与盘口",
       "verification": "condition/抵押品/结果空间/规模/费用",
       "risks": "错误配对、结算争议、部分成交",
-      "status": "部分成交补腿经济学合成验证；市场未核验",
+      "status": "合成模型及历史play结算记录已核；现金套利条件未核",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "取得真实净成交数量、补腿深度及全部成本；不重跑旧身份门禁。",
+      "next": "历史play记录不升级现金机会；须独立现金权利、实际净成交、规模双腿及全成本新证据。停止重复历史结算取证。",
       "net_return": null,
-      "evidence_note": "同condition、同抵押币、互斥完备二元假设：合并后剩余份额仍有结果风险，显示折价不保证补腿或退出盈利。仅D级合成实验。",
+      "evidence_note": "同condition、同抵押币、互斥完备二元假设：合并后剩余份额仍有结果风险，显示折价不保证补腿或退出盈利。仅D级合成实验。 新增Manifold原始历史记录：问题为“以太坊是否在2022年7月底前合并”，平台2022-08-01判定NO；字段明确play/MANA，仅作历史虚拟币结算证据，不计现金套利候选或实际现金赔付。另一Kalshi具名原文429已停止。",
       "monitor": {
         "state": "合成反例已核验 · 行情未接入",
         "markets": [],
         "candidates": [],
         "sample": null,
-        "review": "同condition、同抵押币、互斥完备二元假设：合并后剩余份额仍有结果风险，显示折价不保证补腿或退出盈利。仅D级合成实验。",
+        "review": "同condition、同抵押币、互斥完备二元假设：合并后剩余份额仍有结果风险，显示折价不保证补腿或退出盈利。仅D级合成实验。 新增Manifold原始历史记录：问题为“以太坊是否在2022年7月底前合并”，平台2022-08-01判定NO；字段明确play/MANA，仅作历史虚拟币结算证据，不计现金套利候选或实际现金赔付。另一Kalshi具名原文429已停止。",
         "missing": [
           "condition/抵押品/结果空间/规模/费用",
           "具名资产/场所与可访问数据源",
@@ -502,7 +502,13 @@
         "continuous": false,
         "url": "./mode.html?id=MECH-013",
         "net_return": null
-      }
+      },
+      "sources": [
+        {
+          "label": "Manifold历史2022年7月底合并判定（play/MANA，非现金候选）",
+          "url": "https://manifold.markets/duck/will-ethereum-merge-to-proof-of-sta"
+        }
+      ]
     },
     {
       "id": "MECH-014",

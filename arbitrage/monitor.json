@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T17:30:51.672369+00:00",
-  "last_research_at": "2026-11-21T17:30:51.672369+00:00",
-  "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
-  "status": "跨链实证口径核验：双腿成交不等于库存恢复；原始回执仍缺",
+  "updated_at": "2026-11-21T18:29:52.723778+00:00",
+  "last_research_at": "2026-11-21T18:29:52.723778+00:00",
+  "last_market_observation_at": "2026-11-21T18:26:59.015975+00:00",
+  "status": "取得单次20秒Bitfinex真实流并完成离线回放；尚非持续监控",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -55,7 +55,7 @@
       "asset": "BTC/USD spot（请求身份，响应未回显symbol）",
       "pool": "tBTCUSD",
       "fee_input": "unknown",
-      "status": "北京时间2026-11-17 15:20:13接收25买档/25卖档；历史单次观测，非机会"
+      "status": "北京时间2026-11-22 02:26:39–59单次WS；末态25买/25卖，非持续服务或机会"
     }
   ],
   "candidates": [
@@ -166,16 +166,17 @@
     "Gemini数量单位及时间语义、Coinbase数量单位证据未齐",
     "两源均熔断；旧报价过期，无法进行当前跨场所比较",
     "全成本、资格、库存、退出及报价有效期未知",
-    "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
+    "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管",
+    "Bitfinex已取得一次真实WS输入；源时间、序列/校验和、断流恢复和连续运行仍未验证。"
   ],
   "recent": [
-    "7份工具源码有界检查未建立新反例，不视为正确性通过。",
-    "取得跨链实证论文完整方法与附录；双腿间隔、最终性和库存恢复须分开。",
-    "具名Base回执403停止；Risk仅接受论文口径，不升级收益或服务能力。"
+    "Execution单次公开连接取得确认tBTCUSD的快照与211条增量，原始帧及接收时间归档。",
+    "既有缓存处理新样本；Risk独立最终50档一致，25项检查通过。",
+    "仅20秒窗口，序列/校验和/源时间未核，不证明无丢包或持续服务；无套利机会升级。"
   ],
   "next": [
-    "仅新实际输入或具体代码反例后推进工程；不把论文启发式阈值直接当生产规则。",
-    "取得原件后分别核对腿确认、桥到账、库存恢复与全成本。"
+    "仅针对新具体问题使用冻结流输入；不重跑相同测试或自动重复采集。",
+    "跨场所比较仍需数量单位、匹配时点、同规模双腿、资格与全部成本。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -184,20 +185,24 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-21T17:27:33.995Z",
-  "collection_completed_at": "2026-11-21T17:28:59.644871+00:00",
+  "collection_started_at": "2026-11-21T18:26:39.508853+00:00",
+  "collection_completed_at": "2026-11-21T18:26:59.511778+00:00",
   "current_round": {
-    "round": 45,
-    "task_id": "CONCRETE-MECHANISM-COUNTEREXAMPLE-45",
-    "market_collection": false,
+    "round": 46,
+    "task_id": "CONCRETE-INPUT-ACQUISITION-46",
+    "market_collection": true,
     "source_time": null,
-    "public_reads": 3,
-    "original_transaction_acquired": false,
+    "public_reads": 1,
+    "interface_main_task": true,
     "size_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_EMPIRICAL_PAPER_SCOPE_AND_REJECT_RECEIPT_OR_PROFIT_UPGRADE"
+    "risk_decision": "ACCEPT_ONE_RAW_WS_SESSION_AND_FROZEN_INPUT_OFFLINE_REPLAY_ONLY",
+    "capture_seconds": 20.002956834156066,
+    "frames": 215,
+    "deltas": 211,
+    "continuous_deployment": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -207,7 +212,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮为历史样本的论文读取，非市场采样；11月17日盘口仍属过期历史样本。",
+  "last_market_observation_note": "最后一次新行情为单次WS窗口末帧的本地接收时间，不是源事件时间；会话已结束，报价不能当当前可执行。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -426,6 +431,23 @@
       "valid_until": null,
       "status": "historical_single_venue_only",
       "risk": "接受原始数据；单位/时间/另一腿/全成本未知，禁止升级机会"
+    },
+    {
+      "id": "BITFINEX-WS-tBTCUSD-20261121T182639Z",
+      "venue": "Bitfinex",
+      "symbol": "tBTCUSD",
+      "received_at": "2026-11-21T18:26:59.015975+00:00",
+      "source_time": null,
+      "best_bid_raw": "60270",
+      "best_ask_raw": "60281",
+      "bid_levels": 25,
+      "ask_levels": 25,
+      "direction": null,
+      "size": null,
+      "net_edge": null,
+      "valid_until": null,
+      "status": "ended_single_session_raw_stream_only_not_current_quote",
+      "risk": "ACCEPT_ONE_RAW_WS_SESSION_AND_FROZEN_INPUT_OFFLINE_REPLAY_ONLY"
     }
   ],
   "research_leads": [

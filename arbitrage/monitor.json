@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T11:19:51.810108+00:00",
-  "last_research_at": "2026-11-21T11:19:51.810108+00:00",
+  "updated_at": "2026-11-21T11:25:48.875793+00:00",
+  "last_research_at": "2026-11-21T11:25:48.875793+00:00",
   "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
-  "status": "第38轮中断后完成离线缓存验收；本次无新行情，持续采集恢复未验证",
+  "status": "独立对账确认心跳变化但两来源行情未变；无新增行情，采集恢复未验证",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -169,13 +169,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Execution已完成价位缓存原型，Risk本次独立20项检查通过；仅限离线有效输入。",
-    "历史REST输入加合成更新不构成WS同步或真实市场路径；没有新增行情。",
-    "中断轮次仅结项一次，漏掉触发未补计；持续采集恢复和低延迟服务尚未验证。"
+    "Postmortem冻结10份具名记录，Risk独立24项检查通过，仅接受本次中断对账。",
+    "两来源完整载荷未变且仍停止；计数增加3284不是新增采样或持续在线证明。",
+    "所查登记范围无未结预测；无新增市场候选，净收益未知。"
   ],
   "next": [
-    "下一轮独立核对本次执行空档及自然新增运行回执，不重复旧故障审计。",
-    "双腿候选仍需合格单位、时点、规模深度和全部适用成本；未知净收益保持未知。"
+    "本次中断对账终止，后续心跳不能作为重开依据。",
+    "下一槽位转独立候选发现；先满足合格第二腿、单位与时点依据，不重复孤立盘口采样。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -187,21 +187,17 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "round": 38,
-    "task_id": "CONCRETE-DATA-ENGINEERING-38",
+    "round": 39,
+    "task_id": "INTERRUPTED-RUN-RECONCILIATION-39",
     "market_collection": false,
     "source_time": null,
-    "public_reads_total_round": 1,
-    "public_reads_resumed_session": 0,
+    "public_reads": 0,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_OFFLINE_VALID_INPUT_CACHE_ONLY",
-    "independent_checks": 20,
-    "historical_input_checks": 2,
-    "synthetic_checks": 18,
-    "interface_main_task": true
+    "risk_decision": "ACCEPT_ONE_TIME_INTERRUPTION_RECONCILIATION_ONLY",
+    "market_increment": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -211,7 +207,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本次未采集行情；最后项目市场样本仍为第36轮历史Bitfinex单场所快照，不可当前交易。",
+  "last_market_observation_note": "本轮仅对账本地新运行快照；项目最后市场样本仍为第36轮Bitfinex，持续采集器最后成功仍为11月14日，二者不可混同。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -347,12 +343,17 @@
     }
   ],
   "runtime_evidence": {
-    "observed_at": "2026-11-16T16:26:35.205199+00:00",
-    "runtime_snapshot_at": "2026-11-16T16:25:00.567366+00:00",
+    "observed_at": "2026-11-21T11:25:48.875793+00:00",
+    "runtime_snapshot_at": "2026-11-21T11:23:35.433430+00:00",
     "status": "blocked",
     "both_sources_stopped": true,
     "last_success_received_at": "2026-11-14T17:37:04.187913+00:00",
-    "source_time": null
+    "source_time": null,
+    "payloads_unchanged_since_baseline": true,
+    "baseline_at": "2026-11-16T20:29:26.139089+00:00",
+    "cycle_delta": 3284,
+    "cycle_delta_is_not_market_reads": true,
+    "continuous_uptime_verified": false
   },
   "project_review": {
     "rounds": [

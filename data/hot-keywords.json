@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-11-20 08:16",
-  "date": "2026-11-20",
+  "last_updated": "2026-11-21 08:16",
+  "date": "2026-11-21",
   "generation_model": "MiniMax-M2.5",
   "source_counts": {
     "wallstreetcn": 0,
@@ -10,130 +10,40 @@
   },
   "keywords": [
     {
-      "keyword": "中俄美元首会晤",
-      "heat": 96,
-      "category": "geo",
-      "summary": "中俄美元首首次聚首并发表和平宣言，重塑全球地缘预期",
-      "sources": [
-        "财联社",
-        "The Washington Post",
-        "微博热搜"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-20 07:59",
-          "text": "【财联社11月20日早间新闻精选】 \n1、11月19日下午，国家主席习近平在深圳同俄罗斯总统普京、美国总统特朗普举行中俄美元首会晤。三国元首围绕“维护世界和平，促进大国关系战略稳定”主题进行深入讨论。习近平指出，中俄美三国最高领导人有史以来首次聚首，具有开创性意义。会后，三国发表《中俄美元首和平宣言》。\n2、11月19日下午，国家主席习近平在深圳会见来华出席亚太经合组织领导人非正式会议的美国总统特"
-        },
-        {
-          "source": "Google News / The Washington Post",
-          "time": "11-20 04:24",
-          "text": "At historic summit, Xi and Putin share global stage with weakened Trump - The Washington Post"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "中俄美元首和平宣言"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "特朗普离开深圳前与王毅面谈"
-        }
-      ]
-    },
-    {
-      "keyword": "全球股市大跌",
-      "heat": 94,
+      "keyword": "美股科技股崩盘",
+      "heat": 100,
       "category": "finance",
-      "summary": "日韩与美股同步下挫，AI股回吐涨幅，风险偏好显著降温",
+      "summary": "美股三大指数重挫，英伟达暴跌并触发科技股抛售",
       "sources": [
         "财联社",
-        "CBS News",
-        "MarketWatch",
+        "Google News / WSJ",
         "微博热搜"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-20 08:13",
-          "text": "财联社11月20日电，日经225指数日内大跌3%，报57591.2点。"
+          "time": "11-21 06:34",
+          "text": "【周六你需要知道的隔夜全球要闻：英伟达暴跌14%、美股进入回调区间；交易员不再完全消化美联储12月加息预期；“大空头”卖掉了半数英伟达和半导体ETF看跌期权】\n1、美三大股指大幅收跌，道指跌1.94%，纳指跌5.28%，标普500指数跌3.70%，为连续第7个交易日下跌，创2020年以来最长连跌纪录。道指、标普500指数均较此前高点回撤10%，进入回调区间。美股恐慌指数VIX盘中逼近40点，触及2"
         },
         {
           "source": "财联社",
-          "time": "11-20 08:04",
-          "text": "财联社11月20日电，MSCI亚太指数下跌1.1%至239.79点。"
+          "time": "11-21 05:16",
+          "text": "【标普500指数连续第7个交易日下跌 创2020年以来最长连跌纪录】财联社11月21日电，标普500指数连续第七个交易日下跌，创2020年以来最长连跌纪录。本周标普500指数重挫8.6%，道指下跌8.0%，纳斯达克指数暴跌10.0%。标普500指数和道指均创2025年4月以来最大单周跌幅。"
         },
         {
-          "source": "财联社",
-          "time": "11-20 08:00",
-          "text": "财联社11月20日电，韩国KOSPI指数开盘下跌4.08%，SK海力士跌逾6%，三星电子跌逾4%。"
-        },
-        {
-          "source": "Google News / CBS News",
-          "time": "11-20 05:25",
-          "text": "Stocks plunge as investors take cover amid growing uncertainty - CBS News"
-        },
-        {
-          "source": "Google News / MarketWatch",
-          "time": "11-20 05:27",
-          "text": "Why Micron, Broadcom and other AI stocks gave up their gains Thursday - MarketWatch"
+          "source": "Google News / WSJ",
+          "time": "11-21 07:30",
+          "text": "Stock Market Today: Dow, S&amp;P 500 Enter Correction Territory — Live Updates - WSJ"
         },
         {
           "source": "微博热搜",
           "time": "",
-          "text": "美股再度大跌"
-        }
-      ],
-      "tool": {
-        "href": "s2-battle.html",
-        "label": "S2 战场"
-      }
-    },
-    {
-      "keyword": "人工智能企业上市",
-      "heat": 92,
-      "category": "ai-tech",
-      "summary": "Anthropic上市首日大涨，市值达到1.27万亿美元",
-      "sources": [
-        "Yahoo Finance",
-        "微博热搜"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Yahoo Finance",
-          "time": "11-20 03:24",
-          "text": "Anthropic IPO live: Anthropic stock closes up 17% from initial price for $1.27T valuation in first day of trading - Yahoo Finance"
+          "text": "股民集体抛售科技股"
         },
         {
           "source": "微博热搜",
           "time": "",
-          "text": "Anthropic总筹资1073亿"
-        }
-      ],
-      "tool": {
-        "href": "mythos-tracker.html",
-        "label": "Mythos 追踪"
-      }
-    },
-    {
-      "keyword": "国产算力芯片",
-      "heat": 90,
-      "category": "ai-tech",
-      "summary": "阿里称未来多数模型将依赖国产芯片训练，国产替代预期升温",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-20 08:13",
-          "text": "伴随性能不断升级，国产算力芯片渗透率有望持续提升，最新整理国产AI芯片市占率等（附表）。"
-        },
-        {
-          "source": "财联社",
-          "time": "11-20 08:12",
-          "text": "①阿里CEO称未来绝大部分模型将完全依赖国产芯片训练，分析师看好平头哥目标将算力贡献占比提升至40%至50%背景下，国产算力供给与资本市场定价将同步推进，这家公司与阿里巴巴集团旗下平头哥达成战略合作共识；\n②得州数据中心审批传出重启消息，分析师认为更严格的环保要求及电网配套成本压力，或促使开发商选择低排放的自备发电方案，这家公司上半年成功中标美国得州变压器扩建项目；\n③Palo Alto Netw"
+          "text": "美AI科技股崩盘原因"
         }
       ],
       "tool": {
@@ -142,23 +52,72 @@
       }
     },
     {
-      "keyword": "美联储加息表态",
-      "heat": 87,
-      "category": "macro",
-      "summary": "保尔森称仍需进一步收紧政策，但未评论近期利率路径",
+      "keyword": "美伊霍尔木兹磋商",
+      "heat": 94,
+      "category": "geo",
+      "summary": "美伊围绕协议与霍尔木兹海峡开放安排继续磋商",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-20 08:04",
-          "text": "财联社11月20日电，美联储保尔森称，还需进一步收紧政策。以审慎的加息步伐推进，可让经济有时间作出调整。"
+          "time": "11-21 07:18",
+          "text": "【特朗普：伊朗“不想达成我能接受的协议”】财联社11月21日电，美国总统特朗普20日在白宫举行的新闻发布会上表示，伊朗想达成协议，但“他们不想达成我能接受的协议”。特朗普承认伊朗战事推高了美国国内物价，尤其是油价，但他强调自11月初以来油价已大幅下跌。另据知情人士的话称，美国总统特使威特科夫和特朗普的女婿库什纳19日在德国柏林与卡塔尔首相兼外交大臣穆罕默德会面，讨论卡塔尔方面在美伊之间的斡旋工作。"
         },
         {
           "source": "财联社",
-          "time": "11-20 07:42",
-          "text": "财联社11月20日电，美联储保罗森称，不对货币政策近期走向发表看法。"
+          "time": "11-21 07:11",
+          "text": "【伊朗外长：“两日计划”依然摆在桌面上 愿与美进行讨论】财联社11月21日电，伊朗外长阿拉格齐表示，“两日计划”依然摆在桌面上，如果美国态度认真，这一方案或许能为达成协议铺平道路。“两日计划”即如果美国在第一天履行其义务，伊朗便在第二天重新开放霍尔木兹海峡。阿拉格齐称，伊朗的要求是，美方必须明确表达出达成协议的意愿。如果条件得到满足，伊朗愿意与美方就伊朗提出的方案及其具体落实进行讨论。阿拉格齐表示"
+        }
+      ]
+    },
+    {
+      "keyword": "俄导弹落波兰",
+      "heat": 91,
+      "category": "geo",
+      "summary": "俄导弹落入波兰引发北约警戒，欧洲地缘风险骤升",
+      "sources": [
+        "Google News / AP News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / AP News",
+          "time": "11-21 06:15",
+          "text": "Russian missiles land in Poland, as Europe held military drills nearby. NATO calls it a violation - AP News"
+        }
+      ]
+    },
+    {
+      "keyword": "中俄美元首会晤",
+      "heat": 88,
+      "category": "geo",
+      "summary": "特朗普称中俄美元首三方会晤意义重大",
+      "sources": [
+        "财联社",
+        "Google News / CBS News",
+        "微博热搜"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 07:24",
+          "text": "【特朗普：中俄美元首会晤“史无前例”“意义重大”】财联社11月21日电，美国总统特朗普20日在白宫举行的新闻发布会上表示，日前在中国深圳举行的亚太经合组织领导人非正式会议是一场非常成功的经济会议，美国、中国和俄罗斯三国领导人还举行了首次三方会晤，这是“多年来最具重大意义的国际峰会之一”。特朗普说，中俄美元首会晤“史无前例”“意义非常重大”，会晤期间“气氛极其热烈，令人难以置信”“我们三人之间的关系"
+        },
+        {
+          "source": "Google News / CBS News",
+          "time": "11-21 03:02",
+          "text": "Trump touts Asia deals and meeting with Xi and Putin at White House press conference - CBS News"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "APEC盛会效应拉满"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "特朗普涉中俄美最新表态"
         }
       ],
       "tool": {
@@ -167,44 +126,18 @@
       }
     },
     {
-      "keyword": "日本国债收益率",
-      "heat": 85,
-      "category": "finance",
-      "summary": "日债各期限收益率普遍下行，曲线反映避险与政策预期变化",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-20 08:12",
-          "text": "财联社11月20日电，日本40年期国债收益率下跌2.5个基点至4.155%。"
-        },
-        {
-          "source": "财联社",
-          "time": "11-20 08:09",
-          "text": "财联社11月20日电，日本10年期国债收益率下跌2.0个基点至2.800%。"
-        },
-        {
-          "source": "财联社",
-          "time": "11-20 08:02",
-          "text": "财联社11月20日电，30年期日本国债收益率下降2.5个基点，至3.965%。"
-        }
-      ]
-    },
-    {
-      "keyword": "英伟达芯片调查",
-      "heat": 84,
+      "keyword": "英伟达对华出口",
+      "heat": 86,
       "category": "ai-tech",
-      "summary": "加州总检察长向英伟达发出传票，调查中国芯片违规转运",
+      "summary": "美财长称英伟达芯片对华出口无需新增限制",
       "sources": [
-        "CNBC"
+        "Google News / AP News"
       ],
       "evidence": [
         {
-          "source": "Google News / CNBC",
-          "time": "11-20 06:49",
-          "text": "California attorney general issues Nvidia subpoena in probe of China chip diversion - CNBC"
+          "source": "Google News / AP News",
+          "time": "11-21 06:36",
+          "text": "Treasury secretary says no further restrictions are needed for Nvidia chip exports to China - AP News"
         }
       ],
       "tool": {
@@ -213,72 +146,54 @@
       }
     },
     {
-      "keyword": "俄欧乌谈判",
-      "heat": 82,
-      "category": "geo",
-      "summary": "俄同意欧洲参与多边谈判，但同时拒绝仅限局部停火",
+      "keyword": "网络安全超级并购",
+      "heat": 83,
+      "category": "ai-tech",
+      "summary": "CrowdStrike洽购Zscaler，交易估值约2650亿美元",
       "sources": [
-        "财联社",
-        "CBS News"
+        "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-20 08:03",
-          "text": "【库什纳称俄罗斯同意欧洲参与多边谈判】财联社11月20日电，美国总统特朗普的女婿库什纳19日在柏林表示，俄罗斯已同意欧洲参加多边谈判机制。在当天举行的“志愿联盟”会议后，库什纳与欧洲多国领导人共同出席记者会时说，重启欧洲与俄罗斯直接对话尤为重要，双方将直接听取彼此的诉求。他说，俄方能够接受乌克兰获得类似《北大西洋公约》第五条集体防御条款的安全保障，同时也表达了不再爆发新冲突的意愿。库什纳强调，相关"
-        },
-        {
-          "source": "Google News / CBS News",
-          "time": "11-20 07:08",
-          "text": "Putin says Russia won't negotiate limited ceasefire with Ukraine after bridge strike - CBS News"
+          "time": "11-21 05:35",
+          "text": "【Crowdstrike据悉洽购Zscaler 或缔造网络安全行业史上最大交易之一】财联社11月21日电，据知情人士透露，CrowdStrike正在洽谈收购Zscaler，这笔交易将成为网络安全行业史上规模最大的交易之一，并将缔造一家合计市值约2,650亿美元的公司。"
         }
-      ]
+      ],
+      "tool": {
+        "href": "mythos-tracker.html",
+        "label": "Mythos 追踪"
+      }
     },
     {
-      "keyword": "苹果设备智能代理",
+      "keyword": "新兴市场指数深跌",
       "heat": 81,
-      "category": "ai-tech",
-      "summary": "苹果研发可控制设备、应用、浏览与编程的智能代理",
-      "sources": [
-        "Bloomberg.com"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Bloomberg.com",
-          "time": "11-20 05:44",
-          "text": "Apple Is Working on AI Agent for Device Control, Apps, Browsing and Coding - Bloomberg.com"
-        }
-      ]
-    },
-    {
-      "keyword": "伊朗军事风险",
-      "heat": 80,
-      "category": "geo",
-      "summary": "以军情负责人赴美推动重启对伊朗打击，地区冲突风险升温",
-      "sources": [
-        "The Wall Street Journal"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / WSJ",
-          "time": "11-20 07:37",
-          "text": "Israeli Spy Chief Pressed for Renewed Iran Strikes During U.S. Visit - WSJ"
-        }
-      ]
-    },
-    {
-      "keyword": "先进封装量产",
-      "heat": 78,
-      "category": "ai-tech",
-      "summary": "国产高端先进封装实现量产，叠加算力需求拉动产业升级",
+      "category": "finance",
+      "summary": "MSCI新兴市场指数较六月高点回撤21%",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-20 07:47",
-          "text": "①先进封装+算力，自主研发的高端先进封装平台已实现规模量产，实现光引擎与交换、运算ASIC芯片共封装，这家公司具备32层堆叠、25μm超薄芯片加工等高端存储封装能力；\n②服务器+半导体，算力服务器电源相关产品处于研发测试阶段，半导体产品随整机设备导入芯片生产企业实现应用，这家公司向其他高端装备赛道多条业务线的电源技术迭代与新品开发。"
+          "time": "11-21 05:31",
+          "text": "财联社11月21日电，MSCI新兴市场股票指数收盘较6月高点下跌21%。"
+        }
+      ]
+    },
+    {
+      "keyword": "英伟达会计调查",
+      "heat": 79,
+      "category": "ai-tech",
+      "summary": "监管机构调查英伟达会计处理，市场关注财务合规",
+      "sources": [
+        "Google News / Financial Times"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Financial Times",
+          "time": "11-21 05:58",
+          "text": "Nvidia faces US regulator’s probe into its accounting - Financial Times"
         }
       ],
       "tool": {
@@ -287,98 +202,226 @@
       }
     },
     {
-      "keyword": "得州数据中心电力",
-      "heat": 76,
-      "category": "industry",
-      "summary": "得州数据中心审批或重启，电网与环保约束推升自备电源需求",
+      "keyword": "海外AI数据中心禁令",
+      "heat": 77,
+      "category": "ai-tech",
+      "summary": "特朗普威胁限制美国企业在海外建设AI数据中心",
       "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-20 08:12",
-          "text": "①阿里CEO称未来绝大部分模型将完全依赖国产芯片训练，分析师看好平头哥目标将算力贡献占比提升至40%至50%背景下，国产算力供给与资本市场定价将同步推进，这家公司与阿里巴巴集团旗下平头哥达成战略合作共识；\n②得州数据中心审批传出重启消息，分析师认为更严格的环保要求及电网配套成本压力，或促使开发商选择低排放的自备发电方案，这家公司上半年成功中标美国得州变压器扩建项目；\n③Palo Alto Netw"
-        }
-      ]
-    },
-    {
-      "keyword": "地产资产见底预期",
-      "heat": 74,
-      "category": "finance",
-      "summary": "中信证券预计房地产相关权益资产价值或在2027年见底回升",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-20 07:55",
-          "text": "【中信证券：房地产相关权益资产价值可能在2027年见底向上】财联社11月20日电，中信证券研报称，预计2027年房价将在更广阔的范围止跌回升，房地产市场的各个细分领域都将走向精细化运营，并为消费者带来更多的价值。房地产相关权益资产价值可能在2027年见底向上。核心资产持有和开发混业的地产企业持续的折价可能逐渐消失。看好减值计提充分、产品力出色的开发企业，也看好市占率不断提升的运营和服务龙头。"
-        }
-      ]
-    },
-    {
-      "keyword": "金融街董事长被留置",
-      "heat": 73,
-      "category": "finance",
-      "summary": "金融街公告称董事长接受调查并被留置，公司称经营正常",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-20 07:59",
-          "text": "财联社11月20日电，金融街证券在港交所公告，公司董事长祝艳辉目前正接受调查并被实施留置措施。于本公告刊发时，本公司未收到任何委员会需要协助调查或提供任何资料的要求，本集团的业务运营正常。"
-        }
-      ]
-    },
-    {
-      "keyword": "缅甸种族罪裁决",
-      "heat": 70,
-      "category": "geo",
-      "summary": "联合国最高法院裁定缅甸对罗兴亚族实施种族灭绝",
-      "sources": [
-        "BBC"
+        "Google News / BBC"
       ],
       "evidence": [
         {
           "source": "Google News / BBC",
-          "time": "11-20 04:07",
-          "text": "Myanmar committed genocide against Rohingya minority, top UN court rules - BBC"
+          "time": "11-21 04:54",
+          "text": "Trump threatens ban on US firms building AI data centres overseas - BBC"
         }
-      ]
+      ],
+      "tool": {
+        "href": "america.html",
+        "label": "美国仪表盘"
+      }
     },
     {
-      "keyword": "水泥行业被动提价",
-      "heat": 68,
-      "category": "industry",
-      "summary": "淡季需求偏弱叠加成本上升，水泥企业被迫提价应对压力",
+      "keyword": "港股要约收购潮",
+      "heat": 75,
+      "category": "finance",
+      "summary": "港股年内要约收购达74起，并购重组活跃度上升",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-20 07:45",
-          "text": "【行业淡季叠加成本抬升 水泥企业被动提价】财联社11月20日电，1月以来，水泥行业涨价函频发。11月16日，浙江金华、衢州、丽水市场部分主流品牌水泥企业发布通知，计划将P·O42.5散装水泥价格上涨20元/吨。前一日，河南多地水泥企业也陆续发布通知，上调水泥价格。但本轮涨价行情并非由需求端回暖驱动，而是在行业淡季叠加成本抬升的双重压力下，企业无奈被动提价。国盛证券指出，水泥存量产能退出速度难匹配需"
+          "time": "11-21 07:29",
+          "text": "【港股年内逾70起要约收购 “腾笼换鸟”推动市场生态优化】财联社11月21日电，Wind数据显示，年内港股市场已累计发生74起要约收购，数量已超过去年全年。要约收购类型丰富，涵盖主动要约与被动要约、全面要约及部分要约，产业资本、财务投资人持续进场布局，成为港股资本市场的突出看点。低估值、上市平台价值以及产业整合需求，共同催生本轮要约收购热潮，带动市场并购重组活跃度明显抬升。业内人士表示，要约收购是"
         }
       ]
     },
     {
-      "keyword": "沙特公共投资基金总部受损",
-      "heat": 66,
-      "category": "geo",
-      "summary": "沙特公共投资基金总部据报受损，地区安全与资产风险受关注",
+      "keyword": "AI证明黎曼猜想",
+      "heat": 73,
+      "category": "ai-tech",
+      "summary": "Claude参与黎曼猜想证明并获形式化验证",
       "sources": [
-        "Bloomberg.com"
+        "财联社",
+        "微博热搜"
       ],
       "evidence": [
         {
-          "source": "Google News / Bloomberg.com",
-          "time": "11-19 23:58",
-          "text": "Saudi Public Investment Fund’s Riyadh Headquarters Damaged - Bloomberg.com"
+          "source": "财联社",
+          "time": "11-21 07:50",
+          "text": "【Anthropic数学家称与Claude合作证明黎曼猜想】财联社11月21日电，Anthropic数学家Levent Alpöge发文称，他与Claude合作发现了黎曼猜想的一个证明，并称相关方法还可推广至广义黎曼猜想，未来或进一步解决扩展黎曼猜想。他表示，团队已使用Lean证明助手对论证进行了形式化验证，并公开了相关代码。Alpöge称，证明涉及大量数论工具，包括Ste​​panov方法、傅里"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "黎曼猜想"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "AI证明黎曼猜想传闻"
+        }
+      ],
+      "tool": {
+        "href": "mythos-tracker.html",
+        "label": "Mythos 追踪"
+      }
+    },
+    {
+      "keyword": "Databricks大额融资",
+      "heat": 71,
+      "category": "ai-tech",
+      "summary": "Databricks拟按2250亿美元估值融资数十亿美元",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 06:53",
+          "text": "财联社11月21日电，美国数据及人工智能公司Databricks正进行初步洽谈，拟以2250亿美元估值融资数十亿美元。"
+        }
+      ]
+    },
+    {
+      "keyword": "黄金价格大跌",
+      "heat": 69,
+      "category": "finance",
+      "summary": "金价罕见大跌登上热搜，市场关注避险资产波动",
+      "sources": [
+        "微博热搜"
+      ],
+      "evidence": [
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "金价罕见大跌原因找到了"
+        },
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "金价"
+        }
+      ]
+    },
+    {
+      "keyword": "Anthropic股价下跌",
+      "heat": 67,
+      "category": "ai-tech",
+      "summary": "Anthropic上市后股价下跌8%，AI估值波动加剧",
+      "sources": [
+        "Google News / Yahoo Finance"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Yahoo Finance",
+          "time": "11-21 05:44",
+          "text": "Anthropic stock drops 8% after rip-roaring IPO - Yahoo Finance"
+        }
+      ],
+      "tool": {
+        "href": "mythos-tracker.html",
+        "label": "Mythos 追踪"
+      }
+    },
+    {
+      "keyword": "A股机构调研潮",
+      "heat": 65,
+      "category": "finance",
+      "summary": "本周419家A股公司获机构调研，收益分化明显",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 08:02",
+          "text": "【本周超400家A股上市公司接受机构投资者调研 微导纳米获142家机构调研】财联社11月21日电，本周（11月16日—20日）共有419家A股上市公司接受机构投资者调研，从赚钱效应来看，仅有一成左右机构调研股实现正收益，其中盛剑科技周内实现4连板，累计涨39.46%，方盛制药涨14.65%，中国重汽涨10.42%。热门调研标的方面，本周只有微导纳米获得百家以上机构调研，奥比中光获得80家以上机构调"
+        }
+      ]
+    },
+    {
+      "keyword": "Capricor临床受挫",
+      "heat": 63,
+      "category": "industry",
+      "summary": "FDA认定Deramiocel研究存在严重缺陷，股价暴跌75%",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 07:47",
+          "text": "财联社11月21日电，生物科技公司Capricor盘后股价下跌75%。FDA对Capricor的检查发现Deramiocel研究存在严重缺陷。"
+        }
+      ]
+    },
+    {
+      "keyword": "英国脱欧重置",
+      "heat": 61,
+      "category": "geo",
+      "summary": "英国宣布脱欧重置协议，欧盟关系与经贸影响受关注",
+      "sources": [
+        "Google News / The New York Times"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / The New York Times",
+          "time": "11-21 00:50",
+          "text": "Britain Announces Brexit Reset Deal at E.U. Summit: What to Know - The New York Times"
+        }
+      ]
+    },
+    {
+      "keyword": "乌克兰和平谈判",
+      "heat": 59,
+      "category": "geo",
+      "summary": "特朗普寻求在年前推动乌克兰和平协议，地缘预期升温",
+      "sources": [
+        "Google News / Financial Times"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Financial Times",
+          "time": "11-21 00:17",
+          "text": "Donald Trump seeks Ukraine peace deal before January - Financial Times"
+        }
+      ],
+      "tool": {
+        "href": "america.html",
+        "label": "美国仪表盘"
+      }
+    },
+    {
+      "keyword": "美国技能签证收缩",
+      "heat": 57,
+      "category": "industry",
+      "summary": "美国H1B签发量较上一年度减少约三分之一",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 06:49",
+          "text": "财联社11月21日电，美国国务院数据显示，特朗普第二任期首年，美国签发的H-1B签证数量比其上任前一年减少约三分之一。"
+        }
+      ]
+    },
+    {
+      "keyword": "DeepSeek付费升温",
+      "heat": 55,
+      "category": "ai-tech",
+      "summary": "DeepSeek付费体验使用上升，国产AI商业化受关注",
+      "sources": [
+        "微博热搜"
+      ],
+      "evidence": [
+        {
+          "source": "微博热搜",
+          "time": "",
+          "text": "DeepSeek付费体验直线上升"
         }
       ]
     }

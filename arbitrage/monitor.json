@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T14:25:06.849784+00:00",
-  "last_research_at": "2026-11-21T14:25:06.849784+00:00",
+  "updated_at": "2026-11-21T15:29:37.758612+00:00",
+  "last_research_at": "2026-11-21T15:29:37.758612+00:00",
   "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
-  "status": "六轮项目审查：市场验证停滞，暂停未绑定真实输入的源码扩张，转具名原件获取",
+  "status": "具名Morpho历史回执403受阻；独立取得Maker历史治理原文，仅叙述证据",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -169,13 +169,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Execution限定核查BOLD/Morpho/Bitfinex三个依赖，没有合格新输入，不新增代码或模型。",
-    "Postmortem新窗口复算，Risk31项独验：37–42无新增行情、完整候选、新预测或后验。",
-    "项目采用转向决定：暂停无实际输入的源码扩张，下一轮有界获取一份具名原始回执或固定状态。"
+    "Scout定位Morpho历史交易，但原文403；停止且不换域/工具重试。",
+    "独立转向取得Maker官方2020历史治理投票原文；仅支持拍卖回收与不同承担方损失的区分。",
+    "Risk25项检查通过：接收失败证据与历史叙述，不接受交易回执/当前机会/收益升级。"
   ],
   "next": [
-    "Scout/Execution先获取一个具名历史事件原件，Risk事前核查来源范围；允许有限身份定位。",
-    "取得原件后独立对账；不齐字段阻止升级机会，不阻止合规取证。失败一次终止，不再做就绪清单。"
+    "选择真正独立的具名实际事件原件；有限定位后采集，不再重复同一受阻问题。",
+    "需要逐笔回执和固定状态才能核对现金流；成本未知保持未知。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -185,19 +185,20 @@
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
   "collection_started_at": null,
-  "collection_completed_at": null,
+  "collection_completed_at": "2026-11-21T15:26:48.506120+00:00",
   "current_round": {
-    "round": 42,
-    "task_id": "DATA-CAPABILITY-AND-REVIEW-42",
+    "round": 43,
+    "task_id": "NAMED-ORIGINAL-RECEIPT-ACQUISITION-01",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 0,
-    "execution_veto": true,
+    "public_reads": 4,
+    "original_transaction_acquired": false,
+    "risk_decision": "ACCEPT_PRIMARY_BOUNDED_FAILURE_AND_INDEPENDENT_HISTORICAL_GOVERNANCE_NARRATIVE_ONLY",
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "Accept Execution42 blocked_data and current ProjectReview recommendation; veto any upgrade to market capability, current opportunity or production readiness.",
-    "engineering_status": "blocked_data"
+    "net_pnl": null,
+    "collection_time_note": "First locator start not recorded; direct original attempts15:25:31.040635Z to15:26:48.506120Z; neither is market sampling"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -207,7 +208,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮无市场读取；历史第36轮单场所样本不代表当前行情，净收益未知。",
+  "last_market_observation_note": "本轮取得历史治理叙述、未取得交易回执或当前行情；历史盘口已过期，净收益未知。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -289,6 +290,12 @@
       "reason": "BOLD/Morpho缺部署与真实状态包；Bitfinex缺合格单位/时点和匹配腿或真实流输入",
       "scope": "只评估三个具名依赖，不代表全市场无路径",
       "reopen": "新具名原始回执/状态/流输入或具体反例，不重复同一就绪核查"
+    },
+    {
+      "task": "NAMED-ORIGINAL-RECEIPT-ACQUISITION-01",
+      "status": "blocked_data",
+      "reason": "具名Morpho浏览器原始回执单次403，搜索摘要不作链上证据",
+      "reopen": "Documented lawful access change or genuinely new supplied original; not synonym/date query"
     }
   ],
   "learning": [
@@ -347,6 +354,14 @@
       "evidence": "真实冻结状态双源停止；Risk独立11个JS案例验证时效标签。",
       "unknown": "源时间语义、完整成本和实际恢复；7分钟只是显示门禁。",
       "next": "有新恢复证据才审核恢复，旧报价不用于当前跨场所比较。"
+    },
+    {
+      "category": "历史事件 / 官方治理叙述",
+      "title": "协议补足亏空，为什么不等于用户得到赔付？",
+      "takeaway": "拍卖回收、协议再资本化和金库用户残余损失是不同账目。",
+      "evidence": "Maker2020-04-06治理投票原文；Risk独立验收历史叙述范围。",
+      "unknown": "逐笔回执、实际补偿支付、单个参与者净收益及当前适用性。",
+      "next": "仅新原始事件或状态证据后逐笔对账。"
     }
   ],
   "runtime_evidence": {

@@ -573,17 +573,17 @@
       "trigger": "健康度/拍卖状态",
       "verification": "可清算条件、债务成本、抵押物退出",
       "risks": "坏账、竞价、gas、卖出深度",
-      "status": "Clipper/Aave及Morpho Blue局部源码约束已核；部署/行情/收益未核",
+      "status": "局部源码与历史拍卖失败叙述已核；部署/逐笔现金流/收益未核",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "各局部源码包均终止；仅具名部署/同状态原件或具体反例后，核对现金偿还、坏账减记、实际抵押到账和完整退出成本。",
+      "next": "Morpho具名回执403已停止；仅新原始交易/固定状态或合法访问变化后核对实际现金流。历史治理叙述不填补部署和成本缺口。",
       "net_return": null,
-      "evidence_note": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。 Morpho Blue新增：抵押品清空后的badDebt同时减少借款与供应资产记账，最终清算人支付仅repaidAssets；16项独立源码核验，非EVM或部署验证。main具体提交未知。",
+      "evidence_note": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。 Morpho Blue新增：抵押品清空后的badDebt同时减少借款与供应资产记账，最终清算人支付仅repaidAssets；16项独立源码核验，非EVM或部署验证。main具体提交未知。 新增Maker 2020-04-06官方历史治理投票原文：回顾零价/低价拍卖，区分协议Flop再资本化与金库残余损失；补偿提案不证明实际赔付。仅历史叙述，非逐笔回执，不能外推现行Clipper或当前收益。",
       "monitor": {
         "state": "源码机制研究 · 无实际清算候选",
         "markets": [],
         "candidates": [],
         "sample": null,
-        "review": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。 Morpho Blue新增：抵押品清空后的badDebt同时减少借款与供应资产记账，最终清算人支付仅repaidAssets；16项独立源码核验，非EVM或部署验证。main具体提交未知。",
+        "review": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。 Morpho Blue新增：抵押品清空后的badDebt同时减少借款与供应资产记账，最终清算人支付仅repaidAssets；16项独立源码核验，非EVM或部署验证。main具体提交未知。 新增Maker 2020-04-06官方历史治理投票原文：回顾零价/低价拍卖，区分协议Flop再资本化与金库残余损失；补偿提案不证明实际赔付。仅历史叙述，非逐笔回执，不能外推现行Clipper或当前收益。",
         "missing": [
           "精确部署/版本与oracle base单位",
           "同块仓位、实际偿债和抵押上限、协议费",
@@ -610,6 +610,10 @@
         {
           "label": "Morpho Blue liquidate源码（main可变，部署未核）",
           "url": "https://raw.githubusercontent.com/morpho-org/morpho-blue/main/src/Morpho.sol"
+        },
+        {
+          "label": "Maker官方历史治理投票127（2020-04-06；非逐笔回执）",
+          "url": "https://vote.makerdao.com/polling/QmWC4qey"
         }
       ]
     },

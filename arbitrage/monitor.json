@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T18:29:52.723778+00:00",
-  "last_research_at": "2026-11-21T18:29:52.723778+00:00",
+  "updated_at": "2026-11-21T19:27:42.135232+00:00",
+  "last_research_at": "2026-11-21T19:27:42.135232+00:00",
   "last_market_observation_at": "2026-11-21T18:26:59.015975+00:00",
-  "status": "取得单次20秒Bitfinex真实流并完成离线回放；尚非持续监控",
+  "status": "单条删除遗漏反事实已核：末态一致不保证中间盘口正确",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -170,13 +170,13 @@
     "Bitfinex已取得一次真实WS输入；源时间、序列/校验和、断流恢复和连续运行仍未验证。"
   ],
   "recent": [
-    "Execution单次公开连接取得确认tBTCUSD的快照与211条增量，原始帧及接收时间归档。",
-    "既有缓存处理新样本；Risk独立最终50档一致，25项检查通过。",
-    "仅20秒窗口，序列/校验和/源时间未核，不证明无丢包或持续服务；无套利机会升级。"
+    "Postmortem冻结规则后仅省略第46轮样本首条删除消息，未搜索最坏情况。",
+    "5个状态深度不同但盘口仍未交叉；第8帧卖一出现差异，第9帧恢复、最终一致。",
+    "Risk18项最终交叉检查通过；这是反事实，不证明真实丢包，不计预测或纸面后验。"
   ],
   "next": [
-    "仅针对新具体问题使用冻结流输入；不重跑相同测试或自动重复采集。",
-    "跨场所比较仍需数量单位、匹配时点、同规模双腿、资格与全部成本。"
+    "第48轮执行新发现任务及43–48六轮项目审查。",
+    "停止相同遗漏实验；后续完整性须新独立序列/校验和/恢复证据，当前没有持续服务或机会升级。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -185,24 +185,22 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-21T18:26:39.508853+00:00",
-  "collection_completed_at": "2026-11-21T18:26:59.511778+00:00",
+  "collection_started_at": null,
+  "collection_completed_at": null,
   "current_round": {
-    "round": 46,
-    "task_id": "CONCRETE-INPUT-ACQUISITION-46",
-    "market_collection": true,
+    "round": 47,
+    "task_id": "NEW-STREAM-OUTCOME-RISK-47",
+    "market_collection": false,
     "source_time": null,
-    "public_reads": 1,
-    "interface_main_task": true,
+    "public_reads": 0,
+    "historical_counterfactual": true,
+    "forecast_frozen": false,
+    "paper_outcome": false,
     "size_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_ONE_RAW_WS_SESSION_AND_FROZEN_INPUT_OFFLINE_REPLAY_ONLY",
-    "capture_seconds": 20.002956834156066,
-    "frames": 215,
-    "deltas": 211,
-    "continuous_deployment": false
+    "risk_decision": "ACCEPT_ONE_LABELLED_OMISSION_COUNTEREXAMPLE_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -212,7 +210,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "最后一次新行情为单次WS窗口末帧的本地接收时间，不是源事件时间；会话已结束，报价不能当当前可执行。",
+  "last_market_observation_note": "本轮没有新行情；保留第46轮末帧接收时间，已结束会话报价不可当前使用。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

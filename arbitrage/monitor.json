@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-17T08:29:11.616638+00:00",
-  "last_research_at": "2026-11-17T08:29:11.616638+00:00",
+  "updated_at": "2026-11-21T11:19:51.810108+00:00",
+  "last_research_at": "2026-11-21T11:19:51.810108+00:00",
   "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
-  "status": "Aave局部清算残余条件通过源码与合成验证；本轮无新行情",
+  "status": "第38轮中断后完成离线缓存验收；本次无新行情，持续采集恢复未验证",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -169,13 +169,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Aave v3.3.0局部条件：双方均有残余时，两边剩余估值均须≥门槛。",
-    "Risk独立17项检查通过；默认base单位须另核，不泛化为固定美元门槛。",
-    "无新清算仓位、规模双腿或全成本，净收益未知，持续采集恢复未验证。"
+    "Execution已完成价位缓存原型，Risk本次独立20项检查通过；仅限离线有效输入。",
+    "历史REST输入加合成更新不构成WS同步或真实市场路径；没有新增行情。",
+    "中断轮次仅结项一次，漏掉触发未补计；持续采集恢复和低延迟服务尚未验证。"
   ],
   "next": [
-    "不重复局部边界模型；仅有新部署/状态或具体反例才接续。",
-    "工程任务须绑定具体数据依赖，不能把合成测试当实际监控上线。"
+    "下一轮独立核对本次执行空档及自然新增运行回执，不重复旧故障审计。",
+    "双腿候选仍需合格单位、时点、规模深度和全部适用成本；未知净收益保持未知。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -187,15 +187,21 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "task_id": "INDEPENDENT-MECHANISM-EVENT-37",
+    "round": 38,
+    "task_id": "CONCRETE-DATA-ENGINEERING-38",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 1,
+    "public_reads_total_round": 1,
+    "public_reads_resumed_session": 0,
     "execution_veto": true,
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_TAGGED_SOURCE_LOCAL_DUST_BOUNDARY_ONLY"
+    "risk_decision": "ACCEPT_OFFLINE_VALID_INPUT_CACHE_ONLY",
+    "independent_checks": 20,
+    "historical_input_checks": 2,
+    "synthetic_checks": 18,
+    "interface_main_task": true
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -205,7 +211,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "最后市场采样仍为第36轮Bitfinex历史单场所快照；本轮只有协议源码读取。",
+  "last_market_observation_note": "本次未采集行情；最后项目市场样本仍为第36轮历史Bitfinex单场所快照，不可当前交易。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -274,6 +280,12 @@
       "status": "historical_process_deviation_reviewed",
       "reason": "旧资料重开依据不足；现要求事前范围和新证据审核，非自动执行",
       "reopen": "下一次自然出现的新证据申请或具体反例"
+    },
+    {
+      "task": "CONCRETE-DATA-ENGINEERING-38",
+      "status": "interrupted_then_independently_reviewed",
+      "reason": "历史worker用量错误导致独立验收中断，本次恢复完成；不是行情恢复",
+      "reopen": "缓存研究已终止；须具体反例或新合格流事件证据"
     }
   ],
   "learning": [
@@ -358,11 +370,10 @@
     "decision": "继续有前提的双腿验证或独立机制研究；停放重复孤立采样和元数据支线"
   },
   "research_gap": {
-    "previous_actual_end": "2026-11-16T23:38:41.571293+00:00",
-    "next_first_persisted_at": "2026-11-17T06:51:04.458870+00:00",
-    "initial_start_exact": null,
+    "last_execution_artifact_at": "2026-11-17T09:28:54.430355+00:00",
+    "actual_resumed_at": "2026-11-21T11:18:18.126330+00:00",
     "gap_over_90_minutes": true,
-    "note": "执行空档已通知；缺失时段没有补造采集记录"
+    "note": "执行证据空档；历史worker用量错误，中间触发未补计；不推断机器停机。"
   },
   "observations": [
     {

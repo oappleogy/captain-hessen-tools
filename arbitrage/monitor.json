@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T22:32:22.566787+00:00",
-  "last_research_at": "2026-11-21T22:32:22.566787+00:00",
+  "updated_at": "2026-11-21T23:34:09.964540+00:00",
+  "last_research_at": "2026-11-21T23:34:09.964540+00:00",
   "last_market_observation_at": "2026-11-21T22:30:36.182986+00:00",
-  "status": "真实流5个CRC检查点匹配；尚无完整经济候选",
+  "status": "退出条件原文受阻；完成三点假设费用核算，转独立方向",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -170,14 +170,14 @@
     "Bitfinex已取得一次真实WS输入；源时间、序列/校验和、断流恢复和连续运行仍未验证。"
   ],
   "recent": [
-    "第50轮在事前冻结方法后取得单次20秒启用校验和的真实tBTCUSD流：518帧、508条增量、5个服务端CRC，独立复算5/5匹配。仅证明收到的5个校验点前25档价格和有符号数量一致；不证明两点间、序列连续、全深度或持续服务，也不能追溯保证第46轮无丢失。",
-    "采集前冻结方法与代码；Execution首次5/5匹配，Risk独立复算及来源冻结断言14/14通过。",
-    "无重连、无常驻服务；未取得同步双腿全成本候选，没有新纸面预测或实际交易。"
+    "第51轮提款限制原文403已停止，未核实任何具体冻结期限。独立条件计算仅对普通银行电汇路径：假设计费金额1000/10000/100000美元时费用均100美元，占10%/1%/0.1%。不是所有退出路径的最低费，也不是实际账户或完整成本/净收益。",
+    "Scout保留403原件；Quant事前冻结三个假设规模；Risk20/20独立检查通过，仅接受失败记录及条件算术。",
+    "本轮没有新行情或前瞻结果；50会话已结束，持续采集仍未验证。"
   ],
   "next": [
-    "51：针对具体剩余经济或结果风险进行独立复核，不复跑已通过CRC或遗漏实验。",
-    "新的完整性任务须有具体失配或独立依赖；接口主任务窗口最早54轮释放。",
-    "具备资格、退出、同步规模双腿及完整成本后，才可经Risk验收冻结纸面预测。"
+    "52转非Bitfinex独立机制的具名经济或状态证据，避免同一支线长期占用。",
+    "403页面不重试、不换工具绕过；条件费用算术不重复运行。",
+    "接口主任务最早54轮；完整交易条件和Risk通过前不升级机会。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -186,38 +186,25 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-21T22:29:28.095343+00:00",
-  "collection_completed_at": "2026-11-21T22:30:36.356665+00:00",
+  "collection_started_at": "2026-11-21T23:31:39.139485+00:00",
+  "collection_completed_at": "2026-11-21T23:31:40.886297+00:00",
   "current_round": {
-    "round": 50,
-    "task_id": "CONCRETE-INTEGRITY-DEPENDENCY-50",
-    "market_collection": true,
-    "market_collection_started_at": "2026-11-21T22:30:16.353972+00:00",
-    "market_collection_completed_at": "2026-11-21T22:30:36.356665+00:00",
+    "round": 51,
+    "task_id": "TBTCUSD-EXIT-CONDITION-RISK-51",
+    "market_collection": false,
     "source_time": null,
-    "observation_id": "BITFINEX-TOP25-CRC-tBTCUSD-20261121T223016Z",
-    "venue": "Bitfinex",
-    "symbol": "tBTCUSD",
     "public_reads": 2,
     "size_quotes": null,
     "direction": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "status": "ended_observation_not_current_opportunity",
-    "risk_decision": "ACCEPT_FIVE_ACTUAL_TOP25_CHECKSUM_COMPARISONS_ONLY",
-    "frames": 518,
-    "deltas": 508,
-    "checksum_points": 5,
-    "checksum_matches": 5,
+    "risk_decision": "ACCEPT_DENIAL_AND_THREE_CONDITIONAL_WIRE_COST_POINTS_ONLY",
+    "classification": "failedoriginal_and_synthetic_conditional",
     "unknowns": [
-      "Sequence continuity",
-      "Sourceeventtime andclockskew",
-      "Integrity betweenchecksum points oroutsidetop25",
-      "CRC32 collision/exchangeinternalcorrectness",
-      "Reconnect/recovery andcontinuousoperation",
-      "Officialphysicalamountunits,identityeligibility,rights,matchedsecondleg,allcost andexits",
-      "Actualtradingprofit"
+      "实际提款限制与期限",
+      "账户与路径适用性",
+      "完整成本与净收益"
     ]
   },
   "outcome_coverage": {
@@ -228,7 +215,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "50单次20秒会话最后行情帧的本地接收时间；源时间未知，会话已结束，不代表当前可成交报价或连续采集。",
+  "last_market_observation_note": "本轮无新行情；保留50会话末帧接收时间，已过期观察，不是当前可成交报价。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -328,6 +315,14 @@
       "status": "blocked_data",
       "reason": "具名历史原始页面单次429；搜索摘要不作结算证据",
       "reopen": "新的已提供原件或合法访问变化，不换域/工具重试"
+    },
+    {
+      "task": "TBTCUSD-WITHDRAWAL-HOLD-ORIGINAL-51",
+      "blocker_id": "BITFINEX-WITHDRAWAL-HOLD-ORIGINAL-403",
+      "status": "blocked_data",
+      "reason": "官方提款限制原文单次403；搜索摘要仅定位",
+      "no_increment_rounds": 1,
+      "reopen": "New supplied original or documented lawful access change, independently scope-reviewed"
     }
   ],
   "learning": [

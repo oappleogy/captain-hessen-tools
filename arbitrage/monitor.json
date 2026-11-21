@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T15:29:37.758612+00:00",
-  "last_research_at": "2026-11-21T15:29:37.758612+00:00",
+  "updated_at": "2026-11-21T16:24:33.076171+00:00",
+  "last_research_at": "2026-11-21T16:24:33.076171+00:00",
   "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
-  "status": "具名Morpho历史回执403受阻；独立取得Maker历史治理原文，仅叙述证据",
+  "status": "取得dYdX历史事件数值披露；未取得逐笔账本或当前行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -169,13 +169,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Scout定位Morpho历史交易，但原文403；停止且不换域/工具重试。",
-    "独立转向取得Maker官方2020历史治理投票原文；仅支持拍卖回收与不同承担方损失的区分。",
-    "Risk25项检查通过：接收失败证据与历史叙述，不接受交易回执/当前机会/收益升级。"
+    "Scout取得dYdX官方复盘：历史YFI保险基金动用超过900万美元；属运营方披露。",
+    "Risk核对数值范围：两事件合计提现与入金差不是净利润；SUSHI涨幅表述有疑点，YFI开放端点不支持直接判错。",
+    "没有新增当前行情、逐笔保险账本或交易机会；不延续历史叙述循环。"
   ],
   "next": [
-    "选择真正独立的具名实际事件原件；有限定位后采集，不再重复同一受阻问题。",
-    "需要逐笔回执和固定状态才能核对现金流；成本未知保持未知。"
+    "下一机制任务仅围绕具体真实状态/结算原件或未解决的具体反例，改变执行或退出判断。",
+    "保留原件与口径疑点；不重复已完成算术，不把报告数字升级为实际交易利润。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -184,21 +184,21 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": null,
-  "collection_completed_at": "2026-11-21T15:26:48.506120+00:00",
+  "collection_started_at": "2026-11-21T16:21:20.727Z",
+  "collection_completed_at": "2026-11-21T16:21:39.913501+00:00",
   "current_round": {
-    "round": 43,
-    "task_id": "NAMED-ORIGINAL-RECEIPT-ACQUISITION-01",
+    "round": 44,
+    "task_id": "INDEPENDENT-REAL-EVENT-DISCOVERY-44",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 4,
+    "public_reads": 2,
     "original_transaction_acquired": false,
-    "risk_decision": "ACCEPT_PRIMARY_BOUNDED_FAILURE_AND_INDEPENDENT_HISTORICAL_GOVERNANCE_NARRATIVE_ONLY",
     "size_quotes": null,
     "all_costs": null,
-    "expires_at": null,
     "net_pnl": null,
-    "collection_time_note": "First locator start not recorded; direct original attempts15:25:31.040635Z to15:26:48.506120Z; neither is market sampling"
+    "expires_at": null,
+    "risk_decision": "ACCEPT_OPERATOR_REPORTED_HISTORICAL_NUMERICAL_OUTCOME_AND_QUALIFIED_ARITHMETIC_ONLY",
+    "historical_report_published_at": "2024-01-03"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -208,7 +208,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮取得历史治理叙述、未取得交易回执或当前行情；历史盘口已过期，净收益未知。",
+  "last_market_observation_note": "本轮读取的是2024年发布的历史事件报告，不是当前行情。最新单场所盘口仍为11月17日历史样本。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

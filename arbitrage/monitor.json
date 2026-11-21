@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T12:26:42.145570+00:00",
-  "last_research_at": "2026-11-21T12:26:42.145570+00:00",
+  "updated_at": "2026-11-21T13:26:51.001692+00:00",
+  "last_research_at": "2026-11-21T13:26:51.001692+00:00",
   "last_market_observation_at": "2026-11-17T07:20:13.649936+00:00",
-  "status": "BOLD赎回路径原文发现通过独立审查；无新行情或已核验交易机会",
+  "status": "Morpho Blue偿还与坏账减记源码约束通过审查；无新行情或交易机会",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -169,13 +169,13 @@
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管"
   ],
   "recent": [
-    "Scout单次读取Liquity官方BOLD Registry源码，Risk独立18项核验通过。",
-    "本入口按分支权重分配赎回，不能假设任选抵押品或请求全部成交；仅源码约束。",
-    "main具体提交/部署、分支资格、行情深度、整篮退出及全成本未知，净收益未知。"
+    "Mechanism单次官方源码读取，Risk16项核验及控制流审查通过。",
+    "清算偿还现金与残余坏账减记须分账，借款总额下降不等现金回收。",
+    "无部署、链上仓位或完整退出报价；没有新行情，净收益未知。"
   ],
   "next": [
-    "BOLD本次源码包终止，仅新部署状态或反例重开。",
-    "下一轮转独立机制问题，不重复接口/缓存/心跳分支。"
+    "本源码包终止；新部署状态或反例才能重开。",
+    "下一实际轮42做数据能力工作及六轮项目审查，重点检查市场闭环停滞。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -187,8 +187,8 @@
   "collection_started_at": null,
   "collection_completed_at": null,
   "current_round": {
-    "round": 40,
-    "task_id": "INDEPENDENT-EVIDENCE-DISCOVERY-40",
+    "round": 41,
+    "task_id": "INDEPENDENT-MECHANISM-41",
     "market_collection": false,
     "source_time": null,
     "public_reads": 1,
@@ -196,7 +196,7 @@
     "size_quotes": null,
     "all_costs": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_SOURCE_LEVEL_REDEMPTION_PATH_CONSTRAINTS_ONLY"
+    "risk_decision": "ACCEPT_SOURCE_ONLY_REPAYMENT_WRITEOFF_DISTINCTION"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -206,7 +206,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮只有协议原文读取，无新市场采样；历史第36轮Bitfinex样本不能用于当前交易。",
+  "last_market_observation_note": "本轮仅源码读取，项目最后市场观测仍为第36轮历史Bitfinex单场所样本。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -407,6 +407,20 @@
       "net_edge": null,
       "valid_until": null,
       "risk": "ACCEPT_SOURCE_LEVEL_REDEMPTION_PATH_CONSTRAINTS_ONLY",
+      "opportunity_id": null
+    },
+    {
+      "id": "MORPHO-BLUE-LIQUIDATION-BAD-DEBT-01",
+      "category": "source_research_only",
+      "asset": "具名资产未核",
+      "venue": "Morpho Blue（源码身份，部署未核）",
+      "direction": "假设偿还债务→取得抵押品→卖出退出",
+      "size": null,
+      "quote_time": null,
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "risk": "ACCEPT_SOURCE_ONLY_REPAYMENT_WRITEOFF_DISTINCTION",
       "opportunity_id": null
     }
   ]

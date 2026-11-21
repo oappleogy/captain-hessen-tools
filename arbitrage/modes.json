@@ -573,17 +573,17 @@
       "trigger": "健康度/拍卖状态",
       "verification": "可清算条件、债务成本、抵押物退出",
       "risks": "坏账、竞价、gas、卖出深度",
-      "status": "Clipper及Aave局部机制已核；当前部署/规模与收益未核",
+      "status": "Clipper/Aave及Morpho Blue局部源码约束已核；部署/行情/收益未核",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "仅新实际部署及同块仓位/价格/单位证据后推进隔离完整仿真；不重复局部模型",
+      "next": "各局部源码包均终止；仅具名部署/同状态原件或具体反例后，核对现金偿还、坏账减记、实际抵押到账和完整退出成本。",
       "net_return": null,
-      "evidence_note": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。",
+      "evidence_note": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。 Morpho Blue新增：抵押品清空后的badDebt同时减少借款与供应资产记账，最终清算人支付仅repaidAssets；16项独立源码核验，非EVM或部署验证。main具体提交未知。",
       "monitor": {
         "state": "源码机制研究 · 无实际清算候选",
         "markets": [],
         "candidates": [],
         "sample": null,
-        "review": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。",
+        "review": "新增Aave v3.3.0局部源码边界：双方均有残余时，债务与扣除协议费后的抵押估值均须≥门槛；17项独立检查仅支持标签源码和合成整数模型。既有Clipper源码/ETH-A配置目标证据保留；均未验证当前部署、清算仓位或全成本。 Morpho Blue新增：抵押品清空后的badDebt同时减少借款与供应资产记账，最终清算人支付仅repaidAssets；16项独立源码核验，非EVM或部署验证。main具体提交未知。",
         "missing": [
           "精确部署/版本与oracle base单位",
           "同块仓位、实际偿债和抵押上限、协议费",
@@ -606,6 +606,10 @@
         {
           "label": "Aave DAO v3.3.0 LiquidationLogic tagged source;deployment unverified",
           "url": "https://raw.githubusercontent.com/aave-dao/aave-v3-origin/v3.3.0/src/contracts/protocol/libraries/logic/LiquidationLogic.sol"
+        },
+        {
+          "label": "Morpho Blue liquidate源码（main可变，部署未核）",
+          "url": "https://raw.githubusercontent.com/morpho-org/morpho-blue/main/src/Morpho.sol"
         }
       ]
     },

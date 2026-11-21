@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T21:32:04.645943+00:00",
-  "last_research_at": "2026-11-21T21:32:04.645943+00:00",
-  "last_market_observation_at": "2026-11-21T18:26:59.015975+00:00",
-  "status": "公开执行费率前提已补充；完整套利条件仍未核验",
+  "updated_at": "2026-11-21T22:32:22.566787+00:00",
+  "last_research_at": "2026-11-21T22:32:22.566787+00:00",
+  "last_market_observation_at": "2026-11-21T22:30:36.182986+00:00",
+  "status": "真实流5个CRC检查点匹配；尚无完整经济候选",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -170,14 +170,14 @@
     "Bitfinex已取得一次真实WS输入；源时间、序列/校验和、断流恢复和连续运行仍未验证。"
   ],
   "recent": [
-    "第49轮读取Bitfinex官方经济费率原文，公开现货maker/taker执行费标为Zero；仅解决公开费率表前提。生效日期与用户适用性未知，不能追溯套用第46轮；提现费和借款利息另计，外部BTC提现、资产权利及全成本仍未知。",
-    "独立Risk核对原文与来源9/9通过；只接受公开费率条款，不代表实际账户费率或成交。",
-    "本轮没有新的行情采集、纸面预测或实际交易。持续低延迟行情服务尚未验证。"
+    "第50轮在事前冻结方法后取得单次20秒启用校验和的真实tBTCUSD流：518帧、508条增量、5个服务端CRC，独立复算5/5匹配。仅证明收到的5个校验点前25档价格和有符号数量一致；不证明两点间、序列连续、全深度或持续服务，也不能追溯保证第46轮无丢失。",
+    "采集前冻结方法与代码；Execution首次5/5匹配，Risk独立复算及来源冻结断言14/14通过。",
+    "无重连、无常驻服务；未取得同步双腿全成本候选，没有新纸面预测或实际交易。"
   ],
   "next": [
-    "50：仅以具体序列、校验和或恢复依赖触发有界工程验证，禁止重复遗漏扫描。",
-    "只在新的资格、资产权利或退出证据能改变具名经济判断时继续取证。",
-    "双腿规模与全成本齐备并经Risk通过后才冻结纸面预测。"
+    "51：针对具体剩余经济或结果风险进行独立复核，不复跑已通过CRC或遗漏实验。",
+    "新的完整性任务须有具体失配或独立依赖；接口主任务窗口最早54轮释放。",
+    "具备资格、退出、同步规模双腿及完整成本后，才可经Risk验收冻结纸面预测。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -186,25 +186,38 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-21T21:29:19.644080+00:00",
-  "collection_completed_at": "2026-11-21T21:29:22.070675+00:00",
+  "collection_started_at": "2026-11-21T22:29:28.095343+00:00",
+  "collection_completed_at": "2026-11-21T22:30:36.356665+00:00",
   "current_round": {
-    "round": 49,
-    "task_id": "TBTCUSD-ECONOMIC-RIGHTS-COST-PACKET-01",
-    "market_collection": false,
+    "round": 50,
+    "task_id": "CONCRETE-INTEGRITY-DEPENDENCY-50",
+    "market_collection": true,
+    "market_collection_started_at": "2026-11-21T22:30:16.353972+00:00",
+    "market_collection_completed_at": "2026-11-21T22:30:36.356665+00:00",
     "source_time": null,
-    "public_reads": 1,
+    "observation_id": "BITFINEX-TOP25-CRC-tBTCUSD-20261121T223016Z",
+    "venue": "Bitfinex",
+    "symbol": "tBTCUSD",
+    "public_reads": 2,
     "size_quotes": null,
+    "direction": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_NARROW_PUBLIC_ECONOMIC_SCHEDULE_ONLY",
-    "scope": "Bitfinex tBTCUSD关联公开费率原文；非新报价或机会",
+    "status": "ended_observation_not_current_opportunity",
+    "risk_decision": "ACCEPT_FIVE_ACTUAL_TOP25_CHECKSUM_COMPARISONS_ONLY",
+    "frames": 518,
+    "deltas": 508,
+    "checksum_points": 5,
+    "checksum_matches": 5,
     "unknowns": [
-      "账户和时点适用性",
-      "资产权利和退出",
-      "外部BTC提现费用",
-      "双腿规模与全部成本"
+      "Sequence continuity",
+      "Sourceeventtime andclockskew",
+      "Integrity betweenchecksum points oroutsidetop25",
+      "CRC32 collision/exchangeinternalcorrectness",
+      "Reconnect/recovery andcontinuousoperation",
+      "Officialphysicalamountunits,identityeligibility,rights,matchedsecondleg,allcost andexits",
+      "Actualtradingprofit"
     ]
   },
   "outcome_coverage": {
@@ -215,7 +228,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮为经济费率文档，保留46末帧接收时间；该会话已结束，旧报价不具当前有效性。",
+  "last_market_observation_note": "50单次20秒会话最后行情帧的本地接收时间；源时间未知，会话已结束，不代表当前可成交报价或连续采集。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

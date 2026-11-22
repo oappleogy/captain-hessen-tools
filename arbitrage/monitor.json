@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-22T18:15:10.639480+00:00",
-  "last_research_at": "2026-11-22T18:15:10.639480+00:00",
+  "updated_at": "2026-11-22T19:15:31.936421+00:00",
+  "last_research_at": "2026-11-22T19:15:31.936421+00:00",
   "last_market_observation_at": "2026-11-22T17:06:33.305719+00:00",
-  "status": "57轮核实固定期限系列声明；具体市场兑付权利仍未核",
+  "status": "58轮精确条款受阻；旧真实样本身份混淆验证完成",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -180,13 +180,14 @@
       "all_costs": null,
       "net_edge": null,
       "valid_until": null,
-      "risk": "ACCEPT_OFFICIAL_FIXED_TERM_PRODUCT_STATEMENTS_ONLY_EXACT_MARKET_BINDING_UNKNOWN",
+      "risk": "ACCEPT_FAILED_EXACT_LOCATOR_AND_FROZEN_IDENTITY_COUNTEREXAMPLE_ONLY",
       "raw_implied_apy": 0.055009993091045484,
       "metric_note": "平台原值，非规模报价或净收益",
       "unknown_costs": "价格时效、兑换数量及交付资产、资格、规模深度、适用费用及退出未知",
       "expires_at": "报价有效期未知，不可据此下单；到期日不是报价有效期",
       "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交",
-      "rights_note": "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。"
+      "rights_note": "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。",
+      "binding_status": "blocked_data_exact_terms_locator_missing"
     }
   ],
   "gaps": [
@@ -197,14 +198,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。",
-    "原始X完整主帖单独读取；未把Telegram链接预览当独立原文。",
-    "本轮没有行情采集、兑换或前瞻后验，持续采集未恢复验证。"
+    "第58轮精确五月市场条款一次定位未取得官方入口，分支停止。独立冻结100条真实旧样本验证：80个同名组中16组含不同市场；81个底层资产组中15组含不同市场。USDe三条的到期日、市场/PT/SY不同，不能按名称视为可互换工具。这不是数据错误、生产bug或行情机会。",
+    "只冻结并执行一次真实样本分析，独立Risk核查；不是合成利润模型。",
+    "持续采集未恢复验证，原报价有效期未知，净收益未知。"
   ],
   "next": [
-    "58只围绕具体经济判断缺口选择数据能力工作，接口预算允许不等于必须扩展接口。",
-    "精确合约/适用条款到达后核对交付数量、资产及退出条件。",
-    "停止重复公告、市场指标和旧泛源码；净收益保持未知。"
+    "59转独立经济/结果问题，离开已关闭Pendle条款和身份分组支线。",
+    "接口主任务下一次最早62，60轮按计划项目审查。",
+    "新精确原件到达前，原PT观察不升级。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -213,21 +214,22 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-22T18:12:26.956897+00:00",
-  "collection_completed_at": "2026-11-22T18:12:49.816740+00:00",
+  "collection_started_at": "2026-11-22T19:12:11.310Z",
+  "collection_completed_at": "2026-11-22T19:12:13.616Z",
   "current_round": {
-    "round": 57,
-    "task_id": "PENDLE-CREDIT-CLAIM-RIGHTS-57",
+    "round": 58,
+    "task_id": "PENDLE-EXACT-MARKET-EVIDENCE-58",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 4,
-    "market_identity": "Pendle USDe Fixed-Term product family; selected May2027 market binding unknown",
+    "public_reads": 1,
+    "market_identity": "Frozen Pendle100-row identity check; no new market capture",
+    "coverage": "56轮首批100行旧样本；非当前市场/全量846行",
     "size_quotes": null,
-    "direction": "研究假设买入PT后到期转换；具体权利未核",
+    "direction": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_OFFICIAL_FIXED_TERM_PRODUCT_STATEMENTS_ONLY_EXACT_MARKET_BINDING_UNKNOWN"
+    "risk_decision": "ACCEPT_FAILED_EXACT_LOCATOR_AND_FROZEN_IDENTITY_COUNTEREXAMPLE_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -353,6 +355,14 @@
       "reason": "两份不同官方历史公告均HTTP202空正文；搜索摘要不证明事件数值或赔付完成",
       "no_increment_rounds": 1,
       "reopen": "New actual original artifact/version supplied independently or documented source access-condition change, reviewed against this stable blocker; not date/task rename."
+    },
+    {
+      "task": "EXACT-MARKET-RIGHTS-LOCATOR-58",
+      "blocker_id": "PENDLE-MAY2027-EXACT-TERMS-LOCATOR-MISSING",
+      "status": "blocked_data",
+      "reason": "一次精确地址定位未获得官方精确条款入口；未继续第三方页面",
+      "no_increment_rounds": 1,
+      "reopen": "New independently supplied exact-market original terms/deployment source or concrete contradictory evidence, scoped by Risk; not new date."
     }
   ],
   "learning": [
@@ -517,13 +527,14 @@
       "all_costs": null,
       "net_edge": null,
       "valid_until": null,
-      "risk": "ACCEPT_OFFICIAL_FIXED_TERM_PRODUCT_STATEMENTS_ONLY_EXACT_MARKET_BINDING_UNKNOWN",
+      "risk": "ACCEPT_FAILED_EXACT_LOCATOR_AND_FROZEN_IDENTITY_COUNTEREXAMPLE_ONLY",
       "raw_implied_apy": 0.055009993091045484,
       "metric_note": "平台原值，非规模报价或净收益",
       "unknown_costs": "价格时效、兑换数量及交付资产、资格、规模深度、适用费用及退出未知",
       "expires_at": "报价有效期未知，不可据此下单；到期日不是报价有效期",
       "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交",
-      "rights_note": "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。"
+      "rights_note": "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。",
+      "binding_status": "blocked_data_exact_terms_locator_missing"
     }
   ],
   "research_leads": [

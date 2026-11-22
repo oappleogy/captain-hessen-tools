@@ -478,11 +478,11 @@
       "trigger": "到期、索引/兑换率与组合价格",
       "verification": "固定版本权利、收益索引和兑换路径",
       "risks": "负收益、到期条件、计价误认",
-      "status": "具名API市场观察已验；实际权利/规模/收益未核",
+      "status": "具名市场观察及系列声明已核；精确兑付绑定未知",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "围绕该具体市场核对交付权利及计价资产；旧泛源码/编译停止不变，不重复分页或指标刷新。",
+      "next": "只以新的精确市场条款/部署原件核对适用权利；不重复公告、指标或旧泛源码/编译。",
       "net_return": null,
-      "evidence_note": "第56轮首次绑定Pendle链1 USDe本金市场，地址0x00b0d4645233b74fd84f39ea3df52bd0202a1448，到期2027-05-31；仅官方API身份与指标观察。首批100/846条，其中12条到期晚于采集，非全市场扫描。impliedApy原值0.055009993091045484不是净收益。源时点、具体权利、规模与成本未知。",
+      "evidence_note": "第56轮首次绑定Pendle链1 USDe本金市场，地址0x00b0d4645233b74fd84f39ea3df52bd0202a1448，到期2027-05-31；仅官方API身份与指标观察。首批100/846条，其中12条到期晚于采集，非全市场扫描。impliedApy原值0.055009993091045484不是净收益。源时点、具体权利、规模与成本未知。 第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。",
       "monitor": {
         "state": "具名市场Observation；未接入持续服务",
         "markets": [
@@ -508,12 +508,13 @@
             "all_costs": null,
             "net_edge": null,
             "valid_until": null,
-            "risk": "ACCEPT_NAMED_API_MARKET_OBSERVATION_ONLY_NOT_CURRENT_EXECUTABLE_OPPORTUNITY",
+            "risk": "ACCEPT_OFFICIAL_FIXED_TERM_PRODUCT_STATEMENTS_ONLY_EXACT_MARKET_BINDING_UNKNOWN",
             "raw_implied_apy": 0.055009993091045484,
             "metric_note": "平台原值，非规模报价或净收益",
             "unknown_costs": "价格时效、兑换数量及交付资产、资格、规模深度、适用费用及退出未知",
             "expires_at": "报价有效期未知，不可据此下单；到期日不是报价有效期",
-            "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交"
+            "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交",
+            "rights_note": "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。"
           }
         ],
         "sample": {
@@ -522,7 +523,7 @@
           "rows": 100,
           "reported_total": 846
         },
-        "review": "第56轮首次绑定Pendle链1 USDe本金市场，地址0x00b0d4645233b74fd84f39ea3df52bd0202a1448，到期2027-05-31；仅官方API身份与指标观察。首批100/846条，其中12条到期晚于采集，非全市场扫描。impliedApy原值0.055009993091045484不是净收益。源时点、具体权利、规模与成本未知。",
+        "review": "第56轮首次绑定Pendle链1 USDe本金市场，地址0x00b0d4645233b74fd84f39ea3df52bd0202a1448，到期2027-05-31；仅官方API身份与指标观察。首批100/846条，其中12条到期晚于采集，非全市场扫描。impliedApy原值0.055009993091045484不是净收益。源时点、具体权利、规模与成本未知。 第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。",
         "missing": [
           "固定版本权利、收益索引和兑换路径",
           "具名资产/场所与可访问数据源",
@@ -541,6 +542,14 @@
         {
           "label": "本轮首批市场指标原始响应",
           "url": "https://api-v2.pendle.finance/core/v2/markets/all?limit=100&skip=0"
+        },
+        {
+          "label": "官方固定期限系列公告主帖（2026-11-10）",
+          "url": "https://x.com/pendle_fi/status/2120155914993066201"
+        },
+        {
+          "label": "Pendle官方条款提供者说明",
+          "url": "https://t.me/pendlefinance/621"
         }
       ]
     },

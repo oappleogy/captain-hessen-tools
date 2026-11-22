@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-22T16:15:19.013654+00:00",
-  "last_research_at": "2026-11-22T16:15:19.013654+00:00",
-  "last_market_observation_at": "2026-11-21T22:30:36.182986+00:00",
-  "status": "55轮历史原文受阻后转向恢复风险边界；无新行情采集",
+  "updated_at": "2026-11-22T17:09:01.259295+00:00",
+  "last_research_at": "2026-11-22T17:09:01.259295+00:00",
+  "last_market_observation_at": "2026-11-22T17:06:33.305719+00:00",
+  "status": "56轮取得具名PT市场指标；仅Observation，未核可成交行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -160,6 +160,32 @@
           "isin": "GB00LS6P4P78"
         }
       ]
+    },
+    {
+      "id": "PENDLE-PT-USDE-1-00b0d464-20270531-20261122T170633Z",
+      "stage": "Observation",
+      "venue": "Pendle",
+      "chain_id": 1,
+      "asset": "PT USDe",
+      "market_address": "0x00b0d4645233b74fd84f39ea3df52bd0202a1448",
+      "maturity": "2027-05-31T00:00:00.000Z",
+      "status": "BLOCKED_DATA｜仅API指标观察，报价时效与经济权利未核",
+      "received_at": "2026-11-22T17:06:33.305719+00:00",
+      "source_time": null,
+      "raw_timestamp": "2026-11-06T08:48:35.000Z",
+      "raw_timestamp_note": "字段语义未知，不证明报价时间、新鲜或陈旧",
+      "direction": "研究假设：买入PT并到期转换；权利未核",
+      "size": null,
+      "two_leg_quotes": null,
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "risk": "ACCEPT_NAMED_API_MARKET_OBSERVATION_ONLY_NOT_CURRENT_EXECUTABLE_OPPORTUNITY",
+      "raw_implied_apy": 0.055009993091045484,
+      "metric_note": "平台原值，非规模报价或净收益",
+      "unknown_costs": "价格时效、兑换数量及交付资产、资格、规模深度、适用费用及退出未知",
+      "expires_at": "报价有效期未知，不可据此下单；到期日不是报价有效期",
+      "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交"
     }
   ],
   "gaps": [
@@ -170,14 +196,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第55轮Chainlink官方风险说明：排序器恢复为up不足以证明清算/报价可用；恢复宽限条件与报价时效须分别核验。示例3600秒不是生产配置，当前部署/状态/收益未知。历史USDe两公告202空正文停止，未采纳赔偿金额或完成声明。",
-    "本轮仅原文风险研究，没有当前排序器状态、规模行情或新纸面后验。",
-    "持续采集未恢复验证，旧行情时点保留，净收益未知。"
+    "第56轮首次绑定Pendle链1 USDe本金市场，地址0x00b0d4645233b74fd84f39ea3df52bd0202a1448，到期2027-05-31；仅官方API身份与指标观察。首批100/846条，其中12条到期晚于采集，非全市场扫描。impliedApy原值0.055009993091045484不是净收益。源时点、具体权利、规模与成本未知。",
+    "数据取得成功；经济候选因时效、权利与规模/全成本缺口停留Observation。",
+    "未到期不证明可成交；字段timestamp不能直接认定为行情时点，当前净收益未知。"
   ],
   "next": [
-    "56转实际候选与数据发现，优先具名规模经济证据。",
-    "历史公告及恢复指南分支关闭，需新原件/合法访问变化或具体反例重开。",
-    "接口主任务最早58；合格候选后才冻结前瞻预测。"
+    "57核对该具名市场的具体交付权利；不重开旧泛源码/编译支线。",
+    "只在有新经济决策价值时取得匹配规模报价和全成本；禁止APY刷新循环。",
+    "持续采集尚未恢复验证，完整候选后才冻结前瞻预测。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -186,21 +212,32 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-22T16:11:01.544Z",
-  "collection_completed_at": "2026-11-22T16:13:00.084046+00:00",
+  "collection_started_at": "2026-11-22T17:06:28.774331+00:00",
+  "collection_completed_at": "2026-11-22T17:06:33.305719+00:00",
   "current_round": {
-    "round": 55,
-    "task_id": "USDE-VENUE-DEPEG-OUTCOME-55",
-    "market_collection": false,
+    "round": 56,
+    "task_id": "PENDLE-MATURITY-MARKET-DISCOVERY-56",
+    "market_collection": true,
+    "market_collection_scope": "API-reported market indicators and identity, no executable-size order quote",
     "source_time": null,
-    "public_reads": 4,
-    "market_identity": "Historical Binance USDe announcements unavailable; Chainlink L2 recovery guide only",
+    "public_reads": 3,
+    "coverage": {
+      "response_rows": 100,
+      "reported_total": 846,
+      "limit": 100,
+      "skip": 0,
+      "pagination_followed": false,
+      "future_expiry_rows_in_this_page": 12,
+      "selected_row_index": 0,
+      "universe_coverage": "Only returned first page; not whole market scan"
+    },
+    "market_identity": "Pendle chain1 PT USDe maturity2027-05-31",
     "size_quotes": null,
-    "direction": null,
+    "direction": "研究假设：买入PT并到期转换；权利未核",
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_FAILED_HISTORICAL_ACQUISITION_AND_DOCUMENTED_RECOVERY_GATE_ONLY"
+    "risk_decision": "ACCEPT_NAMED_API_MARKET_OBSERVATION_ONLY_NOT_CURRENT_EXECUTABLE_OPPORTUNITY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -210,7 +247,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "55无行情采集；保留50末帧接收时间，旧流已结束。",
+  "last_market_observation_note": "最新时间是平台市场指标接收时间，不是报价源时点；上一盘口接收时间单列保留，二者均不证明当前可成交。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -470,6 +507,32 @@
       "valid_until": null,
       "status": "ended_single_session_raw_stream_only_not_current_quote",
       "risk": "ACCEPT_ONE_RAW_WS_SESSION_AND_FROZEN_INPUT_OFFLINE_REPLAY_ONLY"
+    },
+    {
+      "id": "PENDLE-PT-USDE-1-00b0d464-20270531-20261122T170633Z",
+      "stage": "Observation",
+      "venue": "Pendle",
+      "chain_id": 1,
+      "asset": "PT USDe",
+      "market_address": "0x00b0d4645233b74fd84f39ea3df52bd0202a1448",
+      "maturity": "2027-05-31T00:00:00.000Z",
+      "status": "BLOCKED_DATA｜仅API指标观察，报价时效与经济权利未核",
+      "received_at": "2026-11-22T17:06:33.305719+00:00",
+      "source_time": null,
+      "raw_timestamp": "2026-11-06T08:48:35.000Z",
+      "raw_timestamp_note": "字段语义未知，不证明报价时间、新鲜或陈旧",
+      "direction": "研究假设：买入PT并到期转换；权利未核",
+      "size": null,
+      "two_leg_quotes": null,
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "risk": "ACCEPT_NAMED_API_MARKET_OBSERVATION_ONLY_NOT_CURRENT_EXECUTABLE_OPPORTUNITY",
+      "raw_implied_apy": 0.055009993091045484,
+      "metric_note": "平台原值，非规模报价或净收益",
+      "unknown_costs": "价格时效、兑换数量及交付资产、资格、规模深度、适用费用及退出未知",
+      "expires_at": "报价有效期未知，不可据此下单；到期日不是报价有效期",
+      "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交"
     }
   ],
   "research_leads": [
@@ -501,5 +564,6 @@
       "risk": "ACCEPT_SOURCE_ONLY_REPAYMENT_WRITEOFF_DISTINCTION",
       "opportunity_id": null
     }
-  ]
+  ],
+  "last_orderbook_observation_at": "2026-11-21T22:30:36.182986+00:00"
 }

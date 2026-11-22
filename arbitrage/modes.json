@@ -478,17 +478,51 @@
       "trigger": "到期、索引/兑换率与组合价格",
       "verification": "固定版本权利、收益索引和兑换路径",
       "risks": "负收益、到期条件、计价误认",
-      "status": "已有机制初读",
+      "status": "具名API市场观察已验；实际权利/规模/收益未核",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "选具名候选，按停止清单检查数据，再完成本条关键验证",
+      "next": "围绕该具体市场核对交付权利及计价资产；旧泛源码/编译停止不变，不重复分页或指标刷新。",
       "net_return": null,
-      "evidence_note": "本项为研究目录；已有局部研究不等于当前可执行收益。具体市场证据尚未在本页提供。",
+      "evidence_note": "第56轮首次绑定Pendle链1 USDe本金市场，地址0x00b0d4645233b74fd84f39ea3df52bd0202a1448，到期2027-05-31；仅官方API身份与指标观察。首批100/846条，其中12条到期晚于采集，非全市场扫描。impliedApy原值0.055009993091045484不是净收益。源时点、具体权利、规模与成本未知。",
       "monitor": {
-        "state": "未接入",
-        "markets": [],
-        "candidates": [],
-        "sample": null,
-        "review": "尚未在公开监控快照中绑定本模式的具名市场证据；不代表本地没有历史研究。",
+        "state": "具名市场Observation；未接入持续服务",
+        "markets": [
+          "0x00b0d4645233b74fd84f39ea3df52bd0202a1448"
+        ],
+        "candidates": [
+          {
+            "id": "PENDLE-PT-USDE-1-00b0d464-20270531-20261122T170633Z",
+            "stage": "Observation",
+            "venue": "Pendle",
+            "chain_id": 1,
+            "asset": "PT USDe",
+            "market_address": "0x00b0d4645233b74fd84f39ea3df52bd0202a1448",
+            "maturity": "2027-05-31T00:00:00.000Z",
+            "status": "BLOCKED_DATA｜仅API指标观察，报价时效与经济权利未核",
+            "received_at": "2026-11-22T17:06:33.305719+00:00",
+            "source_time": null,
+            "raw_timestamp": "2026-11-06T08:48:35.000Z",
+            "raw_timestamp_note": "字段语义未知，不证明报价时间、新鲜或陈旧",
+            "direction": "研究假设：买入PT并到期转换；权利未核",
+            "size": null,
+            "two_leg_quotes": null,
+            "all_costs": null,
+            "net_edge": null,
+            "valid_until": null,
+            "risk": "ACCEPT_NAMED_API_MARKET_OBSERVATION_ONLY_NOT_CURRENT_EXECUTABLE_OPPORTUNITY",
+            "raw_implied_apy": 0.055009993091045484,
+            "metric_note": "平台原值，非规模报价或净收益",
+            "unknown_costs": "价格时效、兑换数量及交付资产、资格、规模深度、适用费用及退出未知",
+            "expires_at": "报价有效期未知，不可据此下单；到期日不是报价有效期",
+            "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交"
+          }
+        ],
+        "sample": {
+          "received_at": "2026-11-22T17:06:33.305719+00:00",
+          "source_time": null,
+          "rows": 100,
+          "reported_total": 846
+        },
+        "review": "第56轮首次绑定Pendle链1 USDe本金市场，地址0x00b0d4645233b74fd84f39ea3df52bd0202a1448，到期2027-05-31；仅官方API身份与指标观察。首批100/846条，其中12条到期晚于采集，非全市场扫描。impliedApy原值0.055009993091045484不是净收益。源时点、具体权利、规模与成本未知。",
         "missing": [
           "固定版本权利、收益索引和兑换路径",
           "具名资产/场所与可访问数据源",
@@ -498,7 +532,17 @@
         "continuous": false,
         "url": "./mode.html?id=MECH-012",
         "net_return": null
-      }
+      },
+      "sources": [
+        {
+          "label": "Pendle官方数据来源说明",
+          "url": "https://docs.pendle.finance/pendle-v2-dev/Quickstart"
+        },
+        {
+          "label": "本轮首批市场指标原始响应",
+          "url": "https://api-v2.pendle.finance/core/v2/markets/all?limit=100&skip=0"
+        }
+      ]
     },
     {
       "id": "MECH-013",

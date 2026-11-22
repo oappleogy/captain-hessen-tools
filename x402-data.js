@@ -1,5 +1,5 @@
 window.X402_DATA = {
-  "generated_utc": "2026-11-21T01:20:07.536243Z",
+  "generated_utc": "2026-11-22T01:20:10.458778Z",
   "source": "x402.org / AgentEconomy Dune aggregation / BaseAlpha Research",
   "market_30d": {
     "transactions": 75410000,
@@ -11,9 +11,9 @@ window.X402_DATA = {
     "window": "rolling_30_days"
   },
   "cumulative": {
-    "transactions": 203547999,
-    "volume_usd": 43296757.0,
-    "as_of": "2026-11-20T04:46:37.866795Z",
+    "transactions": 204084987,
+    "volume_usd": 43397903.0,
+    "as_of": "2026-11-21T04:41:45.059046Z",
     "facilitators_tracked": 18,
     "source": "agenteconomy.to / Dune queries"
   },
@@ -124,10 +124,10 @@ window.X402_DATA = {
     },
     {
       "date": "2026-11-01",
-      "transactions": 203547999,
-      "volume_usd": 43296757.0,
-      "period_transactions": 7585619,
-      "period_volume_usd": 1018950.0,
+      "transactions": 204084987,
+      "volume_usd": 43397903.0,
+      "period_transactions": 8122607,
+      "period_volume_usd": 1120096.0,
       "kind": "monthly_backfill"
     }
   ],
@@ -713,13 +713,15 @@ window.X402_DATA = {
       "transactions": 203547999,
       "volume_usd": 43296757.0,
       "kind": "daily_snapshot"
+    },
+    {
+      "date": "2026-11-22",
+      "transactions": 204084987,
+      "volume_usd": 43397903.0,
+      "kind": "daily_snapshot"
     }
   ],
   "daily_activity": [
-    {
-      "day": "2026-09-21",
-      "txs": 87984
-    },
     {
       "day": "2026-09-22",
       "txs": 214727
@@ -955,6 +957,10 @@ window.X402_DATA = {
     {
       "day": "2026-11-19",
       "txs": 505460
+    },
+    {
+      "day": "2026-11-20",
+      "txs": 531541
     }
   ],
   "market_24h": {
@@ -962,10 +968,10 @@ window.X402_DATA = {
     "volume_usd": 46025.86
   },
   "scan_30d": {
-    "transactions": 6321717,
-    "volume_usd": 1882360.62,
-    "buyers": 38656,
-    "sellers": 15215
+    "transactions": 6548716,
+    "volume_usd": 1812818.43,
+    "buyers": 40120,
+    "sellers": 14880
   },
   "leader": {
     "name": "BlockRun",

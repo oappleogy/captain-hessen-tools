@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-11-21 08:16",
-  "date": "2026-11-21",
+  "last_updated": "2026-11-22 08:16",
+  "date": "2026-11-22",
   "generation_model": "MiniMax-M2.5",
   "source_counts": {
     "wallstreetcn": 0,
@@ -10,114 +10,98 @@
   },
   "keywords": [
     {
-      "keyword": "美股科技股崩盘",
-      "heat": 100,
+      "keyword": "美股AI股抛售",
+      "heat": 95,
       "category": "finance",
-      "summary": "美股三大指数重挫，英伟达暴跌并触发科技股抛售",
+      "summary": "AI相关股票遭恐慌性抛售，拖累美股三大指数，市场关注调整性质",
       "sources": [
         "财联社",
-        "Google News / WSJ",
-        "微博热搜"
+        "Google News / Business Insider"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-21 06:34",
-          "text": "【周六你需要知道的隔夜全球要闻：英伟达暴跌14%、美股进入回调区间；交易员不再完全消化美联储12月加息预期；“大空头”卖掉了半数英伟达和半导体ETF看跌期权】\n1、美三大股指大幅收跌，道指跌1.94%，纳指跌5.28%，标普500指数跌3.70%，为连续第7个交易日下跌，创2020年以来最长连跌纪录。道指、标普500指数均较此前高点回撤10%，进入回调区间。美股恐慌指数VIX盘中逼近40点，触及2"
+          "time": "11-22 07:25",
+          "text": "【美股遭遇恐慌性抛售 多家华尔街机构认为或只是牛市调整】财联社11月22日电，美东时间周五，AI相关股票遭遇猛烈抛售，拖累美股三大股指集体大跌。但多家华尔街机构认为，当前下跌可能只是牛市中的一次调整，尚未构成基本面持续恶化的明确信号。\n\n摩根士丹利旗下E*Trade交易主管克里斯·拉金（Chris Larkin）表示：“考虑到经济和基本面背景依然稳健，这轮行情似乎主要由市场情绪驱动。”拉金指出，按"
+        },
+        {
+          "source": "Google News / Business Insider",
+          "time": "11-22 01:23",
+          "text": "What smart people are saying about the market sell-off ripping through tech and AI - Business Insider"
+        }
+      ],
+      "tool": {
+        "href": "s2-battle.html",
+        "label": "S2 战场"
+      }
+    },
+    {
+      "keyword": "伊朗袭击美军基地",
+      "heat": 92,
+      "category": "geo",
+      "summary": "伊朗革命卫队宣称打击巴林境内两处美军基地，地区冲突升温",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-22 05:03",
+          "text": "【伊朗方面称美军“爱国者”导弹击中巴林平民区】财联社11月22日电，当地时间21日晚，伊朗方面消息称，一枚从美国第五舰队军事基地发射、原定用于拦截任务的“爱国者”导弹，坠落在了巴林的一处居民区。"
         },
         {
           "source": "财联社",
-          "time": "11-21 05:16",
-          "text": "【标普500指数连续第7个交易日下跌 创2020年以来最长连跌纪录】财联社11月21日电，标普500指数连续第七个交易日下跌，创2020年以来最长连跌纪录。本周标普500指数重挫8.6%，道指下跌8.0%，纳斯达克指数暴跌10.0%。标普500指数和道指均创2025年4月以来最大单周跌幅。"
+          "time": "11-22 04:21",
+          "text": "【伊朗伊斯兰革命卫队对巴林美军基地进行打击】财联社11月22日电，伊朗方面当地时间21日晚消息称，伊朗伊斯兰革命卫队对位于巴林的两处美军军事基地发动打击。当天稍晚时，伊朗伊斯兰革命卫队证实对巴林的两处美军基地实施了打击。"
+        }
+      ]
+    },
+    {
+      "keyword": "霍尔木兹海峡险情",
+      "heat": 89,
+      "category": "geo",
+      "summary": "海峡出现船只触雷爆炸及不明爆炸，阿联酋转运石油风险上升",
+      "sources": [
+        "财联社",
+        "Google News / WSJ"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-22 02:59",
+          "text": "【伊朗霍尔木兹甘省锡里克附近海面传出爆炸声】财联社11月22日电，当地时间21日，伊朗方面消息称，位于霍尔木兹甘省东部的锡里克居民报告，几分钟前听到从海面方向传来巨大的爆炸声。爆炸的具体原因尚不明确，但可能与向未经授权的船只发射警告性射击或引爆水雷有关。据悉，在过去三天里，霍尔木兹海峡内至少有12艘未经授权的船只触雷爆炸，并引发了火灾。"
         },
         {
           "source": "Google News / WSJ",
-          "time": "11-21 07:30",
-          "text": "Stock Market Today: Dow, S&amp;P 500 Enter Correction Territory — Live Updates - WSJ"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "股民集体抛售科技股"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "美AI科技股崩盘原因"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "美伊霍尔木兹磋商",
-      "heat": 94,
-      "category": "geo",
-      "summary": "美伊围绕协议与霍尔木兹海峡开放安排继续磋商",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-21 07:18",
-          "text": "【特朗普：伊朗“不想达成我能接受的协议”】财联社11月21日电，美国总统特朗普20日在白宫举行的新闻发布会上表示，伊朗想达成协议，但“他们不想达成我能接受的协议”。特朗普承认伊朗战事推高了美国国内物价，尤其是油价，但他强调自11月初以来油价已大幅下跌。另据知情人士的话称，美国总统特使威特科夫和特朗普的女婿库什纳19日在德国柏林与卡塔尔首相兼外交大臣穆罕默德会面，讨论卡塔尔方面在美伊之间的斡旋工作。"
-        },
-        {
-          "source": "财联社",
-          "time": "11-21 07:11",
-          "text": "【伊朗外长：“两日计划”依然摆在桌面上 愿与美进行讨论】财联社11月21日电，伊朗外长阿拉格齐表示，“两日计划”依然摆在桌面上，如果美国态度认真，这一方案或许能为达成协议铺平道路。“两日计划”即如果美国在第一天履行其义务，伊朗便在第二天重新开放霍尔木兹海峡。阿拉格齐称，伊朗的要求是，美方必须明确表达出达成协议的意愿。如果条件得到满足，伊朗愿意与美方就伊朗提出的方案及其具体落实进行讨论。阿拉格齐表示"
+          "time": "11-22 01:00",
+          "text": "The U.A.E. Is Shuttling Oil Past Iran in Risky Hormuz Operation - WSJ"
         }
       ]
     },
     {
-      "keyword": "俄导弹落波兰",
-      "heat": 91,
+      "keyword": "美伊永久协议",
+      "heat": 86,
       "category": "geo",
-      "summary": "俄导弹落入波兰引发北约警戒，欧洲地缘风险骤升",
-      "sources": [
-        "Google News / AP News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / AP News",
-          "time": "11-21 06:15",
-          "text": "Russian missiles land in Poland, as Europe held military drills nearby. NATO calls it a violation - AP News"
-        }
-      ]
-    },
-    {
-      "keyword": "中俄美元首会晤",
-      "heat": 88,
-      "category": "geo",
-      "summary": "特朗普称中俄美元首三方会晤意义重大",
+      "summary": "特朗普称将推动与伊朗达成永久协议，但警告下一步行动可能延后",
       "sources": [
         "财联社",
-        "Google News / CBS News",
-        "微博热搜"
+        "Google News / CBS News"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-21 07:24",
-          "text": "【特朗普：中俄美元首会晤“史无前例”“意义重大”】财联社11月21日电，美国总统特朗普20日在白宫举行的新闻发布会上表示，日前在中国深圳举行的亚太经合组织领导人非正式会议是一场非常成功的经济会议，美国、中国和俄罗斯三国领导人还举行了首次三方会晤，这是“多年来最具重大意义的国际峰会之一”。特朗普说，中俄美元首会晤“史无前例”“意义非常重大”，会晤期间“气氛极其热烈，令人难以置信”“我们三人之间的关系"
+          "time": "11-21 23:29",
+          "text": "【特朗普称将与伊朗达成一项永久性协议】财联社11月21日电，美国总统特朗普在当地时间21日播出的采访节目中说，将与伊朗达成一项永久性协议。"
+        },
+        {
+          "source": "Google News / The Guardian",
+          "time": "11-22 01:26",
+          "text": "Vance stops short of endorsing Trump’s claim that Iran was close to nuclear weapon - The Guardian"
         },
         {
           "source": "Google News / CBS News",
-          "time": "11-21 03:02",
-          "text": "Trump touts Asia deals and meeting with Xi and Putin at White House press conference - CBS News"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "APEC盛会效应拉满"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "特朗普涉中俄美最新表态"
+          "time": "11-22 04:29",
+          "text": "Live Updates: Trump says he wants \"permanent\" deal with Iran; warns next move may not come until 2027 - CBS News"
         }
       ],
       "tool": {
@@ -126,266 +110,45 @@
       }
     },
     {
-      "keyword": "英伟达对华出口",
-      "heat": 86,
-      "category": "ai-tech",
-      "summary": "美财长称英伟达芯片对华出口无需新增限制",
-      "sources": [
-        "Google News / AP News"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / AP News",
-          "time": "11-21 06:36",
-          "text": "Treasury secretary says no further restrictions are needed for Nvidia chip exports to China - AP News"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "网络安全超级并购",
-      "heat": 83,
-      "category": "ai-tech",
-      "summary": "CrowdStrike洽购Zscaler，交易估值约2650亿美元",
+      "keyword": "乌克兰防空与军援",
+      "heat": 82,
+      "category": "geo",
+      "summary": "乌克兰与英国推进防空及导弹合作，欧盟批准10亿欧元军援",
       "sources": [
         "财联社"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-21 05:35",
-          "text": "【Crowdstrike据悉洽购Zscaler 或缔造网络安全行业史上最大交易之一】财联社11月21日电，据知情人士透露，CrowdStrike正在洽谈收购Zscaler，这笔交易将成为网络安全行业史上规模最大的交易之一，并将缔造一家合计市值约2,650亿美元的公司。"
-        }
-      ],
-      "tool": {
-        "href": "mythos-tracker.html",
-        "label": "Mythos 追踪"
-      }
-    },
-    {
-      "keyword": "新兴市场指数深跌",
-      "heat": 81,
-      "category": "finance",
-      "summary": "MSCI新兴市场指数较六月高点回撤21%",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
+          "time": "11-21 21:06",
+          "text": "【泽连斯基会见英国国防大臣 讨论乌防空能力建设】财联社11月21日电，当地时间11月21日，乌克兰总统泽连斯基在基辅会见到访的英国国防大臣斯特里廷。双方重点就乌防空能力建设、“爱国者”防空系统所用拦截弹供应、联合武器生产、远程打击能力等议题进行磋商。在联合武器生产与远程打击能力建设方面，双方认为该领域具备深化合作的空间。通过联合生产与技术协作，能够助力乌克兰推进本土导弹研发计划。此外，泽连斯基还表"
+        },
         {
           "source": "财联社",
-          "time": "11-21 05:31",
-          "text": "财联社11月21日电，MSCI新兴市场股票指数收盘较6月高点下跌21%。"
+          "time": "11-21 20:32",
+          "text": "【欧盟再对乌提供10亿欧元军事支持】财联社11月21日电，欧盟理事会20日通过两项决定，批准通过欧洲和平基金再向乌克兰提供10亿欧元军事支持，用于为乌克兰武装部队采购军事装备。这批装备包括无人机、防空装备、弹药、电子战设备和雷达系统等，计划于2027年底前交付。自2021年以来，欧盟已通过该基金向乌克兰提供118亿欧元支持。"
         }
       ]
     },
     {
-      "keyword": "英伟达会计调查",
-      "heat": 79,
-      "category": "ai-tech",
-      "summary": "监管机构调查英伟达会计处理，市场关注财务合规",
-      "sources": [
-        "Google News / Financial Times"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Financial Times",
-          "time": "11-21 05:58",
-          "text": "Nvidia faces US regulator’s probe into its accounting - Financial Times"
-        }
-      ],
-      "tool": {
-        "href": "ai-capex.html",
-        "label": "AI CapEx"
-      }
-    },
-    {
-      "keyword": "海外AI数据中心禁令",
-      "heat": 77,
-      "category": "ai-tech",
-      "summary": "特朗普威胁限制美国企业在海外建设AI数据中心",
-      "sources": [
-        "Google News / BBC"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / BBC",
-          "time": "11-21 04:54",
-          "text": "Trump threatens ban on US firms building AI data centres overseas - BBC"
-        }
-      ],
-      "tool": {
-        "href": "america.html",
-        "label": "美国仪表盘"
-      }
-    },
-    {
-      "keyword": "港股要约收购潮",
-      "heat": 75,
+      "keyword": "信用卡利率上限",
+      "heat": 78,
       "category": "finance",
-      "summary": "港股年内要约收购达74起，并购重组活跃度上升",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-21 07:29",
-          "text": "【港股年内逾70起要约收购 “腾笼换鸟”推动市场生态优化】财联社11月21日电，Wind数据显示，年内港股市场已累计发生74起要约收购，数量已超过去年全年。要约收购类型丰富，涵盖主动要约与被动要约、全面要约及部分要约，产业资本、财务投资人持续进场布局，成为港股资本市场的突出看点。低估值、上市平台价值以及产业整合需求，共同催生本轮要约收购热潮，带动市场并购重组活跃度明显抬升。业内人士表示，要约收购是"
-        }
-      ]
-    },
-    {
-      "keyword": "AI证明黎曼猜想",
-      "heat": 73,
-      "category": "ai-tech",
-      "summary": "Claude参与黎曼猜想证明并获形式化验证",
+      "summary": "特朗普拟联合民主党推动信用卡利率上限设为10%，银行业面临压力",
       "sources": [
         "财联社",
-        "微博热搜"
+        "Google News / CBS News"
       ],
       "evidence": [
         {
           "source": "财联社",
-          "time": "11-21 07:50",
-          "text": "【Anthropic数学家称与Claude合作证明黎曼猜想】财联社11月21日电，Anthropic数学家Levent Alpöge发文称，他与Claude合作发现了黎曼猜想的一个证明，并称相关方法还可推广至广义黎曼猜想，未来或进一步解决扩展黎曼猜想。他表示，团队已使用Lean证明助手对论证进行了形式化验证，并公开了相关代码。Alpöge称，证明涉及大量数论工具，包括Ste​​panov方法、傅里"
+          "time": "11-22 06:27",
+          "text": "【特朗普拟联手民主党，将信用卡利率上限设为10%】财联社11月22日电，当地时间周六，美国总统特朗普表示，愿与即将掌控国会两院的民主党合作，推动将信用卡利率上限设为10%，以兑现其2024年竞选承诺。他称，信用卡公司“已经赚了很多钱”。民主党参议员沃伦随后回应称：“让我们限制信用卡利率，为美国民众省钱。”沃伦预计将出任下一届参议院银行委员会主席。特朗普今年1月曾提出这一计划，但遭到银行业强烈反对，"
         },
         {
-          "source": "微博热搜",
-          "time": "",
-          "text": "黎曼猜想"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "AI证明黎曼猜想传闻"
-        }
-      ],
-      "tool": {
-        "href": "mythos-tracker.html",
-        "label": "Mythos 追踪"
-      }
-    },
-    {
-      "keyword": "Databricks大额融资",
-      "heat": 71,
-      "category": "ai-tech",
-      "summary": "Databricks拟按2250亿美元估值融资数十亿美元",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-21 06:53",
-          "text": "财联社11月21日电，美国数据及人工智能公司Databricks正进行初步洽谈，拟以2250亿美元估值融资数十亿美元。"
-        }
-      ]
-    },
-    {
-      "keyword": "黄金价格大跌",
-      "heat": 69,
-      "category": "finance",
-      "summary": "金价罕见大跌登上热搜，市场关注避险资产波动",
-      "sources": [
-        "微博热搜"
-      ],
-      "evidence": [
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "金价罕见大跌原因找到了"
-        },
-        {
-          "source": "微博热搜",
-          "time": "",
-          "text": "金价"
-        }
-      ]
-    },
-    {
-      "keyword": "Anthropic股价下跌",
-      "heat": 67,
-      "category": "ai-tech",
-      "summary": "Anthropic上市后股价下跌8%，AI估值波动加剧",
-      "sources": [
-        "Google News / Yahoo Finance"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Yahoo Finance",
-          "time": "11-21 05:44",
-          "text": "Anthropic stock drops 8% after rip-roaring IPO - Yahoo Finance"
-        }
-      ],
-      "tool": {
-        "href": "mythos-tracker.html",
-        "label": "Mythos 追踪"
-      }
-    },
-    {
-      "keyword": "A股机构调研潮",
-      "heat": 65,
-      "category": "finance",
-      "summary": "本周419家A股公司获机构调研，收益分化明显",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-21 08:02",
-          "text": "【本周超400家A股上市公司接受机构投资者调研 微导纳米获142家机构调研】财联社11月21日电，本周（11月16日—20日）共有419家A股上市公司接受机构投资者调研，从赚钱效应来看，仅有一成左右机构调研股实现正收益，其中盛剑科技周内实现4连板，累计涨39.46%，方盛制药涨14.65%，中国重汽涨10.42%。热门调研标的方面，本周只有微导纳米获得百家以上机构调研，奥比中光获得80家以上机构调"
-        }
-      ]
-    },
-    {
-      "keyword": "Capricor临床受挫",
-      "heat": 63,
-      "category": "industry",
-      "summary": "FDA认定Deramiocel研究存在严重缺陷，股价暴跌75%",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-21 07:47",
-          "text": "财联社11月21日电，生物科技公司Capricor盘后股价下跌75%。FDA对Capricor的检查发现Deramiocel研究存在严重缺陷。"
-        }
-      ]
-    },
-    {
-      "keyword": "英国脱欧重置",
-      "heat": 61,
-      "category": "geo",
-      "summary": "英国宣布脱欧重置协议，欧盟关系与经贸影响受关注",
-      "sources": [
-        "Google News / The New York Times"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / The New York Times",
-          "time": "11-21 00:50",
-          "text": "Britain Announces Brexit Reset Deal at E.U. Summit: What to Know - The New York Times"
-        }
-      ]
-    },
-    {
-      "keyword": "乌克兰和平谈判",
-      "heat": 59,
-      "category": "geo",
-      "summary": "特朗普寻求在年前推动乌克兰和平协议，地缘预期升温",
-      "sources": [
-        "Google News / Financial Times"
-      ],
-      "evidence": [
-        {
-          "source": "Google News / Financial Times",
-          "time": "11-21 00:17",
-          "text": "Donald Trump seeks Ukraine peace deal before January - Financial Times"
+          "source": "Google News / CBS News",
+          "time": "11-22 06:42",
+          "text": "Trump vows to work with Democrats to cap credit card interest rates - CBS News"
         }
       ],
       "tool": {
@@ -394,26 +157,10 @@
       }
     },
     {
-      "keyword": "美国技能签证收缩",
-      "heat": 57,
-      "category": "industry",
-      "summary": "美国H1B签发量较上一年度减少约三分之一",
-      "sources": [
-        "财联社"
-      ],
-      "evidence": [
-        {
-          "source": "财联社",
-          "time": "11-21 06:49",
-          "text": "财联社11月21日电，美国国务院数据显示，特朗普第二任期首年，美国签发的H-1B签证数量比其上任前一年减少约三分之一。"
-        }
-      ]
-    },
-    {
-      "keyword": "DeepSeek付费升温",
-      "heat": 55,
-      "category": "ai-tech",
-      "summary": "DeepSeek付费体验使用上升，国产AI商业化受关注",
+      "keyword": "金价急跌",
+      "heat": 75,
+      "category": "finance",
+      "summary": "热搜讨论本轮金价急跌，并称类似情形历史上曾出现三次",
       "sources": [
         "微博热搜"
       ],
@@ -421,7 +168,175 @@
         {
           "source": "微博热搜",
           "time": "",
-          "text": "DeepSeek付费体验直线上升"
+          "text": "本轮金价急跌类似历史3次"
+        }
+      ]
+    },
+    {
+      "keyword": "中国智能算力扩张",
+      "heat": 72,
+      "category": "ai-tech",
+      "summary": "预计2030年智能算力占总算力比重超九成，成为AI训练推理核心驱动力",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 21:04",
+          "text": "我国智能算力规模占总算力规模比重2030年将超九成，有望成为支撑AI模型训练和推理计算的核心驱动力，这家公司AIGC智算中心项目一期处于正常运营中，另一家目前正在与多家通算及智算客户对接沟通。"
+        }
+      ],
+      "tool": {
+        "href": "ai-capex.html",
+        "label": "AI CapEx"
+      }
+    },
+    {
+      "keyword": "AI安全修复竞赛",
+      "heat": 69,
+      "category": "ai-tech",
+      "summary": "AI竞速修复安全漏洞可能增加技术系统故障频率，引发稳定性担忧",
+      "sources": [
+        "Google News / NBC News"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / NBC News",
+          "time": "11-21 22:00",
+          "text": "The AI race to fix security flaws could be making tech outages more common - NBC News"
+        }
+      ]
+    },
+    {
+      "keyword": "Anthropic上市热",
+      "heat": 66,
+      "category": "finance",
+      "summary": "报道讨论Anthropic上市被视为新一轮AI商业淘金热起点的信号",
+      "sources": [
+        "Google News / Fox Business"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / Fox Business",
+          "time": "11-22 01:54",
+          "text": "Anthropic IPO signals ‘beginning of a gold rush’ for small businesses, says biz tech CEO - Fox Business"
+        }
+      ],
+      "tool": {
+        "href": "mythos-tracker.html",
+        "label": "Mythos 追踪"
+      }
+    },
+    {
+      "keyword": "5G工业互联网",
+      "heat": 64,
+      "category": "industry",
+      "summary": "我国5G与工业互联网项目超2.7万个，智能工厂及工业平台加速普及",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 20:57",
+          "text": "【我国“5G+工业互联网”项目超2.7万个】财联社11月21日电，从工业和信息化部了解到，目前我国5G应用已融入全部97个国民经济大类，工业互联网已覆盖全部41个工业大类。目前，我国已经建成分类分级、特色鲜明的5G工厂1260家，培育超过360家具有一定影响力的工业互联网平台，重点平台工业设备连接数超1亿台（套）。 中国信息通信研究院技术与标准研究所副所长汤立波介绍，全国“5G+工业互联网”项目已"
+        }
+      ]
+    },
+    {
+      "keyword": "自主武器规则",
+      "heat": 61,
+      "category": "macro",
+      "summary": "联合国自主武器谈判未达成预期约束性规则，国际监管仍存缺口",
+      "sources": [
+        "Google News / NPR"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / NPR",
+          "time": "11-21 22:18",
+          "text": "Killer robots: U.N. talks fall short of hopes for legally binding rules - NPR"
+        }
+      ]
+    },
+    {
+      "keyword": "亚投行香港布局",
+      "heat": 58,
+      "category": "finance",
+      "summary": "中国政府与亚投行签署协议，为亚投行在香港设立办公室奠定基础",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 22:23",
+          "text": "【亚投行将在香港设立办公室】财联社11月21日电，中华人民共和国政府与亚洲基础设施投资银行（亚投行）21日在香港签署《中华人民共和国政府与亚洲基础设施投资银行关于在中华人民共和国香港特别行政区设立办公室的协定》，为亚投行在香港开设办公室奠定基础。中华人民共和国政府与亚投行分别由财政部部长蓝佛安和亚投行行长邹加怡代表签署协定。该协定确定亚投行于香港设立办公室，并为特权、豁免与其他有助成立办公室的事宜"
+        }
+      ]
+    },
+    {
+      "keyword": "英特尔新芯测试",
+      "heat": 55,
+      "category": "ai-tech",
+      "summary": "英特尔28核Nova Lake-S处理器进入测试，运行频率达到5.2GHz",
+      "sources": [
+        "Google News / TechPowerUp"
+      ],
+      "evidence": [
+        {
+          "source": "Google News / TechPowerUp",
+          "time": "11-21 23:39",
+          "text": "28-Core Intel \"Nova Lake-S\" Appears in Testing Running at 5.2 GHz - TechPowerUp"
+        }
+      ]
+    },
+    {
+      "keyword": "北约创新基金",
+      "heat": 52,
+      "category": "geo",
+      "summary": "加拿大成为第25个加入北约创新基金的成员，为北美首个加入者",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-22 07:51",
+          "text": "【加拿大正式加入北约创新基金】财联社11月22日电，加拿大国防部长戴维·麦金蒂21日宣布，加拿大正式加入北约创新基金，成为第25个加入该基金的北约成员国，也是北美地区首个加入该基金的成员国。"
+        }
+      ]
+    },
+    {
+      "keyword": "伊朗经济战",
+      "heat": 49,
+      "category": "geo",
+      "summary": "伊朗总统称正经历比军事冲突更艰难的无声经济战，物资供应受关注",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-22 07:24",
+          "text": "【伊朗总统：正进行的经济战远比军事冲突“更为艰难”】财联社11月22日电，据伊朗伊斯兰共和国通讯社21日报道，伊朗总统佩泽希齐扬当天表示，伊朗正卷入一场“无声”的经济战，这场战争远比军事冲突“更为艰难”。佩泽希齐扬在德黑兰出席一场会议时指出，敌人曾企图在伊朗制造饥荒并导致国内市场物资短缺，但未能得逞，伊朗的生产活动仍在继续。佩泽希齐扬说，伊朗的安全和军事力量已作出强有力回应。他呼吁全国在面对“敌人"
+        }
+      ]
+    },
+    {
+      "keyword": "卡塔尔伊朗磋商",
+      "heat": 47,
+      "category": "geo",
+      "summary": "卡塔尔代表团抵达伊朗并展开两小时磋商，外交斡旋动向受到关注",
+      "sources": [
+        "财联社"
+      ],
+      "evidence": [
+        {
+          "source": "财联社",
+          "time": "11-21 22:38",
+          "text": "【卡塔尔代表团抵伊朗磋商两小时】财联社11月21日电，当地时间11月21日，伊朗副外长加里巴巴迪表示，一个卡塔尔代表团20日晚抵达伊朗首都德黑兰，双方进行了两个小时的磋商。"
         }
       ]
     }

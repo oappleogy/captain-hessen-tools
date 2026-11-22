@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-21T23:34:09.964540+00:00",
-  "last_research_at": "2026-11-21T23:34:09.964540+00:00",
+  "updated_at": "2026-11-22T00:34:27.311154+00:00",
+  "last_research_at": "2026-11-22T00:34:27.311154+00:00",
   "last_market_observation_at": "2026-11-21T22:30:36.182986+00:00",
-  "status": "退出条件原文受阻；完成三点假设费用核算，转独立方向",
+  "status": "新增sUSDe退出权利原文；未形成规模与全成本候选",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -170,14 +170,14 @@
     "Bitfinex已取得一次真实WS输入；源时间、序列/校验和、断流恢复和连续运行仍未验证。"
   ],
   "recent": [
-    "第51轮提款限制原文403已停止，未核实任何具体冻结期限。独立条件计算仅对普通银行电汇路径：假设计费金额1000/10000/100000美元时费用均100美元，占10%/1%/0.1%。不是所有退出路径的最低费，也不是实际账户或完整成本/净收益。",
-    "Scout保留403原件；Quant事前冻结三个假设规模；Risk20/20独立检查通过，仅接受失败记录及条件算术。",
-    "本轮没有新行情或前瞻结果；50会话已结束，持续采集仍未验证。"
+    "第52轮Ethena官方文档区分：sUSDe解除质押取得USDe；指南描述动态冷却期（读取时写1–7天），非实测链上参数。USDe直接赎回是获批且通过KYC/KYB的做市对手方销毁USDe取得支持资产，不等于任何持有人立即兑美元。未取得报价、实际用户资格或净收益。",
+    "Risk17/17原文核验通过；一次地区口径修订已保留原稿，用户实际适用性仍未知。",
+    "没有新增行情、纸面预测或交易；小时研究不是持续采集服务。"
   ],
   "next": [
-    "52转非Bitfinex独立机制的具名经济或状态证据，避免同一支线长期占用。",
-    "403页面不重试、不换工具绕过；条件费用算术不重复运行。",
-    "接口主任务最早54轮；完整交易条件和Risk通过前不升级机会。"
+    "53仅处理能改变具名兑换退出判断的新状态或具体可证伪机制，不重复指南。",
+    "链上部署、份额兑换、等待期间价格风险、规模报价和全成本仍需核验。",
+    "接口主任务窗口最早54轮，届时完成下一次六轮项目审查。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -186,25 +186,33 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-21T23:31:39.139485+00:00",
-  "collection_completed_at": "2026-11-21T23:31:40.886297+00:00",
+  "collection_started_at": "2026-11-22T00:31:39.523283+00:00",
+  "collection_completed_at": "2026-11-22T00:31:53.670399+00:00",
   "current_round": {
-    "round": 51,
-    "task_id": "TBTCUSD-EXIT-CONDITION-RISK-51",
+    "round": 52,
+    "task_id": "INDEPENDENT-REDEMPTION-RIGHTS-DISCOVERY-52",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 2,
+    "public_reads": 3,
+    "market_identity": "Ethena sUSDe/USDe economic documentation only",
+    "observation_id": "ETHENA-SUSDE-EXIT-RIGHTS-DOC-20261122",
+    "opportunity_id": null,
     "size_quotes": null,
     "direction": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_DENIAL_AND_THREE_CONDITIONAL_WIRE_COST_POINTS_ONLY",
-    "classification": "failedoriginal_and_synthetic_conditional",
+    "risk_decision": "ACCEPT_DOCUMENTED_UNSTAKING_AND_PERMISSIONED_REDEMPTION_BOUNDARY_ONLY",
     "unknowns": [
-      "实际提款限制与期限",
-      "账户与路径适用性",
-      "完整成本与净收益"
+      "deployment_contract_version",
+      "live_cooldown_parameter",
+      "actual_user_eligibility",
+      "share_exchange_rate_and_assets",
+      "available_redemption_capacity",
+      "current_sized_buy_and_exit_quotes",
+      "all_costs",
+      "hedging_and_margin_exit",
+      "net_pnl"
     ]
   },
   "outcome_coverage": {
@@ -215,7 +223,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮无新行情；保留50会话末帧接收时间，已过期观察，不是当前可成交报价。",
+  "last_market_observation_note": "本轮仅经济权利文档；50会话末帧接收时间保留，该会话已结束，非当前报价。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",

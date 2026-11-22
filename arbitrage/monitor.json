@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-22T14:49:49.463516+00:00",
-  "last_research_at": "2026-11-22T14:49:49.463516+00:00",
+  "updated_at": "2026-11-22T16:15:19.013654+00:00",
+  "last_research_at": "2026-11-22T16:15:19.013654+00:00",
   "last_market_observation_at": "2026-11-21T22:30:36.182986+00:00",
-  "status": "54轮中断后完成审查；继续实际证据、停止文档模型循环",
+  "status": "55轮历史原文受阻后转向恢复风险边界；无新行情采集",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -167,17 +167,17 @@
     "两源均熔断；旧报价过期，无法进行当前跨场所比较",
     "全成本、资格、库存、退出及报价有效期未知",
     "BTC/USD只读采集已部署于当前Mac；其他模式及低延迟执行尚未部署，Mac mini未接管",
-    "Bitfinex已取得一次真实WS输入；源时间、序列/校验和、断流恢复和连续运行仍未验证。"
+    "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第54轮官方key-addresses原文提供sUSDe与Staking同一列示身份；仅文档地址，不证明运行代码、当前参数或与历史contest等价。49–54共11读、1轮新真实流，完整候选及新前瞻后验0。中断后补独立Risk验收，约12小时空档另记。",
-    "官方身份声明已保存，恢复独立验收没有重采行情或重跑模型。",
-    "错过心跳不补计轮次；持续采集未验证，净收益未知。"
+    "第55轮Chainlink官方风险说明：排序器恢复为up不足以证明清算/报价可用；恢复宽限条件与报价时效须分别核验。示例3600秒不是生产配置，当前部署/状态/收益未知。历史USDe两公告202空正文停止，未采纳赔偿金额或完成声明。",
+    "本轮仅原文风险研究，没有当前排序器状态、规模行情或新纸面后验。",
+    "持续采集未恢复验证，旧行情时点保留，净收益未知。"
   ],
   "next": [
-    "55独立具体经济或结果证据，不重复中断审计与已验收案例。",
-    "接口主任务最早58；新状态读取仍需停止范围核对。",
-    "完整资格、双腿规模及全成本后才冻结前瞻纸面预测。"
+    "56转实际候选与数据发现，优先具名规模经济证据。",
+    "历史公告及恢复指南分支关闭，需新原件/合法访问变化或具体反例重开。",
+    "接口主任务最早58；合格候选后才冻结前瞻预测。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -186,22 +186,21 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-22T02:39:53.182170+00:00",
-  "collection_completed_at": "2026-11-22T02:39:55.841148+00:00",
+  "collection_started_at": "2026-11-22T16:11:01.544Z",
+  "collection_completed_at": "2026-11-22T16:13:00.084046+00:00",
   "current_round": {
-    "round": 54,
-    "task_id": "CONCRETE-DATA-AND-PROJECT-REVIEW-54",
+    "round": 55,
+    "task_id": "USDE-VENUE-DEPEG-OUTCOME-55",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 1,
-    "market_identity": "Ethena official listed sUSDe/Staking identity only",
+    "public_reads": 4,
+    "market_identity": "Historical Binance USDe announcements unavailable; Chainlink L2 recovery guide only",
     "size_quotes": null,
     "direction": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_DOCUMENTED_IDENTITY_AND_CONDITIONAL_PROJECT_REVIEW_ONLY",
-    "resumed_after_interruption": true
+    "risk_decision": "ACCEPT_FAILED_HISTORICAL_ACQUISITION_AND_DOCUMENTED_RECOVERY_GATE_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -211,7 +210,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "本轮仅文档身份；50末帧接收时间保留，旧会话已结束。",
+  "last_market_observation_note": "55无行情采集；保留50末帧接收时间，旧流已结束。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -319,6 +318,14 @@
       "reason": "官方提款限制原文单次403；搜索摘要仅定位",
       "no_increment_rounds": 1,
       "reopen": "New supplied original or documented lawful access change, independently scope-reviewed"
+    },
+    {
+      "task": "USDE-HISTORICAL-VENUE-DEPEG-POSTMORTEM-55",
+      "blocker_id": "BINANCE-USDE-20251010-ORIGINAL-EMPTY-202",
+      "status": "blocked_data",
+      "reason": "两份不同官方历史公告均HTTP202空正文；搜索摘要不证明事件数值或赔付完成",
+      "no_increment_rounds": 1,
+      "reopen": "New actual original artifact/version supplied independently or documented source access-condition change, reviewed against this stable blocker; not date/task rename."
     }
   ],
   "learning": [

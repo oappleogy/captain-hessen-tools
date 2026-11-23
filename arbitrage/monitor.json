@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T13:55:20.409957+00:00",
-  "last_research_at": "2026-11-23T13:55:20.409957+00:00",
+  "updated_at": "2026-11-23T14:53:34.096676+00:00",
+  "last_research_at": "2026-11-23T14:53:34.096676+00:00",
   "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
-  "status": "67轮独立网络元数据；地域限制原文未得",
+  "status": "68轮官方网络说明；精确资产和执行权利仍未知",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -312,14 +312,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第67轮Kraken地域限制原文308未跟随，限制未核。独立Bitget USDT响应含12网络，限定ERC20：合约0xdac17f958d2ee523a2206206994597c13d831ec7，rechargeable/withdrawable原字符串true；仅提供方元数据，不证明账户权限、Kraken出口匹配、实际到账或完整成本。",
-    "本轮无新盘口；源状态更新时间未知，requestTime不作状态生效时间。",
-    "原主问题失败与独立元数据增量分开，未形成完整机会。"
+    "第68轮Kraken官方稳定币充提网络表将USDT列入Ethereum；仅文档网络名称，与67接收侧元数据不构成精确合约或账户可执行证明。文内EEA退市脚注范围及用户适用性未核，不能推断全面禁止提款。实际到账、完整成本及净收益未知。",
+    "本轮没有新盘口或实时网络状态；上轮API元数据时间保持独立。",
+    "2次公开读取；原文前缺独立精确URL预审回执，已事后审查并留痕。"
   ],
   "next": [
-    "只在具体合法新来源出现时核出口网络/代币匹配。",
-    "不跟随或重试本轮308，不重复Bitget网络采样或扩充资格百科。",
-    "主工程最早70；持续采集未验证上线。"
+    "下一轮转独立机制反证；不继续网络、地区或费用泛查。",
+    "后续原文先等独立Risk明确范围，再执行。",
+    "主工程最早70；持续行情采集未验证上线。"
   ],
   "last_metadata_at": "2026-11-23T13:53:03.788072+00:00",
   "metadata_block": {
@@ -328,33 +328,28 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": null,
-  "collection_completed_at": "2026-11-23T13:53:03.788072+00:00",
+  "collection_started_at": "2026-11-23T14:50:27.709Z",
+  "collection_completed_at": "2026-11-23T14:51:01.668379+00:00",
   "current_round": {
-    "round": 67,
-    "task_id": "NAMED-ROUTE-ECONOMIC-RIGHTS-FALSIFIER-67",
-    "public_reads": 3,
+    "round": 68,
+    "task_id": "USDT-OUTBOUND-NETWORK-MATCH-68",
+    "public_reads": 2,
     "market_collection": false,
-    "metadata_collection": true,
+    "metadata_collection": false,
+    "document_collection": true,
     "source_time": null,
-    "coverage": "Kraken原文308无政策内容；Bitget USDT12网络响应中仅检查ERC20",
-    "market_identity": "Bitget/Kraken ETHUSDT库存路线（64历史背景）",
-    "direction": "USDT返回Bitget的接收侧条件，未执行",
+    "coverage": "一份Kraken官方稳定币网络原文，仅USDT Ethereum及相关限定",
+    "market_identity": "Bitget/Kraken ETHUSDT历史库存路线",
+    "direction": "研究USDT从Kraken回流Bitget的网络条件，未执行",
     "size": null,
+    "quote_time": null,
     "two_leg_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_PARTIAL_PROVIDER_METADATA_AND_PRIMARY_FAILURE_RECORD; VETO_OPPORTUNITY_UPGRADE",
-    "raw_network_fields": {
-      "chain": "ERC20",
-      "contractAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
-      "rechargeable": "true",
-      "withdrawable": "true",
-      "depositConfirm": "12",
-      "minDepositAmount": "0.5",
-      "congestion": "normal"
-    }
+    "risk_decision": "ACCEPT_DOCUMENTARY_NETWORK_LABEL_WITH_EEA_QUALIFICATION_ONLY; VETO_TOKEN_MATCH_AND_OPPORTUNITY_UPGRADE",
+    "network_label": "Ethereum",
+    "exact_token_match_verified": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",

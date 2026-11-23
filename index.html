@@ -528,6 +528,7 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 </style>
 <link rel="stylesheet" href="research-updates.css?v=20261008">
 <script src="research-updates.js?v=20261008" defer></script>
+<link rel="stylesheet" href="/site-traffic.css?v=20261123">
 </head>
 <body>
 
@@ -548,6 +549,16 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
     <span>Decision</span>
   </div>
 </div>
+
+<!-- BASEALPHA_SITE_TRAFFIC_START -->
+<section class="ba-traffic ba-traffic-strip" id="site-heat" data-site-traffic="compact" aria-label="网站热度">
+  <header><h2>网站热度</h2><a class="ba-traffic-kicker" href="/traffic.html">查看访问统计</a></header>
+  <dl class="ba-traffic-stat"><dt>近30天浏览</dt><dd data-metric="views">读取中</dd></dl>
+  <dl class="ba-traffic-stat"><dt>近30天访问</dt><dd data-metric="visits">读取中</dd></dl>
+  <dl class="ba-traffic-stat"><dt>有帮助反馈</dt><dd data-metric="helpful">读取中</dd></dl>
+  <p class="ba-traffic-status" data-traffic-status role="status">正在读取公开页面的访问统计。</p>
+</section>
+<!-- BASEALPHA_SITE_TRAFFIC_END -->
 
 <!-- Lineage 抽屉 — 点击气泡弹出数据溯源 -->
 <div class="lineage-overlay" id="lineage-overlay"></div>
@@ -1225,5 +1236,6 @@ footer { animation: fadeUp 0.6s ease-out 0.6s both; }
 </script>
 
 <script src="/reader-feedback.js?v=20261123" defer></script>
+<script src="/site-traffic.js?v=20261123" defer></script>
 </body>
 </html>

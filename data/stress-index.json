@@ -1,5 +1,5 @@
 {
-  "score": 74.9,
+  "score": 74.6,
   "level": "red",
   "label": "高压力",
   "desc": "多变量极端偏离，系统性风险升高",
@@ -17,12 +17,12 @@
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 83.98,
+      "current": 82.85,
       "base": 75,
-      "deviation_pct": 12.0,
+      "deviation_pct": 10.5,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 28.8
+      "contribution": 22.1
     },
     {
       "variable": "credit_spread",
@@ -37,17 +37,17 @@
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 159.71,
+      "current": 158.92,
       "base": 145,
-      "deviation_pct": 10.1,
+      "deviation_pct": 9.6,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 10.2
+      "contribution": 9.2
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 103.81,
+      "current": 103.83,
       "base": 100,
       "deviation_pct": 3.8,
       "weight": 0.15,
@@ -82,5 +82,5 @@
       "level": "极端偏离"
     }
   ],
-  "timestamp": "2026-11-22 08:15"
+  "timestamp": "2026-11-23 08:15"
 }

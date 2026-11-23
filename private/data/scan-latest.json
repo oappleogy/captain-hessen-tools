@@ -1,5 +1,5 @@
 {
-  "scan_date": "2026-11-16",
+  "scan_date": "2026-11-23",
   "market": "US",
   "market_label": "美股",
   "market_note": "当前模型仅覆盖美国市场（Fed利率/VIX/DXY/美债利差/美股ETF）",
@@ -10,15 +10,48 @@
   },
   "opportunities": [
     {
+      "type": "regime_mismatch",
+      "sector": "银行/金融",
+      "signal": "体制=easing + 银行/金融景气=11 + 预期区间=[35, 55] + 偏离=24点 + 宏观: 利率中性(54)/风险承压(40)/能源中性(59)",
+      "direction": "看多美股银行/金融（景气11低于体制'easing'预期下界35）",
+      "confidence": {
+        "gear_model": 0.8,
+        "regime_hmm": 0.6,
+        "consensus": "1/3模型支撑"
+      },
+      "deviation_points": 24.0,
+      "caveats": [
+        "偏离度24点极端，可能有未建模的结构性因素",
+        "体制预期区间基于历史经验设定，非统计拟合"
+      ],
+      "model_limitations": "传导系数v2.0，部分行业验证集R²<0.15"
+    },
+    {
+      "type": "regime_mismatch",
+      "sector": "科技/AI",
+      "signal": "体制=easing + 科技/AI景气=38 + 预期区间=[50, 70] + 偏离=12点 + 宏观: 利率中性(54)/风险承压(40)/能源中性(59)",
+      "direction": "看多美股科技/AI（景气38低于体制'easing'预期下界50）",
+      "confidence": {
+        "gear_model": 0.42,
+        "regime_hmm": 0.6,
+        "consensus": "1/3模型支撑"
+      },
+      "deviation_points": 12.5,
+      "caveats": [
+        "体制预期区间基于历史经验设定，非统计拟合"
+      ],
+      "model_limitations": "传导系数v2.0，部分行业验证集R²<0.15"
+    },
+    {
       "type": "supply_chain_scissors",
       "sector": "银行/金融↔地产/REITs",
-      "signal": "美股地产/REITs景气=55 vs 银行/金融景气=28（差=27） — 信贷供给→地产需求",
+      "signal": "美股地产/REITs景气=61 vs 银行/金融景气=11（差=50） — 信贷供给→地产需求",
       "direction": "看多美股银行/金融（地产/REITs需求尚未传导）",
       "confidence": {
-        "gear_model": 0.68,
+        "gear_model": 1.0,
         "consensus": "1/3模型（仅齿轮）"
       },
-      "gap_points": 27.2,
+      "gap_points": 49.9,
       "caveats": [
         "剪刀差需持续≥2周才有意义（当前为单次快照）",
         "传导逻辑'信贷供给→地产需求'为经验假设",
@@ -29,13 +62,13 @@
     {
       "type": "supply_chain_scissors",
       "sector": "能源↔消费/零售",
-      "signal": "美股能源景气=63 vs 消费/零售景气=39（差=24） — 油价→消费者支出",
+      "signal": "美股能源景气=61 vs 消费/零售景气=36（差=25） — 油价→消费者支出",
       "direction": "看空美股消费/零售（能源成本传导），或看多美股能源持续性",
       "confidence": {
-        "gear_model": 0.6,
+        "gear_model": 0.63,
         "consensus": "1/3模型（仅齿轮）"
       },
-      "gap_points": 24.2,
+      "gap_points": 25.3,
       "caveats": [
         "剪刀差需持续≥2周才有意义（当前为单次快照）",
         "传导逻辑'油价→消费者支出'为经验假设",
@@ -46,10 +79,27 @@
     {
       "type": "cross_model_consensus",
       "sector": "银行/金融",
-      "signal": "齿轮景气=28 + 体制=easing(conf=0.60)",
+      "signal": "齿轮景气=11 + 体制=easing(conf=0.60)",
       "direction": "看空美股银行/金融",
       "confidence": {
-        "gear_model": -0.44,
+        "gear_model": -0.78,
+        "regime_hmm": 0.6,
+        "consensus": "2/3模型一致"
+      },
+      "models_agreeing": 2,
+      "caveats": [
+        "仅2/3模型一致，置信度中等",
+        "蒙特卡洛未参与（无MC数据），实际为2模型交叉"
+      ],
+      "model_limitations": "传导系数v2.0(部分校准) + HMM混合体制（MC未参与）"
+    },
+    {
+      "type": "cross_model_consensus",
+      "sector": "地产/REITs",
+      "signal": "齿轮景气=61 + 体制=easing(conf=0.60)",
+      "direction": "看多美股地产/REITs",
+      "confidence": {
+        "gear_model": 0.22,
         "regime_hmm": 0.6,
         "consensus": "2/3模型一致"
       },
@@ -64,11 +114,9 @@
   "no_signal_sectors": [
     "军工/防务",
     "出口制造",
-    "地产/REITs",
     "消费/零售",
-    "科技/AI",
     "能源",
     "黄金/大宗"
   ],
-  "scan_summary": "发现2个产业链剪刀差, 1个多模型共识，7个行业无信号"
+  "scan_summary": "发现2个体制错配, 2个产业链剪刀差, 2个多模型共识，5个行业无信号"
 }

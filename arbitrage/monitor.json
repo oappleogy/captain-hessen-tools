@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T08:46:58.880437+00:00",
-  "last_research_at": "2026-11-23T08:46:58.880437+00:00",
+  "updated_at": "2026-11-23T09:43:27.954217+00:00",
+  "last_research_at": "2026-11-23T09:43:27.954217+00:00",
   "last_market_observation_at": "2026-11-23T07:51:04.412787+00:00",
-  "status": "62轮费用类别已核；数字费率和净输出未知",
+  "status": "63轮数字费表与条件扣费已核；更正同费率概括",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -257,9 +257,11 @@
       "risk": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY",
       "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用",
       "fee_category": "stablecoin",
-      "fee_category_evidence": "官方列明USDC/USDT同一maker/taker费率；数字费率未取得",
+      "fee_category_evidence": "第63轮更正：公开Pro数字表Tier1 maker/taker均0.20%，但Tier7为0%/0.01%、Tier8为0%/0.001%；撤回所有档位同费的笼统概括。旧Support及页面对称说明与高档表格冲突，实际账户适用仍未知。",
       "numeric_fee_rate": null,
-      "risk_cost_review": "ACCEPT_OFFICIAL_EXACT_PAIR_FEE_CATEGORY_ONLY_NUMERIC_RATE_UNRESOLVED"
+      "risk_cost_review": "ACCEPT_PUBLIC_TIER1_CONDITIONAL_COST_AND_REQUIRE_SAME_FEE_GENERALIZATION_CORRECTION",
+      "public_tier1_rate": "0.20%",
+      "actual_applicable_fee_rate": null
     }
   ],
   "gaps": [
@@ -270,14 +272,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "USDC/USDT适用稳定币费率体系，maker/taker同费；此类成交不计入费档30日成交量。",
-    "数字费率、用户费档及扣费币种未核；不计算净输出，不把空数组当零费。",
-    "本轮无新行情；第61轮盘口仍是历史观察。简单空值保护产物不计工程能力成果。"
+    "第63轮更正：公开Pro数字表Tier1 maker/taker均0.20%，但Tier7为0%/0.01%、Tier8为0%/0.001%；撤回所有档位同费的笼统概括。旧Support及页面对称说明与高档表格冲突，实际账户适用仍未知。",
+    "仅条件示例：历史1001.2USDT毛输出减2.0024USDT费用=999.1976USDT；不是实际净收益。",
+    "本轮无新行情；费用支线关闭，下一轮转独立经济路径。"
   ],
   "next": [
-    "以新链接的官方Pro费表做一次有界成本反证；不得使用搜索摘要费率。",
-    "若同数值缺口第二个实际轮次仍无增量，停止并转独立经济问题。",
-    "接口主任务下次最早66；持续采集未验证上线。"
+    "冻结独立路径的方向和规模后取得新双腿输入，不拼接61历史盘口。",
+    "保留官方说明与高费档表格矛盾，不代用户选择费档。",
+    "下一接口主任务最早66；持续采集未验证上线。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -286,16 +288,15 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T08:44:05.792578+00:00",
-  "collection_completed_at": "2026-11-23T08:44:30.443732+00:00",
+  "collection_started_at": "2026-11-23T09:40:58.931513+00:00",
+  "collection_completed_at": "2026-11-23T09:41:05.279178+00:00",
   "current_round": {
-    "round": 62,
-    "task_id": "KRAKEN-USDCUSDT-FEE-DEPENDENCY-62",
+    "round": 63,
+    "task_id": "KRAKEN-STABLE-FEE-COST-COUNTEREVIDENCE-63",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 3,
-    "coverage": "Kraken官方稳定币费用说明及其链接费表页；无新盘口",
-    "market_identity": "Kraken USDC/USDT spot",
+    "public_reads": 1,
+    "coverage": "Kraken Pro稳定币费表；无新盘口",
     "related_observation": "KRAKEN-SPOT-USDCUSDT-20261123T075104Z",
     "direction": "SELL USDC → USDT（61历史观察）",
     "size": {
@@ -303,13 +304,14 @@
       "amount": "1000"
     },
     "quote_time": null,
-    "fee_category": "stablecoin",
-    "numeric_fee_rate": null,
+    "conditional_fee_rate": "0.20% Tier1 only",
+    "conditional_fee_USDT": "2.0024",
+    "conditional_after_fee_USDT": "999.1976",
+    "conditional_assumptions": "Tier1适用、历史显示全量成交、USDT扣费且不计最低费/取整；均非实际账户核验",
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_OFFICIAL_EXACT_PAIR_FEE_CATEGORY_ONLY_NUMERIC_RATE_UNRESOLVED",
-    "engineering_capability_increment": false
+    "risk_decision": "ACCEPT_PUBLIC_TIER1_CONDITIONAL_COST_AND_REQUIRE_SAME_FEE_GENERALIZATION_CORRECTION"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -466,7 +468,9 @@
       "status": "blocked_data",
       "scope": "已读取链接页未取得Pro稳定币数字费表",
       "no_increment_actual_rounds": 1,
-      "next": "实际页面链接/pro/fees为未读新依赖，需独立范围核验"
+      "next": "实际页面链接/pro/fees为未读新依赖，需独立范围核验",
+      "resolution_at": "2026-11-23T09:43:27.954217+00:00",
+      "resolution": "公开数字表已取得；保留原失败记录，用户费档/扣费方式仍未知"
     }
   ],
   "learning": [
@@ -709,9 +713,11 @@
       "risk": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY",
       "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用",
       "fee_category": "stablecoin",
-      "fee_category_evidence": "官方列明USDC/USDT同一maker/taker费率；数字费率未取得",
+      "fee_category_evidence": "第63轮更正：公开Pro数字表Tier1 maker/taker均0.20%，但Tier7为0%/0.01%、Tier8为0%/0.001%；撤回所有档位同费的笼统概括。旧Support及页面对称说明与高档表格冲突，实际账户适用仍未知。",
       "numeric_fee_rate": null,
-      "risk_cost_review": "ACCEPT_OFFICIAL_EXACT_PAIR_FEE_CATEGORY_ONLY_NUMERIC_RATE_UNRESOLVED"
+      "risk_cost_review": "ACCEPT_PUBLIC_TIER1_CONDITIONAL_COST_AND_REQUIRE_SAME_FEE_GENERALIZATION_CORRECTION",
+      "public_tier1_rate": "0.20%",
+      "actual_applicable_fee_rate": null
     }
   ],
   "research_leads": [

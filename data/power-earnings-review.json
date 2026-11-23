@@ -2,8 +2,8 @@
   "schema_version": 1,
   "kind": "earnings",
   "title": "供电链财报记录：原公司字段的数据来源",
-  "checked_on": "2026-11-10",
-  "scope": "六家公司、十条财季记录。最新已核字段回填原公司卡片；旧季度记录保留。百万美元与EPS美元/股分开，机构一致预期未核，不重排旧榜。",
+  "checked_on": "2026-11-23",
+  "scope": "六家公司、十条财季记录。此次只补GEV Q3精确财务、同口径现金差分及RPO兑现条件；其余行保留原核验日。单位百万美元，EPS美元/股；原评分、机构一致预期及估值未重算。",
   "columns": [
     {
       "key": "label",
@@ -238,34 +238,81 @@
     },
     {
       "id": "GEV-2026Q3",
-      "label": "GEV · GE Vernova（Q3摘要）",
+      "label": "GEV · GE Vernova（Q3）",
       "period_end": "2026-09-30",
       "period": "2026-07-01至2026-09-30",
       "announced": "2026-10-28",
-      "checked_on": "2026-11-03",
-      "stage": "公司季度实际摘要；金额按十亿美元取整",
+      "checked_on": "2026-11-23",
+      "stage": "未经审计10-Q实际；单季现金由9M减H1复算",
       "currency": "USD",
       "unit": "million",
-      "revenue_musd": 12600,
+      "revenue_musd": 12642,
       "revenue_yoy_pct": 27,
       "organic_yoy_pct": 18,
-      "gaap_eps": null,
+      "gaap_eps": 4.81,
       "adjusted_eps": null,
-      "operating_cash_flow_musd": 6100,
+      "operating_cash_flow_musd": 6057,
       "orders_musd": 29000,
-      "rpo_musd": 197000,
+      "rpo_musd": 196721,
       "gas_backlog_and_slots_gw": 122,
-      "known": "官方摘要：单季经营现金流约6100、自由现金流约5400、订单29000、RPO197000百万美元；燃机设备积压及预留档期合计122GW。",
+      "known": "Q3营收12642、归母净利1291百万美元，稀释GAAP EPS4.81美元。9M/H1经营现金16737/10680、现金固定资产及内部软件购置1430/783，差分Q3经营现金6057、购置647、公司同定义FCF5410百万美元。合同负债及递延收入现金贡献差分5816；9M管理层解释包含订单/档期预付款，不是已确认收入。Q3燃机订单16.6GW、销售5.3GW，不与积压及档期122GW混为交付。季末RPO合计196721百万美元，其中设备104054、服务92667；预计一年内分别确认33%/16%，这是未来确认节奏，不是本季实现收入。",
       "guidance": "年末至少130GW及积压超过2000亿美元是管理层预期，不是季末已交付或已确认收入。",
-      "unknown": "本轮未抽取完整EPS、现金流来源及取消条款；摘要取整值不冒充精确报表。",
-      "impact": "订单和收入继续增加，但档期、履约义务与收入分层，不能将122GW计成已交付电力容量。",
+      "unknown": "调整后EPS、机构一致预期、客户逐单验收与取消赔偿额仍未核。RPO定义排除可无实质罚则取消的订单，不表示所有合同都绝对不可取消；不以单季预付款增量预测持续现金率。读取范围为两期财务表、Q3合同附注及MD&A相关段，非全部附件/电话会。",
+      "impact": "补精确值与现金来源，经营改善有证据，但预付款贡献不能当当季产品盈利。设备RPO104054百万美元预计一年内确认33%，服务RPO92667预计一年内16%；这是公司预计节奏，非实现收入，不上调原Q1超预期档位或估值。",
       "sources": [
         {
           "title": "GE Vernova Q3官方结果摘要",
           "url": "https://www.gevernova.com/news/ge-vernova-reports-strong-third-quarter-2026-financial-performance",
           "date": "2026-10-28"
+        },
+        {
+          "title": "GE Vernova Q3 10-Q：损益、现金流、合同及RPO附注",
+          "url": "https://www.sec.gov/Archives/edgar/data/1996810/000199681026000163/gev-20260930.htm",
+          "date": "2026-10-28"
+        },
+        {
+          "title": "GE Vernova H1 10-Q：同口径累计现金流",
+          "url": "https://www.sec.gov/Archives/edgar/data/1996810/000199681026000148/gev-20260630.htm",
+          "date": "2026-07-22"
         }
-      ]
+      ],
+      "history": [
+        {
+          "id": "GEV-2026Q3",
+          "label": "GEV · GE Vernova（Q3摘要）",
+          "period_end": "2026-09-30",
+          "period": "2026-07-01至2026-09-30",
+          "announced": "2026-10-28",
+          "checked_on": "2026-11-03",
+          "stage": "公司季度实际摘要；金额按十亿美元取整",
+          "currency": "USD",
+          "unit": "million",
+          "revenue_musd": 12600,
+          "revenue_yoy_pct": 27,
+          "organic_yoy_pct": 18,
+          "gaap_eps": null,
+          "adjusted_eps": null,
+          "operating_cash_flow_musd": 6100,
+          "orders_musd": 29000,
+          "rpo_musd": 197000,
+          "gas_backlog_and_slots_gw": 122,
+          "known": "官方摘要：单季经营现金流约6100、自由现金流约5400、订单29000、RPO197000百万美元；燃机设备积压及预留档期合计122GW。",
+          "guidance": "年末至少130GW及积压超过2000亿美元是管理层预期，不是季末已交付或已确认收入。",
+          "unknown": "本轮未抽取完整EPS、现金流来源及取消条款；摘要取整值不冒充精确报表。",
+          "impact": "订单和收入继续增加，但档期、履约义务与收入分层，不能将122GW计成已交付电力容量。",
+          "sources": [
+            {
+              "title": "GE Vernova Q3官方结果摘要",
+              "url": "https://www.gevernova.com/news/ge-vernova-reports-strong-third-quarter-2026-financial-performance",
+              "date": "2026-10-28"
+            }
+          ]
+        }
+      ],
+      "net_income_attributable_musd": 1291,
+      "cash_ppe_software_musd": 647,
+      "free_cash_flow_musd": 5410,
+      "contract_liabilities_cashflow_musd": 5816
     },
     {
       "id": "ETN-2026Q3",

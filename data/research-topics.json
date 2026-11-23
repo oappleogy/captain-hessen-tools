@@ -871,8 +871,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-24",
-      "last_checked": "2026-11-10",
-      "last_research_update": "2026-11-10",
+      "last_checked": "2026-11-23",
+      "last_research_update": "2026-11-23",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1038,6 +1038,26 @@
               "title": "CEG Q2 10-Q：同一母公司六个月现金流",
               "date": "2026-08-06",
               "url": "https://investors.constellationenergy.com/node/10191/xbrl-viewer"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-23",
+          "title": "GEV补精确现金与RPO口径，预付款不作交付",
+          "body": "Q3营收12642、归母净利1291百万美元，稀释GAAP EPS4.81美元。9M/H1经营现金16737/10680、现金固定资产及内部软件购置1430/783，差分Q3经营现金6057、购置647、公司同定义FCF5410百万美元。合同负债及递延收入现金贡献差分5816；9M管理层解释包含订单/档期预付款，不是已确认收入。Q3燃机订单16.6GW、销售5.3GW，不与积压及档期122GW混为交付。 补精确值与现金来源，经营改善有证据，但预付款贡献不能当当季产品盈利。设备RPO104054百万美元预计一年内确认33%，服务RPO92667预计一年内16%；这是公司预计节奏，非实现收入，不上调原Q1超预期档位或估值。 调整后EPS、机构一致预期、客户逐单验收与取消赔偿额仍未核。RPO定义排除可无实质罚则取消的订单，不表示所有合同都绝对不可取消；不以单季预付款增量预测持续现金率。读取范围为两期财务表、Q3合同附注及MD&A相关段，非全部附件/电话会。",
+          "source_period": "Q3 7—9月；9M减H1现金差分；财报10月28日；11月23日补读",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-28",
+          "sources": [
+            {
+              "title": "GE Vernova Q3 10-Q：损益、现金流、合同及RPO附注",
+              "url": "https://www.sec.gov/Archives/edgar/data/1996810/000199681026000163/gev-20260930.htm",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "GE Vernova H1 10-Q：同口径累计现金流",
+              "url": "https://www.sec.gov/Archives/edgar/data/1996810/000199681026000148/gev-20260630.htm",
+              "date": "2026-07-22"
             }
           ]
         }
@@ -3208,8 +3228,8 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-05-05",
-      "last_checked": "2026-11-13",
-      "last_research_update": "2026-11-13",
+      "last_checked": "2026-11-23",
+      "last_research_update": "2026-11-23",
       "next_due": "2026-10-09",
       "review_state": "partial",
       "owner": "专题维护",
@@ -3220,7 +3240,7 @@
         "quarterly": "财报披露后2日：正式NAV、组合退出与现金流；初步估计单列，不能充当最终财报"
       },
       "pending": [
-        "ARKVX/XOVR有效NAV、USVC更晚交易NAV仍缺；VCX/DXYZ较新可比NAV与价格未取得。",
+        "ARKVX/XOVR有效NAV、USVC更晚交易NAV仍缺；VCX更新可比快照、DXYZ九月底同日市价与完整估值/费用仍待。",
         "NSLR已核正式Q3与季末价格，但不是今日NAV/报价；RVI仍缺同日市场价。",
         "完整费用、份额稀释、回购执行及底层退出仍待逐项核验；保留原逾期，不宣称全部最新。"
       ],
@@ -3405,12 +3425,59 @@
               "date": "日值11月12日；首次发布时间未标"
             }
           ]
+        },
+        {
+          "date": "2026-11-23",
+          "title": "DXYZ三季度NAV与两只ETF同日快照回填",
+          "body": "11月16日SEC补充文件正式披露9月30日NAV38.32美元，较Q2的34.30增长约11.72%；Q3未通过Jefferies ATM出售新股。组合价值约18.4亿美元含现金，货币基金28.8%及其他现金10.9%。10月13日至30日完成五项投资共1.12亿美元，使用已有现金；这是期后投资，不倒灌九月底NAV。 未取得9月30日同日有效市价；原25.76美元价格及约24.90%折价仍属6月30日，不用旧价格除新NAV。官网0.00为占位。组合总值/权重不是净资产/净资产权重，原规模与旧敞口字段未强行替换。完整费用、估值桥与退出回款仍待。 RONB/AGIX11月20日净值与市场价已回填；分别约0.43%溢价及1.09%折价。其余只记录实际缺口，NSLR/RVI沿原期。",
+          "source_period": "DXYZ9月30日NAV/10月期后投资；RONB/AGIX11月20日价格，RONB持仓11月19日。未统一成检查日。",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-11-16",
+          "sources": [
+            {
+              "title": "DXYZ SEC 424B3：Q3净值、组合及期后投资",
+              "url": "https://www.sec.gov/Archives/edgar/data/1843974/000157587226000797/dxyz106_424B3.htm",
+              "date": "2026-11-16"
+            },
+            {
+              "title": "RONB官方分日期净值、价格与持仓",
+              "url": "https://www.baroncapitalgroup.com/product-detail/baron-first-principles-etf-ronb",
+              "date": "首次发布时间未标；净值/价格观察日2026-11-20"
+            },
+            {
+              "title": "AGIX官方日净值、市场价与净资产",
+              "date": "首次发布时间未标；净值/价格观察日2026-11-20",
+              "url": "https://kraneshares.com/etf/agix/"
+            }
+          ]
         }
       ],
       "checks": [
         {
           "date": "2026-11-06",
           "result": "原九基金主表及原图恢复直接显示，已核值回填原字段，不再用平行表替代。NSLR正式Q3、RONB11月5日、AGIX11月4日新核；九项逐项检查，不同观察期及缺失保持可见。"
+        },
+        {
+          "date": "2026-11-23",
+          "result": "第二轮仅七只产品披露/访问检查，非全部周检完成。VCX本次读取的目录及官网未取得更新可比快照；ARKVX为空、USVC占位、XOVR无日期0值。下载失败与web读取分开记录，均未填零。DXYZ新NAV缺同日价格，不套六月价。NSLR/RVI本轮未重审。",
+          "sources": [
+            {
+              "title": "VCX官方检查入口",
+              "url": "https://fundrise.com/vcx"
+            },
+            {
+              "title": "ARKVX官方检查入口",
+              "url": "https://www.ark-funds.com/funds/arkvx"
+            },
+            {
+              "title": "USVC官方检查入口",
+              "url": "https://usvc.com/nav"
+            },
+            {
+              "title": "XOVR官方检查入口",
+              "url": "https://ershares.ssnc.cloud/fund-data/xovr"
+            }
+          ]
         }
       ]
     },
@@ -3507,8 +3574,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-17",
-      "last_checked": "2026-11-04",
-      "last_research_update": "2026-11-04",
+      "last_checked": "2026-11-23",
+      "last_research_update": "2026-11-23",
       "next_due": "2026-10-14",
       "review_state": "partial",
       "owner": "专题维护",
@@ -3519,7 +3586,7 @@
       },
       "pending": [
         "Q3合并财务已核；新产品分拆收入、客户验收、良率/利用率、合作实缴及真实订单仍待补，不把集团损益直接归给玻璃载板。",
-        "旧六月正文、五月市值和Q4预测仍属历史；季度财务补齐不等于产业化核验完成，保留10月14日截止。"
+        "原财务位置已回填Q3，五月市值及未核客户/量产预测仍保留历史标签；公司工艺自述不是独立验收，10月14日完整任务积压不顺延。"
       ],
       "updates": [
         {
@@ -3563,6 +3630,26 @@
           "sources": [
             {
               "title": "沃格光电2026第三季度报告（发行人原文，新浪公告镜像）",
+              "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-30/12677667.PDF",
+              "date": "2026-10-30"
+            }
+          ]
+        },
+        {
+          "date": "2026-11-23",
+          "title": "原财务卡片回填Q3，工艺监控不等于客户量产验收",
+          "body": "10月23日ACCON发言、10月28日公司发布：通格微称已建立平面及孔内工艺监控，采用三步填孔和分层裂纹检测。新增的是厂商过程控制能力披露，未给客户验收、量产良率、出货量或可归属收入；不能把“支持量产”写成已规模交付。 Q3原卡片/文字回填6.3763亿元收入、6369.91万元归母亏损、362.28万元经营现金净流出；旧非经营恶化推断撤回。财务数此前已核，不重复当新季报；新补的是工艺证据与原字段落地。",
+          "source_period": "工艺事件2026-10-23、公告10-28；财务7—9月/1—9月分别标记，10-30公告；11-23回填",
+          "event_date": "2026-10-23",
+          "announced_on": "2026-10-28",
+          "sources": [
+            {
+              "title": "沃格官网ACCON技术披露：事件10月23日",
+              "url": "https://www.wgtechjx.com/news/588.html",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "2026第三季度报告：第1、3—4页，发行人原文/新浪镜像",
               "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-10/2026-10-30/12677667.PDF",
               "date": "2026-10-30"
             }

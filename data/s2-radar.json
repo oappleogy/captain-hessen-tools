@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-23T07:31:37",
-  "data_as_of": "2026-11-20",
-  "data_lag_days": 3,
+  "timestamp": "2026-11-23T21:02:54",
+  "data_as_of": "2026-11-23",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STRESSED_SEVERE",
     "label": "严重承压",
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.4,
+      "score": 0.42,
       "state": "▲",
       "light": "green",
       "note": "政策路径清晰，制度运行稳定",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.41,
+      "score": -0.34,
       "state": "▼",
       "light": "red",
       "note": "负反馈信号，情绪极端或波动剧烈",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.18,
+      "score": -0.03,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.04,
+      "score": -0.18,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -124,14 +124,14 @@
         "pct": 0.0
       }
     ],
-    "moving_toward": "崩塌",
+    "moving_toward": "停滞",
     "safety_margin": 0.1,
     "early_warning": "无"
   },
   "extremes": {
     "count": 2,
     "categories": [
-      "VIX恐慌指数=35.9 (历史99%分位)",
+      "VIX恐慌指数=31.6 (历史99%分位)",
       "Nasdaq波动率(VXN)=45.2 (历史100%分位)"
     ]
   },
@@ -150,7 +150,7 @@
   "key_metrics": {
     "extreme_count": 2,
     "vix": {
-      "value": 35.9,
+      "value": 31.6,
       "percentile": 99,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },

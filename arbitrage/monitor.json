@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T16:02:58.600166+00:00",
-  "last_research_at": "2026-11-23T16:02:58.600166+00:00",
+  "updated_at": "2026-11-23T16:54:52.162989+00:00",
+  "last_research_at": "2026-11-23T16:54:52.162989+00:00",
   "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
-  "status": "69轮赎回费用源码顺序研究；无新行情",
+  "status": "70轮真实HTTP错误路径已验证；LUSD行情采集失败",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -312,14 +312,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第69轮Liquity V1局部源码：本次赎回先按实际ETHDrawn及事前系统债务计算baseRate增量，再计算本次ETH费用；decay-only事前查询不等完整规模报价。费用从赎回ETH扣除并转LQTY staking，实际部署、状态及净收益未知。非漏洞或EVM验证。",
-    "Comet指定路径404停止，EIP7540因旧停止规则未读；两次原文均有事前独立预审。",
-    "2次公开读取；未做EVM仿真、链上状态采集或交易。"
+    "第70轮未改66分发helper，首次接入两个真实HTTP请求，两者均HTTP400 INVALID_CURRENCY。",
+    "实际请求区间重叠约1.947秒；两个错误独立保存，未结束线程0，重试/跳转0。仅本次失败路径证据。",
+    "未取得LUSD身份/盘口；成功解析、其它超时模式、生产持久化及连续服务未验证。"
   ],
   "next": [
-    "70轮可按66审查开展一次有界真实来源工程集成，先明确新依赖与独立预审。",
-    "本次源码包关闭，不重复费用扫参、旧源码或泛接口研究。",
-    "当前持续行情服务未验证上线，净收益未知。"
+    "71轮独立对账新失败证据，不重跑相同工程测试或旧接口。",
+    "需要新支持市场身份原件或具体反例才重开该输入问题。",
+    "主工程最早74，项目审查72；净收益未知。"
   ],
   "last_metadata_at": "2026-11-23T13:53:03.788072+00:00",
   "metadata_block": {
@@ -328,25 +328,32 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T15:56:31.068320+00:00",
-  "collection_completed_at": "2026-11-23T16:00:29.855145+00:00",
+  "collection_started_at": "2026-11-23T16:51:55.851581+00:00",
+  "collection_completed_at": "2026-11-23T16:51:58.709936+00:00",
   "current_round": {
-    "round": 69,
-    "task_id": "LIQUITY-V1-REDEMPTION-SELF-IMPACT-FEE-69",
+    "round": 70,
+    "task_id": "LUSD-ACQUISITION-INPUT-AND-HTTP-INTEGRATION-70",
     "public_reads": 2,
     "market_collection": false,
-    "source_collection": true,
+    "market_collection_attempted": true,
+    "new_valid_market_inputs": 0,
     "source_time": null,
-    "coverage": "Comet指定源码404；Liquity V1单份TroveManager源码；非当前部署",
-    "market_identity": "Liquity V1 LUSD/ETH（仅源码身份）",
-    "direction": "假设买入折价LUSD→赎回ETH→卖出；未验证可行性",
+    "coverage": "Gate两个指定LUSD_USDT身份/盘口请求，均HTTP400 INVALID_CURRENCY",
+    "market_identity": "Gate LUSD_USDT（请求标识，市场身份未证实）",
+    "direction": "LUSD买入腿输入研究，未形成可执行方向",
     "size": null,
     "quote_time": null,
     "two_leg_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_V1_STATIC_SELF_IMPACT_FEE_ORDER_AND_PRIMARY404_ONLY; VETO_DEPLOYMENT_OR_OPPORTUNITY_UPGRADE"
+    "risk_decision": "ACCEPT_ONE_REAL_HTTP_CONCURRENT_FAILURE_INTEGRATION_ONLY; VETO_MARKET_INPUT_OR_SERVICE_UPGRADE",
+    "http_statuses": [
+      400,
+      400
+    ],
+    "transport_overlap_seconds": 1.947213917,
+    "continuous_service": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -531,6 +538,16 @@
       "no_increment_actual_rounds": 1,
       "blocker_id": "COMET-MAIN-CONTRACTS-COMET-SOL-404",
       "note": "未取得源码；不改路径重试。工具等待与HTTP耗时分开，等待原因未知。"
+    },
+    {
+      "round": 70,
+      "scope": "Gate LUSD_USDT两个精确请求",
+      "status": "blocked_data",
+      "http_status": 400,
+      "application_error": "INVALID_CURRENCY",
+      "no_increment_market_input_rounds": 1,
+      "blocker_id": "GATE-LUSD-USDT-INVALID-CURRENCY-70",
+      "note": "没有取得有效市场输入；不推断所有场所无LUSD或无机会，不改拼写/域名重试。"
     }
   ],
   "learning": [

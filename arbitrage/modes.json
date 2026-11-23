@@ -96,22 +96,24 @@
       "trigger": "swap与储备/流动性变化",
       "verification": "同状态两腿闭环、最佳规模、池费",
       "risks": "滑点、重组、重复扣费",
-      "status": "已完成1次预注册阈值观察；两方向费后边际为负；全成本前瞻与盈利未验证",
+      "status": "历史Base试点关闭；新3pool提供方观察未核规模",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "本次Base试点终止；其他样本须有新决策价值与独立验证",
+      "next": "预先指定1000USDC研究规模，只取该池USDT输出的一份合法只读经济输入或有界失败；不是资本配置，不用余额推可执行报价。",
       "net_return": null,
-      "evidence_note": "Base固定块56454553，2026-11-12 19:01:26北京时间；一次事前冻结后的独立观察支持费后非正假设，不代表可交易收益。",
+      "evidence_note": "Base固定块56454553，2026-11-12 19:01:26北京时间；一次事前冻结后的独立观察支持费后非正假设，不代表可交易收益。 第60轮取得Curve Ethereum main注册表49池响应，选3pool DAI/USDC/USDT原始余额身份；非固定块或规模报价。55–60共20次公开读、2轮提供方数据、0规模双腿/完整候选/新前瞻后验；暂停泛文档补位，推进一个预先指定规模经济输入。",
       "monitor": {
-        "state": "历史观察已结束",
+        "state": "新余额观察；无可执行双腿",
         "markets": [
-          "Base"
+          "Base",
+          "Ethereum Curve3pool"
         ],
         "candidates": [
           "BASE-WETH-USDC-56400765",
-          "BASE-WETH-USDC-56454553"
+          "BASE-WETH-USDC-56454553",
+          "CURVE-ETHEREUM-3POOL-20261123T064539Z"
         ],
-        "sample": "2026-11-12 19:01:26 北京时间 · 固定块56454553",
-        "review": "两个固定块条件费后边际为负；一次预注册后验观察完成，试点已结束。",
+        "sample": "2026-11-23 14:45:39北京时间接收提供方余额；非状态块时间",
+        "review": "两个固定块条件费后边际为负；一次预注册后验观察完成，试点已结束。 第60轮取得Curve Ethereum main注册表49池响应，选3pool DAI/USDC/USDT原始余额身份；非固定块或规模报价。55–60共20次公开读、2轮提供方数据、0规模双腿/完整候选/新前瞻后验；暂停泛文档补位，推进一个预先指定规模经济输入。",
         "missing": [
           "新样本与新决策价值",
           "同状态有限规模双腿报价",
@@ -121,7 +123,13 @@
         "continuous": false,
         "url": "./mode.html?id=MECH-002",
         "net_return": null
-      }
+      },
+      "sources": [
+        {
+          "label": "Curve官方main注册表响应（提供方数据）",
+          "url": "https://api.curve.finance/v1/getPools/ethereum/main"
+        }
+      ]
     },
     {
       "id": "MECH-003",

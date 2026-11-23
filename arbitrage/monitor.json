@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T06:40:40.501098+00:00",
-  "last_research_at": "2026-11-23T06:40:40.501098+00:00",
-  "last_market_observation_at": "2026-11-22T17:06:33.305719+00:00",
-  "status": "59轮延迟后完成准入边界研究；历史原文未取得",
+  "updated_at": "2026-11-23T06:49:49.322806+00:00",
+  "last_research_at": "2026-11-23T06:49:49.322806+00:00",
+  "last_market_observation_at": "2026-11-23T06:45:39.860296+00:00",
+  "status": "60轮新池余额观察与项目转向审查完成",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -188,6 +188,48 @@
       "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交",
       "rights_note": "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。",
       "binding_status": "blocked_data_exact_terms_locator_missing"
+    },
+    {
+      "id": "CURVE-ETHEREUM-3POOL-20261123T064539Z",
+      "stage": "Observation",
+      "venue": "Curve",
+      "network": "ethereum",
+      "pool": "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7",
+      "asset": "DAI/USDC/USDT",
+      "status": "BLOCKED_DATA｜提供方余额观察，缺规模与固定状态",
+      "received_at": "2026-11-23T06:45:39.860296+00:00",
+      "source_time": null,
+      "raw_generatedTimeMs": 1795416050647,
+      "source_time_note": "字段语义与状态块未核",
+      "direction": null,
+      "size": null,
+      "two_leg_quotes": null,
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "expires_at": "未知；不得据此下单",
+      "unknown_costs": "swap费率及包含方式、gas、滑点、适用权限及退出报价未知",
+      "risk": "ACCEPT_PROVIDER_POOL_OBSERVATION_AND_CONDITIONAL_SIZE_ECONOMICS_REVIEW_ONLY",
+      "coins": [
+        {
+          "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+          "symbol": "DAI",
+          "decimals_raw": "18",
+          "pool_balance_raw": "21917524243056037570084219"
+        },
+        {
+          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "symbol": "USDC",
+          "decimals_raw": "6",
+          "pool_balance_raw": "21943664408183"
+        },
+        {
+          "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "symbol": "USDT",
+          "decimals_raw": "6",
+          "pool_balance_raw": "116332463895913"
+        }
+      ]
     }
   ],
   "gaps": [
@@ -198,14 +240,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第59轮历史Circle公告均跳转，未取得2023原文。独立当前USDC FAQ仅说明直接Mint面向列示机构、个人/小企业不适用，二级渠道另行区分；持币不证明直接准入或即时无费兑付。实际采集11月23日06:36UTC，延迟不回填，净收益未知。",
-    "5次含重定向公开请求，独立当前FAQ问题0新增读取；不能把200状态当历史正文取得。",
-    "无新行情、前瞻结果或交易利润，持续采集未恢复验证。"
+    "第60轮取得Curve Ethereum main注册表49池响应，选3pool DAI/USDC/USDT原始余额身份；非固定块或规模报价。55–60共20次公开读、2轮提供方数据、0规模双腿/完整候选/新前瞻后验；暂停泛文档补位，推进一个预先指定规模经济输入。",
+    "余额、virtualPrice与isBroken标记不证明成交价或安全，当前净收益未知。",
+    "59延迟和未知开始时间保留；下一实际任务先落运行记录，不能据此宣称修复持续运行。"
   ],
   "next": [
-    "60做实际数据发现并进行55–60轮项目审查。",
-    "审查文档回退占比与执行延迟，不用调度频率证明持续运行。",
-    "具体合格退出路径与全成本未知前，不升级机会。"
+    "61限定1000USDC研究规模的只读经济输入，不要求所有候选条件齐全才取得单项数据。",
+    "首项通过后才获取同资产匹配退出及主导成本，未知不填零。",
+    "暂停泛文档补位；下轮派工前先记实际开始与重定向预算，下一项目审查66。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -214,22 +256,30 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T06:36:24.254703+00:00",
-  "collection_completed_at": "2026-11-23T06:36:31.671402+00:00",
+  "collection_started_at": "2026-11-23T06:45:37.045129+00:00",
+  "collection_completed_at": "2026-11-23T06:45:39.860296+00:00",
   "current_round": {
-    "round": 59,
-    "task_id": "CIRCLE-HISTORICAL-OUTCOME-AND-ACCESS-59",
-    "market_collection": false,
+    "round": 60,
+    "task_id": "NEW-MARKET-DATA-AND-REVIEW-60",
+    "market_collection": true,
+    "market_collection_scope": "Provider-reported pool identity and raw reserves; not direct fixed-block RPC or executable-size quote",
     "source_time": null,
-    "public_reads": 5,
-    "logical_reads": 3,
-    "market_identity": "Circle USDC directMint eligibility FAQ; historical2023 originals unavailable",
+    "public_reads": 3,
+    "coverage": {
+      "network": "ethereum",
+      "registry": "main",
+      "response_pool_count": 49,
+      "selected_pool_count": 1,
+      "selection": "Choose named 3pool with DAI/USDC/USDT identities; not return ranking",
+      "universe": "One registry only; no whole-chain or market coverage claim"
+    },
+    "market_identity": "Curve Ethereum3pool DAI/USDC/USDT",
     "size_quotes": null,
     "direction": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_FAILED_HISTORICAL_ACQUISITION_AND_CURRENT_MINT_ACCESS_BOUNDARY_ONLY"
+    "risk_decision": "ACCEPT_PROVIDER_POOL_OBSERVATION_AND_CONDITIONAL_SIZE_ECONOMICS_REVIEW_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -239,7 +289,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "最新时间是平台市场指标接收时间，不是报价源时点；上一盘口接收时间单列保留，二者均不证明当前可成交。",
+  "last_market_observation_note": "最新是提供方池余额接收时间，不是规模行情或固定块；旧盘口时间另列保留。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -454,26 +504,27 @@
   },
   "project_review": {
     "rounds": [
-      49,
-      50,
-      51,
-      52,
-      53,
-      54
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
     ],
-    "public_reads": 11,
-    "market_collection_rounds": 1,
+    "public_reads": 20,
+    "provider_data_rounds": 2,
+    "executable_size_quote_rounds": 0,
     "complete_candidates": 0,
     "new_predictions": 0,
     "new_prospective_outcomes": 0,
     "cost_unknown_rate": null,
     "cost_rate_denominator": 0,
+    "document_only_rounds": 3,
     "interface_primary_rounds": [
-      50,
-      54
+      58
     ],
-    "decision": "继续具名实际状态与规模证据，停止重复文档及模型",
-    "next_review_round": 60
+    "decision": "继续具名规模经济输入，暂停泛文档补位",
+    "next_review_round": 66
   },
   "research_gap": {
     "trigger_at": "2026-11-22T20:27:01.250Z",
@@ -543,6 +594,48 @@
       "risks": "API列示身份未核实际部署；未到期不等于活跃或可成交",
       "rights_note": "第57轮官方完整主帖及Telegram正文仅支持产品系列声明：Ethena提供固定期限条款，系列描述到期1:1兑换USDe。未绑定所选2027-05-31市场地址及实际合约权利，不等于美元现金、担保或无风险回报。候选仍Observation，净收益未知。",
       "binding_status": "blocked_data_exact_terms_locator_missing"
+    },
+    {
+      "id": "CURVE-ETHEREUM-3POOL-20261123T064539Z",
+      "stage": "Observation",
+      "venue": "Curve",
+      "network": "ethereum",
+      "pool": "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7",
+      "asset": "DAI/USDC/USDT",
+      "status": "BLOCKED_DATA｜提供方余额观察，缺规模与固定状态",
+      "received_at": "2026-11-23T06:45:39.860296+00:00",
+      "source_time": null,
+      "raw_generatedTimeMs": 1795416050647,
+      "source_time_note": "字段语义与状态块未核",
+      "direction": null,
+      "size": null,
+      "two_leg_quotes": null,
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "expires_at": "未知；不得据此下单",
+      "unknown_costs": "swap费率及包含方式、gas、滑点、适用权限及退出报价未知",
+      "risk": "ACCEPT_PROVIDER_POOL_OBSERVATION_AND_CONDITIONAL_SIZE_ECONOMICS_REVIEW_ONLY",
+      "coins": [
+        {
+          "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+          "symbol": "DAI",
+          "decimals_raw": "18",
+          "pool_balance_raw": "21917524243056037570084219"
+        },
+        {
+          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "symbol": "USDC",
+          "decimals_raw": "6",
+          "pool_balance_raw": "21943664408183"
+        },
+        {
+          "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "symbol": "USDT",
+          "decimals_raw": "6",
+          "pool_balance_raw": "116332463895913"
+        }
+      ]
     }
   ],
   "research_leads": [

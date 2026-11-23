@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T07:53:29.262184+00:00",
-  "last_research_at": "2026-11-23T07:53:29.262184+00:00",
+  "updated_at": "2026-11-23T08:46:58.880437+00:00",
+  "last_research_at": "2026-11-23T08:46:58.880437+00:00",
   "last_market_observation_at": "2026-11-23T07:51:04.412787+00:00",
-  "status": "61轮：独立单腿规模盘口；Curve报价采集受阻",
+  "status": "62轮费用类别已核；数字费率和净输出未知",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -255,7 +255,11 @@
       "expired": true,
       "expiry_note": "历史快照；未建立可成交有效期",
       "risk": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY",
-      "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用"
+      "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用",
+      "fee_category": "stablecoin",
+      "fee_category_evidence": "官方列明USDC/USDT同一maker/taker费率；数字费率未取得",
+      "numeric_fee_rate": null,
+      "risk_cost_review": "ACCEPT_OFFICIAL_EXACT_PAIR_FEE_CATEGORY_ONLY_NUMERIC_RATE_UNRESOLVED"
     }
   ],
   "gaps": [
@@ -266,14 +270,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "独立Kraken显示盘口：1000USDC卖出对应1001.2USDT毛输出；不是1.2USDT利润。",
-    "Curve3pool1000USDC报价未取得，禁止把独立盘口拼成匹配退出腿。",
-    "3次公开读取，0重试/重定向；Run已在派工前落盘。"
+    "USDC/USDT适用稳定币费率体系，maker/taker同费；此类成交不计入费档30日成交量。",
+    "数字费率、用户费档及扣费币种未核；不计算净输出，不把空数组当零费。",
+    "本轮无新行情；第61轮盘口仍是历史观察。简单空值保护产物不计工程能力成果。"
   ],
   "next": [
-    "核适用交易费与资产出入条件，未知不填零。",
-    "只在具体匹配来源成立时设计新同步两腿采集；61快照不得拼接成当前机会。",
-    "停止已检查Curve目录与本次盘口刷新；持续服务仍未验证上线。"
+    "以新链接的官方Pro费表做一次有界成本反证；不得使用搜索摘要费率。",
+    "若同数值缺口第二个实际轮次仍无增量，停止并转独立经济问题。",
+    "接口主任务下次最早66；持续采集未验证上线。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -282,28 +286,30 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T07:46:46.042686+00:00",
-  "collection_completed_at": "2026-11-23T07:51:04.412787+00:00",
+  "collection_started_at": "2026-11-23T08:44:05.792578+00:00",
+  "collection_completed_at": "2026-11-23T08:44:30.443732+00:00",
   "current_round": {
-    "round": 61,
-    "task_id": "CURVE-3POOL-SINGLE-SIZE-ECONOMIC-INPUT-61",
-    "public_reads": 3,
-    "market_collection": true,
+    "round": 62,
+    "task_id": "KRAKEN-USDCUSDT-FEE-DEPENDENCY-62",
+    "market_collection": false,
     "source_time": null,
-    "coverage": "Curve官方规范44路径；Kraken USDC/USDT单次71买档56卖档",
-    "direction": "SELL USDC → USDT",
+    "public_reads": 3,
+    "coverage": "Kraken官方稳定币费用说明及其链接费表页；无新盘口",
+    "market_identity": "Kraken USDC/USDT spot",
+    "related_observation": "KRAKEN-SPOT-USDCUSDT-20261123T075104Z",
+    "direction": "SELL USDC → USDT（61历史观察）",
     "size": {
       "asset": "USDC",
       "amount": "1000"
     },
-    "gross_output": {
-      "asset": "USDT",
-      "amount": "1001.20000000"
-    },
+    "quote_time": null,
+    "fee_category": "stablecoin",
+    "numeric_fee_rate": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY"
+    "risk_decision": "ACCEPT_OFFICIAL_EXACT_PAIR_FEE_CATEGORY_ONLY_NUMERIC_RATE_UNRESOLVED",
+    "engineering_capability_increment": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -453,6 +459,14 @@
       "no_increment_actual_rounds": 1,
       "scope": "所读官方Curve规范未列直接指定池规模报价入口；不推断全部Curve设施不可用",
       "next": "仅新具体合法报价路径，经独立Risk核验后重开"
+    },
+    {
+      "round": 62,
+      "id": "KRAKEN-USDCUSDT-NUMERIC-STABLE-FEE-TABLE-MISSING",
+      "status": "blocked_data",
+      "scope": "已读取链接页未取得Pro稳定币数字费表",
+      "no_increment_actual_rounds": 1,
+      "next": "实际页面链接/pro/fees为未读新依赖，需独立范围核验"
     }
   ],
   "learning": [
@@ -693,7 +707,11 @@
       "expired": true,
       "expiry_note": "历史快照；未建立可成交有效期",
       "risk": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY",
-      "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用"
+      "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用",
+      "fee_category": "stablecoin",
+      "fee_category_evidence": "官方列明USDC/USDT同一maker/taker费率；数字费率未取得",
+      "numeric_fee_rate": null,
+      "risk_cost_review": "ACCEPT_OFFICIAL_EXACT_PAIR_FEE_CATEGORY_ONLY_NUMERIC_RATE_UNRESOLVED"
     }
   ],
   "research_leads": [

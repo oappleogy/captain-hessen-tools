@@ -392,11 +392,11 @@
       "trigger": "脱锚、发行/赎回窗口与限额",
       "verification": "资格、储备、费用、额度、到账",
       "risks": "无资格、暂停、等待与信用损失",
-      "status": "BOLD赎回分支路径已有源码证据；部署/容量/当前收益未核",
+      "status": "当前官方准入边界已读；具体资格/规模/退出未知",
       "owner": "Mechanism；Scout发现；Quant/Execution验证；Risk独立审核",
-      "next": "本次原文发现终止；仅新部署状态或具体反例才接续。未来须核算实际整篮抵押品、费用与全部退出报价。",
+      "next": "只在具名合格退出路径及规模成本新证据到达时推进；历史重定向页和FAQ不重复。",
       "net_return": null,
-      "evidence_note": "Liquity官方CollateralRegistry.sol于2026-11-21 20:24北京时间读取；main具体提交未知，SHA256 a6791af1ad62。独立18项核验只接受源码约束，不是EVM或部署验证。用户此入口不能任选分支，分配额与实际赎回额须区分。",
+      "evidence_note": "Liquity官方CollateralRegistry.sol于2026-11-21 20:24北京时间读取；main具体提交未知，SHA256 a6791af1ad62。独立18项核验只接受源码约束，不是EVM或部署验证。用户此入口不能任选分支，分配额与实际赎回额须区分。 第59轮历史Circle公告均跳转，未取得2023原文。独立当前USDC FAQ仅说明直接Mint面向列示机构、个人/小企业不适用，二级渠道另行区分；持币不证明直接准入或即时无费兑付。实际采集11月23日06:36UTC，延迟不回填，净收益未知。",
       "monitor": {
         "state": "源码约束已核 · 未接入行情",
         "markets": [
@@ -404,7 +404,7 @@
         ],
         "candidates": [],
         "sample": "2026-11-21 20:24北京时间原文读取；非行情时点",
-        "review": "正unbacked权重总额可截断请求；零值fallback使用可赎回分支债务权重。实际赎回可小于分配额，最终销毁实际BOLD；TroveManager细节未读。",
+        "review": "正unbacked权重总额可截断请求；零值fallback使用可赎回分支债务权重。实际赎回可小于分配额，最终销毁实际BOLD；TroveManager细节未读。 第59轮历史Circle公告均跳转，未取得2023原文。独立当前USDC FAQ仅说明直接Mint面向列示机构、个人/小企业不适用，二级渠道另行区分；持币不证明直接准入或即时无费兑付。实际采集11月23日06:36UTC，延迟不回填，净收益未知。",
         "missing": [
           "固定commit与部署绑定",
           "分支资格、权重、预言机及抵押品到账语义",
@@ -419,6 +419,10 @@
         {
           "label": "Liquity BOLD官方Registry源码（main可变）",
           "url": "https://raw.githubusercontent.com/liquity/bold/main/contracts/src/CollateralRegistry.sol"
+        },
+        {
+          "label": "Circle当前USDC FAQ（非2023历史原文）",
+          "url": "https://www.circle.com/usdc"
         }
       ]
     },

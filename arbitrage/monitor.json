@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-22T19:15:31.936421+00:00",
-  "last_research_at": "2026-11-22T19:15:31.936421+00:00",
+  "updated_at": "2026-11-23T06:40:40.501098+00:00",
+  "last_research_at": "2026-11-23T06:40:40.501098+00:00",
   "last_market_observation_at": "2026-11-22T17:06:33.305719+00:00",
-  "status": "58轮精确条款受阻；旧真实样本身份混淆验证完成",
+  "status": "59轮延迟后完成准入边界研究；历史原文未取得",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -198,14 +198,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第58轮精确五月市场条款一次定位未取得官方入口，分支停止。独立冻结100条真实旧样本验证：80个同名组中16组含不同市场；81个底层资产组中15组含不同市场。USDe三条的到期日、市场/PT/SY不同，不能按名称视为可互换工具。这不是数据错误、生产bug或行情机会。",
-    "只冻结并执行一次真实样本分析，独立Risk核查；不是合成利润模型。",
-    "持续采集未恢复验证，原报价有效期未知，净收益未知。"
+    "第59轮历史Circle公告均跳转，未取得2023原文。独立当前USDC FAQ仅说明直接Mint面向列示机构、个人/小企业不适用，二级渠道另行区分；持币不证明直接准入或即时无费兑付。实际采集11月23日06:36UTC，延迟不回填，净收益未知。",
+    "5次含重定向公开请求，独立当前FAQ问题0新增读取；不能把200状态当历史正文取得。",
+    "无新行情、前瞻结果或交易利润，持续采集未恢复验证。"
   ],
   "next": [
-    "59转独立经济/结果问题，离开已关闭Pendle条款和身份分组支线。",
-    "接口主任务下一次最早62，60轮按计划项目审查。",
-    "新精确原件到达前，原PT观察不升级。"
+    "60做实际数据发现并进行55–60轮项目审查。",
+    "审查文档回退占比与执行延迟，不用调度频率证明持续运行。",
+    "具体合格退出路径与全成本未知前，不升级机会。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -214,22 +214,22 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-22T19:12:11.310Z",
-  "collection_completed_at": "2026-11-22T19:12:13.616Z",
+  "collection_started_at": "2026-11-23T06:36:24.254703+00:00",
+  "collection_completed_at": "2026-11-23T06:36:31.671402+00:00",
   "current_round": {
-    "round": 58,
-    "task_id": "PENDLE-EXACT-MARKET-EVIDENCE-58",
+    "round": 59,
+    "task_id": "CIRCLE-HISTORICAL-OUTCOME-AND-ACCESS-59",
     "market_collection": false,
     "source_time": null,
-    "public_reads": 1,
-    "market_identity": "Frozen Pendle100-row identity check; no new market capture",
-    "coverage": "56轮首批100行旧样本；非当前市场/全量846行",
+    "public_reads": 5,
+    "logical_reads": 3,
+    "market_identity": "Circle USDC directMint eligibility FAQ; historical2023 originals unavailable",
     "size_quotes": null,
     "direction": null,
     "all_costs": null,
     "net_pnl": null,
     "expires_at": null,
-    "risk_decision": "ACCEPT_FAILED_EXACT_LOCATOR_AND_FROZEN_IDENTITY_COUNTEREXAMPLE_ONLY"
+    "risk_decision": "ACCEPT_FAILED_HISTORICAL_ACQUISITION_AND_CURRENT_MINT_ACCESS_BOUNDARY_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -363,6 +363,14 @@
       "reason": "一次精确地址定位未获得官方精确条款入口；未继续第三方页面",
       "no_increment_rounds": 1,
       "reopen": "New independently supplied exact-market original terms/deployment source or concrete contradictory evidence, scoped by Risk; not new date."
+    },
+    {
+      "task": "CIRCLE-SVB-HISTORICAL-OUTCOME-59",
+      "blocker_id": "CIRCLE-SVB-HISTORICAL-ORIGINALS-REDIRECTED",
+      "status": "blocked_data",
+      "reason": "两历史URL301到当前/blog和/usdc，200不等历史正文取得",
+      "no_increment_rounds": 1,
+      "reopen": "New independently supplied historical original or documented lawful source/access change, reviewed by Risk; not nextdate."
     }
   ],
   "learning": [
@@ -468,9 +476,9 @@
     "next_review_round": 60
   },
   "research_gap": {
-    "last_known_work_at": "2026-11-22T02:41:19.907806+00:00",
-    "resumed_at": "2026-11-22T14:48:00.900316+00:00",
-    "cause": "研究worker用量限制错误后中断；非机器停机证明",
+    "trigger_at": "2026-11-22T20:27:01.250Z",
+    "actual_collection_started_at": "2026-11-23T06:36:24.254703+00:00",
+    "note": "工具启动审批超时回执存在；整段延迟原因未知，不补计轮次",
     "missed_rounds_backfilled": false
   },
   "observations": [

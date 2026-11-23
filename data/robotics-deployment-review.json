@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-11-16",
+  "checked_on": "2026-11-23",
   "title": "客户部署：合同、工时与准确率不是一回事",
-  "scope": "沿用原八条部署证据。11月16日补核Agility监管文件中的历史工时、附条件订单、CAP试点条款与公司收入；不同客户和观察期不相加。原117家公司评分、其他客户未核字段不变。",
+  "scope": "原部署表保留八条证据原值与观察期，新增一条Apollo客户意向书；11月23日核验不代表新增交付。试点、附条件扩展、付款和收入分别判断，原117家公司评分不变。",
   "columns": [
     {
       "key": "label",
@@ -212,6 +212,37 @@
         "customer_operating_hours": null,
         "recognized_revenue": null
       }
+    },
+    {
+      "id": "gxo-apollo-conditional-loi",
+      "label": "GXO / Apollo 试验扩展意向书",
+      "event_date": null,
+      "period": "2026年内既有美国试点，精确日期未披露；2027年起新试验及2027年末初始部署均为计划",
+      "announced": "2026-11-12",
+      "checked_on": "2026-11-23",
+      "stage": "客户原文：LOI与有条件规模化意向，非确定采购",
+      "metrics": {
+        "planned_upper_bound_robots": 1000,
+        "planned_years": 4,
+        "delivered_units": null,
+        "paid_revenue": null,
+        "operating_hours": null
+      },
+      "known": "GXO称年内已完成美国小件自主拣选试点；双方还在Apptronik Robot Park开展50多种物流任务的数据采集与自主评估。新LOI拟于2027年扩展现场试验，并以生产率、安全、运营KPI为门槛；四年最多1000台及北美2027年末首批部署是附成功条件的意向，预计采用RaaS。",
+      "unknown": "意向书签署具体日、试点台数/持续工时/人工干预/安全率、KPI阈值、最终采购金额、验收与回款未披露；Robot Park评估不能算50多个客户部署。",
+      "impact": "增加客户侧试点进展及明确规模化门槛，增强实际应用研究线索，但不能升级为1000台确定订单或收入。11月18日另项AMR/机械臂/视觉部署计划不等于Apollo或Digit交付，不能合并计数；供应商可归属收入和旧评分不变。",
+      "sources": [
+        {
+          "title": "GXO客户公告：Apollo意向书与条件",
+          "url": "https://investors.gxo.com/news-releases/news-release-details/gxo-and-apptronik-expand-partnership-scale-humanoid-deployment",
+          "date": "2026-11-12"
+        },
+        {
+          "title": "GXO客户公告：AMR/机械臂等另项部署计划",
+          "url": "https://investors.gxo.com/news-releases/news-release-details/gxo-announces-accelerated-deployment-adaptive-technology",
+          "date": "2026-11-18"
+        }
+      ]
     }
   ],
   "pending": [

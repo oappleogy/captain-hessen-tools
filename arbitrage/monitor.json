@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T16:54:52.162989+00:00",
-  "last_research_at": "2026-11-23T16:54:52.162989+00:00",
+  "updated_at": "2026-11-23T17:51:18.661538+00:00",
+  "last_research_at": "2026-11-23T17:51:18.661538+00:00",
   "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
-  "status": "70轮真实HTTP错误路径已验证；LUSD行情采集失败",
+  "status": "71轮冻结失败样本对账；无新采集",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -312,14 +312,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第70轮未改66分发helper，首次接入两个真实HTTP请求，两者均HTTP400 INVALID_CURRENCY。",
-    "实际请求区间重叠约1.947秒；两个错误独立保存，未结束线程0，重试/跳转0。仅本次失败路径证据。",
-    "未取得LUSD身份/盘口；成功解析、其它超时模式、生产持久化及连续服务未验证。"
+    "71轮仅消费70新失败样本：假设身份响应不变，身份先行策略在拒绝后只发1次请求；原实际为2次。",
+    "这是事后条件反事实，不是实测节省、事前预测或性能优越性证明。实际盘口比身份早完成约0.911秒。",
+    "规则仅为待后续未见样本检验的提案，生产程序未改；新市场数据0，Gate停止范围不变。"
   ],
   "next": [
-    "71轮独立对账新失败证据，不重跑相同工程测试或旧接口。",
-    "需要新支持市场身份原件或具体反例才重开该输入问题。",
-    "主工程最早74，项目审查72；净收益未知。"
+    "72轮独立数据发现及67–72项目审查，避免继续堆积无候选的文档。",
+    "不重试Gate原接口/拼写，不把事后对账算第二次行情采集失败。",
+    "规则提案须独立未见样本验证；主工程最早74，持续服务未验证上线。"
   ],
   "last_metadata_at": "2026-11-23T13:53:03.788072+00:00",
   "metadata_block": {
@@ -328,32 +328,29 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T16:51:55.851581+00:00",
-  "collection_completed_at": "2026-11-23T16:51:58.709936+00:00",
+  "collection_started_at": null,
+  "collection_completed_at": null,
   "current_round": {
-    "round": 70,
-    "task_id": "LUSD-ACQUISITION-INPUT-AND-HTTP-INTEGRATION-70",
-    "public_reads": 2,
+    "round": 71,
+    "task_id": "REJECTED-IDENTITY-DEPENDENCY-REPLAY-71",
+    "public_reads": 0,
     "market_collection": false,
-    "market_collection_attempted": true,
     "new_valid_market_inputs": 0,
     "source_time": null,
-    "coverage": "Gate两个指定LUSD_USDT身份/盘口请求，均HTTP400 INVALID_CURRENCY",
-    "market_identity": "Gate LUSD_USDT（请求标识，市场身份未证实）",
-    "direction": "LUSD买入腿输入研究，未形成可执行方向",
+    "coverage": "仅70轮已保存Gate身份与盘口失败响应的本地条件反事实",
+    "market_identity": "Gate LUSD_USDT请求标识；市场身份仍未证实",
+    "direction": null,
     "size": null,
     "quote_time": null,
     "two_leg_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_ONE_REAL_HTTP_CONCURRENT_FAILURE_INTEGRATION_ONLY; VETO_MARKET_INPUT_OR_SERVICE_UPGRADE",
-    "http_statuses": [
-      400,
-      400
-    ],
-    "transport_overlap_seconds": 1.947213917,
-    "continuous_service": false
+    "risk_decision": "ACCEPT_SINGLE_KNOWN_SAMPLE_CONDITIONAL_REQUEST_COUNT_AND_RULE_PROPOSAL_ONLY; VETO_PRODUCTION_OR_PERFORMANCE_UPGRADE",
+    "actual_prior_requests": 2,
+    "conditional_counterfactual_requests": 1,
+    "measured_latency_improvement": null,
+    "rule_deployed": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",

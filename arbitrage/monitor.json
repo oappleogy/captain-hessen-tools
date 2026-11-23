@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T09:43:27.954217+00:00",
-  "last_research_at": "2026-11-23T09:43:27.954217+00:00",
-  "last_market_observation_at": "2026-11-23T07:51:04.412787+00:00",
-  "status": "63轮数字费表与条件扣费已核；更正同费率概括",
+  "updated_at": "2026-11-23T10:46:37.277774+00:00",
+  "last_research_at": "2026-11-23T10:46:37.277774+00:00",
+  "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
+  "status": "64轮新顺序双腿样本；条件毛差为负",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -262,6 +262,46 @@
       "risk_cost_review": "ACCEPT_PUBLIC_TIER1_CONDITIONAL_COST_AND_REQUIRE_SAME_FEE_GENERALIZATION_CORRECTION",
       "public_tier1_rate": "0.20%",
       "actual_applicable_fee_rate": null
+    },
+    {
+      "id": "ETHUSDT-BITGET-BUY-KRAKEN-SELL-20261123T104413Z",
+      "stage": "Observation",
+      "venue": "Bitget / Kraken",
+      "market": "ETH/USDT spot",
+      "status": "历史条件负毛差样本｜非完整候选",
+      "direction": "BUY1ETH Bitget;SELL1ETH Kraken",
+      "size": {
+        "asset": "ETH",
+        "amount": "1"
+      },
+      "received_at": "2026-11-23T10:44:13.154440+00:00",
+      "source_time": null,
+      "quote_time": null,
+      "legs": [
+        {
+          "venue": "Bitget",
+          "side": "BUY",
+          "size_ETH": "1",
+          "displayed_USDT": "1720.80",
+          "received_at": "2026-11-23T10:44:09.739381+00:00"
+        },
+        {
+          "venue": "Kraken",
+          "side": "SELL",
+          "size_ETH": "1",
+          "displayed_USDT": "1720.58717",
+          "received_at": "2026-11-23T10:44:13.154440+00:00"
+        }
+      ],
+      "conditional_gross_difference_USDT": "-0.21283",
+      "receipt_gap_seconds": 3.415059,
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "expired": true,
+      "expiry_note": "历史快照，有效期未核",
+      "risk": "ACCEPT_SEQUENTIAL_TWO_VENUE_DISPLAYED_DEPTH_AND_CONDITIONAL_NEGATIVE_GROSS_ONLY",
+      "limits": "数组单位语义为条件解释；非同步；资格/库存/收费/再平衡未知"
     }
   ],
   "gaps": [
@@ -272,14 +312,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第63轮更正：公开Pro数字表Tier1 maker/taker均0.20%，但Tier7为0%/0.01%、Tier8为0%/0.001%；撤回所有档位同费的笼统概括。旧Support及页面对称说明与高档表格冲突，实际账户适用仍未知。",
-    "仅条件示例：历史1001.2USDT毛输出减2.0024USDT费用=999.1976USDT；不是实际净收益。",
-    "本轮无新行情；费用支线关闭，下一轮转独立经济路径。"
+    "第64轮取得Bitget/Kraken ETH/USDT新身份与盘口。预定买Bitget/卖Kraken1ETH，条件显示成本1720.80、收入1720.58717USDT，毛差-0.21283USDT；回执相差3.415059秒且采集区间不重叠。数组数量语义未独立核文档，费用/资格/库存/再平衡未知，不是同步报价、实际亏损或净收益。",
+    "本轮4次实际GET均200；不是采集失败，也不代表全市场无机会。",
+    "未形成完整候选；没有交易，不记实际亏损。"
   ],
   "next": [
-    "冻结独立路径的方向和规模后取得新双腿输入，不拼接61历史盘口。",
-    "保留官方说明与高费档表格矛盾，不代用户选择费档。",
-    "下一接口主任务最早66；持续采集未验证上线。"
+    "关闭这一固定方向规模样本；不做反向/规模扫参或自动刷新。",
+    "转独立机制经济问题；只有具体新数据依赖才重开旧路径。",
+    "持续采集未验证上线，下一项目审查66。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -288,30 +328,41 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T09:40:58.931513+00:00",
-  "collection_completed_at": "2026-11-23T09:41:05.279178+00:00",
+  "collection_started_at": "2026-11-23T10:43:47.876064+00:00",
+  "collection_completed_at": "2026-11-23T10:44:13.154440+00:00",
   "current_round": {
-    "round": 63,
-    "task_id": "KRAKEN-STABLE-FEE-COST-COUNTEREVIDENCE-63",
-    "market_collection": false,
+    "round": 64,
+    "task_id": "INDEPENDENT-MATCHED-ECONOMIC-INPUT-64",
+    "public_reads": 4,
+    "market_collection": true,
     "source_time": null,
-    "public_reads": 1,
-    "coverage": "Kraken Pro稳定币费表；无新盘口",
-    "related_observation": "KRAKEN-SPOT-USDCUSDT-20261123T075104Z",
-    "direction": "SELL USDC → USDT（61历史观察）",
+    "coverage": "Bitget与Kraken ETHUSDT身份及各100买档/100卖档，单次顺序采集",
+    "direction": "BUY1ETH Bitget;SELL1ETH Kraken",
     "size": {
-      "asset": "USDC",
-      "amount": "1000"
+      "asset": "ETH",
+      "amount": "1"
     },
-    "quote_time": null,
-    "conditional_fee_rate": "0.20% Tier1 only",
-    "conditional_fee_USDT": "2.0024",
-    "conditional_after_fee_USDT": "999.1976",
-    "conditional_assumptions": "Tier1适用、历史显示全量成交、USDT扣费且不计最低费/取整；均非实际账户核验",
+    "legs": [
+      {
+        "venue": "Bitget",
+        "side": "BUY",
+        "size_ETH": "1",
+        "displayed_USDT": "1720.80",
+        "received_at": "2026-11-23T10:44:09.739381+00:00"
+      },
+      {
+        "venue": "Kraken",
+        "side": "SELL",
+        "size_ETH": "1",
+        "displayed_USDT": "1720.58717",
+        "received_at": "2026-11-23T10:44:13.154440+00:00"
+      }
+    ],
+    "conditional_gross_difference_USDT": "-0.21283",
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_PUBLIC_TIER1_CONDITIONAL_COST_AND_REQUIRE_SAME_FEE_GENERALIZATION_CORRECTION"
+    "risk_decision": "ACCEPT_SEQUENTIAL_TWO_VENUE_DISPLAYED_DEPTH_AND_CONDITIONAL_NEGATIVE_GROSS_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -321,7 +372,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "Kraken盘口接收时刻，非源快照时间；仅一份快照，持续采集未验证上线。",
+  "last_market_observation_note": "最新为第二份盘口接收时刻；两腿顺序采集，源时刻未知，非持续行情服务。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -471,6 +522,13 @@
       "next": "实际页面链接/pro/fees为未读新依赖，需独立范围核验",
       "resolution_at": "2026-11-23T09:43:27.954217+00:00",
       "resolution": "公开数字表已取得；保留原失败记录，用户费档/扣费方式仍未知"
+    },
+    {
+      "round": 64,
+      "scope": "原Bitstamp ETHUSD计划",
+      "status": "vetoed_before_read",
+      "reads": 0,
+      "reason": "既有身份入口停止范围，新方案无独立重开证据；改独立BitgetETHUSDT路径"
     }
   ],
   "learning": [
@@ -718,6 +776,46 @@
       "risk_cost_review": "ACCEPT_PUBLIC_TIER1_CONDITIONAL_COST_AND_REQUIRE_SAME_FEE_GENERALIZATION_CORRECTION",
       "public_tier1_rate": "0.20%",
       "actual_applicable_fee_rate": null
+    },
+    {
+      "id": "ETHUSDT-BITGET-BUY-KRAKEN-SELL-20261123T104413Z",
+      "stage": "Observation",
+      "venue": "Bitget / Kraken",
+      "market": "ETH/USDT spot",
+      "status": "历史条件负毛差样本｜非完整候选",
+      "direction": "BUY1ETH Bitget;SELL1ETH Kraken",
+      "size": {
+        "asset": "ETH",
+        "amount": "1"
+      },
+      "received_at": "2026-11-23T10:44:13.154440+00:00",
+      "source_time": null,
+      "quote_time": null,
+      "legs": [
+        {
+          "venue": "Bitget",
+          "side": "BUY",
+          "size_ETH": "1",
+          "displayed_USDT": "1720.80",
+          "received_at": "2026-11-23T10:44:09.739381+00:00"
+        },
+        {
+          "venue": "Kraken",
+          "side": "SELL",
+          "size_ETH": "1",
+          "displayed_USDT": "1720.58717",
+          "received_at": "2026-11-23T10:44:13.154440+00:00"
+        }
+      ],
+      "conditional_gross_difference_USDT": "-0.21283",
+      "receipt_gap_seconds": 3.415059,
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "expired": true,
+      "expiry_note": "历史快照，有效期未核",
+      "risk": "ACCEPT_SEQUENTIAL_TWO_VENUE_DISPLAYED_DEPTH_AND_CONDITIONAL_NEGATIVE_GROSS_ONLY",
+      "limits": "数组单位语义为条件解释；非同步；资格/库存/收费/再平衡未知"
     }
   ],
   "research_leads": [
@@ -750,5 +848,5 @@
       "opportunity_id": null
     }
   ],
-  "last_orderbook_observation_at": "2026-11-23T07:51:04.412787+00:00"
+  "last_orderbook_observation_at": "2026-11-23T10:44:13.154440+00:00"
 }

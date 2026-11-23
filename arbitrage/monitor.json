@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T11:45:01.366141+00:00",
-  "last_research_at": "2026-11-23T11:45:01.366141+00:00",
+  "updated_at": "2026-11-23T12:54:42.133462+00:00",
+  "last_research_at": "2026-11-23T12:54:42.133462+00:00",
   "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
-  "status": "65轮源码可行性边界已核；无新行情",
+  "status": "66轮本地验证与六轮审查完成；无新行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -312,14 +312,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第65轮官方v4 Pool与SwapMath源码快照确认：正数精确输出在计算后总swapFee>=1e6（100%）时触发InvalidFeeForExactOut。是有意保护条件而非漏洞；两份main源码未核同一提交/部署/费率可达性，未运行EVM或取得当前池数据，不证明低于边界即可成交。",
-    "没有新具名候选、当前行情或收益；上一行情时间保留为64轮回执。",
-    "本次源码包关闭，下一轮进行61–66项目审查。"
+    "61–66共13次公开读、2轮实际市场数据，完整候选/合格机会/新前瞻后验仍0。",
+    "66单次合成本地实验验证有意设置的并发重叠、错误保留与源时间未知；未接真实HTTP，不解释64根因。",
+    "费用概括更正及失败样本保留；没有把工程测试通过当市场闭环。"
   ],
   "next": [
-    "66轮独立六轮审查：实际数据、完整候选、费用更正、采集时间与失败范围。",
-    "只推进具体新数据能力依赖，不重复v4边界源码/模型或已关闭费率样本。",
-    "持续采集未验证上线；AI不进入毫秒级执行判断。"
+    "67–69围绕具名路径做独立经济权利或重大成本反证，不延长工具支线。",
+    "主工程最早70：一次有界真实来源验证，逐源Risk核停止范围，不启动后台服务。",
+    "项目审查72；完整成本和实际收益继续未知。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -328,25 +328,25 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T11:42:11.912288+00:00",
-  "collection_completed_at": "2026-11-23T11:42:26.240603+00:00",
+  "collection_started_at": null,
+  "collection_completed_at": null,
   "current_round": {
-    "round": 65,
-    "task_id": "INDEPENDENT-MECHANISM-FALSIFIABLE-INPUT-65",
-    "public_reads": 2,
+    "round": 66,
+    "task_id": "ACQUISITION-TIMING-AND-PROJECT-REVIEW-66",
+    "public_reads": 0,
     "market_collection": false,
     "source_time": null,
-    "coverage": "Uniswap v4 Pool.sol/SwapMath.sol两份官方main源码快照",
+    "coverage": "本地注入式双读取实验及61–66回执审查",
     "market_identity": null,
-    "size": null,
     "direction": null,
+    "size": null,
     "two_leg_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_STATIC_EXACTOUTPUT_AGGREGATE_FEE_REJECTION_PREDICATE_ONLY",
-    "reproduction_status": "static_source_inspection_only",
-    "tests_run": 0
+    "risk_decision": "ACCEPT_LOCAL_SYNTHETIC_OVERLAP_AND_PROJECT_REVIEW_WITH_INTERFACE_SCHEDULING_CONDITION",
+    "local_experiment_runs": 1,
+    "real_http_integration_verified": false
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -596,27 +596,31 @@
   },
   "project_review": {
     "rounds": [
-      55,
-      56,
-      57,
-      58,
-      59,
-      60
+      61,
+      62,
+      63,
+      64,
+      65,
+      66
     ],
-    "public_reads": 20,
-    "provider_data_rounds": 2,
-    "executable_size_quote_rounds": 0,
+    "public_reads": 13,
+    "market_data_rounds": 2,
+    "named_observations": 2,
     "complete_candidates": 0,
+    "qualified_trade_opportunities": 0,
     "new_predictions": 0,
     "new_prospective_outcomes": 0,
-    "cost_unknown_rate": null,
-    "cost_rate_denominator": 0,
-    "document_only_rounds": 3,
+    "outcome_coverage": null,
+    "outcome_denominator": 0,
+    "named_observations_fullcost_unknown": 2,
+    "named_observations_denominator": 2,
     "interface_primary_rounds": [
-      58
+      62,
+      66
     ],
-    "decision": "继续具名规模经济输入，暂停泛文档补位",
-    "next_review_round": 66
+    "next_interface_primary_earliest": 70,
+    "next_review_round": 72,
+    "decision": "继续独立经济反证；暂停重复模拟和泛文档，主工程最早70"
   },
   "research_gap": {
     "trigger_at": "2026-11-22T20:27:01.250Z",

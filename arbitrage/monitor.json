@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T12:54:42.133462+00:00",
-  "last_research_at": "2026-11-23T12:54:42.133462+00:00",
+  "updated_at": "2026-11-23T13:55:20.409957+00:00",
+  "last_research_at": "2026-11-23T13:55:20.409957+00:00",
   "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
-  "status": "66轮本地验证与六轮审查完成；无新行情",
+  "status": "67轮独立网络元数据；地域限制原文未得",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -312,16 +312,16 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "61–66共13次公开读、2轮实际市场数据，完整候选/合格机会/新前瞻后验仍0。",
-    "66单次合成本地实验验证有意设置的并发重叠、错误保留与源时间未知；未接真实HTTP，不解释64根因。",
-    "费用概括更正及失败样本保留；没有把工程测试通过当市场闭环。"
+    "第67轮Kraken地域限制原文308未跟随，限制未核。独立Bitget USDT响应含12网络，限定ERC20：合约0xdac17f958d2ee523a2206206994597c13d831ec7，rechargeable/withdrawable原字符串true；仅提供方元数据，不证明账户权限、Kraken出口匹配、实际到账或完整成本。",
+    "本轮无新盘口；源状态更新时间未知，requestTime不作状态生效时间。",
+    "原主问题失败与独立元数据增量分开，未形成完整机会。"
   ],
   "next": [
-    "67–69围绕具名路径做独立经济权利或重大成本反证，不延长工具支线。",
-    "主工程最早70：一次有界真实来源验证，逐源Risk核停止范围，不启动后台服务。",
-    "项目审查72；完整成本和实际收益继续未知。"
+    "只在具体合法新来源出现时核出口网络/代币匹配。",
+    "不跟随或重试本轮308，不重复Bitget网络采样或扩充资格百科。",
+    "主工程最早70；持续采集未验证上线。"
   ],
-  "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
+  "last_metadata_at": "2026-11-23T13:53:03.788072+00:00",
   "metadata_block": {
     "number": 56365236,
     "hash": "0x00aa90c5dc6009628672709ab46be1a45fd2cd403c05f3ca2c1828ad8d2313a5",
@@ -329,24 +329,32 @@
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
   "collection_started_at": null,
-  "collection_completed_at": null,
+  "collection_completed_at": "2026-11-23T13:53:03.788072+00:00",
   "current_round": {
-    "round": 66,
-    "task_id": "ACQUISITION-TIMING-AND-PROJECT-REVIEW-66",
-    "public_reads": 0,
+    "round": 67,
+    "task_id": "NAMED-ROUTE-ECONOMIC-RIGHTS-FALSIFIER-67",
+    "public_reads": 3,
     "market_collection": false,
+    "metadata_collection": true,
     "source_time": null,
-    "coverage": "本地注入式双读取实验及61–66回执审查",
-    "market_identity": null,
-    "direction": null,
+    "coverage": "Kraken原文308无政策内容；Bitget USDT12网络响应中仅检查ERC20",
+    "market_identity": "Bitget/Kraken ETHUSDT库存路线（64历史背景）",
+    "direction": "USDT返回Bitget的接收侧条件，未执行",
     "size": null,
     "two_leg_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_LOCAL_SYNTHETIC_OVERLAP_AND_PROJECT_REVIEW_WITH_INTERFACE_SCHEDULING_CONDITION",
-    "local_experiment_runs": 1,
-    "real_http_integration_verified": false
+    "risk_decision": "ACCEPT_PARTIAL_PROVIDER_METADATA_AND_PRIMARY_FAILURE_RECORD; VETO_OPPORTUNITY_UPGRADE",
+    "raw_network_fields": {
+      "chain": "ERC20",
+      "contractAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "rechargeable": "true",
+      "withdrawable": "true",
+      "depositConfirm": "12",
+      "minDepositAmount": "0.5",
+      "congestion": "normal"
+    }
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -513,6 +521,15 @@
       "status": "vetoed_before_read",
       "reads": 0,
       "reason": "既有身份入口停止范围，新方案无独立重开证据；改独立BitgetETHUSDT路径"
+    },
+    {
+      "round": 67,
+      "scope": "Kraken USDT EEA原文",
+      "status": "blocked_data",
+      "http_status": 308,
+      "redirect_followed": false,
+      "no_increment_actual_rounds": 1,
+      "note": "定位输出未完整捕获；未取得政策原文，不断言限制成立"
     }
   ],
   "learning": [

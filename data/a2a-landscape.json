@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-22",
-  "last_checked_at": "2026-11-22T01:00:48.413531+00:00",
+  "as_of": "2026-11-23",
+  "last_checked_at": "2026-11-23T06:38:30.409146+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -756,12 +756,12 @@
       "scope": "相邻：机器收款与结算",
       "capability": "Stripe 文档支持 MPP 卡及稳定币付款、x402 稳定币付款，进入 Stripe 余额，并通过后台或 API 退款。",
       "source": "https://docs.stripe.com/payments/machine",
-      "gap": "准入依地区、支付方式及审批而异；退款可调用不等于跨商户争议自动解决。费率、失败退款时限和真实收入待核验。",
+      "gap": "退款可经API或后台办理，不等于自动争议处理。卡最低0.50美元，稳定币最低0.01 USDC；MPP会话可按更小增量计费，仍有最低结算额。地区准入、费率、真实采用待查。",
       "related": [
         "x402",
         "acp-commerce"
       ],
-      "checked_at": "2026-10-16",
+      "checked_at": "2026-11-23",
       "adoption": "官方文档与3月18日公告基线；厂商案例不作为独立核实的交易规模"
     },
     {
@@ -1413,9 +1413,20 @@
       "layer": "protocol",
       "source": "https://datatracker.ietf.org/meeting/127/materials/slides-127-nmrg-sessb-mcp-and-a2a-for-network-management-updates-00",
       "question": "11月22日读会议演示材料：Huawei作者介绍两份-04草案，A2A负责任务交接、MCP负责工具数据；全文、互操作实测与采用待查，不当作已批准标准。"
+    },
+    {
+      "name": "Stripe MPP会话计费与结算",
+      "layer": "payment",
+      "source": "https://docs.stripe.com/payments/machine",
+      "question": "11月23日复核金额门槛；继续核验会话关闭、余额退款、失败重试、费率与采用，不能将计费粒度当结算单价。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-23",
+      "status": "部分核验",
+      "note": "部分核验：对照11月22日并检索近7天线索，复核Stripe machine payments文档；区分卡最低0.50美元、稳定币最低0.01 USDC，以及MPP会话可按更小增量计费但最低结算0.01 USDC。未核实变更日期，不作当日发布；其他队列未全量覆盖。"
+    },
     {
       "date": "2026-11-22",
       "status": "部分核验",
@@ -1834,13 +1845,14 @@
       "model": "按成功处理笔数或交易额；另有网络等费用",
       "judgment": "可量化单价，规模待证明",
       "moat": "可靠结算、合规接入、风控与分发",
-      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。 Alchemy AgentPay价目（2026-11-08核验）：Growth每月$20含2万请求，超量$1.50/千请求；Free仅测试资金100请求/月。请求不等于成功交易，此处不是支付网络等全部费用或净收入。 2026-11-13核验PayAI：按网络每笔消耗积分，1美元=1000积分，首次1000积分免费；网络gas加价每日更新，不按金额抽成。动态单价表未加载，不能套用单一费率估收入。",
+      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。 Alchemy AgentPay价目（2026-11-08核验）：Growth每月$20含2万请求，超量$1.50/千请求；Free仅测试资金100请求/月。请求不等于成功交易，此处不是支付网络等全部费用或净收入。 2026-11-13核验PayAI：按网络每笔消耗积分，1美元=1000积分，首次1000积分免费；网络gas加价每日更新，不按金额抽成。动态单价表未加载，不能套用单一费率估收入。 2026-11-23核验Stripe机器支付：卡最低0.50美元，稳定币最低0.01 USDC；MPP会话可按更小增量计费但最低结算0.01 USDC。这是金额门槛，不是服务费率。",
       "source": "https://www.coinbase.com/developer-platform/discover/launches/x402facilitator-polygon",
       "checked_at": "2026-10-08",
       "evidence_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf",
       "p2flux_pricing_source": "https://p2flux.com/docs/agents.html",
       "alchemy_pricing_source": "https://agentpay.alchemy.com/pricing",
-      "payai_source": "https://facilitator.payai.network/pricing"
+      "payai_source": "https://facilitator.payai.network/pricing",
+      "stripe_source": "https://docs.stripe.com/payments/machine"
     },
     {
       "layer": "commerce",

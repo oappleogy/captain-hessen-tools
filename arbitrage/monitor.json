@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T14:53:34.096676+00:00",
-  "last_research_at": "2026-11-23T14:53:34.096676+00:00",
+  "updated_at": "2026-11-23T16:02:58.600166+00:00",
+  "last_research_at": "2026-11-23T16:02:58.600166+00:00",
   "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
-  "status": "68轮官方网络说明；精确资产和执行权利仍未知",
+  "status": "69轮赎回费用源码顺序研究；无新行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -312,14 +312,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第68轮Kraken官方稳定币充提网络表将USDT列入Ethereum；仅文档网络名称，与67接收侧元数据不构成精确合约或账户可执行证明。文内EEA退市脚注范围及用户适用性未核，不能推断全面禁止提款。实际到账、完整成本及净收益未知。",
-    "本轮没有新盘口或实时网络状态；上轮API元数据时间保持独立。",
-    "2次公开读取；原文前缺独立精确URL预审回执，已事后审查并留痕。"
+    "第69轮Liquity V1局部源码：本次赎回先按实际ETHDrawn及事前系统债务计算baseRate增量，再计算本次ETH费用；decay-only事前查询不等完整规模报价。费用从赎回ETH扣除并转LQTY staking，实际部署、状态及净收益未知。非漏洞或EVM验证。",
+    "Comet指定路径404停止，EIP7540因旧停止规则未读；两次原文均有事前独立预审。",
+    "2次公开读取；未做EVM仿真、链上状态采集或交易。"
   ],
   "next": [
-    "下一轮转独立机制反证；不继续网络、地区或费用泛查。",
-    "后续原文先等独立Risk明确范围，再执行。",
-    "主工程最早70；持续行情采集未验证上线。"
+    "70轮可按66审查开展一次有界真实来源工程集成，先明确新依赖与独立预审。",
+    "本次源码包关闭，不重复费用扫参、旧源码或泛接口研究。",
+    "当前持续行情服务未验证上线，净收益未知。"
   ],
   "last_metadata_at": "2026-11-23T13:53:03.788072+00:00",
   "metadata_block": {
@@ -328,28 +328,25 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T14:50:27.709Z",
-  "collection_completed_at": "2026-11-23T14:51:01.668379+00:00",
+  "collection_started_at": "2026-11-23T15:56:31.068320+00:00",
+  "collection_completed_at": "2026-11-23T16:00:29.855145+00:00",
   "current_round": {
-    "round": 68,
-    "task_id": "USDT-OUTBOUND-NETWORK-MATCH-68",
+    "round": 69,
+    "task_id": "LIQUITY-V1-REDEMPTION-SELF-IMPACT-FEE-69",
     "public_reads": 2,
     "market_collection": false,
-    "metadata_collection": false,
-    "document_collection": true,
+    "source_collection": true,
     "source_time": null,
-    "coverage": "一份Kraken官方稳定币网络原文，仅USDT Ethereum及相关限定",
-    "market_identity": "Bitget/Kraken ETHUSDT历史库存路线",
-    "direction": "研究USDT从Kraken回流Bitget的网络条件，未执行",
+    "coverage": "Comet指定源码404；Liquity V1单份TroveManager源码；非当前部署",
+    "market_identity": "Liquity V1 LUSD/ETH（仅源码身份）",
+    "direction": "假设买入折价LUSD→赎回ETH→卖出；未验证可行性",
     "size": null,
     "quote_time": null,
     "two_leg_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_DOCUMENTARY_NETWORK_LABEL_WITH_EEA_QUALIFICATION_ONLY; VETO_TOKEN_MATCH_AND_OPPORTUNITY_UPGRADE",
-    "network_label": "Ethereum",
-    "exact_token_match_verified": false
+    "risk_decision": "ACCEPT_V1_STATIC_SELF_IMPACT_FEE_ORDER_AND_PRIMARY404_ONLY; VETO_DEPLOYMENT_OR_OPPORTUNITY_UPGRADE"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -525,6 +522,15 @@
       "redirect_followed": false,
       "no_increment_actual_rounds": 1,
       "note": "定位输出未完整捕获；未取得政策原文，不断言限制成立"
+    },
+    {
+      "round": 69,
+      "scope": "Compound Comet指定源码路径",
+      "status": "blocked_data",
+      "http_status": 404,
+      "no_increment_actual_rounds": 1,
+      "blocker_id": "COMET-MAIN-CONTRACTS-COMET-SOL-404",
+      "note": "未取得源码；不改路径重试。工具等待与HTTP耗时分开，等待原因未知。"
     }
   ],
   "learning": [

@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T06:49:49.322806+00:00",
-  "last_research_at": "2026-11-23T06:49:49.322806+00:00",
-  "last_market_observation_at": "2026-11-23T06:45:39.860296+00:00",
-  "status": "60轮新池余额观察与项目转向审查完成",
+  "updated_at": "2026-11-23T07:53:29.262184+00:00",
+  "last_research_at": "2026-11-23T07:53:29.262184+00:00",
+  "last_market_observation_at": "2026-11-23T07:51:04.412787+00:00",
+  "status": "61轮：独立单腿规模盘口；Curve报价采集受阻",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -230,6 +230,32 @@
           "pool_balance_raw": "116332463895913"
         }
       ]
+    },
+    {
+      "id": "KRAKEN-SPOT-USDCUSDT-20261123T075104Z",
+      "stage": "Observation",
+      "venue": "Kraken",
+      "market": "USDC/USDT spot",
+      "status": "历史单腿规模观测｜有效期未知，不可据此下单",
+      "direction": "SELL USDC → USDT",
+      "size": {
+        "asset": "USDC",
+        "amount": "1000"
+      },
+      "received_at": "2026-11-23T07:51:04.412787+00:00",
+      "source_time": null,
+      "quote_time": null,
+      "gross_output": {
+        "asset": "USDT",
+        "amount": "1001.20000000"
+      },
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "expired": true,
+      "expiry_note": "历史快照；未建立可成交有效期",
+      "risk": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY",
+      "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用"
     }
   ],
   "gaps": [
@@ -240,14 +266,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第60轮取得Curve Ethereum main注册表49池响应，选3pool DAI/USDC/USDT原始余额身份；非固定块或规模报价。55–60共20次公开读、2轮提供方数据、0规模双腿/完整候选/新前瞻后验；暂停泛文档补位，推进一个预先指定规模经济输入。",
-    "余额、virtualPrice与isBroken标记不证明成交价或安全，当前净收益未知。",
-    "59延迟和未知开始时间保留；下一实际任务先落运行记录，不能据此宣称修复持续运行。"
+    "独立Kraken显示盘口：1000USDC卖出对应1001.2USDT毛输出；不是1.2USDT利润。",
+    "Curve3pool1000USDC报价未取得，禁止把独立盘口拼成匹配退出腿。",
+    "3次公开读取，0重试/重定向；Run已在派工前落盘。"
   ],
   "next": [
-    "61限定1000USDC研究规模的只读经济输入，不要求所有候选条件齐全才取得单项数据。",
-    "首项通过后才获取同资产匹配退出及主导成本，未知不填零。",
-    "暂停泛文档补位；下轮派工前先记实际开始与重定向预算，下一项目审查66。"
+    "核适用交易费与资产出入条件，未知不填零。",
+    "只在具体匹配来源成立时设计新同步两腿采集；61快照不得拼接成当前机会。",
+    "停止已检查Curve目录与本次盘口刷新；持续服务仍未验证上线。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -256,30 +282,28 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T06:45:37.045129+00:00",
-  "collection_completed_at": "2026-11-23T06:45:39.860296+00:00",
+  "collection_started_at": "2026-11-23T07:46:46.042686+00:00",
+  "collection_completed_at": "2026-11-23T07:51:04.412787+00:00",
   "current_round": {
-    "round": 60,
-    "task_id": "NEW-MARKET-DATA-AND-REVIEW-60",
-    "market_collection": true,
-    "market_collection_scope": "Provider-reported pool identity and raw reserves; not direct fixed-block RPC or executable-size quote",
-    "source_time": null,
+    "round": 61,
+    "task_id": "CURVE-3POOL-SINGLE-SIZE-ECONOMIC-INPUT-61",
     "public_reads": 3,
-    "coverage": {
-      "network": "ethereum",
-      "registry": "main",
-      "response_pool_count": 49,
-      "selected_pool_count": 1,
-      "selection": "Choose named 3pool with DAI/USDC/USDT identities; not return ranking",
-      "universe": "One registry only; no whole-chain or market coverage claim"
+    "market_collection": true,
+    "source_time": null,
+    "coverage": "Curve官方规范44路径；Kraken USDC/USDT单次71买档56卖档",
+    "direction": "SELL USDC → USDT",
+    "size": {
+      "asset": "USDC",
+      "amount": "1000"
     },
-    "market_identity": "Curve Ethereum3pool DAI/USDC/USDT",
-    "size_quotes": null,
-    "direction": null,
+    "gross_output": {
+      "asset": "USDT",
+      "amount": "1001.20000000"
+    },
     "all_costs": null,
     "net_pnl": null,
-    "expires_at": null,
-    "risk_decision": "ACCEPT_PROVIDER_POOL_OBSERVATION_AND_CONDITIONAL_SIZE_ECONOMICS_REVIEW_ONLY"
+    "valid_until": null,
+    "risk_decision": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY"
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",
@@ -289,7 +313,7 @@
     "pending": 0,
     "note": "覆盖1/1不是策略成功率"
   },
-  "last_market_observation_note": "最新是提供方池余额接收时间，不是规模行情或固定块；旧盘口时间另列保留。",
+  "last_market_observation_note": "Kraken盘口接收时刻，非源快照时间；仅一份快照，持续采集未验证上线。",
   "failures": [
     {
       "task": "KRAKEN-FUNDING-COST-01",
@@ -421,6 +445,14 @@
       "reason": "两历史URL301到当前/blog和/usdc，200不等历史正文取得",
       "no_increment_rounds": 1,
       "reopen": "New independently supplied historical original or documented lawful source/access change, reviewed by Risk; not nextdate."
+    },
+    {
+      "round": 61,
+      "id": "CURVE-3POOL-SIZE-QUOTE-NO-PERMITTED-ROUTE",
+      "status": "blocked_data",
+      "no_increment_actual_rounds": 1,
+      "scope": "所读官方Curve规范未列直接指定池规模报价入口；不推断全部Curve设施不可用",
+      "next": "仅新具体合法报价路径，经独立Risk核验后重开"
     }
   ],
   "learning": [
@@ -636,6 +668,32 @@
           "pool_balance_raw": "116332463895913"
         }
       ]
+    },
+    {
+      "id": "KRAKEN-SPOT-USDCUSDT-20261123T075104Z",
+      "stage": "Observation",
+      "venue": "Kraken",
+      "market": "USDC/USDT spot",
+      "status": "历史单腿规模观测｜有效期未知，不可据此下单",
+      "direction": "SELL USDC → USDT",
+      "size": {
+        "asset": "USDC",
+        "amount": "1000"
+      },
+      "received_at": "2026-11-23T07:51:04.412787+00:00",
+      "source_time": null,
+      "quote_time": null,
+      "gross_output": {
+        "asset": "USDT",
+        "amount": "1001.20000000"
+      },
+      "all_costs": null,
+      "net_edge": null,
+      "valid_until": null,
+      "expired": true,
+      "expiry_note": "历史快照；未建立可成交有效期",
+      "risk": "ACCEPT_BOUNDED_CURVE_FAILURE_AND_KRAKEN_DISPLAYED_SIZE_OBSERVATION_ONLY",
+      "unknown_costs": "适用交易费、资金出入和匹配另一腿未知；fee数组为空不代表零费用"
     }
   ],
   "research_leads": [
@@ -668,5 +726,5 @@
       "opportunity_id": null
     }
   ],
-  "last_orderbook_observation_at": "2026-11-21T22:30:36.182986+00:00"
+  "last_orderbook_observation_at": "2026-11-23T07:51:04.412787+00:00"
 }

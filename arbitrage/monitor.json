@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-23T10:46:37.277774+00:00",
-  "last_research_at": "2026-11-23T10:46:37.277774+00:00",
+  "updated_at": "2026-11-23T11:45:01.366141+00:00",
+  "last_research_at": "2026-11-23T11:45:01.366141+00:00",
   "last_market_observation_at": "2026-11-23T10:44:13.154440+00:00",
-  "status": "64轮新顺序双腿样本；条件毛差为负",
+  "status": "65轮源码可行性边界已核；无新行情",
   "pool_addresses": 2,
   "verified_pairs": 1,
   "two_leg_quotes": 0,
@@ -312,14 +312,14 @@
     "Bitfinex已取得一次真实WS输入；50轮仅5个Top25校验和检查点匹配；源时间、序列连续性、断流恢复及持续运行未验证。"
   ],
   "recent": [
-    "第64轮取得Bitget/Kraken ETH/USDT新身份与盘口。预定买Bitget/卖Kraken1ETH，条件显示成本1720.80、收入1720.58717USDT，毛差-0.21283USDT；回执相差3.415059秒且采集区间不重叠。数组数量语义未独立核文档，费用/资格/库存/再平衡未知，不是同步报价、实际亏损或净收益。",
-    "本轮4次实际GET均200；不是采集失败，也不代表全市场无机会。",
-    "未形成完整候选；没有交易，不记实际亏损。"
+    "第65轮官方v4 Pool与SwapMath源码快照确认：正数精确输出在计算后总swapFee>=1e6（100%）时触发InvalidFeeForExactOut。是有意保护条件而非漏洞；两份main源码未核同一提交/部署/费率可达性，未运行EVM或取得当前池数据，不证明低于边界即可成交。",
+    "没有新具名候选、当前行情或收益；上一行情时间保留为64轮回执。",
+    "本次源码包关闭，下一轮进行61–66项目审查。"
   ],
   "next": [
-    "关闭这一固定方向规模样本；不做反向/规模扫参或自动刷新。",
-    "转独立机制经济问题；只有具体新数据依赖才重开旧路径。",
-    "持续采集未验证上线，下一项目审查66。"
+    "66轮独立六轮审查：实际数据、完整候选、费用更正、采集时间与失败范围。",
+    "只推进具体新数据能力依赖，不重复v4边界源码/模型或已关闭费率样本。",
+    "持续采集未验证上线；AI不进入毫秒级执行判断。"
   ],
   "last_metadata_at": "2026-11-16T23:35:57.358930+00:00",
   "metadata_block": {
@@ -328,41 +328,25 @@
     "source_timestamp": 1794463422,
     "source_time_utc": "2026-11-12T06:03:42+00:00"
   },
-  "collection_started_at": "2026-11-23T10:43:47.876064+00:00",
-  "collection_completed_at": "2026-11-23T10:44:13.154440+00:00",
+  "collection_started_at": "2026-11-23T11:42:11.912288+00:00",
+  "collection_completed_at": "2026-11-23T11:42:26.240603+00:00",
   "current_round": {
-    "round": 64,
-    "task_id": "INDEPENDENT-MATCHED-ECONOMIC-INPUT-64",
-    "public_reads": 4,
-    "market_collection": true,
+    "round": 65,
+    "task_id": "INDEPENDENT-MECHANISM-FALSIFIABLE-INPUT-65",
+    "public_reads": 2,
+    "market_collection": false,
     "source_time": null,
-    "coverage": "Bitget与Kraken ETHUSDT身份及各100买档/100卖档，单次顺序采集",
-    "direction": "BUY1ETH Bitget;SELL1ETH Kraken",
-    "size": {
-      "asset": "ETH",
-      "amount": "1"
-    },
-    "legs": [
-      {
-        "venue": "Bitget",
-        "side": "BUY",
-        "size_ETH": "1",
-        "displayed_USDT": "1720.80",
-        "received_at": "2026-11-23T10:44:09.739381+00:00"
-      },
-      {
-        "venue": "Kraken",
-        "side": "SELL",
-        "size_ETH": "1",
-        "displayed_USDT": "1720.58717",
-        "received_at": "2026-11-23T10:44:13.154440+00:00"
-      }
-    ],
-    "conditional_gross_difference_USDT": "-0.21283",
+    "coverage": "Uniswap v4 Pool.sol/SwapMath.sol两份官方main源码快照",
+    "market_identity": null,
+    "size": null,
+    "direction": null,
+    "two_leg_quotes": null,
     "all_costs": null,
     "net_pnl": null,
     "valid_until": null,
-    "risk_decision": "ACCEPT_SEQUENTIAL_TWO_VENUE_DISPLAYED_DEPTH_AND_CONDITIONAL_NEGATIVE_GROSS_ONLY"
+    "risk_decision": "ACCEPT_STATIC_EXACTOUTPUT_AGGREGATE_FEE_REJECTION_PREDICATE_ONLY",
+    "reproduction_status": "static_source_inspection_only",
+    "tests_run": 0
   },
   "outcome_coverage": {
     "scope": "one registered conditional forecast",

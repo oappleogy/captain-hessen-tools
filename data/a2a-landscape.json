@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-23",
-  "last_checked_at": "2026-11-23T06:38:30.409146+00:00",
+  "as_of": "2026-11-24",
+  "last_checked_at": "2026-11-24T05:01:47.833484+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -1417,11 +1417,16 @@
     {
       "name": "Stripe MPP会话计费与结算",
       "layer": "payment",
-      "source": "https://docs.stripe.com/payments/machine",
-      "question": "11月23日复核金额门槛；继续核验会话关闭、余额退款、失败重试、费率与采用，不能将计费粒度当结算单价。"
+      "source": "https://docs.stripe.com/payments/machine/mpp/sessions",
+      "question": "11月24日读会话正文：整分结算，关闭或不整除时不足一分尾数被舍弃；示例preview API，生产需共享AtomicStore。退款、重试、实际净收入继续待查。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-24",
+      "status": "部分核验",
+      "note": "部分核验：对照11月23日并检索近7天，补Stripe MPP会话正文；按使用量累积后整分结算，不足一分尾数按文档会被舍弃。示例使用preview API与内存存储，生产需共享AtomicStore。首次.md入口读取失败，普通入口成功；其他队列未全量覆盖。"
+    },
     {
       "date": "2026-11-23",
       "status": "部分核验",
@@ -1845,14 +1850,15 @@
       "model": "按成功处理笔数或交易额；另有网络等费用",
       "judgment": "可量化单价，规模待证明",
       "moat": "可靠结算、合规接入、风控与分发",
-      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。 Alchemy AgentPay价目（2026-11-08核验）：Growth每月$20含2万请求，超量$1.50/千请求；Free仅测试资金100请求/月。请求不等于成功交易，此处不是支付网络等全部费用或净收入。 2026-11-13核验PayAI：按网络每笔消耗积分，1美元=1000积分，首次1000积分免费；网络gas加价每日更新，不按金额抽成。动态单价表未加载，不能套用单一费率估收入。 2026-11-23核验Stripe机器支付：卡最低0.50美元，稳定币最低0.01 USDC；MPP会话可按更小增量计费但最低结算0.01 USDC。这是金额门槛，不是服务费率。",
+      "evidence": "Coinbase 2026-03-11 公告：每月前 1,000 笔免费，之后 $0.001 / 笔（该 facilitator 服务口径）；Circle 2026-04-29 的免逐笔 gas 描述不等于零总费用，最低付款金额不作收费单价，完整费用待核验。 2026-11-03核验Coinbase Q3财报第14页：CDP TPV排除x402，不能代表Agent支付量，更不是Agent收入或利润。 P2Flux文档（2026-11-04核验）：逐笔结算收max(1%, $0.003)，预付批量模式3%；模式口径不同，不能当作行业统一费率。 Alchemy AgentPay价目（2026-11-08核验）：Growth每月$20含2万请求，超量$1.50/千请求；Free仅测试资金100请求/月。请求不等于成功交易，此处不是支付网络等全部费用或净收入。 2026-11-13核验PayAI：按网络每笔消耗积分，1美元=1000积分，首次1000积分免费；网络gas加价每日更新，不按金额抽成。动态单价表未加载，不能套用单一费率估收入。 2026-11-23核验Stripe机器支付：卡最低0.50美元，稳定币最低0.01 USDC；MPP会话可按更小增量计费但最低结算0.01 USDC。这是金额门槛，不是服务费率。 11月24日补核MPP会话：不足一分结算尾数会被舍弃，应区分计量收入与实际入账；示例单价不是平台统一费率。",
       "source": "https://www.coinbase.com/developer-platform/discover/launches/x402facilitator-polygon",
       "checked_at": "2026-10-08",
       "evidence_source": "https://investor.coinbase.com/files/content_files/Q3_26-Earnings-Deck.pdf",
       "p2flux_pricing_source": "https://p2flux.com/docs/agents.html",
       "alchemy_pricing_source": "https://agentpay.alchemy.com/pricing",
       "payai_source": "https://facilitator.payai.network/pricing",
-      "stripe_source": "https://docs.stripe.com/payments/machine"
+      "stripe_source": "https://docs.stripe.com/payments/machine",
+      "stripe_sessions_source": "https://docs.stripe.com/payments/machine/mpp/sessions"
     },
     {
       "layer": "commerce",

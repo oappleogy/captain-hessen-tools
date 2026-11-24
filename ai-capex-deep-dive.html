@@ -35,8 +35,9 @@ const RAW = {
     capex: [98,127,125,130,157,165,240,292],
     revGrowth: [13.0,13.0,13.8,16.0,15.2,10.2,17.5,10.3],
     capexGrowth: [90,118,103,38,60,30,92,105],
-    guide2026Capex: 1750,
-    aiNote: "Cloud AI +33.5% YoY (25Q3)。2026指引$1390-1850亿(BofA/其他)",
+    guide2026Capex: 2000,
+    aiNote: "10月28日披露、11月24日核验：2026自然年Capex $1950–2050亿，取中点2000亿。Q3 Google Cloud收入307亿、营业利润111亿，含TPU系统销售及非AI业务；不能全部算AI净回报。集团Q3 FCF -91亿，TTM +197亿，不能互换观察期。原25Q3 Cloud AI +33.5%口径未重新验证。",
+    currentSource: "https://abc.xyz/investor/events/event-details/2026/2026-Q3-Earnings-Call-2026-Ujou16CTw9/default.aspx",
     src: "Citi, BofA, UBS",
   },
   AMZN: {
@@ -45,8 +46,9 @@ const RAW = {
     capex: [90,108,135,176,160,126,194,210],
     revGrowth: [11.0,11.5,12.3,11.6,11.0,10.4,10.5,11.5],
     capexGrowth: [26,84,92,108,78,52,82,41.5],
-    guide2026Capex: 2000,
-    aiNote: "AWS AI收入未拆分。AI是AWS增长核心驱动",
+    guide2026Capex: 2200,
+    aiNote: "10月29日披露、11月24日核验：2026自然年现金资本开支约2200亿美元，仍是指引。Q3 AWS收入459.84亿、营业利润177.73亿；不是全公司的现金回报，AI收入未单列。",
+    currentSource: "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
     src: "Citi, JPM",
   },
   META: {
@@ -55,8 +57,9 @@ const RAW = {
     capex: [63,83,78,125,126,180,193,214],
     revGrowth: [21.9,21.3,21.4,16.8,23.8,25.6,26.0,23.8],
     capexGrowth: [5,58,41,105,100,117,110.5,48.2],
-    guide2026Capex: 1250,
-    aiNote: "AI广告平台年化收入约$600亿(25Q3,I/O Fund)。25Q3 OCF=1076亿, FCF=106亿",
+    guide2026Capex: 1400,
+    aiNote: "10月21日披露、11月24日核验：2026自然年Capex $1350–1450亿（含融资租赁本金），取中点1400亿。Q3经营现金327.86亿、FCF -21.20亿；广告不等于单独AI收入。原25Q3 I/O Fund年化600亿、OCF1076亿/FCF106亿旧底稿口径未复核，非本次季度实际。",
+    currentSource: "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
     src: "UBS, JPM, Nomura, I/O Fund",
   },
 };
@@ -111,7 +114,7 @@ function CompanyTable({ ticker }) {
           <div style={{ width: "10px", height: "10px", borderRadius: "3px", background: d.color }} />
           <span style={{ fontSize: "14px", fontWeight: 800, fontFamily: sans, color: text }}>{d.name}</span>
         </div>
-        <span style={{ fontSize: "9px", fontFamily: mono, color: textD }}>来源: {d.src}</span>
+        <span style={{ fontSize: "9px", fontFamily: mono, color: textD }}>历史表来源: {d.src}</span>
       </div>
       <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "11px", fontFamily: mono }}>
@@ -165,16 +168,16 @@ function CompanyTable({ ticker }) {
           <div style={{ fontSize: "16px", fontWeight: 800, color: m.capexIntensity2025 > 25 ? red : text }}>{m.capexIntensity2025}%</div>
         </div>
         <div style={{ background: "rgba(0,0,0,0.02)", borderRadius: "6px", padding: "8px 10px", flex: 1, minWidth: "120px" }}>
-          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>2026E开支强度</div>
+          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>指引 / 原营收假设（非实际）</div>
           <div style={{ fontSize: "16px", fontWeight: 800, color: m.capexIntensity2026E > 30 ? red : accent }}>{m.capexIntensity2026E}%</div>
         </div>
         <div style={{ background: "rgba(0,0,0,0.02)", borderRadius: "6px", padding: "8px 10px", flex: 1, minWidth: "120px" }}>
-          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>2026E指引</div>
+          <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>{ticker === "MSFT" ? "原FY2026估计（未复核）" : "2026自然年指引（区间取中点）"}</div>
           <div style={{ fontSize: "16px", fontWeight: 800, color: text }}>${d.guide2026Capex}亿</div>
         </div>
         <div style={{ background: "rgba(0,0,0,0.02)", borderRadius: "6px", padding: "8px 10px", flex: 2, minWidth: "200px" }}>
           <div style={{ fontSize: "9px", fontFamily: mono, color: textD }}>AI收入线索</div>
-          <div style={{ fontSize: "11px", fontFamily: sans, color: textM, marginTop: "2px" }}>{d.aiNote}</div>
+          <div style={{ fontSize: "11px", fontFamily: sans, color: textM, marginTop: "2px" }}>{d.aiNote}{d.currentSource && <> <a href={d.currentSource}>公司原文</a></>}</div>
         </div>
       </div>
     </div>
@@ -246,11 +249,11 @@ function ScissorsChart() {
 }
 
 const findings = [
-  { title: "Meta的开支强度最危险", detail: "资本开支占收入比从2024Q1的17.3%飙升至2025Q2-Q3的37%以上。2026E指引$1150-1350亿，开支强度预计维持35%+。唯一的对冲：AI广告平台年化收入已达$600亿，是四家中AI收入最可量化的。", risk: "高" },
-  { title: "Google的加速度最陡", detail: "开支强度从2024年的12-15%跳升至2025Q4的24.5%，一年翻倍。2026E指引$1750-1850亿(高端)将使开支强度逼近35%。好消息：Cloud AI增速33.5%仍在加速，自研TPU提供成本优势。", risk: "中高" },
-  { title: "Amazon相对'克制'但绝对金额最大", detail: "开支强度维持在7-11%，四家中最低——因为零售业务提供了巨大的收入分母。但2026E指引$2000亿是绝对金额之王。AWS是唯一一个AI收入完全不透明的。", risk: "中" },
+  { title: "Meta的开支强度最危险", detail: "资本开支占收入比从2024Q1的17.3%飙升至2025Q2-Q3的37%以上。原2026E指引$1150-1350亿已由10月21日公司指引$1350-1450亿替换。新指引与旧营收假设形成的强度不是实际值；原AI广告600亿年化估计不可作独立AI收入。Q3现金为负增强资金压力判断，原风险标签未重评。", risk: "高" },
+  { title: "Google的加速度最陡", detail: "开支强度从2024年的12-15%跳升至2025Q4的24.5%，一年翻倍。原2026E $1750-1850亿已由10月28日公司$1950-2050亿指引替换。Q3云收入307亿包含TPU系统销售，不能与纯软件毛利或AI收入等同。原季度曲线与风险标签未重评，现金压力增加不等于AI项目回报率已证伪。", risk: "中高" },
+  { title: "Amazon相对'克制'但绝对金额最大", detail: "开支强度维持在7-11%，四家中最低——因为零售业务提供了巨大的收入分母。原2026E $2000亿已由10月29日公司约$2200亿现金Capex指引替换。AWS AI收入仍未单列，不能用集团零售收入分母推断AI投资克制；其他公司亦有归属口径缺口，原风险标签未重评。", risk: "中" },
   { title: "Microsoft的节奏最稳但指引激进", detail: "开支强度在23-30%区间波动，无明显恶化趋势。但FY26指引$1400亿（+59%）将推高强度至30%+。Azure AI $250亿收入指引(高盛估)是关键验证锚点。", risk: "中" },
-  { title: "四家合计2026E指引：$6000-6500亿+", detail: "以四家2025年收入~$13,100亿推算，假设2026收入增速15%→收入~$15,000亿。$6000-6500亿开支 / $15,000亿收入 = 40-43%的合计开支强度。这个水平在科技行业史上前所未有。", risk: "系统性" },
+  { title: "原四家2026E合计情景：$6000-6500亿+（未重算）", detail: "保留原模型：以四家2025年收入~$13,100亿推算，假设2026收入增速15%→收入~$15,000亿。$6000-6500亿开支 / $15,000亿收入 = 40-43%的合计开支强度。该旧总量不再代表最新指引合计。Microsoft仍是原FY26估计，其他三家已回填自然年指引，不能跨财年或租赁口径相加；原风险标签保持，非本轮评分。", risk: "系统性" },
 ];
 
 function App() {
@@ -274,7 +277,7 @@ function App() {
             黑森船长 · 基于IMA研报数据 · 来源: JPM / UBS / Citi / BofA / Nomura / GS / I/O Fund · 单位: 亿美元
           </div>
           <div style={{ fontSize: "11px", color: textM, marginTop: "6px", lineHeight: 1.6 }}>
-            核心发现：四家合计2026年资本开支指引<strong style={{ color: red }}>$6000-6500亿</strong>，对应合计开支强度约<strong style={{ color: red }}>40-43%</strong>——科技行业史上前所未有。但增速趋势出现分化：Meta最激进，Amazon相对克制，Google加速最快。
+            11月24日回填Alphabet、Amazon、Meta已披露2026自然年指引；原24Q1–25Q4表与Microsoft财年估计保留。<strong style={{ color: red }}>$6000-6500亿 / 40-43%</strong>仍是原情景，不是最新合计。开支强度沿用原2025收入×1.15分母，公式未变、营收未重估，不能当2026实际或新的风险排名。
           </div>
         </div>
 
@@ -322,18 +325,18 @@ function App() {
         }}>
           <div style={{ fontSize: "12px", fontWeight: 700, color: accent, fontFamily: sans, marginBottom: "8px" }}>数据缺口与下一步</div>
           <div style={{ fontSize: "11px", color: textM, lineHeight: 1.8, fontFamily: sans }}>
-            <strong>已获取：</strong>季度收入、资本开支、增速（8个季度x4家）。2026年资本开支指引。Meta的AI广告收入年化数和单季度OCF/FCF。<br/>
+            <strong>已获取：</strong>原24Q1–25Q4收入、资本开支及增速表保留历史标签；本次回填三家公司2026自然年指引、Alphabet Q3云业务与现金说明。原Meta AI广告年化数不是独立AI收入核验结果。<br/>
             <strong>仍缺失（按价值排序）：</strong><br/>
-            1. 季度OCF/FCF时间序列（除Meta 25Q3外全部缺失）——需要直接查SEC财报。自由现金流是判断"还能撑多久"的核心指标。<br/>
-            2. AI收入精确拆分——IMA确认这是行业公认难题，除Meta外无官方数据。高盛对Azure AI的$250亿估算是目前最有价值的锚。<br/>
+            1. 完整季度OCF/FCF时间序列仍待补齐；已核验的2026Q3不能补造中间季度，也不能代替全年。<br/>
+            2. 可归属AI收入与生命周期现金成本仍缺；Meta广告和Alphabet云收入均不是纯AI回报，高盛Azure AI $250亿保留为原估算，不视为公司指引。<br/>
             3. 折旧政策变化——研报未覆盖。这是一个隐性的利润表美化器，需查各家10-K/10-Q附注。<br/>
             4. 云利用率——无数据。摩根士丹利或高盛的基础设施团队可能有，但不在IMA当前库中。<br/>
-            <strong style={{ color: text }}>结论：现有数据足以做"开支强度+剪刀差"分析（已完成）。FCF序列是升级分析的最高优先级缺口。</strong>
+            <strong style={{ color: text }}>结论：原开支强度与剪刀差是历史模型，非本轮新排名；现金压力证据增强，但可比年度口径、完整FCF序列和AI独立回报尚未闭环。</strong>
           </div>
         </div>
 
         <div style={{ fontSize: "9px", color: textD, fontFamily: mono, marginTop: "12px", textAlign: "center" }}>
-          黑森船长 © 2026 · 数据均为卖方研报估算值，非投资建议 · 开支强度 = 资本开支 / 收入 · 剪刀差 = 资本开支增速 - 收入增速
+          黑森船长 © 2026 · 原季度表为卖方底稿；新指引及Q3事实来源为公司披露，观察期见各字段 · 非投资建议 · 开支强度 = 资本开支 / 收入 · 剪刀差 = 资本开支增速 - 收入增速
         </div>
       </div>
     </>

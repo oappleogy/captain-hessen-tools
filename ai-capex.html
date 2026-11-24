@@ -71,7 +71,7 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
 <!-- Header -->
 <div class="header">
   <div class="sub">AI CAPEX vs REVENUE REALITY CHECK</div>
-  <h1>$7000亿建的数据中心<br>钱赚回来了吗？</h1>
+  <h1>$7000亿原情景下的数据中心<br>钱赚回来了吗？</h1>
   <p>超级云厂商资本支出 × GPU折旧 × 大模型公司收入</p>
 </div>
 
@@ -85,21 +85,21 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
 
 <!-- Panel 0: Capex -->
 <div class="panel active" id="panel-0">
-  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>五大云厂商年度资本支出 (2022-2026E)</h2></div><div class="sh-sub">单位：$Billion | 2026E为公司指引/分析师预测</div></div>
-  <div class="card"><div id="capex-chart"></div></div>
-  <div class="src">2022-2024实际值: SEC 10-K年报 (各公司purchases of PP&E, 含finance lease principal)。2025实际: Amazon $131.8B (SEC 10-K); Alphabet $91.4B (FinBox/SEC); Microsoft $80B (FY2025 guidance, 财年截至2025.6); Meta $72.2B (SEC 10-K); Oracle $20B (公司指引)。2026E: Amazon $200B / Alphabet $175-185B / Meta $115-135B (各公司Q4'25 earnings guidance); Microsoft $145B (FY2026 "faster pace", S&P Global); Oracle $50B (公司指引)。注: Microsoft为财年数据(截至6月)，日历年映射为近似值。</div>
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>五大云厂商年度资本支出 (2022-2026E)</h2></div><div class="sh-sub">单位：$Billion | 2026E含新公司指引与保留的旧财年估计，不能直接相加</div></div>
+  <div class="card"><div id="capex-chart" style="overflow-x:auto"></div></div>
+  <div class="src">2026自然年指引原位更新（11月24日核验，非今日公告）：<a href="https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/">Amazon 10月29日</a>现金资本开支约$220B；<a href="https://abc.xyz/investor/events/event-details/2026/2026-Q3-Earnings-Call-2026-Ujou16CTw9/default.aspx">Alphabet 10月28日</a>$195–205B，图取中点$200B；<a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx">Meta 10月21日</a>$135–145B（含融资租赁本金），图取中点$140B。均非全年实际、非纯AI投入，也非已投运产能。2022–2025原值保留，未逐项复核；原来源包括SEC 10-K、FinBox及公司指引，不能一概视为已确认实际。Microsoft原FY2026 $145B（S&amp;P估计，财年截至6月）和Oracle原$50B指引仍未同口径更新；不以微软新自然年指引覆盖旧财年字段。下面$650B合计及+333%仍为原情景，未重算。</div>
 
   <div class="card" style="background:rgba(220,38,38,0.04);border-color:rgba(220,38,38,0.1)">
     <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center" id="capex-stats"></div>
   </div>
 
-  <div class="sh" style="margin-top:16px"><div class="sh-row"><div class="sh-bar"></div><h2>FCF断崖 + 发债融资</h2></div><div class="sh-sub">2025 vs 2026E自由现金流 + 新增发债（全部为固定利率无担保信用债）</div></div>
+  <div class="sh" style="margin-top:16px"><div class="sh-row"><div class="sh-bar"></div><h2>FCF断崖 + 发债融资</h2></div><div class="sh-sub">2025 / 2026E原预测保留；卡内另注明已披露Q3实际，不能混作全年</div></div>
   <div class="card"><div class="grid-2" id="fcf-grid"></div></div>
   <div class="src">Amazon 2026E FCF: -$17B (Morgan Stanley) / -$28B (BofA)。Alphabet 2026E FCF: $8.2B (Pivotal Research, 从2025 $73.3B骤降)。Meta 2025 FCF: $43.6B (SEC 10-K实际值); 2026E ~$20B (基于$125B capex guidance推算)。Microsoft 2026E FCF: ~$66B (基于FY2026 guidance)。Oracle 2026E FCF: ~-$12B (基于$50B capex vs ~$38B OCF)。新增发债: Amazon $37-42B (Bloomberg 2026.3); Alphabet $20B+ (Reuters 2026.2); Meta $30B (SEC FWP 2025.10，为2025年发行); Oracle $25B (SEC 2026.2)。五大2025合计发债$121B: Fortune 2026.3。全部为fixed-rate senior unsecured notes: SEC 424B5确认。</div>
 
   <div class="card" style="background:rgba(217,119,6,0.04);border-color:rgba(217,119,6,0.1)">
     <div style="font-size:11px;line-height:1.7">
-      <span style="color:var(--am);font-weight:700">关键发现：</span>除Microsoft外，四家FCF全部预计在2026年大幅下降或转负。Amazon从正值跌到-$170亿（摩根士丹利预估）。缺口靠发债填——五大2025年合计发债$1210亿，全部为<span style="color:#1a2332;font-weight:700">固定利率</span>高级无担保信用债，股价下跌不影响存量债务成本。FCF数据为分析师预估，实际值可能有偏差。
+      <span style="color:var(--am);font-weight:700">现金压力已有单季证据，但不能全部归因AI：</span>Alphabet Q3经营现金$42.3B、资本开支$51.4B、FCF -$9.1B；经营现金还受到TPU存货增加和$5.2B欧盟罚款支付影响。TTM FCF为+$19.7B，不能拿单季负值覆盖全年。此证据增强“投入压低现金余量”的判断，尚不能证明AI项目自身亏损。原五家公司全年FCF与发债预测仍未重估，不再据它们断言当前缺口全靠发债。<a href="https://abc.xyz/investor/events/event-details/2026/2026-Q3-Earnings-Call-2026-Ujou16CTw9/default.aspx">10月28日官方财务说明</a>。
     </div>
   </div>
 </div>
@@ -174,7 +174,7 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
 
 <!-- Panel 3: Key Ratios -->
 <div class="panel" id="panel-3">
-  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>Capex vs AI收入对比</h2></div><div class="sh-sub">核心问题：$700B capex到底赚不赚回来？</div></div>
+  <div class="sh"><div class="sh-row"><div class="sh-bar"></div><h2>Capex vs AI收入对比</h2></div><div class="sh-sub">原情景问题：$700B capex是否收回？原比率及收入假设未重算</div></div>
   <div class="card"><div id="ratio-bars"></div></div>
   <div class="src">四大云厂商2025 capex $373B: 各公司SEC 10-K/8-K + earnings guidance (CNBC 2025.10.31)。定义: purchases of PP&E, 不含finance leases。四大云厂商2026E capex $650B: 各公司2026 guidance汇总。AI公司合计ARR ~$60B: Anthropic $30B + OpenAI $24B + 其他(Databricks/Cursor/Mistral等) ~$5-6B = ~$60B (各公司披露加总)。循环水/信用额度问题: CITP Princeton Blog (2025.10.15); Where's Your Ed At (2025.10.17)。份额迁移数据: TradingKey (2026.4), Anthropic API 12%->32%, OpenAI 50%->25%。</div>
 
@@ -211,17 +211,17 @@ body{font-family:'Noto Sans SC',-apple-system,sans-serif;background:var(--bg);co
 <div class="footer">
   <strong>黑森船长 | Captain Hessen</strong><br>
   数据来源: SEC文件 / Bloomberg / CNBC / The Information / Epoch AI / 公司披露<br>
-  数据截至 2026.04 | 不构成投资建议
+  原底稿截至 2026.04；回填2026Q3实际及10月指引（11月24日核验） | 不构成投资建议
 </div>
 </div>
 
 <script>
 // ====== DATA ======
 var capexData = [
-  {name:"Amazon",color:"#d97706",y:[63.6,52.7,83,132,200],fcf25:52,fcf26:-17,debt26:42},
-  {name:"Alphabet",color:"#2563eb",y:[31.5,32.3,52.5,91,180],fcf25:73,fcf26:8,debt26:30},
+  {name:"Amazon",color:"#d97706",y:[63.6,52.7,83,132,220],fcf25:52,fcf26:-17,debt26:42},
+  {name:"Alphabet",color:"#2563eb",y:[31.5,32.3,52.5,91,200],fcf25:73,fcf26:8,debt26:30},
   {name:"Microsoft",color:"#0d9488",y:[24,32,56,80,145],fcf25:70,fcf26:66,debt26:10},
-  {name:"Meta",color:"#7c3aed",y:[31.4,28.1,39.2,72.2,125],fcf25:43.6,fcf26:20,debt26:30},
+  {name:"Meta",color:"#7c3aed",y:[31.4,28.1,39.2,72.2,140],fcf25:43.6,fcf26:20,debt26:30},
   {name:"Oracle",color:"#dc2626",y:[7,9,12,20,50],fcf25:11,fcf26:-12,debt26:45}
 ];
 var capexYears = ["2022","2023","2024","2025","2026E"];
@@ -252,10 +252,10 @@ function switchTab(idx) {
 
 // ====== RENDER CAPEX CHART (SVG) ======
 function renderCapexChart() {
-  var maxVal = 210, barW = 10, groupGap = 38;
+  var maxVal = 250, barW = 10, groupGap = 38;
   var svg = '<svg viewBox="0 0 580 220" style="width:100%;min-width:460;display:block">';
   // Y axis
-  [0,50,100,150,200].forEach(function(v) {
+  [0,50,100,150,200,250].forEach(function(v) {
     var yy = 180 - v/maxVal*150;
     svg += '<line x1="45" y1="'+yy+'" x2="570" y2="'+yy+'" stroke="rgba(0,40,100,0.06)" stroke-width="0.5"/>';
     svg += '<text x="40" y="'+(yy+4)+'" text-anchor="end" fill="#7a8ea0" font-size="8" font-family="JetBrains Mono,monospace">$'+v+'B</text>';
@@ -288,8 +288,8 @@ function renderCapexStats() {
   var stats = [
     {l:"2022 四大合计",v:"$150B",c:"#7a8ea0"},
     {l:"2025 四大合计",v:"$373B",c:"#d97706"},
-    {l:"2026E 四大合计",v:"$650B",c:"#dc2626"},
-    {l:"增幅",v:"+333%",c:"#dc2626"}
+    {l:"原2026E合计（未重算）",v:"$650B",c:"#dc2626"},
+    {l:"原情景增幅",v:"+333%",c:"#dc2626"}
   ];
   var html = '';
   stats.forEach(function(m) {
@@ -307,8 +307,14 @@ function renderFCFGrid() {
     html += '<div style="padding:10px 12px;border-radius:8px;background:'+co.color+'08;border:1px solid '+co.color+'18">';
     html += '<div style="font-size:11px;font-weight:700;color:'+co.color+';margin-bottom:6px">'+co.name+'</div>';
     html += '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><span style="color:#7a8ea0">2025 FCF</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:#059669">$'+co.fcf25+'B</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><span style="color:#7a8ea0">2026E FCF</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:'+(isBad?'#dc2626':'#059669')+'">'+fcf26Str+'</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:#7a8ea0">新发债</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:#d97706">$'+co.debt26+'B</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><span style="color:#7a8ea0">原2026E FCF预测</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:'+(isBad?'#dc2626':'#059669')+'">'+fcf26Str+'</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:10px"><span style="color:#7a8ea0">原发债快照（期见来源）</span><span style="font-family:JetBrains Mono,monospace;font-weight:700;color:#d97706">$'+co.debt26+'B</span></div>';
+    var quarterNotes = {
+      Alphabet: '2026Q3实际：FCF -$9.1B（经营现金42.3减Capex51.4）；TTM +$19.7B。10月28日披露，11月24日核验。<a href="https://abc.xyz/investor/events/event-details/2026/2026-Q3-Earnings-Call-2026-Ujou16CTw9/default.aspx">官方原文</a>',
+      Amazon: '2026Q3实际：FCF -$33.456B（经营现金42.422减PP&E77.259加处置/补贴1.381）；非全年预测。10月29日披露。<a href="https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/">官方原表</a>',
+      Meta: '2026Q3实际：FCF -$2.120B（经营现金32.786减PP&E33.942减融资租赁本金0.964）；非全年预测。10月21日披露。<a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx">官方调节表</a>'
+    };
+    if (quarterNotes[co.name]) html += '<div style="font-size:10px;line-height:1.6;margin-top:8px">'+quarterNotes[co.name]+'</div>';
     html += '</div>';
   });
   document.getElementById('fcf-grid').innerHTML = html;

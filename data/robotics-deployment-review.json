@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-11-23",
+  "checked_on": "2026-11-24",
   "title": "客户部署：合同、工时与准确率不是一回事",
-  "scope": "原部署表保留八条证据原值与观察期，新增一条Apollo客户意向书；11月23日核验不代表新增交付。试点、附条件扩展、付款和收入分别判断，原117家公司评分不变。",
+  "scope": "保留原九条证据及观察期，在原部署表补GF客户持续巡检。四足Spot的运行数据不转作人形Atlas成绩；测试、合同、交付与收入分开。原117家公司评分不变。",
   "columns": [
     {
       "key": "label",
@@ -241,6 +241,34 @@
           "title": "GXO客户公告：AMR/机械臂等另项部署计划",
           "url": "https://investors.gxo.com/news-releases/news-release-details/gxo-announces-accelerated-deployment-adaptive-technology",
           "date": "2026-11-18"
+        }
+      ]
+    },
+    {
+      "id": "gf-spot-operations-atlas-plan",
+      "label": "GlobalFoundries / Spot持续巡检与Atlas计划",
+      "event_date": null,
+      "period": "Spot新加坡：2026年4月至11月17日公告前累计；Burlington超过四年；Atlas：2027年初测试计划",
+      "announced": "2026-11-17",
+      "checked_on": "2026-11-24",
+      "stage": "客户官网联合公告：四足实际运行；人形测试未开始",
+      "metrics": {
+        "singapore_spot_robots": 2,
+        "distance_km_approx": 900,
+        "inspections_lower_bound": 90000,
+        "mission_success_pct_reported": 99,
+        "operating_hours": null,
+        "paid_revenue": null,
+        "atlas_accepted_units": null
+      },
+      "known": "GF与Boston Dynamics联合公告称，新加坡两台Spot自4月以来累计近900公里、超过90000次sub-fab巡检、任务成功率99%；Burlington已使用超过四年。全球多厂扩展为协议安排；Atlas于2027年初开始现场测试、技能及集成评估，尚非人形量产验收。",
+      "unknown": "巡检次数不是独立生产任务或运行小时；99%的分母、失败类型、人工干预、停机维护、安全事件、单次成本、合同金额及供应商可归属收入未披露。具体累计截止日未另标，非第三方审计。",
+      "impact": "增强四足巡检持续使用及跨站复制证据；不能把Spot成绩转给Atlas、整个人形行业或117家公司。Atlas仍为未来测试，旧评分不变，需后续验收、安全运维和复购现金验证。",
+      "sources": [
+        {
+          "title": "客户GF官网联合公告：Spot运行与Atlas早期测试",
+          "url": "https://gf.com/news-and-events/news/boston-dynamics-and-globalfoundries-expand-robotics-collaboration/",
+          "date": "2026-11-17"
         }
       ]
     }

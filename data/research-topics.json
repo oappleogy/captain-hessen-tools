@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inventory_checked_at": "2026-11-23",
+  "inventory_checked_at": "2026-11-24",
   "timezone": "Asia/Shanghai",
   "rules": [
     "巡检日期不等于研究更新日期；数据观察期不等于公告日期。",
@@ -23,8 +23,8 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-05-15",
-      "last_checked": "2026-11-23",
-      "last_research_update": "2026-11-23",
+      "last_checked": "2026-11-24",
+      "last_research_update": "2026-11-24",
       "next_due": "2026-10-12",
       "review_state": "partial",
       "owner": "专题维护",
@@ -265,6 +265,21 @@
               "date": "2026-11-18"
             }
           ]
+        },
+        {
+          "date": "2026-11-24",
+          "title": "原客户部署表补Spot实际巡检，Atlas仍为测试计划",
+          "body": "GF与Boston Dynamics联合公告称，新加坡两台Spot自4月以来累计近900公里、超过90000次sub-fab巡检、任务成功率99%；Burlington已使用超过四年。全球多厂扩展为协议安排；Atlas于2027年初开始现场测试、技能及集成评估，尚非人形量产验收。 巡检次数不是独立生产任务或运行小时；99%的分母、失败类型、人工干预、停机维护、安全事件、单次成本、合同金额及供应商可归属收入未披露。具体累计截止日未另标，非第三方审计。 增强四足巡检持续使用及跨站复制证据；不能把Spot成绩转给Atlas、整个人形行业或117家公司。Atlas仍为未来测试，旧评分不变，需后续验收、安全运维和复购现金验证。",
+          "source_period": "Spot新加坡：2026年4月至11月17日公告前累计；Burlington超过四年；Atlas：2027年初测试计划",
+          "event_date": null,
+          "announced_on": "2026-11-17",
+          "sources": [
+            {
+              "title": "客户GF官网联合公告：Spot运行与Atlas早期测试",
+              "url": "https://gf.com/news-and-events/news/boston-dynamics-and-globalfoundries-expand-robotics-collaboration/",
+              "date": "2026-11-17"
+            }
+          ]
         }
       ],
       "checks": [
@@ -296,7 +311,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-30",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-11-23",
       "next_due": "2026-10-14",
       "review_state": "partial",
@@ -579,6 +594,10 @@
         {
           "date": "2026-11-23",
           "result": "Twist年报现金及Q4差分核验完成，只更新原4指标中的相关字段；其余五家公司未重审。慧博客户端搜索及研究报告入口均返回服务器错误/超时，未完成关键词、分页或会员正文检查，不记成功游标或没有新研报。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "本轮研报入口访问错误，未完成新列表、多关键词分页和新全文核验；11月9日起完整覆盖缺口继续，不推进成功检查时间，不写没有新研报。六家公司原24指标、分组、估值与观察期保持，周三集中核验仍待。"
         }
       ]
     },
@@ -590,7 +609,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-09-24",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-11-03",
       "next_due": "2026-11-06",
       "review_state": "partial",
@@ -730,6 +749,10 @@
         {
           "date": "2026-11-23",
           "result": "独立周报HTTP与当前main一致但仍W46/asOf11月13日23:59CST；最新该文件提交为13日18:39:02CST，未见20日W47产物。观察截止晚于提交的旧问题未解决；本轮未代跑、未创建任务，原11月6日积压不推进。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "当前HTTP与公开仓一致，仍W46/asOf11月13日23:59CST；未见20日W47周报，不将可访问等同成功更新。本轮不代跑、不新建任务，原11月6日截止及研究日不动。"
         }
       ]
     },
@@ -871,7 +894,7 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-06-24",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-11-23",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -1120,6 +1143,17 @@
               "url": "https://investors.constellationenergy.com/events/event-details/q3-2026-constellation-energy-corporation-earnings-conference-call"
             }
           ]
+        },
+        {
+          "date": "2026-11-24",
+          "result": "回读GEV Q3 10-Q现金流与FCF调节：9M经营现金16737百万、固定资产/软件购置1430、合同负债流量19511，与昨日核验一致，未发现需替换此字段的新值。只复核GEV对应段，不是六家公司全部原文重读；其他样本、机构预期及全部交付闭环仍未补齐，研究日及旧截止不动。",
+          "sources": [
+            {
+              "title": "GEV Q3 10-Q现金流及调节表",
+              "url": "https://www.sec.gov/Archives/edgar/data/1996810/000199681026000163/gev-20260930.htm",
+              "date": "2026-10-28"
+            }
+          ]
         }
       ]
     },
@@ -1131,8 +1165,8 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-11-10",
-      "last_research_update": "2026-11-10",
+      "last_checked": "2026-11-24",
+      "last_research_update": "2026-11-24",
       "next_due": "2026-11-11",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1192,6 +1226,21 @@
               "date": "2026-11-10"
             }
           ]
+        },
+        {
+          "date": "2026-11-24",
+          "title": "CoWoS原说明补硅中介层协议，不提前计2028产能",
+          "body": "GF 10月8日公告20亿美元、多年期TSMC硅中介层制造协议，初始五年，Malta预计2028H1量产爬坡。是长期供应安排，不是已确认收入或整条CoWoS交付。增强供应多元化证据；未披露月产能、良率、客户验收，旧配额/产能/评分未重算。十月营收已在原页，未把本次检查当十一月月报。",
+          "source_period": "协议10月8日公告；2028H1为计划；签署具体日未另披露",
+          "event_date": null,
+          "announced_on": "2026-10-08",
+          "sources": [
+            {
+              "title": "GF制造协议官方公告",
+              "url": "https://gf.com/news-and-events/news/globalfoundries-reaches-agreement-to-establish-us-based-supply-of-silicon-interposers-for-advanced-ai-packaging/",
+              "date": "2026-10-08"
+            }
+          ]
         }
       ],
       "checks": [
@@ -1228,7 +1277,7 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-05",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-11-23",
       "next_due": "2026-10-13",
       "review_state": "partial",
@@ -1384,6 +1433,17 @@
               "date": "2026-11-23"
             }
           ]
+        },
+        {
+          "date": "2026-11-24",
+          "result": "回读SEC当前submissions，最新13F-HR仍11月16日、观察期9月30日；8份13F-HR、无13F-HR/A、files为空，仅限本次返回。原23行及Q2比较无新修订，研究日不动，早期季度和公司行动仍待。",
+          "sources": [
+            {
+              "title": "SEC当前申报清单",
+              "url": "https://data.sec.gov/submissions/CIK0002045724.json",
+              "date": "2026-11-24"
+            }
+          ]
         }
       ]
     },
@@ -1395,7 +1455,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -1486,6 +1546,10 @@
         {
           "date": "2026-11-23",
           "result": "产物23日01:20UTC，但累计观察截至21日04:41UTC，official_30d与cumulative均stale_fallback。运行日期不代表指标已新；未独立复核交易真实性，不推进原截止。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "独立产物generated_utc11月24日01:20，累计源as_of为11月23日04:37且标live，但official_30d仍stale_fallback；累计源恢复与30天旧缓存分开判断，不据外层日期认定全部数据源恢复。"
         }
       ]
     },
@@ -1498,9 +1562,9 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": null,
-      "next_due": "2026-11-24",
+      "next_due": "2026-11-25",
       "review_state": "pipeline",
       "owner": "既有A2A任务",
       "schedule": {
@@ -1605,6 +1669,10 @@
         {
           "date": "2026-11-23",
           "result": "独立任务11月23日06:38:30UTC产物已上线、HTTP与main一致；今日为Stripe最低支付/结算金额部分核验，非全项目覆盖。不重复任务，仅验收发布与声明范围，下次日检24日。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "本轮较早仍见23日产物；最终复查今日05:01:47UTC独立产物已上线，HTTP与新main逐字一致。今日检查为Stripe MPP会话累积计费/整分结算及生产存储要求的部分核验，其他队列未全覆盖。仅验收独立任务运行与发布，下次日验收11月25日，研究日不动，不重复任务。"
         }
       ]
     },
@@ -1780,8 +1848,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-11-10",
-      "last_research_update": "2026-11-03",
+      "last_checked": "2026-11-24",
+      "last_research_update": "2026-11-24",
       "next_due": "2026-10-13",
       "review_state": "partial",
       "owner": "专题维护",
@@ -1866,6 +1934,31 @@
           ],
           "event_date": null,
           "announced_on": "2026-10-28 / 2026-10-29"
+        },
+        {
+          "date": "2026-11-24",
+          "title": "原指引字段回填，旧现金模型不冒充新实际",
+          "body": "在原深度拆解字段回填自然年2026指引：Alphabet1950–2050亿美元、Amazon现金约2200亿、Meta含融资租赁本金1350–1450亿，区间取中点。Alphabet Q3经营现金423亿、Capex514亿、FCF负91亿，TTM FCF仍正197亿；TPU存货与52亿欧盟罚款支付亦影响经营现金，不能全归因AI。增强现金压力判断，但原季度曲线、Microsoft财年估计、营收×1.15假设、其他压力测试和风险标签未重估，不跨口径求新合计。",
+          "source_period": "2026Q3实际与2026自然年全年指引；旧披露本次补核",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-28",
+          "sources": [
+            {
+              "title": "Alphabet官方Q3法说财务段",
+              "url": "https://abc.xyz/investor/events/event-details/2026/2026-Q3-Earnings-Call-2026-Ujou16CTw9/default.aspx",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Amazon Q3官方指引与现金流表",
+              "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
+              "date": "2026-10-29"
+            },
+            {
+              "title": "Meta Q3官方指引与现金流调节",
+              "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+              "date": "2026-10-21"
+            }
+          ]
         }
       ],
       "checks": [
@@ -1916,8 +2009,8 @@
       ],
       "cadence": "quarterly",
       "baseline_as_of": "2026-03",
-      "last_checked": "2026-11-10",
-      "last_research_update": "2026-11-03",
+      "last_checked": "2026-11-24",
+      "last_research_update": "2026-11-24",
       "next_due": "2026-10-13",
       "review_state": "partial",
       "owner": "专题维护",
@@ -2021,6 +2114,31 @@
           ],
           "event_date": null,
           "announced_on": null
+        },
+        {
+          "date": "2026-11-24",
+          "title": "原年度柱图与现金卡回填，云收入不等于AI净回报",
+          "body": "原资本支出柱图更新三家公司全年指引，原FCF卡注明Q3现金实际，旧全年预测保留且明示未重估。Alphabet Q3 Google Cloud收入307亿、营业利润111亿，含TPU系统销售及非AI业务，增强收入兑现证据但不足以确认独立AI回报。全年Capex区间与当季现金分开，原ARR、投入/收入比率、发债快照及其他字段未重算。",
+          "source_period": "2026年7–9月实际；全年指引2026；旧ARR仍原观察期",
+          "event_date": "2026-09-30",
+          "announced_on": "2026-10-28",
+          "sources": [
+            {
+              "title": "Alphabet官方Q3法说财务段",
+              "url": "https://abc.xyz/investor/events/event-details/2026/2026-Q3-Earnings-Call-2026-Ujou16CTw9/default.aspx",
+              "date": "2026-10-28"
+            },
+            {
+              "title": "Amazon Q3官方指引与现金流表",
+              "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
+              "date": "2026-10-29"
+            },
+            {
+              "title": "Meta Q3官方指引与现金流调节",
+              "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+              "date": "2026-10-21"
+            }
+          ]
         }
       ],
       "checks": [
@@ -2092,7 +2210,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -2256,6 +2374,10 @@
         {
           "date": "2026-11-23",
           "result": "11月23日仅验证公开产物HTTP可读、与最新main一致及mini健康日志；不代表所有事件来源或季度数据已独立核验。旧研究日和截止不变。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "本轮仅验公开产物/页面HTTP与当前main一致及mini既有健康日志；不是逐条独立核验全部行业事实、报价或风险结论。未取得足以改写本专题字段的已核新证据，研究日和原截止保持。"
         }
       ]
     },
@@ -2358,7 +2480,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-04",
-      "last_checked": "2026-11-10",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-10-08",
       "next_due": "2026-10-13",
       "review_state": "partial",
@@ -2412,6 +2534,17 @@
               "url": "https://www.enecho.meti.go.jp/category/electricity_and_gas/electricity_measures/pdf/denryoku_LNG_stock.pdf"
             }
           ]
+        },
+        {
+          "date": "2026-11-24",
+          "result": "官方LNG库存PDF本次连接25秒超时，未取得图表；不把此前403写成今日原因，不推定公司库存天数、替代成本或停产。仍待原始库存及企业层核验，旧观察期和10月13日积压不推进。",
+          "sources": [
+            {
+              "title": "资源能源厅LNG库存原入口",
+              "url": "https://www.enecho.meti.go.jp/category/electricity_and_gas/electricity_measures/pdf/denryoku_LNG_stock.pdf",
+              "date": "2026-11-24"
+            }
+          ]
         }
       ]
     },
@@ -2423,7 +2556,7 @@
       ],
       "cadence": "monthly",
       "baseline_as_of": "2026-06-11",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-11-13",
       "next_due": "2026-11-13",
       "review_state": "partial",
@@ -2632,6 +2765,10 @@
               "url": "https://www.bom.gov.au/climate/enso/"
             }
           ]
+        },
+        {
+          "date": "2026-11-24",
+          "result": "分层回核：诊断仍11月12日；原序列ONI ASO26=2.46、周SST 18NOV2026=3.3、MEI SO2026=2.53，与今日线上一致。BoM当期顶部仍11月10日发布，SOI30天至11月8日=-14.4；后部旧年份不采用。仅周SST已由既有管线自然推进，外层24日不能掩盖SOI旧期；地区作物与全部评分未重估，不改研究日和逾期。"
         }
       ]
     },
@@ -2810,7 +2947,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": "2026-11-04",
       "next_due": "2026-10-09",
       "review_state": "partial",
@@ -2941,6 +3078,10 @@
         {
           "date": "2026-11-23",
           "result": "11月23日仅验证公开产物HTTP可读、与最新main一致及mini健康日志；不代表所有事件来源或季度数据已独立核验。旧研究日和截止不变。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "本轮仅验公开产物/页面HTTP与当前main一致及mini既有健康日志；不是逐条独立核验全部行业事实、报价或风险结论。未取得足以改写本专题字段的已核新证据，研究日和原截止保持。"
         }
       ]
     },
@@ -3030,7 +3171,7 @@
       ],
       "cadence": "daily",
       "baseline_as_of": "2026-10-08",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": null,
       "next_due": "2026-10-09",
       "review_state": "pipeline",
@@ -3129,6 +3270,10 @@
         {
           "date": "2026-11-23",
           "result": "23日产物HTTP可读，多数报价观察20日；苯乙烯库存仍10月30日且零值未独立确认。未全量核价格/库存原序列，不把外层日期当现价。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "本轮仅验公开产物/页面HTTP与当前main一致及mini既有健康日志；不是逐条独立核验全部行业事实、报价或风险结论。未取得足以改写本专题字段的已核新证据，研究日和原截止保持。"
         }
       ]
     },
@@ -3786,7 +3931,7 @@
       ],
       "cadence": "weekly",
       "baseline_as_of": "2026-10-15已审计快照",
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "last_research_update": null,
       "next_due": "2026-10-19",
       "review_state": "pipeline",
@@ -3858,6 +4003,10 @@
         {
           "date": "2026-11-23",
           "result": "周一HTTP读取summary，生成仍2026-10-14T21:16:17UTC，观测仍10月14日20:54:26UTC，历史覆盖8.78%。未完成采集恢复/月份回补，不用旧队列当十一月趋势，截止不推进。"
+        },
+        {
+          "date": "2026-11-24",
+          "result": "HTTP可读且与main一致，但generated_at/last_observation_at仍10月14日，历史覆盖约8.78%；不把网站日期当采集恢复，未代跑或填造缺失，研究日和截止不动。"
         }
       ]
     }

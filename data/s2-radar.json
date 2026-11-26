@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-11-26T21:02:59",
+  "timestamp": "2026-11-27T07:31:36",
   "data_as_of": "2026-11-26",
-  "data_lag_days": 0,
+  "data_lag_days": 1,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
     "color": "#22c55e",
     "level": 1,
     "score": 0.167,
-    "action": "系统健康。建议仓位≤30%（趋势↑），加大对冲比例，仅保留高确信度仓位。"
+    "action": "系统健康。建议仓位≤40%（趋势↑），增加对冲，缩短持仓周期。"
   },
   "regime_label": "STABLE",
   "red_count": 0,
@@ -33,7 +33,7 @@
     },
     "I": {
       "name": "I｜制度",
-      "score": 0.19,
+      "score": 0.24,
       "state": "►",
       "light": "yellow",
       "note": "政策不确定性上升，规则可预测性下降",
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.01,
+      "score": -0.02,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -137,10 +137,10 @@
   },
   "opportunities": [],
   "contradiction": {
-    "type": "state_change",
-    "title": "系统状态改善：从临界进入稳定期",
-    "thesis": "系统从临界变为稳定期。主要拖累来自情绪反馈（-0.28），支撑来自信用韧性（+0.55）。",
-    "metaphor": "雨过天晴"
+    "type": "contradiction",
+    "title": "恐慌指标在高位，但信用市场完全平静",
+    "thesis": "当前的恐慌来自政策不确定性（外部风），不是金融体系内部的结构性问题（地基裂缝）。",
+    "metaphor": "风很大但房子没裂"
   },
   "allocation": {
     "short_term": "不是加仓的时候。参照历史，「最恐慌的点」可能还没到。已有仓位持有就好，手里现金想进场的再等等。",

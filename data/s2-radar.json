@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-27T07:31:36",
-  "data_as_of": "2026-11-26",
-  "data_lag_days": 1,
+  "timestamp": "2026-11-27T21:02:35",
+  "data_as_of": "2026-11-27",
+  "data_lag_days": 0,
   "system_state": {
     "state": "STABLE",
     "label": "系统稳定",
@@ -43,7 +43,7 @@
     },
     "F": {
       "name": "F｜反馈",
-      "score": -0.26,
+      "score": -0.23,
       "state": "►",
       "light": "yellow",
       "note": "情绪混合，反馈方向尚未确认",
@@ -53,7 +53,7 @@
     },
     "C": {
       "name": "C｜协调",
-      "score": -0.02,
+      "score": 0.01,
       "state": "►",
       "light": "yellow",
       "note": "部分信号出现分化，协调性下降",
@@ -63,7 +63,7 @@
     },
     "N": {
       "name": "N｜叙事",
-      "score": -0.02,
+      "score": 0.04,
       "state": "►",
       "light": "yellow",
       "note": "叙事出现分化或转向迹象",
@@ -73,7 +73,7 @@
     },
     "T": {
       "name": "T｜技术失配",
-      "score": -0.16,
+      "score": -0.18,
       "state": "►",
       "light": "yellow",
       "note": "技术-制度出现摩擦，部分行业承压",
@@ -131,7 +131,7 @@
   "extremes": {
     "count": 2,
     "categories": [
-      "VIX恐慌指数=26.8 (历史96%分位)",
+      "VIX恐慌指数=25.5 (历史95%分位)",
       "Nasdaq波动率(VXN)=38.5 (历史99%分位)"
     ]
   },
@@ -150,8 +150,8 @@
   "key_metrics": {
     "extreme_count": 2,
     "vix": {
-      "value": 26.8,
-      "percentile": 96,
+      "value": 25.5,
+      "percentile": 95,
       "desc": "市场恐惧情绪极端，过去三年罕见"
     },
     "credit_spread": {

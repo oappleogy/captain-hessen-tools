@@ -1,86 +1,86 @@
 {
-  "score": 61.5,
-  "level": "red",
-  "label": "高压力",
-  "desc": "多变量极端偏离，系统性风险升高",
+  "score": 56.2,
+  "level": "yellow",
+  "label": "组合风险",
+  "desc": "多变量同时偏离基准，注意组合风险敞口",
   "components": [
     {
       "variable": "vix",
       "name": "VIX",
-      "current": 26.8,
+      "current": 23.81,
       "base": 16,
-      "deviation_pct": 67.5,
+      "deviation_pct": 48.8,
       "weight": 0.3,
       "weight_pct": 30,
-      "contribution": 1366.9
+      "contribution": 714.4
     },
     {
       "variable": "oil",
       "name": "WTI油价",
-      "current": 85.03,
+      "current": 83.08,
       "base": 75,
-      "deviation_pct": 13.4,
+      "deviation_pct": 10.8,
       "weight": 0.2,
       "weight_pct": 20,
-      "contribution": 35.9
+      "contribution": 23.3
     },
     {
       "variable": "credit_spread",
       "name": "信用利差",
-      "current": 3.72,
+      "current": 3.77,
       "base": 1.5,
-      "deviation_pct": 148.0,
+      "deviation_pct": 151.3,
       "weight": 0.25,
       "weight_pct": 25,
-      "contribution": 5476.0
+      "contribution": 5722.9
     },
     {
       "variable": "usdjpy",
       "name": "USD/JPY",
-      "current": 159.35,
+      "current": 159.28,
       "base": 145,
-      "deviation_pct": 9.9,
+      "deviation_pct": 9.8,
       "weight": 0.1,
       "weight_pct": 10,
-      "contribution": 9.8
+      "contribution": 9.6
     },
     {
       "variable": "dxy",
       "name": "DXY",
-      "current": 103.78,
+      "current": 104.01,
       "base": 100,
-      "deviation_pct": 3.8,
+      "deviation_pct": 4.0,
       "weight": 0.15,
       "weight_pct": 15,
-      "contribution": 2.2
+      "contribution": 2.4
     }
   ],
-  "hard_alerts_count": 3,
+  "hard_alerts_count": 2,
   "significant_deviations": [
     {
-      "name": "天然气TTF",
-      "current": 87.55,
-      "base": 35,
-      "deviation_pct": 150.1,
+      "name": "信用利差",
+      "current": 3.77,
+      "base": 1.5,
+      "deviation_pct": 151.3,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
-      "name": "信用利差",
-      "current": 3.72,
-      "base": 1.5,
-      "deviation_pct": 148.0,
+      "name": "天然气TTF",
+      "current": 84.85,
+      "base": 35,
+      "deviation_pct": 142.4,
       "direction": "偏高",
       "level": "极端偏离"
     },
     {
       "name": "VIX",
-      "current": 26.8,
+      "current": 23.81,
       "base": 16,
-      "deviation_pct": 67.5,
+      "deviation_pct": 48.8,
       "direction": "偏高",
-      "level": "极端偏离"
+      "level": "显著偏离"
     }
   ],
-  "timestamp": "2026-11-27 08:15"
+  "timestamp": "2026-11-28 08:15"
 }

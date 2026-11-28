@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-24",
-  "last_checked_at": "2026-11-24T05:01:47.833484+00:00",
+  "as_of": "2026-11-28",
+  "last_checked_at": "2026-11-28T12:39:35.605924+00:00",
   "coverage_note": "首轮公开证据基线；持续扩展，不代表穷尽全市场。成熟度是研究归类，不是认证或投资评级。",
   "summary": "通信与接入已有可用组件；跨组织信任、任务交付和支付后的责任闭环，是判断基础设施成色的关键。",
   "layers": [
@@ -58,7 +58,7 @@
       "id": "commerce",
       "title": "商业闭环",
       "question": "如何报价、交付、结算与争议处理",
-      "assessment": "已有规范与服务",
+      "assessment": "已有真实航班付款出票合作案例，普遍可用与售后仍待验证",
       "gap": "经济闭环尚缺统一可比较的采用与净收入数据。"
     }
   ],
@@ -168,15 +168,15 @@
       "name": "Nacos A2A Registry",
       "layer": "discovery",
       "stage": "有接入文档",
-      "capability": "3.3.0正式版增加协议中立Agent管理、RAD发现、运行端点和Java SDK Watch/Push；3.1起已有A2A注册。",
+      "capability": "3.3.1已发布，修复A2A 1.0安全要求解码与AgentSkill要求保留，并强化锁授权。",
       "source": "https://www.alibabacloud.com/help/en/mse/user-guide/agent-management",
-      "gap": "正式版能力以release为据；Next文档描述目录与实际调用分离，迁移兼容、搜索质量和客户采用未实测。",
+      "gap": "安全要求结构变化需先升级读取端，再发布新格式；旧SDK可能不能解码，需备份与兼容实测。真实采用规模未核验。",
       "scope": "核心",
       "related": [],
-      "checked_at": "2026-11-22",
+      "checked_at": "2026-11-28",
       "adoption": "未在本轮独立核验生产规模",
       "participant": "阿里云 / Nacos",
-      "release_source": "https://github.com/alibaba/nacos/releases"
+      "release_source": "https://github.com/alibaba/nacos/releases/tag/3.3.1"
     },
     {
       "id": "identity-agntcy",
@@ -552,15 +552,16 @@
       "layer": "runtime",
       "stage": "有公开实现",
       "participant": "A2A 项目",
-      "capability": "官方命令行入口支持发现、消息与流式回复，面向协议 v1.0；CLI 自身 Latest 为 v0.3.0（2026-09-24），与协议版本分开。",
+      "capability": "CLI v0.5.0增加联系人、目录发现、OAuth登录及系统钥匙串令牌存储；CLI版本不等于A2A协议版本。",
       "source": "https://a2a-protocol.org/latest/blog/2026/10/01/introducing-a2a-cli/",
       "gap": "echo/exec 服务端模式仅用于学习演示测试；未做生产互操作实测。",
       "related": [
         "a2a"
       ],
       "scope": "核心",
-      "checked_at": "2026-10-14",
-      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模"
+      "checked_at": "2026-11-28",
+      "adoption": "本轮为公开文档或厂商披露；未独立核验生产规模",
+      "release_source": "https://github.com/a2aproject/a2a-cli/releases/tag/v0.5.0"
     },
     {
       "id": "agentscope",
@@ -885,14 +886,15 @@
       "layer": "runtime",
       "stage": "SDK已发布",
       "scope": "核心",
-      "capability": "v1.3.0提供中断任务可配置超时释放，并修复错误响应与任务状态恢复。",
+      "capability": "SDK v1.3.1修复租户默认值跨调用、取消失败覆盖终态等问题，补v0.3兼容；changelog标11月16日，GitHub发布11月17日。",
       "source": "https://github.com/a2aproject/a2a-python/releases/tag/v1.3.0",
       "gap": "SDK版本不等于协议版本；未实测跨语言兼容和生产完成率。",
       "related": [
         "a2a"
       ],
-      "checked_at": "2026-11-07",
-      "adoption": "官方release证据，非实际生产规模证据。"
+      "checked_at": "2026-11-28",
+      "adoption": "官方release证据，非实际生产规模证据。",
+      "release_source": "https://github.com/a2aproject/a2a-python/releases/tag/v1.3.1"
     },
     {
       "id": "alchemy-agentpay",
@@ -957,9 +959,120 @@
       "checked_at": "2026-11-17",
       "adoption": "官方实验性文档；未独立核验付费客户及规模",
       "related": []
+    },
+    {
+      "id": "travelport",
+      "name": "Travelport TripServices",
+      "participant": "Travelport TripServices",
+      "layer": "commerce",
+      "stage": "已披露真实交易案例",
+      "capability": "提供航空NDC报价及预订出票连接",
+      "source": "https://www.travelport.com/press-releases/travelport-booked-ai-basis-theory-and-mastercard-complete-live-end-to-end-agentic-flight-purchase",
+      "gap": "合作方披露，未独立审计；开放范围、费率、退款和持续交易量未知。",
+      "scope": "扩展",
+      "related": [],
+      "checked_at": "2026-11-28",
+      "adoption": "11月12日联合案例：用户确认后完成真实航班付款出票。非规模采用证据。"
+    },
+    {
+      "id": "booked-ai",
+      "name": "Booked AI",
+      "participant": "Booked AI",
+      "layer": "commerce",
+      "stage": "已披露真实交易案例",
+      "capability": "提供对话选航班与用户确认入口",
+      "source": "https://www.travelport.com/press-releases/travelport-booked-ai-basis-theory-and-mastercard-complete-live-end-to-end-agentic-flight-purchase",
+      "gap": "合作方披露，未独立审计；开放范围、费率、退款和持续交易量未知。",
+      "scope": "扩展",
+      "related": [],
+      "checked_at": "2026-11-28",
+      "adoption": "11月12日联合案例：用户确认后完成真实航班付款出票。非规模采用证据。"
+    },
+    {
+      "id": "basis-theory",
+      "name": "Basis Theory",
+      "participant": "Basis Theory",
+      "layer": "payment",
+      "stage": "已披露真实交易案例",
+      "capability": "保管卡凭证，代理通过令牌支付而不接触卡号",
+      "source": "https://www.travelport.com/press-releases/travelport-booked-ai-basis-theory-and-mastercard-complete-live-end-to-end-agentic-flight-purchase",
+      "gap": "合作方披露，未独立审计；开放范围、费率、退款和持续交易量未知。",
+      "scope": "扩展",
+      "related": [],
+      "checked_at": "2026-11-28",
+      "adoption": "11月12日联合案例：用户确认后完成真实航班付款出票。非规模采用证据。"
     }
   ],
   "events": [
+    {
+      "id": "travelport-agent-flight-20261112",
+      "date": "2026-11-12",
+      "announced_at": "2026-11-12",
+      "observed_at": "2026-11-28",
+      "title": "确认航班和金额后，AI已完成真实付款出票",
+      "type": "采用证据",
+      "summary": "Travelport、Booked AI、Basis Theory与Mastercard披露真实航班交易：用户确认后通过令牌付款并出票，航空公司仍为商户。",
+      "impact": "这是单项合作案例，今天补录；未证明普遍开放、持续交易规模或退改签自动处理。",
+      "source": "https://www.travelport.com/press-releases/travelport-booked-ai-basis-theory-and-mastercard-complete-live-end-to-end-agentic-flight-purchase",
+      "projects": [
+        "travelport",
+        "booked-ai",
+        "basis-theory",
+        "mastercard-trust"
+      ],
+      "notify": true,
+      "reader_title": "确认航班和金额后，AI已完成真实付款出票",
+      "reader_summary": "Travelport、Booked AI、Basis Theory与Mastercard披露真实航班交易：用户确认后通过令牌付款并出票，航空公司仍为商户。",
+      "reader_impact": "这是单项合作案例，今天补录；未证明普遍开放、持续交易规模或退改签自动处理。",
+      "previous_state": "此前地图未收录本项证据",
+      "new_state": "官方原文已核验；未独立实测",
+      "evidence_type": "参与方公告",
+      "next_step": "核验开放范围、兼容实测、退款与真实规模"
+    },
+    {
+      "id": "a2a-cli-050-20261119",
+      "date": "2026-11-19",
+      "announced_at": "2026-11-19",
+      "observed_at": "2026-11-28",
+      "title": "开发者找助手和登录更方便",
+      "type": "工具发布",
+      "summary": "A2A CLI v0.5.0补联系人、目录发现、OAuth登录与系统钥匙串。",
+      "impact": "属于开发工具进展，不证明跨商家办事已普遍可用。",
+      "source": "https://github.com/a2aproject/a2a-cli/releases/tag/v0.5.0",
+      "projects": [
+        "a2a-cli"
+      ],
+      "notify": false,
+      "reader_title": "开发者找助手和登录更方便",
+      "reader_summary": "A2A CLI v0.5.0补联系人、目录发现、OAuth登录与系统钥匙串。",
+      "reader_impact": "属于开发工具进展，不证明跨商家办事已普遍可用。",
+      "previous_state": "此前地图未收录本项证据",
+      "new_state": "官方原文已核验；未独立实测",
+      "evidence_type": "官方GitHub Release",
+      "next_step": "核验开放范围、兼容实测、退款与真实规模"
+    },
+    {
+      "id": "nacos-331-20261127",
+      "date": "2026-11-27",
+      "announced_at": "2026-11-27",
+      "observed_at": "2026-11-28",
+      "title": "服务名片的权限信息修正，升级要顾及旧系统",
+      "type": "工具发布",
+      "summary": "Nacos 3.3.1修复A2A安全要求解码和技能权限保留。",
+      "impact": "像修正办事窗口要求的证件清单；先升级读取端再发布新格式，避免旧系统读不懂。",
+      "source": "https://github.com/alibaba/nacos/releases/tag/3.3.1",
+      "projects": [
+        "nacos"
+      ],
+      "notify": false,
+      "reader_title": "服务名片的权限信息修正，升级要顾及旧系统",
+      "reader_summary": "Nacos 3.3.1修复A2A安全要求解码和技能权限保留。",
+      "reader_impact": "像修正办事窗口要求的证件清单；先升级读取端再发布新格式，避免旧系统读不懂。",
+      "previous_state": "此前地图未收录本项证据",
+      "new_state": "官方原文已核验；未独立实测",
+      "evidence_type": "官方GitHub Release",
+      "next_step": "核验开放范围、兼容实测、退款与真实规模"
+    },
     {
       "id": "a2a-go-v270-20261021",
       "date": "2026-10-21",
@@ -1273,7 +1386,7 @@
     {
       "name": "Higress / Spring AI Alibaba / AgentScope",
       "layer": "network",
-      "question": "HiMarket 上架指南已核验；Higress PR #4650 规范仓库缓存页仍Open（缓存10月20日），自述未发布镜像；实时合并状态、发布与兼容实测仍待核验。 11月10日补核Nacos 3.3.0正式发布；RAD迁移与跨框架实测继续查。"
+      "question": "HiMarket 上架指南已核验；Higress PR #4650 规范仓库缓存页仍Open（缓存10月20日），自述未发布镜像；实时合并状态、发布与兼容实测仍待核验。 11月10日补核Nacos 3.3.0正式发布；RAD迁移与跨框架实测继续查。 11月28日核验Nacos 3.3.1安全结构迁移要求，升级兼容仍需实测。"
     },
     {
       "name": "支付宝 / Ant International",
@@ -1419,9 +1532,20 @@
       "layer": "payment",
       "source": "https://docs.stripe.com/payments/machine/mpp/sessions",
       "question": "11月24日读会话正文：整分结算，关闭或不整除时不足一分尾数被舍弃；示例preview API，生产需共享AtomicStore。退款、重试、实际净收入继续待查。"
+    },
+    {
+      "name": "航班交易售后与经济性",
+      "layer": "commerce",
+      "source": "https://www.travelport.com/press-releases/travelport-booked-ai-basis-theory-and-mastercard-complete-live-end-to-end-agentic-flight-purchase",
+      "question": "核验航空公司/客户独立证据、开放范围、实付规模、退款改签及参与方收费。"
     }
   ],
   "checks": [
+    {
+      "date": "2026-11-28",
+      "status": "部分核验",
+      "note": "对照11月24日并检索近7天；核验Nacos 3.3.1、A2A CLI 0.5.0和Python SDK 1.3.1；补录11月12日真实航班付款出票公告。25—27日无完成记录，不补记；其他队列未全量复查。"
+    },
     {
       "date": "2026-11-24",
       "status": "部分核验",
@@ -1677,7 +1801,7 @@
       "layer": "payment",
       "title": "按你同意的范围付款",
       "analogy": "像给一张有限额的代付卡",
-      "now": "已有记录购买授权、让软件付款的规则和工具；部分方案提供预先授权的流程。",
+      "now": "已有用户确认后完成真实机票付款出票的合作案例；普遍开放与退改签仍待验证。",
       "status": "已有授权和付款方案",
       "gap": "预算怎么算、授权怎么撤回、失败会不会重复扣款，仍需逐项验证。",
       "next": "像给代付卡设规则：需要实测单笔与累计预算、收款方限制、撤销延迟，以及管理员能否改掉限制。",
@@ -1696,7 +1820,10 @@
         "stripe-machine",
         "checkout-acp",
         "p2flux",
-        "alchemy-agentpay"
+        "alchemy-agentpay",
+        "travelport",
+        "booked-ai",
+        "basis-theory"
       ]
     },
     {
@@ -1732,7 +1859,7 @@
         "把订房要求送到酒店，把行程变化通知接送方。",
         "让订票、订房和订餐的帮手协调时间。",
         "分清正在订、已确认和需你审核；UCP订房草案要求在可信界面核对并完成。",
-        "只为你同意的项目付款，总额不能超预算。",
+        "已有合作案例在确认航班和金额后完成付款出票；不代表所有出游服务都能如此。",
         "取消未完成的订房流程不等于退掉已订酒店；车票、酒店退款仍要分别确认。"
       ]
     },
@@ -1868,12 +1995,13 @@
       "model": "订阅、计费结算服务或交易服务费",
       "judgment": "靠近订单，但责任成本也高",
       "moat": "商户关系、履约、退款对账能力",
-      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。 11月7日补核BILL/Billtrust试点：执行已批准发票付款，收费、退款成本与交易规模未披露；平台总客户/交易量不作为试点规模。 2026-11-09核验支付宝基础网页收款退款文档：请求成功不等于退款成功，重试需保持退款请求号；Agent订单适用性与售后成本未核验。 2026-11-17核验Apify实验性预付令牌：最低1美元，14天到期、余额不退；这是预付门槛，不是单次运行价格或利润。",
+      "evidence": "AMP 厂商披露交易保障方向；尚未核验合同条款与实际赔付。净收入、退款成本和留存数据仍待补。 Stripe 2026-10-16 文档说明可通过 API/后台退款；不证明自动争议处理或退款成本。 2026-10-21 补核 Adyen 商户接入指南；分析：对接现有订单系统有助留存商户，仍缺 Agentic 专门费率与净收入证据。 0x 官方文档（2026-10-22核验）标价每次报价/价格API请求 $0.01，x402为USDC、MPP为USDC.e；仅API访问单价，不是兑换总成本、收入或利润。 11月7日补核BILL/Billtrust试点：执行已批准发票付款，收费、退款成本与交易规模未披露；平台总客户/交易量不作为试点规模。 2026-11-09核验支付宝基础网页收款退款文档：请求成功不等于退款成功，重试需保持退款请求号；Agent订单适用性与售后成本未核验。 2026-11-17核验Apify实验性预付令牌：最低1美元，14天到期、余额不退；这是预付门槛，不是单次运行价格或利润。 11月28日补核航班案例：航空公司仍为商户；各参与方分成、费率和净收入未披露。",
       "source": "https://docs.0x.org/docs/introduction/develop-with-ai/autonomous-agent-payments",
       "checked_at": "2026-10-22",
       "pilot_source": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22856.html",
       "alipay_refund_source": "https://aipay.alipay.com/docs/vibe-pay/ai-web-app-payment-qianyi/api-list/alipay-trade-refund.html",
-      "apify_source": "https://docs.apify.com/agents/payments"
+      "apify_source": "https://docs.apify.com/agents/payments",
+      "flight_source": "https://www.travelport.com/press-releases/travelport-booked-ai-basis-theory-and-mastercard-complete-live-end-to-end-agentic-flight-purchase"
     }
   ]
 }
